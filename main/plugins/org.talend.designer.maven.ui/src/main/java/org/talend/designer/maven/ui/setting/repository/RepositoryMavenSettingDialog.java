@@ -33,6 +33,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.projectsetting.IProjectSettingContainer;
 import org.talend.core.ui.images.RepositoryImageProvider;
 import org.talend.designer.maven.ui.i18n.Messages;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
@@ -43,7 +44,7 @@ import org.talend.repository.viewer.ui.provider.RepoCommonViewerProvider;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class RepositoryMavenSettingDialog extends PreferenceDialog implements IRepositoryPreferenceNodeContainer {
+public class RepositoryMavenSettingDialog extends PreferenceDialog implements IProjectSettingContainer {
 
     private final RepositoryMavenSettingManager mavenSettingManager;
 
@@ -78,16 +79,7 @@ public class RepositoryMavenSettingDialog extends PreferenceDialog implements IR
     @Override
     protected Control createTreeAreaContents(Composite parent) {
         // create fake repo view
-        RepoCommonViewerProvider provider = new RepoCommonViewerProvider() {
-
-            @Override
-            protected void doPerspecitiveFilterForCommonViewer(TreeViewer treeViewer, String specifiedPerspectiveId) {
-                // don't do filter, becuase for route, need it
-                // TODO, even remove it, seems can't work
-                // super.doPerspecitiveFilterForCommonViewer(treeViewer, specifiedPerspectiveId);
-            }
-
-        };
+        RepoCommonViewerProvider provider = new RepoCommonViewerProvider();
         fakeTreeViewer = provider.createViewer(parent);
 
         ERepositoryObjectType[] supportTypes = RepositoryMavenSettingManager.REGISTRY.getSupportTypes();

@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.ui.setting.repository;
+package org.talend.core.runtime.projectsetting;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import org.eclipse.jface.preference.IPreferenceNode;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IRepositoryPreferenceNodeContainer {
+public interface IProjectSettingContainer {
 
     /**
      * 
@@ -34,4 +34,5 @@ public interface IRepositoryPreferenceNodeContainer {
     boolean removeChildrenPreferenceNodes(String parentId, List<String> childrenIds);
 
     boolean openPage(String nodeId, Object data);
+
 }

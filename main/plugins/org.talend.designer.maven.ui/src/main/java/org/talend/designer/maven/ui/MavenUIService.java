@@ -12,11 +12,27 @@
 // ============================================================================
 package org.talend.designer.maven.ui;
 
+import org.eclipse.jface.preference.IPreferenceNode;
 import org.talend.core.runtime.services.IMavenUIService;
+import org.talend.designer.maven.ui.setting.repository.RepositoryMavenSettingManager;
+import org.talend.repository.ui.views.IRepositoryView;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public class MavenUIService implements IMavenUIService {
+
+    @Override
+    public void addCustomMavenSettingChildren(IPreferenceNode parentNode) {
+        if (parentNode == null) {
+            return;
+        }
+        RepositoryMavenSettingManager manager = new RepositoryMavenSettingManager();
+        manager.init(IRepositoryView.VIEW_ID);
+        IPreferenceNode[] rootSubNodes = manager.getRootSubNodes();
+        for (IPreferenceNode node : rootSubNodes) {
+            parentNode.add(node);
+        }
+    }
 
 }

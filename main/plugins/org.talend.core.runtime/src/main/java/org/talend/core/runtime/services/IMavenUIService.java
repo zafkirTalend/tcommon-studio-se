@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.runtime.services;
 
+import org.eclipse.jface.preference.IPreferenceNode;
 import org.talend.core.IService;
 
 /**
@@ -19,4 +20,5 @@ import org.talend.core.IService;
  */
 public interface IMavenUIService extends IService {
 
+    void addCustomMavenSettingChildren(IPreferenceNode parent);
 }

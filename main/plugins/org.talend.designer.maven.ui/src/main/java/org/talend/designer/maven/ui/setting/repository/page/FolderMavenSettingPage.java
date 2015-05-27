@@ -43,8 +43,9 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.projectsetting.AbstractProjectSettingPage;
+import org.talend.core.runtime.projectsetting.IProjectSettingContainer;
 import org.talend.designer.maven.ui.i18n.Messages;
-import org.talend.designer.maven.ui.setting.repository.IRepositoryPreferenceNodeContainer;
+import org.talend.designer.maven.ui.setting.repository.RepositoryMavenSettingDialog;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
@@ -241,13 +242,16 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
         IPreferencePageContainer container = getContainer();
         if (container instanceof IWorkbenchPreferenceContainer) {
             ((IWorkbenchPreferenceContainer) container).openPage(childId, getNode());
-        } else if (container instanceof IRepositoryPreferenceNodeContainer) {
-            ((IRepositoryPreferenceNodeContainer) container).openPage(childId, getNode());
+        } else if (container instanceof IProjectSettingContainer) {
+            ((IProjectSettingContainer) container).openPage(childId, getNode());
         }
     }
 
     protected void openProjectSettingDialog(String projectSettingId) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+        if (this.getContainer() instanceof IProjectSettingContainer
+                && !(this.getContainer() instanceof RepositoryMavenSettingDialog)) {
+            ((IProjectSettingContainer) this.getContainer()).openPage(projectSettingId, null);
+        } else if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
             IRepositoryService repositoryService = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IRepositoryService.class);
             repositoryService.openProjectSettingDialog(projectSettingId);
