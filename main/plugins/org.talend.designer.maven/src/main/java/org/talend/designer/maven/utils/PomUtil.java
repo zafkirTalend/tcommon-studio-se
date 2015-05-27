@@ -453,7 +453,7 @@ public class PomUtil {
         }
         File file = new File(localRepositoryPath + artifactPath);
         if (file.exists()) {
-            return artifactPath;
+            return file.getAbsolutePath();
         }
 
         return null;

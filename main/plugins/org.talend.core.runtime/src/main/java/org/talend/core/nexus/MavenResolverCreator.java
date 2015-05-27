@@ -70,6 +70,7 @@ public class MavenResolverCreator {
             String[] split = nexusUrl.split(urlSeparator);
             if (split.length != 2) {
                 ExceptionHandler.process(new BusinessException("Nexus url is not valid ,please contract the administrator"));
+                return null;
             }
             String newUrl = split[0]
                     + ":" + nexusServer.getUserName() + ":" + nexusServer.getPassword() + "@//" + split[1] + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId()//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$

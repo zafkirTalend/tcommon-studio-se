@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ops4j.pax.url.mvn.MavenResolver;
 import org.talend.core.download.DownloadListener;
 import org.talend.core.download.IDownloadHelper;
 import org.talend.librariesmanager.utils.RemoteModulesHelper;
@@ -42,7 +43,10 @@ public class NexusDownloader implements IDownloadHelper {
     @Override
     public void download(URL url, File destination) throws IOException {
         fireDownloadStart(100);
-        RemoteModulesHelper.getInstance().getMvnResolver().resolve(url.toExternalForm());
+        MavenResolver mvnResolver = RemoteModulesHelper.getInstance().getMvnResolver();
+        if (mvnResolver != null) {
+            mvnResolver.resolve(url.toExternalForm());
+        }
         fireDownloadComplete();
     }
 

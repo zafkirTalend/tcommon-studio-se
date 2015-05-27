@@ -167,6 +167,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         for (ModuleNeeded current : toCheck) {
             if (existLibraries.contains(current.getModuleName())) {
                 current.setStatus(ELibraryInstallStatus.INSTALLED);
+            } else {
+                current.setStatus(ELibraryInstallStatus.NOT_INSTALLED);
             }
         }
 

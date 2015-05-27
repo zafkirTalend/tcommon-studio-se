@@ -15,6 +15,7 @@ package org.talend.core.runtime.maven;
 import org.eclipse.core.runtime.Assert;
 import org.osgi.framework.Version;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -116,7 +117,7 @@ public class MavenUrlHelper {
 
     /**
      * will build the mvn url with default groupId and version.
-     * "mvn:org.talend.libraries/<jarNameWithoutExtension>/1.0.0/<extension>"
+     * "mvn:org.talend.libraries/<jarNameWithoutExtension>/currentVersion/<extension>"
      */
     public static String generateMvnUrlForJarName(String jarName) {
         if (jarName != null && jarName.length() > 0) {
@@ -134,7 +135,11 @@ public class MavenUrlHelper {
                     type = jarName.substring(dotIndex + 1);
                 }
             }
-            return generateMvnUrl(MavenConstants.DEFAULT_LIB_GROUP_ID, artifactId, MavenConstants.DEFAULT_LIB_VERSION, type, null);
+            String currentVersion = VersionUtils.getTalendVersion();
+            if (currentVersion == null) {
+                currentVersion = MavenConstants.DEFAULT_VERSION;
+            }
+            return generateMvnUrl(MavenConstants.DEFAULT_LIB_GROUP_ID, artifactId, currentVersion, type, null);
         }
         return null;
     }

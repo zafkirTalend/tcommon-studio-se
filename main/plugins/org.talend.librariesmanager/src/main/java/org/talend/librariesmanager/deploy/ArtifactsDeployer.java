@@ -13,7 +13,6 @@
 package org.talend.librariesmanager.deploy;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -34,6 +33,8 @@ import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.nexus.NexusServerManager;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
+import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.tools.repo.LocalRepsitoryLauncherManager;
 import org.talend.designer.maven.utils.PomUtil;
 
 /**
@@ -48,29 +49,21 @@ public class ArtifactsDeployer {
 
     private NexusServerBean nexusServer;
 
-    // private LocalRepsitoryLauncherManager repositoryManager;
-
-    private String repositoryUrl;
+    private LocalRepsitoryLauncherManager repositoryManager;
 
     private ArtifactsDeployer() {
         init();
     }
 
     private void init() {
-        nexusServer = NexusServerManager.getNexusServer(true);
-        // nexusServer = new NexusServerBean();
-        // nexusServer.setServer("http://localhost:8081/nexus/");
-        // nexusServer.setRepositoryId("upload_test");
-        // nexusServer.setUserName("admin");
-        // nexusServer.setPassword("admin123");
+        nexusServer = NexusServerManager.getLibrariesNexusServer(false);
         if (nexusServer != null) {
             String server = nexusServer.getServer().trim();
             if (server.endsWith(NexusConstants.SLASH)) {
                 server = server.substring(0, server.length() - 1);
             }
-            repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
         }
-        // repositoryManager = new LocalRepsitoryLauncherManager();
+        repositoryManager = new LocalRepsitoryLauncherManager();
     }
 
     public static ArtifactsDeployer getInstance() {
@@ -104,48 +97,48 @@ public class ArtifactsDeployer {
     public void deployToLocalMaven(String path, String mavenUri) throws Exception {
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUri);
         if (parseMvnUrl != null) {
-            parseMvnUrl.setRepositoryUrl(repositoryUrl);
+            // install to local maven repository and create pom
+            repositoryManager.install(new File(path), parseMvnUrl);
+
+            String absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
+            String pomPath = null;
+            String type = null;
+            if (absArtifactPath != null) {
+                if (absArtifactPath.lastIndexOf(".") != -1) {
+                    pomPath = absArtifactPath.substring(0, absArtifactPath.lastIndexOf(".") + 1)
+                            + TalendMavenConstants.PACKAGING_POM;
+                    type = absArtifactPath.substring(absArtifactPath.lastIndexOf(".") + 1, absArtifactPath.length());
+                } else {
+                    // incase installed file do not have file extension
+                    pomPath = pomPath + TalendMavenConstants.PACKAGING_POM;
+                }
+            }
+
             if (nexusServer != null && !nexusServer.isOfficial()) {
                 // deploy to nexus server if it is not null and not official server
                 // repositoryManager.deploy(new File(path), parseMvnUrl);
-                installToRemote(new File(path), parseMvnUrl);
+                installToRemote(new File(path), parseMvnUrl, type);
+                // deploy the pom
+                if (new File(pomPath).exists()) {
+                    installToRemote(new File(pomPath), parseMvnUrl, TalendMavenConstants.PACKAGING_POM);
+                }
             }
-            // install to local maven repository
-            // repositoryManager.install(new File(path), parseMvnUrl);
-            // TODO install by cmd by now need to change latter
-            install(path, parseMvnUrl);
 
         }
     }
 
-    private void install(String path, MavenArtifact artifact) {
-        StringBuffer command = new StringBuffer();
-        // mvn -Dfile=E:\studio_code\.metadata\aaabbbb\lib\java\ojdbc6.jar -DgroupId=org.talend.libraries
-        // -DartifactId=ojdbc6 -Dversion=1.0.0 -Dpackaging=jar
-        // -B install:install-file
-        command.append(" mvn ");
-        command.append(" -Dfile=");
-        command.append(path);
-        command.append(" -DgroupId=");
-        command.append(artifact.getGroupId());
-        command.append(" -DartifactId=");
-        command.append(artifact.getArtifactId());
-        command.append(" -Dversion=");
-        command.append(artifact.getVersion());
-        command.append(" -Dpackaging=");
-        command.append(artifact.getType());
-        command.append(" -B install:install-file");
-        try {
-            Runtime.getRuntime().exec("cmd /c " + command.toString());
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        }
-    }
-
-    protected void installToRemote(File content, MavenArtifact artifact) throws BusinessException {
+    protected void installToRemote(File content, MavenArtifact artifact, String type) throws BusinessException {
         URL targetURL;
         try {
-            String target = repositoryUrl + PomUtil.getArtifactPath(artifact);
+            String artifactPath = PomUtil.getArtifactPath(artifact);
+            if (!artifactPath.endsWith(type)) {
+                if (artifactPath.lastIndexOf(".") != -1) {
+                    artifactPath = artifactPath.substring(0, artifactPath.lastIndexOf(".") + 1) + type;
+                } else {
+                    artifactPath = artifactPath + "." + type;
+                }
+            }
+            String target = nexusServer.getRepositoryUrl() + artifactPath;
             targetURL = new URL(target);
             installToRemote(new FileEntity(content), targetURL);
         } catch (MalformedURLException e) {
@@ -178,4 +171,28 @@ public class ArtifactsDeployer {
             httpClient.getConnectionManager().shutdown();
         }
     }
+
+    // private void install(String path, MavenArtifact artifact) {
+    // StringBuffer command = new StringBuffer();
+    // // mvn -Dfile=E:\studio_code\.metadata\aaabbbb\lib\java\ojdbc6.jar -DgroupId=org.talend.libraries
+    // // -DartifactId=ojdbc6 -Dversion=1.0.0 -Dpackaging=jar
+    // // -B install:install-file
+    // command.append(" mvn ");
+    // command.append(" -Dfile=");
+    // command.append(path);
+    // command.append(" -DgroupId=");
+    // command.append(artifact.getGroupId());
+    // command.append(" -DartifactId=");
+    // command.append(artifact.getArtifactId());
+    // command.append(" -Dversion=");
+    // command.append(artifact.getVersion());
+    // command.append(" -Dpackaging=");
+    // command.append(artifact.getType());
+    // command.append(" -B install:install-file");
+    // try {
+    // Runtime.getRuntime().exec("cmd /c " + command.toString());
+    // } catch (IOException e) {
+    // ExceptionHandler.process(e);
+    // }
+    // }
 }

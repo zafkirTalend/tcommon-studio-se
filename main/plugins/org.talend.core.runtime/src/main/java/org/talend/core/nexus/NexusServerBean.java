@@ -26,6 +26,8 @@ public class NexusServerBean {
 
     String repositoryId;
 
+    String repositoryUrl;
+
     boolean official;
 
     public NexusServerBean() {
@@ -114,6 +116,24 @@ public class NexusServerBean {
      */
     public boolean isOfficial() {
         return this.official;
+    }
+
+    /**
+     * Getter for repositoryUrl.
+     * 
+     * @return the repositoryUrl
+     */
+    public String getRepositoryUrl() {
+        return this.repositoryUrl;
+    }
+
+    /**
+     * Sets the repositoryUrl.
+     * 
+     * @param repositoryUrl the repositoryUrl to set
+     */
+    public void setRepositoryUrl(String repositoryUrl) {
+        this.repositoryUrl = repositoryUrl;
     }
 
 }

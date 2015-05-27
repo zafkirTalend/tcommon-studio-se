@@ -455,7 +455,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
         EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
         String mavenUri = jarsToMavenUri.get(jarName);
-        if (mavenUri == null) {
+        if (mavenUri != null) {
             libPath = mavenJarInstalled.get(mavenUri);
             if (libPath != null) {
                 return libPath;
@@ -475,6 +475,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
     }
 
     private boolean checkJarInstalledInMaven(String mvnUri) {
+        if (mavenJarInstalled.containsKey(mvnUri)) {
+            return mavenJarInstalled.get(mvnUri) != null;
+        }
         String artifactPath = PomUtil.getAbsArtifactPath(MavenUrlHelper.parseMvnUrl(mvnUri));
         if (artifactPath != null) {
             mavenJarInstalled.put(mvnUri, artifactPath);
