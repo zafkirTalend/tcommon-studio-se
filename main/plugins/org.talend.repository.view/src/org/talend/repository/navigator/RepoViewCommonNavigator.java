@@ -105,6 +105,8 @@ import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.viewer.RepoViewPartListener;
 import org.talend.repository.viewer.content.listener.ResourcePostChangeRunnableListener;
+import org.talend.repository.viewer.filter.PerspectiveFilterHelper;
+import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
 import org.talend.repository.viewer.filter.listener.RepoViewPerspectiveListener;
 
 /**
@@ -373,7 +375,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                         }
                     }
                 }// else not a repo node so ignor it
-            }});
+            }
+        });
         createTreeTooltip(viewer.getTree());
 
         viewer.getTree().addFocusListener(new FocusListener() {
@@ -478,6 +481,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
         // refresh for filters
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(getRepoViewPerspectiveListener());
+        // when open need do perspective filter
+        RepositoryNodeFilterHelper.filter(viewer, RepositoryNodeFilterHelper.isActivedFilter(),
+                PerspectiveFilterHelper.isActivedPerspectiveFilter());
 
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPartService().addPartListener(getRepoViewPartListener());
 

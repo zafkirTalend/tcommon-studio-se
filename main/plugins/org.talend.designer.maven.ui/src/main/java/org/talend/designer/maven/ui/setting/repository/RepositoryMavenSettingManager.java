@@ -24,14 +24,19 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.designer.maven.ui.setting.repository.node.RepositoryPreferenceNode;
 import org.talend.designer.maven.ui.setting.repository.registry.MavenSettingPagesRegistryReader;
 import org.talend.designer.maven.ui.setting.repository.tester.IRepositorySettingTester;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.navigator.RepoViewCommonNavigator;
+import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.repository.viewer.filter.PerspectiveFilterHelper;
+import org.talend.repository.viewer.filter.RepositoryNodeFilterHelper;
 import org.talend.repository.viewer.ui.provider.RepoCommonViewerProvider;
 
 /**
@@ -91,6 +96,13 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
         } finally {
             if (parent != null) {
                 parent.dispose();
+            }
+            // need enable the perspective filter.
+            IRepositoryView repoView = RepositoryManagerHelper.findRepositoryView();
+            if (repoView != null && repoView instanceof RepoViewCommonNavigator) { // if the repository is displayed.
+                CommonViewer commonViewer = ((RepoViewCommonNavigator) repoView).getCommonViewer();
+                RepositoryNodeFilterHelper.filter(commonViewer, RepositoryNodeFilterHelper.isActivedFilter(),
+                        PerspectiveFilterHelper.isActivedPerspectiveFilter());
             }
         }
     }
