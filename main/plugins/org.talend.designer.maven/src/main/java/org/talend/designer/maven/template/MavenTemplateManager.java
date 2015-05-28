@@ -20,28 +20,37 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.services.IMavenUIService;
 import org.talend.designer.maven.DesignerMavenPlugin;
+import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 
 /**
  * created by ggu on 5 Feb 2015 Detailled comment
  *
- * @deprecated later, should use AbstractMavenTemplateManager instead, because need move the templates files to
- * maven.job bundle.
  */
 public class MavenTemplateManager {
 
+    public static Map<String, AbstractMavenTemplateManager> getTemplateManagerMap() {
+        return MavenTemplateManagerRegistry.getInstance().getTemplateManagerMap();
+    }
+
+    public static Map<String, IProjectSettingManagerProvider> getProjectSettingManagerMap() {
+        return MavenTemplateManagerRegistry.getInstance().getProjectSettingManagerMap();
+    }
+
     /**
      * read the template from bundle resource.
+     * 
+     * @deprecated use AbstractMavenTemplateManager instead
      */
     public static InputStream getBundleTemplateStream(String templateName) throws IOException {
         if (templateName != null) {
             URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                    .getEntry(MavenTemplateConstants.RESOURCES_TEMPLATE_PATH + '/' + templateName);
+                    .getEntry(MavenTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + templateName);
             if (templateUrl != null) {
                 InputStream inputStream = templateUrl.openStream();
                 return inputStream;
@@ -50,6 +59,9 @@ public class MavenTemplateManager {
         return null;
     }
 
+    /**
+     * @deprecated use AbstractMavenTemplateManager instead
+     */
     public static String getBundleTemplateContent(String templateName) throws IOException {
         return getContentFromInputStream(getBundleTemplateStream(templateName));
     }
@@ -72,21 +84,22 @@ public class MavenTemplateManager {
 
     /**
      * read the template from project setting preference.
+     * 
+     * @deprecated use AbstractMavenTemplateManager instead
      */
     public static InputStream getProjectSettingTemplateStream(String templateKey) throws IOException {
         if (templateKey != null && GlobalServiceRegister.getDefault().isServiceRegistered(IMavenUIService.class)) {
-            AbstractMavenTemplateManager templateManager = getTemplateManager("org.talend.designer.maven.job"); //$NON-NLS-1$
-            try {
-                if (templateManager != null) {
-                    return templateManager.readProjectSettingStream(templateKey);
-                }
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
+            IMavenUIService mavenUiService = (IMavenUIService) GlobalServiceRegister.getDefault().getService(
+                    IMavenUIService.class);
+            return mavenUiService.getProjectSettingStream(templateKey);
         }
         return null;
     }
 
+    /**
+     * 
+     * @deprecated use AbstractMavenTemplateManager instead
+     */
     public static String getProjectSettingTemplateContent(String templateKey) throws IOException {
         return getContentFromInputStream(getProjectSettingTemplateStream(templateKey));
     }
@@ -97,6 +110,8 @@ public class MavenTemplateManager {
      * 2. if file template is not existed, try to get th template from project setting.
      * 
      * 3. if the project setting is not set still, try to get the template from the bundle template.
+     * 
+     * @deprecated use AbstractMavenTemplateManager instead
      */
     @SuppressWarnings("resource")
     public static InputStream getTemplateStream(File templateFile, String projectSettingKey, String templateName)
@@ -119,14 +134,23 @@ public class MavenTemplateManager {
         return stream;
     }
 
+    /**
+     * @deprecated use AbstractMavenTemplateManager instead
+     */
     public static String getTemplateContent(File templateFile, String projectSettingKey, String templateName) throws IOException {
         return getContentFromInputStream(getTemplateStream(templateFile, projectSettingKey, templateName));
     }
 
+    /**
+     * @deprecated use AbstractMavenTemplateManager instead
+     */
     public static void copyTemplate(String templateName, IFile targetFile, boolean overwrite) throws IOException {
         copyTemplate(templateName, targetFile.getLocation().toFile(), overwrite);
     }
 
+    /**
+     * @deprecated use AbstractMavenTemplateManager instead
+     */
     public static void copyTemplate(String templateName, File targetFile, boolean overwrite) throws IOException {
         if (targetFile.exists()) {
             if (!overwrite) {
@@ -141,7 +165,7 @@ public class MavenTemplateManager {
         targetFile.getParentFile().mkdirs();
 
         URL routinesTemplateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                .getEntry(MavenTemplateConstants.RESOURCES_TEMPLATE_PATH + '/' + templateName);
+                .getEntry(MavenTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + templateName);
         if (routinesTemplateUrl != null) {
             InputStream inputStream = routinesTemplateUrl.openStream();
             FileOutputStream out = null;
@@ -161,9 +185,4 @@ public class MavenTemplateManager {
         }
     }
 
-    public static AbstractMavenTemplateManager getTemplateManager(String bundleName) {
-        AbstractMavenTemplateManager templateManager = MavenTemplateManagerFactory.getInstance().getTemplateManagerMap()
-                .get(bundleName);
-        return templateManager;
-    }
 }

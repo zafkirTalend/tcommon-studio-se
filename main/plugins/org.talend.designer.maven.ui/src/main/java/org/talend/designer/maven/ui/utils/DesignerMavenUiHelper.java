@@ -92,12 +92,12 @@ public final class DesignerMavenUiHelper {
      * 
      * FIXME, need check the node is in reference project, also with merge reference project option.
      */
-    public static boolean existMavenSetting(RepositoryNode node) {
+    public static boolean existMavenSetting(RepositoryNode node, String... fileNames) {
         IFolder nodeFolder = getNodeFolder(node);
-        return existMavenSetting(nodeFolder);
+        return existMavenSetting(nodeFolder, fileNames);
     }
 
-    public static boolean existMavenSetting(IFolder parentFolder) {
+    public static boolean existMavenSetting(IFolder parentFolder, String... fileNames) {
         if (parentFolder == null) {
             return false;
         }
@@ -105,15 +105,25 @@ public final class DesignerMavenUiHelper {
 
         try {
             parentFolder.refreshLocal(IResource.DEPTH_ONE, null);
-
-            IFile pomFile = parentFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
-            IFile assemblyFile = parentFolder.getFile(TalendMavenConstants.ASSEMBLY_FILE_NAME);
-            if (pomFile.exists() && assemblyFile.exists()) {
-                existed = true;
-            }
         } catch (CoreException e) {
             ExceptionHandler.process(e);
         }
+
+        if (fileNames == null || fileNames.length == 0) { // by default, check the pom.xml only
+            IFile pomFile = parentFolder.getFile(TalendMavenConstants.POM_FILE_NAME);
+            if (pomFile.exists()) {
+                existed = true;
+            }
+        } else {
+            existed = true;
+            for (String name : fileNames) {
+                if (!parentFolder.getFile(name).exists()) {
+                    existed = false; // if one file is not existed, will return false
+                    break;
+                }
+            }
+        }
+
         return existed;
     }
 

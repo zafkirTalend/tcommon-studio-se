@@ -10,15 +10,17 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.core.runtime.projectsetting;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
+@SuppressWarnings("nls")
 public interface IProjectSettingPreferenceConstants {
 
-    public static final String TEMPLATE_STANDALONE_JOB_POM = "template_standalonejob_pom_maven_script"; //$NON-NLS-1$
+    public static final String TEMPLATE_STANDALONE_JOB_POM = "template_standalonejob_pom_maven_script";
 
-    public static final String TEMPLATE_STANDALONE_JOB_ASSEMBLY = "template_standalonejob_assembly_maven_script"; //$NON-NLS-1$
+    public static final String TEMPLATE_STANDALONE_JOB_ASSEMBLY = "template_standalonejob_assembly_maven_script";
 
+    public static final String TEMPLATE_OSGI_BUNDLE_POM = "template_osgi_bundle_pom_maven_script";
 }

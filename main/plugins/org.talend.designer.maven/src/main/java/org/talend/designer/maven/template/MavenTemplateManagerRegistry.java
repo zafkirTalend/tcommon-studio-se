@@ -26,9 +26,9 @@ import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
  * DOC ggu class global comment. Detailled comment
  */
 @SuppressWarnings("nls")
-public class MavenTemplateManagerFactory extends RegistryReader {
+class MavenTemplateManagerRegistry extends RegistryReader {
 
-    private static final Logger log = Logger.getLogger(MavenTemplateManagerFactory.class);
+    private static final Logger log = Logger.getLogger(MavenTemplateManagerRegistry.class);
 
     private static final String CLASS_ATTRIBUTE = "class";
 
@@ -36,9 +36,9 @@ public class MavenTemplateManagerFactory extends RegistryReader {
 
     private Map<String, IProjectSettingManagerProvider> projectSettingManagerBundleMap;
 
-    private static final MavenTemplateManagerFactory INSTANCE = new MavenTemplateManagerFactory();
+    private static final MavenTemplateManagerRegistry INSTANCE = new MavenTemplateManagerRegistry();
 
-    private MavenTemplateManagerFactory() {
+    private MavenTemplateManagerRegistry() {
         super(DesignerMavenPlugin.PLUGIN_ID, "mavenSetting");
 
         this.templateManagerBundleMap = new HashMap<String, AbstractMavenTemplateManager>();
@@ -47,15 +47,15 @@ public class MavenTemplateManagerFactory extends RegistryReader {
         readRegistry();
     }
 
-    public static MavenTemplateManagerFactory getInstance() {
+    static MavenTemplateManagerRegistry getInstance() {
         return INSTANCE;
     }
 
-    public Map<String, AbstractMavenTemplateManager> getTemplateManagerMap() {
+    Map<String, AbstractMavenTemplateManager> getTemplateManagerMap() {
         return templateManagerBundleMap;
     }
 
-    public Map<String, IProjectSettingManagerProvider> getProjectSettingManagerMap() {
+    Map<String, IProjectSettingManagerProvider> getProjectSettingManagerMap() {
         return projectSettingManagerBundleMap;
     }
 

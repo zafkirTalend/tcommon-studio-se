@@ -109,7 +109,6 @@ public abstract class AbstractMavenTemplateManager implements IExecutableExtensi
         if (projectSettingTemplateKey.length() == 0) {
             throw new IllegalArgumentException("The project setting key shoundn't be empty");
         }
-        // TODO Auto-generated method stub
         String value = projectPreferenceManager.getValue(projectSettingTemplateKey);
         if (value == null || value.length() == 0) {
             throw new Exception("Can't find the value by key " + projectSettingTemplateKey + " in "
@@ -119,8 +118,7 @@ public abstract class AbstractMavenTemplateManager implements IExecutableExtensi
     }
 
     protected ProjectPreferenceManager getProjectPreferenceManager() {
-        IProjectSettingManagerProvider provider = MavenTemplateManagerFactory.getInstance().getProjectSettingManagerMap()
-                .get(bundleName);
+        IProjectSettingManagerProvider provider = MavenTemplateManager.getProjectSettingManagerMap().get(bundleName);
         if (provider != null) {
             return provider.getProjectSettingManager();
         }

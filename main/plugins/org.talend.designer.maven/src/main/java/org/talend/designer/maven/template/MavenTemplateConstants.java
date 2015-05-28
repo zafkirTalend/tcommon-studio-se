@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.maven.template;
 
+import org.talend.designer.maven.model.TalendMavenConstants;
+
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
  *
@@ -19,7 +21,11 @@ package org.talend.designer.maven.template;
 @SuppressWarnings("nls")
 public interface MavenTemplateConstants {
 
-    final static String RESOURCES_TEMPLATE_PATH = "resources/templates";
+    final static String PATH_RESOURCES = "resources";
+
+    final static String PATH_RESOURCES_TEMPLATES = PATH_RESOURCES + '/' + "templates";
+
+    final static String PATH_OSGI_BUNDLE_TEMPLATE = PATH_RESOURCES_TEMPLATES + '/' + TalendMavenConstants.OSGI_BUNDLE_NAME;
 
     final static String POM_ROUTINGS_TEMPLATE_FILE_NAME = "pom_routines_template.xml";
 

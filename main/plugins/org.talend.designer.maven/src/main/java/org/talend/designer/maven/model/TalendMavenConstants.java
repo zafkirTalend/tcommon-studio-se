@@ -40,7 +40,7 @@ public interface TalendMavenConstants {
 
     static final String ASSEMBLY_FILE_NAME = ASSEMBLY_NAME + XML_EXT;
 
-    static final String OSGI_BUNDLE_NAME = "OSGi";
+    static final String OSGI_BUNDLE_NAME = "osgi";
 
     /**
      * 

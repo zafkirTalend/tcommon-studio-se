@@ -73,7 +73,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="org.talend.designer.maven.ui.setting.repository.registry.RepositoryMavenSetting:"/>
+                  <meta.attribute kind="java" basedOn="org.talend.designer.maven.ui.setting.repository.RepositoryMavenSetting:"/>
                </appinfo>
             </annotation>
          </attribute>

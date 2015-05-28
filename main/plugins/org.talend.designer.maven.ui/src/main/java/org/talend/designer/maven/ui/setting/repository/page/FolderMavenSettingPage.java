@@ -174,7 +174,7 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
 
     protected void updateFields() {
         IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(node);
-        boolean created = DesignerMavenUiHelper.existMavenSetting(nodeFolder);
+        boolean created = checkMavenScriptsExisted(nodeFolder);
 
         messageLink.setText(createMessages(created));
 
@@ -214,6 +214,10 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
         deleteBtn.setEnabled(created && !readonly);
     }
 
+    protected boolean checkMavenScriptsExisted(IFolder nodeFolder) {
+        return DesignerMavenUiHelper.existMavenSetting(nodeFolder);
+    }
+
     protected abstract String createMessages(boolean created);
 
     protected String buildLink(String fileWithExtension) {
@@ -235,6 +239,18 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
         String id = e.text;
         if (ID_MAVEN_PROJECT_SETTING.equals(id)) {
             openProjectSettingDialog(id);
+        }
+    }
+
+    protected void processLinkIdForFileNames(String id, String... fileNames) {
+        if (fileNames != null) {
+            for (String name : fileNames) {
+                if (name.equals(id) || !DesignerMavenUiHelper.idWithExtension
+                        && name.substring(0, name.lastIndexOf('.')).equals(id)) {
+                    String childId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), id);
+                    openChildPage(childId);
+                }
+            }
         }
     }
 

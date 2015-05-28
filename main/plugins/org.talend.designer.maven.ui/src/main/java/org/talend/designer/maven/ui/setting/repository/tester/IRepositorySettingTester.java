@@ -12,13 +12,12 @@
 // ============================================================================
 package org.talend.designer.maven.ui.setting.repository.tester;
 
-import org.talend.repository.model.IRepositoryNode;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public interface IRepositorySettingTester {
 
-    boolean valid(IRepositoryNode node);
+    boolean valid(Object object);
 
 }

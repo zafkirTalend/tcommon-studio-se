@@ -15,7 +15,6 @@ package org.talend.designer.maven.ui.setting.repository;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -55,79 +54,6 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
 
     }
 
-    public void createNodes(IPreferenceNode parentNode, ILabelProvider labelProvider, TreeItem[] items) {
-        for (TreeItem item : items) {
-            RepositoryPreferenceNode repoSettingNode = createNode(parentNode, item.getData(), labelProvider);
-            if (repoSettingNode != null) {
-                // children nodes
-                createNodes(repoSettingNode, labelProvider, item.getItems());
-            }
-        }
-    }
-
-    protected RepositoryPreferenceNode createNode(IPreferenceNode parentNode, Object data, ILabelProvider labelProvider) {
-        RepositoryPreferenceNode repoSettingNode = null;
-        if (data instanceof RepositoryNode) {
-            RepositoryNode node = ((RepositoryNode) data);
-
-            ImageDescriptor imageDesc = null;
-            Image image = labelProvider.getImage(node);
-            if (image != null) {
-                imageDesc = ImageDescriptor.createFromImageData(image.getImageData());
-            }
-            String label = labelProvider.getText(node);
-            // label= node.getLabel(); //there is on bug for this label, so use provider directly.
-
-            ERepositoryObjectType contentType = node.getContentType();
-            // mabye it's not good for some sub nodes, for example, if for routines, supported type must containd
-            // CODE.
-            List<ERepositoryObjectType> supportedTypes = Arrays.asList(REGISTRY.getSupportTypes());
-            if (!supportedTypes.contains(contentType)) {
-                return null;
-            }
-
-            boolean needMavenFiles = false;
-
-            String parentId = parentNode.getId();
-            String id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, contentType.getType());
-            if (!contentType.isResouce()) { // if not resource type
-                repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
-            } else if (DesignerMavenUiHelper.isFakeProcessRootNode(node)) {// fake process root ndoe
-                repoSettingNode = new RepositoryPreferenceNode(id + "_fake", label, imageDesc, node); //$NON-NLS-1$
-            } else if (node.getType() == ENodeType.SYSTEM_FOLDER) {
-                repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
-                needMavenFiles = true;
-            } else { // should be other ENodeType.SIMPLE_FOLDER
-                if (parentId != null && parentId.length() > 0) {
-                    id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, label);
-                } else {
-                    id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(contentType.getType(), label);
-                }
-                repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
-
-                needMavenFiles = true;
-            }
-            // must be front, when add other nodes. make sure the build id is right.
-            parentNode.add(repoSettingNode);
-
-            if (needMavenFiles) {
-                IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(node);
-                if (nodeFolder != null) {
-                    RepositoryMavenSetting[] settings = REGISTRY.getSettings();
-                    for (RepositoryMavenSetting setting : settings) {
-                        IRepositorySettingTester tester = setting.getTester();
-                        if (tester != null && !tester.valid(node)) {
-                            continue; // if tester set, and valid
-                        }
-                        //
-                        setting.create(repoSettingNode, node);
-                    }
-                }
-            }
-        }
-        return repoSettingNode;
-    }
-
     public void init(String viewId) {
         if (viewId == null) {
             return;
@@ -165,6 +91,70 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
         } finally {
             if (parent != null) {
                 parent.dispose();
+            }
+        }
+    }
+
+    private void createNodes(IPreferenceNode parentNode, ILabelProvider labelProvider, TreeItem[] items) {
+        for (TreeItem item : items) {
+            Object data = item.getData();
+            if (data instanceof RepositoryNode) {
+                RepositoryNode node = ((RepositoryNode) data);
+
+                ImageDescriptor imageDesc = null;
+                Image image = labelProvider.getImage(node);
+                if (image != null) {
+                    imageDesc = ImageDescriptor.createFromImageData(image.getImageData());
+                }
+                String label = labelProvider.getText(node);
+                // label= node.getLabel(); //there is on bug for this label, so use provider directly.
+
+                ERepositoryObjectType contentType = node.getContentType();
+                // mabye it's not good for some sub nodes, for example, if for routines, supported type must containd
+                // CODE.
+                List<ERepositoryObjectType> supportedTypes = Arrays.asList(REGISTRY.getSupportTypes());
+                if (!supportedTypes.contains(contentType)) {
+                    continue;
+                }
+
+                boolean needMavenFiles = false;
+                RepositoryPreferenceNode repoSettingNode = null;
+
+                String parentId = parentNode.getId();
+                String id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, contentType.getType());
+
+                if (!contentType.isResouce()) { // if not resource type
+                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
+                } else if (DesignerMavenUiHelper.isFakeProcessRootNode(node)) {// fake process root ndoe
+                    repoSettingNode = new RepositoryPreferenceNode(id + "_fake", label, imageDesc, node); //$NON-NLS-1$
+                } else if (node.getType() == ENodeType.SYSTEM_FOLDER) {
+                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
+                    needMavenFiles = true;
+                } else { // should be other ENodeType.SIMPLE_FOLDER
+                    if (parentId != null && parentId.length() > 0) {
+                        id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, label);
+                    } else {
+                        id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(contentType.getType(), label);
+                    }
+                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
+
+                    needMavenFiles = true;
+                }
+                // must be front, when add other nodes. make sure the build id is right.
+                parentNode.add(repoSettingNode);
+
+                if (needMavenFiles) {
+                    RepositoryMavenSetting[] settings = REGISTRY.getSettings();
+                    for (RepositoryMavenSetting setting : settings) {
+                        IRepositorySettingTester tester = setting.getTester();
+                        if (tester != null && !tester.valid(data)) {
+                            continue; // if tester set, and valid
+                        }
+                        setting.createMavenScriptsChildren(repoSettingNode, node);
+                    }
+                }
+                // sub folders,
+                createNodes(repoSettingNode, labelProvider, item.getItems());
             }
         }
     }
