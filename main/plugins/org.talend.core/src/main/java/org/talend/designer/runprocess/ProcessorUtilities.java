@@ -68,7 +68,6 @@ import org.talend.core.model.repository.job.JobResourceManager;
 import org.talend.core.model.runprocess.LastGenerationInfo;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.core.ui.IJobletProviderService;
@@ -1539,14 +1538,6 @@ public class ProcessorUtilities {
             for (String s : cmd) {
                 sb.append(s).append(' ');
             }
-        }
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
-            IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
-                    IRunProcessService.class);
-            String commandStr = runProcessService.getProjectPreferenceManager().getPreferenceStore()
-                    .getString(ITalendCorePrefConstants.COMMAND_STR);
-            String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
-            return finalCommand;
         }
         return sb.toString();
     }
