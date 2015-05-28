@@ -23,4 +23,10 @@ public interface IProjectSettingPreferenceConstants {
     public static final String TEMPLATE_STANDALONE_JOB_ASSEMBLY = "template_standalonejob_assembly_maven_script";
 
     public static final String TEMPLATE_OSGI_BUNDLE_POM = "template_osgi_bundle_pom_maven_script";
+
+    public static final String TEMPLATE_JOB_INFO = "template_job_info_script";
+
+    public static final String TEMPLATE_SH = "template_sh_script";
+
+    public static final String TEMPLATE_BAT = "template_bat_script";
 }

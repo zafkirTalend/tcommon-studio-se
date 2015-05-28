@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -46,11 +45,8 @@ import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
-import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
-import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomUtil;
@@ -188,10 +184,12 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
      */
     @Override
     protected InputStream getTemplateStream() throws IOException {
-        File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
-                TalendMavenConstants.POM_FILE_NAME);
-        return MavenTemplateManager.getTemplateStream(templateFile,
-                IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, getBundleTemplateName());
+        // FIXME, will use the bundle template always
+        // File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
+        // TalendMavenConstants.POM_FILE_NAME);
+        // return MavenTemplateManager.getTemplateStream(templateFile,
+        // IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, getBundleTemplateName());
+        return super.getTemplateStream();
     }
 
     /**

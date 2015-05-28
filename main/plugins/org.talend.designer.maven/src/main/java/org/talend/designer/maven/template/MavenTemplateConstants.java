@@ -27,6 +27,9 @@ public interface MavenTemplateConstants {
 
     final static String PATH_OSGI_BUNDLE_TEMPLATE = PATH_RESOURCES_TEMPLATES + '/' + TalendMavenConstants.OSGI_BUNDLE_NAME;
 
+    /*
+     * pom templates
+     */
     final static String POM_ROUTINGS_TEMPLATE_FILE_NAME = "pom_routines_template.xml";
 
     final static String POM_JOB_TEMPLATE_FILE_NAME = "pom_job_template.xml";
@@ -37,12 +40,13 @@ public interface MavenTemplateConstants {
 
     final static String PROJECT_TEMPLATE_FILE_NAME = "pom_project_template.xml";
 
+    /*
+     * in runprocess bundle
+     */
     final static String JOB_RUN_BAT_TEMPLATE_FILE_NAME = "Job_run_template.bat";
 
     final static String JOB_RUN_SH_TEMPLATE_FILE_NAME = "Job_run_template.sh";
 
     final static String JOB_INFO_TEMPLATE_FILE_NAME = "jobInfo_template.properties";
-
-    final static String TEST_JOB_TEMPLATE_FILE_NAME = "test_job_pom_template.xml";
 
 }

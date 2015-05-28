@@ -84,7 +84,7 @@ public abstract class AbstractProjectPreferenceInitializer extends AbstractPrefe
             AbstractMavenTemplateManager templateManager = MavenTemplateManager.getTemplateManagerMap().get(bundleName);
             if (templateManager != null) {
                 InputStream stream = templateManager.readBundleStream(bundleTemplatePath);
-                String osgiPomContent = templateManager.getContentFromInputStream(stream);
+                String osgiPomContent = MavenTemplateManager.getContentFromInputStream(stream);
                 if (osgiPomContent != null) {
                     preferenceStore.setDefault(key, osgiPomContent);
                 }

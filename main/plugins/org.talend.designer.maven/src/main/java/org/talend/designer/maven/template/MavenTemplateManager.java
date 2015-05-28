@@ -15,7 +15,7 @@ package org.talend.designer.maven.template;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -23,8 +23,6 @@ import java.net.URL;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.runtime.services.IMavenUIService;
 import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 
@@ -83,28 +81,6 @@ public class MavenTemplateManager {
     }
 
     /**
-     * read the template from project setting preference.
-     * 
-     * @deprecated use AbstractMavenTemplateManager instead
-     */
-    public static InputStream getProjectSettingTemplateStream(String templateKey) throws IOException {
-        if (templateKey != null && GlobalServiceRegister.getDefault().isServiceRegistered(IMavenUIService.class)) {
-            IMavenUIService mavenUiService = (IMavenUIService) GlobalServiceRegister.getDefault().getService(
-                    IMavenUIService.class);
-            return mavenUiService.getProjectSettingStream(templateKey);
-        }
-        return null;
-    }
-
-    /**
-     * 
-     * @deprecated use AbstractMavenTemplateManager instead
-     */
-    public static String getProjectSettingTemplateContent(String templateKey) throws IOException {
-        return getContentFromInputStream(getProjectSettingTemplateStream(templateKey));
-    }
-
-    /**
      * 1. get the template from the file template under the folder first.
      * 
      * 2. if file template is not existed, try to get th template from project setting.
@@ -125,7 +101,7 @@ public class MavenTemplateManager {
 
         // 2. from project setting
         if (stream == null && projectSettingKey != null) {
-            stream = getProjectSettingTemplateStream(projectSettingKey);
+            stream = getProjectSettingStream(projectSettingKey);
         }
         // 3. from bundle template.
         if (stream == null && templateName != null) {
@@ -141,17 +117,11 @@ public class MavenTemplateManager {
         return getContentFromInputStream(getTemplateStream(templateFile, projectSettingKey, templateName));
     }
 
-    /**
-     * @deprecated use AbstractMavenTemplateManager instead
-     */
-    public static void copyTemplate(String templateName, IFile targetFile, boolean overwrite) throws IOException {
-        copyTemplate(templateName, targetFile.getLocation().toFile(), overwrite);
+    public static void saveContent(IFile targetFile, String content, boolean overwrite) throws IOException {
+        saveContent(targetFile.getLocation().toFile(), content, overwrite);
     }
 
-    /**
-     * @deprecated use AbstractMavenTemplateManager instead
-     */
-    public static void copyTemplate(String templateName, File targetFile, boolean overwrite) throws IOException {
+    public static void saveContent(File targetFile, String content, boolean overwrite) throws IOException {
         if (targetFile.exists()) {
             if (!overwrite) {
                 // throw new IOException("The file have existed, must delete or with overwrite option.");
@@ -162,27 +132,60 @@ public class MavenTemplateManager {
             }
         }
 
-        targetFile.getParentFile().mkdirs();
-
-        URL routinesTemplateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                .getEntry(MavenTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + templateName);
-        if (routinesTemplateUrl != null) {
-            InputStream inputStream = routinesTemplateUrl.openStream();
-            FileOutputStream out = null;
+        if (content != null) {
+            FileWriter writer = null;
             try {
-                out = new FileOutputStream(targetFile);
-                byte[] buffer = new byte[1024];
-                int byteread = 0;
-                while ((byteread = inputStream.read(buffer)) != -1) {
-                    out.write(buffer, 0, byteread);
-                }
-                out.flush();
+                writer = new FileWriter(targetFile);
+                writer.write(content);
+                writer.flush();
             } finally {
-                if (out != null) {
-                    out.close();
+                if (writer != null) {
+                    writer.close();
                 }
             }
         }
     }
 
+    /**
+     * try to find the template setting in project setting one by one.
+     */
+    public static String getProjectSettingValue(String key) {
+        Map<String, AbstractMavenTemplateManager> templateManagerMap = MavenTemplateManager.getTemplateManagerMap();
+
+        for (String bundleName : templateManagerMap.keySet()) {
+            AbstractMavenTemplateManager templateManager = templateManagerMap.get(bundleName);
+            try {
+                InputStream steam = templateManager.readProjectSettingStream(key);
+                if (steam != null) {
+                    String content = MavenTemplateManager.getContentFromInputStream(steam);
+                    if (content != null) {
+                        return content;
+                    }
+                }
+            } catch (Exception e) {
+                // try to find another one
+            }
+        }
+        return null;
+    }
+
+    /**
+     * try to find the template setting in project setting one by one.
+     */
+    public static InputStream getProjectSettingStream(String key) {
+        Map<String, AbstractMavenTemplateManager> templateManagerMap = MavenTemplateManager.getTemplateManagerMap();
+
+        for (String bundleName : templateManagerMap.keySet()) {
+            AbstractMavenTemplateManager templateManager = templateManagerMap.get(bundleName);
+            try {
+                InputStream steam = templateManager.readProjectSettingStream(key);
+                if (steam != null) {
+                    return steam;
+                }
+            } catch (Exception e) {
+                // try to find another one
+            }
+        }
+        return null;
+    }
 }

@@ -16,9 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.net.URL;
 
 import org.eclipse.core.runtime.CoreException;
@@ -48,26 +46,6 @@ public abstract class AbstractMavenTemplateManager implements IExecutableExtensi
     public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
         // init bundle name
         this.bundleName = config.getContributor().getName();
-    }
-
-    public void setBundleName(String bundleName) {
-        this.bundleName = bundleName;
-    }
-
-    public String getContentFromInputStream(InputStream is) throws IOException {
-        if (is != null) {
-            try {
-                StringWriter sw = new StringWriter(1000);
-                int c = 0;
-                while ((c = is.read()) != -1) {
-                    sw.write(c);
-                }
-                return sw.toString();
-            } finally {
-                is.close();
-            }
-        }
-        return null;
     }
 
     /**
@@ -117,7 +95,7 @@ public abstract class AbstractMavenTemplateManager implements IExecutableExtensi
         return new ByteArrayInputStream(value.getBytes(TalendMavenConstants.DEFAULT_ENCODING));
     }
 
-    protected ProjectPreferenceManager getProjectPreferenceManager() {
+    public ProjectPreferenceManager getProjectPreferenceManager() {
         IProjectSettingManagerProvider provider = MavenTemplateManager.getProjectSettingManagerMap().get(bundleName);
         if (provider != null) {
             return provider.getProjectSettingManager();
