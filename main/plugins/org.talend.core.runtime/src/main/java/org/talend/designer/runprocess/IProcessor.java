@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
@@ -155,6 +156,13 @@ public interface IProcessor {
      * @return the contextPath
      */
     public IPath getContextPath();
+
+    /**
+     * Getter for dataSetPath.
+     * 
+     * @return the dataSetPath
+     */
+    public IPath getDataSetPath();
 
     /**
      * getter the code project.
@@ -296,6 +304,8 @@ public interface IProcessor {
     String getMainClass();
 
     Set<String> getNeededLibraries();
+
+    Set<ModuleNeeded> getNeededModules();
 
     Set<JobInfo> getBuildChildrenJobs();
 

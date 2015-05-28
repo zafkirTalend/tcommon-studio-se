@@ -72,6 +72,8 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.core.ui.IJobletProviderService;
+import org.talend.core.ui.ITestContainerProviderService;
+import org.talend.core.utils.BitwiseOptionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -88,11 +90,13 @@ import org.talend.repository.model.IRepositoryService;
  */
 public class ProcessorUtilities {
 
-    public static final int GENERATE_MAIN_ONLY = 1;
+    public static final int GENERATE_MAIN_ONLY = 1 << 1;
 
-    public static final int GENERATE_WITH_FIRST_CHILD = 2;
+    public static final int GENERATE_WITH_FIRST_CHILD = 1 << 2;
 
-    public static final int GENERATE_ALL_CHILDS = 3;
+    public static final int GENERATE_ALL_CHILDS = 1 << 3;
+
+    public static final int GENERATE_TESTS = 1 << 4;
 
     private static String interpreter, codeLocation, libraryPath;
 
@@ -115,7 +119,7 @@ public class ProcessorUtilities {
 
     private static final int GENERATED_WITH_TRACES = 2;
 
-    private static final String COMMA = ";";
+    private static final String COMMA = ";"; //$NON-NLS-1$
 
     public static void addOpenEditor(IEditorPart editor) {
         openedEditors.add(editor);
@@ -453,6 +457,9 @@ public class ProcessorUtilities {
         generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
 
+        // for testContainer dataSet
+        generateDataSet(currentProcess, processor);
+
         // ADDED for TESB-7887 By GangLiu
         generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                 currentJobName, processor);
@@ -636,6 +643,19 @@ public class ProcessorUtilities {
         }
     }
 
+    private static void generateDataSet(IProcess process, IProcessor processor) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                if (!testContainerService.isTestContainerProcess(process)) {
+                    return;
+                }
+                testContainerService.copyDataSetFiles(process, processor.getDataSetPath());
+            }
+        }
+    }
+
     private static IProcessor generateCode(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, int option, IProgressMonitor progressMonitor) throws ProcessorException {
         needContextInCurrentGeneration = needContext;
@@ -761,6 +781,9 @@ public class ProcessorUtilities {
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
 
+            // for testContainer dataSet
+            generateDataSet(currentProcess, processor);
+
             // ADDED for TESB-7887 By GangLiu
             generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
@@ -776,6 +799,21 @@ public class ProcessorUtilities {
             jobInfo.setProcess(null);
             generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
             TimeMeasure.step(idTimer, "generateBuildInfo");
+
+            if (BitwiseOptionUtils.containOption(option, GENERATE_TESTS)) {
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                    ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                            .getDefault().getService(ITestContainerProviderService.class);
+                    if (testContainerService != null) {
+                        List<ProcessItem> testsItems = testContainerService.getAllTestContainers(selectedProcessItem);
+                        for (ProcessItem testItem : testsItems) {
+                            ProcessorUtilities.generateCode(testItem, testItem.getProcess().getDefaultContext(), false, false,
+                                    false, progressMonitor);
+                        }
+                    }
+                }
+            }
+
             return processor;
         } finally {
             TimeMeasure.end(idTimer);
@@ -817,7 +855,7 @@ public class ProcessorUtilities {
 
     private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean properties,
             int option, IProgressMonitor progressMonitor, IProcess currentProcess) throws ProcessorException {
-        if (option != GENERATE_MAIN_ONLY) {
+        if (!BitwiseOptionUtils.containOption(option, GENERATE_MAIN_ONLY)) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
             for (INode node : graphicalNodes) {
@@ -871,7 +909,7 @@ public class ProcessorUtilities {
                             subJobInfo.setFatherJobInfo(jobInfo);
                             if (!jobList.contains(subJobInfo)) {
                                 // children won't have stats / traces
-                                if (option == GENERATE_WITH_FIRST_CHILD) {
+                                if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
                                     generateCode(subJobInfo, selectedContextName, statistics, false, properties,
                                             GENERATE_MAIN_ONLY, progressMonitor);
                                 } else {
@@ -1043,6 +1081,23 @@ public class ProcessorUtilities {
         return result;
     }
 
+    public static IProcessor generateCode(ProcessItem process, String contextName, String version, boolean statistics,
+            boolean trace, boolean applyContextToChildren, boolean needContext, int option, IProgressMonitor... monitors)
+            throws ProcessorException {
+        IProgressMonitor monitor = null;
+        if (monitors == null) {
+            monitor = new NullProgressMonitor();
+        } else {
+            monitor = monitors[0];
+        }
+        JobInfo jobInfo = new JobInfo(process, contextName, version);
+        jobInfo.setApplyContextToChildren(applyContextToChildren);
+        jobList.clear();
+        IProcessor result = generateCode(jobInfo, contextName, statistics, trace, needContext, option, monitor);
+        jobList.clear();
+        return result;
+    }
+
     public static IProcessor generateCode(ProcessItem process, IContext context, String version, boolean statistics,
             boolean trace, boolean applyContextToChildren, IProgressMonitor... monitors) throws ProcessorException {
         IProgressMonitor monitor = null;
@@ -1202,6 +1257,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(boolean externalUse, String processName, String contextName, int statisticPort,
             int tracePort, String... codeOptions) throws ProcessorException {
         return getCommandLine(null, externalUse, processName, contextName, statisticPort, tracePort, codeOptions);
@@ -1211,6 +1267,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(boolean externalUse, String processName, String contextName, String version,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         return getCommandLine(null, externalUse, processName, contextName, version, statisticPort, tracePort, codeOptions);
@@ -1220,6 +1277,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId);
@@ -1231,6 +1289,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             String version, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId, version);
@@ -1242,6 +1301,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, ProcessItem processItem,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
@@ -1261,6 +1321,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, IProcess currentProcess,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
@@ -1276,6 +1337,7 @@ public class ProcessorUtilities {
      * 
      * @deprecated seems never use this one
      */
+    @Deprecated
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, IProcess currentProcess, Property property,
             String contextName, boolean needContext, int statisticPort, int tracePort, String... codeOptions)
             throws ProcessorException {
@@ -1478,9 +1540,15 @@ public class ProcessorUtilities {
                 sb.append(s).append(' ');
             }
         }
-        String commandStr = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.COMMAND_STR);
-        String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
-        return finalCommand;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            String commandStr = runProcessService.getProjectPreferenceManager().getPreferenceStore()
+                    .getString(ITalendCorePrefConstants.COMMAND_STR);
+            String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
+            return finalCommand;
+        }
+        return sb.toString();
     }
 
     /**
