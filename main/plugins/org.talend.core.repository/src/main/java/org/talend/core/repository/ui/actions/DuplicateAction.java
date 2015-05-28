@@ -74,6 +74,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.dialog.DuplicateDialog;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.repository.utils.ConvertJobsUtil;
+import org.talend.core.repository.utils.ConvertJobsUtil.JobType;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
@@ -183,19 +184,18 @@ public class DuplicateAction extends AContextualAction {
         }
 
         Property property = sourceNode.getObject().getProperty();
-
+        Item item = property.getItem();
         Property updatedProperty = null;
         try {
             updatedProperty = ProxyRepositoryFactory.getInstance()
-                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId())
-                    .getProperty();
+                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(item)), property.getId()).getProperty();
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
         // update the property of the node repository object
         // sourceNode.getObject().setProperty(updatedProperty);
 
-        String initNameValue = "Copy_of_" + sourceNode.getObject().getProperty().getItem().getProperty().getDisplayName(); //$NON-NLS-1$
+        String initNameValue = "Copy_of_" + item.getProperty().getDisplayName(); //$NON-NLS-1$
 
         CopyObjectAction copyObjectAction = CopyObjectAction.getInstance();
 
@@ -221,10 +221,21 @@ public class DuplicateAction extends AContextualAction {
         String jobNewName = jobNewNameDialog.getNameValue();
         String jobTypeValue = jobNewNameDialog.getJobTypeValue();
         String frameworkValue = jobNewNameDialog.getFrameworkValue();
-        // createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
-        // createOperation(jobNewName, jobTypeValue, frameworkValue, sourceNode, copyObjectAction,
-        // selectionInClipboard);
-        ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkValue, sourceNode.getObject());
+        try {
+            jobNameValue = getDuplicateName(sourceNode, jobNewName, selectionInClipboard);
+        } catch (BusinessException e) {
+            jobNameValue = ""; //$NON-NLS-1$
+        }
+
+        //
+        if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
+            String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
+            if (JobType.STANDARD.getDisplayName().equals(sourceJobType)) {
+                createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
+            }
+        }
+        //
+        ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
     }
 
     public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard)
