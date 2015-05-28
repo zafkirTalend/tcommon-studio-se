@@ -29,6 +29,7 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
@@ -71,16 +72,16 @@ public class MavenPomSynchronizer {
         IFolder templateFolder = codeProject.getTemplatesFolder();
 
         IFile shFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_SH_TEMPLATE_FILE_NAME);
-        MavenTemplateManager.copyTemplate(shFile.getName(), shFile, overwrite);
-
         IFile batFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_BAT_TEMPLATE_FILE_NAME);
-        MavenTemplateManager.copyTemplate(batFile.getName(), batFile, overwrite);
-
         IFile infoFile = templateFolder.getFile(MavenTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
-        MavenTemplateManager.copyTemplate(infoFile.getName(), infoFile, overwrite);
 
-        // IFile projectFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
-        // MavenTemplateManager.copyTemplate(projectFile.getName(), projectFile, overwrite);
+        String shContent = MavenTemplateManager.getProjectSettingValue(IProjectSettingPreferenceConstants.TEMPLATE_SH);
+        String batContent = MavenTemplateManager.getProjectSettingValue(IProjectSettingPreferenceConstants.TEMPLATE_BAT);
+        String jobInfoContent = MavenTemplateManager.getProjectSettingValue(IProjectSettingPreferenceConstants.TEMPLATE_JOB_INFO);
+
+        MavenTemplateManager.saveContent(shFile, shContent, overwrite);
+        MavenTemplateManager.saveContent(batFile, batContent, overwrite);
+        MavenTemplateManager.saveContent(infoFile, jobInfoContent, overwrite);
 
         templateFolder.refreshLocal(IResource.DEPTH_ONE, null);
     }

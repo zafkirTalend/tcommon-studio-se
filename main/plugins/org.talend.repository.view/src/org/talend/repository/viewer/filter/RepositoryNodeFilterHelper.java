@@ -31,6 +31,7 @@ import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.navigator.INavigatorFilterService;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.repository.RepositoryViewPlugin;
+import org.talend.repository.navigator.RepoViewCommonViewer;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -46,6 +47,10 @@ public class RepositoryNodeFilterHelper {
 
         processContentExtensions(commonViewer, activedFilter, activedPerspectiveFilter);
         processCommonFilters(commonViewer, activedFilter);
+
+        if (commonViewer instanceof RepoViewCommonViewer) {
+            ((RepoViewCommonViewer) commonViewer).fireRefreshNodePerspectiveLisenter();
+        }
 
     }
 

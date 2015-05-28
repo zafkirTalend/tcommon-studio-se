@@ -126,4 +126,6 @@ public interface IRepositoryService extends IService {
 
     public RepositoryNode getRepNodeFromRepReviewDialog(Shell parentShell, ERepositoryObjectType type, String repositoryType);
 
+    public void openProjectSettingDialog(final String pageId);
+
 }

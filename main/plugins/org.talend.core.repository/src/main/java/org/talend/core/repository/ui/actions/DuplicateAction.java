@@ -35,8 +35,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IInputValidator;
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -73,10 +71,14 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.ui.dialog.DuplicateDialog;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
+import org.talend.core.repository.utils.ConvertJobsUtil;
+import org.talend.core.repository.utils.ConvertJobsUtil.JobType;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
+import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -97,6 +99,8 @@ public class DuplicateAction extends AContextualAction {
     private IStructuredSelection selection = null;
 
     IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+    protected IProcessConvertService converter;// Just for the page which would like to convert self to another process.
 
     public DuplicateAction() {
         super();
@@ -132,7 +136,7 @@ public class DuplicateAction extends AContextualAction {
                     RepositoryNode sourceNode = (RepositoryNode) obj;
                     if (!CopyObjectAction.getInstance().validateAction(sourceNode, null)) {
                         canWork = false;
-                    } else if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOB_DOC
+                    } else if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS_SPARK
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC) {
                         canWork = false;
                     } else if (node.getContentType() == ERepositoryObjectType.JOBS
@@ -180,19 +184,18 @@ public class DuplicateAction extends AContextualAction {
         }
 
         Property property = sourceNode.getObject().getProperty();
-
+        Item item = property.getItem();
         Property updatedProperty = null;
         try {
             updatedProperty = ProxyRepositoryFactory.getInstance()
-                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId())
-                    .getProperty();
+                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(item)), property.getId()).getProperty();
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
         // update the property of the node repository object
         // sourceNode.getObject().setProperty(updatedProperty);
 
-        String initNameValue = "Copy_of_" + sourceNode.getObject().getProperty().getItem().getProperty().getDisplayName(); //$NON-NLS-1$
+        String initNameValue = "Copy_of_" + item.getProperty().getDisplayName(); //$NON-NLS-1$
 
         CopyObjectAction copyObjectAction = CopyObjectAction.getInstance();
 
@@ -209,24 +212,30 @@ public class DuplicateAction extends AContextualAction {
             jobNameValue = ""; //$NON-NLS-1$
         }
 
-        InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title"), //$NON-NLS-1$
-                Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
-
-                    @Override
-                    public String isValid(String newText) {
-                        return validJobName(sourceNode, newText, selectionInClipboard);
-                    }
-
-                });
+        DuplicateDialog jobNewNameDialog = new DuplicateDialog(null, sourceNode, jobNameValue);
 
         if (jobNewNameDialog.open() != Dialog.OK) {
             return;
         }
 
-        String jobNewName = jobNewNameDialog.getValue();
+        String jobNewName = jobNewNameDialog.getNameValue();
+        String jobTypeValue = jobNewNameDialog.getJobTypeValue();
+        String frameworkValue = jobNewNameDialog.getFrameworkValue();
+        try {
+            jobNameValue = getDuplicateName(sourceNode, jobNewName, selectionInClipboard);
+        } catch (BusinessException e) {
+            jobNameValue = ""; //$NON-NLS-1$
+        }
 
-        createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
-
+        //
+        if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
+            String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
+            if (JobType.STANDARD.getDisplayName().equals(sourceJobType)) {
+                createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
+            }
+        }
+        //
+        ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
     }
 
     public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard)

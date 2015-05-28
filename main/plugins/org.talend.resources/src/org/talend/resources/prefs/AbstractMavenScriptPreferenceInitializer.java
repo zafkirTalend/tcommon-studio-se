@@ -35,8 +35,14 @@ public abstract class AbstractMavenScriptPreferenceInitializer extends AbstractP
 
     protected abstract IPreferenceStore getPreferenceStore();
 
+    /**
+     * @deprecated won't use IExportScriptResourcesService any more.
+     */
     protected abstract IExportScriptResourcesService getExportScriptService();
 
+    /**
+     * @deprecated won't use IExportScriptResourcesService any more.
+     */
     protected String getMavenScriptTemplate(String pomPath) {
         IExportScriptResourcesService resourcesService = getExportScriptService();
         if (resourcesService == null) {
