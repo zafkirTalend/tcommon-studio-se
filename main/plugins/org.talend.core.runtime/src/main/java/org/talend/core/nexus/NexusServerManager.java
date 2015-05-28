@@ -28,6 +28,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.properties.User;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IRemoteService;
@@ -79,56 +80,64 @@ public class NexusServerManager {
     public static NexusServerBean getLibrariesNexusServer(boolean createTalendIfCustomNotExsit) {
         try {
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-            if (factory.getRepositoryContext() != null && factory.getRepositoryContext().getFields() != null) {
-                String adminUrl = factory.getRepositoryContext().getFields().get(RepositoryConstants.REPOSITORY_URL);
+            RepositoryContext repositoryContext = factory.getRepositoryContext();
+            if (repositoryContext != null && repositoryContext.getFields() != null) {
+                String adminUrl = repositoryContext.getFields().get(RepositoryConstants.REPOSITORY_URL);
                 String userName = "";
                 String password = "";
-                User user = factory.getRepositoryContext().getUser();
+                User user = repositoryContext.getUser();
                 if (user != null) {
                     userName = user.getLogin();
-                    password = new String(user.getPassword());
+                    password = repositoryContext.getClearPassword();
                 }
                 NexusServerBean serverBean = null;
-                if (adminUrl != null && !"".equals(adminUrl)
-                        && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
-                    serverBean = new NexusServerBean();
-                    IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
-                            IRemoteService.class);
-                    JSONObject updateRepositoryUrl;
-                    updateRepositoryUrl = remoteService.getLibLocation(userName, password, adminUrl);
-                    // the url like http://localhost:8081/nexus/content/repositories/org.talend.libraries/ which
-                    // contains the repository id
-                    String nexus_url = updateRepositoryUrl.getString(KEY_LIB_RUL);
-                    String nexus_user = updateRepositoryUrl.getString(KEY_LIB_USER);
-                    String nexus_pass = updateRepositoryUrl.getString(KEY_LIB_PASS);
-                    String url = nexus_url;
-                    if (url.endsWith(NexusConstants.SLASH)) {
-                        url = url.substring(0, url.length() - 1);
-                    }
-                    if (!nexus_url.endsWith(NexusConstants.SLASH)) {
-                        nexus_url = nexus_url + NexusConstants.SLASH;
-                    }
-                    serverBean.setRepositoryUrl(nexus_url);
+                // for test
+                serverBean = getSoftwareUpdateNexusServer(adminUrl, userName, password);
 
-                    String server = url.substring(0, url.indexOf(NexusConstants.CONTENT_REPOSITORIES));
-                    String repositoryId = url.substring(url.indexOf(NexusConstants.CONTENT_REPOSITORIES)
-                            + NexusConstants.CONTENT_REPOSITORIES.length(), url.length());
-                    serverBean.setServer(server);
-                    serverBean.setUserName(nexus_user);
-                    serverBean.setPassword(nexus_pass);
-                    serverBean.setRepositoryId(repositoryId);
-                }
+                // TODO add back after TAC add the servlet
+                // if (adminUrl != null && !"".equals(adminUrl)
+                // && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
+                // serverBean = new NexusServerBean();
+                // IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
+                // IRemoteService.class);
+                // JSONObject updateRepositoryUrl;
+                // updateRepositoryUrl = remoteService.getLibLocation(userName, password, adminUrl);
+                // // the url like http://localhost:8081/nexus/content/repositories/org.talend.libraries/ which
+                // // contains the repository id
+                // String nexus_url = updateRepositoryUrl.getString(KEY_LIB_RUL);
+                // String nexus_user = updateRepositoryUrl.getString(KEY_LIB_USER);
+                // String nexus_pass = updateRepositoryUrl.getString(KEY_LIB_PASS);
+                // String url = nexus_url;
+                // if (url.endsWith(NexusConstants.SLASH)) {
+                // url = url.substring(0, url.length() - 1);
+                // }
+                // if (!nexus_url.endsWith(NexusConstants.SLASH)) {
+                // nexus_url = nexus_url + NexusConstants.SLASH;
+                // }
+                // serverBean.setRepositoryUrl(nexus_url);
+                //
+                // String server = url.substring(0, url.indexOf(NexusConstants.CONTENT_REPOSITORIES));
+                // String repositoryId = url.substring(url.indexOf(NexusConstants.CONTENT_REPOSITORIES)
+                // + NexusConstants.CONTENT_REPOSITORIES.length(), url.length());
+                // serverBean.setServer(server);
+                // serverBean.setUserName(nexus_user);
+                // serverBean.setPassword(nexus_pass);
+                // serverBean.setRepositoryId(repositoryId);
+                // }
                 if (serverBean != null) {
                     return serverBean;
                 }
             }
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-        } catch (LoginException e) {
-            ExceptionHandler.process(e);
-        } catch (JSONException e) {
-            ExceptionHandler.process(e);
-        } finally {
+        }
+        // TODO add back after TAC add the servlet
+        // catch (PersistenceException e) {
+        // ExceptionHandler.process(e);
+        // } catch (LoginException e) {
+        // ExceptionHandler.process(e);
+        // } catch (JSONException e) {
+        // ExceptionHandler.process(e);
+        // }
+        finally {
             if (createTalendIfCustomNotExsit) {
                 NexusServerBean serverBean = new NexusServerBean(true);
                 serverBean.setServer(TALEND_LIB_SERVER);
