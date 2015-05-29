@@ -35,6 +35,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -136,7 +138,7 @@ public class DuplicateAction extends AContextualAction {
                     RepositoryNode sourceNode = (RepositoryNode) obj;
                     if (!CopyObjectAction.getInstance().validateAction(sourceNode, null)) {
                         canWork = false;
-                    } else if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS_SPARK
+                    } else if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOB_DOC
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC) {
                         canWork = false;
                     } else if (node.getContentType() == ERepositoryObjectType.JOBS
@@ -211,31 +213,46 @@ public class DuplicateAction extends AContextualAction {
         } catch (BusinessException e) {
             jobNameValue = ""; //$NON-NLS-1$
         }
-
-        DuplicateDialog jobNewNameDialog = new DuplicateDialog(null, sourceNode, jobNameValue);
-
-        if (jobNewNameDialog.open() != Dialog.OK) {
-            return;
-        }
-
-        String jobNewName = jobNewNameDialog.getNameValue();
-        String jobTypeValue = jobNewNameDialog.getJobTypeValue();
-        String frameworkValue = jobNewNameDialog.getFrameworkValue();
-        try {
-            jobNameValue = getDuplicateName(sourceNode, jobNewName, selectionInClipboard);
-        } catch (BusinessException e) {
-            jobNameValue = ""; //$NON-NLS-1$
-        }
-
         //
-        if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
-            String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
-            if (JobType.STANDARD.getDisplayName().equals(sourceJobType)) {
-                createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
+        if (item instanceof ProcessItem) {
+            DuplicateDialog jobNewNameDialog = new DuplicateDialog(null, sourceNode, jobNameValue);
+            if (jobNewNameDialog.open() != Dialog.OK) {
+                return;
             }
+            String jobNewName = jobNewNameDialog.getNameValue();
+            String jobTypeValue = jobNewNameDialog.getJobTypeValue();
+            String frameworkValue = jobNewNameDialog.getFrameworkValue();
+            try {
+                jobNameValue = getDuplicateName(sourceNode, jobNewName, selectionInClipboard);
+            } catch (BusinessException e) {
+                jobNameValue = ""; //$NON-NLS-1$
+            }
+            //
+            if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
+                String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
+                if (JobType.STANDARD.getDisplayName().equals(sourceJobType)) {
+                    createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
+                }
+            }
+            //
+            ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
+        } else {
+            InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title"), //$NON-NLS-1$
+                    Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
+
+                        @Override
+                        public String isValid(String newText) {
+                            return validJobName(sourceNode, newText, selectionInClipboard);
+                        }
+
+                    });
+
+            if (jobNewNameDialog.open() != Dialog.OK) {
+                return;
+            }
+            String jobNewName = jobNewNameDialog.getValue();
+            createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
         }
-        //
-        ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
     }
 
     public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard)
