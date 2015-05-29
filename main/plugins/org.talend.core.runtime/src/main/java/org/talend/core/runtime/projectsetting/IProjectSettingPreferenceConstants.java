@@ -29,4 +29,27 @@ public interface IProjectSettingPreferenceConstants {
     public static final String TEMPLATE_SH = "template_sh_script";
 
     public static final String TEMPLATE_BAT = "template_bat_script";
+
+    /*
+     * route karaf
+     */
+    public static final String TEMPLATE_ROUTES_KARAF_POM = "template_routes_karaf_pom_maven_script"; //$NON-NLS-1$
+
+    public static final String TEMPLATE_ROUTES_KARAF_BUNDLE = "template_routes_karaf_bundle_maven_script"; //$NON-NLS-1$
+
+    public static final String TEMPLATE_ROUTES_KARAF_FEATURE = "template_routes_karaf_feature_maven_script"; //$NON-NLS-1$
+
+    public static final String TEMPLATE_ROUTES_KARAF_PARENT = "template_routes_karaf_parent_maven_script"; //$NON-NLS-1$
+
+    /*
+     * services karaf
+     */
+    public static final String TEMPLATE_SERVICES_KARAF_POM = "template_services_karaf_pom_maven_script"; //$NON-NLS-1$
+
+    public static final String TEMPLATE_SERVICES_KARAF_BUNDLE = "template_services_karaf_bundle_maven_script"; //$NON-NLS-1$
+
+    public static final String TEMPLATE_SERVICES_KARAF_FEATURE = "template_services_karaf_feature_maven_script"; //$NON-NLS-1$
+
+    public static final String TEMPLATE_SERVICES_KARAF_PARENT = "template_services_karaf_parent_maven_script"; //$NON-NLS-1$
+
 }

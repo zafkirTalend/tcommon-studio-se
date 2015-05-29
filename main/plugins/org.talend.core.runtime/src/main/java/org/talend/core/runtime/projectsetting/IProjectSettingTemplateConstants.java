@@ -10,22 +10,21 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
+package org.talend.core.runtime.projectsetting;
 
-import org.talend.designer.maven.model.TalendMavenConstants;
 
 /**
- * created by ggu on 2 Feb 2015 Detailled comment
- *
+ * DOC ggu class global comment. Detailled comment
  */
-@SuppressWarnings("nls")
-public interface MavenTemplateConstants {
+public interface IProjectSettingTemplateConstants {
 
     final static String PATH_RESOURCES = "resources";
 
     final static String PATH_RESOURCES_TEMPLATES = PATH_RESOURCES + '/' + "templates";
 
-    final static String PATH_OSGI_BUNDLE_TEMPLATE = PATH_RESOURCES_TEMPLATES + '/' + TalendMavenConstants.OSGI_BUNDLE_NAME;
+    static final String POM_FILE_NAME = "pom.xml";
+
+    static final String ASSEMBLY_FILE_NAME = "assembly.xml";
 
     /*
      * pom templates
@@ -48,5 +47,16 @@ public interface MavenTemplateConstants {
     final static String JOB_RUN_SH_TEMPLATE_FILE_NAME = "Job_run_template.sh";
 
     final static String JOB_INFO_TEMPLATE_FILE_NAME = "jobInfo_template.properties";
+
+    /*
+     * karaf
+     */
+    static final String MAVEN_CONTROL_BUILD_BUNDLE_FILE_NAME = "pom-control-bundle.xml"; //$NON-NLS-1$
+
+    static final String MAVEN_KARAF_BUILD_BUNDLE_FILE_NAME = "pom-bundle.xml"; //$NON-NLS-1$
+
+    static final String MAVEN_KARAF_BUILD_FEATURE_FILE_NAME = "pom-feature.xml"; //$NON-NLS-1$
+
+    static final String MAVEN_KARAF_BUILD_PARENT_FILE_NAME = "pom-parent.xml"; //$NON-NLS-1$
 
 }

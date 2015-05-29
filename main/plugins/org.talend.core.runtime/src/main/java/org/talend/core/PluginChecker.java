@@ -101,6 +101,10 @@ public class PluginChecker {
 
     public static final String APACHE_FELIX_GOGO_RUNTIME_PLUGIN_ID = "org.apache.felix.gogo.runtime"; //$NON-NLS-1$
 
+    public static final String EXPORT_ROUTE_PLUGIN_ID = "org.talend.resources.export.route"; //$NON-NLS-1$
+
+    public static final String MAVEN_JOB_PLUGIN_ID = "org.talend.designer.maven.job"; //$NON-NLS-1$
+
     /**
      * Check if specific plug-in is loaded.
      * 

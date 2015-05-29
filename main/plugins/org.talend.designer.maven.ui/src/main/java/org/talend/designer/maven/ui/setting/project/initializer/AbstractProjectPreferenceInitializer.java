@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.services.resource.IExportScriptResourcesService;
 import org.talend.designer.maven.template.AbstractMavenTemplateManager;
 import org.talend.designer.maven.template.MavenTemplateManager;
 
@@ -59,17 +58,6 @@ public abstract class AbstractProjectPreferenceInitializer extends AbstractPrefe
         return null;
     }
 
-    /**
-     * @deprecated use setDefault instead, later, won't use IExportScriptResourcesService any more.
-     */
-    protected void setDefaultValue(IPreferenceStore preferenceStore, IExportScriptResourcesService service, String scriptPath,
-            String profKey) {
-        String pomContents = getContents(new File(service.getMavenScriptFilePath(scriptPath)));
-        if (pomContents != null && pomContents.length() > 0) {
-            preferenceStore.setDefault(profKey, pomContents);
-        }
-    }
-
     @Override
     public void initializeDefaultPreferences() {
         initializeFields(getPreferenceStore());
@@ -90,7 +78,7 @@ public abstract class AbstractProjectPreferenceInitializer extends AbstractPrefe
                 }
             }
         } catch (Exception e) {
-            // ExceptionHandler.process(e);
+            ExceptionHandler.process(e);
         }
     }
 }

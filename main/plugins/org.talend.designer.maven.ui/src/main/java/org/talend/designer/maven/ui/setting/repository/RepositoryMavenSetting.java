@@ -13,7 +13,6 @@
 package org.talend.designer.maven.ui.setting.repository;
 
 import org.talend.designer.maven.ui.setting.repository.node.RepositoryPreferenceNode;
-import org.talend.designer.maven.ui.setting.repository.registry.MavenSettingPagesRegistryReader;
 import org.talend.designer.maven.ui.setting.repository.tester.IRepositorySettingTester;
 import org.talend.repository.model.RepositoryNode;
 
@@ -21,8 +20,6 @@ import org.talend.repository.model.RepositoryNode;
  * DOC ggu class global comment. Detailled comment
  */
 public abstract class RepositoryMavenSetting {
-
-    protected final static MavenSettingPagesRegistryReader REGISTRY = new MavenSettingPagesRegistryReader();
 
     private String name, description;
 

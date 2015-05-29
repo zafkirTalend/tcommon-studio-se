@@ -14,6 +14,7 @@ package org.talend.designer.maven.model;
 
 import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -38,7 +39,7 @@ public interface TalendMavenConstants {
 
     static final String ASSEMBLY_NAME = "assembly";
 
-    static final String ASSEMBLY_FILE_NAME = ASSEMBLY_NAME + XML_EXT;
+    static final String ASSEMBLY_FILE_NAME = IProjectSettingTemplateConstants.ASSEMBLY_FILE_NAME;
 
     static final String OSGI_BUNDLE_NAME = "osgi";
 

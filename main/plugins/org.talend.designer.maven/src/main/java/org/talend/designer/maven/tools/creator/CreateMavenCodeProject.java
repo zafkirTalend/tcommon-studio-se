@@ -32,10 +32,10 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.utils.PomUtil;
 
 /**
@@ -47,7 +47,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
     private IProject project;
 
     public CreateMavenCodeProject(IProject project) {
-        super(project.getFile(TalendMavenConstants.POM_FILE_NAME), MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+        super(project.getFile(TalendMavenConstants.POM_FILE_NAME), IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
         Assert.isNotNull(project);
         this.project = project;
     }

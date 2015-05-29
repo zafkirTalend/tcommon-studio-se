@@ -45,8 +45,8 @@ import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomUtil;
@@ -72,7 +72,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
     private IPath itemRelativePath;
 
     public CreateMavenTestPom(IProcessor jobProcessor, IFile pomFile) {
-        super(pomFile, MavenTemplateConstants.POM_TEST_TEMPLATE_FILE_NAME);
+        super(pomFile, IProjectSettingTemplateConstants.POM_TEST_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);

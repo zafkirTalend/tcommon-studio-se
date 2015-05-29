@@ -60,9 +60,9 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
@@ -101,7 +101,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
     private IPath itemRelativePath;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
-        super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
+        super(pomFile, IProjectSettingTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
@@ -395,7 +395,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
                 String content = MavenTemplateManager.getTemplateContent(templateFile,
                         IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_ASSEMBLY,
-                        MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
+                        IProjectSettingTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
                 if (content != null) {
                     FileWriter writer = new FileWriter(assemblyFile.getLocation().toFile());
                     writer.write(content);

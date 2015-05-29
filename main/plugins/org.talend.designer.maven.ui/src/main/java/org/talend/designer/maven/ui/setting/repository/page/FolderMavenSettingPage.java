@@ -15,8 +15,15 @@ package org.talend.designer.maven.ui.setting.repository.page;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -24,6 +31,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.IPreferencePageContainer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceStore;
@@ -40,10 +48,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.LoginException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.projectsetting.AbstractProjectSettingPage;
 import org.talend.core.runtime.projectsetting.IProjectSettingContainer;
+import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 import org.talend.designer.maven.ui.i18n.Messages;
 import org.talend.designer.maven.ui.setting.repository.RepositoryMavenSettingDialog;
 import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
@@ -212,13 +223,25 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
 
         createBtn.setEnabled(!created && !readonly);
         deleteBtn.setEnabled(created && !readonly);
+
+        deleteBtn.getParent().layout(true);
     }
 
     protected boolean checkMavenScriptsExisted(IFolder nodeFolder) {
-        return DesignerMavenUiHelper.existMavenSetting(nodeFolder);
+        return DesignerMavenUiHelper.existMavenSetting(nodeFolder, getProcessFileNames());
     }
 
     protected abstract String createMessages(boolean created);
+
+    protected String[] buildLinks(String... fileNames) {
+        List<String> list = new ArrayList<String>();
+        if (fileNames != null && fileNames.length > 0) {
+            for (String name : fileNames) {
+                list.add(buildLink(name));
+            }
+        }
+        return list.toArray(new String[0]);
+    }
 
     protected String buildLink(String fileWithExtension) {
         String name = fileWithExtension;
@@ -237,9 +260,14 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
 
     protected void processLinkId(SelectionEvent e) {
         String id = e.text;
-        if (ID_MAVEN_PROJECT_SETTING.equals(id)) {
+        if (getDefaultProjectSettingId().equals(id)) {
             openProjectSettingDialog(id);
         }
+        processLinkIdForFileNames(id, getProcessFileNames());
+    }
+
+    protected String getDefaultProjectSettingId() {
+        return ID_MAVEN_PROJECT_SETTING;
     }
 
     protected void processLinkIdForFileNames(String id, String... fileNames) {
@@ -274,14 +302,163 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
         }
     }
 
-    protected abstract void createMavenFiles();
+    protected abstract ProjectPreferenceManager getProjectSettingManager();
 
-    protected abstract void deleteMavenFiles();
+    protected Map<String, String> getProjectSettingKeyWithFileNamesMap() {
+        return Collections.emptyMap();
+    }
+
+    protected String[] getProcessFileNames() {
+        Map<String, String> projectSettingKeyWithFileNamesMap = getProjectSettingKeyWithFileNamesMap();
+        return projectSettingKeyWithFileNamesMap.values().toArray(new String[0]);
+    }
+
+    protected Map<String, IFile> buildProjectSettingKeyWithFilesMap(IFolder nodeFolder) {
+        Map<String, IFile> projectSettingKeyWithFilesMap = new LinkedHashMap<String, IFile>();
+
+        Map<String, String> projectSettingKeyWithFileNamesMap = getProjectSettingKeyWithFileNamesMap();
+
+        for (String projectSettingKey : projectSettingKeyWithFileNamesMap.keySet()) {
+            String fileName = projectSettingKeyWithFileNamesMap.get(projectSettingKey);
+            if (fileName != null) {
+                IFile mavenFile = nodeFolder.getFile(fileName);
+                projectSettingKeyWithFilesMap.put(projectSettingKey, mavenFile);
+            }
+        }
+        return projectSettingKeyWithFilesMap;
+    }
+
+    protected void createMavenFiles() {
+        processFiles(new RepositoryWorkUnit(createBtn.getText()) {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
+
+                Map<String, IFile> buildProjectSettingKeyWithFilesMap = buildProjectSettingKeyWithFilesMap(nodeFolder);
+
+                boolean success = true;
+                for (String projectSettingKey : buildProjectSettingKeyWithFilesMap.keySet()) {
+                    IFile mavenFile = buildProjectSettingKeyWithFilesMap.get(projectSettingKey);
+                    boolean created = createFileFromProjectSetting(mavenFile, projectSettingKey);
+                    if (!created) {
+                        success = false;
+                        break;
+                    }
+                }
+
+                if (success) {
+                    // update the tree view to add the new nodes
+                    final Shell shell = FolderMavenSettingPage.this.getShell();
+                    shell.getDisplay().syncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // have created,no need check again.
+                            List<IPreferenceNode> childrenNodes = createMavenChildrenNodes(nodeFolder);
+
+                            IPreferencePageContainer container = getContainer();
+                            if (container instanceof IProjectSettingContainer) {
+                                ((IProjectSettingContainer) container).addChildrenPreferenceNodes(getPrefNodeId(),
+                                        childrenNodes);
+                            }
+                        }
+                    });
+
+                } else { // if failed, clean the created files.
+                    for (String projectSettingKey : buildProjectSettingKeyWithFilesMap.keySet()) {
+                        IFile mavenFile = buildProjectSettingKeyWithFilesMap.get(projectSettingKey);
+                        File mFile = mavenFile.getLocation().toFile();
+                        if (mFile.exists()) {
+                            mFile.delete();
+                        }
+                    }
+                    //
+                    showErrorDialog(nodeFolder.getProjectRelativePath().toString());
+                }
+
+                // refresh
+                try {
+                    nodeFolder.refreshLocal(IResource.DEPTH_ONE, null);
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+
+        });
+
+    }
+
+    protected boolean createFileFromProjectSetting(IFile targetFile, String projectSettingKey) {
+        boolean ok = false;
+        try {
+            String pomContent = getProjectSettingManager().getValue(projectSettingKey);
+            if (pomContent == null) { // use project setting always
+                // pomContent =
+                // MavenTemplateManager.getTemplateContent(MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
+            }
+            if (pomContent != null && pomContent.length() > 0) {
+                writeContent(targetFile.getLocation().toFile(), pomContent);
+                ok = true;
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return ok;
+    }
 
     protected void writeContent(File file, String contents) throws IOException {
         FileWriter pomWriter = new FileWriter(file);
         pomWriter.write(contents);
         pomWriter.close();
+    }
+
+    protected abstract List<IPreferenceNode> createMavenChildrenNodes(IFolder nodeFolder);
+
+    protected void deleteMavenFiles() {
+        processFiles(new RepositoryWorkUnit(deleteBtn.getText()) {
+
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                //
+                try {
+                    final IFolder nodeFolder = DesignerMavenUiHelper.getNodeFolder(getNode());
+                    final Map<String, IFile> buildProjectSettingKeyWithFilesMap = buildProjectSettingKeyWithFilesMap(nodeFolder);
+                    // update the tree view to add the new nodes
+                    final Shell shell = FolderMavenSettingPage.this.getShell();
+                    shell.getDisplay().syncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            List<String> childIds = new ArrayList<String>();
+
+                            for (String projectSettingKey : buildProjectSettingKeyWithFilesMap.keySet()) {
+                                IFile mavenFile = buildProjectSettingKeyWithFilesMap.get(projectSettingKey);
+                                String nodeId = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(getPrefNodeId(), mavenFile);
+                                childIds.add(nodeId);
+                            }
+
+                            IPreferencePageContainer container = getContainer();
+                            if (container instanceof IProjectSettingContainer) {
+                                ((IProjectSettingContainer) container).removeChildrenPreferenceNodes(getPrefNodeId(), childIds);
+                            }
+                        }
+                    });
+
+                    for (String projectSettingKey : buildProjectSettingKeyWithFilesMap.keySet()) {
+                        IFile mavenFile = buildProjectSettingKeyWithFilesMap.get(projectSettingKey);
+                        if (mavenFile.exists()) {
+                            mavenFile.delete(true, null);
+                        }
+                    }
+
+                    nodeFolder.refreshLocal(IResource.DEPTH_ONE, null);
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+
+        });
     }
 
     protected void processFiles(final RepositoryWorkUnit rwu) {

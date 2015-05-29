@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 
@@ -48,7 +49,7 @@ public class MavenTemplateManager {
     public static InputStream getBundleTemplateStream(String templateName) throws IOException {
         if (templateName != null) {
             URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                    .getEntry(MavenTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + templateName);
+                    .getEntry(IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + templateName);
             if (templateUrl != null) {
                 InputStream inputStream = templateUrl.openStream();
                 return inputStream;
