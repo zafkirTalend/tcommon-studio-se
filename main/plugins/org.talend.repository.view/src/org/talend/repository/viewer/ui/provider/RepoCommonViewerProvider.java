@@ -76,6 +76,22 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
                     .getNavigatorContentService();
 
             // perspecitive filter
+            doPerspecitiveFilterForCommonViewer(treeViewer, specifiedPerspectiveId);
+
+            // filers
+            INavigatorFilterService filterService = navigatorContentService.getFilterService();
+            ViewerFilter[] visibleFilters = filterService.getVisibleFilters(true);
+            for (ViewerFilter visibleFilter : visibleFilters) {
+                treeViewer.addFilter(visibleFilter);
+            }
+        }
+    }
+
+    protected void doPerspecitiveFilterForCommonViewer(TreeViewer treeViewer, String specifiedPerspectiveId) {
+        if (treeViewer instanceof INavigatorContentServiceProvider) {
+            INavigatorContentService navigatorContentService = ((INavigatorContentServiceProvider) treeViewer)
+                    .getNavigatorContentService();
+            // perspecitive filter
             IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
             if (activeWorkbenchWindow != null) {
                 IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
@@ -90,13 +106,6 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
                     helper.doFiltering(perspectiveId);
 
                 }
-            }
-
-            // filers
-            INavigatorFilterService filterService = navigatorContentService.getFilterService();
-            ViewerFilter[] visibleFilters = filterService.getVisibleFilters(true);
-            for (ViewerFilter visibleFilter : visibleFilters) {
-                treeViewer.addFilter(visibleFilter);
             }
         }
     }

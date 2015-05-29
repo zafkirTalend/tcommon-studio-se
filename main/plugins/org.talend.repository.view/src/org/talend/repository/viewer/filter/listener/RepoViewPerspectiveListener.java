@@ -116,8 +116,6 @@ public class RepoViewPerspectiveListener implements IPerspectiveListener, IPersp
         if (commonViewer2 instanceof RepoViewCommonViewer) {
             RepositoryNodeFilterHelper.filter(commonViewer2, RepositoryNodeFilterHelper.isActivedFilter(),
                     PerspectiveFilterHelper.isActivedPerspectiveFilter());
-
-            ((RepoViewCommonViewer) commonViewer2).fireRefreshNodePerspectiveLisenter();
         }
 
     }

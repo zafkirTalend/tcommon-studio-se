@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="org.talend.designer.maven.ui.projectsetting.initializer.MavenScriptsProjectSettingInitializer">
-      </initializer>
-   </extension>
+   <extension-point id="repositoryMavenSetting" name="RepositoryMavenSetting" schema="schema/repositoryMavenSetting.exsd"/>
    <extension
          point="org.talend.repository.projectsetting_page">
       <page
-            class="org.talend.designer.maven.ui.projectsetting.BuildProjectSettingPage"
+            class="org.talend.designer.maven.ui.setting.project.page.BuildProjectSettingPage"
             description="Build settings"
             id="projectsetting.Build"
-            title="%ProjectSettingPage.Build">
+            title="%ProjectSettingPage_Build">
       </page>
-   </extension>
-   <extension
-         point="org.talend.repository.projectsetting_page">
       <page
             category="projectsetting.Build"
-            class="org.talend.designer.maven.ui.projectsetting.MavenProjectSettingPage"
+            class="org.talend.designer.maven.ui.setting.project.page.MavenProjectSettingPage"
             description="Maven Settings"
             id="projectsetting.Maven"
-            title="%ProjectSettingPage.Maven">
+            order="99"
+            title="%ProjectSettingPage_Maven">
       </page>
       <page
             category="projectsetting.Maven"
-            class="org.talend.designer.maven.ui.projectsetting.job.AutonomousJobProjectSettingPage"
-            description="Maven settings for Autonomous Job"
-            id="projectsetting.AutonomousJob"
-            title="%ProjectSettingPage.AutonomousJob">
+            class="org.talend.designer.maven.ui.setting.project.page.MavenDefaultProjectSettingPage"
+            description="The default setting for Maven scripts"
+            id="projectsetting.MavenDefault"
+            order="0"
+            title="%ProjectSettingPage_MavenDefault">
       </page>
       <page
-            category="projectsetting.AutonomousJob"
-            class="org.talend.designer.maven.ui.projectsetting.job.AutonomousJobAssemblyProjectSettingPage"
-            description="Assembly settings for Autonomous Job"
-            id="projectsetting.AutonomousJobAssembly"
-            title="%ProjectSettingPage.Assembly">
+            category="projectsetting.Maven"
+            class="org.talend.designer.maven.ui.setting.project.page.MavenCustomSetupProjectSettingPage"
+            description="Setup Custom Maven scripts by folder"
+            id="projectsetting.MavenCustomSetup"
+            order="99"
+            title="%ProjectSettingPage_MavenCustomSetup">
       </page>
    </extension>
    <extension
          point="org.talend.core.runtime.service">
       <Service
-            class="org.talend.designer.maven.ui.DesignerMavenUIService"
-            serviceId="IDesignerMavenUIService">
+            class="org.talend.designer.maven.ui.MavenUIService"
+            serviceId="IMavenUIService">
       </Service>
    </extension>
    <extension
@@ -57,6 +52,12 @@
             isReadAction="false"
             name="Config Folder Maven Pom">
       </Action>
+   </extension>
+   <extension
+         point="org.talend.designer.maven.mavenSetting">
+      <ProjectSettingManager
+            class="org.talend.designer.maven.ui.setting.project.MavenUiProjectSettingManagerProvider">
+      </ProjectSettingManager>
    </extension>
 
 </plugin>

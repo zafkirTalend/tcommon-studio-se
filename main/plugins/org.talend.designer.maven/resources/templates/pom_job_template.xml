@@ -34,7 +34,7 @@
 		<!-- for bat/sh -->
 		<talend.job.bat.classpath>@JobBatClasspath@</talend.job.bat.classpath>
 		<talend.job.sh.classpath>@JobShClasspath@</talend.job.sh.classpath>
-		<talend.job.script.addition>""</talend.job.script.addition> <!-- empty by default -->
+		<talend.job.script.addition></talend.job.script.addition> <!-- empty by default -->
 	</properties>
 
 	<dependencies>
@@ -61,10 +61,10 @@
 						<!-- only compile the job source -->
 						<include>${talend.job.path}/**.java</include>
 					</includes>
-                    <testExcludes>
-                        <!-- exclude every test -->
-                        <exclude>**</exclude>
-                    </testExcludes>
+					<testExcludes>
+						<!-- exclude every test -->
+						<exclude>**</exclude>
+					</testExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -121,20 +121,17 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<target name="${talend.job.name}_test">
-								<!-- Copy and rename the sh/bat to target folder -->
-								<condition property="isSet">
-									<isset property="running.scripts.dir" />
-								</condition>
-								<antcall target="copyScripts"></antcall>
-							</target>
-							<target name="${talend.job.name}_copyScripts" if="isSet">
-								<mkdir dir="${running.scripts.dir}" />
-								<copy todir="${running.scripts.dir}">
+							<tasks>
+								<!-- must be same as "running.scripts.dir" in profile "include-binaries" -->
+								<property name="scripts.dir"
+									value="${project.build.directory}/RunScripts/${talend.job.name}" />
+								<delete dir="${scripts.dir}" />
+								<mkdir dir="${scripts.dir}" />
+								<copy todir="${scripts.dir}">
 									<fileset dir="${basedir}/src/main/templates/" />
 									<globmapper from="Job_run_template.*" to="${talend.job.name}_run.*" />
 								</copy>
-							</target>
+							</tasks>
 						</configuration>
 					</execution>
 				</executions>

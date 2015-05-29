@@ -12,30 +12,16 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -60,10 +46,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.designer.core.IDesignerCoreService;
-import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.IProjectSettingPreferenceConstants;
 import org.talend.designer.maven.template.MavenTemplateConstants;
-import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomUtil;
@@ -71,12 +54,6 @@ import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.utils.io.FilesUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * created by ggu on 4 Feb 2015 Detailled comment
@@ -207,10 +184,12 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
      */
     @Override
     protected InputStream getTemplateStream() throws IOException {
-        File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
-                TalendMavenConstants.POM_FILE_NAME);
-        return MavenTemplateManager.getTemplateStream(templateFile,
-                IProjectSettingPreferenceConstants.MAVEN_SCRIPT_AUTONOMOUSJOB_TEMPLATE, getBundleTemplateName());
+        // FIXME, will use the bundle template always
+        // File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
+        // TalendMavenConstants.POM_FILE_NAME);
+        // return MavenTemplateManager.getTemplateStream(templateFile,
+        // IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, getBundleTemplateName());
+        return super.getTemplateStream();
     }
 
     /**
