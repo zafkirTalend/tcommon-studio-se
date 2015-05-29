@@ -103,6 +103,8 @@ public class PluginChecker {
 
     public static final String EXPORT_ROUTE_PLUGIN_ID = "org.talend.resources.export.route"; //$NON-NLS-1$
 
+    public static final String EXPORT_JOB_PLUGIN_ID = "org.talend.resources.export.job"; //$NON-NLS-1$
+
     public static final String MAVEN_JOB_PLUGIN_ID = "org.talend.designer.maven.job"; //$NON-NLS-1$
 
     /**
