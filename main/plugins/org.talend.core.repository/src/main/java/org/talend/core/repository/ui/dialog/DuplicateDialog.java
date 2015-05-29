@@ -98,14 +98,7 @@ public class DuplicateDialog extends Dialog {
     private void init() {
         nameLabel.setText(jobNameValue);
         if (sourceNode != null) {
-            Property property = sourceNode.getObject().getProperty();
-            Item item = property.getItem();
-            Object obj = ConvertJobsUtil.getFramework(item);
-            if (obj != null) {
-                frameworkValue = ConvertJobsUtil.getFramework(item).toString();
-                frameworkCombo.setText(frameworkValue);
-            }
-            //
+            // job type
             if (sourceNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS) {
                 jobTypeValue = JobType.STANDARD.getDisplayName();
                 jobTypeCombo.setText(jobTypeValue);
@@ -115,6 +108,14 @@ public class DuplicateDialog extends Dialog {
             } else if (sourceNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS_STORM) {
                 jobTypeValue = JobType.BIGDATASTREAMING.getDisplayName();
                 jobTypeCombo.setText(jobTypeValue);
+            }
+            // framework
+            Property property = sourceNode.getObject().getProperty();
+            Item item = property.getItem();
+            Object obj = ConvertJobsUtil.getFramework(item);
+            if (obj != null) {
+                frameworkValue = ConvertJobsUtil.getFramework(item).toString();
+                frameworkCombo.setText(frameworkValue);
             }
         }
     }
