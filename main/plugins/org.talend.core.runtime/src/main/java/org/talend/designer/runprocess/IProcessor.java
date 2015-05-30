@@ -303,8 +303,6 @@ public interface IProcessor {
 
     String getMainClass();
 
-    Set<String> getNeededLibraries();
-
     Set<ModuleNeeded> getNeededModules();
 
     Set<JobInfo> getBuildChildrenJobs();

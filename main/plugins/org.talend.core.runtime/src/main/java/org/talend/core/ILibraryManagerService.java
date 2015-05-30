@@ -14,12 +14,10 @@ package org.talend.core;
 
 import java.net.URI;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.ModuleNeeded;
 
 /**
@@ -39,11 +37,7 @@ public interface ILibraryManagerService extends IService {
 
     public void setInitialized();
 
-    @Deprecated
-    public void deploy(Set<IComponent> componentList, IProgressMonitor... monitorWrap);
-
-    @Deprecated
-    public void deploy(List<ModuleNeeded> modules, IProgressMonitor... monitorWrap);
+    public void deployModules(Collection<ModuleNeeded> modules, IProgressMonitor monitorWrap);
 
     /**
      * 

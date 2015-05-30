@@ -489,17 +489,13 @@ public class ProcessorUtilities {
             IProcessor processor, Set<ModuleNeeded> neededLibraries) throws ProcessorException {
         // generate pigudf.jar before generate code
         // update calss path before export pigudf
-        Set<String> jarList = new HashSet<String>();
         Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
                 jobInfo.getJobVersion());
-        for (ModuleNeeded module : neededModules) {
-            jarList.add(module.getModuleName());
-        }
         Set<String> pigudfNeededWithSubjobPerJob = LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
                 jobInfo.getJobId(), jobInfo.getJobVersion());
         String pigModuleName = null;
         if (selectedProcessItem != null && !pigudfNeededWithSubjobPerJob.isEmpty()) {
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             pigModuleName = service.exportPigudf(processor, selectedProcessItem.getProperty(), exportConfig);
         }
@@ -547,13 +543,9 @@ public class ProcessorUtilities {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
 
-            Set<String> jarList = new HashSet<String>();
             Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
                     jobInfo.getJobId(), jobInfo.getJobVersion());
-            for (ModuleNeeded module : neededModules) {
-                jarList.add(module.getModuleName());
-            }
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
 
             if (codeModified) {
                 processor.build();

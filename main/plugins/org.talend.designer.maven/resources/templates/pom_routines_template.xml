@@ -37,7 +37,7 @@
 				<configuration>
 					<includes>
 						<!-- only compile the routines source -->
-						<include>${talend.routines.package}/**.java</include>
+                        <include>${talend.routines.package}/**/*.java</include>
 					</includes>
                     <testExcludes>
                         <!-- exclude every test -->
@@ -50,7 +50,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<includes>
-						<include>${talend.routines.package}/**.class</include>
+                        <include>${talend.routines.package}/**/*.class</include>
 					</includes>
 				</configuration>
 			</plugin>

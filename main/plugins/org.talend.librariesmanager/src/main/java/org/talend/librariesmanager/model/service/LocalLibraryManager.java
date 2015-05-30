@@ -113,11 +113,16 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
+        File file = new File(jarFileUri);
+        if (file == null || !file.exists()) {
+            return;
+        }
+        deployFile(file, monitorWrap);
+
+    }
+
+    private void deployFile(File file, IProgressMonitor... monitorWrap) {
         try {
-            File file = new File(jarFileUri);
-            if (file == null || !file.exists()) {
-                return;
-            }
             listToUpdate = true;
             Map<String, String> customUriToAdd = new HashMap<String, String>();
             if (file.isDirectory()) {
@@ -154,7 +159,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
         } catch (Exception e) {
             CommonExceptionHandler.process(e);
         }
-
     }
 
     /*
@@ -401,28 +405,26 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ILibraryManagerService#deploy(java.util.Set, org.eclipse.core.runtime.IProgressMonitor[])
-     */
     @Override
-    public void deploy(Set<IComponent> componentList, IProgressMonitor... monitorWrap) {
-        List<ModuleNeeded> modules = new ArrayList<ModuleNeeded>();
-
-        for (IComponent component : componentList) {
-            modules.addAll(component.getModulesNeeded());
-        }
-        deploy(modules, monitorWrap);
-    }
-
-    @Override
-    public void deploy(List<ModuleNeeded> modules, IProgressMonitor... monitorWrap) {
+    public void deployModules(Collection<ModuleNeeded> modules, IProgressMonitor monitorWrap) {
         boolean modified = false;
         LibrariesIndex index = LibrariesIndexManager.getInstance().getStudioLibIndex();
         EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
+        List<File> filesToDeploy = new ArrayList<File>();
         for (ModuleNeeded module : modules) {
             String moduleLocation = module.getModuleLocaion();
+            EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
+            String mavenUri = jarsToMavenUri.get(module.getModuleName());
+            if (checkJarInstalledInMaven(mavenUri)) {
+                continue;
+            }
+            if (module.getMavenUri() != null && !module.getMavenUri().isEmpty()) {
+                // should never go here normally, since all the jars should be in the maven index, but just in case.
+                if (checkJarInstalledInMaven(module.getMavenUri())) {
+                    continue;
+                }
+            }
+            boolean found = false;
             if (moduleLocation != null && moduleLocation.startsWith("platform:/")) {
                 if (jarsToRelativePath.containsKey(module.getModuleName())) {
                     String relativePath = jarsToRelativePath.get(module.getModuleName());
@@ -439,10 +441,25 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 if (checkJarInstalledFromPlatform(moduleLocation)) {
                     jarsToRelativePath.put(module.getModuleName(), moduleLocation);
                     modified = true;
+                    found = true;
+                    filesToDeploy.add(new File(studioJarInstalled.get(moduleLocation)));
                 }
-            } else {
-                jarsNeededForComponents.add(module.getModuleName());
             }
+            if (!found) {
+                EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex()
+                        .getJarsToRelativePath();
+                String relativePath = jarsToRelative.get(module.getModuleName());
+                if (checkJarInstalledFromPlatform(relativePath)) {
+                    found = true;
+                    filesToDeploy.add(new File(studioJarInstalled.get(relativePath)));
+                }
+            }
+            if (!found) {
+                ExceptionHandler.log("missing jar:"+module.getModuleName());
+            }
+        }
+        for (File file : filesToDeploy) {
+            deployFile(file, monitorWrap);
         }
         if (modified) {
             LibrariesIndexManager.getInstance().saveStudioIndexResource();

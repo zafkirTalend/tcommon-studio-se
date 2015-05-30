@@ -350,6 +350,9 @@ public class PomUtil {
      * check the dependencies is custom jar or not, if existed, and invalid in m2/repo, just install in local.
      */
     public static void installDependencies(List<Dependency> dependencies) {
+        if (true) {
+            return;
+        }
         if (dependencies != null && GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
             ILibraryManagerService libService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerService.class);
