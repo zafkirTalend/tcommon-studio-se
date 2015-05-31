@@ -39,6 +39,8 @@ public class JobInfo {
     private boolean forceRegenerate;
 
     private String projectFolderName;
+    
+    private boolean testContainer = false;
 
     public JobInfo(String jobId, String contextName, String version) {
         this.jobId = jobId;
@@ -382,5 +384,21 @@ public class JobInfo {
      */
     public void setProjectFolderName(String projectFolderName) {
         this.projectFolderName = projectFolderName;
+    }
+
+    /**
+     * Getter for testContainer.
+     * @return the testContainer
+     */
+    public boolean isTestContainer() {
+        return testContainer;
+    }
+
+    /**
+     * Sets the testContainer.
+     * @param testContainer the testContainer to set
+     */
+    public void setTestContainer(boolean testContainer) {
+        this.testContainer = testContainer;
     }
 }

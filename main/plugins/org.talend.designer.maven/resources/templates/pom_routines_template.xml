@@ -37,12 +37,12 @@
 				<configuration>
 					<includes>
 						<!-- only compile the routines source -->
-                        <include>${talend.routines.package}/**/*.java</include>
+						<include>${talend.routines.package}/**/*.java</include>
 					</includes>
-                    <testExcludes>
-                        <!-- exclude every test -->
-                        <exclude>**</exclude>
-                    </testExcludes>
+					<testExcludes>
+						<!-- exclude every test -->
+						<exclude>**</exclude>
+					</testExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -50,8 +50,15 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<includes>
-                        <include>${talend.routines.package}/**/*.class</include>
+						<include>${talend.routines.package}/**/*.class</include>
 					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 		</plugins>

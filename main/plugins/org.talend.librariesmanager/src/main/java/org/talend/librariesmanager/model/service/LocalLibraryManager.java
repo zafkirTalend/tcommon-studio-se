@@ -449,13 +449,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex()
                         .getJarsToRelativePath();
                 String relativePath = jarsToRelative.get(module.getModuleName());
-                if (checkJarInstalledFromPlatform(relativePath)) {
+                if (relativePath != null && checkJarInstalledFromPlatform(relativePath)) {
                     found = true;
                     filesToDeploy.add(new File(studioJarInstalled.get(relativePath)));
                 }
             }
             if (!found) {
-                ExceptionHandler.log("missing jar:"+module.getModuleName());
+                ExceptionHandler.log("missing jar:" + module.getModuleName());
             }
         }
         for (File file : filesToDeploy) {
@@ -476,6 +476,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
             libPath = mavenJarInstalled.get(mavenUri);
             if (libPath != null) {
                 return libPath;
+            }
+        } else {
+            // check if jar is already installed on the local maven repository with the standard mvn uri
+            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
+            if (checkJarInstalledInMaven(mavenUri)) {
+                libPath = mavenJarInstalled.get(mavenUri);
+                if (libPath != null) {
+                    return libPath;
+                }
             }
         }
 
@@ -580,6 +589,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!duplicateMavenUri.isEmpty()) {
             warnDuplicated(modulesNeededForApplication, duplicateMavenUri, "Maven Uri:");
         }
+        deployMavenIndex(libsToMavenUri);
         listToUpdate = true;
     }
 
@@ -708,8 +718,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     locations.add(module.getModuleLocaion());
                 }
             }
-            CommonExceptionHandler.warn("Library:" + lib + " was defined with different locations.\n"
-                    + "Components who define these jars are:" + components + "\n" + "Locations:" + locations);
+            if (locations.size() > 1) {
+                CommonExceptionHandler.warn("Library:" + lib + " was defined with different locations.\n"
+                        + "Components who define these jars are:" + components + "\n" + "Locations:" + locations);
+            }
         }
     }
 
@@ -794,13 +806,20 @@ public class LocalLibraryManager implements ILibraryManagerService {
     @Override
     public void deployMavenIndex(Map<String, String> libsMavenUriToDeploy, IProgressMonitor... monitorWrap) {
         EMap<String, String> jarsToMavenuri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
+        boolean modified = false;
         for (String key : libsMavenUriToDeploy.keySet()) {
             String mvnUri = libsMavenUriToDeploy.get(key);
-            if (checkJarInstalledInMaven(mvnUri)) {
-                jarsToMavenuri.put(key, mvnUri);
+            if (!jarsToMavenuri.containsKey(key) || mvnUri != null && jarsToMavenuri.containsKey(key)
+                    && !mvnUri.equals(jarsToMavenuri.get(key))) {
+                if (checkJarInstalledInMaven(mvnUri)) {
+                    jarsToMavenuri.put(key, mvnUri);
+                    modified = true;
+                }
             }
         }
-        LibrariesIndexManager.getInstance().saveMavenIndexResource();
+        if (modified) {
+            LibrariesIndexManager.getInstance().saveMavenIndexResource();
+        }
     }
 
     /*

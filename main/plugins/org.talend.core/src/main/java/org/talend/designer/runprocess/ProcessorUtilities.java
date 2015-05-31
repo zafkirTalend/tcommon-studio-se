@@ -692,7 +692,7 @@ public class ProcessorUtilities {
                 selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
             }
 
-            if (jobInfo.getJobVersion() != null) {
+            if (selectedProcessItem == null && jobInfo.getJobVersion() != null) {
                 selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
             }
 
@@ -746,7 +746,6 @@ public class ProcessorUtilities {
             }
             if (currentProcess != null) {
                 checkMetadataDynamic(currentProcess, jobInfo);
-                jobInfo.setProcessItem(null);
             }
 
             Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
@@ -791,20 +790,6 @@ public class ProcessorUtilities {
             generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
             TimeMeasure.step(idTimer, "generateBuildInfo");
 
-            if (BitwiseOptionUtils.containOption(option, GENERATE_TESTS)) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-                    ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                            .getDefault().getService(ITestContainerProviderService.class);
-                    if (testContainerService != null) {
-                        List<ProcessItem> testsItems = testContainerService.getAllTestContainers(selectedProcessItem);
-                        for (ProcessItem testItem : testsItems) {
-                            ProcessorUtilities.generateCode(testItem, testItem.getProcess().getDefaultContext(), false, false,
-                                    false, progressMonitor);
-                        }
-                    }
-                }
-            }
-
             return processor;
         } finally {
             TimeMeasure.end(idTimer);
@@ -846,6 +831,29 @@ public class ProcessorUtilities {
 
     private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean properties,
             int option, IProgressMonitor progressMonitor, IProcess currentProcess) throws ProcessorException {
+        if (BitwiseOptionUtils.containOption(option, GENERATE_TESTS) && jobInfo.getProcessItem() != null) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                        .getDefault().getService(ITestContainerProviderService.class);
+                if (testContainerService != null) {
+                    List<ProcessItem> testsItems = testContainerService.getAllTestContainers(jobInfo.getProcessItem());
+                    for (ProcessItem testItem : testsItems) {
+                        JobInfo subJobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
+                        subJobInfo.setTestContainer(true);
+
+                        if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
+                            generateCode(subJobInfo, selectedContextName, statistics, false, properties,
+                                    GENERATE_MAIN_ONLY, progressMonitor);
+                        } else {
+                            generateCode(subJobInfo, selectedContextName, statistics, false, properties,
+                                    GENERATE_ALL_CHILDS, progressMonitor);
+                            currentProcess.setNeedRegenerateCode(true);
+                        }
+                    }
+                }
+            }
+        }
+        jobInfo.setProcessItem(null);
         if (!BitwiseOptionUtils.containOption(option, GENERATE_MAIN_ONLY)) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
@@ -1475,6 +1483,17 @@ public class ProcessorUtilities {
                 }
             }
         }
+        if (!parentJobInfo.isTestContainer() && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
+            for (ProcessItem testItem : testsItems) {
+                JobInfo jobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
+                jobInfo.setTestContainer(true);
+                jobInfos.add(jobInfo);
+                jobInfo.setFatherJobInfo(parentJobInfo);
+            }
+        }
         return jobInfos;
     }
 
@@ -1483,6 +1502,13 @@ public class ProcessorUtilities {
         // cause a error of "out of memory" .
         JobInfo parentJobInfo = new JobInfo(processItem, processItem.getProcess().getDefaultContext());
 
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService.isTestContainerItem(processItem)) {
+                parentJobInfo.setTestContainer(true);
+            }
+        }
         return getAllJobInfo(processItem.getProcess(), parentJobInfo, new HashSet<JobInfo>());
 
     }
