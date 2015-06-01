@@ -19,12 +19,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
-import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 
 /**
@@ -42,57 +39,16 @@ public class MavenTemplateManager {
     }
 
     /**
-     * read the template from bundle resource.
-     * 
-     * @deprecated use AbstractMavenTemplateManager instead
-     */
-    public static InputStream getBundleTemplateStream(String templateName) throws IOException {
-        if (templateName != null) {
-            URL templateUrl = DesignerMavenPlugin.getPlugin().getContext().getBundle()
-                    .getEntry(IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + templateName);
-            if (templateUrl != null) {
-                InputStream inputStream = templateUrl.openStream();
-                return inputStream;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @deprecated use AbstractMavenTemplateManager instead
-     */
-    public static String getBundleTemplateContent(String templateName) throws IOException {
-        return getContentFromInputStream(getBundleTemplateStream(templateName));
-    }
-
-    public static String getContentFromInputStream(InputStream is) throws IOException {
-        if (is != null) {
-            try {
-                StringWriter sw = new StringWriter(1000);
-                int c = 0;
-                while ((c = is.read()) != -1) {
-                    sw.write(c);
-                }
-                return sw.toString();
-            } finally {
-                is.close();
-            }
-        }
-        return null;
-    }
-
-    /**
      * 1. get the template from the file template under the folder first.
      * 
      * 2. if file template is not existed, try to get th template from project setting.
      * 
      * 3. if the project setting is not set still, try to get the template from the bundle template.
      * 
-     * @deprecated use AbstractMavenTemplateManager instead
      */
     @SuppressWarnings("resource")
-    public static InputStream getTemplateStream(File templateFile, String projectSettingKey, String templateName)
-            throws IOException {
+    public static InputStream getTemplateStream(File templateFile, String projectSettingKey, String bundleName,
+            String bundleTemplatePath) throws Exception {
         InputStream stream = null;
         // 1. from file template dirctly.
         if (templateFile != null && templateFile.exists()) {
@@ -105,46 +61,35 @@ public class MavenTemplateManager {
             stream = getProjectSettingStream(projectSettingKey);
         }
         // 3. from bundle template.
-        if (stream == null && templateName != null) {
-            stream = getBundleTemplateStream(templateName);
+        if (stream == null && bundleName != null && bundleTemplatePath != null) {
+            stream = getBundleTemplateStream(bundleName, bundleTemplatePath);
         }
         return stream;
     }
 
+    public static String getTemplateContent(File templateFile, String projectSettingKey, String bundleName,
+            String bundleTemplatePath) throws Exception {
+        return getContentFromInputStream(getTemplateStream(templateFile, projectSettingKey, bundleName, bundleTemplatePath));
+    }
+
     /**
-     * @deprecated use AbstractMavenTemplateManager instead
+     * 
+     * get the template file stream from bundle.
      */
-    public static String getTemplateContent(File templateFile, String projectSettingKey, String templateName) throws IOException {
-        return getContentFromInputStream(getTemplateStream(templateFile, projectSettingKey, templateName));
+    public static InputStream getBundleTemplateStream(String bundleName, String bundleTemplatePath) throws Exception {
+        if (bundleName == null || bundleTemplatePath == null) {
+            return null;
+        }
+        Map<String, AbstractMavenTemplateManager> templateManagerMap = MavenTemplateManager.getTemplateManagerMap();
+        AbstractMavenTemplateManager templateManager = templateManagerMap.get(bundleName);
+        if (templateManager != null) {
+            return templateManager.readBundleStream(bundleTemplatePath);
+        }
+        return null;
     }
 
-    public static void saveContent(IFile targetFile, String content, boolean overwrite) throws IOException {
-        saveContent(targetFile.getLocation().toFile(), content, overwrite);
-    }
-
-    public static void saveContent(File targetFile, String content, boolean overwrite) throws IOException {
-        if (targetFile.exists()) {
-            if (!overwrite) {
-                // throw new IOException("The file have existed, must delete or with overwrite option.");
-                return; // nothing to do, keep it.
-            }
-            if (!targetFile.isFile()) {
-                throw new IOException("Can't write the template to directory, must be file.");
-            }
-        }
-
-        if (content != null) {
-            FileWriter writer = null;
-            try {
-                writer = new FileWriter(targetFile);
-                writer.write(content);
-                writer.flush();
-            } finally {
-                if (writer != null) {
-                    writer.close();
-                }
-            }
-        }
+    public static String getBundleTemplateContent(String bundleName, String templatePath) throws Exception {
+        return getContentFromInputStream(getBundleTemplateStream(bundleName, templatePath));
     }
 
     /**
@@ -189,4 +134,50 @@ public class MavenTemplateManager {
         }
         return null;
     }
+
+    public static String getContentFromInputStream(InputStream is) throws IOException {
+        if (is != null) {
+            try {
+                StringWriter sw = new StringWriter(1000);
+                int c = 0;
+                while ((c = is.read()) != -1) {
+                    sw.write(c);
+                }
+                return sw.toString();
+            } finally {
+                is.close();
+            }
+        }
+        return null;
+    }
+
+    public static void saveContent(IFile targetFile, String content, boolean overwrite) throws IOException {
+        saveContent(targetFile.getLocation().toFile(), content, overwrite);
+    }
+
+    public static void saveContent(File targetFile, String content, boolean overwrite) throws IOException {
+        if (targetFile.exists()) {
+            if (!overwrite) {
+                // throw new IOException("The file have existed, must delete or with overwrite option.");
+                return; // nothing to do, keep it.
+            }
+            if (!targetFile.isFile()) {
+                throw new IOException("Can't write the template to directory, must be file.");
+            }
+        }
+
+        if (content != null) {
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(targetFile);
+                writer.write(content);
+                writer.flush();
+            } finally {
+                if (writer != null) {
+                    writer.close();
+                }
+            }
+        }
+    }
+
 }

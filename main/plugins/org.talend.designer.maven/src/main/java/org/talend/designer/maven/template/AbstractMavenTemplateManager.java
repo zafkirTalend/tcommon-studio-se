@@ -33,7 +33,7 @@ import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
  */
 public abstract class AbstractMavenTemplateManager implements IExecutableExtension {
 
-    private String bundleName;
+    protected String bundleName;
 
     /*
      * (non-Javadoc)

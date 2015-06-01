@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.utils.PomUtil;
 
@@ -31,6 +32,11 @@ import org.talend.designer.maven.utils.PomUtil;
  *
  */
 public class CreateMavenBundleTemplatePom extends CreateMaven {
+
+    /**
+     * FIXME, the templates should be moved to maven.job plugin. now use proxy for MavenJobMavenTemplateManager.
+     */
+    protected static final String JOB_TEMPLATE_BUNDLE = "org.talend.designer.maven.job"; //$NON-NLS-1$
 
     protected static final MavenModelManager MODEL_MANAGER = MavenPlugin.getMavenModelManager();
 
@@ -93,7 +99,12 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
     }
 
     protected InputStream getTemplateStream() throws IOException {
-        return MavenTemplateManager.getBundleTemplateStream(bundleTemplateName);
+        try {
+            return MavenTemplateManager.getBundleTemplateStream(JOB_TEMPLATE_BUNDLE,
+                    IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + bundleTemplateName);
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
     }
 
     /*
