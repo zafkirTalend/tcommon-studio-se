@@ -41,8 +41,6 @@ public interface TalendMavenConstants {
 
     static final String ASSEMBLY_FILE_NAME = IProjectSettingTemplateConstants.ASSEMBLY_FILE_NAME;
 
-    static final String OSGI_BUNDLE_NAME = "osgi";
-
     /**
      * 
      */

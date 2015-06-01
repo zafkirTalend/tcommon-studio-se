@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.runtime.projectsetting;
 
-
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -22,9 +21,19 @@ public interface IProjectSettingTemplateConstants {
 
     final static String PATH_RESOURCES_TEMPLATES = PATH_RESOURCES + '/' + "templates";
 
+    final static String PATH_OSGI_BUNDLE = PATH_RESOURCES_TEMPLATES + "/osgi"; //$NON-NLS-1$
+
+    final static String PATH_KARAF = PATH_RESOURCES_TEMPLATES + "/karaf"; //$NON-NLS-1$
+
+    final static String PATH_ROUTE = PATH_KARAF + "/routes"; //$NON-NLS-1$
+
+    final static String PATH_SERVICES = PATH_KARAF + "/services"; //$NON-NLS-1$
+
     static final String POM_FILE_NAME = "pom.xml";
 
     static final String ASSEMBLY_FILE_NAME = "assembly.xml";
+
+    static final String OSGI_POM_FILE_NAME = "pom_osgi.xml";
 
     /*
      * pom templates

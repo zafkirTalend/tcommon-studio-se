@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -23,10 +21,8 @@ import java.util.Set;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -67,10 +63,6 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
 
     private final ProcessorDependenciesManager processorDependenciesManager;
 
-    private IFolder objectTypeFolder;
-
-    private IPath itemRelativePath;
-
     public CreateMavenTestPom(IProcessor jobProcessor, IFile pomFile) {
         super(pomFile, IProjectSettingTemplateConstants.POM_TEST_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
@@ -80,22 +72,6 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
 
     public IProcessor getJobProcessor() {
         return this.jobProcessor;
-    }
-
-    public IFolder getObjectTypeFolder() {
-        return objectTypeFolder;
-    }
-
-    public void setObjectTypeFolder(IFolder objectTypeFolder) {
-        this.objectTypeFolder = objectTypeFolder;
-    }
-
-    public IPath getItemRelativePath() {
-        return itemRelativePath;
-    }
-
-    public void setItemRelativePath(IPath itemRelativePath) {
-        this.itemRelativePath = itemRelativePath;
     }
 
     private Set<JobInfo> getClonedJobInfos() {
@@ -175,21 +151,6 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         addDependencies(model);
 
         return model;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom#getTemplateStream()
-     */
-    @Override
-    protected InputStream getTemplateStream() throws IOException {
-        // FIXME, will use the bundle template always
-        // File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
-        // TalendMavenConstants.POM_FILE_NAME);
-        // return MavenTemplateManager.getTemplateStream(templateFile,
-        // IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, getBundleTemplateName());
-        return super.getTemplateStream();
     }
 
     /**

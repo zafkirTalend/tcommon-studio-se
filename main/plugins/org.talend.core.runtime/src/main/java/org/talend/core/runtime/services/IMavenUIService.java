@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.core.runtime.services;
 
-import java.io.InputStream;
-
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.talend.core.IService;
 
@@ -27,10 +25,4 @@ public interface IMavenUIService extends IService {
      */
     void addCustomMavenSettingChildren(IPreferenceNode parent);
 
-    /**
-     * won't provide the bundle name, because the key is unique, so will try to find value for each bundle setting.
-     */
-    public String getProjectSettingValue(String key);
-
-    public InputStream getProjectSettingStream(String key);
 }
