@@ -51,6 +51,8 @@ public class ArtifactsDeployer {
 
     private LocalRepsitoryLauncherManager repositoryManager;
 
+    private String repositoryUrl;
+
     private ArtifactsDeployer() {
         init();
     }
@@ -62,6 +64,7 @@ public class ArtifactsDeployer {
             if (server.endsWith(NexusConstants.SLASH)) {
                 server = server.substring(0, server.length() - 1);
             }
+            repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
         }
         repositoryManager = new LocalRepsitoryLauncherManager();
     }
@@ -142,7 +145,7 @@ public class ArtifactsDeployer {
                     artifactPath = artifactPath + "." + type;
                 }
             }
-            String target = nexusServer.getRepositoryUrl() + artifactPath;
+            String target = repositoryUrl + artifactPath;
             targetURL = new URL(target);
             installToRemote(new FileEntity(content), targetURL);
         } catch (MalformedURLException e) {

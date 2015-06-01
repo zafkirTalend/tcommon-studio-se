@@ -71,7 +71,7 @@ public class RemoteModulesHelper {
     private static final String SLASH = "/";//$NON-NLS-1$ 
 
     // TODO to be removed after nexus server available
-    public static final boolean nexus_available = false;
+    public static final boolean nexus_available = true;
 
     // true if user was warned the network connection is not possible
     static private boolean alreadyWarnedAboutConnectionIssue = false;

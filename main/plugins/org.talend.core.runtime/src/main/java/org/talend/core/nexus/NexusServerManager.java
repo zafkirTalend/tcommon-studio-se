@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.nexus;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
@@ -20,9 +19,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+
 import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -36,6 +41,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
+import org.talend.utils.ssl.SSLUtils;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
@@ -45,7 +51,6 @@ import com.sun.org.apache.xml.internal.security.utils.Base64;
  */
 public class NexusServerManager {
 
-    // for SoftwareUpdate
     private static final String KEY_NEXUS_RUL = "nexusUrl";//$NON-NLS-1$ 
 
     private static final String KEY_NEXUS_USER = "username";//$NON-NLS-1$ 
@@ -54,14 +59,7 @@ public class NexusServerManager {
 
     private static final String KEY_NEXUS_REPOSITORY = "repository";//$NON-NLS-1$ 
 
-    // for libraries download
-    private static final String KEY_LIB_RUL = "Url";//$NON-NLS-1$ 
-
-    private static final String KEY_LIB_USER = "Username";//$NON-NLS-1$ 
-
-    private static final String KEY_LIB_PASS = "Password";//$NON-NLS-1$ 
-
-    private static final String TALEND_LIB_SERVER = "https://talend-update.talend.com";//$NON-NLS-1$ 
+    private static final String TALEND_LIB_SERVER = "https://talend-update.talend.com/nexus/";//$NON-NLS-1$ 
 
     private static final String TALEND_LIB_USER = "";//$NON-NLS-1$ 
 
@@ -78,6 +76,7 @@ public class NexusServerManager {
      * @return
      */
     public static NexusServerBean getLibrariesNexusServer(boolean createTalendIfCustomNotExsit) {
+        NexusServerBean serverBean = null;
         try {
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             RepositoryContext repositoryContext = factory.getRepositoryContext();
@@ -90,56 +89,34 @@ public class NexusServerManager {
                     userName = user.getLogin();
                     password = repositoryContext.getClearPassword();
                 }
-                NexusServerBean serverBean = null;
-                // for test
-                serverBean = getSoftwareUpdateNexusServer(adminUrl, userName, password);
 
-                // TODO add back after TAC add the servlet
-                // if (adminUrl != null && !"".equals(adminUrl)
-                // && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
-                // serverBean = new NexusServerBean();
-                // IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
-                // IRemoteService.class);
-                // JSONObject updateRepositoryUrl;
-                // updateRepositoryUrl = remoteService.getLibLocation(userName, password, adminUrl);
-                // // the url like http://localhost:8081/nexus/content/repositories/org.talend.libraries/ which
-                // // contains the repository id
-                // String nexus_url = updateRepositoryUrl.getString(KEY_LIB_RUL);
-                // String nexus_user = updateRepositoryUrl.getString(KEY_LIB_USER);
-                // String nexus_pass = updateRepositoryUrl.getString(KEY_LIB_PASS);
-                // String url = nexus_url;
-                // if (url.endsWith(NexusConstants.SLASH)) {
-                // url = url.substring(0, url.length() - 1);
-                // }
-                // if (!nexus_url.endsWith(NexusConstants.SLASH)) {
-                // nexus_url = nexus_url + NexusConstants.SLASH;
-                // }
-                // serverBean.setRepositoryUrl(nexus_url);
-                //
-                // String server = url.substring(0, url.indexOf(NexusConstants.CONTENT_REPOSITORIES));
-                // String repositoryId = url.substring(url.indexOf(NexusConstants.CONTENT_REPOSITORIES)
-                // + NexusConstants.CONTENT_REPOSITORIES.length(), url.length());
-                // serverBean.setServer(server);
-                // serverBean.setUserName(nexus_user);
-                // serverBean.setPassword(nexus_pass);
-                // serverBean.setRepositoryId(repositoryId);
-                // }
-                if (serverBean != null) {
-                    return serverBean;
+                if (adminUrl != null && !"".equals(adminUrl)
+                        && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
+                    serverBean = new NexusServerBean();
+                    IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
+                            IRemoteService.class);
+                    JSONObject libServerObject;
+                    libServerObject = remoteService.getLibNexusServer(userName, password, adminUrl);
+                    String nexus_url = libServerObject.getString(KEY_NEXUS_RUL);
+                    String nexus_user = libServerObject.getString(KEY_NEXUS_USER);
+                    String nexus_pass = libServerObject.getString(KEY_NEXUS_PASS);
+                    String repositoryId = libServerObject.getString(KEY_NEXUS_REPOSITORY);
+                    serverBean.setServer(nexus_url);
+                    serverBean.setUserName(nexus_user);
+                    serverBean.setPassword(nexus_pass);
+                    serverBean.setRepositoryId(repositoryId);
                 }
+
             }
-        }
-        // TODO add back after TAC add the servlet
-        // catch (PersistenceException e) {
-        // ExceptionHandler.process(e);
-        // } catch (LoginException e) {
-        // ExceptionHandler.process(e);
-        // } catch (JSONException e) {
-        // ExceptionHandler.process(e);
-        // }
-        finally {
-            if (createTalendIfCustomNotExsit) {
-                NexusServerBean serverBean = new NexusServerBean(true);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        } catch (LoginException e) {
+            ExceptionHandler.process(e);
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        } finally {
+            if (createTalendIfCustomNotExsit && serverBean == null) {
+                serverBean = new NexusServerBean(true);
                 serverBean.setServer(TALEND_LIB_SERVER);
                 serverBean.setUserName(TALEND_LIB_USER);
                 serverBean.setPassword(TALEND_LIB_PASSWORD);
@@ -147,7 +124,7 @@ public class NexusServerManager {
                 return serverBean;
             }
         }
-        return null;
+        return serverBean;
     }
 
     /**
@@ -268,13 +245,29 @@ public class NexusServerManager {
     }
 
     private static HttpURLConnection getHttpURLConnection(String nexusUrl, String restService, String userName, String password)
-            throws IOException {
+            throws Exception {
         if (!nexusUrl.endsWith(NexusConstants.SLASH)) {
             nexusUrl = nexusUrl + NexusConstants.SLASH;
         }
         URL url = new URL(nexusUrl + restService);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+        if (userName != null && !"".equals(userName)) {
+            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+        }
+        if (urlConnection instanceof HttpsURLConnection) {
+            String userDir = Platform.getInstallLocation().getURL().getPath();
+            final SSLSocketFactory socketFactory = SSLUtils.getSSLContext(userDir).getSocketFactory();
+            HttpsURLConnection httpsConnection = (HttpsURLConnection) urlConnection;
+            httpsConnection.setSSLSocketFactory(socketFactory);
+            httpsConnection.setHostnameVerifier(new HostnameVerifier() {
+
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+
+            });
+        }
         return urlConnection;
     }
 

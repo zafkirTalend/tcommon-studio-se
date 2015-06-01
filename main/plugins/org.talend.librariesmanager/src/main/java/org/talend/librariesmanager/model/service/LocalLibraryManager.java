@@ -677,7 +677,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!duplicateMavenUri.isEmpty()) {
             warnDuplicated(modulesNeededForApplication, duplicateMavenUri, "Maven Uri:");
         }
-        deployMavenIndex(libsToMavenUri);
+        if (!libsToRelativePath.isEmpty()) {
+            deploy(libsToRelativePath);
+        }
+        if (!libsToMavenUri.isEmpty()) {
+            deployMavenIndex(libsToMavenUri);
+        }
         listToUpdate = true;
     }
 
@@ -877,12 +882,16 @@ public class LocalLibraryManager implements ILibraryManagerService {
     @Override
     public void deploy(Map<String, String> libsToRelativePath, IProgressMonitor... monitorWrap) {
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex().getJarsToRelativePath();
+        boolean modified = false;
         for (String key : libsToRelativePath.keySet()) {
             if (checkJarInstalledFromPlatform(libsToRelativePath.get(key))) {
                 jarsToRelative.put(key, libsToRelativePath.get(key));
+                modified = true;
             }
         }
-        LibrariesIndexManager.getInstance().saveStudioIndexResource();
+        if (modified) {
+            LibrariesIndexManager.getInstance().saveStudioIndexResource();
+        }
     }
 
     /*

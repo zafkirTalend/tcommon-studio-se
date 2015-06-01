@@ -33,7 +33,6 @@ import org.dom4j.io.XMLWriter;
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.ops4j.pax.url.mvn.MavenResolvers;
 import org.ops4j.pax.url.mvn.ServiceConstants;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 
 /**
@@ -59,21 +58,26 @@ public class MavenResolverCreator {
         return MavenResolvers.createMavenResolver(properties, ServiceConstants.PID);
     }
 
+    /**
+     * 
+     * DOC get MavenResolver for RemoteModulesHelper to download jars.
+     * 
+     * @param nexusServer
+     * @return
+     */
     public MavenResolver getMavenResolver(NexusServerBean nexusServer) {
         Hashtable<String, String> properties = new Hashtable<String, String>();
+        // accept ssl
+        // properties.put("maven.wagon.http.ssl.insecure", "true");
+        // properties.put("maven.wagon.http.ssl.allowall", "true");
+
         if (nexusServer != null) {
             String nexusUrl = nexusServer.getServer();
             if (nexusUrl.endsWith(NexusConstants.SLASH)) {
                 nexusUrl = nexusUrl.substring(0, nexusUrl.length() - 1);
             }
-            String urlSeparator = "://";//$NON-NLS-1$
-            String[] split = nexusUrl.split(urlSeparator);
-            if (split.length != 2) {
-                ExceptionHandler.process(new BusinessException("Nexus url is not valid ,please contract the administrator"));
-                return null;
-            }
-            String newUrl = split[0]
-                    + ":" + nexusServer.getUserName() + ":" + nexusServer.getPassword() + "@//" + split[1] + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId()//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+
+            String newUrl = nexusUrl + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId()
                     + "@id=" + nexusServer.getRepositoryId();//$NON-NLS-1$
             properties.put("org.ops4j.pax.url.mvn.repositories", newUrl);//$NON-NLS-1$
         }
