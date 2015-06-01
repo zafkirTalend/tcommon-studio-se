@@ -54,7 +54,7 @@ public class NexusServerManager {
 
     private static final String KEY_NEXUS_REPOSITORY = "repository";//$NON-NLS-1$ 
 
-    // for SoftwareUpdate
+    // for libraries download
     private static final String KEY_LIB_RUL = "Url";//$NON-NLS-1$ 
 
     private static final String KEY_LIB_USER = "Username";//$NON-NLS-1$ 
@@ -67,7 +67,7 @@ public class NexusServerManager {
 
     private static final String TALEND_LIB_PASSWORD = "";//$NON-NLS-1$ 
 
-    private static final String TALEND_LIB_REPOSITORY = "org.talend.libraries";//$NON-NLS-1$ 
+    private static final String TALEND_LIB_REPOSITORY = "libraries";//$NON-NLS-1$ 
 
     /**
      * 

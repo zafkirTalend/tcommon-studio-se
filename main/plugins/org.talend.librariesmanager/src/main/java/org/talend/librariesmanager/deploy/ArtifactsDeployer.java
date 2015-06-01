@@ -97,10 +97,14 @@ public class ArtifactsDeployer {
     public void deployToLocalMaven(String path, String mavenUri) throws Exception {
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUri);
         if (parseMvnUrl != null) {
+            String absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
+            // skip if already in maven
+            if (absArtifactPath != null) {
+                return;
+            }
             // install to local maven repository and create pom
             repositoryManager.install(new File(path), parseMvnUrl);
-
-            String absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
+            absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
             String pomPath = null;
             String type = null;
             if (absArtifactPath != null) {
@@ -114,8 +118,8 @@ public class ArtifactsDeployer {
                 }
             }
 
+            // deploy to nexus server if it is not null and not official server
             if (nexusServer != null && !nexusServer.isOfficial()) {
-                // deploy to nexus server if it is not null and not official server
                 // repositoryManager.deploy(new File(path), parseMvnUrl);
                 installToRemote(new File(path), parseMvnUrl, type);
                 // deploy the pom
