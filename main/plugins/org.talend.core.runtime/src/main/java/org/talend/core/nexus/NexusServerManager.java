@@ -97,14 +97,16 @@ public class NexusServerManager {
                             IRemoteService.class);
                     JSONObject libServerObject;
                     libServerObject = remoteService.getLibNexusServer(userName, password, adminUrl);
-                    String nexus_url = libServerObject.getString(KEY_NEXUS_RUL);
-                    String nexus_user = libServerObject.getString(KEY_NEXUS_USER);
-                    String nexus_pass = libServerObject.getString(KEY_NEXUS_PASS);
-                    String repositoryId = libServerObject.getString(KEY_NEXUS_REPOSITORY);
-                    serverBean.setServer(nexus_url);
-                    serverBean.setUserName(nexus_user);
-                    serverBean.setPassword(nexus_pass);
-                    serverBean.setRepositoryId(repositoryId);
+                    if (libServerObject != null) {
+                        String nexus_url = libServerObject.getString(KEY_NEXUS_RUL);
+                        String nexus_user = libServerObject.getString(KEY_NEXUS_USER);
+                        String nexus_pass = libServerObject.getString(KEY_NEXUS_PASS);
+                        String repositoryId = libServerObject.getString(KEY_NEXUS_REPOSITORY);
+                        serverBean.setServer(nexus_url);
+                        serverBean.setUserName(nexus_user);
+                        serverBean.setPassword(nexus_pass);
+                        serverBean.setRepositoryId(repositoryId);
+                    }
                 }
 
             }
