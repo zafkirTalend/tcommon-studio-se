@@ -359,8 +359,7 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
 
                             IPreferencePageContainer container = getContainer();
                             if (container instanceof IProjectSettingContainer) {
-                                ((IProjectSettingContainer) container).addChildrenPreferenceNodes(getPrefNodeId(),
-                                        childrenNodes);
+                                ((IProjectSettingContainer) container).addChildrenPreferenceNodes(getPrefNodeId(), childrenNodes);
                             }
                         }
                     });
@@ -413,6 +412,10 @@ public abstract class FolderMavenSettingPage extends AbstractProjectSettingPage 
         pomWriter.close();
     }
 
+    /**
+     * 
+     * Will create the maven scripts nodes, it same as the RepositoryMavenSetting to create.
+     */
     protected abstract List<IPreferenceNode> createMavenChildrenNodes(IFolder nodeFolder);
 
     protected void deleteMavenFiles() {

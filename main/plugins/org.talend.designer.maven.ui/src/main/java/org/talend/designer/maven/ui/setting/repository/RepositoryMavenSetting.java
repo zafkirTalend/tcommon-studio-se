@@ -73,6 +73,10 @@ public abstract class RepositoryMavenSetting {
         this.tester = tester;
     }
 
+    /**
+     * 
+     * If existed same id of node, will use it directly. Else will create one folder node.
+     */
     public IPreferenceNode createAndFindMavenFolderNode(final IPreferenceNode parentNode, final ILabelProvider labelProvider,
             final RepositoryNode node) {
         if (parentNode == null || labelProvider == null || node == null) {
@@ -102,6 +106,9 @@ public abstract class RepositoryMavenSetting {
         return null;
     }
 
+    /**
+     * Unify the folder id to create.
+     */
     protected String buildFolderNodeId(final IPreferenceNode parentNode, final ILabelProvider labelProvider,
             final RepositoryNode node) {
         ERepositoryObjectType contentType = node.getContentType();
@@ -118,6 +125,10 @@ public abstract class RepositoryMavenSetting {
         return id;
     }
 
+    /**
+     * 
+     * Create folder node.
+     */
     protected IPreferenceNode createFolderNode(final String id, final ILabelProvider labelProvider, final RepositoryNode node) {
         ERepositoryObjectType contentType = node.getContentType();
         ImageDescriptor imageDesc = null;
@@ -136,6 +147,10 @@ public abstract class RepositoryMavenSetting {
         return mavenFolderNode;
     }
 
+    /**
+     * 
+     * Check the node to enable add the maven scripts nodes or not.
+     */
     public boolean needMavenScripts(RepositoryNode node) {
         if (node != null) {
             ERepositoryObjectType contentType = node.getContentType();
@@ -148,5 +163,9 @@ public abstract class RepositoryMavenSetting {
         return false;
     }
 
+    /**
+     * 
+     * Create the maven scripts children nodes
+     */
     public abstract void createMavenScriptsChildren(final IPreferenceNode parentNode, final RepositoryNode node);
 }
