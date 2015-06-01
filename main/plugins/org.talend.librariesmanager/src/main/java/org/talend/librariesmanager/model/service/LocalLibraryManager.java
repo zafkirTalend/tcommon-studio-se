@@ -499,14 +499,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (moduleLocation != null && moduleLocation.startsWith("platform:/")) {
                 if (jarsToRelativePath.containsKey(module.getModuleName())) {
                     String relativePath = jarsToRelativePath.get(module.getModuleName());
-                    if (relativePath.equals(moduleLocation)) {
-                        continue;
-                    } else {
+                    if (!relativePath.equals(moduleLocation)) {
                         if (!urlWarned.contains(moduleLocation)) {
                             System.out.println(module.getModuleName() + " was already defined with:" + relativePath
                                     + " but redefined now with:" + moduleLocation);
                             urlWarned.add(moduleLocation);
                         }
+                        moduleLocation = relativePath;
                     }
                 }
                 if (checkJarInstalledFromPlatform(moduleLocation)) {
