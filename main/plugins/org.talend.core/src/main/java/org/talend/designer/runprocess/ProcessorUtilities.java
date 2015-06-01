@@ -97,6 +97,8 @@ public class ProcessorUtilities {
 
     public static final int GENERATE_TESTS = 1 << 4;
 
+    public static final int GENERATE_WITHOUT_COMPILING = 1 << 5;
+
     private static String interpreter, codeLocation, libraryPath;
 
     private static boolean exportConfig = false;
@@ -470,7 +472,7 @@ public class ProcessorUtilities {
          * libraries.
          */
         jobInfo.setProcess(null);
-        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
+        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
         return processor;
     }
 
@@ -539,7 +541,7 @@ public class ProcessorUtilities {
     }
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
-            IProcess currentProcess, String currentJobName, IProcessor processor) throws ProcessorException {
+            IProcess currentProcess, String currentJobName, IProcessor processor, int option) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
 
@@ -547,7 +549,7 @@ public class ProcessorUtilities {
                     jobInfo.getJobId(), jobInfo.getJobVersion());
             CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
 
-            if (codeModified) {
+            if (codeModified && !BitwiseOptionUtils.containOption(option, GENERATE_WITHOUT_COMPILING)) {
                 processor.build();
                 processor.syntaxCheck();
             }
@@ -787,7 +789,7 @@ public class ProcessorUtilities {
              * libraries.
              */
             jobInfo.setProcess(null);
-            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
+            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
             TimeMeasure.step(idTimer, "generateBuildInfo");
 
             return processor;
