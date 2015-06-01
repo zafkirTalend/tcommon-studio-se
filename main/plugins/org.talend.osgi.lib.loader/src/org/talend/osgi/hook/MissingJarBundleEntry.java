@@ -34,7 +34,7 @@ class MissingJarBundleEntry extends BundleEntry {
      * @param path
      */
     public MissingJarBundleEntry(String path) {
-        this.path = path.substring(0, path.length() - 1);
+        this.path = path;
     }
 
     // all the following method shall never be used.
@@ -69,10 +69,10 @@ class MissingJarBundleEntry extends BundleEntry {
     @Override
     public URL getFileURL() {
         try {
-            return new URL("file:" + path); //$NON-NLS-1$
+            return new URL( "file:" + path ); //$NON-NLS-1$
         } catch (MalformedURLException e) {
             // should never happend so throw a runtime in case it does
-            throw new RuntimeException(e);
+            throw new RuntimeException( e );
         }
     }
 

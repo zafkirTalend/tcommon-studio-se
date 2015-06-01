@@ -12,10 +12,13 @@
 // ============================================================================
 package org.talend.osgi.hook.notification;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Observable;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.osgi.storage.BundleInfo.Generation;
+import org.talend.osgi.hook.URIUtil;
 
 /**
  * This observable is registered as an OSGI service and can be used to register Observers by clients that whishes to be
@@ -33,7 +36,7 @@ public class JarMissingObservable extends Observable {
 
         private final String expectedLibFolder;
 
-        private Generation generation;
+        private Generation   generation;
 
         /**
          * DOC sgandon JarMissingObservable.JarMissingEvent constructor comment.
@@ -78,6 +81,10 @@ public class JarMissingObservable extends Observable {
         public long getBundleId() {
             return generation.getBundleInfo().getBundleId();
         }
+
+        public URI getMvnUri() throws URISyntaxException {
+            return URIUtil.getMvnUri( jarName, generation, false );
+        }
     }
 
     /*
@@ -89,7 +96,7 @@ public class JarMissingObservable extends Observable {
     public void notifyObservers(Object arg) {
         if (!prenventNotificationLock.isLocked()) {
             super.setChanged();// this is required for notification to actually really happend.
-            super.notifyObservers(arg);
+            super.notifyObservers( arg );
         }
     }
 }

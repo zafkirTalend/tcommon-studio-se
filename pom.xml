@@ -138,6 +138,7 @@
 		<module>main/plugins/org.talend.model.edit</module>
 		<module>main/plugins/org.talend.model.migration</module>
 		<module>main/plugins/org.talend.osgi.lib.loader</module>
+		<module>main/plugins/org.talend.maven.resolver</module>
 		<module>main/plugins/org.talend.platform.logging</module>
 		<module>main/plugins/org.talend.rcp</module>
 		<module>main/plugins/org.talend.registration</module>
