@@ -12,7 +12,9 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.repository.ProjectManager;
@@ -22,6 +24,11 @@ import org.talend.repository.ProjectManager;
  */
 public class PomIdsHelper {
 
+    /*
+     * FIXME, keep the fixing group id for poms, if false, need check more for the assembly to package.
+     */
+    private static final boolean FLAG_FIXING_GROUP_ID = true;
+
     /**
      * something like "org.talend.code.<ProjectName>".
      * 
@@ -29,14 +36,18 @@ public class PomIdsHelper {
      * 
      * If projectName is null, will return default one "org.talend.code" only.
      */
-    public static String getDefaultGroupId() {
-        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        if (currentProject != null) {
-            String technicalLabel = currentProject.getTechnicalLabel();
-            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE + '.' + technicalLabel);
-        }
+    public static String getDefaultProjectGroupId() {
+        if (FLAG_FIXING_GROUP_ID) {
+            return TalendMavenConstants.DEFAULT_CODE_PROJECT_GROUP_ID;
+        } else {
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            if (currentProject != null) {
+                String technicalLabel = currentProject.getTechnicalLabel();
+                return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE + '.' + technicalLabel);
+            }
 
-        return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE);
+            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE);
+        }
     }
 
     /**
@@ -45,14 +56,73 @@ public class PomIdsHelper {
      * for example, project name is Test, return "code.Test".
      * 
      * If projectName is null, will return default one "code.Master" only.
+     * 
+     * always depend on current project.
      */
     public static String getDefaultProjectArtifactId() {
-        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        if (currentProject != null) {
-            String technicalLabel = currentProject.getTechnicalLabel();
-            return TalendMavenConstants.DEFAULT_CODE + '.' + technicalLabel;
+        if (FLAG_FIXING_GROUP_ID) { // add project name for artifact
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            if (currentProject != null) {
+                String technicalLabel = currentProject.getTechnicalLabel();
+                return technicalLabel + '.' + TalendMavenConstants.DEFAULT_CODE;
+            }
         }
         return TalendMavenConstants.DEFAULT_CODE_PROJECT_ARTIFACT_ID;
+    }
+
+    public static String getDefaultRoutineGroupId() {
+        if (!FLAG_FIXING_GROUP_ID) {
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            if (currentProject != null) {
+                String technicalLabel = currentProject.getTechnicalLabel();
+                return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE + '.' + technicalLabel);
+            }
+        }
+        return TalendMavenConstants.DEFAULT_ROUTINES_GROUP_ID;
+    }
+
+    /**
+     * always depend on current project.
+     * 
+     * return "<project>.routines"
+     */
+    public static String getDefaultRoutinesArtifactId() {
+        if (FLAG_FIXING_GROUP_ID) { // add project name for artifact
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            if (currentProject != null) {
+                String technicalLabel = currentProject.getTechnicalLabel();
+                return technicalLabel + '.' + JavaUtils.ROUTINE_JAR_NAME;
+            }
+        }
+        return TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID;
+    }
+
+    public static String getJobGroupId(String name) {
+        if (!FLAG_FIXING_GROUP_ID) {
+            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB + '.' + name);
+        }
+        return TalendMavenConstants.DEFAULT_JOB_GROUP_ID;
+    }
+
+    public static String getJobGroupId(Property property) {
+        if (FLAG_FIXING_GROUP_ID) {
+            return TalendMavenConstants.DEFAULT_JOB_GROUP_ID;
+        }
+        if (property != null) {
+            ProjectManager pManager = ProjectManager.getInstance();
+            Project currentProject = pManager.getCurrentProject();
+            if (!pManager.isInCurrentMainProject(property)) {
+                org.talend.core.model.properties.Project project = pManager.getProject(property);
+                if (project != null) {
+                    return getJobGroupId(currentProject.getTechnicalLabel() + '.' + project.getTechnicalLabel());
+                }
+            }
+            if (currentProject != null) {
+                return getJobGroupId(currentProject.getTechnicalLabel());
+            }
+
+        }
+        return getDefaultJobGroupId();
     }
 
     /**
@@ -62,16 +132,40 @@ public class PomIdsHelper {
      * 
      * If projectName is null, will return default one "org.talend.job" only.
      */
-    public static String getJobGroupId(String projectName) {
-        if (projectName != null) {
-            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB + '.' + projectName);
+    public static String getDefaultJobGroupId() {
+        if (FLAG_FIXING_GROUP_ID) {
+            return TalendMavenConstants.DEFAULT_JOB_GROUP_ID;
+        } else {
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            return getJobGroupId(currentProject != null ? currentProject.getTechnicalLabel() : null);
         }
-        return TalendMavenConstants.DEFAULT_JOB_GROUP_ID;
     }
 
-    public static String getDefaultJobGroupId() {
-        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        return getJobGroupId(currentProject != null ? currentProject.getTechnicalLabel() : null);
+    /**
+     * 
+     * return "<mainProject>[.<refProject>].<jobName>".
+     */
+    public static String getJobArtifactId(Property property) {
+        if (property != null) {
+            ProjectManager pManager = ProjectManager.getInstance();
+            Project currentProject = pManager.getCurrentProject();
+            String artifactId = JavaResourcesHelper.escapeFileName(property.getLabel());
+
+            if (FLAG_FIXING_GROUP_ID) { // add project name for artifact
+                if (pManager.isInCurrentMainProject(property)) {
+                    if (currentProject != null) {
+                        artifactId = currentProject.getTechnicalLabel() + '.' + artifactId;
+                    }
+                } else {
+                    org.talend.core.model.properties.Project project = pManager.getProject(property);
+                    if (project != null) {
+                        artifactId = currentProject.getTechnicalLabel() + '.' + project.getTechnicalLabel() + '.' + artifactId;
+                    }
+                }
+            } // else { //just use the name of label.
+            return artifactId;
+        }
+        return null;
     }
 
 }

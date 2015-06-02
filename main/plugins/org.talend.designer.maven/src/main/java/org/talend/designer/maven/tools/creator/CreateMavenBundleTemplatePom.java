@@ -76,27 +76,37 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
     @Override
     protected Model createModel() {
-        Model model = null;
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = getTemplateStream();
+            Model model = null;
+            inputStream = getTemplateStream();
             if (inputStream != null) {
                 model = MODEL_MANAGER.readMavenModel(inputStream);
                 inputStream.close();
             }
+            // load failure. try default one.
+            if (model == null) {
+                // create default model
+                model = super.createModel();
+            } else { // if load from template, try to set the attributes again.
+                setAttributes(model);
+                addProperties(model);
+            }
+            return model;
         } catch (IOException e) {
             ExceptionHandler.process(e);
         } catch (CoreException e) {
             ExceptionHandler.process(e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    //
+                }
+            }
         }
-        // load failure. try default one.
-        if (model == null) {
-            // create default model
-            model = super.createModel();
-        } else { // if load from template, try to set the attributes again.
-            setAttributes(model);
-            addProperties(model);
-        }
-        return model;
+        return null;
     }
 
     protected InputStream getTemplateStream() throws IOException {
@@ -106,16 +116,6 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         } catch (Exception e) {
             throw new IOException(e);
         }
-    }
-
-    protected String replaceVariable(String originaContent, String var, String value) {
-        if (originaContent == null || originaContent.trim().length() == 0 || var == null || var.trim().length() == 0) {
-            return originaContent;
-        }
-        if (value == null) {
-            value = ""; //$NON-NLS-1$
-        }
-        return originaContent.replace(var, value);
     }
 
     /*

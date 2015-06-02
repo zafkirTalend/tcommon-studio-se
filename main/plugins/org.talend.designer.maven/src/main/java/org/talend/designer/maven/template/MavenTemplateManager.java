@@ -28,7 +28,6 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
-import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
@@ -227,7 +226,7 @@ public class MavenTemplateManager {
     private static Model getDefaultCodeProjectTemplateModel() {
         Model templateCodeProjectMOdel = new Model();
 
-        templateCodeProjectMOdel.setGroupId(PomIdsHelper.getDefaultGroupId());
+        templateCodeProjectMOdel.setGroupId(PomIdsHelper.getDefaultProjectGroupId());
         templateCodeProjectMOdel.setArtifactId(PomIdsHelper.getDefaultProjectArtifactId());
         templateCodeProjectMOdel.setVersion(PomUtil.getDefaultMavenVersion());
 
@@ -250,7 +249,7 @@ public class MavenTemplateManager {
                 variablesValuesMap.put(ETalendMavenVariables.ProjectGroupId, defaultModel.getGroupId());
                 variablesValuesMap.put(ETalendMavenVariables.ProjectArtifactId, defaultModel.getArtifactId());
                 variablesValuesMap.put(ETalendMavenVariables.ProjectVersion, defaultModel.getVersion());
-
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesArtifactId, PomIdsHelper.getDefaultRoutinesArtifactId());
                 Project currentProject = ProjectManager.getInstance().getCurrentProject();
                 variablesValuesMap.put(ETalendMavenVariables.ProjectName,
                         currentProject != null ? currentProject.getTechnicalLabel() : null);
@@ -271,8 +270,8 @@ public class MavenTemplateManager {
     private static Model getDefaultRoutinesTempalteModel() {
         Model templateRoutinesModel = new Model();
 
-        templateRoutinesModel.setGroupId(PomIdsHelper.getDefaultGroupId());
-        templateRoutinesModel.setArtifactId(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        templateRoutinesModel.setGroupId(PomIdsHelper.getDefaultRoutineGroupId());
+        templateRoutinesModel.setArtifactId(PomIdsHelper.getDefaultRoutinesArtifactId());
         templateRoutinesModel.setVersion(PomUtil.getDefaultMavenVersion());
 
         return templateRoutinesModel;

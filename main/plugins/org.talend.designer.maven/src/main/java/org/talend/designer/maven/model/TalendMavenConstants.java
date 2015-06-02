@@ -96,7 +96,7 @@ public interface TalendMavenConstants {
      * for .Java/pom.xml
      */
 
-    static final String DEFAULT_CODE_PROJECT_GROUP_ID = DEFAULT_GROUP_ID + '.' + DEFAULT_CODE;
+    static final String DEFAULT_CODE_PROJECT_GROUP_ID = DEFAULT_GROUP_ID + '.' + "master";
 
     static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = DEFAULT_CODE + ".Master";
 

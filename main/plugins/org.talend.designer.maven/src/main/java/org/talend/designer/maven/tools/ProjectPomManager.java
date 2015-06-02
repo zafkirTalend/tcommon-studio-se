@@ -28,7 +28,6 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
@@ -113,8 +112,7 @@ public class ProjectPomManager {
         }
         List<String> modulesList = new ArrayList<String>();
         // add routines always.
-        final Model routinesModel = MavenTemplateManager.getRoutinesTempalteModel();
-        String routinesModule = PomUtil.getPomFileName(routinesModel.getArtifactId());
+        String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
         modulesList.add(routinesModule);
 
         for (JobInfo childJob : processor.getBuildChildrenJobs()) {
