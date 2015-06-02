@@ -2474,6 +2474,8 @@ public class DatabaseForm extends AbstractForm {
         }
         filterTypesUnloadProviders(dbTypeDisplayList);
 
+        filterUnsupportedDBType(dbTypeDisplayList);
+
         dbTypeCombo = new LabelledCombo(compositeDbSettings, Messages.getString("DatabaseForm.dbType"), Messages //$NON-NLS-1$
                 .getString("DatabaseForm.dbTypeTip"), dbTypeDisplayList.toArray(new String[0]), 2, true); //$NON-NLS-1$
 
@@ -2483,6 +2485,17 @@ public class DatabaseForm extends AbstractForm {
             visibleItemCount = VISIBLE_DATABASE_COUNT;
         }
         dbTypeCombo.getCombo().setVisibleItemCount(visibleItemCount);
+    }
+
+    private void filterUnsupportedDBType(List<String> dbTypeDisplayList) {
+        Iterator<String> it = dbTypeDisplayList.iterator();
+        while (it.hasNext()) {
+            String displayName = it.next();
+            EDatabaseTypeName type = EDatabaseTypeName.getTypeFromDisplayName(displayName);
+            if (!type.isSupport()) {
+                it.remove();
+            }
+        }
     }
 
     private void filterTypesUnloadProviders(List<String> dbTypeDisplayList) {

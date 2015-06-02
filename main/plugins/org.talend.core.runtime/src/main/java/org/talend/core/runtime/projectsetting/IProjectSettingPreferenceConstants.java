@@ -58,4 +58,8 @@ public interface IProjectSettingPreferenceConstants {
 
     public static final String TEMPLATE_SERVICES_KARAF_PARENT = "template_services_karaf_parent_maven_script"; //$NON-NLS-1$
 
+    /*
+     * Enable ODBC or not, used for DatabaseForm and stats&logs
+     */
+    public static final String METADATA_DBCONNECTION_ODBC_ENABLE = "METADATA_DBCONNECTION_ODBC_DISABLE"; //$NON-NLS-1$
 }

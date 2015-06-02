@@ -13,6 +13,8 @@
 package org.talend.core.database;
 
 import org.talend.core.model.metadata.builder.database.EDatabaseSchemaOrCatalogMapping;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 
 /**
  * qzhang class global comment. Detailled comment <br/>
@@ -34,11 +36,17 @@ public enum EDatabaseTypeName {
     ORACLE_OCI(
                "ORACLE_OCI", "Oracle OCI", Boolean.TRUE, "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ORACLE_CUSTOM(
-                  "ORACLE_CUSTOM", "Oracle Custom", Boolean.TRUE, "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$           
+                  "ORACLE_CUSTOM", "Oracle Custom", Boolean.TRUE, "ORACLE", "DBORACLE", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$    
+    /**
+     * @deprecated odbc is not supported in java8
+     */
     GODBC(
-          "Generic ODBC", "Generic ODBC", Boolean.FALSE, "ODBC", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          "Generic ODBC", "Generic ODBC (Unsupported)", Boolean.FALSE, "ODBC", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    /**
+     * @deprecated odbc is not supported in java8
+     */
     MSODBC(
-           "Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", Boolean.FALSE, "ODBC", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+           "Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver, Unsupported)", Boolean.FALSE, "ODBC", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     IBMDB2(
            "IBM DB2", "IBM DB2", Boolean.TRUE, "IBM_DB2", "DB2", EDatabaseSchemaOrCatalogMapping.None, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     IBMDB2ZOS(
@@ -291,4 +299,15 @@ public enum EDatabaseTypeName {
         return useProvider;
     }
 
+    public boolean isSupport() {
+        boolean isSupport = true;
+
+        if (EDatabaseTypeName.GODBC == this || EDatabaseTypeName.MSODBC == this) {
+            boolean isSupportODBC = CoreRuntimePlugin.getInstance().getProjectPreferenceManager()
+                    .getBoolean(IProjectSettingPreferenceConstants.METADATA_DBCONNECTION_ODBC_ENABLE);
+            isSupport = isSupportODBC;
+        }
+
+        return isSupport;
+    }
 }

@@ -19,6 +19,9 @@ import org.apache.commons.lang.StringUtils;
  * 
  */
 public enum SupportDBUrlType {
+    /**
+     * @deprecated odbc is not supported in java8, better hide it
+     */
     ODBCDEFAULTURL("Generic ODBC", //$NON-NLS-1$
                    null,
                    null,
@@ -260,8 +263,8 @@ public enum SupportDBUrlType {
      * @param datasource the data source
      * @param language the specific language used by the database
      */
-    SupportDBUrlType(String dbKey, String hostName, String port, String dbName, String paramSeprator, String dbDriver, String datasource,
-            String language) {
+    SupportDBUrlType(String dbKey, String hostName, String port, String dbName, String paramSeprator, String dbDriver,
+            String datasource, String language) {
         this.dbKey = dbKey;
         this.hostName = hostName;
         this.port = port;
@@ -367,6 +370,7 @@ public enum SupportDBUrlType {
     public static boolean justHaveSchema(String dbKey) {
         SupportDBUrlType dbTypeByKey = getDBTypeByKey(dbKey);
         return dbTypeByKey != null
-                && (isOracle(dbKey) || dbTypeByKey == TERADATADEFAULTURL || dbTypeByKey == INGRESDEFAULTURL || dbTypeByKey == DB2DEFAULTURL || dbTypeByKey == DB2ZOSDEFAULTURL);
+                && (isOracle(dbKey) || dbTypeByKey == TERADATADEFAULTURL || dbTypeByKey == INGRESDEFAULTURL
+                        || dbTypeByKey == DB2DEFAULTURL || dbTypeByKey == DB2ZOSDEFAULTURL);
     }
 }
