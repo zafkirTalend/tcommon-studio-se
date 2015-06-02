@@ -37,6 +37,7 @@ import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.utils.PomUtil;
+import org.talend.utils.io.FilesUtils;
 
 /**
  * created by wchen on 2015-5-14 Detailled comment
@@ -130,7 +131,7 @@ public class ArtifactsDeployer {
                     installToRemote(new File(generatePom), parseMvnUrl, pomType);
                 }
             }
-
+            FilesUtils.deleteFolder(new File(generatePom).getParentFile(), true);
         }
     }
 
