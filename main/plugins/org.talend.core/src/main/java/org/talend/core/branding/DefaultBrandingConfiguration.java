@@ -32,6 +32,7 @@ import org.talend.core.ui.branding.IActionBarHelper;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
+import org.talend.repository.ui.views.ITestContainerView;
 
 /**
  * DefaultBrandingConfiguration is as TIS BrandingConfiguration(don't hide repository Nodes or Components),all other
@@ -109,6 +110,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
             String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
             String repositoryId = IRepositoryView.VIEW_ID;
+            String testContaierID = ITestContainerView.ID;
 
             String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
             //        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
@@ -147,6 +149,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             bottomLayout.addView(componentSettingViewerId);
 
             bottomLayout.addView(runProcessViewId);
+            bottomLayout.addView(testContaierID);
             // bottomLayout.addView(problemsViewId);
             // bottomLayout.addView(modulesViewId);
             // bottomLayout.addView(ecosystemViewId);
