@@ -13,6 +13,7 @@
 package org.talend.designer.maven.utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +33,11 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.IMaven;
+import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.Project;
@@ -55,6 +59,8 @@ import org.talend.repository.ProjectManager;
  *
  */
 public class PomUtil {
+
+    private static final MavenModelManager MODEL_MANAGER = MavenPlugin.getMavenModelManager();
 
     public static void savePom(IProgressMonitor monitor, Model model, IFile pomFile) throws Exception {
         if (monitor == null) {
@@ -459,6 +465,34 @@ public class PomUtil {
             return file.getAbsolutePath();
         }
 
+        return null;
+    }
+
+    public static String generatePom(MavenArtifact artifact) {
+        try {
+            Project project = ProjectManager.getInstance().getCurrentProject();
+            IProject fsProject = ResourceUtils.getProject(project);
+            IFolder tmpFolder = fsProject.getFolder("temp");
+            String tmpFolderName = File.createTempFile(TalendMavenConstants.PACKAGING_POM, "").getName();
+            IFolder folder = tmpFolder.getFolder(tmpFolderName);
+            folder.create(true, true, null);
+            IFile pomFile = folder.getFile(TalendMavenConstants.POM_FILE_NAME);
+
+            Model pomModel = new Model();
+            pomModel.setModelVersion(TalendMavenConstants.POM_VERSION);
+            pomModel.setModelEncoding(TalendMavenConstants.DEFAULT_ENCODING);
+            pomModel.setGroupId(artifact.getGroupId());
+            pomModel.setArtifactId(artifact.getArtifactId());
+            pomModel.setVersion(artifact.getVersion());
+            MODEL_MANAGER.createMavenModel(pomFile, pomModel);
+            return pomFile.getLocation().toPortableString();
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
         return null;
     }
 

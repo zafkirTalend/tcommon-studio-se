@@ -103,6 +103,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                             NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
                             downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
                             customUriToAdd.put(module.getName(), module.getMavenUri());
+                            installedModules.add(module.getName());
                         } catch (Exception e) {
                             downloadFailed.add(module.getName());
                             ExceptionHandler.process(e);
