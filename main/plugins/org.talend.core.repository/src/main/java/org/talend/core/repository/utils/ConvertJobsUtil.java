@@ -204,19 +204,28 @@ public class ConvertJobsUtil {
      * @param item
      * @return
      */
-    public static Object getFramework(Item item) {
+    public static String getFramework(Item item) {
         if (item != null) {
             Property property = item.getProperty();
             if (property != null && property.getAdditionalProperties() != null
                     && property.getAdditionalProperties().containsKey(FRAMEWORK)) {
-                return property.getAdditionalProperties().get(FRAMEWORK);
+                return (String) property.getAdditionalProperties().get(FRAMEWORK);
             }
         }
         return null;
     }
 
     public static String getJobTypeFromFramework(Item item) {
-        Object frameworkObj = ConvertJobsUtil.getFramework(item);
+        String frameworkObj = ConvertJobsUtil.getFramework(item);
+        return getJobTypeFromFramework(frameworkObj);
+    }
+
+    /**
+     * DOC nrousseau Comment method "getJobTypeFromFramework".
+     * @param frameworkObj
+     * @return
+     */
+    public static String getJobTypeFromFramework(String frameworkObj) {
         if (JobBatchFramework.MAPREDUCEFRAMEWORK.getDisplayName().equals(frameworkObj)
                 || JobBatchFramework.SPARKFRAMEWORK.getDisplayName().equals(frameworkObj)) {
             return JobType.BIGDATABATCH.getDisplayName();
@@ -274,5 +283,20 @@ public class ConvertJobsUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * DOC nrousseau Comment method "getFrameworkItemsByJobType".
+     * @param repositoryObjectType
+     * @return
+     */
+    public static String[] getFrameworkItemsByJobType(ERepositoryObjectType repositoryObjectType) {
+        if (ERepositoryObjectType.PROCESS_MR.equals(repositoryObjectType)) {
+            return JobBatchFramework.getFrameworkToDispaly();
+        } else if (ERepositoryObjectType.PROCESS_STORM.equals(repositoryObjectType)) {
+            return JobStreamingFramework.getFrameworkToDispaly();
+        } else {
+            return new String[0];
+        }
     }
 }
