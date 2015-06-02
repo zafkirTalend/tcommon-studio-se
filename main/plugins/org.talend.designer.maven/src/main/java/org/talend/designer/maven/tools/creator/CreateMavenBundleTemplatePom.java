@@ -102,7 +102,7 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
     protected InputStream getTemplateStream() throws IOException {
         try {
             return MavenTemplateManager.getBundleTemplateStream(JOB_TEMPLATE_BUNDLE,
-                    IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + bundleTemplateName);
+                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + bundleTemplateName);
         } catch (Exception e) {
             throw new IOException(e);
         }

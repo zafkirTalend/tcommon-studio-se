@@ -15,23 +15,26 @@ package org.talend.core.runtime.projectsetting;
 /**
  * DOC ggu class global comment. Detailled comment
  */
+@SuppressWarnings("nls")
 public interface IProjectSettingTemplateConstants {
 
     final static String PATH_RESOURCES = "resources";
 
     final static String PATH_RESOURCES_TEMPLATES = PATH_RESOURCES + '/' + "templates";
 
-    final static String PATH_OSGI_BUNDLE = PATH_RESOURCES_TEMPLATES + "/osgi"; //$NON-NLS-1$
-
-    final static String PATH_KARAF = PATH_RESOURCES_TEMPLATES + "/karaf"; //$NON-NLS-1$
-
-    final static String PATH_ROUTE = PATH_KARAF + "/routes"; //$NON-NLS-1$
-
-    final static String PATH_SERVICES = PATH_KARAF + "/services"; //$NON-NLS-1$
+    /*
+     * Standalone
+     */
+    final static String PATH_STANDALONE = PATH_RESOURCES_TEMPLATES + "/standalone";
 
     static final String POM_FILE_NAME = "pom.xml";
 
     static final String ASSEMBLY_FILE_NAME = "assembly.xml";
+
+    /*
+     * OSGi
+     */
+    final static String PATH_OSGI_BUNDLE = PATH_RESOURCES_TEMPLATES + "/osgi";
 
     static final String OSGI_POM_FILE_NAME = "pom_osgi.xml";
 
@@ -60,12 +63,18 @@ public interface IProjectSettingTemplateConstants {
     /*
      * karaf
      */
-    static final String MAVEN_CONTROL_BUILD_BUNDLE_FILE_NAME = "pom-control-bundle.xml"; //$NON-NLS-1$
+    final static String PATH_KARAF = PATH_RESOURCES_TEMPLATES + "/karaf";
 
-    static final String MAVEN_KARAF_BUILD_BUNDLE_FILE_NAME = "pom-bundle.xml"; //$NON-NLS-1$
+    final static String PATH_ROUTE = PATH_KARAF + "/routes";
 
-    static final String MAVEN_KARAF_BUILD_FEATURE_FILE_NAME = "pom-feature.xml"; //$NON-NLS-1$
+    final static String PATH_SERVICES = PATH_KARAF + "/services";
 
-    static final String MAVEN_KARAF_BUILD_PARENT_FILE_NAME = "pom-parent.xml"; //$NON-NLS-1$
+    static final String MAVEN_CONTROL_BUILD_BUNDLE_FILE_NAME = "pom-control-bundle.xml";
+
+    static final String MAVEN_KARAF_BUILD_BUNDLE_FILE_NAME = "pom-bundle.xml";
+
+    static final String MAVEN_KARAF_BUILD_FEATURE_FILE_NAME = "pom-feature.xml";
+
+    static final String MAVEN_KARAF_BUILD_PARENT_FILE_NAME = "pom-parent.xml";
 
 }

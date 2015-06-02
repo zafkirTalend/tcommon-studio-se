@@ -261,7 +261,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         try {
             return MavenTemplateManager.getTemplateStream(templateFile,
                     IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, JOB_TEMPLATE_BUNDLE,
-                    IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/' + getBundleTemplateName());
+                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + getBundleTemplateName());
         } catch (Exception e) {
             throw new IOException(e);
         }
@@ -402,7 +402,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
                 String content = MavenTemplateManager.getTemplateContent(templateFile,
                         IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_ASSEMBLY, JOB_TEMPLATE_BUNDLE,
-                        IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/'
+                        IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
                                 + IProjectSettingTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
                 if (content != null) {
                     FileWriter writer = new FileWriter(assemblyFile.getLocation().toFile());
