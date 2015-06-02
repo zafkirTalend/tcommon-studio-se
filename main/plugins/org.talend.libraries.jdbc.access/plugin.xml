@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+    <extension point="org.talend.core.runtime.librariesNeeded">
+        <libraryNeeded
+              context="plugin:org.talend.libraries.jdbc.access"
+              language="java"
+              message="Needed for Access jdbc plugin"
+              name="ucanaccess-2.0.9.4.jar"
+              required="true">
+        </libraryNeeded>
+    </extension>
+</plugin>
