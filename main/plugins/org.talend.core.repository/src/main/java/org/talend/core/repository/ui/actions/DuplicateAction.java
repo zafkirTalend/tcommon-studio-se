@@ -54,6 +54,7 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
+import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -214,7 +215,7 @@ public class DuplicateAction extends AContextualAction {
             jobNameValue = ""; //$NON-NLS-1$
         }
         //
-        if (item instanceof ProcessItem) {
+        if (item instanceof ProcessItem && PluginChecker.isTIS()) {
             DuplicateDialog jobNewNameDialog = new DuplicateDialog(null, sourceNode, jobNameValue);
             if (jobNewNameDialog.open() != Dialog.OK) {
                 return;

@@ -12,7 +12,11 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.custom.CCombo;
+import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -63,8 +67,21 @@ public class ConvertJobsUtil {
 
         public static String[] getJobTypeToDispaly() {
             String[] dispalyNames = new String[values().length];
+            List<String> dispalyNamesList = new ArrayList<String>();
             for (int i = 0; i < values().length; i++) {
-                dispalyNames[i] = values()[i].getDisplayName();
+                dispalyNamesList.add(i, values()[i].getDisplayName());
+            }
+            if (!PluginChecker.isStormPluginLoader()) {
+                dispalyNamesList.remove(JobType.BIGDATASTREAMING.getDisplayName());
+            }
+            if (!PluginChecker.isMapReducePluginLoader()) {
+                dispalyNamesList.remove(JobType.BIGDATABATCH.getDisplayName());
+            }
+            dispalyNames = new String[dispalyNamesList.size()];
+            for (int j = 0; j < dispalyNamesList.size(); j++) {
+                if (dispalyNamesList.get(j) != null) {
+                    dispalyNames[j] = dispalyNamesList.get(j);
+                }
             }
             return dispalyNames;
         }
@@ -162,8 +179,10 @@ public class ConvertJobsUtil {
     }
 
     public static void updateJobFrameworkPart(String jobTypeValue, CCombo frameworkCombo) {
+        frameworkCombo.setEditable(true);
         if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
             frameworkCombo.setItems(new String[0]);
+            frameworkCombo.setEditable(false);
         } else if (JobType.BIGDATABATCH.getDisplayName().equals(jobTypeValue)) {
             String[] items = JobBatchFramework.getFrameworkToDispaly();
             frameworkCombo.setItems(items);
