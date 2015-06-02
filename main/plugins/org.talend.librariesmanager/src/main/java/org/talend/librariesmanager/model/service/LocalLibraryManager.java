@@ -80,6 +80,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
     // only check the existing status in list() incase of performance problem
     private Map<String, String> mavenJarInstalled = new HashMap<String, String>();
 
+    // map jar to file path.
+    // this will set in memory all the modules from the extension points.
+    private Map<String, String> platfromUriFromExtensions = new HashMap<String, String>();
+
+    private Map<String, String> mavenUriFromExtensions = new HashMap<String, String>();
+
     private Set<String> jarsNeededForComponents = new HashSet<String>();
 
     private Set<String> urlWarned = new HashSet<String>();
@@ -371,8 +377,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
         // maven
         EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
-        for (String jarName : jarsToMavenUri.keySet()) {
-            String mvnUri = jarsToMavenUri.get(jarName);
+        Map<String, String> mavenUriToCheck = new HashMap<String, String>();
+        mavenUriToCheck.putAll(jarsToMavenUri.map());
+        mavenUriToCheck.putAll(mavenUriFromExtensions);
+        for (String jarName : mavenUriToCheck.keySet()) {
+            String mvnUri = mavenUriToCheck.get(jarName);
             if (checkJarInstalledInMaven(mvnUri)) {
                 jarList.add(jarName);
             }
@@ -392,8 +401,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
         // studio
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex().getJarsToRelativePath();
-        for (String jarName : jarsToRelative.keySet()) {
-            String relativePath = jarsToRelative.get(jarName);
+        Map<String, String> platformUriToCheck = new HashMap<String, String>();
+        platformUriToCheck.putAll(jarsToRelative.map());
+        platformUriToCheck.putAll(platfromUriFromExtensions);
+        for (String jarName : platformUriToCheck.keySet()) {
+            String relativePath = platformUriToCheck.get(jarName);
             boolean jarFound = false;
             if (relativePath != null && relativePath.startsWith("platform:/")) {
                 jarFound = checkJarInstalledFromPlatform(relativePath);
@@ -548,6 +560,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
             // maven
             EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
             String mavenUri = jarsToMavenUri.get(jarName);
+            if (mavenUri == null) {
+                mavenUri = mavenUriFromExtensions.get(jarName);
+            }
             if (mavenUri != null) {
                 libPath = mavenJarInstalled.get(mavenUri);
                 if (libPath != null) {
@@ -572,6 +587,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
             // studio
             EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex().getJarsToRelativePath();
             String relativePath = jarsToRelative.get(jarName);
+            if (relativePath != null) {
+                relativePath = platfromUriFromExtensions.get(jarName);
+            }
             if (relativePath != null && relativePath.startsWith("platform:/")) { //$NON-NLS-1$
                 boolean jarFound = checkJarInstalledFromPlatform(relativePath);
                 if (jarFound) {
@@ -676,12 +694,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!duplicateMavenUri.isEmpty()) {
             warnDuplicated(modulesNeededForApplication, duplicateMavenUri, "Maven Uri:");
         }
-        if (!libsToRelativePath.isEmpty()) {
-            deploy(libsToRelativePath);
-        }
-        if (!libsToMavenUri.isEmpty()) {
-            deployMavenIndex(libsToMavenUri);
-        }
+        platfromUriFromExtensions.putAll(libsToRelativePath);
+        mavenUriFromExtensions.putAll(libsToMavenUri);
         listToUpdate = true;
     }
 

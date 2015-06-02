@@ -440,7 +440,7 @@ public class RemoteModulesHelper {
     private Map<String, ModuleToInstall> cache;
 
     private RemoteModulesHelper() {
-        nexusServer = NexusServerManager.getLibrariesNexusServer(true);
+        nexusServer = NexusServerManager.getLibrariesNexusServer();
         mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(nexusServer);
     }
 

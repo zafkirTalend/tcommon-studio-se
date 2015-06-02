@@ -67,15 +67,7 @@ public class NexusServerManager {
 
     private static final String TALEND_LIB_REPOSITORY = "libraries";//$NON-NLS-1$ 
 
-    /**
-     * 
-     * DOC Talend Comment method "getLibrariesNexusServer". get nexus server for libraries
-     * 
-     * @param createTalendIfCustomNotExsit , true : if custom libraries nexus server not configured in tac , return the
-     * default one. false : if custom libraries nexus server not configured in tac , return null.
-     * @return
-     */
-    public static NexusServerBean getLibrariesNexusServer(boolean createTalendIfCustomNotExsit) {
+    public static NexusServerBean getCustomNexusServer() {
         NexusServerBean serverBean = null;
         try {
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
@@ -92,12 +84,12 @@ public class NexusServerManager {
 
                 if (adminUrl != null && !"".equals(adminUrl)
                         && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
-                    serverBean = new NexusServerBean();
                     IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
                             IRemoteService.class);
                     JSONObject libServerObject;
                     libServerObject = remoteService.getLibNexusServer(userName, password, adminUrl);
                     if (libServerObject != null) {
+                        serverBean = new NexusServerBean();
                         String nexus_url = libServerObject.getString(KEY_NEXUS_RUL);
                         String nexus_user = libServerObject.getString(KEY_NEXUS_USER);
                         String nexus_pass = libServerObject.getString(KEY_NEXUS_PASS);
@@ -110,22 +102,18 @@ public class NexusServerManager {
                 }
 
             }
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             ExceptionHandler.process(e);
-        } catch (LoginException e) {
-            ExceptionHandler.process(e);
-        } catch (JSONException e) {
-            ExceptionHandler.process(e);
-        } finally {
-            if (createTalendIfCustomNotExsit && serverBean == null) {
-                serverBean = new NexusServerBean(true);
-                serverBean.setServer(TALEND_LIB_SERVER);
-                serverBean.setUserName(TALEND_LIB_USER);
-                serverBean.setPassword(TALEND_LIB_PASSWORD);
-                serverBean.setRepositoryId(TALEND_LIB_REPOSITORY);
-                return serverBean;
-            }
         }
+        return serverBean;
+    }
+
+    public static NexusServerBean getLibrariesNexusServer() {
+        NexusServerBean serverBean = new NexusServerBean(true);
+        serverBean.setServer(TALEND_LIB_SERVER);
+        serverBean.setUserName(TALEND_LIB_USER);
+        serverBean.setPassword(TALEND_LIB_PASSWORD);
+        serverBean.setRepositoryId(TALEND_LIB_REPOSITORY);
         return serverBean;
     }
 

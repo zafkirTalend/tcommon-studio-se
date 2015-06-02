@@ -15,6 +15,7 @@ package org.talend.librariesmanager.deploy;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -60,7 +61,7 @@ public class ArtifactsDeployer {
     }
 
     private void init() {
-        nexusServer = NexusServerManager.getLibrariesNexusServer(false);
+        nexusServer = NexusServerManager.getCustomNexusServer();
         if (nexusServer != null) {
             String server = nexusServer.getServer().trim();
             if (server.endsWith(NexusConstants.SLASH)) {
@@ -68,7 +69,7 @@ public class ArtifactsDeployer {
             }
             repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
         }
-        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(nexusServer);
+        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(new Hashtable<String, String>());
     }
 
     public static ArtifactsDeployer getInstance() {
