@@ -345,6 +345,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
          */
         checkPomProperty(properties, "talend.job.bat.classpath", "@JobBatClasspath@", this.getWindowsClasspath());
         checkPomProperty(properties, "talend.job.sh.classpath", "@JobShClasspath@", this.getUnixClasspath());
+        checkPomProperty(properties, "talend.job.script.addition", "@JobScriptAddition@", this.getUnixClasspath());
 
     }
 

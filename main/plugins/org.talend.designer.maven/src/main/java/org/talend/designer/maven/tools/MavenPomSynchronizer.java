@@ -27,7 +27,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
@@ -88,34 +87,10 @@ public class MavenPomSynchronizer {
 
     /**
      * 
-     * create project pom
-     * 
-     * @deprecated should use the CreateMavenCodeProject
-     */
-    public void createProjectPom() throws Exception {
-        IFile projectPomFile = codeProject.getProjectPom();
-        File pPomFile = projectPomFile.getLocation().toFile();
-        if (!pPomFile.exists()) {
-            // synch the templates first.
-            syncTemplates(false);
-            //
-            IFolder templateFolder = codeProject.getTemplatesFolder();
-            IFile projectTemplateFile = templateFolder.getFile(IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
-            FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
-
-            // refresh
-            codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);
-        }
-    }
-
-    /**
-     * 
      * add the job to the pom modules list of project.
      */
     public void addChildModules(boolean removeOld, String... childModules) throws Exception {
         IFile projectPomFile = codeProject.getProjectPom();
-        // check and create pom
-        createProjectPom();
 
         MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
         Model projModel = mavenModelManager.readMavenModel(projectPomFile);
@@ -211,7 +186,7 @@ public class MavenPomSynchronizer {
             }
             IFile routinesPomFile = codeProject.getProject().getFile(
                     PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
-            Model routinesModel = PomUtil.getRoutinesTempalteModel();
+            Model routinesModel = MavenTemplateManager.getRoutinesTempalteModel();
             if (routinesPomFile.exists()) {
                 routinesModel = mavenModelManager.readMavenModel(routinesPomFile);
             }

@@ -88,17 +88,22 @@ public interface TalendMavenConstants {
 
     static final String DEFAULT_VERSION = "6.0.0";
 
+    static final String DEFAULT_CODE = "code";
+
+    static final String DEFAULT_JOB = "job";
+
     /*
      * for .Java/pom.xml
      */
-    static final String DEFAULT_CODE_PROJECT_GROUP_ID = DEFAULT_GROUP_ID + ".master";
 
-    static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = "master.Codes";
+    static final String DEFAULT_CODE_PROJECT_GROUP_ID = DEFAULT_GROUP_ID + '.' + DEFAULT_CODE;
+
+    static final String DEFAULT_CODE_PROJECT_ARTIFACT_ID = DEFAULT_CODE + ".Master";
 
     /*
      * for routines
      */
-    static final String DEFAULT_ROUTINES_GROUP_ID = DEFAULT_GROUP_ID + ".code";
+    static final String DEFAULT_ROUTINES_GROUP_ID = DEFAULT_GROUP_ID + '.' + DEFAULT_CODE;
 
     static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
@@ -107,7 +112,7 @@ public interface TalendMavenConstants {
     /*
      * for job
      */
-    static final String DEFAULT_JOB_GROUP_ID = DEFAULT_GROUP_ID + ".job";
+    static final String DEFAULT_JOB_GROUP_ID = DEFAULT_GROUP_ID + '.' + DEFAULT_JOB;
 
     /*
      * for test container

@@ -136,6 +136,9 @@ public abstract class CreateMaven {
 
     protected void checkPomProperty(Properties properties, String key, String var, String value) {
         Object v = properties.get(key);
+        if (value == null) {
+            value = ""; //$NON-NLS-1$
+        }
         if (v != null) {
             if (v.equals(value)) { // same
                 // nothing to do

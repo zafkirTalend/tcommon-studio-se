@@ -108,6 +108,16 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         }
     }
 
+    protected String replaceVariable(String originaContent, String var, String value) {
+        if (originaContent == null || originaContent.trim().length() == 0 || var == null || var.trim().length() == 0) {
+            return originaContent;
+        }
+        if (value == null) {
+            value = ""; //$NON-NLS-1$
+        }
+        return originaContent.replace(var, value);
+    }
+
     /*
      * (non-Javadoc)
      * 

@@ -36,6 +36,7 @@ import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
 import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.utils.PomUtil;
 
 /**
@@ -58,14 +59,19 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
 
     @Override
     protected Model createModel() {
+        Model templateModel = MavenTemplateManager.getCodeProjectTemplateModel();
+
         // The groupId and artifactId are temp, will change it after create project.
         setGroupId(project.getName());
         setArtifactId(project.getName());
+        setVersion(PomUtil.getDefaultMavenVersion());
         // Must be jar, if pom, won't create the classpath or such for jdt.
         setPackaging(TalendMavenConstants.PACKAGING_JAR);
 
-        Model model = super.createModel();
-        return model;
+        setAttributes(templateModel);
+        addProperties(templateModel);
+
+        return templateModel;
     }
 
     /**
@@ -155,11 +161,11 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
                     if (!TalendMavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
                         model.setPackaging(TalendMavenConstants.PACKAGING_POM);
 
-                        Model codeProjectTemplateModel = PomUtil.getCodeProjectTemplateModel();
-
+                        Model codeProjectTemplateModel = MavenTemplateManager.getCodeProjectTemplateModel();
                         model.setGroupId(codeProjectTemplateModel.getGroupId());
                         model.setArtifactId(codeProjectTemplateModel.getArtifactId());
                         model.setVersion(codeProjectTemplateModel.getVersion());
+                        model.setName(codeProjectTemplateModel.getName());
 
                         PomUtil.savePom(monitor, model, pomFile);
 
