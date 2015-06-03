@@ -84,6 +84,36 @@ public class MavenResolverCreator {
         return MavenResolvers.createMavenResolver(properties, ServiceConstants.PID);
     }
 
+    // TODO HOT FIX FOR RC1
+    public MavenResolver getCommandlineMavenResolver() {
+        Hashtable<String, String> properties = new Hashtable<String, String>();
+        String newUrl = "";
+        NexusServerBean libServerBean = NexusServerManager.getLibrariesNexusServer();
+        if (libServerBean != null) {
+            String nexusUrl = libServerBean.getServer();
+            if (nexusUrl.endsWith(NexusConstants.SLASH)) {
+                nexusUrl = nexusUrl.substring(0, nexusUrl.length() - 1);
+            }
+            newUrl = nexusUrl + NexusConstants.CONTENT_REPOSITORIES + libServerBean.getRepositoryId()
+                    + "@id=" + libServerBean.getRepositoryId();//$NON-NLS-1$
+        }
+
+        NexusServerBean customServerBean = NexusServerManager.getCustomNexusServer();
+        if (customServerBean != null) {
+            String nexusUrl = customServerBean.getServer();
+            if (nexusUrl.endsWith(NexusConstants.SLASH)) {
+                nexusUrl = nexusUrl.substring(0, nexusUrl.length() - 1);
+            }
+            if (!"".equals(newUrl)) {
+                newUrl = newUrl + ",";
+            }
+            newUrl = newUrl + nexusUrl + NexusConstants.CONTENT_REPOSITORIES + customServerBean.getRepositoryId()
+                    + "@id=" + customServerBean.getRepositoryId();//$NON-NLS-1$
+        }
+        properties.put("org.ops4j.pax.url.mvn.repositories", newUrl);//$NON-NLS-1$
+        return MavenResolvers.createMavenResolver(properties, ServiceConstants.PID);
+    }
+
     public String setupMavenWithNexus(String url, String userName, String password, String repId) {
         // return the repository id configured in the settings.xml
         String repositoryIdToReture = repId;

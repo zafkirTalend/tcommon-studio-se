@@ -68,10 +68,33 @@ public class NexusServerManager {
 
     private static final String TALEND_LIB_REPOSITORY = "libraries";//$NON-NLS-1$ 
 
+    // TODO HOT FIX FOR RC1
+    private static final String CUSTOM_LIB = "talend-custom-libs";//$NON-NLS-1$ 
+
+    private static final String TALEND_LIB = "talend-remote-libs";//$NON-NLS-1$ 
+
     // the max search result is 200 by defult from nexus
     private static final int MAX_SEARCH_COUNT = 200;
 
     public static NexusServerBean getCustomNexusServer() {
+        return getNexusServer(true);
+    }
+
+    public static NexusServerBean getLibrariesNexusServer() {
+        NexusServerBean serverBean = getNexusServer(false);
+        if (serverBean == null) {
+            serverBean = new NexusServerBean();
+            serverBean.setServer(TALEND_LIB_SERVER);
+            serverBean.setUserName(TALEND_LIB_USER);
+            serverBean.setPassword(TALEND_LIB_PASSWORD);
+            serverBean.setRepositoryId(TALEND_LIB_REPOSITORY);
+        }
+        serverBean.setOfficial(true);
+
+        return serverBean;
+    }
+
+    private static NexusServerBean getNexusServer(boolean custom) {
         NexusServerBean serverBean = null;
         try {
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
@@ -97,7 +120,13 @@ public class NexusServerManager {
                         String nexus_url = libServerObject.getString(KEY_NEXUS_RUL);
                         String nexus_user = libServerObject.getString(KEY_NEXUS_USER);
                         String nexus_pass = libServerObject.getString(KEY_NEXUS_PASS);
-                        String repositoryId = libServerObject.getString(KEY_NEXUS_REPOSITORY);
+                        // String repositoryId = libServerObject.getString(KEY_NEXUS_REPOSITORY);
+                        String repositoryId = null;
+                        if (custom) {
+                            repositoryId = CUSTOM_LIB;
+                        } else {
+                            repositoryId = TALEND_LIB;
+                        }
                         serverBean.setServer(nexus_url);
                         serverBean.setUserName(nexus_user);
                         serverBean.setPassword(nexus_pass);
@@ -110,15 +139,7 @@ public class NexusServerManager {
             ExceptionHandler.process(e);
         }
         return serverBean;
-    }
 
-    public static NexusServerBean getLibrariesNexusServer() {
-        NexusServerBean serverBean = new NexusServerBean(true);
-        serverBean.setServer(TALEND_LIB_SERVER);
-        serverBean.setUserName(TALEND_LIB_USER);
-        serverBean.setPassword(TALEND_LIB_PASSWORD);
-        serverBean.setRepositoryId(TALEND_LIB_REPOSITORY);
-        return serverBean;
     }
 
     /**
@@ -268,7 +289,9 @@ public class NexusServerManager {
         if (version != null) {
             query = "v=" + version + "&";//$NON-NLS-1$ //$NON-NLS-2$ 
         }
-        return query + "repositoryId=" + repositoryId + "&g=" + groupId + "&from=" + from + "&count=" + count;//$NON-NLS-1$ //$NON-NLS-2$ 
+        // TODO HOT FIX FOR RC1 , remove repository id to make it possible to search in talend-lib group
+        //        return query + "repositoryId=" + repositoryId + "&g=" + groupId + "&from=" + from + "&count=" + count;//$NON-NLS-1$ //$NON-NLS-2$ 
+        return query + "g=" + groupId + "&from=" + from + "&count=" + count;//$NON-NLS-1$ //$NON-NLS-2$ 
     }
 
     private static HttpURLConnection getHttpURLConnection(String nexusUrl, String restService, String userName, String password)
