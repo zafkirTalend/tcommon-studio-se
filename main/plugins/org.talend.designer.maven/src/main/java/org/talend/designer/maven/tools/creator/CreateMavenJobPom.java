@@ -175,48 +175,67 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         if (this.clonedJobInfos.isEmpty()) {
             Set<JobInfo> buildChildrenJobs = getJobProcessor().getBuildChildrenJobs();
             for (JobInfo jobInfo : buildChildrenJobs) {
-                JobInfo newJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
+                if (!clonedJobInfos.contains(jobInfo)) {
+                    JobInfo newJobInfo = newJobInfo(jobInfo);
+                    clonedJobInfos.add(newJobInfo);
 
-                newJobInfo.setJobName(jobInfo.getJobName());
-                newJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                newJobInfo.setContext(jobInfo.getContext());
-                newJobInfo.setProjectFolderName(jobInfo.getProjectFolderName());
-                newJobInfo.setProcessItem(jobInfo.getProcessItem());
-
-                ProcessItem processItem = newJobInfo.getProcessItem();
-                if (processItem == null) {
-                    try {
-                        final IRepositoryViewObject obj = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
-                                .getSpecificVersion(jobInfo.getJobId(), jobInfo.getJobVersion(), true);
-                        if (obj != null) {
-                            final Item item = obj.getProperty().getItem();
-                            if (item instanceof ProcessItem) {
-                                processItem = (ProcessItem) item;
-                                newJobInfo.setProcessItem(processItem);
-                            }
-                        }
-                    } catch (PersistenceException e) {
-                        //
+                    // add father one also.
+                    JobInfo fatherJobInfo = newJobInfo.getFatherJobInfo();
+                    // if the father is child also.
+                    if (fatherJobInfo != null && buildChildrenJobs.contains(fatherJobInfo)) {
+                        clonedJobInfos.add(fatherJobInfo);
                     }
-
                 }
-
-                if (processItem != null) {
-                    IProcess process = jobInfo.getProcess();
-                    // get the type
-                    if (process == null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                IDesignerCoreService.class);
-                        process = service.getProcessFromItem(processItem);
-                        newJobInfo.setProcess(process);
-                    }
-                    final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
-                    newJobInfo.setProjectFolderName(projectFolderName);
-                }
-                clonedJobInfos.add(newJobInfo);
             }
         }
         return this.clonedJobInfos;
+    }
+
+    protected JobInfo newJobInfo(JobInfo jobInfo) {
+        JobInfo newJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
+
+        newJobInfo.setJobName(jobInfo.getJobName());
+        newJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
+        newJobInfo.setContext(jobInfo.getContext());
+        newJobInfo.setProjectFolderName(jobInfo.getProjectFolderName());
+        newJobInfo.setProcessItem(jobInfo.getProcessItem());
+
+        ProcessItem processItem = newJobInfo.getProcessItem();
+        if (processItem == null) {
+            try {
+                final IRepositoryViewObject obj = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
+                        .getSpecificVersion(jobInfo.getJobId(), jobInfo.getJobVersion(), true);
+                if (obj != null) {
+                    final Item item = obj.getProperty().getItem();
+                    if (item instanceof ProcessItem) {
+                        processItem = (ProcessItem) item;
+                        newJobInfo.setProcessItem(processItem);
+                    }
+                }
+            } catch (PersistenceException e) {
+                //
+            }
+
+        }
+
+        if (processItem != null) {
+            IProcess process = jobInfo.getProcess();
+            // get the type
+            if (process == null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                process = service.getProcessFromItem(processItem);
+                newJobInfo.setProcess(process);
+            }
+            final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
+            newJobInfo.setProjectFolderName(projectFolderName);
+        }
+        newJobInfo.setTestContainer(newJobInfo.isTestContainer());
+        JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
+        if (fatherJobInfo != null) {
+            newJobInfo.setFatherJobInfo(newJobInfo(fatherJobInfo));
+        }
+        return newJobInfo;
     }
 
     @SuppressWarnings("nls")
@@ -425,8 +444,9 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
             for (JobInfo jobInfo : clonedChildrenJobInfors) {
                 if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
-                    Dependency d = PomUtil.createDependency(model.getGroupId(), jobInfo.getJobName(), jobInfo.getJobVersion(),
-                            null);
+                    // same group as main job.
+                    Dependency d = PomUtil.createDependency(model.getGroupId(), PomIdsHelper.getJobArtifactId(jobInfo),
+                            PomIdsHelper.getJobVersion(jobInfo), null);
                     dependencies.add(d);
                 }
             }

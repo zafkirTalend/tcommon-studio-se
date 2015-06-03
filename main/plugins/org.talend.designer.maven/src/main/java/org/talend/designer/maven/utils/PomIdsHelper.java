@@ -14,6 +14,7 @@ package org.talend.designer.maven.utils;
 
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
@@ -174,19 +175,13 @@ public class PomIdsHelper {
     }
 
     /**
-     * @return "org.talend.job.<projectName>[.<refProjectName>]".
+     * @return "org.talend.job.<projectName>".
      */
     public static String getJobGroupId(Property property) {
         if (!FLAG_FIXING_GROUP_ID) {
             if (property != null) {
                 ProjectManager pManager = ProjectManager.getInstance();
                 Project currentProject = pManager.getCurrentProject();
-                if (!pManager.isInCurrentMainProject(property)) {
-                    org.talend.core.model.properties.Project project = pManager.getProject(property);
-                    if (project != null) {
-                        return getJobGroupId(currentProject.getTechnicalLabel() + '.' + project.getTechnicalLabel());
-                    }
-                }
                 if (currentProject != null) {
                     return getJobGroupId(currentProject.getTechnicalLabel());
                 }
@@ -197,7 +192,7 @@ public class PomIdsHelper {
     }
 
     /**
-     * @return "<projectName>[.<refProjectName>].<jobName>".
+     * @return "<projectName>.<jobName>".
      */
     public static String getJobArtifactId(Property property) {
         if (property != null) {
@@ -206,15 +201,24 @@ public class PomIdsHelper {
             String artifactId = JavaResourcesHelper.escapeFileName(property.getLabel());
 
             if (!FLAG_FIXING_ATIFACT_ID) { // add project name for artifact
-                if (pManager.isInCurrentMainProject(property)) {
-                    if (currentProject != null) {
-                        artifactId = currentProject.getTechnicalLabel() + '.' + artifactId;
-                    }
-                } else {
-                    org.talend.core.model.properties.Project project = pManager.getProject(property);
-                    if (project != null) {
-                        artifactId = currentProject.getTechnicalLabel() + '.' + project.getTechnicalLabel() + '.' + artifactId;
-                    }
+                if (currentProject != null) {
+                    artifactId = currentProject.getTechnicalLabel() + '.' + artifactId;
+                }
+            } // else { //just use the name of label.
+            return artifactId;
+        }
+        return null;
+    }
+
+    public static String getJobArtifactId(JobInfo jobInfo) {
+        if (jobInfo != null) {
+            ProjectManager pManager = ProjectManager.getInstance();
+            Project currentProject = pManager.getCurrentProject();
+            String artifactId = JavaResourcesHelper.escapeFileName(jobInfo.getJobName());
+
+            if (!FLAG_FIXING_ATIFACT_ID) { // add project name for artifact
+                if (currentProject != null) {
+                    artifactId = currentProject.getTechnicalLabel() + '.' + artifactId;
                 }
             } // else { //just use the name of label.
             return artifactId;
@@ -223,7 +227,7 @@ public class PomIdsHelper {
     }
 
     /**
-     * @return "<jobVersion>-<projectName>[-<refProjectName>]".
+     * @return "<jobVersion>-<projectName>".
      */
     public static String getJobVersion(Property property) {
         if (property != null) {
@@ -232,15 +236,24 @@ public class PomIdsHelper {
             String version = property.getVersion();
 
             if (FLAG_VERSION_WITH_CLASSIFIER) { // add project name for version
-                if (pManager.isInCurrentMainProject(property)) {
-                    if (currentProject != null) {
-                        version = version + '-' + currentProject.getTechnicalLabel();
-                    }
-                } else {
-                    org.talend.core.model.properties.Project project = pManager.getProject(property);
-                    if (project != null) {
-                        version = version + '-' + currentProject.getTechnicalLabel() + '-' + project.getTechnicalLabel();
-                    }
+                if (currentProject != null) {
+                    version = version + '-' + currentProject.getTechnicalLabel();
+                }
+            } // else { //just use the job version
+            return version;
+        }
+        return null;
+    }
+
+    public static String getJobVersion(JobInfo jobInfo) {
+        if (jobInfo != null) {
+            ProjectManager pManager = ProjectManager.getInstance();
+            Project currentProject = pManager.getCurrentProject();
+            String version = jobInfo.getJobVersion();
+
+            if (FLAG_VERSION_WITH_CLASSIFIER) { // add project name for version
+                if (currentProject != null) {
+                    version = version + '-' + currentProject.getTechnicalLabel();
                 }
             } // else { //just use the job version
             return version;
