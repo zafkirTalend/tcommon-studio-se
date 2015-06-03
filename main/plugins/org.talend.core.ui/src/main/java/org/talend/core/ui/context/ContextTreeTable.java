@@ -26,8 +26,11 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.window.DefaultToolTip;
 import org.eclipse.nebula.widgets.nattable.NatTable;
+import org.eclipse.nebula.widgets.nattable.config.AbstractRegistryConfiguration;
+import org.eclipse.nebula.widgets.nattable.config.CellConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.config.ConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.config.DefaultComparator;
+import org.eclipse.nebula.widgets.nattable.config.IConfigRegistry;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.DetailGlazedListsEventLayer;
@@ -35,6 +38,7 @@ import org.eclipse.nebula.widgets.nattable.extension.glazedlists.GlazedListsData
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.GlazedListsSortModel;
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.tree.GlazedListTreeData;
 import org.eclipse.nebula.widgets.nattable.extension.glazedlists.tree.GlazedListTreeRowModel;
+import org.eclipse.nebula.widgets.nattable.grid.GridRegion;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultColumnHeaderDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultCornerDataProvider;
 import org.eclipse.nebula.widgets.nattable.grid.data.DefaultRowHeaderDataProvider;
@@ -64,6 +68,9 @@ import org.eclipse.nebula.widgets.nattable.selection.config.DefaultSelectionStyl
 import org.eclipse.nebula.widgets.nattable.sort.ISortModel;
 import org.eclipse.nebula.widgets.nattable.sort.SortConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.sort.SortHeaderLayer;
+import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
+import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
+import org.eclipse.nebula.widgets.nattable.style.Style;
 import org.eclipse.nebula.widgets.nattable.tree.SortableTreeComparator;
 import org.eclipse.nebula.widgets.nattable.tree.TreeLayer;
 import org.eclipse.nebula.widgets.nattable.tree.config.DefaultTreeLayerConfiguration;
@@ -288,6 +295,25 @@ public class ContextTreeTable {
             natTable.setLayerPainter(layerPainter);
 
             attachCheckColumnTip(natTable);
+            
+            // global settings only effect on body and default region, so should set other regions' color separately.
+            natTable.setBackground(GUIHelper.COLOR_WHITE);
+            natTable.addConfiguration(new AbstractRegistryConfiguration() {
+                @Override
+                public void configureRegistry(IConfigRegistry configRegistry) {
+                    Style cellStyle = new Style();
+                    cellStyle.setAttributeValue(CellStyleAttributes.BACKGROUND_COLOR, GUIHelper.COLOR_WHITE);
+                    configRegistry.registerConfigAttribute(
+                            CellConfigAttributes.CELL_STYLE, cellStyle,
+                            DisplayMode.NORMAL, GridRegion.COLUMN_HEADER);
+                    configRegistry.registerConfigAttribute(
+                    		CellConfigAttributes.CELL_STYLE, cellStyle,
+                    		DisplayMode.NORMAL, GridRegion.CORNER);
+                    configRegistry.registerConfigAttribute(
+                    		CellConfigAttributes.CELL_STYLE, cellStyle,
+                    		DisplayMode.NORMAL, GridRegion.ROW_HEADER);
+                }
+            });
 
             natTable.configure();
 
