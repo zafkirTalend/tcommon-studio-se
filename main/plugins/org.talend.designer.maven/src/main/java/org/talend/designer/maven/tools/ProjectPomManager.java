@@ -29,6 +29,7 @@ import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
+import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 
@@ -184,11 +185,14 @@ public class ProjectPomManager {
             Model jobModel = MODEL_MANAGER.readMavenModel(basePomFile);
 
             List<Dependency> withoutChildrenJobDependencies = new ArrayList<Dependency>(jobModel.getDependencies());
-            // remove the children job's dependencies
+            // org.talend.job
+            final String jobGroupPrefix = PomIdsHelper.getJobGroupId((String) null);
+
             Iterator<Dependency> iterator = withoutChildrenJobDependencies.iterator();
             while (iterator.hasNext()) {
                 Dependency d = iterator.next();
-                if (d.getGroupId().equals(TalendMavenConstants.DEFAULT_JOB_GROUP_ID)) {
+                if (d.getGroupId().startsWith(jobGroupPrefix)) {
+                    // remove the children job's dependencies
                     iterator.remove();
                 }
             }

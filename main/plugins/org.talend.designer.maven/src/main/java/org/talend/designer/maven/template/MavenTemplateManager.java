@@ -226,8 +226,8 @@ public class MavenTemplateManager {
     private static Model getDefaultCodeProjectTemplateModel() {
         Model templateCodeProjectMOdel = new Model();
 
-        templateCodeProjectMOdel.setGroupId(PomIdsHelper.getDefaultProjectGroupId());
-        templateCodeProjectMOdel.setArtifactId(PomIdsHelper.getDefaultProjectArtifactId());
+        templateCodeProjectMOdel.setGroupId(PomIdsHelper.getProjectGroupId());
+        templateCodeProjectMOdel.setArtifactId(PomIdsHelper.getProjectArtifactId());
         templateCodeProjectMOdel.setVersion(PomUtil.getDefaultMavenVersion());
 
         return templateCodeProjectMOdel;
@@ -246,10 +246,9 @@ public class MavenTemplateManager {
                 Model model = MavenPlugin.getMavenModelManager().readMavenModel(stream);
 
                 Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
-                variablesValuesMap.put(ETalendMavenVariables.ProjectGroupId, defaultModel.getGroupId());
-                variablesValuesMap.put(ETalendMavenVariables.ProjectArtifactId, defaultModel.getArtifactId());
-                variablesValuesMap.put(ETalendMavenVariables.ProjectVersion, defaultModel.getVersion());
-                variablesValuesMap.put(ETalendMavenVariables.RoutinesArtifactId, PomIdsHelper.getDefaultRoutinesArtifactId());
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesGroupId, defaultModel.getGroupId());
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesArtifactId, defaultModel.getArtifactId());
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesVersion, defaultModel.getVersion());
                 Project currentProject = ProjectManager.getInstance().getCurrentProject();
                 variablesValuesMap.put(ETalendMavenVariables.ProjectName,
                         currentProject != null ? currentProject.getTechnicalLabel() : null);
@@ -270,8 +269,8 @@ public class MavenTemplateManager {
     private static Model getDefaultRoutinesTempalteModel() {
         Model templateRoutinesModel = new Model();
 
-        templateRoutinesModel.setGroupId(PomIdsHelper.getDefaultRoutineGroupId());
-        templateRoutinesModel.setArtifactId(PomIdsHelper.getDefaultRoutinesArtifactId());
+        templateRoutinesModel.setGroupId(PomIdsHelper.getRoutineGroupId());
+        templateRoutinesModel.setArtifactId(PomIdsHelper.getRoutinesArtifactId());
         templateRoutinesModel.setVersion(PomUtil.getDefaultMavenVersion());
 
         return templateRoutinesModel;

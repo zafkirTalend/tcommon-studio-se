@@ -30,7 +30,9 @@ public enum ETalendMavenVariables {
     ProjectId,
     ProjectBranch,
 
+    RoutinesGroupId,
     RoutinesArtifactId,
+    RoutinesVersion,
 
     JobGroupId,
     JobArtifactId,
@@ -38,8 +40,8 @@ public enum ETalendMavenVariables {
 
     JobId,
     JobName,
+    JobType,
     JobPath,
-    JobJarName,
     JobPackage,
     JobDate,
     JobContext,

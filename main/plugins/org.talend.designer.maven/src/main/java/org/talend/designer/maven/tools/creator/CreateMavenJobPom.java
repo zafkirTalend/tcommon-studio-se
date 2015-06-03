@@ -19,9 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -245,24 +247,32 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
 
-        this.setGroupId(PomUtil.replaceVariable(model.getGroupId(), ETalendMavenVariables.JobGroupId.getExpression(),
-                PomIdsHelper.getJobGroupId(jProcessor.getProperty())));
-        this.setArtifactId(PomUtil.replaceVariable(model.getArtifactId(), ETalendMavenVariables.JobArtifactId.getExpression(),
-                PomIdsHelper.getJobArtifactId(jProcessor.getProperty())));
-        this.setVersion(PomUtil.replaceVariable(model.getVersion(), ETalendMavenVariables.JobVersion.getExpression(),
-                process.getVersion()));
-
-        setAttributes(model);
-        addProperties(model);
+        Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
+        variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(jProcessor.getProperty()));
+        variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(jProcessor.getProperty()));
+        variablesValuesMap.put(ETalendMavenVariables.JobVersion, process.getVersion());
+        final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
+        variablesValuesMap.put(ETalendMavenVariables.JobName, jobName);
 
         Property property = jProcessor.getProperty();
         if (property != null && property.getItem() != null) {
+            Project currentProject = ProjectManager.getInstance().getProject(property);
+            variablesValuesMap.put(ETalendMavenVariables.ProjectName, currentProject != null ? currentProject.getTechnicalLabel()
+                    : null);
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
             if (itemType != null) {
-                final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
-                model.setName(jobName + '(' + itemType.getLabel() + ')');
+                variablesValuesMap.put(ETalendMavenVariables.JobType, itemType.getLabel());
+
             }
         }
+
+        this.setGroupId(ETalendMavenVariables.replaceVariables(model.getGroupId(), variablesValuesMap));
+        this.setArtifactId(ETalendMavenVariables.replaceVariables(model.getArtifactId(), variablesValuesMap));
+        this.setVersion(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
+        this.setName(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
+
+        setAttributes(model);
+        addProperties(model);
 
         PomUtil.checkParent(model, this.getPomFile());
 
@@ -365,9 +375,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
                 jobInfoProp.getProperty(JobInfoProperties.APPLY_CONTEXY_CHILDREN, Boolean.FALSE.toString()));
         checkPomProperty(properties, "talend.product.version", ETalendMavenVariables.ProductVersion,
                 jobInfoProp.getProperty(JobInfoProperties.COMMANDLINE_VERSION, VersionUtils.getVersion()));
-
-        checkPomProperty(properties, "talend.jar.name", ETalendMavenVariables.JobJarName,
-                JavaResourcesHelper.escapeFileName(property.getLabel()));
         /*
          * for bat/sh in assembly
          */
