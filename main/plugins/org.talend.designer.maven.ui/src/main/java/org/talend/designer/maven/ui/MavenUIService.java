@@ -12,11 +12,8 @@
 // ============================================================================
 package org.talend.designer.maven.ui;
 
-import java.io.InputStream;
-
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.talend.core.runtime.services.IMavenUIService;
-import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.ui.setting.repository.RepositoryMavenSettingManager;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -36,15 +33,5 @@ public class MavenUIService implements IMavenUIService {
         for (IPreferenceNode node : rootSubNodes) {
             parentNode.add(node);
         }
-    }
-
-    @Override
-    public String getProjectSettingValue(String key) {
-        return MavenTemplateManager.getProjectSettingValue(key);
-    }
-
-    @Override
-    public InputStream getProjectSettingStream(String key) {
-        return MavenTemplateManager.getProjectSettingStream(key);
     }
 }

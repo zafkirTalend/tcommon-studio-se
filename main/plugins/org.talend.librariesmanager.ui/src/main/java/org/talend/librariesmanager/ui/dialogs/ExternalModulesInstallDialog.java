@@ -86,6 +86,7 @@ import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
@@ -640,7 +641,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     log.error(e1);
                 }
                 boolean hasDownloadUrl = data.getUrl_description() != null;
-                if (data.getUrl_download() != null) {// add the button to download
+                if (!MavenConstants.DOWNLOAD_MANUAL.equals(data.getDistribution())) {// add the button to download
                     final Button button = new Button(table, SWT.FLAT);
                     control = button;
                     enabledButtonCount.incrementAndGet();

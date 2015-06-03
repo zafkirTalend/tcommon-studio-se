@@ -13,6 +13,9 @@
 package org.talend.osgi.hook;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
@@ -29,6 +32,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.namespace.HostNamespace;
 import org.osgi.framework.wiring.BundleWire;
 import org.osgi.framework.wiring.BundleWiring;
+import org.osgi.service.log.LogService;
+import org.talend.osgi.hook.maven.MavenResolver;
 import org.talend.osgi.hook.notification.JarMissingObservable;
 
 /**
@@ -38,22 +43,22 @@ import org.talend.osgi.hook.notification.JarMissingObservable;
 public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFactoryHook {
 
     // file instance use to return the information that the jar was found in a fragment
-    private static final File FOUND_IN_FRAGMENT_FILE = new File(""); //$NON-NLS-1$
+    private static final File FOUND_IN_FRAGMENT_FILE  = new File( "" );                    //$NON-NLS-1$
 
-    final String listOfBundlePrefixes = System.getProperty("org.talend.bundle.prefixes.for.jar.loader", //$NON-NLS-1$
-            "org.talend,com.oaklandsw"); //$NON-NLS-1$
+    final String              listOfBundlePrefixes    = System.getProperty( "org.talend.bundle.prefixes.for.jar.loader", //$NON-NLS-1$
+                                                              "org.talend,com.oaklandsw" ); //$NON-NLS-1$
 
-    Set<String> listOfBundlePrefixesSet = null;
+    Set<String>               listOfBundlePrefixesSet = null;
 
     /**
      * created by sgandon on 17 oct. 2014 Detailled comment
      *
      */
-    private final class TalendBundleFileWrapper extends BundleFileWrapper {
+    static class TalendBundleFileWrapper extends BundleFileWrapper {
 
         private Generation generation;
 
-        Set<String> missingJars;
+        Set<String>        missingJars;
 
         /**
          * DOC sgandon BundleFileWrapperExtension constructor comment.
@@ -62,7 +67,7 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
          * @param generation
          */
         private TalendBundleFileWrapper(BundleFile bundleFile, Generation generation) {
-            super(bundleFile);
+            super( bundleFile );
             this.generation = generation;
         }
 
@@ -74,57 +79,81 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
         @Override
         public BundleEntry getEntry(String path) {
             // we are using te getEntry to trick equinox when a jar file is missing
-            BundleEntry be = super.getEntry(path);
-            if (be == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file that does not exists.
+            BundleEntry be = super.getEntry( path );
+            if (be == null && path.endsWith( ".jar" )) { //$NON-NLS-1$ //jar file that does not exists.
                 // use the getFile to find the jar from the lib/java folder.
-                File file = getFile(path, false, false);
+                File file = getFile( path, false, false );
                 if (file == null) {
                     // look into fragments first because since we return a fake entry (in the next lines) that will
                     // prevent to look into
                     // fragment in calling methods.
-                    URL resourcePathInFragment = findInFragments(generation.getRevision().getBundle(), path);
+                    URL resourcePathInFragment = findInFragments( generation.getRevision().getBundle(), path );
                     if (resourcePathInFragment != null) {
                         return null;
                     }
                     // if not found in fragments then we can notify the observers
                     // notify any observable to get a chance for the lib to be installed
-                    String jarName = new File(path).getName();
+                    String jarName = new File( path ).getName();
                     File libJavaFolderFile = MissingJarServices.getLibJavaFolderFile();
 
                     MissingJarServices.getJarMissingObservable().notifyObservers(
-                            new JarMissingObservable.JarMissingEvent(jarName, generation, libJavaFolderFile.getAbsolutePath()));
+                            new JarMissingObservable.JarMissingEvent( jarName, generation, libJavaFolderFile.getAbsolutePath() ) );
                     MissingJarServices
-                            .logDebugInfo("MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)."); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                            .logDebugInfo( "MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)." ); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
                     // let's do another check to see if the bundle was installed during the above
                     // notification
-                    File jarFile = new File(libJavaFolderFile, jarName);
-                    if (jarFile.exists()) {
-                        be = new FileBundleEntry(jarFile, path);
-                        ;
-                    } else {// no jar found so return a
+                    MavenResolver mavenResolver = MissingJarServices.getMavenResolver();
+                    URI mvnUri;
+                    try {
+                        mvnUri = URIUtil.getMvnUri( path, generation, true );
+                        if (mvnUri != null && mavenResolver != null) {// try to resolve it
+                            try {
+                                File jarFile = mavenResolver.resolve( mvnUri.toASCIIString() );
+                                be = new FileBundleEntry( jarFile, path );
+                            } catch (IOException e) {// failed to find local artifact
+                                MissingJarServices
+                                        .getLogService()
+                                        .log( LogService.LOG_DEBUG,
+                                                "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e ); //$NON-NLS-2$
+                            }
+                        }// else no maven URI found so try old style lib/java folder
+                        if (be == null) {
+                            File jarFile = new File( libJavaFolderFile, jarName );
+                            if (jarFile.exists()) {
+                                be = new FileBundleEntry( jarFile, path );
+                            } else {// no jar found so return a
 
-                        // fake the entry cause using the getFile returns a file that get tested for existance
-                        // this does not get tested. This is called the first time the jar is missing.
-                        // we also record the missing jar
-                        getMissingJars().add(path + '/');// we add slash because the wrapBundleFile, getEntry(""); line
-                                                         // will
-                                                         // call this method with path equals to path + '/'
-                        be = new MissingJarBundleEntry(path);
+                                // fake the entry cause using the getFile returns a file that get tested for existance
+                                // this does not get tested. This is called the first time the jar is missing.
+                                // we also record the missing jar
+                                getMissingJars().add( path + '/' );// we add slash because the wrapBundleFile,
+                                                                   // getEntry("");
+                                                                   // line
+                                                                   // will
+                                                                   // call this method with path equals to path + '/'
+                                be = new MissingJarBundleEntry( path );
+                                MissingJarServices
+                                        .logDebugInfo( "fake FileBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path ); //$NON-NLS-1$//$NON-NLS-2$
+                            }
+                        }
+                    } catch (URISyntaxException e1) {
                         MissingJarServices
-                                .logDebugInfo("fake FileBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path); //$NON-NLS-1$//$NON-NLS-2$
-                    }
+                                .getLogService()
+                                .log( LogService.LOG_ERROR,
+                                        "Error reading the Bundle-Classpath maven URI for path :" + generation.getRevision().getSymbolicName() + "/" + path, e1 ); //$NON-NLS-2$
 
+                    }
                 } else {// else entry is a jar an was found when calling getFile
-                    be = new FileBundleEntry(file, path);
+                    be = new FileBundleEntry( file, path );
                 }
             } else {
                 // check for a fake entry, that is a missing jar already check and create a specific bundle entry so
                 // that the Wrapper factory can detect this is a missing jar entry
-                if (getMissingJars().contains(path)) {
-                    be = new MissingJarBundleEntry(path);
+                if (getMissingJars().contains( path )) {
+                    be = new MissingJarBundleEntry( path );
                     MissingJarServices
-                            .logDebugInfo("MissingJarBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path); //$NON-NLS-1$//$NON-NLS-2$
+                            .logDebugInfo( "MissingJarBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path ); //$NON-NLS-1$//$NON-NLS-2$
                 }
             }
 
@@ -151,7 +180,7 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
          */
         @Override
         public File getFile(String path, boolean nativeCode) {
-            return getFile(path, nativeCode, true);
+            return getFile( path, nativeCode, true );
         }
 
         /**
@@ -162,31 +191,9 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
          * @return
          */
         protected File getFile(String path, boolean nativeCode, boolean notifyMissingJar) {
-            File file = super.getFile(path, nativeCode);
-            if (file == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file that does not exists.
-                File libJavaFolderFile = MissingJarServices.getLibJavaFolderFile();
-                if (libJavaFolderFile != null) {
-                    String jarName = new File(path).getName();
-                    File jarFile = new File(libJavaFolderFile, jarName);
-                    if (jarFile.exists()) {
-                        return jarFile;
-                    } else {// jar file not found in the lib/java folder
-                        if (notifyMissingJar) {
-                            // notify any observable to get a chance for the lib to be installed
-                            MissingJarServices.getJarMissingObservable().notifyObservers(
-                                    new JarMissingObservable.JarMissingEvent(jarName, generation, libJavaFolderFile
-                                            .getAbsolutePath()));
-                            MissingJarServices
-                                    .logDebugInfo("MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)."); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-
-                            // let's do another check to see if the bundle was installed during the above
-                            // notification
-                            if (jarFile.exists()) {
-                                return jarFile;
-                            } // else no jar found so return null
-                        }// else no nothification required.
-                    }
-                }// else //no lib folder found so ignor missing lib
+            File file = super.getFile( path, nativeCode );
+            if (file == null && path.endsWith( ".jar" )) { //$NON-NLS-1$ //jar file not found in current bundle.
+                file = MissingJarBundleFileWrapper.lookForMissingJar( path, generation, notifyMissingJar );
             }// else file found so return default value.
             return file;
         }
@@ -200,19 +207,19 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
      */
     @Override
     public BundleFileWrapper wrapBundleFile(BundleFile bundleFile, Generation generation, boolean base) {
-        if (canHandleBundle(bundleFile.getBaseFile().getName())) {
+        if (canHandleBundle( bundleFile.getBaseFile().getName() )) {
             // all this is done because NestedDirbundleFile has a private cp that can't be acced
             if (base) {// base bundle file so create a Talend wrapper in case one jar is missing
-                return new TalendBundleFileWrapper(bundleFile, generation);
+                return new TalendBundleFileWrapper( bundleFile, generation );
             } else {// inner jar or inner folder or missing jar bundle entry
                 // only handle missing jar entry
                 // we check by calling the getEntry that we have a missing jar
-                BundleEntry entry = bundleFile.getEntry(""); //$NON-NLS-1$
+                BundleEntry entry = bundleFile.getEntry( "" ); //$NON-NLS-1$
                 if (entry != null && entry instanceof MissingJarBundleEntry) {
                     String path = ((MissingJarBundleEntry) entry).path;
                     MissingJarServices
-                            .logDebugInfo("MissingJarBundleFileWrapper creating for :" + generation.getRevision().getSymbolicName() + "/" + path); //$NON-NLS-1$//$NON-NLS-2$ 
-                    return new MissingJarBundleFileWrapper(bundleFile, generation, path);
+                            .logDebugInfo( "MissingJarBundleFileWrapper creating for :" + generation.getRevision().getSymbolicName() + "/" + path ); //$NON-NLS-1$//$NON-NLS-2$ 
+                    return new MissingJarBundleFileWrapper( bundleFile, generation, path );
 
                 }// else not the trick for proxying missign jars so do not create any wrapper.
             }
@@ -228,12 +235,12 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
      */
     private boolean canHandleBundle(String bundleSymbolicName) {
         if (listOfBundlePrefixesSet == null) {
-            String[] prefixesArray = listOfBundlePrefixes.split(","); //$NON-NLS-1$
-            listOfBundlePrefixesSet = new HashSet<String>(prefixesArray.length);
-            Collections.addAll(listOfBundlePrefixesSet, prefixesArray);
+            String[] prefixesArray = listOfBundlePrefixes.split( "," ); //$NON-NLS-1$
+            listOfBundlePrefixesSet = new HashSet<String>( prefixesArray.length );
+            Collections.addAll( listOfBundlePrefixesSet, prefixesArray );
         }
         for (String prefix : listOfBundlePrefixesSet) {
-            if (bundleSymbolicName.startsWith(prefix)) {
+            if (bundleSymbolicName.startsWith( prefix )) {
                 return true;
             }// else keep looking
         }
@@ -241,15 +248,17 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
     }
 
     private static URL findInFragments(Bundle b, String filePath) {
-        BundleWiring myWiring = b.adapt(BundleWiring.class);
-        List<BundleWire> wires = myWiring.getProvidedWires(HostNamespace.HOST_NAMESPACE);
-        for (BundleWire wire : wires) {
-            Bundle fragment = wire.getRequirerWiring().getBundle();
-            URL fileURL = fragment.getEntry(filePath.toString());
-            if (fileURL != null) {
-                return fileURL;
+        BundleWiring myWiring = b.adapt( BundleWiring.class );
+        if (myWiring != null) {
+            List<BundleWire> wires = myWiring.getProvidedWires( HostNamespace.HOST_NAMESPACE );
+            for (BundleWire wire : wires) {
+                Bundle fragment = wire.getRequirerWiring().getBundle();
+                URL fileURL = fragment.getEntry( filePath.toString() );
+                if (fileURL != null) {
+                    return fileURL;
+                }
             }
-        }
+        }// else return null cause we cannot get the wiring
         return null;
     }
 

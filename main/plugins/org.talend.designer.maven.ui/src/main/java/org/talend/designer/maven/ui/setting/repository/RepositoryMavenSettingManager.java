@@ -13,25 +13,20 @@
 package org.talend.designer.maven.ui.setting.repository;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceManager;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.navigator.CommonViewer;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.RepositoryManagerHelper;
-import org.talend.designer.maven.ui.setting.repository.node.RepositoryPreferenceNode;
 import org.talend.designer.maven.ui.setting.repository.registry.MavenSettingPagesRegistryReader;
 import org.talend.designer.maven.ui.setting.repository.tester.IRepositorySettingTester;
-import org.talend.designer.maven.ui.utils.DesignerMavenUiHelper;
-import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.navigator.RepoViewCommonNavigator;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -113,60 +108,26 @@ public class RepositoryMavenSettingManager extends PreferenceManager {
             if (data instanceof RepositoryNode) {
                 RepositoryNode node = ((RepositoryNode) data);
 
-                ImageDescriptor imageDesc = null;
-                Image image = labelProvider.getImage(node);
-                if (image != null) {
-                    imageDesc = ImageDescriptor.createFromImageData(image.getImageData());
-                }
-                String label = labelProvider.getText(node);
-                // label= node.getLabel(); //there is on bug for this label, so use provider directly.
-
-                ERepositoryObjectType contentType = node.getContentType();
-                // mabye it's not good for some sub nodes, for example, if for routines, supported type must containd
-                // CODE.
-                List<ERepositoryObjectType> supportedTypes = Arrays.asList(REGISTRY.getSupportTypes());
-                if (!supportedTypes.contains(contentType)) {
-                    continue;
-                }
-
-                boolean needMavenFiles = false;
-                RepositoryPreferenceNode repoSettingNode = null;
-
-                String parentId = parentNode.getId();
-                String id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, contentType.getType());
-
-                if (!contentType.isResouce()) { // if not resource type
-                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
-                } else if (DesignerMavenUiHelper.isFakeProcessRootNode(node)) {// fake process root ndoe
-                    repoSettingNode = new RepositoryPreferenceNode(id + "_fake", label, imageDesc, node); //$NON-NLS-1$
-                } else if (node.getType() == ENodeType.SYSTEM_FOLDER) {
-                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
-                    needMavenFiles = true;
-                } else { // should be other ENodeType.SIMPLE_FOLDER
-                    if (parentId != null && parentId.length() > 0) {
-                        id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(parentId, label);
-                    } else {
-                        id = DesignerMavenUiHelper.buildRepositoryPreferenceNodeId(contentType.getType(), label);
-                    }
-                    repoSettingNode = new RepositoryPreferenceNode(id, label, imageDesc, node);
-
-                    needMavenFiles = true;
-                }
-                // must be front, when add other nodes. make sure the build id is right.
-                parentNode.add(repoSettingNode);
-
-                if (needMavenFiles) {
-                    RepositoryMavenSetting[] settings = REGISTRY.getSettings();
-                    for (RepositoryMavenSetting setting : settings) {
-                        IRepositorySettingTester tester = setting.getTester();
-                        if (tester != null && !tester.valid(data)) {
-                            continue; // if tester set, and valid
+                // use set to make sure there is no duplicated nodes.
+                Set<IPreferenceNode> folderNodesSet = new LinkedHashSet<IPreferenceNode>();
+                RepositoryMavenSetting[] settings = REGISTRY.getSettings();
+                for (RepositoryMavenSetting setting : settings) {
+                    IRepositorySettingTester tester = setting.getTester();
+                    if (tester != null && tester.valid(node)) {
+                        IPreferenceNode mavenFolderNode = setting.createAndFindMavenFolderNode(parentNode, labelProvider, node);
+                        if (mavenFolderNode != null) {
+                            if (setting.needMavenScripts(node)) { // create the maven scripts children nodes
+                                setting.createMavenScriptsChildren(mavenFolderNode, node);
+                            }
+                            folderNodesSet.add(mavenFolderNode);
                         }
-                        setting.createMavenScriptsChildren(repoSettingNode, node);
                     }
                 }
-                // sub folders,
-                createNodes(repoSettingNode, labelProvider, item.getItems());
+
+                // sub folders
+                for (IPreferenceNode folderNode : folderNodesSet) {
+                    createNodes(folderNode, labelProvider, item.getItems());
+                }
             }
         }
     }

@@ -119,7 +119,7 @@ public class LibrariesIndexManager {
         if (mavenLibIndex != null) {
             mavenLibIndex.setInitialized(false);
             mavenLibIndex.getJarsToRelativePath().clear();
-            saveStudioIndexResource();
+            saveMavenIndexResource();
         }
     }
 

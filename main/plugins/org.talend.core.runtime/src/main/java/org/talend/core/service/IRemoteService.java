@@ -16,6 +16,7 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.properties.User;
+import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
 
 /**
@@ -30,6 +31,7 @@ public interface IRemoteService extends IService {
     public JSONObject getUpdateRepositoryUrl(String user, String password, String url) throws PersistenceException,
             LoginException;
 
-    public JSONObject getLibLocation(String user, String password, String url) throws PersistenceException, LoginException;
+    public JSONObject getLibNexusServer(String user, String password, String url) throws PersistenceException, LoginException,
+            JSONException;
 
 }

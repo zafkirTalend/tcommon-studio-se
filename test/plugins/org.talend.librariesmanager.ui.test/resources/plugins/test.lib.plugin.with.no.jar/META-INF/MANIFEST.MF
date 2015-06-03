@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Plugin
 Bundle-SymbolicName: test.lib.plugin.with.no.jar
 Bundle-Version: 1.0.0
-Bundle-ClassPath: lib/any-existing.jar,
+Bundle-ClassPath: lib/any-existing.jar;mvn:org.talend.studio/any-existing/1.0.0,
+ foo/bar.jar,
  .
 Export-Package: org.apache.commons.lang3,
  org.apache.commons.lang3.builder,

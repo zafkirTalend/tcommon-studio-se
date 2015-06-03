@@ -89,6 +89,8 @@ public class PluginChecker {
 
     private static final String MAPREDUCE_PLUGIN_ID = "org.talend.designer.mapreduce"; //$NON-NLS-1$
 
+    private static final String STORM_PLUGIN_ID = "org.talend.repository.storm"; //$NON-NLS-1$
+
     private static final String GEF_MAP_PLUGIN_ID = "org.talend.designer.gefabstractmap";//$NON-NLS-1$
 
     private static final String PARALEL_PLUGIN_ID = "org.talend.designer.components.clusterprovider";//$NON-NLS-1$
@@ -100,6 +102,12 @@ public class PluginChecker {
     private static final String PIGUDF_PLUGIN_ID = "org.talend.repository.pigudf";//$NON-NLS-1$
 
     public static final String APACHE_FELIX_GOGO_RUNTIME_PLUGIN_ID = "org.apache.felix.gogo.runtime"; //$NON-NLS-1$
+
+    public static final String EXPORT_ROUTE_PLUGIN_ID = "org.talend.resources.export.route"; //$NON-NLS-1$
+
+    public static final String EXPORT_JOB_PLUGIN_ID = "org.talend.resources.export.job"; //$NON-NLS-1$
+
+    public static final String MAVEN_JOB_PLUGIN_ID = "org.talend.designer.maven.job"; //$NON-NLS-1$
 
     /**
      * Check if specific plug-in is loaded.
@@ -265,6 +273,10 @@ public class PluginChecker {
      */
     public static boolean isMapReducePluginLoader() {
         return isPluginLoaded(MAPREDUCE_PLUGIN_ID);
+    }
+
+    public static boolean isStormPluginLoader() {
+        return isPluginLoaded(STORM_PLUGIN_ID);
     }
 
     public static boolean isGEFAbstractMapLoaded() {

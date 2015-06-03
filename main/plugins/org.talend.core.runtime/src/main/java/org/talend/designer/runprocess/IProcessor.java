@@ -303,8 +303,6 @@ public interface IProcessor {
 
     String getMainClass();
 
-    Set<String> getNeededLibraries();
-
     Set<ModuleNeeded> getNeededModules();
 
     Set<JobInfo> getBuildChildrenJobs();
@@ -318,6 +316,6 @@ public interface IProcessor {
      * 
      * build current job or whole project.
      */
-    void build();
+    void build(IProgressMonitor monitor) throws Exception;
 
 }

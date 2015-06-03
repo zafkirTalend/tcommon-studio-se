@@ -30,6 +30,7 @@ import org.talend.core.IService;
 import org.talend.core.IStatusPreferenceInitService;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 import org.talend.core.service.IWebService;
 import org.talend.core.service.IWebServiceTos;
 import org.talend.designer.core.IDesignerCoreService;
@@ -56,6 +57,8 @@ public class CoreRuntimePlugin extends Plugin {
     private static CoreRuntimePlugin plugin = null;
 
     private static IRepositoryContextService repositoryContextService = null;
+
+    protected ProjectPreferenceManager projectPreferenceManager;
 
     public CoreRuntimePlugin() {
         context = new Context();
@@ -223,4 +226,10 @@ public class CoreRuntimePlugin extends Plugin {
         return perspectiveId[0];
     }
 
+    public ProjectPreferenceManager getProjectPreferenceManager() {
+        if (projectPreferenceManager == null) {
+            projectPreferenceManager = new ProjectPreferenceManager(PLUGIN_ID);
+        }
+        return projectPreferenceManager;
+    }
 }

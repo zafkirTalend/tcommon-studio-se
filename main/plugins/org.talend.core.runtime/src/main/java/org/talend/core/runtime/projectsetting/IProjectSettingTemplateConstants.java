@@ -10,22 +10,33 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.designer.maven.template;
-
-import org.talend.designer.maven.model.TalendMavenConstants;
+package org.talend.core.runtime.projectsetting;
 
 /**
- * created by ggu on 2 Feb 2015 Detailled comment
- *
+ * DOC ggu class global comment. Detailled comment
  */
 @SuppressWarnings("nls")
-public interface MavenTemplateConstants {
+public interface IProjectSettingTemplateConstants {
 
     final static String PATH_RESOURCES = "resources";
 
     final static String PATH_RESOURCES_TEMPLATES = PATH_RESOURCES + '/' + "templates";
 
-    final static String PATH_OSGI_BUNDLE_TEMPLATE = PATH_RESOURCES_TEMPLATES + '/' + TalendMavenConstants.OSGI_BUNDLE_NAME;
+    /*
+     * Standalone
+     */
+    final static String PATH_STANDALONE = PATH_RESOURCES_TEMPLATES + "/standalone";
+
+    static final String POM_FILE_NAME = "pom.xml";
+
+    static final String ASSEMBLY_FILE_NAME = "assembly.xml";
+
+    /*
+     * OSGi
+     */
+    final static String PATH_OSGI_BUNDLE = PATH_RESOURCES_TEMPLATES + "/osgi";
+
+    static final String OSGI_POM_FILE_NAME = "pom_osgi.xml";
 
     /*
      * pom templates
@@ -48,5 +59,22 @@ public interface MavenTemplateConstants {
     final static String JOB_RUN_SH_TEMPLATE_FILE_NAME = "Job_run_template.sh";
 
     final static String JOB_INFO_TEMPLATE_FILE_NAME = "jobInfo_template.properties";
+
+    /*
+     * karaf
+     */
+    final static String PATH_KARAF = PATH_RESOURCES_TEMPLATES + "/karaf";
+
+    final static String PATH_ROUTE = PATH_KARAF + "/routes";
+
+    final static String PATH_SERVICES = PATH_KARAF + "/services";
+
+    static final String MAVEN_CONTROL_BUILD_BUNDLE_FILE_NAME = "pom-control-bundle.xml";
+
+    static final String MAVEN_KARAF_BUILD_BUNDLE_FILE_NAME = "pom-bundle.xml";
+
+    static final String MAVEN_KARAF_BUILD_FEATURE_FILE_NAME = "pom-feature.xml";
+
+    static final String MAVEN_KARAF_BUILD_PARENT_FILE_NAME = "pom-parent.xml";
 
 }

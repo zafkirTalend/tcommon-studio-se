@@ -33,6 +33,7 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.RefreshUtil;
 import org.eclipse.debug.core.model.IPersistableSourceLocator;
+import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.RuntimeProcess;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -211,7 +212,7 @@ public class MavenCommandLauncher {
         return null;
     }
 
-    public void execute() {
+    public void execute(IProgressMonitor monitor) throws Exception {
 
         /*
          * use the ExecutePomAction directly.
@@ -223,21 +224,28 @@ public class MavenCommandLauncher {
         /*
          * use launch way
          */
-        try {
-            ILaunchConfiguration launchConfiguration = createLaunchConfiguration();
-            if (launchConfiguration == null) {
-                throw new Exception("Can't create maven command launcher.");
+        ILaunchConfiguration launchConfiguration = createLaunchConfiguration();
+        if (launchConfiguration == null) {
+            throw new Exception("Can't create maven command launcher.");
+        }
+        // if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
+        // ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
+        // }
+        TalendLauncherWaiter talendWaiter = new TalendLauncherWaiter(launchConfiguration);
+
+        final ILaunch launch = buildAndLaunch(launchConfiguration, launcherMode, monitor);
+        talendWaiter.waitFinish(launch);
+        StringBuffer errors = new StringBuffer();
+        for (IProcess process : launch.getProcesses()) {
+            String log = process.getStreamsProxy().getOutputStreamMonitor().getContents();
+            for (String line : log.split("\n")) { //$NON-NLS-1$
+                if (line.startsWith("[ERROR]")) { //$NON-NLS-1$
+                    errors.append(line + "\n"); //$NON-NLS-1$
+                }
             }
-            // if (launchConfiguration instanceof ILaunchConfigurationWorkingCopy) {
-            // ILaunchConfigurationWorkingCopy copiedConfig = (ILaunchConfigurationWorkingCopy) launchConfiguration;
-            // }
-            TalendLauncherWaiter talendWaiter = new TalendLauncherWaiter(launchConfiguration);
-
-            final ILaunch launch = buildAndLaunch(launchConfiguration, launcherMode, new NullProgressMonitor());
-            talendWaiter.waitFinish(launch);
-
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+        }
+        if (errors.length() != 0) {
+            throw new Exception(errors.toString());
         }
     }
 

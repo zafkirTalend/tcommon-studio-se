@@ -17,7 +17,8 @@ package org.talend.core.runtime.maven;
  */
 public class MavenArtifact {
 
-    private String repositoryUrl, groupId, artifactId, version, type, classifier;
+    private String repositoryUrl, groupId, artifactId, version, type, classifier, description, url, license, licenseUrl,
+            distribution;
 
     public String getRepositoryUrl() {
         return repositoryUrl;
@@ -67,6 +68,46 @@ public class MavenArtifact {
         this.classifier = classifier;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getLicense() {
+        return this.license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getLicenseUrl() {
+        return this.licenseUrl;
+    }
+
+    public void setLicenseUrl(String licenseUrl) {
+        this.licenseUrl = licenseUrl;
+    }
+
+    public String getDistribution() {
+        return this.distribution;
+    }
+
+    public void setDistribution(String distribution) {
+        this.distribution = distribution;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -77,6 +118,11 @@ public class MavenArtifact {
         result = prime * result + ((repositoryUrl == null) ? 0 : repositoryUrl.hashCode());
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         result = prime * result + ((version == null) ? 0 : version.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        result = prime * result + ((license == null) ? 0 : license.hashCode());
+        result = prime * result + ((licenseUrl == null) ? 0 : licenseUrl.hashCode());
+        result = prime * result + ((distribution == null) ? 0 : distribution.hashCode());
         return result;
     }
 
@@ -132,6 +178,45 @@ public class MavenArtifact {
                 return false;
             }
         } else if (!version.equals(other.version)) {
+            return false;
+        }
+        if (description == null) {
+            if (other.description != null) {
+                return false;
+            }
+        } else if (!description.equals(other.description)) {
+            return false;
+        }
+
+        if (url == null) {
+            if (other.url != null) {
+                return false;
+            }
+        } else if (!url.equals(other.url)) {
+            return false;
+        }
+
+        if (license == null) {
+            if (other.license != null) {
+                return false;
+            }
+        } else if (!license.equals(other.license)) {
+            return false;
+        }
+
+        if (licenseUrl == null) {
+            if (other.licenseUrl != null) {
+                return false;
+            }
+        } else if (!licenseUrl.equals(other.licenseUrl)) {
+            return false;
+        }
+
+        if (distribution == null) {
+            if (other.distribution != null) {
+                return false;
+            }
+        } else if (!distribution.equals(other.distribution)) {
             return false;
         }
         return true;

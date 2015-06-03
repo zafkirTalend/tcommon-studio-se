@@ -41,4 +41,6 @@ public interface MavenConstants {
 
     public static final String INDEX_PACKAGE = "zip";
 
+    public static final String DOWNLOAD_MANUAL = "manual";
+
 }

@@ -750,26 +750,6 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    public static List<ModuleNeeded> getModulesNeededForCamel() {
-        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-
-        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.systemRoutineLibrary", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
-        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
-
-        ECodeLanguage projectLanguage = ((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-        for (IConfigurationElement current : extension) {
-            ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
-            if (lang == projectLanguage) {
-                String modulename = current.getAttribute("moduleName"); //$NON-NLS-1$
-                importNeedsList.add(new ModuleNeeded(null, modulename, null, true));
-            }
-        }
-
-        return importNeedsList;
-    }
-
     // TODO change the name of this method to getModulesNeededForComponent()
     public static List<ModuleNeeded> getModulesNeeded(String componentName) {
         List<ModuleNeeded> toReturn = new ArrayList<ModuleNeeded>();

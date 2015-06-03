@@ -17,10 +17,19 @@ import java.io.File;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.log.LogService;
 import org.talend.osgi.configurator.OsgiLoaderActivator;
+import org.talend.osgi.hook.maven.MavenResolver;
 import org.talend.osgi.hook.notification.JarMissingObservable;
 
 /**
  * created by sgandon on 17 oct. 2014 Detailled comment
+ */
+/**
+ * created by sgandon on 27 mai 2015 Detailled comment
+ *
+ */
+/**
+ * created by sgandon on 27 mai 2015 Detailled comment
+ *
  */
 public class MissingJarServices {
 
@@ -56,6 +65,24 @@ public class MissingJarServices {
             }
         }
         return jarMissingObservable;
+    }
+
+    private static MavenResolver mavenResolver;
+
+    /**
+     * get the MavenResolver service
+     * 
+     * @return the resolver if found or null if not fould
+     */
+    public static MavenResolver getMavenResolver() {
+        if (mavenResolver == null) {
+            ServiceReference<MavenResolver> jarMissObsServRef = OsgiLoaderActivator.getBundleContext().getServiceReference(
+                    MavenResolver.class);
+            if (jarMissObsServRef != null) {
+                mavenResolver = OsgiLoaderActivator.getBundleContext().getService(jarMissObsServRef);
+            }
+        }
+        return mavenResolver;
     }
 
     private static LogService logService;// do not use this use the getter bellow

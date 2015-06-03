@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.talend.core.IService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.ICodeProblemsChecker;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -116,7 +117,7 @@ public interface IRunProcessService extends IService {
      */
     public void setDelegateService(IRunProcessService delegateService);
 
-    public void updateLibraries(Set<String> jobModuleList, IProcess process);
+    public void updateLibraries(Set<ModuleNeeded> jobModuleList, IProcess process);
 
     public void refreshView();
 

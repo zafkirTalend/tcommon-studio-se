@@ -114,6 +114,8 @@ public class RepositoryViewObject implements IRepositoryViewObject {
     private static final String DI = "DI";
 
     private static final String TIP = "same name item with other project";
+    
+    private String framework;
 
     private boolean avoidGuiInfos;
 
@@ -133,6 +135,12 @@ public class RepositoryViewObject implements IRepositoryViewObject {
         org.talend.core.model.properties.Project emfproject = ProjectManager.getInstance().getProject(property.getItem());
         this.projectLabel = emfproject.getLabel();
         this.path = property.getItem().getState().getPath();
+        if (property.getAdditionalProperties() != null
+                && property.getAdditionalProperties().containsKey("FRAMEWORK")) { //$NON-NLS-1$
+            setFramework((String) property.getAdditionalProperties().get("FRAMEWORK")); //$NON-NLS-1$
+        } else {
+            setFramework(null);
+        }
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
             IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
@@ -319,6 +327,13 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             repositoryStatus = factory.getStatus(property.getItem());
             InformationLevel informationLevel = property.getMaxInformationLevel();
             informationStatus = factory.getStatus(informationLevel);
+            if (property.getAdditionalProperties() != null
+                    && property.getAdditionalProperties().containsKey("FRAMEWORK")) { //$NON-NLS-1$
+                setFramework((String) property.getAdditionalProperties().get("FRAMEWORK")); //$NON-NLS-1$
+            } else {
+                setFramework(null);
+            }
+
             if (!this.avoidGuiInfos) {
                 if (type == ERepositoryObjectType.JOBLET) {
                     JobletProcessItem item = (JobletProcessItem) property.getItem();
@@ -649,6 +664,22 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             return 17 * this.getId().hashCode();
         }
         return super.hashCode();
+    }
+
+    /**
+     * Getter for framework.
+     * @return the framework
+     */
+    public String getFramework() {
+        return framework;
+    }
+
+    /**
+     * Sets the framework.
+     * @param framework the framework to set
+     */
+    public void setFramework(String framework) {
+        this.framework = framework;
     }
 
 }

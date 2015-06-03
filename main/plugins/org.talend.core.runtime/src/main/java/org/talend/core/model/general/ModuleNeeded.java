@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.runtime.maven.MavenUrlHelper;
 
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
@@ -377,9 +376,6 @@ public class ModuleNeeded {
     }
 
     public String getMavenUri() {
-        if (mavenUri == null || "".equals(mavenUri) || !mavenUri.startsWith(MavenUrlHelper.MVN_PROTOCOL)) {
-            return MavenUrlHelper.generateMvnUrlForJarName(moduleName);
-        }
         return this.mavenUri;
     }
 

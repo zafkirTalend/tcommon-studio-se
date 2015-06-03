@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IFile;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.routines.IRoutinesService;
-import org.talend.designer.maven.template.MavenTemplateConstants;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.utils.PomUtil;
 
 /**
@@ -31,7 +31,7 @@ import org.talend.designer.maven.utils.PomUtil;
 public class CreateMavenRoutinePom extends CreateMavenBundleTemplatePom {
 
     public CreateMavenRoutinePom(IFile pomFile) {
-        super(pomFile, MavenTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+        super(pomFile, IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
     }
 
     @Override

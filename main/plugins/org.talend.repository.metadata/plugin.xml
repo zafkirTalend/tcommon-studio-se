@@ -67,6 +67,15 @@
             name="UnifyPasswordEncryption4WsdlConnectionMigrationTask"
             version="5.6.0">
       </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="1.0.0"
+            class="org.talend.repository.metadata.migration.ODBCMigrationTask"
+            description="Oracle has totally stopped to support ODBC in Java 8"
+            id="org.talend.repository.metadata.migration.ODBCMigrationTask"
+            name="ODBCMigrationTask"
+            version="6.0.0">
+      </projecttask>
    </extension>
    <extension
          point="org.talend.core.repositoryContextualsActions">

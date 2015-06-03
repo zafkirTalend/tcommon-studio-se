@@ -12,9 +12,15 @@
 // ============================================================================
 package org.talend.designer.maven.launch;
 
+import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.model.TalendMavenConstants;
 
 /**
@@ -46,15 +52,30 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
     }
 
     @Override
-    public void execute() {
+    public void execute(IProgressMonitor monitor) throws Exception {
         if (!launcherPomFile.exists()) {
             return;
+        }
+        if (getGoals().contains(TalendMavenConstants.GOAL_PACKAGE)) {
+            // clean all dependencies from pom.xml
+            try {
+                MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
+                Model model;
+                model = mavenModelManager.readMavenModel(launcherPomFile);
+                model.getDependencies().clear();
+                if (launcherPomFile.exists()) {
+                    launcherPomFile.delete(true, null);
+                }
+                MavenPlugin.getMavenModelManager().createMavenModel(launcherPomFile, model);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
         }
         // non-pom file
         if (!TalendMavenConstants.POM_FILE_NAME.equals(launcherPomFile.getName())) {
             return;
         }
-        super.execute();
+        super.execute(monitor);
     }
 
 }

@@ -30,8 +30,8 @@ import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
 import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
@@ -66,14 +66,14 @@ public class MavenPomSynchronizer {
 
     /**
      * 
-     * sync the bat/sh/jobInfo/project_pom to resources template folder.
+     * sync the bat/sh/jobInfo to resources template folder.
      */
     public void syncTemplates(boolean overwrite) throws Exception {
         IFolder templateFolder = codeProject.getTemplatesFolder();
 
-        IFile shFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_SH_TEMPLATE_FILE_NAME);
-        IFile batFile = templateFolder.getFile(MavenTemplateConstants.JOB_RUN_BAT_TEMPLATE_FILE_NAME);
-        IFile infoFile = templateFolder.getFile(MavenTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
+        IFile shFile = templateFolder.getFile(IProjectSettingTemplateConstants.JOB_RUN_SH_TEMPLATE_FILE_NAME);
+        IFile batFile = templateFolder.getFile(IProjectSettingTemplateConstants.JOB_RUN_BAT_TEMPLATE_FILE_NAME);
+        IFile infoFile = templateFolder.getFile(IProjectSettingTemplateConstants.JOB_INFO_TEMPLATE_FILE_NAME);
 
         String shContent = MavenTemplateManager.getProjectSettingValue(IProjectSettingPreferenceConstants.TEMPLATE_SH);
         String batContent = MavenTemplateManager.getProjectSettingValue(IProjectSettingPreferenceConstants.TEMPLATE_BAT);
@@ -100,7 +100,7 @@ public class MavenPomSynchronizer {
             syncTemplates(false);
             //
             IFolder templateFolder = codeProject.getTemplatesFolder();
-            IFile projectTemplateFile = templateFolder.getFile(MavenTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+            IFile projectTemplateFile = templateFolder.getFile(IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
             FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
 
             // refresh
@@ -228,7 +228,7 @@ public class MavenPomSynchronizer {
         }
 
         // try to compile it.
-        codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null);
+        codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null, monitor);
     }
 
     private void deleteFiles(File[] files) {

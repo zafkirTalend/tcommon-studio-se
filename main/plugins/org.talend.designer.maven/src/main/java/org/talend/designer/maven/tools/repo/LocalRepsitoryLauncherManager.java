@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.m2e.actions.MavenLaunchConstants;
 import org.talend.core.runtime.maven.MavenArtifact;
@@ -193,7 +194,7 @@ public class LocalRepsitoryLauncherManager extends LocalRepositoryManager {
 
             };
 
-            launcher.execute();
+            launcher.execute(new NullProgressMonitor());
         }
     }
 }

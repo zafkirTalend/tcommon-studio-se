@@ -60,9 +60,9 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.template.MavenTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
@@ -101,7 +101,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
     private IPath itemRelativePath;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
-        super(pomFile, MavenTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
+        super(pomFile, IProjectSettingTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
@@ -258,8 +258,13 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         if (!FilesUtils.allInSameFolder(templateFile, TalendMavenConstants.ASSEMBLY_FILE_NAME)) {
             templateFile = null; // force to set null, in order to use the template from other places.
         }
-        return MavenTemplateManager.getTemplateStream(templateFile,
-                IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, getBundleTemplateName());
+        try {
+            return MavenTemplateManager.getTemplateStream(templateFile,
+                    IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, JOB_TEMPLATE_BUNDLE,
+                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + getBundleTemplateName());
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
     }
 
     /**
@@ -376,6 +381,8 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
         pomSync.syncRoutinesPom(false);
+        // because need update the latest content for templates.
+        pomSync.syncTemplates(true);
 
         // refresh
         getPomFile().getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
@@ -394,8 +401,9 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
                 }
 
                 String content = MavenTemplateManager.getTemplateContent(templateFile,
-                        IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_ASSEMBLY,
-                        MavenTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
+                        IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_ASSEMBLY, JOB_TEMPLATE_BUNDLE,
+                        IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
+                                + IProjectSettingTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
                 if (content != null) {
                     FileWriter writer = new FileWriter(assemblyFile.getLocation().toFile());
                     writer.write(content);
@@ -404,7 +412,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
                     assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
                     set = true;
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 ExceptionHandler.process(e);
             }
 

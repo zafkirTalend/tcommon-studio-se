@@ -26,6 +26,6 @@ public interface IBuildJobHandler {
 
     public void generateItemFiles(boolean withDependencies, IProgressMonitor monitor) throws Exception;
 
-    public void build(String destinationPath) throws Exception;
+    public void build(String destinationPath, IProgressMonitor monitor) throws Exception;
 
 }

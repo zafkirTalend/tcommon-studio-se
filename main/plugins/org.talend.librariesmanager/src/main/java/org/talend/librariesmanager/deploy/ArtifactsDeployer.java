@@ -15,6 +15,7 @@ package org.talend.librariesmanager.deploy;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Hashtable;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -26,16 +27,18 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.ops4j.pax.url.mvn.MavenResolver;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.nexus.MavenResolverCreator;
 import org.talend.core.nexus.NexusConstants;
 import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.nexus.NexusServerManager;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.tools.repo.LocalRepsitoryLauncherManager;
 import org.talend.designer.maven.utils.PomUtil;
+import org.talend.utils.io.FilesUtils;
 
 /**
  * created by wchen on 2015-5-14 Detailled comment
@@ -49,21 +52,24 @@ public class ArtifactsDeployer {
 
     private NexusServerBean nexusServer;
 
-    private LocalRepsitoryLauncherManager repositoryManager;
+    private MavenResolver mvnResolver;
+
+    private String repositoryUrl;
 
     private ArtifactsDeployer() {
         init();
     }
 
     private void init() {
-        nexusServer = NexusServerManager.getLibrariesNexusServer(false);
+        nexusServer = NexusServerManager.getCustomNexusServer();
         if (nexusServer != null) {
             String server = nexusServer.getServer().trim();
             if (server.endsWith(NexusConstants.SLASH)) {
                 server = server.substring(0, server.length() - 1);
             }
+            repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
         }
-        repositoryManager = new LocalRepsitoryLauncherManager();
+        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(new Hashtable<String, String>());
     }
 
     public static ArtifactsDeployer getInstance() {
@@ -97,33 +103,36 @@ public class ArtifactsDeployer {
     public void deployToLocalMaven(String path, String mavenUri) throws Exception {
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUri);
         if (parseMvnUrl != null) {
-            // install to local maven repository and create pom
-            repositoryManager.install(new File(path), parseMvnUrl);
-
             String absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
-            String pomPath = null;
-            String type = null;
+            // skip if already in maven
             if (absArtifactPath != null) {
-                if (absArtifactPath.lastIndexOf(".") != -1) {
-                    pomPath = absArtifactPath.substring(0, absArtifactPath.lastIndexOf(".") + 1)
-                            + TalendMavenConstants.PACKAGING_POM;
-                    type = absArtifactPath.substring(absArtifactPath.lastIndexOf(".") + 1, absArtifactPath.length());
-                } else {
-                    // incase installed file do not have file extension
-                    pomPath = pomPath + TalendMavenConstants.PACKAGING_POM;
-                }
+                return;
+            }
+            // install to local maven repository and create pom
+            // repositoryManager.install(new File(path), parseMvnUrl);
+            String artifactType = parseMvnUrl.getType();
+            if (artifactType == null || "".equals(artifactType)) {
+                artifactType = TalendMavenConstants.PACKAGING_JAR;
+            }
+            mvnResolver.upload(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getClassifier(), artifactType,
+                    parseMvnUrl.getVersion(), new File(path));
+            String pomType = TalendMavenConstants.PACKAGING_POM;
+            String generatePom = PomUtil.generatePom(parseMvnUrl);
+            if (generatePom != null) {
+                mvnResolver.upload(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getClassifier(), pomType,
+                        parseMvnUrl.getVersion(), new File(generatePom));
             }
 
+            // deploy to nexus server if it is not null and not official server
             if (nexusServer != null && !nexusServer.isOfficial()) {
-                // deploy to nexus server if it is not null and not official server
                 // repositoryManager.deploy(new File(path), parseMvnUrl);
-                installToRemote(new File(path), parseMvnUrl, type);
+                installToRemote(new File(path), parseMvnUrl, artifactType);
                 // deploy the pom
-                if (new File(pomPath).exists()) {
-                    installToRemote(new File(pomPath), parseMvnUrl, TalendMavenConstants.PACKAGING_POM);
+                if (new File(generatePom).exists()) {
+                    installToRemote(new File(generatePom), parseMvnUrl, pomType);
                 }
             }
-
+            FilesUtils.deleteFolder(new File(generatePom).getParentFile(), true);
         }
     }
 
@@ -138,7 +147,7 @@ public class ArtifactsDeployer {
                     artifactPath = artifactPath + "." + type;
                 }
             }
-            String target = nexusServer.getRepositoryUrl() + artifactPath;
+            String target = repositoryUrl + artifactPath;
             targetURL = new URL(target);
             installToRemote(new FileEntity(content), targetURL);
         } catch (MalformedURLException e) {

@@ -14,6 +14,5 @@ Eclipse-LazyStart: true
 Bundle-ClassPath: .
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.resources,
- org.talend.resources.prefs,
  org.talend.resources.util
 Eclipse-BundleShape: dir

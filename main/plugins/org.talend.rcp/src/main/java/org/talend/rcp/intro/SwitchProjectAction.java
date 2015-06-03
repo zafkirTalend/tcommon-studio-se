@@ -23,6 +23,7 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.rcp.i18n.Messages;
+import org.talend.repository.ui.login.LoginHelper;
 
 /**
  * Displays the Login Dialog for choose a project to Open. <br/>
@@ -38,7 +39,7 @@ public class SwitchProjectAction extends Action {
      * Constructs a new SwitchProjectAction.
      */
     public SwitchProjectAction() {
-        super(Messages.getString("SwitchProjectAction_actionLabel")); //$NON-NLS-1$
+        super(Messages.getString("SwitchProjectAction_actionLabel.v2")); //$NON-NLS-1$
         setEnabled(true);
     }
 
@@ -73,6 +74,8 @@ public class SwitchProjectAction extends Action {
             }
         }
 
+        // in case user uncheck the "Always show login dialog at startup"
+        LoginHelper.forceShowLogonDialogNextTime();
         // The prefered method Actually is a restart :
         PlatformUI.getWorkbench().restart();
 

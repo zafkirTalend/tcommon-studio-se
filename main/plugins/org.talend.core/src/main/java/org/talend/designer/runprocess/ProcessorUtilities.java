@@ -68,7 +68,6 @@ import org.talend.core.model.repository.job.JobResourceManager;
 import org.talend.core.model.runprocess.LastGenerationInfo;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
-import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.core.ui.IJobletProviderService;
@@ -97,6 +96,8 @@ public class ProcessorUtilities {
     public static final int GENERATE_ALL_CHILDS = 1 << 3;
 
     public static final int GENERATE_TESTS = 1 << 4;
+
+    public static final int GENERATE_WITHOUT_COMPILING = 1 << 5;
 
     private static String interpreter, codeLocation, libraryPath;
 
@@ -471,7 +472,7 @@ public class ProcessorUtilities {
          * libraries.
          */
         jobInfo.setProcess(null);
-        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
+        generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
         return processor;
     }
 
@@ -490,17 +491,13 @@ public class ProcessorUtilities {
             IProcessor processor, Set<ModuleNeeded> neededLibraries) throws ProcessorException {
         // generate pigudf.jar before generate code
         // update calss path before export pigudf
-        Set<String> jarList = new HashSet<String>();
         Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
                 jobInfo.getJobVersion());
-        for (ModuleNeeded module : neededModules) {
-            jarList.add(module.getModuleName());
-        }
         Set<String> pigudfNeededWithSubjobPerJob = LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
                 jobInfo.getJobId(), jobInfo.getJobVersion());
         String pigModuleName = null;
         if (selectedProcessItem != null && !pigudfNeededWithSubjobPerJob.isEmpty()) {
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
             IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
             pigModuleName = service.exportPigudf(processor, selectedProcessItem.getProperty(), exportConfig);
         }
@@ -544,20 +541,20 @@ public class ProcessorUtilities {
     }
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
-            IProcess currentProcess, String currentJobName, IProcessor processor) throws ProcessorException {
+            IProcess currentProcess, String currentJobName, IProcessor processor, int option) throws ProcessorException {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
 
-            Set<String> jarList = new HashSet<String>();
             Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
                     jobInfo.getJobId(), jobInfo.getJobVersion());
-            for (ModuleNeeded module : neededModules) {
-                jarList.add(module.getModuleName());
-            }
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(jarList, currentProcess);
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
 
-            if (codeModified) {
-                processor.build();
+            if (codeModified && !BitwiseOptionUtils.containOption(option, GENERATE_WITHOUT_COMPILING)) {
+                try {
+                    processor.build(progressMonitor);
+                } catch (Exception e) {
+                    throw new ProcessorException(e);
+                }
                 processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;
@@ -701,7 +698,7 @@ public class ProcessorUtilities {
                 selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId());
             }
 
-            if (jobInfo.getJobVersion() != null) {
+            if (selectedProcessItem == null && jobInfo.getJobVersion() != null) {
                 selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
             }
 
@@ -755,7 +752,6 @@ public class ProcessorUtilities {
             }
             if (currentProcess != null) {
                 checkMetadataDynamic(currentProcess, jobInfo);
-                jobInfo.setProcessItem(null);
             }
 
             Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
@@ -797,22 +793,8 @@ public class ProcessorUtilities {
              * libraries.
              */
             jobInfo.setProcess(null);
-            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor);
+            generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
             TimeMeasure.step(idTimer, "generateBuildInfo");
-
-            if (BitwiseOptionUtils.containOption(option, GENERATE_TESTS)) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-                    ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                            .getDefault().getService(ITestContainerProviderService.class);
-                    if (testContainerService != null) {
-                        List<ProcessItem> testsItems = testContainerService.getAllTestContainers(selectedProcessItem);
-                        for (ProcessItem testItem : testsItems) {
-                            ProcessorUtilities.generateCode(testItem, testItem.getProcess().getDefaultContext(), false, false,
-                                    false, progressMonitor);
-                        }
-                    }
-                }
-            }
 
             return processor;
         } finally {
@@ -855,6 +837,29 @@ public class ProcessorUtilities {
 
     private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean properties,
             int option, IProgressMonitor progressMonitor, IProcess currentProcess) throws ProcessorException {
+        if (BitwiseOptionUtils.containOption(option, GENERATE_TESTS) && jobInfo.getProcessItem() != null) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                        .getDefault().getService(ITestContainerProviderService.class);
+                if (testContainerService != null) {
+                    List<ProcessItem> testsItems = testContainerService.getAllTestContainers(jobInfo.getProcessItem());
+                    for (ProcessItem testItem : testsItems) {
+                        JobInfo subJobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
+                        subJobInfo.setTestContainer(true);
+
+                        if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
+                            generateCode(subJobInfo, selectedContextName, statistics, false, properties,
+                                    GENERATE_MAIN_ONLY, progressMonitor);
+                        } else {
+                            generateCode(subJobInfo, selectedContextName, statistics, false, properties,
+                                    GENERATE_ALL_CHILDS, progressMonitor);
+                            currentProcess.setNeedRegenerateCode(true);
+                        }
+                    }
+                }
+            }
+        }
+        jobInfo.setProcessItem(null);
         if (!BitwiseOptionUtils.containOption(option, GENERATE_MAIN_ONLY)) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
             List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
@@ -1484,6 +1489,17 @@ public class ProcessorUtilities {
                 }
             }
         }
+        if (!parentJobInfo.isTestContainer() && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
+            for (ProcessItem testItem : testsItems) {
+                JobInfo jobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
+                jobInfo.setTestContainer(true);
+                jobInfos.add(jobInfo);
+                jobInfo.setFatherJobInfo(parentJobInfo);
+            }
+        }
         return jobInfos;
     }
 
@@ -1492,6 +1508,13 @@ public class ProcessorUtilities {
         // cause a error of "out of memory" .
         JobInfo parentJobInfo = new JobInfo(processItem, processItem.getProcess().getDefaultContext());
 
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService.isTestContainerItem(processItem)) {
+                parentJobInfo.setTestContainer(true);
+            }
+        }
         return getAllJobInfo(processItem.getProcess(), parentJobInfo, new HashSet<JobInfo>());
 
     }
@@ -1539,14 +1562,6 @@ public class ProcessorUtilities {
             for (String s : cmd) {
                 sb.append(s).append(' ');
             }
-        }
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
-            IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
-                    IRunProcessService.class);
-            String commandStr = runProcessService.getProjectPreferenceManager().getPreferenceStore()
-                    .getString(ITalendCorePrefConstants.COMMAND_STR);
-            String finalCommand = commandStr.replace(ITalendCorePrefConstants.DEFAULT_COMMAND_STR, sb.toString());
-            return finalCommand;
         }
         return sb.toString();
     }
