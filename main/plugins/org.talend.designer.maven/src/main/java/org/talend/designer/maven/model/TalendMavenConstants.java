@@ -75,6 +75,8 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_INCLUDE_LIBS = "include-libs";
 
+    static final String PROFILE_INCLUDE_MAVEN_RESOURCES = "include-maven-resources";
+
     static final String ARG_SKIPTESTS = "-DskipTests";
 
     /* same as the JavaUtils.JAVA_PROJECT_NAME */
