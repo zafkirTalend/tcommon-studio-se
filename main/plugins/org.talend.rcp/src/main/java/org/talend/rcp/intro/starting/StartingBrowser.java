@@ -15,6 +15,7 @@ package org.talend.rcp.intro.starting;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.Image;
@@ -22,22 +23,32 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 import org.talend.commons.ui.html.BrowserDynamicPartLocationListener;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.rcp.Activator;
 
 /**
  * DOC wchen class global comment. Detailled comment
  */
 public class StartingBrowser extends EditorPart {
 
-    public static final String ID = "org.talend.rcp.intro.starting.StartingBrowser";
+    public static final String ID = "org.talend.rcp.intro.starting.StartingBrowser"; //$NON-NLS-1$
+
+    protected static final String ICON_WHITE_PATH = "/icons/appli_white_16x16.png"; //$NON-NLS-1$
 
     public StartingBrowser() {
-        Image[] images = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getImages();
-        if (images.length > 0) {
-            this.setTitleImage(images[0]);
+        // Image[] images = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getImages();
+        // if (images.length > 0) {
+        // this.setTitleImage(images[0]);
+        // }
+
+        ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(Activator.class.getResource(ICON_WHITE_PATH));
+        if (imageDescriptor != null) {
+            Image image = imageDescriptor.createImage();
+            if (image != null) {
+                this.setTitleImage(image);
+            }
         }
     }
 
