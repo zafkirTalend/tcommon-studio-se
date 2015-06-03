@@ -70,7 +70,7 @@ public class ODBCMigrationTask extends AbstractItemMigrationTask {
                     ProjectPreferenceManager projectPreferenceManager = CoreRuntimePlugin.getInstance()
                             .getProjectPreferenceManager();
                     projectPreferenceManager.setValue(IProjectSettingPreferenceConstants.METADATA_DBCONNECTION_ODBC_ENABLE, true);
-
+                    projectPreferenceManager.save();
                 }
                 if (isMSSqlServerOdbc) {
                     modified = true;
