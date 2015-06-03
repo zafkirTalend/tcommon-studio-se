@@ -587,7 +587,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             // studio
             EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex().getJarsToRelativePath();
             String relativePath = jarsToRelative.get(jarName);
-            if (relativePath != null) {
+            if (relativePath == null) {
                 relativePath = platfromUriFromExtensions.get(jarName);
             }
             if (relativePath != null && relativePath.startsWith("platform:/")) { //$NON-NLS-1$
