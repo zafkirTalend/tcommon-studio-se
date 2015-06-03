@@ -12,33 +12,31 @@
 // ============================================================================
 package org.talend.core.model.general;
 
-import org.talend.core.runtime.maven.MavenConstants;
-
 /**
  * created by WCHEN on 2012-9-17 Detailled comment
  * 
  */
 public class ModuleToInstall {
 
-    private String name;
+    private String  name;
 
-    private String context;
+    private String  context;
 
-    private String description;
+    private String  description;
 
-    private String url_description;
+    private String  url_description;
 
-    private String url_download;
+    private String  url_download;
 
     private boolean required;
 
-    private String licenseType;
+    private String  licenseType;
 
-    private String licenseUrl;
+    private String  licenseUrl;
 
-    private String mavenUri;
+    private String  mavenUri;
 
-    private String distribution = MavenConstants.DOWNLOAD_MANUAL;
+    private String  distribution = "";
 
     public String getName() {
         return this.name;

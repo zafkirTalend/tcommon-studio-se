@@ -25,38 +25,39 @@ import org.talend.core.runtime.CoreRuntimePlugin;
  */
 public class ModuleNeeded {
 
-    private String id;
+    private String                id;
 
-    private String context;
+    private String                context;
 
-    private String moduleName;
+    private String                moduleName;
 
-    private String informationMsg;
+    private String                informationMsg;
 
-    private boolean required;
+    private boolean               required;
 
-    private boolean mrRequired = false;// That indicates if the module is required by M/R job.
+    private boolean               mrRequired     = false;                        // That indicates if the module is
+                                                                                  // required by M/R job.
 
-    private String requiredIf;
+    private String                requiredIf;
 
     // bundleName and bundleVersion for osgi system,feature 0023460
-    private String bundleName;
+    private String                bundleName;
 
-    private String bundleVersion;
+    private String                bundleVersion;
 
-    private ELibraryInstallStatus status = ELibraryInstallStatus.UNKNOWN;
+    private ELibraryInstallStatus status         = ELibraryInstallStatus.UNKNOWN;
 
-    private boolean isShow = true;
+    private boolean               isShow         = true;
 
-    List<String> installURL;
+    List<String>                  installURL;
 
-    private String moduleLocaion;
+    private String                moduleLocaion;
 
-    private String mavenUri;
+    private String                mavenUri;
 
-    public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
+    public static final String    SINGLE_QUOTE   = "'";                          //$NON-NLS-1$
 
-    public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
+    public static final String    QUOTATION_MARK = "\"";                         //$NON-NLS-1$
 
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
@@ -83,7 +84,7 @@ public class ModuleNeeded {
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required) {
         super();
         this.context = context;
-        setModuleName(moduleName);
+        setModuleName( moduleName );
         this.informationMsg = informationMsg;
         this.required = required;
     }
@@ -92,12 +93,12 @@ public class ModuleNeeded {
             String requiredIf, String mavenUrl) {
         super();
         this.context = context;
-        setModuleName(moduleName);
+        setModuleName( moduleName );
         this.informationMsg = informationMsg;
         this.required = required;
         this.installURL = installURL;
         this.requiredIf = requiredIf;
-        this.mavenUri = mavenUrl;
+        setMavenUri( mavenUrl );
     }
 
     public String getRequiredIf() {
@@ -125,7 +126,7 @@ public class ModuleNeeded {
         boolean isRequired = false;
 
         if (requiredIf != null && !requiredIf.isEmpty() && listParam != null) {
-            isRequired = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate(requiredIf, listParam);
+            isRequired = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate( requiredIf, listParam );
         }
         return isRequired;
     }
@@ -180,8 +181,8 @@ public class ModuleNeeded {
 
     public void setModuleName(String moduleName) {
         if (moduleName != null) {
-            this.moduleName = moduleName.replace(QUOTATION_MARK, "").replace(SINGLE_QUOTE, //$NON-NLS-1$
-                    ""); //$NON-NLS-1$
+            this.moduleName = moduleName.replace( QUOTATION_MARK, "" ).replace( SINGLE_QUOTE, //$NON-NLS-1$
+                    "" ); //$NON-NLS-1$
         } else {
             this.moduleName = moduleName;
         }
@@ -300,7 +301,7 @@ public class ModuleNeeded {
             hashCode *= this.getBundleVersion().hashCode();
         }
 
-        hashCode *= new Boolean(this.isRequired()).hashCode();
+        hashCode *= new Boolean( this.isRequired() ).hashCode();
         return hashCode;
     }
 
@@ -327,7 +328,7 @@ public class ModuleNeeded {
         } else {
             if (this.getModuleName() == null) {
                 return false;
-            } else if (!other.getModuleName().equals(this.getModuleName())) {
+            } else if (!other.getModuleName().equals( this.getModuleName() )) {
                 return false;
             }
         }
@@ -339,7 +340,7 @@ public class ModuleNeeded {
         } else {
             if (this.getBundleName() == null) {
                 return false;
-            } else if (!other.getBundleName().equals(this.getBundleName())) {
+            } else if (!other.getBundleName().equals( this.getBundleName() )) {
                 return false;
             }
         }
@@ -351,7 +352,7 @@ public class ModuleNeeded {
         } else {
             if (this.getBundleVersion() == null) {
                 return false;
-            } else if (!other.getBundleVersion().equals(this.getBundleVersion())) {
+            } else if (!other.getBundleVersion().equals( this.getBundleVersion() )) {
                 return false;
             }
         }
@@ -364,7 +365,7 @@ public class ModuleNeeded {
         } else {
             if (this.getModuleLocaion() == null) {
                 return false;
-            } else if (!other.getModuleLocaion().equals(this.getModuleLocaion())) {
+            } else if (!other.getModuleLocaion().equals( this.getModuleLocaion() )) {
                 return false;
             }
         }
@@ -375,8 +376,21 @@ public class ModuleNeeded {
         return true;
     }
 
+    /**
+     * return the maven URI if any wa set or return the default maven uri else. The default is computed like this :
+     * mvn:org.talend.libraries/\<moduleName\>/6.0.0
+     * 
+     * @return, return the maven uri, never null
+     */
     public String getMavenUri() {
-        return this.mavenUri;
+        // set an defaut maven uri if uri is null or empty, this could be done in the set
+        // but this would mean to sure the set is called after the name is set.
+        if (mavenUri == null || "".equals( mavenUri )) { //$NON-NLS-1$
+            String mavenArtifact = moduleName.endsWith( ".jar" ) ? moduleName
+                    .substring( 0, moduleName.length() - ".jar".length() ) : moduleName;
+            mavenUri = "mvn:org.talend.libraries/" + mavenArtifact + "/6.0.0";// default value for unknown libs //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return mavenUri;
     }
 
     /**
