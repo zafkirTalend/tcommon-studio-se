@@ -16,6 +16,7 @@ import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
@@ -51,7 +52,7 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
     }
 
     @Override
-    public void execute() {
+    public void execute(IProgressMonitor monitor) throws Exception {
         if (!launcherPomFile.exists()) {
             return;
         }
@@ -74,7 +75,7 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
         if (!TalendMavenConstants.POM_FILE_NAME.equals(launcherPomFile.getName())) {
             return;
         }
-        super.execute();
+        super.execute(monitor);
     }
 
 }

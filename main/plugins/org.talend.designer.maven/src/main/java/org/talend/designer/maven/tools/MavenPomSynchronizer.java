@@ -228,7 +228,7 @@ public class MavenPomSynchronizer {
         }
 
         // try to compile it.
-        codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null);
+        codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null, monitor);
     }
 
     private void deleteFiles(File[] files) {

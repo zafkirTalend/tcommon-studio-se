@@ -316,6 +316,6 @@ public interface IProcessor {
      * 
      * build current job or whole project.
      */
-    void build();
+    void build(IProgressMonitor monitor) throws Exception;
 
 }

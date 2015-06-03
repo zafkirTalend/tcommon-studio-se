@@ -550,7 +550,11 @@ public class ProcessorUtilities {
             CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
 
             if (codeModified && !BitwiseOptionUtils.containOption(option, GENERATE_WITHOUT_COMPILING)) {
-                processor.build();
+                try {
+                    processor.build(progressMonitor);
+                } catch (Exception e) {
+                    throw new ProcessorException(e);
+                }
                 processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;

@@ -134,9 +134,9 @@ public interface ITalendProcessJavaProject {
      * if goals is not null, will use maven to build. and if childrenModules is null, will try to build project pom.
      * else will build each modules.
      */
-    void buildModules(String goals, String[] childrenModules);
+    void buildModules(String goals, String[] childrenModules, IProgressMonitor monitor) throws Exception;
 
-    void buildModules(String goals, String[] childrenModules, String programArgs);
+    void buildModules(String goals, String[] childrenModules, String programArgs, IProgressMonitor monitor) throws Exception;
 
     /**
      * 
