@@ -255,7 +255,7 @@ public class XmiResourceManager {
     }
 
     public Resource getReferenceFileResource(Resource itemResource, ReferenceFileItem refFile, boolean needLoad) {
-        URI referenceFileURI = getReferenceFileURI(itemResource.getURI(), refFile.getExtension());
+        URI referenceFileURI = getReferenceFileURI(itemResource.getURI(), refFile);
         URIConverter converter = getResourceSet().getURIConverter();
         Resource referenceResource = new ByteArrayResource(referenceFileURI);
         InputStream inputStream = null;
@@ -293,8 +293,12 @@ public class XmiResourceManager {
         return referenceResource;
     }
 
-    private URI getReferenceFileURI(URI itemResourceURI, String extension) {
-        return itemResourceURI.trimFileExtension().appendFileExtension(extension);
+    private URI getReferenceFileURI(URI itemResourceURI, ReferenceFileItem refFile) {
+        if (refFile.getName() != null) {
+            return itemResourceURI.trimSegments(1).appendSegment(refFile.getName() + "." + refFile.getExtension()); //$NON-NLS-1$
+        } else {
+            return itemResourceURI.trimFileExtension().appendFileExtension(refFile.getExtension());
+        }
     }
 
     public Resource createItemResource(IProject project, Item item, IPath path, ERepositoryObjectType repositoryObjectType,
