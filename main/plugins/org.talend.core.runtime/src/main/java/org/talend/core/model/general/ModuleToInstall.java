@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import org.talend.core.runtime.maven.MavenConstants;
 
 /**
  * created by WCHEN on 2012-9-17 Detailled comment
@@ -36,6 +37,8 @@ public class ModuleToInstall {
     private String licenseUrl;
 
     private String mavenUri;
+
+    private String distribution = MavenConstants.DOWNLOAD_MANUAL;
 
     public String getName() {
         return this.name;
@@ -127,5 +130,23 @@ public class ModuleToInstall {
      */
     public void setMavenUri(String mavenUri) {
         this.mavenUri = mavenUri;
+    }
+
+    /**
+     * Getter for distribution.
+     * 
+     * @return the distribution
+     */
+    public String getDistribution() {
+        return this.distribution;
+    }
+
+    /**
+     * Sets the distribution.
+     * 
+     * @param distribution the distribution to set
+     */
+    public void setDistribution(String distribution) {
+        this.distribution = distribution;
     }
 }

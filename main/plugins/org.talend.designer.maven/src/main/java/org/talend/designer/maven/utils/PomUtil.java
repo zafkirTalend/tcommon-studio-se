@@ -473,6 +473,9 @@ public class PomUtil {
             Project project = ProjectManager.getInstance().getCurrentProject();
             IProject fsProject = ResourceUtils.getProject(project);
             IFolder tmpFolder = fsProject.getFolder("temp");
+            if (!tmpFolder.exists()) {
+                tmpFolder.create(true, true, null);
+            }
             String tmpFolderName = File.createTempFile(TalendMavenConstants.PACKAGING_POM, "").getName();
             IFolder folder = tmpFolder.getFolder(tmpFolderName);
             folder.create(true, true, null);

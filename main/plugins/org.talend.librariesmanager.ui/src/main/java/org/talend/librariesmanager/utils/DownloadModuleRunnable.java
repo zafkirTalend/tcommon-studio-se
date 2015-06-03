@@ -87,28 +87,26 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 if (!monitor.isCanceled()) {
                     monitor.subTask(module.getName());
                     boolean accepted;
-                    if (module.getUrl_download() != null && !"".equals(module.getUrl_download())) { //$NON-NLS-1$
-                        try {
-                            // check license
-                            boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                                    .getBoolean(module.getLicenseType());
-                            accepted = isLicenseAccepted;
-                            if (!accepted) {
-                                subMonitor.worked(1);
-                                continue;
-                            }
-                            if (monitor.isCanceled()) {
-                                return;
-                            }
-                            NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
-                            downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
-                            customUriToAdd.put(module.getName(), module.getMavenUri());
-                            installedModules.add(module.getName());
-                        } catch (Exception e) {
-                            downloadFailed.add(module.getName());
-                            ExceptionHandler.process(e);
+                    try {
+                        // check license
+                        boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
+                                .getBoolean(module.getLicenseType());
+                        accepted = isLicenseAccepted;
+                        if (!accepted) {
+                            subMonitor.worked(1);
                             continue;
                         }
+                        if (monitor.isCanceled()) {
+                            return;
+                        }
+                        NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
+                        downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
+                        customUriToAdd.put(module.getName(), module.getMavenUri());
+                        installedModules.add(module.getName());
+                    } catch (Exception e) {
+                        downloadFailed.add(module.getName());
+                        ExceptionHandler.process(e);
+                        continue;
                     }
                     accepted = false;
                 } else {
