@@ -30,7 +30,6 @@ import org.talend.core.model.general.Project;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 import org.talend.designer.maven.utils.PomIdsHelper;
-import org.talend.designer.maven.utils.PomUtil;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -228,7 +227,7 @@ public class MavenTemplateManager {
 
         templateCodeProjectMOdel.setGroupId(PomIdsHelper.getProjectGroupId());
         templateCodeProjectMOdel.setArtifactId(PomIdsHelper.getProjectArtifactId());
-        templateCodeProjectMOdel.setVersion(PomUtil.getDefaultMavenVersion());
+        templateCodeProjectMOdel.setVersion(PomIdsHelper.getProjectVersion());
 
         return templateCodeProjectMOdel;
     }
@@ -271,7 +270,7 @@ public class MavenTemplateManager {
 
         templateRoutinesModel.setGroupId(PomIdsHelper.getRoutineGroupId());
         templateRoutinesModel.setArtifactId(PomIdsHelper.getRoutinesArtifactId());
-        templateRoutinesModel.setVersion(PomUtil.getDefaultMavenVersion());
+        templateRoutinesModel.setVersion(PomIdsHelper.getRoutinesVersion());
 
         return templateRoutinesModel;
     }

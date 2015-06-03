@@ -14,8 +14,6 @@ package org.talend.designer.maven.template;
 
 import java.util.Map;
 
-import org.talend.designer.maven.utils.PomUtil;
-
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -41,6 +39,7 @@ public enum ETalendMavenVariables {
     JobId,
     JobName,
     JobType,
+    JobFinalName,
     JobPath,
     JobPackage,
     JobDate,
@@ -64,13 +63,53 @@ public enum ETalendMavenVariables {
     }
 
     public static String replaceVariables(String originalContent, Map<ETalendMavenVariables, String> variablesValuesMap) {
+        return replaceVariables(originalContent, variablesValuesMap, true);
+    }
+
+    public static String replaceVariables(String originalContent, Map<ETalendMavenVariables, String> variablesValuesMap,
+            boolean cleanup) {
         if (originalContent == null || originalContent.trim().length() == 0 || variablesValuesMap.isEmpty()) {
             return originalContent;
         }
         String content = originalContent;
         for (ETalendMavenVariables var : variablesValuesMap.keySet()) {
-            content = PomUtil.replaceVariable(content, var.getExpression(), variablesValuesMap.get(var));
+            // won't do clean up here, must be after replaced
+            content = replaceVariable(content, var, variablesValuesMap.get(var), false);
         }
+        if (cleanup) {
+            content = cleanupVariable(content);
+        }
+        return content;
+    }
+
+    public static String replaceVariable(String originalContent, ETalendMavenVariables var, String value, boolean cleanup) {
+        if (originalContent == null || originalContent.trim().length() == 0 || var == null) {
+            return originalContent;
+        }
+        String content = originalContent;
+        if (value == null) {
+            value = ""; //$NON-NLS-1$
+        }
+        content = content.replace(var.getExpression(), value);
+        if (cleanup) {
+            content = cleanupVariable(content);
+        }
+        return content;
+    }
+
+    /**
+     * 
+     * Will clean up all variables "@XXX@" to replace to empty.
+     */
+    public static String cleanupVariable(String originalContent) {
+        if (originalContent == null || originalContent.length() == 0 //
+                || originalContent.indexOf('@') == -1) {// no variable
+            return originalContent;
+        }
+        String content = originalContent;
+
+        content = content.replaceAll("@(.*?)@", ""); //$NON-NLS-1$ //$NON-NLS-2$
+
         return content;
     }
 }

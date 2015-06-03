@@ -16,8 +16,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jdt.launching.IVMInstall;
-import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.m2e.core.internal.IMavenConstants;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.tools.creator.CreateMavenCodeProject;
@@ -27,13 +25,6 @@ import org.talend.designer.maven.tools.creator.CreateMavenCodeProject;
  *
  */
 public final class TalendCodeProjectUtil {
-
-    /**
-     * must be same maven-dependency-plugin in job pom.
-     * 
-     * later, if false, need remove this flag maybe.
-     */
-    public static boolean stripVersion = true;
 
     @SuppressWarnings("restriction")
     public static IProject initCodeProject(IProgressMonitor monitor) throws Exception {

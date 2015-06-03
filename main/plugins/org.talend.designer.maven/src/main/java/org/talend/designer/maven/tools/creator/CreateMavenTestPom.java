@@ -47,7 +47,6 @@ import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomUtil;
-import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.ProjectManager;
@@ -185,7 +184,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), context.getName(), false, false);
 
         checkPomProperty(properties, "talend.job.path", ETalendMavenVariables.JobPath, jobClassPackageFolder);
-        // checkPomProperty(properties, "talend.job.jarName", "@JobJarName@", jobFolderName);
+
         /*
          * for jobInfo.properties
          * 
@@ -197,26 +196,19 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_ID, String.valueOf(project.getId())));
         checkPomProperty(properties, "talend.project.branch", ETalendMavenVariables.ProjectBranch,
                 jobInfoProp.getProperty(JobInfoProperties.BRANCH, mainProjectBranch));
-        if (TalendCodeProjectUtil.stripVersion) {
-            checkPomProperty(properties, "talend.job.name", null, // keep empty, in order to replace it.
-                    jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
-        } else {
-            checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName, "${project.artifactId}");
-        }
-        checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, "${project.version}");
+        checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName,
+                jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
+        checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion,
+                jobInfoProp.getProperty(JobInfoProperties.JOB_VERSION, process.getVersion()));
         checkPomProperty(properties, "talend.job.date", ETalendMavenVariables.JobDate,
                 jobInfoProp.getProperty(JobInfoProperties.DATE, JobInfoProperties.DATAFORMAT.format(new Date())));
         checkPomProperty(properties, "talend.job.context", ETalendMavenVariables.JobContext,
-                jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName()));
+                "--context=" + jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName()));
         checkPomProperty(properties, "talend.job.id", ETalendMavenVariables.JobId,
                 jobInfoProp.getProperty(JobInfoProperties.JOB_ID, process.getId()));
-        if (TalendCodeProjectUtil.stripVersion) {
-            checkPomProperty(properties, "talend.job.class", null, // keep empty, in order to replace it.
-                    jProcessor.getMainClass());
-        } else {
-            checkPomProperty(properties, "talend.job.class", ETalendMavenVariables.JobClass,
-                    "${talend.job.package}.${talend.job.name}");
-        }
+        checkPomProperty(properties, "talend.job.class", ETalendMavenVariables.JobClass, jProcessor.getMainClass());
+        // checkPomProperty(properties, "talend.job.class", ETalendMavenVariables.JobClass,
+        // "${talend.job.package}.${talend.job.name}");
         checkPomProperty(properties, "talend.product.version", ETalendMavenVariables.ProductVersion,
                 jobInfoProp.getProperty(JobInfoProperties.COMMANDLINE_VERSION, VersionUtils.getVersion()));
 

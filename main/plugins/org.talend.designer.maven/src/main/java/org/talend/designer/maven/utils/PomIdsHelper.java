@@ -25,23 +25,37 @@ import org.talend.repository.ProjectManager;
 public class PomIdsHelper {
 
     /*
-     * FIXME, keep the fixing group id for poms, if false, need check more for the assembly for dependency set/module
-     * set.
+     * FIXME, keep the fixing group id for poms.
+     * 
+     * if false, Will be some problems for the assembly with dependency/module set. so set true first.
      */
-    private static final boolean FLAG_FIXING_GROUP_ID = true;
+    public static final boolean FLAG_FIXING_GROUP_ID = true;
 
     /*
-     * FIXME, keep the fixing artifact id for poms, if false, need check more for the assembly for module set for
-     * routines and job jars.
+     * FIXME, keep the fixing artifact id for poms.
+     * 
+     * if false, Will be some problems for the assembly with module set for routines and job jars. so set true first.
      */
-    private static final boolean FLAG_FIXING_ATIFACT_ID = true;
+    public static final boolean FLAG_FIXING_ATIFACT_ID = true;
+
+    /*
+     * add the project details in version part. if true, need remove the version part to build jar with module set for
+     * job jars.
+     */
+    public static final boolean FLAG_VERSION_WITH_CLASSIFIER = true;
+
+    /*
+     * If maven way, the final name should be like "<jobName>-<jobVersion>.zip". if true for special name, will be like
+     * "<jobName>_<jobVersion>.zip"
+     */
+    public static final boolean FLAG_SPECIAL_FINAL_NAME = true;
 
     /**
-     * return something like "org.talend.master.<ProjectName>".
-     * 
-     * for example, project name is Test, return "org.talend.master.test".
+     * @return "org.talend.master.<ProjectName>", like "org.talend.master.test".
      * 
      * If projectName is null, will return default one "org.talend.master" only.
+     * 
+     * always depend on current project.
      */
     public static String getProjectGroupId() {
         if (!FLAG_FIXING_GROUP_ID) {
@@ -56,9 +70,7 @@ public class PomIdsHelper {
     }
 
     /**
-     * return something like "code.<ProjectName>".
-     * 
-     * for example, project name is Test, return "code.Test".
+     * @return "code.<ProjectName>", like "code.Test".
      * 
      * If projectName is null, will return default one "code.Master" only.
      * 
@@ -69,16 +81,37 @@ public class PomIdsHelper {
             final Project currentProject = ProjectManager.getInstance().getCurrentProject();
             if (currentProject != null) {
                 String technicalLabel = currentProject.getTechnicalLabel();
-                return technicalLabel + '.' + TalendMavenConstants.DEFAULT_CODE;
+                return TalendMavenConstants.DEFAULT_CODE + '.' + technicalLabel;
             }
         }
         return TalendMavenConstants.DEFAULT_CODE_PROJECT_ARTIFACT_ID;
     }
 
     /**
-     * always depend on current project.
+     * @return "<version>-<ProjectName>", like "6.0.0-TESTABC".
      * 
-     * return "org.talend.code.<projectName>"
+     * if project is null, will return version only, like "6.0.0".
+     * 
+     * always depend on current project.
+     */
+    public static String getProjectVersion() {
+        String defaultMavenVersion = PomUtil.getDefaultMavenVersion();
+        if (FLAG_VERSION_WITH_CLASSIFIER) {// add project name in version
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            if (currentProject != null) {
+                String technicalLabel = currentProject.getTechnicalLabel();
+                return defaultMavenVersion + '-' + technicalLabel;
+            }
+        }
+        return defaultMavenVersion;
+    }
+
+    /**
+     * @return "org.talend.code.<projectName>", like "org.talend.code.test".
+     * 
+     * if project is null, will return "org.talend.code".
+     * 
+     * always depend on current project.
      */
     public static String getRoutineGroupId() {
         if (!FLAG_FIXING_GROUP_ID) {
@@ -93,9 +126,11 @@ public class PomIdsHelper {
     }
 
     /**
-     * always depend on current project.
+     * @return "<project>.routines", like "TEST.routines"
      * 
-     * return "<project>.routines"
+     * if project is null, will return "routines".
+     * 
+     * always depend on current project.
      */
     public static String getRoutinesArtifactId() {
         if (!FLAG_FIXING_ATIFACT_ID) { // add project name for artifact
@@ -109,7 +144,26 @@ public class PomIdsHelper {
     }
 
     /**
-     * return something like "org.talend.job.<projectName>".
+     * @return "<version>-<ProjectName>", like "6.0.0-TESTABC".
+     * 
+     * if project is null, will return version only, like "6.0.0".
+     * 
+     * always depend on current project.
+     */
+    public static String getRoutinesVersion() {
+        String defaultMavenVersion = PomUtil.getDefaultMavenVersion();
+        if (FLAG_VERSION_WITH_CLASSIFIER) {// add project name in version
+            final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+            if (currentProject != null) {
+                String technicalLabel = currentProject.getTechnicalLabel();
+                return defaultMavenVersion + '-' + technicalLabel;
+            }
+        }
+        return defaultMavenVersion;
+    }
+
+    /**
+     * @return "org.talend.job.<name>", like "org.talend.job.test"
      */
     public static String getJobGroupId(String name) {
         if (!FLAG_FIXING_GROUP_ID) {
@@ -120,7 +174,7 @@ public class PomIdsHelper {
     }
 
     /**
-     * something like org.talend.job.<projectName>[.<refProjectName>].
+     * @return "org.talend.job.<projectName>[.<refProjectName>]".
      */
     public static String getJobGroupId(Property property) {
         if (!FLAG_FIXING_GROUP_ID) {
@@ -143,8 +197,7 @@ public class PomIdsHelper {
     }
 
     /**
-     * 
-     * return "<projectName>[.<refProjectName>].<jobName>".
+     * @return "<projectName>[.<refProjectName>].<jobName>".
      */
     public static String getJobArtifactId(Property property) {
         if (property != null) {
@@ -165,6 +218,32 @@ public class PomIdsHelper {
                 }
             } // else { //just use the name of label.
             return artifactId;
+        }
+        return null;
+    }
+
+    /**
+     * @return "<jobVersion>-<projectName>[-<refProjectName>]".
+     */
+    public static String getJobVersion(Property property) {
+        if (property != null) {
+            ProjectManager pManager = ProjectManager.getInstance();
+            Project currentProject = pManager.getCurrentProject();
+            String version = property.getVersion();
+
+            if (FLAG_VERSION_WITH_CLASSIFIER) { // add project name for version
+                if (pManager.isInCurrentMainProject(property)) {
+                    if (currentProject != null) {
+                        version = version + '-' + currentProject.getTechnicalLabel();
+                    }
+                } else {
+                    org.talend.core.model.properties.Project project = pManager.getProject(property);
+                    if (project != null) {
+                        version = version + '-' + currentProject.getTechnicalLabel() + '-' + project.getTechnicalLabel();
+                    }
+                }
+            } // else { //just use the job version
+            return version;
         }
         return null;
     }

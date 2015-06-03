@@ -64,7 +64,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         // The groupId and artifactId are temp, will change it after create project.
         setGroupId(project.getName());
         setArtifactId(project.getName());
-        setVersion(PomUtil.getDefaultMavenVersion());
+        setVersion(templateModel.getVersion());
         // Must be jar, if pom, won't create the classpath or such for jdt.
         setPackaging(TalendMavenConstants.PACKAGING_JAR);
 

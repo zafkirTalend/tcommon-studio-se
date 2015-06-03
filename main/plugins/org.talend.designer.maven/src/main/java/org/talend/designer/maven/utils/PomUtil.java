@@ -50,6 +50,7 @@ import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.tools.creator.CreateMavenJobPom;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
@@ -433,4 +434,22 @@ public class PomUtil {
         return null;
     }
 
+    /**
+     * 
+     * the value must be same as the property "talend.job.finalName" for pom.
+     * 
+     * @see CreateMavenJobPom with method addProperties.
+     */
+    public static String getJobFinalName(Property property) {
+        if (property == null) {
+            return null;
+        }
+        String label = property.getLabel();
+        String version = property.getVersion();
+        if (PomIdsHelper.FLAG_SPECIAL_FINAL_NAME) {
+            return label + '_' + version;
+        }
+        // same as maven
+        return label + '-' + version;
+    }
 }
