@@ -24,6 +24,7 @@ import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.classloader.DynamicClassLoader;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.hadoop.EHadoopConfigurationJars;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
 import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
@@ -117,12 +118,21 @@ public class HiveClassLoaderFactory {
             return;
         }
 
-        Object[] configurationJars;
-        String useKrb = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
-        if (Boolean.valueOf(useKrb)) {
-            configurationJars = EHadoopConfigurationJars.HIVE.getEnableSecurityJars();
+        Object[] configurationJars = new String[0];
+        String useCustomConfs = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_CUSTOM_CONFS);
+        if (Boolean.valueOf(useCustomConfs)) {
+            String clusterId = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
+            String customConfsJarName = getCustomConfsJarName(clusterId);
+            if (customConfsJarName != null) {
+                configurationJars = new String[] { customConfsJarName };
+            }
         } else {
-            configurationJars = EHadoopConfigurationJars.HIVE.getDisableSecurityJars();
+            String useKrb = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB);
+            if (Boolean.valueOf(useKrb)) {
+                configurationJars = EHadoopConfigurationJars.HIVE.getEnableSecurityJars();
+            } else {
+                configurationJars = EHadoopConfigurationJars.HIVE.getDisableSecurityJars();
+            }
         }
 
         String executionEngine = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_EXECUTION_ENGINE);
@@ -146,6 +156,18 @@ public class HiveClassLoaderFactory {
                 loader.addLibrary(jarFile.getAbsolutePath());
             }
         }
+    }
+
+    private static String getCustomConfsJarName(String clusterId) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.getCustomConfsJarName(clusterId);
+        }
+        return null;
     }
 
     private void loadAuthDriverJars(IMetadataConnection metadataConn, DynamicClassLoader loader) {

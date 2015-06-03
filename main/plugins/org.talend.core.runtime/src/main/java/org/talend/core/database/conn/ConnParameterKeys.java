@@ -64,6 +64,8 @@ public class ConnParameterKeys {
 
     public static final String CONN_PARA_KEY_USERNAME = "CONN_PARA_KEY_USERNAME"; //$NON-NLS-1$
 
+    public static final String CONN_PARA_KEY_USE_CUSTOM_CONFS = "CONN_PARA_KEY_USE_CUSTOM_CONFS"; //$NON-NLS-1$
+
     /**
      * Hive keys.
      */
