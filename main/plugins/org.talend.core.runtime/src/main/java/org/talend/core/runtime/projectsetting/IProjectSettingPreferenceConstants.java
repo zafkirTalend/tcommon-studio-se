@@ -61,5 +61,5 @@ public interface IProjectSettingPreferenceConstants {
     /*
      * Enable ODBC or not, used for DatabaseForm and stats&logs
      */
-    public static final String METADATA_DBCONNECTION_ODBC_ENABLE = "METADATA_DBCONNECTION_ODBC_DISABLE"; //$NON-NLS-1$
+    public static final String METADATA_DBCONNECTION_ODBC_ENABLE = "metadata.dbconnection.odbc.enable"; //$NON-NLS-1$
 }
