@@ -78,6 +78,7 @@ import org.talend.core.repository.ui.dialog.DuplicateDialog;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.repository.utils.ConvertJobsUtil.JobType;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
@@ -168,8 +169,17 @@ public class DuplicateAction extends AContextualAction {
                                 || node.getContentType().equals(camelService.getRouteDocType())) {
                             canWork = false;
                         }
+                    } else if (node.getProperties(EProperties.CONTENT_TYPE) != null
+                            && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                        Object nodProperty = node.getProperties(EProperties.CONTENT_TYPE);
+                        ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                                .getDefault().getService(ITestContainerProviderService.class);
+                        if ((testContainerService != null) && (nodProperty instanceof ERepositoryObjectType)) {
+                            if (testContainerService.isTestContainerType((ERepositoryObjectType) nodProperty)) {
+                                canWork = false;
+                            }
+                        }
                     }
-
                 }
             }
         } else {
