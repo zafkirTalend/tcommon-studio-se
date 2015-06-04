@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -27,7 +26,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.talend.commons.runtime.utils.io.FileCopyUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
@@ -35,6 +33,7 @@ import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
 import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
+import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.utils.io.FilesUtils;
 
@@ -88,34 +87,10 @@ public class MavenPomSynchronizer {
 
     /**
      * 
-     * create project pom
-     * 
-     * @deprecated should use the CreateMavenCodeProject
-     */
-    public void createProjectPom() throws Exception {
-        IFile projectPomFile = codeProject.getProjectPom();
-        File pPomFile = projectPomFile.getLocation().toFile();
-        if (!pPomFile.exists()) {
-            // synch the templates first.
-            syncTemplates(false);
-            //
-            IFolder templateFolder = codeProject.getTemplatesFolder();
-            IFile projectTemplateFile = templateFolder.getFile(IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
-            FileCopyUtils.copy(projectTemplateFile.getLocation().toFile().toString(), pPomFile.toString());
-
-            // refresh
-            codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);
-        }
-    }
-
-    /**
-     * 
      * add the job to the pom modules list of project.
      */
     public void addChildModules(boolean removeOld, String... childModules) throws Exception {
         IFile projectPomFile = codeProject.getProjectPom();
-        // check and create pom
-        createProjectPom();
 
         MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
         Model projModel = mavenModelManager.readMavenModel(projectPomFile);
@@ -195,37 +170,12 @@ public class MavenPomSynchronizer {
         // delete all target
         FilesUtils.deleteFile(codeProject.getOutputFolder().getParent().getLocation().toFile(), true);
 
-        // if routine is not exsited, gernerate it.
-        syncRoutinesPom(false);
+        // when clean, regenerate it.
+        syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
 
-        // clean up the dependencies and module for pom.xml
-        IFile projectPomFile = codeProject.getProjectPom();
-        File pPomFile = projectPomFile.getLocation().toFile();
-        if (pPomFile.exists()) {
-            MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
-            Model projModel = mavenModelManager.readMavenModel(projectPomFile);
-            // clear and only add routine pom.
-            List<String> modules = projModel.getModules();
-            if (modules != null) {
-                modules.clear();
-            }
-            IFile routinesPomFile = codeProject.getProject().getFile(
-                    PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
-            Model routinesModel = PomUtil.getRoutinesTempalteModel();
-            if (routinesPomFile.exists()) {
-                routinesModel = mavenModelManager.readMavenModel(routinesPomFile);
-            }
-            modules.add(routinesPomFile.getName());
-
-            // only add the routines dependencies.
-            List<Dependency> routinesDependencies = routinesModel.getDependencies();
-            ProcessorDependenciesManager.updateDependencies(null, projModel, routinesDependencies, true);
-
-            PomUtil.savePom(monitor, projModel, projectPomFile);
-
-            // install custom jar to m2/repo
-            PomUtil.installDependencies(routinesDependencies);
-        }
+        // finally, update project
+        ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());
+        projectManager.update(monitor, null);
 
         // try to compile it.
         codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null, monitor);

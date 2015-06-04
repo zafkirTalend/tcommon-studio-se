@@ -125,6 +125,8 @@ public class ContextOrderProperties extends Properties {
             this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()), BUILT_IN_COMMENT);
         } else if (ContextParameterUtils.isEmptyParameter(firstParameter.getSource())) {
             this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()));
+        } else if (firstParameter.getSource().equals(JobContextManager.dataSource)) {
+            this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()));
         } else {
             this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()),
                     REPOSITORY_COMMENT

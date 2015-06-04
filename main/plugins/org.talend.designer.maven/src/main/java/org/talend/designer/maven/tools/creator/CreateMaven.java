@@ -16,8 +16,9 @@ import java.util.Properties;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.template.ETalendMavenVariables;
+import org.talend.designer.maven.utils.PomUtil;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -26,7 +27,7 @@ import org.talend.designer.maven.model.TalendMavenConstants;
 public abstract class CreateMaven {
 
     /* by default, the version is same as product */
-    private String version = VersionUtils.getVersion();
+    private String version = PomUtil.getDefaultMavenVersion();
 
     private String groupId, artifactId;
 
@@ -134,17 +135,20 @@ public abstract class CreateMaven {
         }
     }
 
-    protected void checkPomProperty(Properties properties, String key, String var, String value) {
+    protected void checkPomProperty(Properties properties, String key, ETalendMavenVariables var, String value) {
         Object v = properties.get(key);
+        if (value == null) {
+            value = ""; //$NON-NLS-1$
+        }
         if (v != null) {
             if (v.equals(value)) { // same
                 // nothing to do
             } else if (v.equals(var)) {// if var expression. just replace it.
                 properties.put(key, value);
-            } else if (var == null || var.trim().length() == 0) { // just replace it for new value.
+            } else if (var == null) { // just replace it for new value.
                 properties.put(key, value);
             } else {// replace var, if existed.
-                properties.put(key, v.toString().replace(var, value));
+                properties.put(key, v.toString().replace(var.getExpression(), value));
             }
         } else { // set new value directly.
             properties.put(key, value);

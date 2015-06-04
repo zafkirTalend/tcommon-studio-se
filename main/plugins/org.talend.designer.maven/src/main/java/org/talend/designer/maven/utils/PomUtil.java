@@ -30,7 +30,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.IMaven;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
@@ -50,6 +49,8 @@ import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.tools.creator.CreateMavenJobPom;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
@@ -88,50 +89,6 @@ public class PomUtil {
         }
 
         MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
-    }
-
-    /**
-     * 
-     * just unify for routines with template.
-     */
-    private static Model templateRoutinesModel, templateCodeProjectMOdel;
-
-    public static Model getRoutinesTempalteModel() {
-        if (templateRoutinesModel == null) {
-            templateRoutinesModel = new Model();
-
-            templateRoutinesModel.setGroupId(TalendMavenConstants.DEFAULT_ROUTINES_GROUP_ID);
-            templateRoutinesModel.setArtifactId(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
-            templateRoutinesModel.setVersion(PomUtil.getDefaultMavenVersion());
-        }
-        return templateRoutinesModel;
-    }
-
-    public static Model getCodeProjectTemplateModel() {
-        if (templateCodeProjectMOdel == null) {
-            templateCodeProjectMOdel = new Model();
-
-            templateCodeProjectMOdel.setGroupId(TalendMavenConstants.DEFAULT_CODE_PROJECT_GROUP_ID);
-            templateCodeProjectMOdel.setArtifactId(TalendMavenConstants.DEFAULT_CODE_PROJECT_ARTIFACT_ID);
-            templateCodeProjectMOdel.setVersion(PomUtil.getDefaultMavenVersion());
-
-        }
-        return templateCodeProjectMOdel;
-    }
-
-    public static Model getJunitTemplateModel() {
-        Model junitModel = new Model();
-        junitModel.setGroupId(TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_GROUP);
-        junitModel.setArtifactId(TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_ID);
-        junitModel.setVersion(TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_VERSION);
-        return junitModel;
-    }
-
-    public static boolean isJunitArtifact(String artifactId) {
-        if (TalendMavenConstants.DEFAULT_JUNIT_ARTIFACT_ID.equals(artifactId)) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -188,22 +145,11 @@ public class PomUtil {
         if (parent == null) {
             parent = new Parent();
             curModel.setParent(parent);
+        } else {
+            // TODO, if existed, maybe just replace, not overwrite
         }
-        Model codeProjectTemplateModel = null;
-        try {
-            IFile projectPomFile = curPomFile.getParent().getFile(new Path(TalendMavenConstants.POM_FILE_NAME));
-            if (projectPomFile.exists()) {
-                codeProjectTemplateModel = MavenPlugin.getMavenModelManager().readMavenModel(projectPomFile);
-            }
-        } catch (CoreException e) {
-            //
-        }
-        if (codeProjectTemplateModel == null) {
-            /*
-             * same CreateMavenCodeProject.covertJavaProjectToPom
-             */
-            codeProjectTemplateModel = PomUtil.getCodeProjectTemplateModel();
-        }
+        // always depend on current poject
+        Model codeProjectTemplateModel = MavenTemplateManager.getCodeProjectTemplateModel();
         parent.setGroupId(codeProjectTemplateModel.getGroupId());
         parent.setArtifactId(codeProjectTemplateModel.getArtifactId());
         parent.setVersion(codeProjectTemplateModel.getVersion());
@@ -244,15 +190,6 @@ public class PomUtil {
             return createDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
         }
         return null;
-    }
-
-    /**
-     * 
-     * something like org.talend.demo.
-     */
-    public static String getCurProjectGroup() {
-        final Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        return JavaResourcesHelper.getGroupName(currentProject.getTechnicalLabel());
     }
 
     /**
@@ -499,4 +436,22 @@ public class PomUtil {
         return null;
     }
 
+    /**
+     * 
+     * the value must be same as the property "talend.job.finalName" for pom.
+     * 
+     * @see CreateMavenJobPom with method addProperties.
+     */
+    public static String getJobFinalName(Property property) {
+        if (property == null) {
+            return null;
+        }
+        String label = property.getLabel();
+        String version = property.getVersion();
+        if (PomIdsHelper.FLAG_SPECIAL_FINAL_NAME) {
+            return label + '_' + version;
+        }
+        // same as maven
+        return label + '-' + version;
+    }
 }

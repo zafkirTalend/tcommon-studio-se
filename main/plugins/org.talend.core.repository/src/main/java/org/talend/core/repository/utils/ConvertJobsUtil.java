@@ -16,18 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryEditorInput;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.IProcessConvertToAllTypeService;
@@ -187,9 +180,12 @@ public class ConvertJobsUtil {
 
     public static void updateJobFrameworkPart(String jobTypeValue, CCombo frameworkCombo) {
         frameworkCombo.setEditable(true);
+        frameworkCombo.setEnabled(true);
         if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
             frameworkCombo.setItems(new String[0]);
+            frameworkCombo.setText("");//$NON-NLS-1$ 
             frameworkCombo.setEditable(false);
+            frameworkCombo.setEnabled(false);
         } else if (JobType.BIGDATABATCH.getDisplayName().equals(jobTypeValue)) {
             String[] items = JobBatchFramework.getFrameworkToDispaly();
             frameworkCombo.setItems(items);
@@ -307,40 +303,5 @@ public class ConvertJobsUtil {
             }
         }
         return new String[0];
-    }
-
-    /**
-     * 
-     * DOC hcyi Comment method "isOpenedEditor".
-     * 
-     * @param obj
-     * @return
-     */
-    public static boolean isOpenedEditor(final IRepositoryViewObject obj) {
-        if (obj != null) {
-            IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-            if (activeWorkbenchWindow != null) {
-                IWorkbenchPage page = activeWorkbenchWindow.getActivePage();
-                if (page != null) {
-                    for (IEditorReference editors : page.getEditorReferences()) {
-                        IEditorPart editor = editors.getEditor(false);
-                        if (editor != null) {
-                            IEditorInput editorInput = editor.getEditorInput();
-                            String id = null;
-                            if (editorInput != null && editorInput instanceof IRepositoryEditorInput) {
-                                Item item = ((IRepositoryEditorInput) editorInput).getItem();
-                                if (item != null) {
-                                    id = item.getProperty().getId();
-                                }
-                            }
-                            if (obj.getId() != null && obj.getId().equals(id)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
     }
 }

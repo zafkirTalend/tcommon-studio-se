@@ -227,7 +227,6 @@ public enum EHadoopVersion4Drivers {
 
     public boolean isSupportYARN() {
         return ArrayUtils.contains(getMrVersions(), EMRVersion.YARN);
-
     }
 
     public boolean isSupportSpark() {

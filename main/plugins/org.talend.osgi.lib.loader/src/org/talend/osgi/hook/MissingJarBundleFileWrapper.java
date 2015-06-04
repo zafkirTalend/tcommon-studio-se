@@ -160,11 +160,11 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
             createResolvedBundleFile( jarFile );
         } else {// log an error if observer where notified and nothing was resolved
             if (MissingJarServices.getJarMissingObservable().countObservers() != 0) {
-                String message = "one third party library file [" + jarFile //$NON-NLS-1$
+                String message = "one third party library file [" + jarPath.substring( 0, jarPath.length() - 1 ) //$NON-NLS-1$
                         + "] was not found, it is required for bundle [" + getBundleFile().getBaseFile().getName() //$NON-NLS-1$
                         + "]."; //$NON-NLS-1$ 
                 if (MissingJarServices.getLogService() != null) {
-                    MissingJarServices.getLogService().log( LogService.LOG_ERROR, message );
+                    MissingJarServices.getLogService().log( LogService.LOG_DEBUG, message );
                 } else {// no log service available so throw a runtime exception to try
                     // notifying the user of the problem.
                     throw new RuntimeException( message );

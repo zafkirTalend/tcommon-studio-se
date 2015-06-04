@@ -23,6 +23,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.utils.PomUtil;
 
 /**
@@ -36,19 +37,21 @@ public class CreateMavenRoutinePom extends CreateMavenBundleTemplatePom {
 
     @Override
     protected Model createModel() {
-        final Model routinesModel = PomUtil.getRoutinesTempalteModel();
+        final Model routinesModel = MavenTemplateManager.getRoutinesTempalteModel();
 
-        setGroupId(routinesModel.getGroupId());
-        setArtifactId(routinesModel.getArtifactId());
-        setVersion(routinesModel.getVersion());
+        this.setGroupId(routinesModel.getGroupId());
+        this.setArtifactId(routinesModel.getArtifactId());
+        this.setVersion(routinesModel.getVersion());
+        this.setName(routinesModel.getName());
 
-        Model routineModel = super.createModel();
+        setAttributes(routinesModel);
+        addProperties(routinesModel);
 
-        PomUtil.checkParent(routineModel, this.getPomFile());
+        PomUtil.checkParent(routinesModel, this.getPomFile());
 
-        addDependencies(routineModel);
+        addDependencies(routinesModel);
 
-        return routineModel;
+        return routinesModel;
     }
 
     protected void addDependencies(Model model) {

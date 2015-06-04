@@ -12,10 +12,7 @@
 // ============================================================================
 package org.talend.librariesmanager.utils;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,13 +28,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.ops4j.pax.url.mvn.Handler;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
-import org.talend.core.download.DownloadHelperWithProgress;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ModuleToInstall;
-import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.ui.wizards.AcceptModuleLicensesWizard;
@@ -48,9 +41,9 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
     protected List<ModuleToInstall> toDownload;
 
-    protected Set<String> downloadFailed;
+    protected Set<String>           downloadFailed;
 
-    protected Set<String> installedModules;
+    protected Set<String>           installedModules;
 
     /**
      * DOC sgandon DownloadModuleRunnable constructor comment.
@@ -66,118 +59,65 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
     @Override
     public void run(final IProgressMonitor monitor) {
-        SubMonitor subMonitor = SubMonitor.convert(monitor,
-                Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() * 10 + 5); //$NON-NLS-1$
-        if (checkAndAcceptLicenses(subMonitor)) {
-            downLoad(subMonitor);
+        SubMonitor subMonitor = SubMonitor
+                .convert(
+                        monitor,
+                        Messages.getString( "ExternalModulesInstallDialog.downloading2" ) + " (" + toDownload.size() + ")", toDownload.size() * 10 + 5 ); //$NON-NLS-1$
+        if (checkAndAcceptLicenses( subMonitor )) {
+            downLoad( subMonitor );
         }
         if (monitor != null) {
-            monitor.setCanceled(subMonitor.isCanceled());
+            monitor.setCanceled( subMonitor.isCanceled() );
             monitor.done();
         }
     }
 
     private void downLoad(final IProgressMonitor monitor) {
-        SubMonitor subMonitor = SubMonitor.convert(monitor,
-                Messages.getString("ExternalModulesInstallDialog.downloading2"), toDownload.size() + 1); //$NON-NLS-1$
+        SubMonitor subMonitor = SubMonitor
+                .convert(
+                        monitor,
+                        Messages.getString( "ExternalModulesInstallDialog.downloading2" ) + " (" + toDownload.size() + ")", toDownload.size() + 1 ); //$NON-NLS-1$
 
-        if (RemoteModulesHelper.nexus_available) {
-            Map<String, String> customUriToAdd = new HashMap<String, String>();
-            for (final ModuleToInstall module : toDownload) {
-                if (!monitor.isCanceled()) {
-                    monitor.subTask(module.getName());
-                    boolean accepted;
-                    try {
-                        // check license
-                        boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                                .getBoolean(module.getLicenseType());
-                        accepted = isLicenseAccepted;
-                        if (!accepted) {
-                            subMonitor.worked(1);
-                            continue;
-                        }
-                        if (monitor.isCanceled()) {
-                            return;
-                        }
-                        NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
-                        downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
-                        customUriToAdd.put(module.getName(), module.getMavenUri());
-                        installedModules.add(module.getName());
-                    } catch (Exception e) {
-                        downloadFailed.add(module.getName());
-                        ExceptionHandler.process(e);
+        Map<String, String> customUriToAdd = new HashMap<String, String>();
+        for (final ModuleToInstall module : toDownload) {
+            if (!monitor.isCanceled()) {
+                monitor.subTask( module.getName() );
+                boolean accepted;
+                try {
+                    // check license
+                    boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
+                            .getBoolean( module.getLicenseType() );
+                    accepted = isLicenseAccepted;
+                    if (!accepted) {
+                        subMonitor.worked( 1 );
                         continue;
                     }
-                    accepted = false;
-                } else {
-                    downloadFailed.add(module.getName());
-                }
-            }
-            // reset the module install status
-            if (!customUriToAdd.isEmpty()) {
-                ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                        .getService(ILibraryManagerService.class);
-                libraryManagerService.deployMavenIndex(customUriToAdd, monitor);
-                libraryManagerService.forceListUpdate();
-                LibManagerUiPlugin.getDefault().getLibrariesService().resetModulesNeeded();
-            }
-            subMonitor.worked(1);
-        } else {
-            // TODO to be removed after nexus server available
-            final List<URL> downloadOk = new ArrayList<URL>();
-            for (final ModuleToInstall module : toDownload) {
-                if (!monitor.isCanceled()) {
-                    monitor.subTask(module.getName());
-                    String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
-                    File target = new File(librariesPath);
-                    boolean accepted;
-                    if (module.getUrl_download() != null && !"".equals(module.getUrl_download())) { //$NON-NLS-1$
-                        try {
-                            // check license
-                            boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                                    .getBoolean(module.getLicenseType());
-                            accepted = isLicenseAccepted;
-                            if (!accepted) {
-                                subMonitor.worked(1);
-                                continue;
-                            }
-                            if (monitor.isCanceled()) {
-                                return;
-                            }
-                            File destination = new File(target.toString() + File.separator + module.getName());
-                            File destinationTemp = target.createTempFile(destination.getName(), ".jar");
-                            DownloadHelperWithProgress downloader = new DownloadHelperWithProgress();
-                            downloader.download(new URL(module.getUrl_download()), destinationTemp, subMonitor.newChild(1));
-                            // if the jar had download complete , will copy it from system temp path to "lib/java"
-                            if (!monitor.isCanceled()) {
-                                FilesUtils.copyFile(destinationTemp, destination);
-                                downloadOk.add(destination.toURI().toURL());
-                                installedModules.add(module.getName());
-                            }
-                            if (destinationTemp.exists()) {
-                                destinationTemp.delete();
-                            }
-                        } catch (Exception e) {
-                            downloadFailed.add(module.getName());
-                            ExceptionHandler.process(e);
-                            continue;
-                        }
+                    if (monitor.isCanceled()) {
+                        return;
                     }
-                    accepted = false;
-                } else {
-                    downloadFailed.add(module.getName());
+                    NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
+                    downloader.download( new URL( null, module.getMavenUri(), new Handler() ), null, subMonitor.newChild( 1 ) );
+                    customUriToAdd.put( module.getName(), module.getMavenUri() );
+                    installedModules.add( module.getName() );
+                } catch (Exception e) {
+                    downloadFailed.add( module.getName() );
+                    ExceptionHandler.process( e );
+                    continue;
                 }
+                accepted = false;
+            } else {
+                downloadFailed.add( module.getName() );
             }
-            if (!downloadOk.isEmpty()) {
-                try {
-                    LibManagerUiPlugin.getDefault().getLibrariesService()
-                            .deployLibrarys(downloadOk.toArray(new URL[downloadOk.size()]));
-                } catch (IOException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-            subMonitor.worked(1);
         }
+        // reset the module install status
+        if (!customUriToAdd.isEmpty()) {
+            ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                    .getService( ILibraryManagerService.class );
+            libraryManagerService.deployMavenIndex( customUriToAdd, monitor );
+            libraryManagerService.forceListUpdate();
+            LibManagerUiPlugin.getDefault().getLibrariesService().resetModulesNeeded();
+        }
+        subMonitor.worked( 1 );
     }
 
     protected boolean hasLicensesToAccept() {
@@ -186,7 +126,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 String licenseType = module.getLicenseType();
                 if (licenseType != null) {
                     boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                            .getBoolean(module.getLicenseType());
+                            .getBoolean( module.getLicenseType() );
                     if (!isLicenseAccepted) {
                         return true;
                     }
@@ -198,22 +138,22 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
     }
 
     protected boolean checkAndAcceptLicenses(final IProgressMonitor monitor) {
-        final AtomicBoolean accepted = new AtomicBoolean(true);
+        final AtomicBoolean accepted = new AtomicBoolean( true );
         if (hasLicensesToAccept()) {
-            Display.getDefault().syncExec(new Runnable() {
+            Display.getDefault().syncExec( new Runnable() {
 
                 @Override
                 public void run() {
-                    AcceptModuleLicensesWizard licensesWizard = new AcceptModuleLicensesWizard(toDownload);
-                    AcceptModuleLicensesWizardDialog wizardDialog = new AcceptModuleLicensesWizardDialog(PlatformUI
-                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload, monitor);
-                    wizardDialog.setPageSize(700, 380);
+                    AcceptModuleLicensesWizard licensesWizard = new AcceptModuleLicensesWizard( toDownload );
+                    AcceptModuleLicensesWizardDialog wizardDialog = new AcceptModuleLicensesWizardDialog( PlatformUI
+                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload, monitor );
+                    wizardDialog.setPageSize( 700, 380 );
                     wizardDialog.create();
                     if (wizardDialog.open() != Window.OK) {
-                        accepted.set(false);
+                        accepted.set( false );
                     }
                 }
-            });
+            } );
 
         }
 

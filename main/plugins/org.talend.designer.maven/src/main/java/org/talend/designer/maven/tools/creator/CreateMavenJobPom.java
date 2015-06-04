@@ -19,9 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -40,6 +42,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
@@ -63,11 +66,12 @@ import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
+import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
-import org.talend.designer.maven.utils.TalendCodeProjectUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.ProjectManager;
@@ -171,73 +175,126 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         if (this.clonedJobInfos.isEmpty()) {
             Set<JobInfo> buildChildrenJobs = getJobProcessor().getBuildChildrenJobs();
             for (JobInfo jobInfo : buildChildrenJobs) {
-                JobInfo newJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
+                if (!clonedJobInfos.contains(jobInfo)) {
+                    JobInfo newJobInfo = newJobInfo(jobInfo);
+                    clonedJobInfos.add(newJobInfo);
 
-                newJobInfo.setJobName(jobInfo.getJobName());
-                newJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                newJobInfo.setContext(jobInfo.getContext());
-                newJobInfo.setProjectFolderName(jobInfo.getProjectFolderName());
-                newJobInfo.setProcessItem(jobInfo.getProcessItem());
-
-                ProcessItem processItem = newJobInfo.getProcessItem();
-                if (processItem == null) {
-                    try {
-                        final IRepositoryViewObject obj = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
-                                .getSpecificVersion(jobInfo.getJobId(), jobInfo.getJobVersion(), true);
-                        if (obj != null) {
-                            final Item item = obj.getProperty().getItem();
-                            if (item instanceof ProcessItem) {
-                                processItem = (ProcessItem) item;
-                                newJobInfo.setProcessItem(processItem);
-                            }
-                        }
-                    } catch (PersistenceException e) {
-                        //
+                    // add father one also.
+                    JobInfo fatherJobInfo = newJobInfo.getFatherJobInfo();
+                    // if the father is child also.
+                    if (fatherJobInfo != null && buildChildrenJobs.contains(fatherJobInfo)) {
+                        clonedJobInfos.add(fatherJobInfo);
                     }
-
                 }
-
-                if (processItem != null) {
-                    IProcess process = jobInfo.getProcess();
-                    // get the type
-                    if (process == null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                IDesignerCoreService.class);
-                        process = service.getProcessFromItem(processItem);
-                        newJobInfo.setProcess(process);
-                    }
-                    final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
-                    newJobInfo.setProjectFolderName(projectFolderName);
-                }
-                clonedJobInfos.add(newJobInfo);
             }
         }
         return this.clonedJobInfos;
     }
 
+    protected JobInfo newJobInfo(JobInfo jobInfo) {
+        JobInfo newJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
+
+        newJobInfo.setJobName(jobInfo.getJobName());
+        newJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
+        newJobInfo.setContext(jobInfo.getContext());
+        newJobInfo.setProjectFolderName(jobInfo.getProjectFolderName());
+        newJobInfo.setProcessItem(jobInfo.getProcessItem());
+
+        ProcessItem processItem = newJobInfo.getProcessItem();
+        if (processItem == null) {
+            try {
+                final IRepositoryViewObject obj = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
+                        .getSpecificVersion(jobInfo.getJobId(), jobInfo.getJobVersion(), true);
+                if (obj != null) {
+                    final Item item = obj.getProperty().getItem();
+                    if (item instanceof ProcessItem) {
+                        processItem = (ProcessItem) item;
+                        newJobInfo.setProcessItem(processItem);
+                    }
+                }
+            } catch (PersistenceException e) {
+                //
+            }
+
+        }
+
+        if (processItem != null) {
+            IProcess process = jobInfo.getProcess();
+            // get the type
+            if (process == null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                        IDesignerCoreService.class);
+                process = service.getProcessFromItem(processItem);
+                newJobInfo.setProcess(process);
+            }
+            final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
+            newJobInfo.setProjectFolderName(projectFolderName);
+        }
+        newJobInfo.setTestContainer(newJobInfo.isTestContainer());
+        JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
+        if (fatherJobInfo != null) {
+            newJobInfo.setFatherJobInfo(newJobInfo(fatherJobInfo));
+        }
+        return newJobInfo;
+    }
+
     @SuppressWarnings("nls")
     @Override
     protected Model createModel() {
-        Model model = super.createModel();
+        Model model = null;
+        InputStream inputStream = null;
+        try {
+            inputStream = getTemplateStream();
+            if (inputStream != null) {
+                model = MODEL_MANAGER.readMavenModel(inputStream);
+            }
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    //
+                }
+            }
+        }
         //
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
+        final Property property = jProcessor.getProperty();
 
-        // don't change the template setting for groupId
-        // model.setGroupId(TalendMavenContants.DEFAULT_JOB_GROUP_ID);
+        Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
+        // no need check property is null or not, because if null, will get default ids.
+        variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(property));
+        variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(property));
+        variablesValuesMap.put(ETalendMavenVariables.JobVersion, PomIdsHelper.getJobVersion(property));
         final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
-        String artifact = jobName;
+        variablesValuesMap.put(ETalendMavenVariables.JobName, jobName);
 
-        model.setArtifactId(artifact);
-        model.setVersion(process.getVersion());
+        if (property != null) {
+            Project currentProject = ProjectManager.getInstance().getProject(property);
+            variablesValuesMap.put(ETalendMavenVariables.ProjectName, currentProject != null ? currentProject.getTechnicalLabel()
+                    : null);
 
-        Property property = jProcessor.getProperty();
-        if (property != null && property.getItem() != null) {
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
-            if (itemType != null) {
-                model.setName(jobName + '(' + itemType.getLabel() + ')');
+            Item item = property.getItem();
+            if (item != null) {
+                ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+                if (itemType != null) {
+                    variablesValuesMap.put(ETalendMavenVariables.JobType, itemType.getLabel());
+                }
             }
         }
+
+        this.setGroupId(ETalendMavenVariables.replaceVariables(model.getGroupId(), variablesValuesMap));
+        this.setArtifactId(ETalendMavenVariables.replaceVariables(model.getArtifactId(), variablesValuesMap));
+        this.setVersion(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
+        this.setName(ETalendMavenVariables.replaceVariables(model.getName(), variablesValuesMap));
+
+        setAttributes(model);
+        addProperties(model);
 
         PomUtil.checkParent(model, this.getPomFile());
 
@@ -300,51 +357,81 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), context.getName(),
                 isApplyContextToChild(), isAddStat());
 
-        checkPomProperty(properties, "talend.job.path", "@JobPath@", jobClassPackageFolder);
-        checkPomProperty(properties, "talend.job.package", "@JobPackage@", jobClassPackage);
-        // checkPomProperty(properties, "talend.job.jarName", "@JobJarName@", jobFolderName);
+        checkPomProperty(properties, "talend.job.path", ETalendMavenVariables.JobPath, jobClassPackageFolder);
+        checkPomProperty(properties, "talend.job.package", ETalendMavenVariables.JobPackage, jobClassPackage);
+
         /*
          * for jobInfo.properties
          * 
          * should be same as JobInfoBuilder
          */
-        checkPomProperty(properties, "talend.project.name", "@ProjectName@",
+        checkPomProperty(properties, "talend.project.name", ETalendMavenVariables.ProjectName,
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_NAME, project.getTechnicalLabel()));
-        checkPomProperty(properties, "talend.project.id", "@ProjectId@",
+        checkPomProperty(properties, "talend.project.id", ETalendMavenVariables.ProjectId,
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_ID, String.valueOf(project.getId())));
-        checkPomProperty(properties, "talend.project.branch", "@ProjectBranch@",
+        checkPomProperty(properties, "talend.project.branch", ETalendMavenVariables.ProjectBranch,
                 jobInfoProp.getProperty(JobInfoProperties.BRANCH, mainProjectBranch));
-        if (TalendCodeProjectUtil.stripVersion) {
-            checkPomProperty(properties, "talend.job.name", null, // keep empty, in order to replace it.
-                    jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
-        } else {
-            checkPomProperty(properties, "talend.job.name", "@JobName@", "${project.artifactId}");
-        }
-        checkPomProperty(properties, "talend.job.version", "@JobVersion@", "${project.version}");
-        checkPomProperty(properties, "talend.job.date", "@JobDate@",
-                jobInfoProp.getProperty(JobInfoProperties.DATE, JobInfoProperties.DATAFORMAT.format(new Date())));
-        checkPomProperty(properties, "talend.job.context", "@JobContext@",
-                jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName()));
-        checkPomProperty(properties, "talend.job.id", "@JobId@",
-                jobInfoProp.getProperty(JobInfoProperties.JOB_ID, process.getId()));
-        if (TalendCodeProjectUtil.stripVersion) {
-            checkPomProperty(properties, "talend.job.class", null, // keep empty, in order to replace it.
-                    jProcessor.getMainClass());
-        } else {
-            checkPomProperty(properties, "talend.job.class", "@JobClass@", "${talend.job.package}.${talend.job.name}");
-        }
-        checkPomProperty(properties, "talend.job.stat", "@JobStat@",
-                jobInfoProp.getProperty(JobInfoProperties.ADD_STATIC_CODE, Boolean.FALSE.toString()));
-        checkPomProperty(properties, "talend.job.applyContextToChildren", "@JobApplyContextToChildren@",
-                jobInfoProp.getProperty(JobInfoProperties.APPLY_CONTEXY_CHILDREN, Boolean.FALSE.toString()));
-        checkPomProperty(properties, "talend.product.version", "@ProductVersion@",
-                jobInfoProp.getProperty(JobInfoProperties.COMMANDLINE_VERSION, VersionUtils.getVersion()));
 
+        if (PomIdsHelper.FLAG_FIXING_ATIFACT_ID) { // job name same artifact id.
+            checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName, "${project.artifactId}");
+        } else { // use original job name
+            checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName,
+                    jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
+        }
+
+        if (PomIdsHelper.FLAG_VERSION_WITH_CLASSIFIER) { // keep the original values
+            checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion,
+                    jobInfoProp.getProperty(JobInfoProperties.JOB_VERSION, process.getVersion()));
+        } else { // if no classifier for version, just same as project version
+            checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, "${project.version}");
+        }
+
+        checkPomProperty(properties, "talend.job.date", ETalendMavenVariables.JobDate,
+                jobInfoProp.getProperty(JobInfoProperties.DATE, JobInfoProperties.DATAFORMAT.format(new Date())));
+        checkPomProperty(properties, "talend.job.context", ETalendMavenVariables.JobContext,
+                "--context=" + jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName()));
+        checkPomProperty(properties, "talend.job.id", ETalendMavenVariables.JobId,
+                jobInfoProp.getProperty(JobInfoProperties.JOB_ID, process.getId()));
+
+        // checkPomProperty(properties, "talend.job.class", ETalendMavenVariables.JobClass, jProcessor.getMainClass());
+        checkPomProperty(properties, "talend.job.class", ETalendMavenVariables.JobClass,
+                "${talend.job.package}.${talend.job.name}");
+
+        checkPomProperty(properties, "talend.job.stat", ETalendMavenVariables.JobStat,
+                jobInfoProp.getProperty(JobInfoProperties.ADD_STATIC_CODE, Boolean.FALSE.toString()));
+        checkPomProperty(properties, "talend.job.applyContextToChildren", ETalendMavenVariables.JobApplyContextToChildren,
+                jobInfoProp.getProperty(JobInfoProperties.APPLY_CONTEXY_CHILDREN, Boolean.FALSE.toString()));
+        checkPomProperty(properties, "talend.product.version", ETalendMavenVariables.ProductVersion,
+                jobInfoProp.getProperty(JobInfoProperties.COMMANDLINE_VERSION, VersionUtils.getVersion()));
         /*
          * for bat/sh in assembly
          */
-        checkPomProperty(properties, "talend.job.bat.classpath", "@JobBatClasspath@", this.getWindowsClasspath());
-        checkPomProperty(properties, "talend.job.sh.classpath", "@JobShClasspath@", this.getUnixClasspath());
+        checkPomProperty(properties, "talend.job.bat.classpath", ETalendMavenVariables.JobBatClasspath,
+                this.getWindowsClasspath());
+        checkPomProperty(properties, "talend.job.sh.classpath", ETalendMavenVariables.JobShClasspath, this.getUnixClasspath());
+
+        // should add some values for context parameters
+        checkPomProperty(properties, "talend.job.script.addition", ETalendMavenVariables.JobScriptAddition, "");
+
+        String finalNameExp = "${project.build.finalName}";
+        String finalNameStr = PomUtil.getJobFinalName(property);
+        if (PomIdsHelper.FLAG_SPECIAL_FINAL_NAME) {
+            finalNameExp = "${talend.job.name}_${talend.job.version}";
+        } else { // standard maven way
+            if (PomIdsHelper.FLAG_FIXING_ATIFACT_ID) {
+                if (PomIdsHelper.FLAG_VERSION_WITH_CLASSIFIER) {
+                    finalNameExp = "${project.artifactId}-${talend.job.version}";
+                }
+            } else {
+                if (PomIdsHelper.FLAG_VERSION_WITH_CLASSIFIER) {
+                    finalNameExp = "${talend.job.name}-${talend.job.version}";
+                } else {
+                    finalNameExp = "${talend.job.name}-${project.version}";
+                }
+            }
+        }
+        checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameExp);
+        // checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameStr);
 
     }
 
@@ -361,8 +448,9 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
             for (JobInfo jobInfo : clonedChildrenJobInfors) {
                 if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
-                    Dependency d = PomUtil.createDependency(model.getGroupId(), jobInfo.getJobName(), jobInfo.getJobVersion(),
-                            null);
+                    // same group as main job.
+                    Dependency d = PomUtil.createDependency(model.getGroupId(), PomIdsHelper.getJobArtifactId(jobInfo),
+                            PomIdsHelper.getJobVersion(jobInfo), null);
                     dependencies.add(d);
                 }
             }
@@ -380,7 +468,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
-        pomSync.syncRoutinesPom(false);
+        pomSync.syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 

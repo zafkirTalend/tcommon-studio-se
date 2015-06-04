@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EMap;
+import org.ops4j.pax.url.mvn.MavenResolver;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
@@ -50,6 +51,7 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.nexus.MavenResolverCreator;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.utils.PomUtil;
@@ -93,6 +95,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
     private JarMissingObservable missingJarObservable;
 
     boolean listToUpdate;
+
+    private MavenResolver commmandlineResolver;
 
     /**
      * DOC nrousseau LocalLibraryManager constructor comment.
@@ -287,8 +291,27 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         librariesService.resetModulesNeeded();
                     }
                 } else {
-                    // jar not found, and no popup at this point
-                    return false;
+                    // TODO HOT FIX FOR RC1 , download jars automatically from nexus server for commandline
+                    if (CommonsPlugin.isHeadless()) {
+                        if (commmandlineResolver == null) {
+                            commmandlineResolver = MavenResolverCreator.getInstance().getCommandlineMavenResolver();
+                        }
+                        String mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath()
+                                .get(jarNeeded);
+                        if (mavenUri == null) {
+                            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarNeeded);
+                        }
+                        try {
+                            commmandlineResolver.resolve(mavenUri);
+                        } catch (Exception e) {
+                            return false;
+                        }
+                        jarFile = getJarFile(jarNeeded);
+                    }
+                    if (jarFile == null) {
+                        // jar not found even after the popup > stop here
+                        return false;
+                    }
                 }
             }
             File target = new File(StringUtils.trimToEmpty(pathToStore));

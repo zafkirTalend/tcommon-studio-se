@@ -19,10 +19,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.m2e.core.MavenPlugin;
+import org.talend.core.PluginChecker;
+import org.talend.core.model.general.Project;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
+import org.talend.designer.maven.utils.PomIdsHelper;
+import org.talend.repository.ProjectManager;
 
 /**
  * created by ggu on 5 Feb 2015 Detailled comment
@@ -180,4 +188,90 @@ public class MavenTemplateManager {
         }
     }
 
+    /**
+     * Try to load the project template from bundle, if load failed, use default instead.
+     */
+    public static Model getCodeProjectTemplateModel() {
+        Model defaultModel = getDefaultCodeProjectTemplateModel();
+        try {
+            InputStream stream = MavenTemplateManager.getBundleTemplateStream(PluginChecker.MAVEN_JOB_PLUGIN_ID,
+                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
+                            + IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
+            if (stream != null) {
+                Model model = MavenPlugin.getMavenModelManager().readMavenModel(stream);
+
+                Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
+                variablesValuesMap.put(ETalendMavenVariables.ProjectGroupId, defaultModel.getGroupId());
+                variablesValuesMap.put(ETalendMavenVariables.ProjectArtifactId, defaultModel.getArtifactId());
+                variablesValuesMap.put(ETalendMavenVariables.ProjectVersion, defaultModel.getVersion());
+
+                Project currentProject = ProjectManager.getInstance().getCurrentProject();
+                variablesValuesMap.put(ETalendMavenVariables.ProjectName,
+                        currentProject != null ? currentProject.getTechnicalLabel() : null);
+
+                model.setGroupId(ETalendMavenVariables.replaceVariables(model.getGroupId(), variablesValuesMap));
+                model.setArtifactId(ETalendMavenVariables.replaceVariables(model.getArtifactId(), variablesValuesMap));
+                model.setVersion(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
+                model.setName(ETalendMavenVariables.replaceVariables(model.getName(), variablesValuesMap));
+
+                return model;
+            }
+        } catch (Exception e) {
+            // ExceptionHandler.process(e);
+        }
+        return defaultModel; // if error, try to use default model
+    }
+
+    private static Model getDefaultCodeProjectTemplateModel() {
+        Model templateCodeProjectMOdel = new Model();
+
+        templateCodeProjectMOdel.setGroupId(PomIdsHelper.getProjectGroupId());
+        templateCodeProjectMOdel.setArtifactId(PomIdsHelper.getProjectArtifactId());
+        templateCodeProjectMOdel.setVersion(PomIdsHelper.getProjectVersion());
+
+        return templateCodeProjectMOdel;
+    }
+
+    /**
+     * Try to load the project template from bundle, if load failed, use default instead.
+     */
+    public static Model getRoutinesTempalteModel() {
+        Model defaultModel = getDefaultRoutinesTempalteModel();
+        try {
+            InputStream stream = MavenTemplateManager.getBundleTemplateStream(PluginChecker.MAVEN_JOB_PLUGIN_ID,
+                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
+                            + IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+            if (stream != null) {
+                Model model = MavenPlugin.getMavenModelManager().readMavenModel(stream);
+
+                Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesGroupId, defaultModel.getGroupId());
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesArtifactId, defaultModel.getArtifactId());
+                variablesValuesMap.put(ETalendMavenVariables.RoutinesVersion, defaultModel.getVersion());
+                Project currentProject = ProjectManager.getInstance().getCurrentProject();
+                variablesValuesMap.put(ETalendMavenVariables.ProjectName,
+                        currentProject != null ? currentProject.getTechnicalLabel() : null);
+
+                model.setGroupId(ETalendMavenVariables.replaceVariables(model.getGroupId(), variablesValuesMap));
+                model.setArtifactId(ETalendMavenVariables.replaceVariables(model.getArtifactId(), variablesValuesMap));
+                model.setVersion(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
+                model.setName(ETalendMavenVariables.replaceVariables(model.getName(), variablesValuesMap));
+
+                return model;
+            }
+        } catch (Exception e) {
+            // ExceptionHandler.process(e);
+        }
+        return defaultModel; // if error, try to use default model
+    }
+
+    private static Model getDefaultRoutinesTempalteModel() {
+        Model templateRoutinesModel = new Model();
+
+        templateRoutinesModel.setGroupId(PomIdsHelper.getRoutineGroupId());
+        templateRoutinesModel.setArtifactId(PomIdsHelper.getRoutinesArtifactId());
+        templateRoutinesModel.setVersion(PomIdsHelper.getRoutinesVersion());
+
+        return templateRoutinesModel;
+    }
 }

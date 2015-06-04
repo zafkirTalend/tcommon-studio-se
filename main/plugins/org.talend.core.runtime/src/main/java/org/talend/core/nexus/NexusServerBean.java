@@ -118,4 +118,12 @@ public class NexusServerBean {
         return this.official;
     }
 
+    /**
+     * Sets the official.
+     * 
+     * @param official the official to set
+     */
+    public void setOfficial(boolean official) {
+        this.official = official;
+    }
 }

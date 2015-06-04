@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IProcess;
@@ -193,5 +194,9 @@ public interface IHadoopClusterService extends IService {
     public boolean hasDiffsFromClusterToProcess(Item item, IProcess process);
 
     public String getHadoopClusterProperties(Connection hadoopSubConnection);
+
+    public String getCustomConfsJarName(String clusterId);
+
+    public void useCustomConfsJarIfNeeded(List<ModuleNeeded> modulesNeeded, String clusterId);
 
 }

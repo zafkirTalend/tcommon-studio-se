@@ -23,6 +23,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
@@ -127,6 +128,16 @@ public class CopyAction extends AContextualAction {
                     if (node.getContentType().equals(camelService.getRouteDocsType())
                             || node.getContentType().equals(camelService.getRouteDocType())) {
                         canWork = false;
+                    }
+                } else if (node.getProperties(EProperties.CONTENT_TYPE) != null
+                        && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                    Object nodProperty = node.getProperties(EProperties.CONTENT_TYPE);
+                    ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                            .getDefault().getService(ITestContainerProviderService.class);
+                    if ((testContainerService != null) && (nodProperty instanceof ERepositoryObjectType)) {
+                        if (testContainerService.isTestContainerType((ERepositoryObjectType) nodProperty)) {
+                            canWork = false;
+                        }
                     }
                 }
             } else {
