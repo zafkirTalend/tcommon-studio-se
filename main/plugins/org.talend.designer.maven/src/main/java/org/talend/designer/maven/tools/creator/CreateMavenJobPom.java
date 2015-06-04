@@ -264,23 +264,27 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         //
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
+        final Property property = jProcessor.getProperty();
 
         Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
-        variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(jProcessor.getProperty()));
-        variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(jProcessor.getProperty()));
-        variablesValuesMap.put(ETalendMavenVariables.JobVersion, PomIdsHelper.getJobVersion(jProcessor.getProperty()));
+        // no need check property is null or not, because if null, will get default ids.
+        variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(property));
+        variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(property));
+        variablesValuesMap.put(ETalendMavenVariables.JobVersion, PomIdsHelper.getJobVersion(property));
         final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
         variablesValuesMap.put(ETalendMavenVariables.JobName, jobName);
 
-        Property property = jProcessor.getProperty();
-        if (property != null && property.getItem() != null) {
+        if (property != null) {
             Project currentProject = ProjectManager.getInstance().getProject(property);
             variablesValuesMap.put(ETalendMavenVariables.ProjectName, currentProject != null ? currentProject.getTechnicalLabel()
                     : null);
-            ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
-            if (itemType != null) {
-                variablesValuesMap.put(ETalendMavenVariables.JobType, itemType.getLabel());
 
+            Item item = property.getItem();
+            if (item != null) {
+                ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+                if (itemType != null) {
+                    variablesValuesMap.put(ETalendMavenVariables.JobType, itemType.getLabel());
+                }
             }
         }
 

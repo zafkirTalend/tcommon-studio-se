@@ -68,13 +68,15 @@ public enum ETalendMavenVariables {
 
     public static String replaceVariables(String originalContent, Map<ETalendMavenVariables, String> variablesValuesMap,
             boolean cleanup) {
-        if (originalContent == null || originalContent.trim().length() == 0 || variablesValuesMap.isEmpty()) {
+        if (originalContent == null || originalContent.trim().length() == 0) {
             return originalContent;
         }
         String content = originalContent;
-        for (ETalendMavenVariables var : variablesValuesMap.keySet()) {
-            // won't do clean up here, must be after replaced
-            content = replaceVariable(content, var, variablesValuesMap.get(var), false);
+        if (variablesValuesMap != null) {
+            for (ETalendMavenVariables var : variablesValuesMap.keySet()) {
+                // won't do clean up here, must be after replaced
+                content = replaceVariable(content, var, variablesValuesMap.get(var), false);
+            }
         }
         if (cleanup) {
             content = cleanupVariable(content);
@@ -83,14 +85,17 @@ public enum ETalendMavenVariables {
     }
 
     public static String replaceVariable(String originalContent, ETalendMavenVariables var, String value, boolean cleanup) {
-        if (originalContent == null || originalContent.trim().length() == 0 || var == null) {
+        if (originalContent == null || originalContent.trim().length() == 0) {
             return originalContent;
         }
+
         String content = originalContent;
         if (value == null) {
             value = ""; //$NON-NLS-1$
         }
-        content = content.replace(var.getExpression(), value);
+        if (var != null) {
+            content = content.replace(var.getExpression(), value);
+        }
         if (cleanup) {
             content = cleanupVariable(content);
         }

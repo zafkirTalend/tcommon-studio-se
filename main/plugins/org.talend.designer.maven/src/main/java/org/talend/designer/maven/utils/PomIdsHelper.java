@@ -168,7 +168,9 @@ public class PomIdsHelper {
      */
     public static String getJobGroupId(String name) {
         if (!FLAG_FIXING_GROUP_ID) {
-            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB + '.' + name);
+            if (name != null) {
+                return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB + '.' + name);
+            }
         }
         return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB);
         // return TalendMavenConstants.DEFAULT_JOB_GROUP_ID;
