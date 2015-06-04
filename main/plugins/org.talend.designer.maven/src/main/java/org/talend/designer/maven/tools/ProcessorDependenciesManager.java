@@ -98,10 +98,11 @@ public class ProcessorDependenciesManager {
 
             for (Dependency dependency : neededDependencies) {
                 Dependency cloneDependency = dependency.clone();
-                // FIXME, need check the new dependency existed or not? or just let the compile error for m2?
-                // if (!PomUtil.isAvailable(cloneDependency)) {
-                // continue;
-                // }
+                // FIXME, if not existed, won't add the dependencies to make sure the project pom compile ok without
+                // error.
+                if (!PomUtil.isAvailable(cloneDependency)) {
+                    continue;
+                }
                 existedDependencies.add(cloneDependency); // add the needed in the head.
 
                 if (fresh) {
