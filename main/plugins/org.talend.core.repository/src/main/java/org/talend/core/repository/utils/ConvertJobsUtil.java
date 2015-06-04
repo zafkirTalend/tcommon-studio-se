@@ -179,12 +179,10 @@ public class ConvertJobsUtil {
     }
 
     public static void updateJobFrameworkPart(String jobTypeValue, CCombo frameworkCombo) {
-        frameworkCombo.setEditable(true);
         frameworkCombo.setEnabled(true);
         if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
             frameworkCombo.setItems(new String[0]);
             frameworkCombo.setText("");//$NON-NLS-1$ 
-            frameworkCombo.setEditable(false);
             frameworkCombo.setEnabled(false);
         } else if (JobType.BIGDATABATCH.getDisplayName().equals(jobTypeValue)) {
             String[] items = JobBatchFramework.getFrameworkToDispaly();
@@ -254,7 +252,7 @@ public class ConvertJobsUtil {
     public static Item createOperation(final String newJobName, final String jobTypeValue, final String frameworkValue,
             final IRepositoryViewObject sourceObject) {
         IProcessConvertService converter = null;
-        if (sourceObject == null || sourceObject.getProperty() == null) {
+        if (sourceObject == null || sourceObject.getProperty() == null || newJobName == null) {
             return null;
         }
         Item item = sourceObject.getProperty().getItem();

@@ -22,7 +22,8 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
-import org.talend.core.model.properties.Item;
+import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -70,46 +71,50 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
         if (alreadyEditedByUser) {
             return false;
         }
-        Item item = object.getProperty().getItem();
-        String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
-        if (sourceJobType != null && sourceJobType.equals(mainPage.jobTypeCCombo.getText())) {
+        if (object != null && object.getProperty() != null && object.getProperty().getItem() != null
+                && object.getProperty().getItem() instanceof ProcessItem && PluginChecker.isTIS()
+                && mainPage.jobTypeCCombo != null) {
+            String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(object.getProperty().getItem());
+            if (sourceJobType != null && sourceJobType.equals(mainPage.jobTypeCCombo.getText())) {
+                return super.performFinish();
+            }
+            final IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+            // Convert
+            ConvertJobsUtil.createOperation(object.getLabel(), mainPage.jobTypeCCombo.getText(), mainPage.framework.getText(),
+                    object);
+
+            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                @Override
+                public void run(final IProgressMonitor monitor) throws CoreException {
+                    try {
+                        proxyRepositoryFactory.unlock(object);
+                        proxyRepositoryFactory.deleteObjectPhysical(object);
+                        proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                    } catch (PersistenceException e1) {
+                        e1.printStackTrace();
+                    } catch (LoginException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            // unlockObject();
+            // alreadyEditedByUser = true; // to avoid 2 calls of unlock
+
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            try {
+                ISchedulingRule schedulingRule = workspace.getRoot();
+                // the update the project files need to be done in the workspace runnable to avoid all notification
+                // of changes before the end of the modifications.
+                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+                return true;
+            } catch (CoreException e) {
+                MessageBoxExceptionHandler.process(e.getCause());
+                return false;
+            }
+        } else {
             return super.performFinish();
         }
-        final IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        // Convert
-        ConvertJobsUtil
-                .createOperation(object.getLabel(), mainPage.jobTypeCCombo.getText(), mainPage.framework.getText(), object);
-
-        IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
-
-            @Override
-            public void run(final IProgressMonitor monitor) throws CoreException {
-                try {
-                    proxyRepositoryFactory.unlock(object);
-                    proxyRepositoryFactory.deleteObjectPhysical(object);
-                    proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
-                } catch (PersistenceException e1) {
-                    e1.printStackTrace();
-                } catch (LoginException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        // unlockObject();
-        // alreadyEditedByUser = true; // to avoid 2 calls of unlock
-
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        try {
-            ISchedulingRule schedulingRule = workspace.getRoot();
-            // the update the project files need to be done in the workspace runnable to avoid all notification
-            // of changes before the end of the modifications.
-            workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
-            return true;
-        } catch (CoreException e) {
-            MessageBoxExceptionHandler.process(e.getCause());
-            return false;
-        }
-        // return super.performFinish();
     }
 
     /**
