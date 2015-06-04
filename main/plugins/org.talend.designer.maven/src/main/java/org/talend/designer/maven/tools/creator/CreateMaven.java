@@ -16,9 +16,9 @@ import java.util.Properties;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.ETalendMavenVariables;
+import org.talend.designer.maven.utils.PomUtil;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -27,7 +27,7 @@ import org.talend.designer.maven.template.ETalendMavenVariables;
 public abstract class CreateMaven {
 
     /* by default, the version is same as product */
-    private String version = VersionUtils.getVersion();
+    private String version = PomUtil.getDefaultMavenVersion();
 
     private String groupId, artifactId;
 

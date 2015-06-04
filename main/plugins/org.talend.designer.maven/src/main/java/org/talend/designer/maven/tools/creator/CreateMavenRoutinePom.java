@@ -39,6 +39,11 @@ public class CreateMavenRoutinePom extends CreateMavenBundleTemplatePom {
     protected Model createModel() {
         final Model routinesModel = MavenTemplateManager.getRoutinesTempalteModel();
 
+        this.setGroupId(routinesModel.getGroupId());
+        this.setArtifactId(routinesModel.getArtifactId());
+        this.setVersion(routinesModel.getVersion());
+        this.setName(routinesModel.getName());
+
         setAttributes(routinesModel);
         addProperties(routinesModel);
 
