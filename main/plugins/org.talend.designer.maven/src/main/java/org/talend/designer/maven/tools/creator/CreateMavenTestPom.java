@@ -46,6 +46,7 @@ import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
+import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
@@ -243,7 +244,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         super.create(monitor);
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
-        pomSync.syncRoutinesPom(false);
+        pomSync.syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
 
         // refresh
         getPomFile().getParent().refreshLocal(IResource.DEPTH_ONE, monitor);

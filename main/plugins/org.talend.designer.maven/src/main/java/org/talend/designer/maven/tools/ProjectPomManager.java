@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Parent;
 import org.apache.maven.model.Repository;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -27,7 +28,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
+import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
@@ -89,6 +92,8 @@ public class ProjectPomManager {
         }
         Model projectModel = MODEL_MANAGER.readMavenModel(projectPomFile);
 
+        // attributes
+        updateAttributes(monitor, processor, projectModel);
         // modules
         updateModulesList(monitor, processor, projectModel);
         // check repository
@@ -99,6 +104,20 @@ public class ProjectPomManager {
         PomUtil.savePom(monitor, projectModel, projectPomFile);
 
         projectPomFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
+    }
+
+    /**
+     * 
+     * update the main attributes for project pom.
+     * 
+     */
+    protected void updateAttributes(IProgressMonitor monitor, IProcessor processor, Model projectModel) throws Exception {
+        Model templateModel = MavenTemplateManager.getCodeProjectTemplateModel();
+
+        projectModel.setGroupId(templateModel.getGroupId());
+        projectModel.setArtifactId(templateModel.getArtifactId());
+        projectModel.setVersion(templateModel.getVersion());
+        projectModel.setName(templateModel.getName());
     }
 
     /**
@@ -116,11 +135,12 @@ public class ProjectPomManager {
         String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
         modulesList.add(routinesModule);
 
-        for (JobInfo childJob : processor.getBuildChildrenJobs()) {
-            modulesList.add(PomUtil.getPomFileName(childJob.getJobName()));
+        if (processor != null) {
+            for (JobInfo childJob : processor.getBuildChildrenJobs()) {
+                modulesList.add(PomUtil.getPomFileName(childJob.getJobName()));
+            }
+            modulesList.add(PomUtil.getPomFileName(processor.getProperty().getLabel()));
         }
-        modulesList.add(PomUtil.getPomFileName(processor.getProperty().getLabel()));
-
         // check the modules
         List<String> modules = projectModel.getModules();
         if (modules == null) {
@@ -131,6 +151,39 @@ public class ProjectPomManager {
         }
 
         modules.addAll(modulesList);
+
+        /*
+         * need update the parent for each modules.
+         */
+        IProject project = projectPomFile.getProject();
+        project.refreshLocal(IResource.DEPTH_ONE, monitor);
+
+        for (String module : modules) {
+            IFile file = project.getFile(module);
+            if (file.exists()) {
+                Model model = MODEL_MANAGER.readMavenModel(file);
+                Parent parent = model.getParent();
+                // only check same parent.
+                if (parent != null) {
+                    // group
+                    String projectGroupPrefix = JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_MASTER);
+                    if (PomIdsHelper.FLAG_FIXING_GROUP_ID && !parent.getGroupId().equals(projectModel.getGroupId())
+                            || !PomIdsHelper.FLAG_FIXING_GROUP_ID && !parent.getGroupId().startsWith(projectGroupPrefix)) {
+                        continue; // not same
+                    }
+                    // artifact
+                    if (PomIdsHelper.FLAG_FIXING_ATIFACT_ID && !parent.getArtifactId().equals(projectModel.getArtifactId())
+                            || !PomIdsHelper.FLAG_FIXING_ATIFACT_ID
+                            && !parent.getGroupId().startsWith(TalendMavenConstants.DEFAULT_CODE)) {
+                        continue; // not same
+                    }
+                    // won't check version
+
+                    PomUtil.checkParent(model, file);
+                    PomUtil.savePom(monitor, model, file);
+                }
+            }
+        }
     }
 
     /**
@@ -200,9 +253,20 @@ public class ProjectPomManager {
             // fresh is false, make sure all jobs can be compile ok
             ProcessorDependenciesManager.updateDependencies(monitor, projectModel, withoutChildrenJobDependencies, false);
 
-        } else {// try get the dependencies from processor directly.
+        } else if (processor != null) {// try get the dependencies from processor directly.
             ProcessorDependenciesManager processorDependenciesManager = new ProcessorDependenciesManager(processor);
             processorDependenciesManager.updateDependencies(monitor, projectModel);
+        } else {
+            // if no processor and without base pom, just read routines dependencies.
+            IFile routinesPomFile = projectPomFile.getProject().getFile(
+                    PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
+            Model routinesModel = MavenTemplateManager.getRoutinesTempalteModel();
+            if (routinesPomFile.exists()) {
+                routinesModel = MODEL_MANAGER.readMavenModel(routinesPomFile);
+            }
+            // only add the routines dependencies.
+            List<Dependency> routinesDependencies = routinesModel.getDependencies();
+            ProcessorDependenciesManager.updateDependencies(monitor, projectModel, routinesDependencies, true);
         }
 
         // install custom jar to m2/repo

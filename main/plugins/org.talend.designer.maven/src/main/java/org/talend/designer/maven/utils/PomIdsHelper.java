@@ -51,6 +51,12 @@ public class PomIdsHelper {
      */
     public static final boolean FLAG_SPECIAL_FINAL_NAME = true;
 
+    /*
+     * if not fixing group or artifact, and the special version with classifier.
+     */
+    public static final boolean FLAG_ROUTINES_OVERWRITE_ALWAYS = !FLAG_FIXING_GROUP_ID || !FLAG_FIXING_ATIFACT_ID
+            || FLAG_VERSION_WITH_CLASSIFIER;
+
     /**
      * @return "org.talend.master.<ProjectName>", like "org.talend.master.test".
      * 

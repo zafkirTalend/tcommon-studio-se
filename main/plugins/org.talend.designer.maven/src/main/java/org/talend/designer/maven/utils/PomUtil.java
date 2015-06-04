@@ -145,6 +145,8 @@ public class PomUtil {
         if (parent == null) {
             parent = new Parent();
             curModel.setParent(parent);
+        } else {
+            // TODO, if existed, maybe just replace, not overwrite
         }
         // always depend on current poject
         Model codeProjectTemplateModel = MavenTemplateManager.getCodeProjectTemplateModel();

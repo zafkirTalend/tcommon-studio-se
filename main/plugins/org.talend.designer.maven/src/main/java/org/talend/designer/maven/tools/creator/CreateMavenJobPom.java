@@ -468,7 +468,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
-        pomSync.syncRoutinesPom(false);
+        pomSync.syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 
