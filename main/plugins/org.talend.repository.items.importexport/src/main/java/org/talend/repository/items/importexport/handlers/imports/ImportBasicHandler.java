@@ -971,13 +971,12 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         URI propertyResourceURI = EcoreUtil.getURI(tmpItem.getProperty());
         for (ReferenceFileItem refItem : refItems) {
             haveRef = true;
-            URI relativePlateformDestUri = propertyResourceURI.trimFileExtension().appendFileExtension(refItem.getExtension());
+            URI relativePlateformDestUri = getReferenceFileURI(propertyResourceURI, refItem);
             try {
                 URL fileURL = FileLocator.toFileURL(new java.net.URL(
                         "platform:/resource" + relativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
                 os = new FileOutputStream(fileURL.getFile());
-                is = manager.getStream(selectedImportItem.getPath().removeFileExtension()
-                        .addFileExtension(refItem.getExtension()));
+                is = manager.getStream(getReferenceItemPath(selectedImportItem.getPath(), refItem));
                 FileCopyUtils.copyStreams(is, os);
             } finally {
                 if (os != null) {
@@ -1032,7 +1031,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
 
             for (ReferenceFileItem rfItem : (List<ReferenceFileItem>) item.getReferenceResources()) {
-                itemPath = HandlerUtil.getReferenceItemPath(importItem.getPath(), rfItem.getExtension());
+                itemPath = getReferenceItemPath(importItem.getPath(), rfItem);
                 stream = manager.getStream(itemPath);
                 Resource rfResource = createResource(importItem, itemPath, true);
                 rfResource.load(stream, null);
@@ -1215,4 +1214,11 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
+    protected IPath getReferenceItemPath(IPath importItemPath, ReferenceFileItem rfItem) {
+        return HandlerUtil.getReferenceItemPath(importItemPath, rfItem.getExtension());
+    }
+
+    protected URI getReferenceFileURI(URI propertyResourceURI, ReferenceFileItem refItem) {
+        return propertyResourceURI.trimFileExtension().appendFileExtension(refItem.getExtension());
+    }
 }
