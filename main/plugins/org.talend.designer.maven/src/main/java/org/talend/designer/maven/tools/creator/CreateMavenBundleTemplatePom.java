@@ -145,6 +145,9 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         }
 
         Model model = createModel();
+        if (model == null) {
+            throw new Exception("Can't create the maven pom in file:" + curPomFile);
+        }
         MODEL_MANAGER.createMavenModel(curPomFile, model);
 
         curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);

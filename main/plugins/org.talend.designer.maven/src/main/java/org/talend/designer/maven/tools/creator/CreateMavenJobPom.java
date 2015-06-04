@@ -261,6 +261,10 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
                 }
             }
         }
+        if (model == null) {
+            return null;
+        }
+
         //
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
