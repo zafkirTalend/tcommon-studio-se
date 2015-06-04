@@ -63,6 +63,8 @@ public interface TalendMavenConstants {
 
     static final String GOAL_INSTALL = "install";
 
+    static final String PROFILE_DEFAULT_SETTING = "default-settings";
+
     static final String PROFILE_INCLUDE_BINARIES = "include-binaries";
 
     static final String PROFILE_INCLUDE_CONTEXTS = "include-contexts";
