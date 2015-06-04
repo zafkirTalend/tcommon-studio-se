@@ -470,8 +470,12 @@ public abstract class AbstractNode implements INode {
         // to initialize the child.
         // The parameters name are unique, so we just take the first one.
         for (IElementParameter elementParam : elementParameters) {
-            for (String key : elementParam.getChildParameters().keySet()) {
-                IElementParameter param = elementParam.getChildParameters().get(key);
+            Map<String, IElementParameter> childParameters = elementParam.getChildParameters();
+            if (childParameters == null) {
+                continue;
+            }
+            for (String key : childParameters.keySet()) {
+                IElementParameter param = childParameters.get(key);
                 if (param.getName().equals(name)) {
                     return param;
                 }
