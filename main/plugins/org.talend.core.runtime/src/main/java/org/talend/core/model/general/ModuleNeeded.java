@@ -12,8 +12,11 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.ops4j.pax.url.mvn.MavenResolver;
+import org.osgi.framework.ServiceReference;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
 
@@ -25,39 +28,51 @@ import org.talend.core.runtime.CoreRuntimePlugin;
  */
 public class ModuleNeeded {
 
-    private String                id;
+    private static MavenResolver mavenResolver;
 
-    private String                context;
+    private String id;
 
-    private String                moduleName;
+    private String context;
 
-    private String                informationMsg;
+    private String moduleName;
 
-    private boolean               required;
+    private String informationMsg;
 
-    private boolean               mrRequired     = false;                        // That indicates if the module is
-                                                                                  // required by M/R job.
+    private boolean required;
 
-    private String                requiredIf;
+    private boolean mrRequired = false; // That indicates if the module is
+                                        // required by M/R job.
+
+    private String requiredIf;
 
     // bundleName and bundleVersion for osgi system,feature 0023460
-    private String                bundleName;
+    private String bundleName;
 
-    private String                bundleVersion;
+    private String bundleVersion;
 
-    private ELibraryInstallStatus status         = ELibraryInstallStatus.UNKNOWN;
+    private ELibraryInstallStatus status = ELibraryInstallStatus.UNKNOWN;
 
-    private boolean               isShow         = true;
+    private boolean isShow = true;
 
-    List<String>                  installURL;
+    List<String> installURL;
 
-    private String                moduleLocaion;
+    private String moduleLocaion;
 
-    private String                mavenUri;
+    private String mavenUri;
 
-    public static final String    SINGLE_QUOTE   = "'";                          //$NON-NLS-1$
+    public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
-    public static final String    QUOTATION_MARK = "\"";                         //$NON-NLS-1$
+    public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
+
+    static {
+        ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = CoreRuntimePlugin.getInstance().getBundle()
+                .getBundleContext().getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
+        if (mavenResolverService != null) {
+            mavenResolver = CoreRuntimePlugin.getInstance().getBundle().getBundleContext().getService(mavenResolverService);
+        } else {
+            throw new RuntimeException("Unable to acquire org.ops4j.pax.url.mvn.MavenResolver");
+        }
+    }
 
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
@@ -84,7 +99,7 @@ public class ModuleNeeded {
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required) {
         super();
         this.context = context;
-        setModuleName( moduleName );
+        setModuleName(moduleName);
         this.informationMsg = informationMsg;
         this.required = required;
     }
@@ -93,12 +108,12 @@ public class ModuleNeeded {
             String requiredIf, String mavenUrl) {
         super();
         this.context = context;
-        setModuleName( moduleName );
+        setModuleName(moduleName);
         this.informationMsg = informationMsg;
         this.required = required;
         this.installURL = installURL;
         this.requiredIf = requiredIf;
-        setMavenUri( mavenUrl );
+        setMavenUri(mavenUrl);
     }
 
     public String getRequiredIf() {
@@ -126,7 +141,7 @@ public class ModuleNeeded {
         boolean isRequired = false;
 
         if (requiredIf != null && !requiredIf.isEmpty() && listParam != null) {
-            isRequired = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate( requiredIf, listParam );
+            isRequired = CoreRuntimePlugin.getInstance().getDesignerCoreService().evaluate(requiredIf, listParam);
         }
         return isRequired;
     }
@@ -181,8 +196,8 @@ public class ModuleNeeded {
 
     public void setModuleName(String moduleName) {
         if (moduleName != null) {
-            this.moduleName = moduleName.replace( QUOTATION_MARK, "" ).replace( SINGLE_QUOTE, //$NON-NLS-1$
-                    "" ); //$NON-NLS-1$
+            this.moduleName = moduleName.replace(QUOTATION_MARK, "").replace(SINGLE_QUOTE, //$NON-NLS-1$
+                    ""); //$NON-NLS-1$
         } else {
             this.moduleName = moduleName;
         }
@@ -197,6 +212,16 @@ public class ModuleNeeded {
     }
 
     public ELibraryInstallStatus getStatus() {
+        if (status == ELibraryInstallStatus.UNKNOWN) {// compute the status of the lib.
+            String localMavenUri = getMavenUri();
+            localMavenUri.replace("mvn:", "mvn:localrepositories://!"); //$NON-NLS-1$ //$NON-NLS-2$
+            try {
+                mavenResolver.resolve(localMavenUri);
+                status = ELibraryInstallStatus.INSTALLED;
+            } catch (IOException e) {
+                status = ELibraryInstallStatus.NOT_INSTALLED;
+            }
+        }
         return this.status;
     }
 
@@ -301,7 +326,7 @@ public class ModuleNeeded {
             hashCode *= this.getBundleVersion().hashCode();
         }
 
-        hashCode *= new Boolean( this.isRequired() ).hashCode();
+        hashCode *= new Boolean(this.isRequired()).hashCode();
         return hashCode;
     }
 
@@ -328,7 +353,7 @@ public class ModuleNeeded {
         } else {
             if (this.getModuleName() == null) {
                 return false;
-            } else if (!other.getModuleName().equals( this.getModuleName() )) {
+            } else if (!other.getModuleName().equals(this.getModuleName())) {
                 return false;
             }
         }
@@ -340,7 +365,7 @@ public class ModuleNeeded {
         } else {
             if (this.getBundleName() == null) {
                 return false;
-            } else if (!other.getBundleName().equals( this.getBundleName() )) {
+            } else if (!other.getBundleName().equals(this.getBundleName())) {
                 return false;
             }
         }
@@ -352,7 +377,7 @@ public class ModuleNeeded {
         } else {
             if (this.getBundleVersion() == null) {
                 return false;
-            } else if (!other.getBundleVersion().equals( this.getBundleVersion() )) {
+            } else if (!other.getBundleVersion().equals(this.getBundleVersion())) {
                 return false;
             }
         }
@@ -365,7 +390,7 @@ public class ModuleNeeded {
         } else {
             if (this.getModuleLocaion() == null) {
                 return false;
-            } else if (!other.getModuleLocaion().equals( this.getModuleLocaion() )) {
+            } else if (!other.getModuleLocaion().equals(this.getModuleLocaion())) {
                 return false;
             }
         }
@@ -385,9 +410,9 @@ public class ModuleNeeded {
     public String getMavenUri() {
         // set an defaut maven uri if uri is null or empty, this could be done in the set
         // but this would mean to sure the set is called after the name is set.
-        if (mavenUri == null || "".equals( mavenUri )) { //$NON-NLS-1$
-            String mavenArtifact = moduleName.endsWith( ".jar" ) ? moduleName
-                    .substring( 0, moduleName.length() - ".jar".length() ) : moduleName;
+        if (mavenUri == null || "".equals(mavenUri)) { //$NON-NLS-1$
+            String mavenArtifact = moduleName.endsWith(".jar") ? moduleName.substring(0, moduleName.length() - ".jar".length())
+                    : moduleName;
             mavenUri = "mvn:org.talend.libraries/" + mavenArtifact + "/6.0.0";// default value for unknown libs //$NON-NLS-1$ //$NON-NLS-2$
         }
         return mavenUri;
