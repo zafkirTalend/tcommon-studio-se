@@ -1459,10 +1459,33 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void setHidAuthenticationForHive(boolean hide) {
+        if (!hide) {
+            GridData keytabGridData = (GridData) useKeyTab.getLayoutData();
+            GridData keytabDetailGridData = (GridData) keyTabComponent.getLayoutData();
+            if (!isHiveEmbeddedMode()) {
+                useKeyTab.setVisible(false);
+                keyTabComponent.setVisible(false);
+                keytabGridData.exclude = true;
+                keytabDetailGridData.exclude = true;
+                useKeyTab.setSelection(false);
+                getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB, "false"); //$NON-NLS-1$
+            } else {
+                boolean keytabCompositeVisible = useKeyTab.getSelection();
+                useKeyTab.setVisible(true);
+                keyTabComponent.setVisible(keytabCompositeVisible);
+                keytabGridData.exclude = false;
+                keytabDetailGridData.exclude = !keytabCompositeVisible;
+            }
+            useKeyTab.setLayoutData(keytabGridData);
+            keyTabComponent.setLayoutData(keytabDetailGridData);
+            useKeyTab.getParent().layout();
+        }
+
         GridData hadoopData = (GridData) authenticationGrp.getLayoutData();
         hadoopData.exclude = hide;
         authenticationGrp.setVisible(!hide);
         authenticationGrp.setLayoutData(hadoopData);
+        authenticationGrp.layout();
         authenticationGrp.getParent().layout();
     }
 
@@ -3153,10 +3176,14 @@ public class DatabaseForm extends AbstractForm {
                     if (passwordText != null) {
                         passwordText.setText(""); //$NON-NLS-1$
                     }
+                    hideControl(authenticationGrpForHBase, true);
                     initHiveInfo();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
+                    hideControl(authenticationCom, true);
                     initHBaseSettings();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
+                    hideControl(authenticationCom, true);
+                    hideControl(authenticationComForHBase, true);
                     initImpalaSettings();
                     getConnection().setDbVersionString("");
                 } else {

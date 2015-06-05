@@ -46,6 +46,9 @@ public class DbConnStrForHive extends DbConnStr {
 
     @Override
     String getUrlTemplate(EDatabaseVersion4Drivers version) {
+        if (version == null) {
+            return super.getUrlTemplate(version);
+        }
         switch (version) {
         case HIVE:
             return URL_HIVE_1_STANDALONE;
