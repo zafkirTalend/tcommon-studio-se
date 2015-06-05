@@ -259,6 +259,7 @@ public class RemoteModulesHelper {
             Map<String, List<ModuleNeeded>> contextMap) {
         ModuleToInstall m = new ModuleToInstall();
         m.setName(unavailableModuleName);
+        m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
         setContext(m, contextMap);
         if (contextMap != null) {
             m.setDescription(getFirstDescription(contextMap.get(unavailableModuleName)));
