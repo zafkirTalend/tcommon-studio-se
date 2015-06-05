@@ -67,13 +67,13 @@ import us.monoid.json.JSONObject;
  */
 public class RemoteModulesHelper {
 
-    private static final String SLASH                             = "/";  //$NON-NLS-1$ 
+    private static final String SLASH = "/"; //$NON-NLS-1$ 
 
     // TODO to be removed after nexus server available
-    public static final boolean nexus_available                   = true;
+    public static final boolean nexus_available = true;
 
     // true if user was warned the network connection is not possible
-    static private boolean      alreadyWarnedAboutConnectionIssue = false;
+    static private boolean alreadyWarnedAboutConnectionIssue = false;
 
     /**
      * created by sgandon on 24 sept. 2013 Detailled comment
@@ -82,24 +82,24 @@ public class RemoteModulesHelper {
     private final class RemoteModulesFetchRunnable implements IRunnableWithProgress {
 
         // TODO to be removed after nexus server available
-        private Set<String>                           globalUnavailableModulesToBeRemoved = new HashSet<String>();
+        private Set<String> globalUnavailableModulesToBeRemoved = new HashSet<String>();
 
         /**
          * 
          */
-        private final String                          jarNames;
+        private final String jarNames;
 
         /**
          * 
          */
-        private final List<ModuleToInstall>           toInstall;
+        private final List<ModuleToInstall> toInstall;
 
         /**
          * 
          */
         private final Map<String, List<ModuleNeeded>> contextMap;
 
-        private String                                messages;
+        private String messages;
 
         /**
          * DOC sgandon IRunnableWithProgressImplementation constructor comment.
@@ -121,19 +121,19 @@ public class RemoteModulesHelper {
 
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-            String[] jars = jarNames.split( SEPARATOR_SLIP );
+            String[] jars = jarNames.split(SEPARATOR_SLIP);
             int size = jars.length;
             Set<String> unavailableModules = new HashSet<String>();
-            monitor.beginTask( Messages.getString( "RemoteModulesHelper.fetch.module.info" ), size * 10 + 10 );//$NON-NLS-1$
+            monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), size * 10 + 10);//$NON-NLS-1$
             // if the network is not valid, all jars are not available.
             boolean networkValid = false;
             if (cache == null || recheckCache) {
                 networkValid = NetworkUtil.isNetworkValid();
                 if (!networkValid) {
-                    unavailableModules.addAll( Arrays.asList( jars ) );
-                    messages = Messages.getString( "RemoteModulesHelper.offlineMessages" ); //$NON-NLS-1$
+                    unavailableModules.addAll(Arrays.asList(jars));
+                    messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
                     if (!alreadyWarnedAboutConnectionIssue) {
-                        log.warn( "failed to connect to internet" );
+                        log.warn("failed to connect to internet");
                         alreadyWarnedAboutConnectionIssue = true;
                     }// else already warned so do nothing
                 }
@@ -142,10 +142,10 @@ public class RemoteModulesHelper {
                 try {
                     cache = new HashMap<String, ModuleToInstall>();
                     // TODO , not sure about the version , don't add version in search condition for now
-                    List<MavenArtifact> searchResults = NexusServerManager.search( nexusServer.getServer(),
+                    List<MavenArtifact> searchResults = NexusServerManager.search(nexusServer.getServer(),
                             nexusServer.getUserName(), nexusServer.getPassword(), nexusServer.getRepositoryId(),
-                            MavenConstants.DEFAULT_LIB_GROUP_ID, null );
-                    monitor.worked( 10 );
+                            MavenConstants.DEFAULT_LIB_GROUP_ID, null);
+                    monitor.worked(10);
                     for (MavenArtifact artifact : searchResults) {
                         String artifactId = artifact.getArtifactId();
                         String packageName = artifact.getType();
@@ -158,68 +158,68 @@ public class RemoteModulesHelper {
                         String license_url = artifact.getLicenseUrl();
                         String distribution = artifact.getDistribution();
                         String url = null;
-                        if (artifact.getUrl() != null && !"".equals( artifact.getUrl() )) {
+                        if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
                             url = artifact.getUrl();
                         }
                         ModuleToInstall m = new ModuleToInstall();
-                        m.setName( artifactId + "." + packageName );
+                        m.setName(artifactId + "." + packageName);
                         // a maven uri like mvn:org.talend.libraries/mysql-connector-java-5.1.30-bin/6.0.0 ,no need
                         // type and classifier
-                        String mvnUri = MavenUrlHelper.generateMvnUrl( artifact.getGroupId(), artifactId, version, null, null );
-                        m.setMavenUri( mvnUri );
-                        m.setLicenseType( license );
-                        m.setLicenseUrl( license_url );
-                        m.setDescription( description );
-                        m.setUrl_description( url );
-                        m.setUrl_download( url );
+                        String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, null, null);
+                        m.setMavenUri(mvnUri);
+                        m.setLicenseType(license);
+                        m.setLicenseUrl(license_url);
+                        m.setDescription(description);
+                        m.setUrl_description(url);
+                        m.setUrl_download(url);
                         // the artiface distribution attribute may be emty because the remote server engine does not
                         // return it.
                         // so we use the classifier to check for availability
-                        if (distribution == null || distribution.equals( "" )) { //$NON-NLS-1$
+                        if (distribution == null || distribution.equals("")) { //$NON-NLS-1$
                             String artifactType = artifact.getType();
-                            if (artifactType != null && artifactType.equals( "pom" )) { //$NON-NLS-1$
-                                m.setDistribution( MavenConstants.DOWNLOAD_MANUAL );
+                            if (artifactType != null && artifactType.equals("pom")) { //$NON-NLS-1$
+                                m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
                             }// else we do not set anything to the distribution value
                         } else {// distribution is already set so use it
-                            m.setDistribution( distribution );
+                            m.setDistribution(distribution);
                         }
-                        setContext( m, contextMap );
+                        setContext(m, contextMap);
 
-                        cache.put( m.getName(), m );
+                        cache.put(m.getName(), m);
 
-                        monitor.worked( 10 );
+                        monitor.worked(10);
                     }
 
                 } catch (Exception e1) {
-                    ExceptionHandler.process( e1 );
+                    ExceptionHandler.process(e1);
                     recheckCache = true;
                 }
             }
 
             for (String name : jars) {
                 String artifact2Check = name;
-                String key = getJarName( artifact2Check );
-                ModuleToInstall moduleToInstall = cache.get( key );
+                String key = getJarName(artifact2Check);
+                ModuleToInstall moduleToInstall = cache.get(key);
                 if (moduleToInstall != null) {
-                    toInstall.add( moduleToInstall );
+                    toInstall.add(moduleToInstall);
                 } else {
-                    unavailableModules.add( name );
-                    ExceptionHandler.log( "The download URL for " + name + " is not available" );//$NON-NLS-1$//$NON-NLS-2$
+                    unavailableModules.add(name);
+                    ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$//$NON-NLS-2$
                 }
-                monitor.worked( 10 );
+                monitor.worked(10);
             }
 
-            // addUnavailableModulesToToBeInstalledModules( unavailableModules, toInstall, contextMap );
+            addUnavailableModulesToToBeInstalledModules(unavailableModules, toInstall, contextMap);
             monitor.done();
         }
     }
 
     private String getJarName(String jarNameOrUrl) {
         if (jarNameOrUrl != null) {
-            if (MavenUrlHelper.isMvnUrl( jarNameOrUrl )) {
-                MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl( jarNameOrUrl );
+            if (MavenUrlHelper.isMvnUrl(jarNameOrUrl)) {
+                MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(jarNameOrUrl);
                 String type = parseMvnUrl.getType();
-                if (type == null || "".equals( type )) {
+                if (type == null || "".equals(type)) {
                     type = MavenConstants.TYPE_JAR;
                 }
                 return parseMvnUrl.getArtifactId() + "." + type;
@@ -243,8 +243,8 @@ public class RemoteModulesHelper {
         // add all unavailable modules, cause they need to be installed even if the are not available from remote
         // site.
         for (String unavailableModuleName : unavailableModules) {
-            ModuleToInstall m = createUnavailableModuleToInstall( unavailableModuleName, contextMap );
-            toInstall2.add( m );
+            ModuleToInstall m = createUnavailableModuleToInstall(unavailableModuleName, contextMap);
+            toInstall2.add(m);
         }
     }
 
@@ -258,10 +258,10 @@ public class RemoteModulesHelper {
     private ModuleToInstall createUnavailableModuleToInstall(String unavailableModuleName,
             Map<String, List<ModuleNeeded>> contextMap) {
         ModuleToInstall m = new ModuleToInstall();
-        m.setName( unavailableModuleName );
-        setContext( m, contextMap );
+        m.setName(unavailableModuleName);
+        setContext(m, contextMap);
         if (contextMap != null) {
-            m.setDescription( getFirstDescription( contextMap.get( unavailableModuleName ) ) );
+            m.setDescription(getFirstDescription(contextMap.get(unavailableModuleName)));
         }// there will be no description
 
         return m;
@@ -275,12 +275,12 @@ public class RemoteModulesHelper {
      */
     protected void setContext(ModuleToInstall m, Map<String, List<ModuleNeeded>> contextMap) {
         if (contextMap != null) {
-            List<ModuleNeeded> nm = contextMap.get( m.getName() );
-            m.setContext( getContext( nm ) );
-            m.setRequired( isRequired( nm ) );
+            List<ModuleNeeded> nm = contextMap.get(m.getName());
+            m.setContext(getContext(nm));
+            m.setRequired(isRequired(nm));
         } else {
-            m.setContext( "Current Operation" );//$NON-NLS-1$
-            m.setRequired( true );
+            m.setContext("Current Operation");//$NON-NLS-1$
+            m.setRequired(true);
         }
     }
 
@@ -295,7 +295,7 @@ public class RemoteModulesHelper {
             return ""; //$NON-NLS-1$
         }
         for (ModuleNeeded module : neededModules) {
-            if (module.getInformationMsg() != null && !"".equals( module.getInformationMsg() )) { //$NON-NLS-1$
+            if (module.getInformationMsg() != null && !"".equals(module.getInformationMsg())) { //$NON-NLS-1$
                 return module.getInformationMsg();
             }
         }
@@ -304,13 +304,13 @@ public class RemoteModulesHelper {
     }
 
     private void appendToLogFile(String logTxt) {
-        Path absolutePath = new Path( Platform.getInstallLocation().getURL().getPath() );
-        File fullLogFile = new File( absolutePath.append( "NotAvailableJarsFromWebservice.txt" ).toPortableString() );
+        Path absolutePath = new Path(Platform.getInstallLocation().getURL().getPath());
+        File fullLogFile = new File(absolutePath.append("NotAvailableJarsFromWebservice.txt").toPortableString());
 
         FileWriter writer = null;
         try {
-            writer = new FileWriter( fullLogFile, true );
-            writer.append( logTxt );
+            writer = new FileWriter(fullLogFile, true);
+            writer.append(logTxt);
         } catch (IOException e) {
             // nothing
         } finally {
@@ -325,31 +325,31 @@ public class RemoteModulesHelper {
 
     }
 
-    private static Logger                log               = Logger.getLogger( RemoteModulesHelper.class );
+    private static Logger log = Logger.getLogger(RemoteModulesHelper.class);
 
-    private static RemoteModulesHelper   helper;
+    private static RemoteModulesHelper helper;
 
     // private static final String serviceUrl = "http://www.talend.com/TalendRegisterWS/modules.php";
 
-    private static final String          serviceUrl        = "http://www.talendforge.org/modules/webservices/modules.php"; //$NON-NLS-1$
+    private static final String serviceUrl = "http://www.talendforge.org/modules/webservices/modules.php"; //$NON-NLS-1$
 
-    private static final String          SEPARATOR_DISPLAY = " | ";                                                       //$NON-NLS-1$
+    private static final String SEPARATOR_DISPLAY = " | "; //$NON-NLS-1$
 
-    private static final String          SEPARATOR         = "|";                                                         //$NON-NLS-1$
+    private static final String SEPARATOR = "|"; //$NON-NLS-1$
 
-    private static final String          SEPARATOR_SLIP    = "\\|";                                                       //$NON-NLS-1$
+    private static final String SEPARATOR_SLIP = "\\|"; //$NON-NLS-1$
 
-    private MavenResolver                mvnResolver;
+    private MavenResolver mvnResolver;
 
-    NexusServerBean                      nexusServer;
+    NexusServerBean nexusServer;
 
-    private boolean                      recheckCache      = false;
+    private boolean recheckCache = false;
 
     private Map<String, ModuleToInstall> cache;
 
     private RemoteModulesHelper() {
         nexusServer = NexusServerManager.getLibrariesNexusServer();
-        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver( nexusServer );
+        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(nexusServer);
     }
 
     public synchronized static RemoteModulesHelper getInstance() {
@@ -361,18 +361,18 @@ public class RemoteModulesHelper {
 
     public void getNotInstalledModules(List<ModuleNeeded> neededModules, List<ModuleToInstall> toInstall,
             IModulesListener listener) {
-        getNotInstalledModules( neededModules, toInstall, listener, false );
+        getNotInstalledModules(neededModules, toInstall, listener, false);
     }
 
     public void getNotInstalledModules(List<ModuleNeeded> neededModules, List<ModuleToInstall> toInstall,
             IModulesListener listener, boolean isUser) {
-        RemoteModulesFetchRunnable fecthUninstalledModulesRunnable = getNotInstalledModulesRunnable( neededModules, toInstall );
+        RemoteModulesFetchRunnable fecthUninstalledModulesRunnable = getNotInstalledModulesRunnable(neededModules, toInstall);
         if (fecthUninstalledModulesRunnable == null) {
             listener.listModulesDone();
             return;
         }
 
-        scheduleJob( fecthUninstalledModulesRunnable, listener, isUser );
+        scheduleJob(fecthUninstalledModulesRunnable, listener, isUser);
 
     }
 
@@ -388,19 +388,19 @@ public class RemoteModulesHelper {
         for (ModuleNeeded module : neededModules) {
             String moduleName = module.getModuleName().trim();
 
-            if (!contextMap.keySet().contains( moduleName )) {
+            if (!contextMap.keySet().contains(moduleName)) {
                 List<ModuleNeeded> modules = new ArrayList<ModuleNeeded>();
-                modules.add( module );
-                contextMap.put( moduleName, modules );
+                modules.add(module);
+                contextMap.put(moduleName, modules);
                 // only check that, but, it don't check available on site
-                if (cache == null || !cache.keySet().contains( moduleName )) {
+                if (cache == null || !cache.keySet().contains(moduleName)) {
                     if (jars.length() != 0) {
-                        jars.append( SEPARATOR );
+                        jars.append(SEPARATOR);
                     }
-                    jars.append( module.getModuleName() );
+                    jars.append(module.getModuleName());
                 }// have checked
             } else {
-                contextMap.get( moduleName ).add( module );
+                contextMap.get(moduleName).add(module);
             }
         }
         String jarNames = jars.toString();
@@ -409,30 +409,30 @@ public class RemoteModulesHelper {
         for (String moduleName : contextMap.keySet()) {
             ModuleToInstall moduleToInstall = null;
             if (cache != null && !cache.isEmpty()) {
-                moduleToInstall = cache.get( moduleName );
+                moduleToInstall = cache.get(moduleName);
             }
             if (moduleToInstall != null) {
-                List<ModuleNeeded> moduleContext = contextMap.get( moduleName );
-                moduleToInstall.setContext( getContext( moduleContext ) );
+                List<ModuleNeeded> moduleContext = contextMap.get(moduleName);
+                moduleToInstall.setContext(getContext(moduleContext));
                 if (moduleContext != null && moduleContext.size() > 0) {
                     for (ModuleNeeded needed : moduleContext) {
-                        if (moduleToInstall.getName().equals( needed.getModuleName() )) {
-                            moduleToInstall.setRequired( needed.isRequired() );
+                        if (moduleToInstall.getName().equals(needed.getModuleName())) {
+                            moduleToInstall.setRequired(needed.isRequired());
                         }
                     }
                 }
-                toInstall.add( moduleToInstall );
+                toInstall.add(moduleToInstall);
             } else {// else not found in cache
-                notCachedModulesName.add( moduleName );
+                notCachedModulesName.add(moduleName);
             }
         }
 
         if (jarNames.isEmpty()) {
-            addUnavailableModulesToToBeInstalledModules( notCachedModulesName, toInstall, contextMap );
+            addUnavailableModulesToToBeInstalledModules(notCachedModulesName, toInstall, contextMap);
             return null; // if all have been in cache, no need fetching runnable again.
         }
         // fetch the jars which are not in cache.
-        return createRemoteModuleFetchRunnable( jarNames, toInstall, contextMap );
+        return createRemoteModuleFetchRunnable(jarNames, toInstall, contextMap);
 
     }
 
@@ -441,19 +441,19 @@ public class RemoteModulesHelper {
         // check that modules are already in cache or not
         if (names != null && names.length > 0) {
             for (String module : names) {
-                String moduleName = getJarName( module.trim() );
+                String moduleName = getJarName(module.trim());
                 ModuleToInstall moduleToInstall = null;
                 if (cache != null) {
-                    moduleToInstall = cache.get( moduleName );
+                    moduleToInstall = cache.get(moduleName);
                 }
                 if (moduleToInstall != null) { // if not existed, or not available on site.
-                    moduleToInstall.setContext( "Current Operation" );//$NON-NLS-1$
-                    toInstall.add( moduleToInstall );
+                    moduleToInstall.setContext("Current Operation");//$NON-NLS-1$
+                    toInstall.add(moduleToInstall);
                 } else { // not existed
                     if (toInstalljars.length() != 0) {
-                        toInstalljars.append( SEPARATOR );
+                        toInstalljars.append(SEPARATOR);
                     }
-                    toInstalljars.append( moduleName );
+                    toInstalljars.append(moduleName);
                 }
             }
         }
@@ -463,39 +463,39 @@ public class RemoteModulesHelper {
             listener.listModulesDone();
             return;
         }
-        scheduleJob( createRemoteModuleFetchRunnable( toInstallJarNames, toInstall, null ), listener, false );
+        scheduleJob(createRemoteModuleFetchRunnable(toInstallJarNames, toInstall, null), listener, false);
 
     }
 
     private synchronized void scheduleJob(final RemoteModulesFetchRunnable runnableWithProgress, final IModulesListener listener,
             boolean isUser) {
 
-        Job job = new Job( Messages.getString( "RemoteModulesHelper.job.title" ) ) {//$NON-NLS-1$
+        Job job = new Job(Messages.getString("RemoteModulesHelper.job.title")) {//$NON-NLS-1$
 
             @Override
             protected IStatus run(IProgressMonitor progressMonitor) {
                 try {
-                    runnableWithProgress.run( progressMonitor );
+                    runnableWithProgress.run(progressMonitor);
                 } catch (InvocationTargetException e) {
-                    log.warn( "fetching remote Modules data failed", e ); //$NON-NLS-1$
+                    log.warn("fetching remote Modules data failed", e); //$NON-NLS-1$
                     return Status.CANCEL_STATUS;
                 } catch (InterruptedException e) {
-                    log.warn( "fetching remote Modules data failed", e ); //$NON-NLS-1$
+                    log.warn("fetching remote Modules data failed", e); //$NON-NLS-1$
                     return Status.CANCEL_STATUS;
                 }
                 return Status.OK_STATUS;
             }
         };
-        job.addJobChangeListener( new JobChangeAdapter() {
+        job.addJobChangeListener(new JobChangeAdapter() {
 
             @Override
             public void done(IJobChangeEvent event) {
                 listener.listModulesDone();
             }
-        } );
+        });
 
-        job.setUser( isUser );
-        job.setPriority( Job.INTERACTIVE );
+        job.setUser(isUser);
+        job.setPriority(Job.INTERACTIVE);
         job.schedule();
     }
 
@@ -509,19 +509,19 @@ public class RemoteModulesHelper {
      */
     public RemoteModulesFetchRunnable createRemoteModuleFetchRunnable(final String jarNames,
             final List<ModuleToInstall> toInstall, final Map<String, List<ModuleNeeded>> contextMap) {
-        return new RemoteModulesFetchRunnable( jarNames, toInstall, contextMap );
+        return new RemoteModulesFetchRunnable(jarNames, toInstall, contextMap);
     }
 
     private JSONObject readJsonFromUrl(String url) throws IOException {
-        InputStream is = new URL( url ).openStream();
+        InputStream is = new URL(url).openStream();
         String jsonText = "";
         JSONObject json = null;
         try {
-            BufferedReader rd = new BufferedReader( new InputStreamReader( is, Charset.forName( "UTF-8" ) ) );//$NON-NLS-1$
-            jsonText = readAll( rd );
-            json = new JSONObject( jsonText );
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));//$NON-NLS-1$
+            jsonText = readAll(rd);
+            json = new JSONObject(jsonText);
         } catch (Exception e) {
-            ExceptionHandler.process( new Exception( Messages.getString( "RemoteModulesHelper.readJsonFromUrl.error" ) ) );
+            ExceptionHandler.process(new Exception(Messages.getString("RemoteModulesHelper.readJsonFromUrl.error")));
         } finally {
             is.close();
         }
@@ -532,7 +532,7 @@ public class RemoteModulesHelper {
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {
-            sb.append( (char) cp );
+            sb.append((char) cp);
         }
         return sb.toString();
     }
@@ -544,9 +544,9 @@ public class RemoteModulesHelper {
         StringBuffer context = new StringBuffer();
         for (ModuleNeeded module : neededModules) {
             if (context.length() != 0) {
-                context.append( SEPARATOR_DISPLAY );
+                context.append(SEPARATOR_DISPLAY);
             }
-            context.append( module.getContext() );
+            context.append(module.getContext());
         }
         return context.toString();
 
@@ -570,16 +570,16 @@ public class RemoteModulesHelper {
         JSONObject message = new JSONObject();
         try {
             JSONObject child = new JSONObject();
-            child.put( "vaction", "getLicense" );//$NON-NLS-1$
-            child.put( "label", licenseType );//$NON-NLS-1$
-            message.put( "module", child );//$NON-NLS-1$
+            child.put("vaction", "getLicense");//$NON-NLS-1$
+            child.put("label", licenseType);//$NON-NLS-1$
+            message.put("module", child);//$NON-NLS-1$
             String url = serviceUrl + "?data=" + message;
-            JSONObject resultStr = readJsonFromUrl( url );
-            JSONArray jsonArray = resultStr.getJSONArray( "result" );//$NON-NLS-1$
+            JSONObject resultStr = readJsonFromUrl(url);
+            JSONArray jsonArray = resultStr.getJSONArray("result");//$NON-NLS-1$
             if (jsonArray != null) {
-                JSONObject object = jsonArray.getJSONObject( 0 );
+                JSONObject object = jsonArray.getJSONObject(0);
                 if (object != null) {
-                    return object.getString( "licenseText" );//$NON-NLS-1$
+                    return object.getString("licenseText");//$NON-NLS-1$
                 }
             }
         } catch (JSONException e) {
@@ -594,22 +594,22 @@ public class RemoteModulesHelper {
         List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
         ModuleToInstall m1 = new ModuleToInstall();
         m1 = new ModuleToInstall();
-        m1.setName( "jtds-1.2.5.jar" );
-        m1.setContext( "tMysqlInput | tMysqlOutput" );
-        m1.setDescription( "Mysql Driver" );
-        m1.setUrl_description( "http://jtds.sourceforge.net/" );
-        m1.setUrl_download( null );
-        m1.setLicenseType( "LGPL_v3" );
-        toInstall.add( m1 );
+        m1.setName("jtds-1.2.5.jar");
+        m1.setContext("tMysqlInput | tMysqlOutput");
+        m1.setDescription("Mysql Driver");
+        m1.setUrl_description("http://jtds.sourceforge.net/");
+        m1.setUrl_download(null);
+        m1.setLicenseType("LGPL_v3");
+        toInstall.add(m1);
         m1 = new ModuleToInstall();
         m1 = new ModuleToInstall();
-        m1.setName( "test.jar" );
-        m1.setContext( "tMysqalInput | tMysfqlOutput" );
-        m1.setDescription( "testaaaaa" );
-        m1.setUrl_description( "http://jtds.sourceforge.net/" );
-        m1.setUrl_download( null );
-        m1.setLicenseType( "LGPL_v3" );
-        toInstall.add( m1 );
+        m1.setName("test.jar");
+        m1.setContext("tMysqalInput | tMysfqlOutput");
+        m1.setDescription("testaaaaa");
+        m1.setUrl_description("http://jtds.sourceforge.net/");
+        m1.setUrl_download(null);
+        m1.setLicenseType("LGPL_v3");
+        toInstall.add(m1);
         return toInstall;
     }
 
@@ -626,19 +626,19 @@ public class RemoteModulesHelper {
         // check that modules are already in cache or not
         if (requiredJars != null && requiredJars.length > 0) {
             for (String module : requiredJars) {
-                String moduleName = getJarName( module.trim() );
+                String moduleName = getJarName(module.trim());
                 ModuleToInstall moduleToInstall = null;
                 if (cache != null) {
-                    moduleToInstall = cache.get( moduleName );
+                    moduleToInstall = cache.get(moduleName);
                 }
                 if (moduleToInstall != null) {
-                    moduleToInstall.setContext( "Current Operation" );//$NON-NLS-1$
-                    toInstall.add( moduleToInstall );
+                    moduleToInstall.setContext("Current Operation");//$NON-NLS-1$
+                    toInstall.add(moduleToInstall);
                 } else { // not existed, or not available on site.
                     if (toInstallJars.length() != 0) {
-                        toInstallJars.append( SEPARATOR );
+                        toInstallJars.append(SEPARATOR);
                     }
-                    toInstallJars.append( moduleName );
+                    toInstallJars.append(moduleName);
                 }
             }
         }
@@ -647,27 +647,27 @@ public class RemoteModulesHelper {
         if (toInstallJarNames.isEmpty()) {
             return null;
         } else {
-            return createRemoteModuleFetchRunnable( toInstallJarNames, toInstall, null );
+            return createRemoteModuleFetchRunnable(toInstallJarNames, toInstall, null);
         }
     }
 
     public String getLicenseContentByUrl(String licenseUrl) {
         if (licenseUrl != null && licenseUrl.length() > 0) {
             try {
-                URL url = new URL( licenseUrl );
+                URL url = new URL(licenseUrl);
                 URLConnection urlConnection = url.openConnection();
                 Map<String, List<String>> headerFields = urlConnection.getHeaderFields();
                 if (headerFields != null) {
-                    List<String> contentType = headerFields.get( "Content-Type" ); //$NON-NLS-1$
+                    List<String> contentType = headerFields.get("Content-Type"); //$NON-NLS-1$
                     if (contentType != null) {
-                        if (contentType.contains( "text/plain" )) { //$NON-NLS-1$
+                        if (contentType.contains("text/plain")) { //$NON-NLS-1$
                             // Get the plain text from connection.
                             InputStream inputStream = urlConnection.getInputStream();
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream( 500 );
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream(500);
                             byte[] b = new byte[1024];
                             int len;
-                            while ((len = inputStream.read( b )) != -1) {
-                                baos.write( b, 0, len );
+                            while ((len = inputStream.read(b)) != -1) {
+                                baos.write(b, 0, len);
                             }
                             inputStream.close();
                             return baos.toString();
