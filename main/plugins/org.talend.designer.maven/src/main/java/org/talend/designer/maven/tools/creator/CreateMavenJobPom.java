@@ -94,6 +94,8 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private String windowsClasspath, unixClasspath;
 
+    private String windowsScriptAddition, unixScriptAddition;
+
     private Set<JobInfo> clonedJobInfos = new HashSet<JobInfo>();
 
     private final ProcessorDependenciesManager processorDependenciesManager;
@@ -145,6 +147,22 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     public void setUnixClasspath(String unixClasspath) {
         this.unixClasspath = unixClasspath;
+    }
+
+    public String getWindowsScriptAddition() {
+        return windowsScriptAddition;
+    }
+
+    public void setWindowsScriptAddition(String windowsScriptAddition) {
+        this.windowsScriptAddition = windowsScriptAddition;
+    }
+
+    public String getUnixScriptAddition() {
+        return unixScriptAddition;
+    }
+
+    public void setUnixCcriptAddition(String unixScriptAddition) {
+        this.unixScriptAddition = unixScriptAddition;
     }
 
     public IFile getAssemblyFile() {
@@ -412,10 +430,10 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
          */
         checkPomProperty(properties, "talend.job.bat.classpath", ETalendMavenVariables.JobBatClasspath,
                 this.getWindowsClasspath());
+        checkPomProperty(properties, "talend.job.bat.addition", ETalendMavenVariables.JobBatAddition,
+                this.getWindowsScriptAddition());
         checkPomProperty(properties, "talend.job.sh.classpath", ETalendMavenVariables.JobShClasspath, this.getUnixClasspath());
-
-        // should add some values for context parameters
-        checkPomProperty(properties, "talend.job.script.addition", ETalendMavenVariables.JobScriptAddition, "");
+        checkPomProperty(properties, "talend.job.sh.addition", ETalendMavenVariables.JobShAddition, this.getUnixScriptAddition());
 
         String finalNameExp = "${project.build.finalName}";
         String finalNameStr = PomUtil.getJobFinalName(property);
