@@ -428,7 +428,6 @@ public class ProcessorUtilities {
         if (currentProcess != null) {
             // TDI-26513:For the Dynamic schema,need to check the currentProcess(job or joblet)
             checkMetadataDynamic(currentProcess, jobInfo);
-            jobInfo.setProcessItem(null);
         }
         Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
                 .getNeededLibrariesForProcess(currentProcess, false);
@@ -700,6 +699,7 @@ public class ProcessorUtilities {
 
             if (selectedProcessItem == null && jobInfo.getJobVersion() != null) {
                 selectedProcessItem = ItemCacheManager.getProcessItem(jobInfo.getJobId(), jobInfo.getJobVersion());
+                jobInfo.setProcessItem(selectedProcessItem);
             }
 
             if (selectedProcessItem == null && jobInfo.getProcess() == null) {
