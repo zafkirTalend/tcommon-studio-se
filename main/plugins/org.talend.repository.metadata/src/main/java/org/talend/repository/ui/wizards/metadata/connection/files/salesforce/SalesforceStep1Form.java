@@ -71,6 +71,14 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
     private String batchSize = null;
 
     private String timeOut = null;
+    
+    private String proxyHost = null;
+
+    private String proxyPort = null;
+    
+    private String proxyUsername = null;
+    
+    private String proxyPassword = null;
 
     private LabelledText webServiceUrlText = null;
 
@@ -617,8 +625,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                         proxy = SalesforceModuleParseAPI.USE_HTTP_PROXY;
                     }
                     SalesforceModuleParseAPI checkSalesfoceLogin = checkSalesfoceLogin(proxy, endPoint, username, pwd, timeOut,
-                            proxyHostText.getText(), proxyPortText.getText(), proxyUsernameText.getText(),
-                            proxyPasswordText.getText());
+                            proxyHost, proxyPort, proxyUsername,proxyPassword);
                     if (checkSalesfoceLogin != null) {
                         setSalesforceModuleParseAPI(checkSalesfoceLogin);
                         loginOk = checkSalesfoceLogin.getCurrentAPI().isLogin();
@@ -732,6 +739,14 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
         callbackHost = callbackHostText.getText();
         callbackPort = callbackPortText.getText();
         token = tokenText.getText();
+        
+        // for bug TDI-32666
+        if (useHttpBtn.getSelection()) {
+        	proxyHost = proxyHostText.getText();
+        	proxyPort = proxyPortText.getText();
+        	proxyUsername = proxyUsernameText.getText();
+        	proxyPassword = proxyPasswordText.getText();
+        }
         if (isContextMode() && getContextModeManager() != null) {
             ContextType contextTypeForContextMode = ConnectionContextHelper.getContextTypeForContextMode(connectionItem
                     .getConnection());
@@ -747,6 +762,14 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
             callbackHost = getContextModeManager().getOriginalValue(callbackHost);
             callbackPort = getContextModeManager().getOriginalValue(callbackPort);
             token = getContextModeManager().getOriginalValue(token);
+            
+            if (useHttpBtn.getSelection()) {
+            	proxyHost = getContextModeManager().getOriginalValue(proxyHost);
+            	proxyPort = getContextModeManager().getOriginalValue(proxyPort);
+            	proxyUsername = getContextModeManager().getOriginalValue(proxyUsername);
+            	proxyPassword = getContextModeManager().getOriginalValue(proxyPassword);
+            }
+            
         }
     }
 
