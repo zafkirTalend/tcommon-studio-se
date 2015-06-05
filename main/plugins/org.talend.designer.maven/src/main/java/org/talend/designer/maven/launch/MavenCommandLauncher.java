@@ -49,6 +49,7 @@ import org.eclipse.m2e.core.project.ResolverConfiguration;
 import org.eclipse.m2e.internal.launch.MavenLaunchDelegate;
 import org.eclipse.osgi.util.NLS;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.runtime.debug.TalendDebugHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
@@ -238,6 +239,11 @@ public class MavenCommandLauncher {
         StringBuffer errors = new StringBuffer();
         for (IProcess process : launch.getProcesses()) {
             String log = process.getStreamsProxy().getOutputStreamMonitor().getContents();
+
+            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher Starting.... -----------------------\n");
+            TalendDebugHandler.debug(log);
+            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher End -----------------------\n");
+
             for (String line : log.split("\n")) { //$NON-NLS-1$
                 if (line.startsWith("[ERROR]")) { //$NON-NLS-1$
                     errors.append(line + "\n"); //$NON-NLS-1$
