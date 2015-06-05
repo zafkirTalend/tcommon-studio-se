@@ -48,8 +48,9 @@ public enum ETalendMavenVariables {
     JobClass,
     JobApplyContextToChildren,
     JobBatClasspath,
+    JobBatAddition,
     JobShClasspath,
-    JobScriptAddition,
+    JobShAddition,
 
     //
     ;
