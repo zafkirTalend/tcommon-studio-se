@@ -152,9 +152,6 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
         curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
 
-        // install custom jar to m2/repo
-        PomUtil.installDependencies(model.getDependencies());
-
     }
 
 }

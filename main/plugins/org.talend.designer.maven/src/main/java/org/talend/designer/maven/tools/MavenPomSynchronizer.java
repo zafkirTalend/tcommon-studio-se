@@ -171,7 +171,7 @@ public class MavenPomSynchronizer {
         FilesUtils.deleteFile(codeProject.getOutputFolder().getParent().getLocation().toFile(), true);
 
         // when clean, regenerate it.
-        syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
+        syncRoutinesPom(true);
 
         // finally, update project
         ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());

@@ -165,19 +165,9 @@ public class ProjectPomManager {
                 Parent parent = model.getParent();
                 // only check same parent.
                 if (parent != null) {
-                    // group
-                    String projectGroupPrefix = JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_MASTER);
-                    if (PomIdsHelper.FLAG_FIXING_GROUP_ID && !parent.getGroupId().equals(projectModel.getGroupId())
-                            || !PomIdsHelper.FLAG_FIXING_GROUP_ID && !parent.getGroupId().startsWith(projectGroupPrefix)) {
+                    if (parent.getGroupId().equals(projectModel.getGroupId())) {
                         continue; // not same
                     }
-                    // artifact
-                    if (PomIdsHelper.FLAG_FIXING_ATIFACT_ID && !parent.getArtifactId().equals(projectModel.getArtifactId())
-                            || !PomIdsHelper.FLAG_FIXING_ATIFACT_ID
-                            && !parent.getGroupId().startsWith(TalendMavenConstants.DEFAULT_CODE)) {
-                        continue; // not same
-                    }
-                    // won't check version
 
                     PomUtil.checkParent(model, file);
                     PomUtil.savePom(monitor, model, file);
@@ -268,9 +258,6 @@ public class ProjectPomManager {
             List<Dependency> routinesDependencies = routinesModel.getDependencies();
             ProcessorDependenciesManager.updateDependencies(monitor, projectModel, routinesDependencies, true);
         }
-
-        // install custom jar to m2/repo
-        PomUtil.installDependencies(projectModel.getDependencies());
     }
 
     protected boolean isStandardJob() {

@@ -288,46 +288,6 @@ public class PomUtil {
         return null;
     }
 
-    /**
-     * 
-     * check the dependencies is custom jar or not, if existed, and invalid in m2/repo, just install in local.
-     */
-    public static void installDependencies(List<Dependency> dependencies) {
-        if (true) {
-            return;
-        }
-        if (dependencies != null && GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
-            ILibraryManagerService libService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-                    ILibraryManagerService.class);
-
-            LocalRepositoryManager repoManager = null;
-            // FIXME,the launcher is not stable, sometimes, can't install successfully.
-            repoManager = LocalRepositoryManager.LAUNCHER;
-            // repoManager = LocalRepositoryManager.AETHER;
-
-            for (Dependency d : dependencies) {
-                // only process talend libs
-                if (MavenConstants.DEFAULT_LIB_GROUP_ID.equals(d.getGroupId())) {
-                    String type = d.getType();
-                    if (type == null || type.trim().length() == 0) {
-                        type = MavenConstants.TYPE_JAR; // jar by default
-                    }
-                    String jarPath = libService.getJarPath(d.getArtifactId() + '.' + type);
-                    try {
-                        if (jarPath != null) {
-                            installJar(repoManager, new File(jarPath), PomUtil.convertToArtifact(d));
-                        }
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
-            }
-
-            repoManager.cleanup(null);
-
-        }
-    }
-
     public static void installJar(LocalRepositoryManager repoManager, File libFile, MavenArtifact artifact) throws Exception {
         // in lib/java, and not existed in m2/repo
         if (libFile.exists() && !PomUtil.isAvailable(artifact)) {
@@ -434,24 +394,5 @@ public class PomUtil {
             ExceptionHandler.process(e);
         }
         return null;
-    }
-
-    /**
-     * 
-     * the value must be same as the property "talend.job.finalName" for pom.
-     * 
-     * @see CreateMavenJobPom with method addProperties.
-     */
-    public static String getJobFinalName(Property property) {
-        if (property == null) {
-            return null;
-        }
-        String label = property.getLabel();
-        String version = property.getVersion();
-        if (PomIdsHelper.FLAG_SPECIAL_FINAL_NAME) {
-            return label + '_' + version;
-        }
-        // same as maven
-        return label + '-' + version;
     }
 }

@@ -389,24 +389,17 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
          */
         checkPomProperty(properties, "talend.project.name", ETalendMavenVariables.ProjectName,
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_NAME, project.getTechnicalLabel()));
+        checkPomProperty(properties, "talend.project.name.lowercase", ETalendMavenVariables.ProjectName,
+                jobInfoProp.getProperty(JobInfoProperties.PROJECT_NAME, project.getTechnicalLabel()).toLowerCase());
         checkPomProperty(properties, "talend.project.id", ETalendMavenVariables.ProjectId,
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_ID, String.valueOf(project.getId())));
         checkPomProperty(properties, "talend.project.branch", ETalendMavenVariables.ProjectBranch,
                 jobInfoProp.getProperty(JobInfoProperties.BRANCH, mainProjectBranch));
 
-        if (PomIdsHelper.FLAG_FIXING_ATIFACT_ID) { // job name same artifact id.
-            checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName, "${project.artifactId}");
-        } else { // use original job name
-            checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName,
-                    jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
-        }
+        checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName,
+                jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
 
-        if (PomIdsHelper.FLAG_VERSION_WITH_CLASSIFIER) { // keep the original values
-            checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion,
-                    jobInfoProp.getProperty(JobInfoProperties.JOB_VERSION, process.getVersion()));
-        } else { // if no classifier for version, just same as project version
-            checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, "${project.version}");
-        }
+        checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, "${project.version}");
 
         checkPomProperty(properties, "talend.job.date", ETalendMavenVariables.JobDate,
                 jobInfoProp.getProperty(JobInfoProperties.DATE, JobInfoProperties.DATAFORMAT.format(new Date())));
@@ -435,25 +428,8 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         checkPomProperty(properties, "talend.job.sh.classpath", ETalendMavenVariables.JobShClasspath, this.getUnixClasspath());
         checkPomProperty(properties, "talend.job.sh.addition", ETalendMavenVariables.JobShAddition, this.getUnixScriptAddition());
 
-        String finalNameExp = "${project.build.finalName}";
-        String finalNameStr = PomUtil.getJobFinalName(property);
-        if (PomIdsHelper.FLAG_SPECIAL_FINAL_NAME) {
-            finalNameExp = "${talend.job.name}_${talend.job.version}";
-        } else { // standard maven way
-            if (PomIdsHelper.FLAG_FIXING_ATIFACT_ID) {
-                if (PomIdsHelper.FLAG_VERSION_WITH_CLASSIFIER) {
-                    finalNameExp = "${project.artifactId}-${talend.job.version}";
-                }
-            } else {
-                if (PomIdsHelper.FLAG_VERSION_WITH_CLASSIFIER) {
-                    finalNameExp = "${talend.job.name}-${talend.job.version}";
-                } else {
-                    finalNameExp = "${talend.job.name}-${project.version}";
-                }
-            }
-        }
-        checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameExp);
-        // checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameStr);
+        String finalNameStr = JavaResourcesHelper.getJobJarName(property.getLabel(), property.getVersion());
+        checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameStr);
 
     }
 
@@ -490,7 +466,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
-        pomSync.syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
+        pomSync.syncRoutinesPom(true);
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 

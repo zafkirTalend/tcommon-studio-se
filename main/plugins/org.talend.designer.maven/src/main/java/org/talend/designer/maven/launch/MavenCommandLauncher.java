@@ -250,9 +250,9 @@ public class MavenCommandLauncher {
                 }
             }
         }
-        // if (errors.length() != 0) {
-        // throw new Exception(errors.toString());
-        // }
+        if (errors.length() > 0) {
+            ExceptionHandler.process(new Exception(errors.toString()));
+        }
     }
 
     protected ILaunch buildAndLaunch(ILaunchConfiguration configuration, String mode, IProgressMonitor monitor)

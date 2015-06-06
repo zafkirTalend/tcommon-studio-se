@@ -244,7 +244,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         super.create(monitor);
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
-        pomSync.syncRoutinesPom(PomIdsHelper.FLAG_ROUTINES_OVERWRITE_ALWAYS);
+        pomSync.syncRoutinesPom(true);
 
         // refresh
         getPomFile().getParent().refreshLocal(IResource.DEPTH_ONE, monitor);

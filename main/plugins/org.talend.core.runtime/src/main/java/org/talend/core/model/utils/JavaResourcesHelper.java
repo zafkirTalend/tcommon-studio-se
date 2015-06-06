@@ -87,10 +87,7 @@ public class JavaResourcesHelper {
      * get the jar name like maven "artifactId.version"
      */
     public static String getJobJarName(String jobName, String version) {
-        String newJobName = escapeFileName(jobName);
-        if (version != null) {
-            newJobName += '-' + version;
-        }
+        String newJobName = getJobFolderName(jobName,version);
         return newJobName;
     }
 
