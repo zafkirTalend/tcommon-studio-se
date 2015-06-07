@@ -446,6 +446,9 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
             for (JobInfo jobInfo : clonedChildrenJobInfors) {
                 if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
+                    if (jobInfo.isTestContainer()) {
+                        continue;
+                    }
                     // same group as main job.
                     Dependency d = PomUtil.createDependency(model.getGroupId(), PomIdsHelper.getJobArtifactId(jobInfo),
                             PomIdsHelper.getJobVersion(jobInfo), null);

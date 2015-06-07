@@ -96,6 +96,8 @@ public interface TalendMavenConstants {
 
     static final String DEFAULT_JOB = "job";
 
+    static final String DEFAULT_TEST = "test";
+
     static final String DEFAULT_MASTER = "master";
 
     /*

@@ -131,8 +131,6 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         final IProcessor jProcessor = getJobProcessor();
         final IProcess process = jProcessor.getProcess();
 
-        // don't change the template setting for groupId
-        // model.setGroupId(TalendMavenContants.DEFAULT_JOB_GROUP_ID);
         final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
         String artifact = jobName;
 
@@ -141,6 +139,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
 
         Property property = jProcessor.getProperty();
         if (property != null && property.getItem() != null) {
+            model.setGroupId(PomIdsHelper.getTestGroupId(property));
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
             if (itemType != null) {
                 model.setName(jobName + '(' + itemType.getLabel() + ')');

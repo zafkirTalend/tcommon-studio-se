@@ -97,9 +97,27 @@ public class PomIdsHelper {
             return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB + '.' + name);
         }
         return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB);
-        // return TalendMavenConstants.DEFAULT_JOB_GROUP_ID;
+    }
+    
+    public static String getTestGroupId(String name) {
+        if (name != null) {
+            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_TEST + '.' + name);
+        }
+        return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_TEST);
     }
 
+    public static String getTestGroupId(Property property) {
+        if (property != null) {
+            ProjectManager pManager = ProjectManager.getInstance();
+            Project currentProject = pManager.getCurrentProject();
+            if (currentProject != null) {
+                return getTestGroupId(currentProject.getTechnicalLabel());
+            }
+        }
+        return getTestGroupId((String) null);
+    }
+
+    
     /**
      * @return "org.talend.job.<projectName>".
      */
