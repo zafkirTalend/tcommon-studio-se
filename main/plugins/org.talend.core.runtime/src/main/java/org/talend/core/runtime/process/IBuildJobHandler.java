@@ -22,6 +22,17 @@ public interface IBuildJobHandler {
 
     public void generateJobFiles(IProgressMonitor monitor) throws Exception;
 
+    /**
+     * Some code generators use the BuildJobHandler to execute job in the studio. This method is used to correctly
+     * generate the stats code if stats are enabled within the studio.
+     * 
+     * @param monitor
+     * @param stats
+     * @param trace
+     * @throws Exception
+     */
+    public void generateJobFiles(IProgressMonitor monitor, boolean stats, boolean trace) throws Exception;
+
     public void generateTestReports(IProgressMonitor monitor) throws Exception;
 
     public void generateItemFiles(boolean withDependencies, IProgressMonitor monitor) throws Exception;
