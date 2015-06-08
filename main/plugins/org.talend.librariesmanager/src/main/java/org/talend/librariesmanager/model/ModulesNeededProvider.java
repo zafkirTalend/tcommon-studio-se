@@ -69,6 +69,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
@@ -88,29 +89,29 @@ public class ModulesNeededProvider {
     /**
      * TalendHookAdaptor.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP
      */
-    public static final String        ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP = "talend.library.path";        //$NON-NLS-1$
+    public static final String ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP = "talend.library.path"; //$NON-NLS-1$
 
     /**
      * 
      */
-    private static final String       PLUGINS_CONTEXT_KEYWORD                 = "plugin:";
+    private static final String PLUGINS_CONTEXT_KEYWORD = "plugin:";
 
-    private static List<ModuleNeeded> componentImportNeedsList                = new ArrayList<ModuleNeeded>(); ;
+    private static List<ModuleNeeded> componentImportNeedsList = new ArrayList<ModuleNeeded>();;
 
-    private static List<ModuleNeeded> unUsedModules                           = new ArrayList<ModuleNeeded>();
+    private static List<ModuleNeeded> unUsedModules = new ArrayList<ModuleNeeded>();
 
-    private static boolean            isCreated                               = false;
+    private static boolean isCreated = false;
 
-    private static boolean            cleanDone                               = false;
+    private static boolean cleanDone = false;
 
-    private static final String       TALEND_COMPONENT_CACHE                  = "ComponentsCache.";
+    private static final String TALEND_COMPONENT_CACHE = "ComponentsCache.";
 
-    private static final String       TALEND_FILE_NAME                        = "cache";
+    private static final String TALEND_FILE_NAME = "cache";
 
-    private static IRepositoryService service                                 = null;
+    private static IRepositoryService service = null;
     static {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered( IRepositoryService.class )) {
-            service = (IRepositoryService) GlobalServiceRegister.getDefault().getService( IRepositoryService.class );
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
+            service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         }
     }
 
@@ -134,13 +135,13 @@ public class ModulesNeededProvider {
          */
         if (componentImportNeedsList.isEmpty()) {
             // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
-            componentImportNeedsList.addAll( getRunningModules() );
+            componentImportNeedsList.addAll(getRunningModules());
             //            TimeMeasure.step(Messages.getString("ModulesNeededProvider.1"), "ModulesNeededProvider.getModulesNeededForRoutines"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
-            componentImportNeedsList.addAll( getModulesNeededForApplication() );
+            componentImportNeedsList.addAll(getModulesNeededForApplication());
             if (PluginChecker.isMetadataPluginLoaded()) {
-                componentImportNeedsList.addAll( getModulesNeededForDBConnWizard() );
+                componentImportNeedsList.addAll(getModulesNeededForDBConnWizard());
             }
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForApplication"); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -153,7 +154,7 @@ public class ModulesNeededProvider {
             // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForComponents");
             // MOD qiongli TOP NO nedd to add the related components ModuleNeeded
             if (!org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
-                componentImportNeedsList.addAll( getModulesNeededForComponents() );
+                componentImportNeedsList.addAll(getModulesNeededForComponents());
             }
             //            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded", "ModulesNeededProvider.getModulesNeededForComponents"); //$NON-NLS-1$ //$NON-NLS-2$
         }
@@ -181,8 +182,8 @@ public class ModulesNeededProvider {
     public static List<ModuleNeeded> getModulesNeededForName(String moduleName) {
         ArrayList<ModuleNeeded> modulesMatching = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded modNeed : componentImportNeedsList) {
-            if (moduleName.equals( modNeed.getModuleName() )) {
-                modulesMatching.add( modNeed );
+            if (moduleName.equals(modNeed.getModuleName())) {
+                modulesMatching.add(modNeed);
             }
         }
         return modulesMatching;
@@ -191,7 +192,7 @@ public class ModulesNeededProvider {
     public static List<String> getModulesNeededNames() {
         List<String> componentImportNeedsListNames = new ArrayList<String>();
         for (ModuleNeeded m : componentImportNeedsList) {
-            componentImportNeedsListNames.add( m.getModuleName() );
+            componentImportNeedsListNames.add(m.getModuleName());
         }
         return componentImportNeedsListNames;
     }
@@ -207,20 +208,20 @@ public class ModulesNeededProvider {
      */
     public static void resetCurrentJobNeededModuleList(IProcess process) {
         // Step 1: remove all modules for current job;
-        List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>( 5 );
+        List<ModuleNeeded> moduleForCurrentJobList = new ArrayList<ModuleNeeded>(5);
         for (ModuleNeeded module : componentImportNeedsList) {
-            if (module.getContext().equals( "Job " + process.getName() )) { //$NON-NLS-1$
-                moduleForCurrentJobList.add( module );
+            if (module.getContext().equals("Job " + process.getName())) { //$NON-NLS-1$
+                moduleForCurrentJobList.add(module);
             }
         }
-        componentImportNeedsList.removeAll( moduleForCurrentJobList );
+        componentImportNeedsList.removeAll(moduleForCurrentJobList);
 
-        Set<String> neededLibraries = process.getNeededLibraries( false );
+        Set<String> neededLibraries = process.getNeededLibraries(false);
         if (neededLibraries != null) {
             for (String neededLibrary : neededLibraries) {
                 boolean alreadyInImports = false;
                 for (ModuleNeeded module : componentImportNeedsList) {
-                    if (module.getModuleName().equals( neededLibrary )) {
+                    if (module.getModuleName().equals(neededLibrary)) {
                         alreadyInImports = true;
                     }
                 }
@@ -229,20 +230,20 @@ public class ModulesNeededProvider {
                 }
 
                 // Step 2: re-add specific modules
-                ModuleNeeded toAdd = new ModuleNeeded( "Job " + process.getName(), neededLibrary, //$NON-NLS-1$
-                        "Required for the job " + process.getName() + ".", true ); //$NON-NLS-1$ //$NON-NLS-2$
+                ModuleNeeded toAdd = new ModuleNeeded("Job " + process.getName(), neededLibrary, //$NON-NLS-1$
+                        "Required for the job " + process.getName() + ".", true); //$NON-NLS-1$ //$NON-NLS-2$
 
-                componentImportNeedsList.add( toAdd );
+                componentImportNeedsList.add(toAdd);
 
                 // Step 3: remove added modules from unusedModule list
                 ModuleNeeded unusedModule = null;
                 for (ModuleNeeded module : unUsedModules) {
-                    if (module.getModuleName().equals( neededLibrary )) {
+                    if (module.getModuleName().equals(neededLibrary)) {
                         unusedModule = module;
                     }
                 }
                 if (unusedModule != null) {
-                    unUsedModules.remove( unusedModule );
+                    unUsedModules.remove(unusedModule);
                 }
             }
         }
@@ -259,12 +260,12 @@ public class ModulesNeededProvider {
             Map<String, Boolean> bundlesAvailable = new HashMap<String, Boolean>();
             while (it.hasNext()) {
                 String key = (String) it.next();
-                EList<ComponentInfo> value = map.get( key );
+                EList<ComponentInfo> value = map.get(key);
                 for (ComponentInfo info : value) {
-                    Boolean available = bundlesAvailable.get( info.getSourceBundleName() );
+                    Boolean available = bundlesAvailable.get(info.getSourceBundleName());
                     if (available == null) {
-                        available = Platform.getBundle( info.getSourceBundleName() ) != null;
-                        bundlesAvailable.put( info.getSourceBundleName(), available );
+                        available = Platform.getBundle(info.getSourceBundleName()) != null;
+                        bundlesAvailable.put(info.getSourceBundleName(), available);
                     }
                     if (!available) {
                         continue;
@@ -272,21 +273,21 @@ public class ModulesNeededProvider {
 
                     EList emfImportList = info.getImportType();
                     for (int i = 0; i < emfImportList.size(); i++) {
-                        IMPORTType importType = (IMPORTType) emfImportList.get( i );
-                        collectModuleNeeded( key, importType, importNeedsList );
+                        IMPORTType importType = (IMPORTType) emfImportList.get(i);
+                        collectModuleNeeded(key, importType, importNeedsList);
                     }
                 }
             }
             return importNeedsList;
         } else {
             List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-            if (GlobalServiceRegister.getDefault().isServiceRegistered( IComponentsService.class )) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
                 IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
-                        IComponentsService.class );
+                        IComponentsService.class);
                 IComponentsFactory compFac = service.getComponentsFactory();
                 Set<IComponent> componentList = compFac.getComponents();
-                for (IComponent comp : componentList.toArray( new IComponent[0] )) {
-                    importNeedsList.addAll( comp.getModulesNeeded() );
+                for (IComponent comp : componentList.toArray(new IComponent[0])) {
+                    importNeedsList.addAll(comp.getModulesNeeded());
                 }
             }
             return importNeedsList;
@@ -294,17 +295,17 @@ public class ModulesNeededProvider {
     }
 
     public static void collectModuleNeeded(String context, IMPORTType importType, List<ModuleNeeded> importNeedsList) {
-        boolean foundModule = createModuleNeededForComponentFromExtension( context, importType, importNeedsList );
+        boolean foundModule = createModuleNeededForComponentFromExtension(context, importType, importNeedsList);
         if (!foundModule) { // If cannot find the jar from extension point then do it like before.
-            createModuleNeededForComponent( context, importType, importNeedsList );
+            createModuleNeededForComponent(context, importType, importNeedsList);
         }
     }
 
     private static boolean createModuleNeededForComponentFromExtension(String context, IMPORTType importType,
             List<ModuleNeeded> importNeedsList) {
-        List<ModuleNeeded> importModuleNeeded = ExtensionModuleManager.getInstance().getModuleNeededForComponent( context,
-                importType );
-        importNeedsList.addAll( importModuleNeeded );
+        List<ModuleNeeded> importModuleNeeded = ExtensionModuleManager.getInstance().getModuleNeededForComponent(context,
+                importType);
+        importNeedsList.addAll(importModuleNeeded);
 
         return importModuleNeeded.size() > 0;
     }
@@ -312,30 +313,30 @@ public class ModulesNeededProvider {
     public static void createModuleNeededForComponent(String context, IMPORTType importType, List<ModuleNeeded> importNeedsList) {
         if (importType.getMODULE() == null) {
             if (importType.getMODULEGROUP() != null) {
-                CommonExceptionHandler.warn( "Missing module group definition: " + importType.getMODULEGROUP() );
+                CommonExceptionHandler.warn("Missing module group definition: " + importType.getMODULEGROUP());
             }
             return;
         }
         String msg = importType.getMESSAGE();
         if (msg == null) {
-            msg = Messages.getString( "modules.required" ); //$NON-NLS-1$
+            msg = Messages.getString("modules.required"); //$NON-NLS-1$
         }
-        List<String> list = getInstallURL( importType );
-        ModuleNeeded moduleNeeded = new ModuleNeeded( context, importType.getMODULE(), msg, importType.isREQUIRED(), list,
-                importType.getREQUIREDIF(), importType.getMVN() );
-        initBundleID( importType, moduleNeeded );
-        moduleNeeded.setMrRequired( importType.isMRREQUIRED() );
-        moduleNeeded.setShow( importType.isSHOW() );
-        moduleNeeded.setModuleLocaion( importType.getUrlPath() );
-        importNeedsList.add( moduleNeeded );
+        List<String> list = getInstallURL(importType);
+        ModuleNeeded moduleNeeded = new ModuleNeeded(context, importType.getMODULE(), msg, importType.isREQUIRED(), list,
+                importType.getREQUIREDIF(), importType.getMVN());
+        initBundleID(importType, moduleNeeded);
+        moduleNeeded.setMrRequired(importType.isMRREQUIRED());
+        moduleNeeded.setShow(importType.isSHOW());
+        moduleNeeded.setModuleLocaion(importType.getUrlPath());
+        importNeedsList.add(moduleNeeded);
     }
 
     public static List<String> getInstallURL(IMPORTType importType) {
         List<String> list = new ArrayList<String>();
         EList emfInstall = importType.getURL();
         for (int j = 0; j < emfInstall.size(); j++) {
-            String installtype = (String) emfInstall.get( j );
-            list.add( installtype );
+            String installtype = (String) emfInstall.get(j);
+            list.add(installtype);
         }
         return list;
     }
@@ -345,29 +346,29 @@ public class ModulesNeededProvider {
         if (bundleID != null) {
             String bundleName = null;
             String bundleVersion = null;
-            if (bundleID.contains( ":" )) {
-                String[] nameAndVersion = bundleID.split( ":" );
+            if (bundleID.contains(":")) {
+                String[] nameAndVersion = bundleID.split(":");
                 bundleName = nameAndVersion[0];
                 bundleVersion = nameAndVersion[1];
             } else {
                 bundleName = bundleID;
             }
-            componentImportNeeds.setBundleName( bundleName );
-            componentImportNeeds.setBundleVersion( bundleVersion );
+            componentImportNeeds.setBundleName(bundleName);
+            componentImportNeeds.setBundleVersion(bundleVersion);
         }
     }
 
     private static void initCache() {
-        String installLocation = new Path( Platform.getConfigurationLocation().getURL().getPath() ).toFile().getAbsolutePath();
+        String installLocation = new Path(Platform.getConfigurationLocation().getURL().getPath()).toFile().getAbsolutePath();
         boolean isNeedClean = !cleanDone && TalendCacheUtils.isSetCleanComponentCache();
         cleanDone = true;
-        isCreated = hasComponentFile( installLocation ) && !isNeedClean;
+        isCreated = hasComponentFile(installLocation) && !isNeedClean;
         ComponentsCache cache = ComponentManager.getComponentCache();
         try {
             if (isCreated) {
                 if (cache.getComponentEntryMap().isEmpty()) {
-                    ComponentsCache loadCache = loadComponentResource( installLocation );
-                    cache.getComponentEntryMap().putAll( loadCache.getComponentEntryMap() );
+                    ComponentsCache loadCache = loadComponentResource(installLocation);
+                    cache.getComponentEntryMap().putAll(loadCache.getComponentEntryMap());
                 }
             } else {
                 cache.getComponentEntryMap().clear();
@@ -382,25 +383,25 @@ public class ModulesNeededProvider {
     private static boolean hasComponentFile(String installLocation) {
         String filePath = ModulesNeededProvider.TALEND_COMPONENT_CACHE
                 + LanguageManager.getCurrentLanguage().toString().toLowerCase() + ModulesNeededProvider.TALEND_FILE_NAME;
-        File file = new File( new Path( installLocation ).append( filePath ).toString() );
+        File file = new File(new Path(installLocation).append(filePath).toString());
         return file.exists();
     }
 
     private static ComponentsCache loadComponentResource(String installLocation) throws IOException {
         String filePath = ModulesNeededProvider.TALEND_COMPONENT_CACHE
                 + LanguageManager.getCurrentLanguage().toString().toLowerCase() + ModulesNeededProvider.TALEND_FILE_NAME;
-        URI uri = URI.createFileURI( installLocation ).appendSegment( filePath );
+        URI uri = URI.createFileURI(installLocation).appendSegment(filePath);
         ComponentCacheResourceFactoryImpl compFact = new ComponentCacheResourceFactoryImpl();
-        Resource resource = compFact.createResource( uri );
+        Resource resource = compFact.createResource(uri);
         Map optionMap = new HashMap();
-        optionMap.put( XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE );
-        optionMap.put( XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE );
-        optionMap.put( XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl() );
-        optionMap.put( XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap() );
-        optionMap.put( XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE );
-        resource.load( optionMap );
-        ComponentsCache cache = (ComponentsCache) EcoreUtil.getObjectByType( resource.getContents(),
-                ComponentCachePackage.eINSTANCE.getComponentsCache() );
+        optionMap.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
+        optionMap.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+        optionMap.put(XMLResource.OPTION_USE_PARSER_POOL, new XMLParserPoolImpl());
+        optionMap.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, new HashMap());
+        optionMap.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
+        resource.load(optionMap);
+        ComponentsCache cache = (ComponentsCache) EcoreUtil.getObjectByType(resource.getContents(),
+                ComponentCachePackage.eINSTANCE.getComponentsCache());
         return cache;
     }
 
@@ -412,14 +413,14 @@ public class ModulesNeededProvider {
         try {
             importNeedsList = repositoryFactory.getModulesNeededForJobs();
         } catch (PersistenceException e) {
-            CommonExceptionHandler.process( e );
+            CommonExceptionHandler.process(e);
         }
 
         return importNeedsList;
     }
 
     public static List<ModuleNeeded> getModulesNeededForRoutines(ProcessItem processItem, ERepositoryObjectType type) {
-        return getModulesNeededForRoutines( new ProcessItem[] { processItem }, type );
+        return getModulesNeededForRoutines(new ProcessItem[] { processItem }, type);
     }
 
     /**
@@ -438,7 +439,7 @@ public class ModulesNeededProvider {
                 IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
 
                 try {
-                    List<IRepositoryViewObject> routines = repositoryFactory.getAll( type, true );
+                    List<IRepositoryViewObject> routines = repositoryFactory.getAll(type, true);
 
                     for (ProcessItem p : processItems) {
                         if (p == null || p.getProcess() == null || p.getProcess().getParameters() == null
@@ -448,35 +449,35 @@ public class ModulesNeededProvider {
                         for (RoutinesParameterType infor : (List<RoutinesParameterType>) p.getProcess().getParameters()
                                 .getRoutinesParameter()) {
 
-                            Property property = findRoutinesPropery( infor.getId(), infor.getName(), routines, type );
+                            Property property = findRoutinesPropery(infor.getId(), infor.getName(), routines, type);
                             if (property != null) {
                                 if (((RoutineItem) property.getItem()).isBuiltIn()) {
-                                    systemRoutines.add( infor.getId() );
+                                    systemRoutines.add(infor.getId());
                                 } else {
-                                    userRoutines.add( infor.getId() );
+                                    userRoutines.add(infor.getId());
                                 }
                             }
 
                         }
                     }
                 } catch (PersistenceException e) {
-                    CommonExceptionHandler.process( e );
+                    CommonExceptionHandler.process(e);
                 }
             }
             ILibraryManagerUIService libUiService = null;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered( ILibraryManagerUIService.class )) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                 libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
-                        ILibraryManagerUIService.class );
+                        ILibraryManagerUIService.class);
             }
             //
             if (!systemRoutines.isEmpty() && libUiService != null) {
-                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines( systemRoutines, true, type );
-                importNeedsList.addAll( collectModuleNeeded( systemRoutineItems, systemRoutines, true ) );
+                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true, type);
+                importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
             }
             //
             if (!userRoutines.isEmpty() && libUiService != null) {
-                List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines( userRoutines, false, type );
-                importNeedsList.addAll( collectModuleNeeded( collectUserRoutines, userRoutines, false ) );
+                List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines(userRoutines, false, type);
+                importNeedsList.addAll(collectModuleNeeded(collectUserRoutines, userRoutines, false));
             }
         }
 
@@ -487,13 +488,13 @@ public class ModulesNeededProvider {
             ERepositoryObjectType type) {
         if (service != null) {
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
-            getRefRoutines( routines, ProjectManager.getInstance().getCurrentProject().getEmfProject(), type );
+            getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject(), type);
             for (IRepositoryViewObject current : routines) {
-                if (repositoryFactory.getStatus( current ) != ERepositoryStatus.DELETED) {
+                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
                     Item item = current.getProperty().getItem();
                     RoutineItem routine = (RoutineItem) item;
                     Property property = routine.getProperty();
-                    if (property.getId().equals( id ) || property.getLabel().equals( name )) {
+                    if (property.getId().equals(id) || property.getLabel().equals(name)) {
                         return property;
                     }
                 }
@@ -507,12 +508,12 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         if (!routineItems.isEmpty()) {
             for (IRepositoryViewObject object : routineItems) {
-                if (routineIdOrNames.contains( object.getLabel() ) && system || routineIdOrNames.contains( object.getId() )
+                if (routineIdOrNames.contains(object.getLabel()) && system || routineIdOrNames.contains(object.getId())
                         && !system) {
                     Item item = object.getProperty().getItem();
                     if (item instanceof RoutineItem) {
                         RoutineItem routine = (RoutineItem) item;
-                        importNeedsList.addAll( createModuleNeededFromRoutine( routine ) );
+                        importNeedsList.addAll(createModuleNeededFromRoutine(routine));
                     }
                 }
             }
@@ -520,9 +521,9 @@ public class ModulesNeededProvider {
 
         // add modules which internal system routine(which under system folder and don't have item) need.
         if (system) {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered( ILibraryManagerUIService.class )) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                 ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
-                        ILibraryManagerUIService.class );
+                        ILibraryManagerUIService.class);
                 Map<String, List<LibraryInfo>> routineAndJars = libUiService.getRoutineAndJars();
                 Iterator<Map.Entry<String, List<LibraryInfo>>> iter = routineAndJars.entrySet().iterator();
                 while (iter.hasNext()) {
@@ -530,23 +531,23 @@ public class ModulesNeededProvider {
                     String routineName = entry.getKey();
                     List<LibraryInfo> needJars = entry.getValue();
                     for (LibraryInfo jar : needJars) {
-                        ModuleNeeded toAdd = new ModuleNeeded( "Routine " + routineName, jar.getLibName(), //$NON-NLS-1$
-                                "", true );
+                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar.getLibName(), //$NON-NLS-1$
+                                "", true);
                         String bundleId = jar.getBundleId();
                         if (bundleId != null) {
                             String bundleName = null;
                             String bundleVersion = null;
-                            if (bundleId.contains( ":" )) { //$NON-NLS-1$
-                                String[] nameAndVersion = bundleId.split( ":" ); //$NON-NLS-1$
+                            if (bundleId.contains(":")) { //$NON-NLS-1$
+                                String[] nameAndVersion = bundleId.split(":"); //$NON-NLS-1$
                                 bundleName = nameAndVersion[0];
                                 bundleVersion = nameAndVersion[1];
                             } else {
                                 bundleName = bundleId;
                             }
-                            toAdd.setBundleName( bundleName );
-                            toAdd.setBundleVersion( bundleVersion );
+                            toAdd.setBundleName(bundleName);
+                            toAdd.setBundleVersion(bundleVersion);
                         }
-                        importNeedsList.add( toAdd );
+                        importNeedsList.add(toAdd);
                     }
                 }
             }
@@ -562,10 +563,10 @@ public class ModulesNeededProvider {
             for (Object o : imports) {
                 IMPORTType currentImport = (IMPORTType) o;
                 // FIXME SML i18n
-                ModuleNeeded toAdd = new ModuleNeeded( "Routine " + currentImport.getNAME(), currentImport.getMODULE(), //$NON-NLS-1$
-                        currentImport.getMESSAGE(), currentImport.isREQUIRED() );
+                ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(), //$NON-NLS-1$
+                        currentImport.getMESSAGE(), currentImport.isREQUIRED());
                 // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
-                importNeedsList.add( toAdd );
+                importNeedsList.add(toAdd);
             }
         }
         return importNeedsList;
@@ -576,17 +577,17 @@ public class ModulesNeededProvider {
         if (service != null && type != null) {
             IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
             try {
-                List<IRepositoryViewObject> routines = repositoryFactory.getAll( type, true );
-                getRefRoutines( routines, ProjectManager.getInstance().getCurrentProject().getEmfProject(), type );
+                List<IRepositoryViewObject> routines = repositoryFactory.getAll(type, true);
+                getRefRoutines(routines, ProjectManager.getInstance().getCurrentProject().getEmfProject(), type);
                 for (IRepositoryViewObject current : routines) {
                     if (!current.isDeleted()) {
                         Item item = current.getProperty().getItem();
                         RoutineItem routine = (RoutineItem) item;
-                        importNeedsList.addAll( createModuleNeededFromRoutine( routine ) );
+                        importNeedsList.addAll(createModuleNeededFromRoutine(routine));
                     }
                 }
             } catch (PersistenceException e) {
-                CommonExceptionHandler.process( e );
+                CommonExceptionHandler.process(e);
             }
         }
         return importNeedsList;
@@ -599,11 +600,11 @@ public class ModulesNeededProvider {
             try {
                 if (mainProject.getReferencedProjects() != null) {
                     for (Project referencedProject : ProjectManager.getInstance().getAllReferencedProjects()) {
-                        routines.addAll( repositoryFactory.getAll( referencedProject, type, true ) );
+                        routines.addAll(repositoryFactory.getAll(referencedProject, type, true));
                     }
                 }
             } catch (PersistenceException e) {
-                CommonExceptionHandler.process( e );
+                CommonExceptionHandler.process(e);
             }
         }
     }
@@ -614,8 +615,8 @@ public class ModulesNeededProvider {
         List<IConfigurationElement> extension = getAllModulesNeededExtensions();
 
         for (IConfigurationElement current : extension) {
-            ModuleNeeded module = createModuleNeededInstance( current );
-            importNeedsList.add( module );
+            ModuleNeeded module = createModuleNeededInstance(current);
+            importNeedsList.add(module);
         }
 
         return importNeedsList;
@@ -628,19 +629,19 @@ public class ModulesNeededProvider {
      * @return
      */
     public static ModuleNeeded createModuleNeededInstance(IConfigurationElement current) {
-        String id = current.getAttribute( ExtensionModuleManager.ID_ATTR );
-        String context = current.getAttribute( ExtensionModuleManager.CONTEXT_ATTR );
-        String name = current.getAttribute( ExtensionModuleManager.NAME_ATTR );
-        String message = current.getAttribute( ExtensionModuleManager.MESSAGE_ATTR );
-        boolean required = new Boolean( current.getAttribute( ExtensionModuleManager.REQUIRED_ATTR ) );
-        String uripath = current.getAttribute( ExtensionModuleManager.URIPATH_ATTR );
-        uripath = ExtensionModuleManager.getInstance().getFormalModulePath( uripath, current );
-        String mvn_rui = current.getAttribute( ExtensionModuleManager.MVN_URI_ATTR );
-        ModuleNeeded module = new ModuleNeeded( context, name, message, required );
-        module.setModuleLocaion( uripath );
-        module.setId( id );
-        module.setBundleName( current.getAttribute( ExtensionModuleManager.BUNDLEID_ATTR ) );
-        module.setMavenUri( mvn_rui );
+        String id = current.getAttribute(ExtensionModuleManager.ID_ATTR);
+        String context = current.getAttribute(ExtensionModuleManager.CONTEXT_ATTR);
+        String name = current.getAttribute(ExtensionModuleManager.NAME_ATTR);
+        String message = current.getAttribute(ExtensionModuleManager.MESSAGE_ATTR);
+        boolean required = new Boolean(current.getAttribute(ExtensionModuleManager.REQUIRED_ATTR));
+        String uripath = current.getAttribute(ExtensionModuleManager.URIPATH_ATTR);
+        uripath = ExtensionModuleManager.getInstance().getFormalModulePath(uripath, current);
+        String mvn_rui = current.getAttribute(ExtensionModuleManager.MVN_URI_ATTR);
+        ModuleNeeded module = new ModuleNeeded(context, name, message, required);
+        module.setModuleLocaion(uripath);
+        module.setId(id);
+        module.setBundleName(current.getAttribute(ExtensionModuleManager.BUNDLEID_ATTR));
+        module.setMavenUri(mvn_rui);
         return module;
     }
 
@@ -650,8 +651,8 @@ public class ModulesNeededProvider {
      */
     public static List<IConfigurationElement> getAllModulesNeededExtensions() {
         IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
-                "org.talend.core.runtime.librariesNeeded", "libraryNeeded" ); //$NON-NLS-1$ //$NON-NLS-2$
-        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2( actionExtensionPoint );
+                "org.talend.core.runtime.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
+        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
         return extension;
     }
 
@@ -666,10 +667,10 @@ public class ModulesNeededProvider {
         List<IConfigurationElement> extension = getAllModulesNeededExtensions();
 
         for (IConfigurationElement current : extension) {
-            String context = current.getAttribute( "context" ); //$NON-NLS-1$
-            if (context != null && context.startsWith( PLUGINS_CONTEXT_KEYWORD )) {
-                ModuleNeeded module = createModuleNeededInstance( current );
-                allPluginsRequiredModules.add( module );
+            String context = current.getAttribute("context"); //$NON-NLS-1$
+            if (context != null && context.startsWith(PLUGINS_CONTEXT_KEYWORD)) {
+                ModuleNeeded module = createModuleNeededInstance(current);
+                allPluginsRequiredModules.add(module);
             }
         }
         return allPluginsRequiredModules;
@@ -685,43 +686,43 @@ public class ModulesNeededProvider {
      * */
     public static List<ModuleNeeded> getAllNoInstalledModulesNeededExtensionsForPlugin(IProgressMonitor monitor) {
         List<ModuleNeeded> allPluginsRequiredModules = getAllModulesNeededExtensionsForPlugin();
-        List<ModuleNeeded> allUninstalledModules = new ArrayList<ModuleNeeded>( allPluginsRequiredModules.size() );
-        SubMonitor subMonitor = SubMonitor.convert( monitor, allPluginsRequiredModules.size() );
-        Bundle bundle = FrameworkUtil.getBundle( ModulesNeededProvider.class );
+        List<ModuleNeeded> allUninstalledModules = new ArrayList<ModuleNeeded>(allPluginsRequiredModules.size());
+        SubMonitor subMonitor = SubMonitor.convert(monitor, allPluginsRequiredModules.size());
+        Bundle bundle = FrameworkUtil.getBundle(ModulesNeededProvider.class);
         if (bundle != null && bundle.getBundleContext() != null) {
             ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = bundle.getBundleContext()
-                    .getServiceReference( org.ops4j.pax.url.mvn.MavenResolver.class );
+                    .getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
             if (mavenResolverService != null) {
-                MavenResolver mavenResolver = bundle.getBundleContext().getService( mavenResolverService );
+                MavenResolver mavenResolver = bundle.getBundleContext().getService(mavenResolverService);
 
                 if (mavenResolver != null) {
 
                     for (ModuleNeeded module : allPluginsRequiredModules) {
                         // maven uri must not have any url attached to them
                         // we inject a special url to only look for local libs
-                        String mvnUri = module.getMavenUri().replace( "mvn:", "mvn:localrepositories://!" );
+                        String mvnUri = module.getMavenUri().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!");
                         try {
                             // if the resolve succeed it means the artifact is installed.
-                            mavenResolver.resolve( mvnUri );
+                            mavenResolver.resolve(mvnUri);
                         } catch (IOException ioe) {
                             // if the resolve fails, it means the module is not installed
-                            allUninstalledModules.add( module );
+                            allUninstalledModules.add(module);
                         }
                         if (subMonitor.isCanceled()) {
                             return Collections.EMPTY_LIST;
                         }// else keep going
-                        subMonitor.worked( 1 );
+                        subMonitor.worked(1);
                     }
                 } else {// throw an exception to tell that install folder was not properly initialised
                     throw new IllegalStateException(
-                            "Could not get the maven resolver service, the bundle org.ops4j.pax.url.mvn man not be loaded" );
+                            "Could not get the maven resolver service, the bundle org.ops4j.pax.url.mvn man not be loaded");
                 }
             } else {// throw an exception to tell that install folder was not properly initialised
                 throw new IllegalStateException(
-                        "Could not get the maven resolver service referecne, the bundle org.ops4j.pax.url.mvn man not be loaded" );
+                        "Could not get the maven resolver service referecne, the bundle org.ops4j.pax.url.mvn man not be loaded");
             }
         } else {// throw an exception to tell that install folder was not properly initialised
-            throw new IllegalStateException( "Could not find the current bundle context" );
+            throw new IllegalStateException("Could not find the current bundle context");
         }
         return allUninstalledModules;
     }
@@ -738,8 +739,8 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> pluginRequiredModules = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded module : moduleList) {
             String context = module.getContext();
-            if (context != null && context.startsWith( PLUGINS_CONTEXT_KEYWORD ) && context.endsWith( ":" + bundleSymbolicName )) {
-                pluginRequiredModules.add( module );
+            if (context != null && context.startsWith(PLUGINS_CONTEXT_KEYWORD) && context.endsWith(":" + bundleSymbolicName)) {
+                pluginRequiredModules.add(module);
             }
         }
         return pluginRequiredModules;
@@ -749,8 +750,8 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> pluginRequiredModules = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded module : moduleList) {
             String context = module.getContext();
-            if (context == null || !context.startsWith( PLUGINS_CONTEXT_KEYWORD )) {
-                pluginRequiredModules.add( module );
+            if (context == null || !context.startsWith(PLUGINS_CONTEXT_KEYWORD)) {
+                pluginRequiredModules.add(module);
             }// else ignor
         }
         return pluginRequiredModules;
@@ -759,11 +760,11 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> getModulesNeededForDBConnWizard() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         EDatabaseVersion4Drivers[] dbVersions = EDatabaseVersion4Drivers.values();
-        String message = Messages.getString( "ModulesNeededProvider.ModulesForDBConnWizard" ); //$NON-NLS-1$;
+        String message = Messages.getString("ModulesNeededProvider.ModulesForDBConnWizard"); //$NON-NLS-1$;
         for (EDatabaseVersion4Drivers temp : dbVersions) {
             Set<String> drivers = temp.getProviderDrivers();
             for (String driver : drivers) {
-                importNeedsList.add( new ModuleNeeded( temp.name(), driver, message, true ) );
+                importNeedsList.add(new ModuleNeeded(temp.name(), driver, message, true));
             }
         }
         return importNeedsList;
@@ -773,8 +774,8 @@ public class ModulesNeededProvider {
     public static List<ModuleNeeded> getModulesNeeded(String componentName) {
         List<ModuleNeeded> toReturn = new ArrayList<ModuleNeeded>();
         for (ModuleNeeded current : getModulesNeeded()) {
-            if (current.getContext().equals( componentName )) {
-                toReturn.add( current );
+            if (current.getContext().equals(componentName)) {
+                toReturn.add(current);
             }
         }
 
@@ -788,10 +789,10 @@ public class ModulesNeededProvider {
      */
     public static List<ModuleNeeded> getUnistalledModulesNeeded() {
         List<ModuleNeeded> modulesNeeded = getModulesNeeded();
-        List<ModuleNeeded> uninstalledModules = new ArrayList<ModuleNeeded>( modulesNeeded.size() );
+        List<ModuleNeeded> uninstalledModules = new ArrayList<ModuleNeeded>(modulesNeeded.size());
         for (ModuleNeeded module : modulesNeeded) {
             if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED) {
-                uninstalledModules.add( module );
+                uninstalledModules.add(module);
             }// else installed or unknow state so ignor.
         }
         return uninstalledModules;
@@ -805,30 +806,28 @@ public class ModulesNeededProvider {
      */
     public static void userAddImportModules(String context, String name, ELibraryInstallStatus status) {
         boolean required = true;
-        String message = Messages.getString( "ModulesNeededProvider.importModule" ); //$NON-NLS-1$
-        ModuleNeeded needed = new ModuleNeeded( context, name, message, required );
-        needed.setStatus( status );
-        componentImportNeedsList.add( needed );
+        String message = Messages.getString("ModulesNeededProvider.importModule"); //$NON-NLS-1$
+        ModuleNeeded needed = new ModuleNeeded(context, name, message, required, status);
+        componentImportNeedsList.add(needed);
     }
 
     public static void userAddUnusedModules(String context, String name) {
         boolean required = false;
-        String message = Messages.getString( "ModulesNeededProvider.unusedModule" ); //$NON-NLS-1$
-        ModuleNeeded needed = new ModuleNeeded( context, name, message, required );
-        needed.setStatus( ELibraryInstallStatus.UNUSED );
-        unUsedModules.add( needed );
+        String message = Messages.getString("ModulesNeededProvider.unusedModule"); //$NON-NLS-1$
+        ModuleNeeded needed = new ModuleNeeded(context, name, message, required, ELibraryInstallStatus.UNUSED);
+        unUsedModules.add(needed);
     }
 
     public static void userRemoveUnusedModules(String urlOrName) {
         ModuleNeeded needed = null;
         for (ModuleNeeded module : unUsedModules) {
-            if (module.getModuleName().equals( urlOrName ) || module.getContext().equals( urlOrName )) {
+            if (module.getModuleName().equals(urlOrName) || module.getContext().equals(urlOrName)) {
                 needed = module;
                 break;
             }
         }
         if (needed != null) {
-            unUsedModules.remove( needed );
+            unUsedModules.remove(needed);
         }
     }
 
@@ -844,12 +843,12 @@ public class ModulesNeededProvider {
     public static Set<ModuleNeeded> getRunningModules() {
         Set<ModuleNeeded> runningModules = new HashSet<ModuleNeeded>();
 
-        runningModules.addAll( getModulesNeededForRoutines( ERepositoryObjectType.ROUTINES ) );
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.ROUTINES));
         // add the system routines modules
-        runningModules.addAll( collectModuleNeeded( new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true ) );
+        runningModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
 
-        runningModules.addAll( getModulesNeededForRoutines( ERepositoryObjectType.getType( "BEANS" ) ) );
-        runningModules.addAll( getModulesNeededForRoutines( ERepositoryObjectType.PIG_UDF ) );
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.getType("BEANS")));
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.PIG_UDF));
 
         return runningModules;
     }

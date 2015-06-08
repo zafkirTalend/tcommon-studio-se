@@ -43,4 +43,6 @@ public interface MavenConstants {
 
     public static final String DOWNLOAD_MANUAL = "manual";
 
+    static final String LOCAL_RESOLUTION_URL = "localrepositories://@id=talend.local";
+
 }

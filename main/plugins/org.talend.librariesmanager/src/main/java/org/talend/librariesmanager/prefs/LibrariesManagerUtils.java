@@ -57,7 +57,6 @@ public class LibrariesManagerUtils {
                 for (ModuleNeeded fromProvider : modulesNeeded) {
                     if (fromProvider.getModuleName().equals(module.getModuleName())
                             && ELibraryInstallStatus.NOT_INSTALLED == fromProvider.getStatus()) {
-                        module.setStatus(fromProvider.getStatus());
                         updatedModules.add(module);
                         break;
                     }

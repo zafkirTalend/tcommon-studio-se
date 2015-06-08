@@ -29,8 +29,6 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
-import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.codegen.PigTemplate;
@@ -162,16 +160,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public void checkInstalledLibraries() {
-        List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
         Set<String> existLibraries = repositoryBundleService.list();
-        for (ModuleNeeded current : toCheck) {
-            if (existLibraries.contains(current.getModuleName())) {
-                current.setStatus(ELibraryInstallStatus.INSTALLED);
-            } else {
-                current.setStatus(ELibraryInstallStatus.NOT_INSTALLED);
-            }
-        }
-
         List<String> modulesNeededNames = ModulesNeededProvider.getModulesNeededNames();
         ModulesNeededProvider.getUnUsedModules().clear();
         for (String library : existLibraries) {

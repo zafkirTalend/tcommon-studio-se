@@ -14,11 +14,15 @@ package org.talend.core.model.general;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.osgi.framework.ServiceReference;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.maven.MavenConstants;
 
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
@@ -94,18 +98,24 @@ public class ModuleNeeded {
      * @param moduleName
      * @param informationMsg
      * @param required
+     * @param unused
      * @param status
      */
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required) {
-        super();
-        this.context = context;
-        setModuleName(moduleName);
-        this.informationMsg = informationMsg;
-        this.required = required;
+        this(context, moduleName, informationMsg, required, null, null, null, ELibraryInstallStatus.UNKNOWN);
+    }
+
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, ELibraryInstallStatus status) {
+        this(context, moduleName, informationMsg, required, null, null, null, status);
     }
 
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL,
             String requiredIf, String mavenUrl) {
+        this(context, moduleName, informationMsg, required, installURL, requiredIf, mavenUrl, ELibraryInstallStatus.UNKNOWN);
+    }
+
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL,
+            String requiredIf, String mavenUrl, ELibraryInstallStatus status) {
         super();
         this.context = context;
         setModuleName(moduleName);
@@ -113,7 +123,8 @@ public class ModuleNeeded {
         this.required = required;
         this.installURL = installURL;
         this.requiredIf = requiredIf;
-        setMavenUri(mavenUrl);
+        this.mavenUri = mavenUrl;
+        this.status = status;
     }
 
     public String getRequiredIf() {
@@ -213,20 +224,24 @@ public class ModuleNeeded {
 
     public ELibraryInstallStatus getStatus() {
         if (status == ELibraryInstallStatus.UNKNOWN) {// compute the status of the lib.
-            String localMavenUri = getMavenUri();
-            localMavenUri.replace("mvn:", "mvn:localrepositories://!"); //$NON-NLS-1$ //$NON-NLS-2$
-            try {
-                mavenResolver.resolve(localMavenUri);
+            // first use the Library manager service
+            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
+            Set<String> existLibraries = libManagerService.list();
+            if (existLibraries.contains(getModuleName())) {
                 status = ELibraryInstallStatus.INSTALLED;
-            } catch (IOException e) {
-                status = ELibraryInstallStatus.NOT_INSTALLED;
+            } else {// then try to resolve locally
+                String localMavenUri = getMavenUri();
+                localMavenUri.replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!"); //$NON-NLS-1$ //$NON-NLS-2$
+                try {
+                    mavenResolver.resolve(localMavenUri);
+                    status = ELibraryInstallStatus.INSTALLED;
+                } catch (IOException e) {
+                    status = ELibraryInstallStatus.NOT_INSTALLED;
+                }
             }
         }
         return this.status;
-    }
-
-    public void setStatus(ELibraryInstallStatus status) {
-        this.status = status;
     }
 
     /**

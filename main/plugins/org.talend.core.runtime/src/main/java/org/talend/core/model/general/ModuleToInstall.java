@@ -18,25 +18,25 @@ package org.talend.core.model.general;
  */
 public class ModuleToInstall {
 
-    private String  name;
+    private String name;
 
-    private String  context;
+    private String context;
 
-    private String  description;
+    private String description;
 
-    private String  url_description;
+    private String url_description;
 
-    private String  url_download;
+    private String url_download;
 
     private boolean required;
 
-    private String  licenseType;
+    private String licenseType;
 
-    private String  licenseUrl;
+    private String licenseUrl;
 
-    private String  mavenUri;
+    private String mavenUri;
 
-    private String  distribution = "";
+    private String distribution = "";
 
     public String getName() {
         return this.name;
@@ -146,5 +146,10 @@ public class ModuleToInstall {
      */
     public void setDistribution(String distribution) {
         this.distribution = distribution;
+    }
+
+    @Override
+    public String toString() {
+        return getMavenUri();
     }
 }
