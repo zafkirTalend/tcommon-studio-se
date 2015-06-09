@@ -15,7 +15,6 @@ package org.talend.designer.maven.utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.model.Dependency;
@@ -37,8 +36,6 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
@@ -50,7 +47,6 @@ import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
-import org.talend.designer.maven.tools.creator.CreateMavenJobPom;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
@@ -236,17 +232,23 @@ public class PomUtil {
     }
 
     public static boolean isAvailable(MavenArtifact artifact) {
-        boolean unavailable = true;
-        if (artifact != null) {
-            try {
-                // only check local repository. the set the remote repositories null.
-                unavailable = MavenPlugin.getMaven().isUnavailable(artifact.getGroupId(), artifact.getArtifactId(),
-                        artifact.getVersion(), artifact.getType(), artifact.getClassifier(), null);
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
-            }
+        // just unify the API to check with "getAbsArtifactPath".
+        String absArtifactPath = getAbsArtifactPath(artifact);
+        if (absArtifactPath != null) {
+            return true;
         }
-        return !unavailable;
+        return false;
+        // boolean unavailable = true;
+        // if (artifact != null) {
+        // try {
+        // // only check local repository. the set the remote repositories null.
+        // unavailable = MavenPlugin.getMaven().isUnavailable(artifact.getGroupId(), artifact.getArtifactId(),
+        // artifact.getVersion(), artifact.getType(), artifact.getClassifier(), null);
+        // } catch (CoreException e) {
+        // ExceptionHandler.process(e);
+        // }
+        // }
+        // return !unavailable;
     }
 
     /**

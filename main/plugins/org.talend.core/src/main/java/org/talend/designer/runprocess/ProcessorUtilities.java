@@ -544,10 +544,6 @@ public class ProcessorUtilities {
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
 
-            Set<ModuleNeeded> neededModules = LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
-                    jobInfo.getJobId(), jobInfo.getJobVersion());
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededModules, currentProcess);
-
             if (codeModified && !BitwiseOptionUtils.containOption(option, GENERATE_WITHOUT_COMPILING)) {
                 try {
                     processor.build(progressMonitor);
@@ -761,6 +757,9 @@ public class ProcessorUtilities {
                         neededLibraries);
                 LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                         neededLibraries);
+
+                // must install the needed libraries before generate codes with poms.
+                CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess);
             }
             resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
@@ -848,11 +847,11 @@ public class ProcessorUtilities {
                         subJobInfo.setTestContainer(true);
 
                         if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
-                            generateCode(subJobInfo, selectedContextName, statistics, false, properties,
-                                    GENERATE_MAIN_ONLY, progressMonitor);
+                            generateCode(subJobInfo, selectedContextName, statistics, false, properties, GENERATE_MAIN_ONLY,
+                                    progressMonitor);
                         } else {
-                            generateCode(subJobInfo, selectedContextName, statistics, false, properties,
-                                    GENERATE_ALL_CHILDS, progressMonitor);
+                            generateCode(subJobInfo, selectedContextName, statistics, false, properties, GENERATE_ALL_CHILDS,
+                                    progressMonitor);
                             currentProcess.setNeedRegenerateCode(true);
                         }
                     }
@@ -1489,7 +1488,8 @@ public class ProcessorUtilities {
                 }
             }
         }
-        if (!parentJobInfo.isTestContainer() && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+        if (!parentJobInfo.isTestContainer()
+                && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
                     .getDefault().getService(ITestContainerProviderService.class);
             List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
