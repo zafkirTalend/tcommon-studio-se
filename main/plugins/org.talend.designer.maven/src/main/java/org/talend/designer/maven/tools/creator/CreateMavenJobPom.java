@@ -248,7 +248,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
             newJobInfo.setProjectFolderName(projectFolderName);
         }
-        newJobInfo.setTestContainer(newJobInfo.isTestContainer());
+        newJobInfo.setTestContainer(jobInfo.isTestContainer());
         JobInfo fatherJobInfo = jobInfo.getFatherJobInfo();
         if (fatherJobInfo != null) {
             newJobInfo.setFatherJobInfo(newJobInfo(fatherJobInfo));
