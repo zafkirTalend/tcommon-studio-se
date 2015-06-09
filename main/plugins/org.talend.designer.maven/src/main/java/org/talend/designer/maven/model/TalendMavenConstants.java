@@ -67,6 +67,8 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_INCLUDE_BINARIES = "include-binaries";
 
+    static final String PROFILE_INCLUDE_LOG4J = "include-log4j";
+
     static final String PROFILE_INCLUDE_CONTEXTS = "include-contexts";
 
     static final String PROFILE_INCLUDE_ITEMS = "include-items";
