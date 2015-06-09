@@ -43,12 +43,8 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
         this.launcherPomFile = pomFile;
     }
 
-    /*
-     * shouldn't use clean goal, because the routines and some other(children) jobs use same output target/classes, if
-     * add clean will clean the before build classes.
-     */
     public MavenPomCommandLauncher(IFile pomFile) {
-        this(pomFile, /* MavenConstants.GOAL_CLEAN+' '+ */TalendMavenConstants.GOAL_COMPILE);
+        this(pomFile, TalendMavenConstants.GOAL_COMPILE);
     }
 
     @Override

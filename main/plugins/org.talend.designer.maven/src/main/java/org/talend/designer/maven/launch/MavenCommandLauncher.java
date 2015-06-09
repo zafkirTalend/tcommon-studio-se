@@ -130,8 +130,12 @@ public class MavenCommandLauncher {
             workingCopy.setAttribute(MavenLaunchConstants.ATTR_POM_DIR, basedir.getLocation().toOSString());
             workingCopy.setAttribute(MavenLaunchConstants.ATTR_GOALS, goal);
             workingCopy.setAttribute(ILaunchManager.ATTR_PRIVATE, true);
-            workingCopy.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, "${project}"); //$NON-NLS-1$
+            workingCopy.setAttribute(RefreshUtil.ATTR_REFRESH_SCOPE, RefreshUtil.MEMENTO_SELECTED_PROJECT); //$NON-NLS-1$
             workingCopy.setAttribute(RefreshUtil.ATTR_REFRESH_RECURSIVE, true);
+
+            // seems no need refresh project, so won't set it.
+            // workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME,
+            // basedir.getProject().getName());
 
             // --------------Special settings for Talend----------
             if (CommonUIPlugin.isFullyHeadless()) {
@@ -240,9 +244,9 @@ public class MavenCommandLauncher {
         for (IProcess process : launch.getProcesses()) {
             String log = process.getStreamsProxy().getOutputStreamMonitor().getContents();
 
-            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher Starting.... -----------------------\n");
+            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher log START -----------------------\n");
             TalendDebugHandler.debug(log);
-            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher End -----------------------\n");
+            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher log END -----------------------\n");
 
             for (String line : log.split("\n")) { //$NON-NLS-1$
                 if (line.startsWith("[ERROR]")) { //$NON-NLS-1$
