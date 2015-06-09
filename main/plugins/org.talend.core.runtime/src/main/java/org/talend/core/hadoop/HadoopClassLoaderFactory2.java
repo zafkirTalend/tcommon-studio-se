@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.util.Set;
 
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.classloader.DynamicClassLoader;
 
@@ -30,24 +31,40 @@ import org.talend.core.classloader.DynamicClassLoader;
  */
 public class HadoopClassLoaderFactory2 {
 
-    public static ClassLoader getHDFSClassLoader(String distribution, String version, boolean useKrb) {
-        return getClassLoader(EHadoopCategory.HDFS, distribution, version, useKrb);
+    public static ClassLoader getHDFSClassLoader(String relatedClusterId, String distribution, String version, boolean useKrb) {
+        return getClassLoader(relatedClusterId, EHadoopCategory.HDFS, distribution, version, useKrb);
     }
 
-    public static ClassLoader getMRClassLoader(String distribution, String version, boolean useKrb) {
-        return getClassLoader(EHadoopCategory.MAP_REDUCE, distribution, version, useKrb);
+    public static ClassLoader getMRClassLoader(String relatedClusterId, String distribution, String version, boolean useKrb) {
+        return getClassLoader(relatedClusterId, EHadoopCategory.MAP_REDUCE, distribution, version, useKrb);
     }
 
     public static ClassLoader getHiveEmbeddedClassLoader(String distribution, String version, boolean useKrb) {
-        return getClassLoader(EHadoopCategory.HIVE, distribution, version, useKrb, IHadoopArgs.HIVE_ARG_EMBEDDED);
+        return getHiveEmbeddedClassLoader(null, distribution, version, useKrb);
+    }
+
+    public static ClassLoader getHiveEmbeddedClassLoader(String relatedClusterId, String distribution, String version,
+            boolean useKrb) {
+        return getClassLoader(relatedClusterId, EHadoopCategory.HIVE, distribution, version, useKrb,
+                IHadoopArgs.HIVE_ARG_EMBEDDED);
     }
 
     public static ClassLoader getHiveStandaloneClassLoader(String distribution, String version, boolean useKrb) {
-        return getClassLoader(EHadoopCategory.HIVE, distribution, version, useKrb, IHadoopArgs.HIVE_ARG_STANDALONE);
+        return getHiveStandaloneClassLoader(null, distribution, version, useKrb);
+    }
+
+    public static ClassLoader getHiveStandaloneClassLoader(String relatedClusterId, String distribution, String version,
+            boolean useKrb) {
+        return getClassLoader(relatedClusterId, EHadoopCategory.HIVE, distribution, version, useKrb,
+                IHadoopArgs.HIVE_ARG_STANDALONE);
     }
 
     public static ClassLoader getHBaseClassLoader(String distribution, String version, boolean useKrb) {
-        return getClassLoader(EHadoopCategory.HBASE, distribution, version, useKrb);
+        return getHBaseClassLoader(null, distribution, version, useKrb);
+    }
+
+    public static ClassLoader getHBaseClassLoader(String relatedClusterId, String distribution, String version, boolean useKrb) {
+        return getClassLoader(relatedClusterId, EHadoopCategory.HBASE, distribution, version, useKrb);
     }
 
     public static ClassLoader getHadoopCustomClassLoader(String uid, Object customJars) {
@@ -120,8 +137,8 @@ public class HadoopClassLoaderFactory2 {
         }
     }
 
-    public static ClassLoader getClassLoader(EHadoopCategory category, String distribution, String version, boolean useKrb,
-            String... extraArgs) {
+    public static ClassLoader getClassLoader(String relatedClusterId, EHadoopCategory category, String distribution,
+            String version, boolean useKrb, String... extraArgs) {
         Builder builder = HadoopClassLoaderFactory2.builder().withTypePrefix(category.getName()).withDistribution(distribution)
                 .withVersion(version);
         if (extraArgs != null && extraArgs.length > 0) {
@@ -130,8 +147,12 @@ public class HadoopClassLoaderFactory2 {
             }
         }
         ClassLoader classLoader = builder.build();
-        if (classLoader instanceof DynamicClassLoader && useKrb) {
-            classLoader = createSecurityLoader(category, (DynamicClassLoader) classLoader);
+        if (classLoader instanceof DynamicClassLoader) {
+            try {
+                classLoader = addExtraJars(relatedClusterId, category, (DynamicClassLoader) classLoader, useKrb);
+            } catch (MalformedURLException e) {
+                ExceptionHandler.process(e);
+            }
         }
 
         return classLoader;
@@ -160,7 +181,35 @@ public class HadoopClassLoaderFactory2 {
         return ClassLoaderFactory.getCustomClassLoader(index, String.valueOf(customJars));
     }
 
-    private static DynamicClassLoader createSecurityLoader(EHadoopCategory category, DynamicClassLoader loader) {
+    private static DynamicClassLoader addExtraJars(String relatedClusterId, EHadoopCategory category, DynamicClassLoader loader,
+            boolean useKrb) throws MalformedURLException {
+        DynamicClassLoader cll = loader;
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            String[] addedJars = null;
+            String[] excludedJars = null;
+            String[] securityJars = getSecurityJars(category);
+            String customConfsJarName = hadoopClusterService.getCustomConfsJarName(relatedClusterId);
+            if (customConfsJarName != null) {
+                addedJars = new String[] { customConfsJarName };
+                excludedJars = securityJars;
+            } else if (useKrb) {
+                addedJars = securityJars;
+                excludedJars = new String[] { customConfsJarName };
+            }
+            if (addedJars != null || excludedJars != null) {
+                cll = DynamicClassLoader.createNewOneBaseLoader(loader, addedJars, excludedJars);
+            }
+        }
+
+        return cll;
+    }
+
+    private static String[] getSecurityJars(EHadoopCategory category) {
         String[] securityJars;
         switch (category) {
         case HDFS:
@@ -181,17 +230,9 @@ public class HadoopClassLoaderFactory2 {
 
         default:
             securityJars = new String[0];
-            break;
         }
 
-        DynamicClassLoader securityClassLoader = null;
-        try {
-            securityClassLoader = DynamicClassLoader.createNewOneBaseLoader(loader, securityJars, null);
-        } catch (MalformedURLException e) {
-            ExceptionHandler.process(e);
-        }
-
-        return securityClassLoader;
+        return securityJars;
     }
 
 }

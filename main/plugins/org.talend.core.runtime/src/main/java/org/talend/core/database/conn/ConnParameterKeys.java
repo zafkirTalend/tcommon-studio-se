@@ -66,6 +66,14 @@ public class ConnParameterKeys {
 
     public static final String CONN_PARA_KEY_USE_CUSTOM_CONFS = "CONN_PARA_KEY_USE_CUSTOM_CONFS"; //$NON-NLS-1$
 
+    public static final String CONN_PARA_KEY_RESOURCEMANAGER_SCHEDULER_ADDRESS = "CONN_PARA_KEY_RESOURCEMANAGER_SCHEDULER_ADDRESS"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_JOBHISTORY_ADDRESS = "CONN_PARA_KEY_JOBHISTORY_ADDRESS"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_STAGING_DIRECTORY = "CONN_PARA_KEY_STAGING_DIRECTORY"; //$NON-NLS-1$
+
+    public static final String CONN_PARA_KEY_USE_DATANODE_HOSTNAME = "CONN_PARA_KEY_USE_DATANODE_HOSTNAME"; //$NON-NLS-1$
+
     /**
      * Hive keys.
      */

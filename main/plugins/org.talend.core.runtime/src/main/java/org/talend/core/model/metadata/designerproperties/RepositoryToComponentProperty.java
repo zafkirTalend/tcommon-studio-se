@@ -1452,6 +1452,24 @@ public class RepositoryToComponentProperty {
             return impalaVersion;
         }
 
+        if (value.equals("RESOURCEMANAGER_SCHEDULER_ADDRESS")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_RESOURCEMANAGER_SCHEDULER_ADDRESS));
+        }
+
+        if (value.equals("JOBHISTORY_ADDRESS")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOBHISTORY_ADDRESS));
+        }
+
+        if (value.equals("STAGING_DIRECTORY")) {
+            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_STAGING_DIRECTORY));
+        }
+
+        if (value.equals("USE_DATANODE_HOSTNAME")) {
+            String USE_DATANODE_HOSTNAME = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_DATANODE_HOSTNAME);
+            return "true".equals(USE_DATANODE_HOSTNAME);
+        }
+
         return null;
 
     }
