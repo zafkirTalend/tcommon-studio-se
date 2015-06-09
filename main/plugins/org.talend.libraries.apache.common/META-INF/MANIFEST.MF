@@ -7,7 +7,8 @@ Bundle-ClassPath: .,
  lib/commons-codec-1.6.jar,
  lib/commons-cli-2.0-SNAPSHOT.jar,
  lib/commons-digester-2.1.jar,
- lib/commons-math3-3.3.jar
+ lib/commons-math3-3.3.jar,
+ lib/commons-lang3-3.3.2.jar
 Export-Package: org.apache.commons.cli2,
  org.apache.commons.cli2.builder,
  org.apache.commons.cli2.commandline,
@@ -35,6 +36,7 @@ Export-Package: org.apache.commons.cli2,
  org.apache.commons.digester.plugins.strategies,
  org.apache.commons.digester.substitution,
  org.apache.commons.digester.xmlrules,
+ org.apache.commons.lang3,
  org.apache.commons.math3.distribution,
  org.apache.commons.math3.random
 Require-Bundle: org.apache.commons.beanutils;visibility:=reexport,
