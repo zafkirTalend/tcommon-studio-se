@@ -27,10 +27,6 @@ import org.eclipse.jdt.core.IJavaProject;
  */
 public interface ITalendProcessJavaProject {
 
-    static final String ARG_GOAL = "MAVEN_GOAL";
-
-    static final String ARG_PROGRAM_ARGUMENTS = "PROGRAM_ARGUMENTS";
-
     IJavaProject getJavaProject();
 
     IProject getProject();

@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.runprocess;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -317,5 +318,9 @@ public interface IProcessor {
      * build current job or whole project.
      */
     void build(IProgressMonitor monitor) throws Exception;
+
+    Map<String, Object> getArguments();
+
+    void setArguments(Map<String, Object> argumentsMap);
 
 }

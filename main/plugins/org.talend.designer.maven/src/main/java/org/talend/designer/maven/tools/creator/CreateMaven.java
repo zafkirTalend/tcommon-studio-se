@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.maven.model.Model;
@@ -35,6 +36,8 @@ public abstract class CreateMaven {
 
     /* by default, the packaging is jar */
     private String packaging = TalendMavenConstants.PACKAGING_JAR;
+
+    private Map<String, Object> argumentsMap;
 
     public String getVersion() {
         return this.version;
@@ -82,6 +85,34 @@ public abstract class CreateMaven {
 
     public void setPackaging(String packaging) {
         this.packaging = packaging;
+    }
+
+    public Map<String, Object> getArgumentsMap() {
+        return argumentsMap;
+    }
+
+    protected boolean isOptionChecked(String key) {
+        if (key != null) {
+            final Object object = argumentsMap.get(key);
+            if (object instanceof Boolean) {
+                return (Boolean) object;
+            } else if (object instanceof String) {
+                return Boolean.parseBoolean((String) object);
+            }
+        }
+        return false;
+    }
+
+    protected String getOptionValue(String key) {
+        final Object object = argumentsMap.get(key);
+        if (object instanceof String) {
+            return (String) object;
+        }
+        return null;
+    }
+
+    public void setArgumentsMap(Map<String, Object> argumentsMap) {
+        this.argumentsMap = argumentsMap;
     }
 
     @Override

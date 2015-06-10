@@ -69,6 +69,7 @@ import org.talend.core.model.runprocess.LastGenerationInfo;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
@@ -655,6 +656,11 @@ public class ProcessorUtilities {
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
 
+        final Map<String, Object> argumentsMap = new HashMap<String, Object>();
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
+
         boolean timerStarted = false;
         String idTimer = "generateCode for job: <job not loaded yet>";
         if (jobInfo.getJobName() != null) {
@@ -772,6 +778,8 @@ public class ProcessorUtilities {
             } else {
                 processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
             }
+
+            processor.setArguments(argumentsMap);
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);

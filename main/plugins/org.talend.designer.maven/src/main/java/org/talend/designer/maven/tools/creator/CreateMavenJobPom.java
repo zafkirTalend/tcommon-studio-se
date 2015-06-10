@@ -62,6 +62,7 @@ import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.core.IDesignerCoreService;
@@ -90,8 +91,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private final IProcessor jobProcessor;
 
-    private boolean applyContextToChild, addStat;
-
     private String windowsClasspath, unixClasspath;
 
     private String windowsScriptAddition, unixScriptAddition;
@@ -115,22 +114,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     public IProcessor getJobProcessor() {
         return this.jobProcessor;
-    }
-
-    public boolean isApplyContextToChild() {
-        return this.applyContextToChild;
-    }
-
-    public void setApplyContextToChild(boolean applyContextToChild) {
-        this.applyContextToChild = applyContextToChild;
-    }
-
-    public boolean isAddStat() {
-        return this.addStat;
-    }
-
-    public void setAddStat(boolean addStat) {
-        this.addStat = addStat;
     }
 
     public String getWindowsClasspath() {
@@ -377,7 +360,8 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         }
 
         JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), context.getName(),
-                isApplyContextToChild(), isAddStat());
+                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN),
+                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS));
 
         checkPomProperty(properties, "talend.job.path", ETalendMavenVariables.JobPath, jobClassPackageFolder);
         checkPomProperty(properties, "talend.job.package", ETalendMavenVariables.JobPackage, jobClassPackage);

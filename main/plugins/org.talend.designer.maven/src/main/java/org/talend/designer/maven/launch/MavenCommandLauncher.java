@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.maven.launch;
 
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -53,6 +55,7 @@ import org.talend.commons.runtime.debug.TalendDebugHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.designer.runprocess.IRunProcessService;
 
 /**
@@ -85,7 +88,7 @@ public class MavenCommandLauncher {
      */
     private boolean skipTests = false;
 
-    private String programArguments;
+    private Map<String, Object> argumentsMap;
 
     public MavenCommandLauncher(String goals) {
         super();
@@ -111,8 +114,19 @@ public class MavenCommandLauncher {
         this.skipTests = skipTests;
     }
 
-    public void setProgramArguments(String programArguments) {
-        this.programArguments = programArguments;
+    public void setArgumentsMap(Map<String, Object> argumentsMap) {
+        this.argumentsMap = argumentsMap;
+    }
+
+    protected Object getArgumentMapValue(String key) {
+        if (this.argumentsMap != null) {
+            return this.argumentsMap.get(key);
+        }
+        return null;
+    }
+
+    protected String getArgumentValue(String key) {
+        return (String) getArgumentMapValue(key);
     }
 
     protected ILaunchConfiguration createLaunchConfiguration(IContainer basedir, String goal) {
@@ -161,8 +175,9 @@ public class MavenCommandLauncher {
                 workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_JRE_CONTAINER_PATH, path.toPortableString());
             }
 
-            if (StringUtils.isNotEmpty(programArguments)) {
-                workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, programArguments);
+            String programArgs = getArgumentValue(TalendProcessArgumentConstant.ARG_PROGRAM_ARGUMENTS);
+            if (StringUtils.isNotEmpty(programArgs)) {
+                workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, programArgs);
             }
 
             // TODO when launching Maven with debugger consider to add the following property

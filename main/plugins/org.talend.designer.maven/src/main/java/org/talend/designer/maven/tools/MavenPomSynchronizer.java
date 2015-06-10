@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.model.TalendMavenConstants;
@@ -180,7 +181,7 @@ public class MavenPomSynchronizer {
 
         // try to compile it.
         final Map<String, Object> argumentsMap = new HashMap<String, Object>();
-        argumentsMap.put(ITalendProcessJavaProject.ARG_GOAL, TalendMavenConstants.GOAL_COMPILE);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_GOAL, TalendMavenConstants.GOAL_COMPILE);
 
         codeProject.buildModules(monitor, null, argumentsMap);
     }

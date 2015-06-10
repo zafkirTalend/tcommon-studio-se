@@ -12,23 +12,19 @@
 // ============================================================================
 package org.talend.core.runtime.process;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IProgressMonitor;
-
 /**
- * created by ycbai on 2015年5月13日 Detailled comment
- *
+ * DOC ggu class global comment. Detailled comment
  */
-public interface IBuildJobHandler {
+@SuppressWarnings("nls")
+public interface TalendProcessArgumentConstant {
 
-    public void generateJobFiles(IProgressMonitor monitor) throws Exception;
+    static final String ARG_GOAL = "MAVEN_GOAL";
 
-    public void generateTestReports(IProgressMonitor monitor) throws Exception;
+    static final String ARG_PROGRAM_ARGUMENTS = "PROGRAM_ARGUMENTS";
 
-    public void generateItemFiles(boolean withDependencies, IProgressMonitor monitor) throws Exception;
+    static final String ARG_ENABLE_STATISTICS = "ENABLE_STATISTICS";
 
-    public void build(IProgressMonitor monitor) throws Exception;
+    static final String ARG_ENABLE_TRAC = "ENABLE_TRAC";
 
-    public IFile getJobTargetFile();
-
+    static final String ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN = "ENABLE_APPLY_CONTEXT_TO_CHILDREN";
 }
