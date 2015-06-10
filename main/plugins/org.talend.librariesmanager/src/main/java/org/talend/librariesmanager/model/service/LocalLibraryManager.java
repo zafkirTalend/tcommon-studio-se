@@ -46,12 +46,15 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.ISVNProviderServiceInCoreRuntime;
 import org.talend.core.PluginChecker;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.nexus.MavenResolverCreator;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.utils.PomUtil;
@@ -138,19 +141,14 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         // deploy to configuration/lib/java if tac still use the svn lib
         try {
-            if (PluginChecker.isSVNProviderPluginLoaded()) {
-                ISVNProviderServiceInCoreRuntime service = (ISVNProviderServiceInCoreRuntime) GlobalServiceRegister.getDefault()
-                        .getService(ISVNProviderServiceInCoreRuntime.class);
-                if (service != null && service.isSvnLibSetupOnTAC()) {
-                    String installLocation = getStorageDirectory().getAbsolutePath();
-                    if (file.isDirectory()) {
-                        FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
-                                FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false,
-                                monitorWrap);
-                    } else {
-                        File target = new File(installLocation, file.getName());
-                        FilesUtils.copyFile(file, target);
-                    }
+            if (isSvnLibSetup()) {
+                String installLocation = getStorageDirectory().getAbsolutePath();
+                if (file.isDirectory()) {
+                    FilesUtils.copyFolder(new File(jarFileUri), getStorageDirectory(), false,
+                            FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false, monitorWrap);
+                } else {
+                    File target = new File(installLocation, file.getName());
+                    FilesUtils.copyFile(file, target);
                 }
             }
         } catch (IOException e) {
@@ -217,19 +215,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
             deployFile(file, customUriToAdd, monitorWrap);
             // deploy to configuration/lib/java if tac still use the svn lib
             try {
-                if (PluginChecker.isSVNProviderPluginLoaded()) {
-                    ISVNProviderServiceInCoreRuntime service = (ISVNProviderServiceInCoreRuntime) GlobalServiceRegister
-                            .getDefault().getService(ISVNProviderServiceInCoreRuntime.class);
-                    if (service != null && service.isSvnLibSetupOnTAC()) {
-                        String installLocation = getStorageDirectory().getAbsolutePath();
-                        if (file.isDirectory()) {
-                            FilesUtils.copyFolder(new File(uri), getStorageDirectory(), false,
-                                    FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false,
-                                    monitorWrap);
-                        } else {
-                            File target = new File(installLocation, file.getName());
-                            FilesUtils.copyFile(file, target);
-                        }
+                if (isSvnLibSetup()) {
+                    String installLocation = getStorageDirectory().getAbsolutePath();
+                    if (file.isDirectory()) {
+                        FilesUtils.copyFolder(new File(uri), getStorageDirectory(), false,
+                                FilesUtils.getExcludeSystemFilesFilter(), FilesUtils.getAcceptJARFilesFilter(), false,
+                                monitorWrap);
+                    } else {
+                        File target = new File(installLocation, file.getName());
+                        FilesUtils.copyFile(file, target);
                     }
                 }
             } catch (IOException e) {
@@ -242,6 +236,27 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!customUriToAdd.isEmpty()) {
             deployMavenIndex(customUriToAdd, monitorWrap);
         }
+    }
+
+    private boolean isSvnLibSetup() {
+        if (PluginChecker.isSVNProviderPluginLoaded()) {
+            try {
+                Context ctx = CoreRuntimePlugin.getInstance().getContext();
+                RepositoryContext context = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+                if (!CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().isLocalConnectionProvider()
+                        && !context.isOffline()) {
+                    ISVNProviderServiceInCoreRuntime service = (ISVNProviderServiceInCoreRuntime) GlobalServiceRegister
+                            .getDefault().getService(ISVNProviderServiceInCoreRuntime.class);
+                    if (service != null && service.isSvnLibSetupOnTAC()) {
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+                return false;
+            }
+        }
+        return false;
     }
 
     /*
