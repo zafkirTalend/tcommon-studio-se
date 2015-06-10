@@ -122,11 +122,16 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
         modelManager = manager;
         buttonList = new ArrayList<Button>();
         this.helper = new ContextManagerHelper(manager.getContextManager());
-        this.setBackground(parent.getBackground());
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
-        // CSS
-        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
+        // for bug TDI-32674 to set different bgColor of ContextView and RepositoryContextComposite. 
+        if(modelManager instanceof ContextComposite
+                && ((ContextComposite) modelManager).isRepositoryContext()) {
+        	this.setBackground(parent.getBackground());
+        } else {
+        	// CSS
+        	CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
+        }
     }
 
     @Override
