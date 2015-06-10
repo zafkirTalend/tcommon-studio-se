@@ -542,35 +542,43 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         List<String> childrenFolderResourcesIncludes = new ArrayList<String>();
 
         final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
+        String parentId = getJobProcessor().getProperty().getId();
         for (JobInfo child : clonedChildrenJobInfors) {
-            String jobClassPackageFolder = null;
-            if (child.getProcessItem() != null) {
-                jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(child.getProcessItem());
-            } else {
-                String projectName = null;
-                String jobId = child.getJobId();
-                if (jobId != null) {
-                    IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-                    IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(jobId);
-                    if (lastVersion != null) {
-                        Property property = lastVersion.getProperty();
-                        if (property != null) {
-                            Project project = ProjectManager.getInstance().getProject(property.getItem());
-                            projectName = project.getTechnicalLabel();
+            if (child.getFatherJobInfo() != null && child.getFatherJobInfo().getJobId().equals(parentId)) {
+
+                String jobClassPackageFolder = null;
+                if (child.getProcessItem() != null) {
+                    jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(child.getProcessItem());
+                } else {
+                    String projectName = null;
+                    String jobId = child.getJobId();
+                    if (jobId != null) {
+                        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance()
+                                .getProxyRepositoryFactory();
+                        IRepositoryViewObject lastVersion = proxyRepositoryFactory.getLastVersion(jobId);
+                        if (lastVersion != null) {
+                            Property property = lastVersion.getProperty();
+                            if (property != null) {
+                                Project project = ProjectManager.getInstance().getProject(property.getItem());
+                                projectName = project.getTechnicalLabel();
+                            }
                         }
                     }
+                    if (projectName == null) {// use current one
+                        projectName = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+                    }
+                    jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(projectName, child.getJobName(),
+                            child.getJobVersion());
                 }
-                if (projectName == null) {// use current one
-                    projectName = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
-                }
-                jobClassPackageFolder = JavaResourcesHelper.getJobClassPackageFolder(projectName, child.getJobName(),
-                        child.getJobVersion());
-            }
-            // children poms
-            childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName()));
-            // conext resources
-            childrenFolderResourcesIncludes.add(jobClassPackageFolder + "/**"); // add all context
+                // children poms
+                childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName()));
 
+                if (!child.isTestContainer()) { // for test, it have add the in assembly, so no need.
+                    // conext resources
+                    childrenFolderResourcesIncludes.add(jobClassPackageFolder + "/**"); // add all context
+                }
+
+            }
         }
         /*
          * FIXME, if change the profiles setting for directory, must need change this parts.
@@ -580,16 +588,18 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
             addAssemblyFileSets(fileSetsElem, "${poms.dir}", "${talend.job.name}", false, childrenPomsIncludes, null, null, null,
                     null, false, "add children pom files.");
 
-            // src
-            addAssemblyFileSets(fileSetsElem, "${sourcecodes.dir}", "${talend.job.name}/src/main/java/", false,
-                    childrenFolderResourcesIncludes, null, null, null, null, false, "add children src resources files.");
+            if (!childrenFolderResourcesIncludes.isEmpty()) { // only for standard job, not for test.
+                // src
+                addAssemblyFileSets(fileSetsElem, "${sourcecodes.dir}", "${talend.job.name}/src/main/java/", false,
+                        childrenFolderResourcesIncludes, null, null, null, null, false, "add children src resources files.");
 
-            // contexts
-            addAssemblyFileSets(fileSetsElem, "${resources.dir}", "${talend.job.name}/src/main/resources/", false,
-                    childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files to resources.");
-            addAssemblyFileSets(fileSetsElem, "${contexts.running.dir}", "${talend.job.name}", false,
-                    childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files for running.");
-
+                // contexts
+                addAssemblyFileSets(fileSetsElem, "${resources.dir}", "${talend.job.name}/src/main/resources/", false,
+                        childrenFolderResourcesIncludes, null, null, null, null, false,
+                        "add children context files to resources.");
+                addAssemblyFileSets(fileSetsElem, "${contexts.running.dir}", "${talend.job.name}", false,
+                        childrenFolderResourcesIncludes, null, null, null, null, false, "add children context files for running.");
+            }
             TransformerFactory transFactory = TransformerFactory.newInstance();
             Transformer transFormer = transFactory.newTransformer();
             transFormer.setOutputProperty(OutputKeys.INDENT, "yes");

@@ -65,21 +65,23 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_DEFAULT_SETTING = "default-settings";
 
+    static final String PROFILE_INCLUDE_JAVA_SOURCES = "include-java-sources";
+
+    static final String PROFILE_INCLUDE_MAVEN_RESOURCES = "include-maven-resources";
+
+    static final String PROFILE_INCLUDE_ITEMS = "include-items";
+
+    static final String PROFILE_INCLUDE_LIBS = "include-libs";
+
     static final String PROFILE_INCLUDE_BINARIES = "include-binaries";
 
     static final String PROFILE_INCLUDE_LOG4J = "include-log4j";
 
     static final String PROFILE_INCLUDE_CONTEXTS = "include-contexts";
 
-    static final String PROFILE_INCLUDE_ITEMS = "include-items";
-
-    static final String PROFILE_INCLUDE_JAVA_SOURCES = "include-java-sources";
-
     static final String PROFILE_INCLUDE_TEST_SOURCES = "include-test-sources";
 
-    static final String PROFILE_INCLUDE_LIBS = "include-libs";
-
-    static final String PROFILE_INCLUDE_MAVEN_RESOURCES = "include-maven-resources";
+    static final String PROFILE_INCLUDE_TEST_REPORTS = "include-test-reports";
 
     static final String ARG_SKIPTESTS = "-DskipTests";
 
