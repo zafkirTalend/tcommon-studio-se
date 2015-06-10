@@ -38,6 +38,8 @@ public interface IBuildJobHandler {
 
     public void generateItemFiles(boolean withDependencies, IProgressMonitor monitor) throws Exception;
 
-    public IFile build(IProgressMonitor monitor) throws Exception;
+    public void build(IProgressMonitor monitor) throws Exception;
+
+    public IFile getJobTargetFile();
 
 }
