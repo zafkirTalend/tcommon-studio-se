@@ -77,7 +77,6 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.dialog.DuplicateDialog;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.repository.utils.ConvertJobsUtil;
-import org.talend.core.repository.utils.ConvertJobsUtil.JobType;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -185,7 +184,6 @@ public class DuplicateAction extends AContextualAction {
         } else {
             canWork = false;
         }
-
         setEnabled(canWork);
     }
 
@@ -238,15 +236,13 @@ public class DuplicateAction extends AContextualAction {
             } catch (BusinessException e) {
                 jobNameValue = ""; //$NON-NLS-1$
             }
-            //
-            if (JobType.STANDARD.getDisplayName().equals(jobTypeValue)) {
-                String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
-                if (JobType.STANDARD.getDisplayName().equals(sourceJobType)) {
-                    createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
-                }
+            // if not change job type , we no need convert job
+            String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
+            if (jobTypeValue != null && !jobTypeValue.equals(sourceJobType)) {
+                ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
+            } else {
+                createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
             }
-            //
-            ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
         } else {
             InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title"), //$NON-NLS-1$
                     Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
