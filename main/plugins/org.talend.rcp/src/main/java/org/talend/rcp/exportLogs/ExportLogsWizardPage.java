@@ -43,7 +43,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.utils.ZipToFile;
-import org.talend.repository.ui.wizards.exportjob.JavaJobExportReArchieveCreator;
+import org.talend.repository.ui.wizards.exportjob.util.ExportJobUtil;
 
 import com.sun.management.OperatingSystemMXBean;
 
@@ -86,6 +86,7 @@ public class ExportLogsWizardPage extends WizardPage {
      * 
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     public void createControl(Composite parent) {
         Composite workArea = new Composite(parent, SWT.NONE);
         setControl(workArea);
@@ -128,6 +129,7 @@ public class ExportLogsWizardPage extends WizardPage {
 
         archivePathField.addTraverseListener(new TraverseListener() {
 
+            @Override
             public void keyTraversed(TraverseEvent e) {
                 if (e.detail == SWT.TRAVERSE_RETURN) {
                     e.doit = false;
@@ -246,7 +248,7 @@ public class ExportLogsWizardPage extends WizardPage {
             }
         }
 
-        JavaJobExportReArchieveCreator.deleteTempFiles();
+        ExportJobUtil.deleteTempFiles();
 
         return true;
     }
@@ -263,7 +265,7 @@ public class ExportLogsWizardPage extends WizardPage {
     private void exportLogs(File dest) throws Exception {
         String zipFile = dest.getAbsolutePath();
 
-        String tmpFolder = JavaJobExportReArchieveCreator.getTmpFolder();
+        String tmpFolder = ExportJobUtil.getTmpFolder();
         try {
             String logFile = Platform.getLogFileLocation().toOSString();
             String destFile = new File(tmpFolder + File.separator + new File(logFile).getName()).getAbsolutePath();
@@ -301,8 +303,9 @@ public class ExportLogsWizardPage extends WizardPage {
         // get thread count
         ThreadGroup parentThread;
         for (parentThread = Thread.currentThread().getThreadGroup(); parentThread.getParent() != null; parentThread = parentThread
-                .getParent())
+                .getParent()) {
             ;
+        }
         int totalThread = parentThread.activeCount();
 
         String totalThreadCount = String.valueOf(totalThread);
@@ -339,7 +342,7 @@ public class ExportLogsWizardPage extends WizardPage {
             sb.append(en.getKey() + "=" + en.getValue() + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
         }
         String zipFile = dest.getAbsolutePath();
-        String tmpFolder = JavaJobExportReArchieveCreator.getTmpFolder();
+        String tmpFolder = ExportJobUtil.getTmpFolder();
         String destFile = new File(tmpFolder + File.separator + new File(".sysConfig")).getAbsolutePath(); //$NON-NLS-1$
         FileOutputStream out = null;
         try {
@@ -354,8 +357,9 @@ public class ExportLogsWizardPage extends WizardPage {
             e.printStackTrace();
         } finally {
             try {
-                if (out != null)
+                if (out != null) {
                     out.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

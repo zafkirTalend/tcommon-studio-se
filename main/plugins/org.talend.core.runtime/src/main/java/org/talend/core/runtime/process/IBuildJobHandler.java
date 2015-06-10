@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.runtime.process;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
@@ -37,6 +38,6 @@ public interface IBuildJobHandler {
 
     public void generateItemFiles(boolean withDependencies, IProgressMonitor monitor) throws Exception;
 
-    public void build(String destinationPath, IProgressMonitor monitor) throws Exception;
+    public IFile build(IProgressMonitor monitor) throws Exception;
 
 }
