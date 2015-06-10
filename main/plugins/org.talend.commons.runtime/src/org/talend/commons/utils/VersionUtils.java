@@ -64,46 +64,14 @@ public class VersionUtils {
         return toReturn.toString();
     }
 
-    /**
-     * DOC ycbai Comment method "getVersion".
-     * 
-     * @return the studio version.
-     */
-    public static String getVersion() {
-        String v = System.getProperty(STUDIO_VERSION_PROP);
-        if (v == null || v.trim().isEmpty()) { // mainly for open source product
-            Bundle bundle = FrameworkUtil.getBundle(VersionUtils.class);
-            if (bundle != null) {
-                v = bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
-            }
-
-            FileInputStream in = null;
-            try {
-                File eclipseProductFile = getEclipseProductFile();
-                if (eclipseProductFile != null && eclipseProductFile.exists()) {
-                    Properties p = new Properties();
-                    in = new FileInputStream(eclipseProductFile);
-                    p.load(in);
-                    String version = p.getProperty("version"); //$NON-NLS-1$
-                    if (version != null && !"".equals(version)) { //$NON-NLS-1$
-                        v = version;
-                    }
-                }
-            } catch (Exception e) {
-                //
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        //
-                    }
-                }
-            }
+    public static String getDisplayVersion() {
+        String version = System.getProperty(STUDIO_VERSION_PROP);
+        if (version == null || "".equals(version.trim())) { //$NON-NLS-1$
+            version = getInternalVersion();
         }
-        return v;
+        return version;
     }
-
+    
     /**
      * 
      * DOC ggu Comment method "getEclipseProductFile".
@@ -116,6 +84,49 @@ public class VersionUtils {
         // .eclipseproduct file
         File eclipseproductFile = new File(installFolder, ".eclipseproduct");//$NON-NLS-1$
         return eclipseproductFile;
+    }
+
+    public static String getInternalVersion() {
+        String version = null;
+        Bundle bundle = FrameworkUtil.getBundle(VersionUtils.class);
+        if (bundle != null) {
+            version = (String) bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+        }
+
+        FileInputStream in = null;
+        try {
+            File eclipseProductFile = getEclipseProductFile();
+            if (eclipseProductFile != null && eclipseProductFile.exists()) {
+                Properties p = new Properties();
+                in = new FileInputStream(eclipseProductFile);
+                p.load(in);
+                String productFileVersion = p.getProperty("version"); //$NON-NLS-1$
+                if (productFileVersion != null && !"".equals(productFileVersion)) { //$NON-NLS-1$
+                    version = productFileVersion;
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    //
+                }
+            }
+        }
+        return version;
+    }
+
+    /**
+     * DOC ycbai Comment method "getVersion".
+     * 
+     * @deprecated Please use either getInternalVersion() or getDisplayVersion()
+     * @return the studio version.
+     */
+    public static String getVersion() {
+        return getDisplayVersion();
     }
 
     /**
