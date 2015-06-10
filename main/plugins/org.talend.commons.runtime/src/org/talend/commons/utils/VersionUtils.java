@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.commons.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 
@@ -21,7 +23,9 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.URIUtil;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.i18n.internal.Messages;
 
 /**
@@ -60,21 +64,71 @@ public class VersionUtils {
         return toReturn.toString();
     }
 
-    /**
-     * DOC ycbai Comment method "getVersion".
-     * 
-     * @return the studio version.
-     */
-    public static String getVersion() {
+    public static String getDisplayVersion() {
         String version = System.getProperty(STUDIO_VERSION_PROP);
         if (version == null || "".equals(version.trim())) { //$NON-NLS-1$
-            Bundle bundle = Platform.getBundle(COMMONS_PLUGIN_ID);
-            if (bundle != null) {
-                version = (String) bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+            version = getInternalVersion();
+        }
+        return version;
+    }
+    
+    /**
+     * 
+     * DOC ggu Comment method "getEclipseProductFile".
+     * 
+     * @return
+     * @throws URISyntaxException
+     */
+    private static File getEclipseProductFile() throws URISyntaxException {
+        File installFolder = URIUtil.toFile(URIUtil.toURI(Platform.getInstallLocation().getURL()));
+        // .eclipseproduct file
+        File eclipseproductFile = new File(installFolder, ".eclipseproduct");//$NON-NLS-1$
+        return eclipseproductFile;
+    }
+
+    public static String getInternalVersion() {
+        String version = null;
+        Bundle bundle = FrameworkUtil.getBundle(VersionUtils.class);
+        if (bundle != null) {
+            version = (String) bundle.getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+        }
+
+        FileInputStream in = null;
+        try {
+            File eclipseProductFile = getEclipseProductFile();
+            if (eclipseProductFile != null && eclipseProductFile.exists()) {
+                Properties p = new Properties();
+                in = new FileInputStream(eclipseProductFile);
+                p.load(in);
+                String productFileVersion = p.getProperty("version"); //$NON-NLS-1$
+                if (productFileVersion != null && !"".equals(productFileVersion)) { //$NON-NLS-1$
+                    version = productFileVersion;
+                }
+            }
+        } catch (Exception e) {
+            //
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    //
+                }
             }
         }
         return version;
     }
+
+    /**
+     * DOC ycbai Comment method "getVersion".
+     * 
+     * @deprecated Please use either getInternalVersion() or getDisplayVersion()
+     * @return the studio version.
+     */
+    public static String getVersion() {
+        return getDisplayVersion();
+    }
+
 
     /**
      * DOC ycbai Comment method "getTalendVersion".
