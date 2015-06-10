@@ -398,6 +398,10 @@ public class LabelledFileField {
         return this.text;
     }
 
+    public Button getButtonControl() {
+        return this.button;
+    }
+
     public String getResult() {
         return this.result;
     }
