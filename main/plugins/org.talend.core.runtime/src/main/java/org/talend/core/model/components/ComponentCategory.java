@@ -27,10 +27,10 @@ import org.talend.designer.core.ICamelDesignerCoreService;
 public enum ComponentCategory {
 
     CATEGORY_4_DI("DI", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    CATEGORY_4_MAPREDUCE("MR", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    CATEGORY_4_STORM("STORM", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    CATEGORY_4_SPARK("SPARK", ""), //$NON-NLS-1$ //$NON-NLS-2$
-    CATEGORY_4_SPARKSTREAMING("SPARKSTREAMING", ""), //$NON-NLS-1$ //$NON-NLS-2$
+    CATEGORY_4_MAPREDUCE("MR", "Map/Reduce"), //$NON-NLS-1$ //$NON-NLS-2$
+    CATEGORY_4_STORM("STORM", "Storm"), //$NON-NLS-1$ //$NON-NLS-2$
+    CATEGORY_4_SPARK("SPARK", "Spark"), //$NON-NLS-1$ //$NON-NLS-2$
+    CATEGORY_4_SPARKSTREAMING("SPARKSTREAMING", "Spark Streaming"), //$NON-NLS-1$ //$NON-NLS-2$
     CATEGORY_4_CAMEL("CAMEL", "");//$NON-NLS-1$ //$NON-NLS-2$
 
     private String name;// Will be stored in component file at header.
