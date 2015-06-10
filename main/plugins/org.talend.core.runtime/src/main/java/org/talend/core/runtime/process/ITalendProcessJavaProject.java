@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.runtime.process;
 
+import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -24,6 +26,10 @@ import org.eclipse.jdt.core.IJavaProject;
  *
  */
 public interface ITalendProcessJavaProject {
+
+    static final String ARG_GOAL = "MAVEN_GOAL";
+
+    static final String ARG_PROGRAM_ARGUMENTS = "PROGRAM_ARGUMENTS";
 
     IJavaProject getJavaProject();
 
@@ -127,16 +133,11 @@ public interface ITalendProcessJavaProject {
 
     /**
      * 
-     * build the modules jobs with goals(like compile, package, install, etc).
+     * build the modules jobs with arguments.
      * 
      * if null, will build whole project. if empty (String[0]), willn't build any thing.
-     * 
-     * if goals is not null, will use maven to build. and if childrenModules is null, will try to build project pom.
-     * else will build each modules.
      */
-    void buildModules(String goals, String[] childrenModules, IProgressMonitor monitor) throws Exception;
-
-    void buildModules(String goals, String[] childrenModules, String programArgs, IProgressMonitor monitor) throws Exception;
+    void buildModules(IProgressMonitor monitor, String[] childrenModules, Map<String, Object> argumentsMap) throws Exception;
 
     /**
      * 

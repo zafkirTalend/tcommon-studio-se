@@ -15,8 +15,10 @@ package org.talend.designer.maven.tools;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.maven.model.Model;
@@ -33,7 +35,6 @@ import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
 import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
-import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.utils.io.FilesUtils;
 
@@ -178,7 +179,10 @@ public class MavenPomSynchronizer {
         projectManager.update(monitor, null);
 
         // try to compile it.
-        codeProject.buildModules(TalendMavenConstants.GOAL_COMPILE, null, monitor);
+        final Map<String, Object> argumentsMap = new HashMap<String, Object>();
+        argumentsMap.put(ITalendProcessJavaProject.ARG_GOAL, TalendMavenConstants.GOAL_COMPILE);
+
+        codeProject.buildModules(monitor, null, argumentsMap);
     }
 
     private void deleteFiles(File[] files) {
