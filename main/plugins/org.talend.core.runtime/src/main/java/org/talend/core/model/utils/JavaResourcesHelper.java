@@ -20,6 +20,7 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
@@ -87,7 +88,7 @@ public class JavaResourcesHelper {
      * get the jar name like maven "artifactId.version"
      */
     public static String getJobJarName(String jobName, String version) {
-        String newJobName = getJobFolderName(jobName,version);
+        String newJobName = getJobFolderName(jobName, version);
         return newJobName;
     }
 
@@ -226,6 +227,19 @@ public class JavaResourcesHelper {
     public static String getJobClassPackageFolder(Item processItem, boolean isTest) {
         String packageName = getJobClassPackageName(processItem, isTest);
         return changePackage2Path(packageName);
+    }
+
+    /**
+     * seems only used for generator in javajet
+     */
+    public static String getJobClassPackageFolder(IProcess process) {
+        if (process instanceof IProcess2) {
+            Property property = ((IProcess2) process).getProperty();
+            if (property != null) {
+                return getJobClassPackageFolder(property.getItem(), ProcessUtils.isTestContainer(process));
+            }
+        }
+        return null;
     }
 
     public static String getJobClassPackageFolder(String projectName, String jobName, String jobVersion) {

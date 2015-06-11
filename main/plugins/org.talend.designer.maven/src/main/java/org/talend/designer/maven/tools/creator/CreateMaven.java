@@ -92,7 +92,7 @@ public abstract class CreateMaven {
     }
 
     protected boolean isOptionChecked(String key) {
-        if (key != null) {
+        if (key != null && argumentsMap != null) {
             final Object object = argumentsMap.get(key);
             if (object instanceof Boolean) {
                 return (Boolean) object;
@@ -104,9 +104,11 @@ public abstract class CreateMaven {
     }
 
     protected String getOptionValue(String key) {
-        final Object object = argumentsMap.get(key);
-        if (object instanceof String) {
-            return (String) object;
+        if (argumentsMap != null) {
+            final Object object = argumentsMap.get(key);
+            if (object instanceof String) {
+                return (String) object;
+            }
         }
         return null;
     }

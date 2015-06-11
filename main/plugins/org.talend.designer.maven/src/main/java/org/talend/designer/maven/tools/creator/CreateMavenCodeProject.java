@@ -179,7 +179,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         }
     }
 
-    private void changeClasspath(IProgressMonitor monitor, IProject p) {
+    public static void changeClasspath(IProgressMonitor monitor, IProject p) {
         try {
             IJavaProject javaProject = JavaCore.create(p);
             IClasspathEntry[] rawClasspathEntries = javaProject.getRawClasspath();
@@ -197,6 +197,12 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
 
                     // src/main/resources, in order to removing the 'excluding="**"'.
                     if (MavenSystemFolders.RESOURCES.getPath().equals(path.toString())) {
+                        newEntry = JavaCore.newSourceEntry(entry.getPath(), new IPath[0], new IPath[0], //
+                                entry.getOutputLocation(), entry.getExtraAttributes());
+                    }
+
+                    // src/test/resources, in order to removing the 'excluding="**"'.
+                    if (MavenSystemFolders.RESOURCES_TEST.getPath().equals(path.toString())) {
                         newEntry = JavaCore.newSourceEntry(entry.getPath(), new IPath[0], new IPath[0], //
                                 entry.getOutputLocation(), entry.getExtraAttributes());
                     }

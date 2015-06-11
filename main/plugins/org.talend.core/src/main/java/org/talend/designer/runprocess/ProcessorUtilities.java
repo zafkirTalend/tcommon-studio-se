@@ -452,6 +452,12 @@ public class ProcessorUtilities {
             }
         }
 
+        final Map<String, Object> argumentsMap = new HashMap<String, Object>();
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
+
+        processor.setArguments(argumentsMap);
         // generate the code of the father after the childrens
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
@@ -656,11 +662,6 @@ public class ProcessorUtilities {
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
 
-        final Map<String, Object> argumentsMap = new HashMap<String, Object>();
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
-
         boolean timerStarted = false;
         String idTimer = "generateCode for job: <job not loaded yet>";
         if (jobInfo.getJobName() != null) {
@@ -778,6 +779,12 @@ public class ProcessorUtilities {
             } else {
                 processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
             }
+
+            final Map<String, Object> argumentsMap = new HashMap<String, Object>();
+            argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
+            argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
+            argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN,
+                    jobInfo.isApplyContextToChildren());
 
             processor.setArguments(argumentsMap);
 
@@ -1213,6 +1220,7 @@ public class ProcessorUtilities {
 
     public static IProcessor generateCode(IProcessor processor, IProcess process, IContext context, boolean statistics,
             boolean trace, boolean properties, IProgressMonitor progressMonitor) throws ProcessorException {
+
         ISVNProviderService service = null;
         if (PluginChecker.isSVNProviderPluginLoaded()) {
             service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(ISVNProviderService.class);
