@@ -195,6 +195,14 @@ public interface IHadoopClusterService extends IService {
 
     public String getHadoopClusterProperties(Connection hadoopSubConnection);
 
+    /**
+     * DOC ycbai Comment method "getHadoopClusterItemById".
+     * 
+     * @param id is the id of hadoop cluster connection or its subconnection.
+     * @return the hadoop cluster item.
+     */
+    public Item getHadoopClusterItemById(String id);
+
     public String getCustomConfsJarName(String clusterId);
 
     public void useCustomConfsJarIfNeeded(List<ModuleNeeded> modulesNeeded, String clusterId);
