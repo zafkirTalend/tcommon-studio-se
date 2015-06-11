@@ -12,6 +12,15 @@
 // ============================================================================
 package org.talend.core.ui.workspace;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -25,7 +34,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
+import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.ui.i18n.Messages;
+import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 
 /**
  * Implements the open workspace action. Opens a dialog prompting for a directory and then restarts the IDE on that
@@ -89,6 +100,7 @@ public class OpenWorkspaceAction extends Action implements ActionFactory.IWorkbe
         public void run() {
             data.workspaceSelected(location);
             data.writePersistedData();
+            setCorrespondingConnectionAsDefault(location);
             restart(location);
         }
     }
@@ -141,6 +153,7 @@ public class OpenWorkspaceAction extends Action implements ActionFactory.IWorkbe
                     dropDownMenuMgr = new MenuManager();
                     final ChooseWorkspaceData data = new ChooseWorkspaceData(Platform.getInstanceLocation().getURL());
                     data.readPersistedData();
+                    filterUsefulWorkspaces(data);
                     String current = data.getInitialDefault();
                     String[] workspaces = data.getRecentWorkspaces();
                     for (int i = 0; i < workspaces.length; i++) {
@@ -323,5 +336,66 @@ public class OpenWorkspaceAction extends Action implements ActionFactory.IWorkbe
     @Override
     public void dispose() {
         window = null;
+    }
+
+    protected void setCorrespondingConnectionAsDefault(String selectedWorkspace) {
+        if (selectedWorkspace == null || selectedWorkspace.isEmpty()) {
+            return;
+        }
+        ConnectionUserPerReader connectionReader = ConnectionUserPerReader.getInstance();
+        List<ConnectionBean> connections = connectionReader.readConnections();
+        if (connections == null || connections.isEmpty()) {
+            return;
+        }
+        Map<String, ConnectionBean> usefullWorkspaces = new HashMap<String, ConnectionBean>();
+        for (ConnectionBean connBean : connections) {
+            String workSpace = connBean.getWorkSpace();
+            if (workSpace == null || workSpace.trim().isEmpty()) {
+                continue;
+            }
+            usefullWorkspaces.put(workSpace, connBean);
+        }
+        if (usefullWorkspaces.isEmpty()) {
+            return;
+        }
+
+        ConnectionBean connBean = usefullWorkspaces.get(selectedWorkspace);
+        if (connBean == null) {
+            return;
+        }
+        connectionReader.saveLastConnectionBean(connBean);
+    }
+
+    protected void filterUsefulWorkspaces(ChooseWorkspaceData data) {
+        String[] recentWorkspaces = null;
+        if (data == null || (recentWorkspaces = data.getRecentWorkspaces()) == null || recentWorkspaces.length == 0) {
+            return;
+        }
+        List<ConnectionBean> connections = ConnectionUserPerReader.getInstance().readConnections();
+        if (connections == null || connections.isEmpty()) {
+            return;
+        }
+        Set<String> workspaceSet = new HashSet<String>();
+        for (ConnectionBean connBean : connections) {
+            String workspace = connBean.getWorkSpace();
+            if (workspace == null || workspace.trim().isEmpty()) {
+                continue;
+            }
+            workspaceSet.add(workspace);
+        }
+        if (workspaceSet.isEmpty()) {
+            return;
+        }
+
+        List<String> recentWorkspacesList = new ArrayList<String>(Arrays.asList(recentWorkspaces));
+        Iterator<String> iter = recentWorkspacesList.iterator();
+        while (iter.hasNext()) {
+            if (!workspaceSet.contains(iter.next())) {
+                iter.remove();
+            }
+        }
+
+        data.setRecentWorkspaces(recentWorkspacesList.toArray(new String[0]));
+        data.writePersistedData();
     }
 }
