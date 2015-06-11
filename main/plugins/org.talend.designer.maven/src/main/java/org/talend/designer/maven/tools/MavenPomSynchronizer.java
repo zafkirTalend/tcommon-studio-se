@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.maven.model.Model;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -139,11 +140,14 @@ public class MavenPomSynchronizer {
     /**
      * 
      * Clean the pom_xxx.xml and assembly_xxx.xml and target folder, also clean the module and dependencies.
+     * 
+     * another cleaning up for sources codes or such in @see DeleteAllJobWhenStartUp.
      */
     public void cleanMavenFiles(IProgressMonitor monitor) throws Exception {
+
         // remove all job poms
         final String routinesPomFileName = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
-        File[] pomFiles = codeProject.getProject().getLocation().toFile().listFiles(new FilenameFilter() {
+        FilenameFilter filter = new FilenameFilter() {
 
             @Override
             public boolean accept(File dir, String name) {
@@ -151,26 +155,17 @@ public class MavenPomSynchronizer {
                 return name.startsWith(TalendMavenConstants.POM_NAME + '_') && name.endsWith(TalendMavenConstants.XML_EXT)
                         && !name.equals(routinesPomFileName);
             }
-        });
-        deleteFiles(pomFiles);
+        };
+        cleanupContainer(codeProject.getProject(), filter);
 
-        // delete all assemblies/
-        IFolder assembliesFolder = codeProject.getAssembliesFolder();
-        if (assembliesFolder != null && assembliesFolder.exists()) {
-            File[] assembliesFiles = assembliesFolder.getLocation().toFile().listFiles(new FilenameFilter() {
+        // clean all assemblies in src/main/assemblies
+        fullCleanupContainer(codeProject.getAssembliesFolder());
 
-                @Override
-                public boolean accept(File dir, String name) {
-                    // assembly_xxx.xml
-                    return name.startsWith(TalendMavenConstants.ASSEMBLY_NAME + '_')
-                            && name.endsWith(TalendMavenConstants.XML_EXT);
-                }
-            });
-            deleteFiles(assembliesFiles);
-        }
+        // clean all items in src/main/items
+        fullCleanupContainer(codeProject.getItemsFolder());
 
-        // delete all target
-        FilesUtils.deleteFile(codeProject.getOutputFolder().getParent().getLocation().toFile(), true);
+        // clean all items in tests
+        fullCleanupContainer(codeProject.getTestsFolder());
 
         // when clean, regenerate it.
         syncRoutinesPom(true);
@@ -182,8 +177,22 @@ public class MavenPomSynchronizer {
         // try to compile it.
         final Map<String, Object> argumentsMap = new HashMap<String, Object>();
         argumentsMap.put(TalendProcessArgumentConstant.ARG_GOAL, TalendMavenConstants.GOAL_COMPILE);
-
         codeProject.buildModules(monitor, null, argumentsMap);
+    }
+
+    private void fullCleanupContainer(IContainer container) {
+        if (container != null && container.exists()) {
+            FilesUtils.deleteFolder(container.getLocation().toFile(), false);
+        }
+    }
+
+    private void cleanupContainer(IContainer container, FilenameFilter filter) {
+        File folder = container.getLocation().toFile();
+        if (filter != null) {
+            deleteFiles(folder.listFiles(filter));
+        } else {
+            fullCleanupContainer(container);
+        }
     }
 
     private void deleteFiles(File[] files) {
