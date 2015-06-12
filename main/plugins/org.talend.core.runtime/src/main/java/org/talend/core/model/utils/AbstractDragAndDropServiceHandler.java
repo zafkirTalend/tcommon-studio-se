@@ -14,6 +14,7 @@ package org.talend.core.model.utils;
 
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.utils.TalendQuoteUtils;
 
 /**
  * created by wchen on 2013-5-20 Detailled comment
@@ -45,6 +46,14 @@ public abstract class AbstractDragAndDropServiceHandler implements IDragAndDropS
             return false;
         }
         return true;
+    }
+
+    protected String getRepositoryValueOfStringType(Connection connection, String value) {
+        if (ContextParameterUtils.isContextMode(connection, value)) {
+            return value;
+        } else {
+            return TalendQuoteUtils.addQuotesIfNotExist(value);
+        }
     }
 
 }

@@ -29,6 +29,7 @@ import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.UpdateContextVariablesHelper;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.process.IContext;
@@ -404,4 +405,15 @@ public final class ContextParameterUtils {
     public static boolean isEmptyParameter(String source) {
         return source.equals(StringUtils.EMPTY);
     }
+
+    public static boolean isContextMode(Connection connection, String value) {
+        if (connection == null || value == null) {
+            return false;
+        }
+        if (connection.isContextMode() && ContextParameterUtils.isContainContextParam(value)) {
+            return true;
+        }
+        return false;
+    }
+
 }
