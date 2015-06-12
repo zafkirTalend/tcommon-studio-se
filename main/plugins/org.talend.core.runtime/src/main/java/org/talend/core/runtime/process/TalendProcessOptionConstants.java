@@ -15,18 +15,15 @@ package org.talend.core.runtime.process;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-@SuppressWarnings("nls")
-public interface TalendProcessArgumentConstant {
+public interface TalendProcessOptionConstants {
 
-    static final String ARG_GOAL = "MAVEN_GOAL";
+    public static final int GENERATE_MAIN_ONLY = 1 << 1;
 
-    static final String ARG_PROGRAM_ARGUMENTS = "PROGRAM_ARGUMENTS";
+    public static final int GENERATE_WITH_FIRST_CHILD = 1 << 2;
 
-    static final String ARG_ENABLE_STATISTICS = "ENABLE_STATISTICS";
+    public static final int GENERATE_ALL_CHILDS = 1 << 3;
 
-    static final String ARG_ENABLE_TRAC = "ENABLE_TRAC";
+    public static final int GENERATE_TESTS = 1 << 4;
 
-    static final String ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN = "ENABLE_APPLY_CONTEXT_TO_CHILDREN";
-
-    static final String ARG_GENERATE_OPTION = "GENERATE_OPTION";
+    public static final int GENERATE_WITHOUT_COMPILING = 1 << 5;
 }

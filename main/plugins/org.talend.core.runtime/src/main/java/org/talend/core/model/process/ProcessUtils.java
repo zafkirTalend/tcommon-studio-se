@@ -41,8 +41,10 @@ import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
+import org.talend.core.utils.BitwiseOptionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -712,4 +714,28 @@ public final class ProcessUtils {
         return baseProcess;
     }
 
+    public static boolean isOptionChecked(Map<String, Object> argumentsMap, String key, Object... args) {
+        if (key != null && argumentsMap != null) {
+            final Object value = argumentsMap.get(key);
+            if (value instanceof Boolean) {
+                return (Boolean) value;
+            } else if (value instanceof String) {
+                return Boolean.parseBoolean((String) value);
+            } else if (value instanceof Integer) {
+                if (args != null && args.length > 0) {
+                    if (key.equals(TalendProcessArgumentConstant.ARG_GENERATE_OPTION)) { // for generated option
+                        boolean checked = true;
+                        for (Object arg : args) {
+                            if (!(arg instanceof Integer) || !BitwiseOptionUtils.containOption((Integer) value, (Integer) arg)) {
+                                checked = false;
+                                break;
+                            }
+                        }
+                        return checked;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

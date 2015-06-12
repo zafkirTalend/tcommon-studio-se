@@ -70,6 +70,7 @@ import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
+import org.talend.core.runtime.process.TalendProcessOptionConstants;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
@@ -90,15 +91,15 @@ import org.talend.repository.model.IRepositoryService;
  */
 public class ProcessorUtilities {
 
-    public static final int GENERATE_MAIN_ONLY = 1 << 1;
+    public static final int GENERATE_MAIN_ONLY = TalendProcessOptionConstants.GENERATE_MAIN_ONLY;
 
-    public static final int GENERATE_WITH_FIRST_CHILD = 1 << 2;
+    public static final int GENERATE_WITH_FIRST_CHILD = TalendProcessOptionConstants.GENERATE_WITH_FIRST_CHILD;
 
-    public static final int GENERATE_ALL_CHILDS = 1 << 3;
+    public static final int GENERATE_ALL_CHILDS = TalendProcessOptionConstants.GENERATE_ALL_CHILDS;
 
-    public static final int GENERATE_TESTS = 1 << 4;
+    public static final int GENERATE_TESTS = TalendProcessOptionConstants.GENERATE_TESTS;
 
-    public static final int GENERATE_WITHOUT_COMPILING = 1 << 5;
+    public static final int GENERATE_WITHOUT_COMPILING = TalendProcessOptionConstants.GENERATE_WITHOUT_COMPILING;
 
     private static String interpreter, codeLocation, libraryPath;
 
@@ -456,6 +457,7 @@ public class ProcessorUtilities {
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
 
         processor.setArguments(argumentsMap);
         // generate the code of the father after the childrens
@@ -785,6 +787,7 @@ public class ProcessorUtilities {
             argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
             argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN,
                     jobInfo.isApplyContextToChildren());
+            argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
 
             processor.setArguments(argumentsMap);
 

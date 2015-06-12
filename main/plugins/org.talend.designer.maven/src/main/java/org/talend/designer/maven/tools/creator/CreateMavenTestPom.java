@@ -25,24 +25,18 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
-import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
@@ -75,55 +69,6 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         return this.jobProcessor;
     }
 
-    private Set<JobInfo> getClonedJobInfos() {
-        if (this.clonedJobInfos.isEmpty()) {
-            Set<JobInfo> buildChildrenJobs = getJobProcessor().getBuildChildrenJobs();
-            for (JobInfo jobInfo : buildChildrenJobs) {
-                JobInfo newJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
-
-                newJobInfo.setJobName(jobInfo.getJobName());
-                newJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                newJobInfo.setContext(jobInfo.getContext());
-                newJobInfo.setProjectFolderName(jobInfo.getProjectFolderName());
-                newJobInfo.setProcessItem(jobInfo.getProcessItem());
-
-                ProcessItem processItem = newJobInfo.getProcessItem();
-                if (processItem == null) {
-                    try {
-                        final IRepositoryViewObject obj = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
-                                .getSpecificVersion(jobInfo.getJobId(), jobInfo.getJobVersion(), true);
-                        if (obj != null) {
-                            final Item item = obj.getProperty().getItem();
-                            if (item instanceof ProcessItem) {
-                                processItem = (ProcessItem) item;
-                                newJobInfo.setProcessItem(processItem);
-                            }
-                        }
-                    } catch (PersistenceException e) {
-                        //
-                    }
-
-                }
-
-                if (processItem != null) {
-                    IProcess process = jobInfo.getProcess();
-                    // get the type
-                    if (process == null && GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
-                        IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                IDesignerCoreService.class);
-                        process = service.getProcessFromItem(processItem);
-                        newJobInfo.setProcess(process);
-                    }
-                    final String projectFolderName = JavaResourcesHelper.getProjectFolderName(processItem);
-                    newJobInfo.setProjectFolderName(projectFolderName);
-                }
-                clonedJobInfos.add(newJobInfo);
-            }
-        }
-        return this.clonedJobInfos;
-    }
-
-    @SuppressWarnings("nls")
     @Override
     protected Model createModel() {
         Model model = super.createModel();
@@ -224,7 +169,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
             // add children jobs in dependencies
             final List<Dependency> dependencies = model.getDependencies();
             String parentId = getJobProcessor().getProperty().getId();
-            final Set<JobInfo> clonedChildrenJobInfors = getClonedJobInfos();
+            final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();
             for (JobInfo jobInfo : clonedChildrenJobInfors) {
                 if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
                     Dependency d = PomUtil.createDependency(model.getGroupId(), jobInfo.getJobName(), jobInfo.getJobVersion(),

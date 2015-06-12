@@ -17,6 +17,7 @@ import java.util.Properties;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.utils.PomUtil;
@@ -91,16 +92,8 @@ public abstract class CreateMaven {
         return argumentsMap;
     }
 
-    protected boolean isOptionChecked(String key) {
-        if (key != null && argumentsMap != null) {
-            final Object object = argumentsMap.get(key);
-            if (object instanceof Boolean) {
-                return (Boolean) object;
-            } else if (object instanceof String) {
-                return Boolean.parseBoolean((String) object);
-            }
-        }
-        return false;
+    protected boolean isOptionChecked(String key, Object... args) {
+        return ProcessUtils.isOptionChecked(argumentsMap, key, args);
     }
 
     protected String getOptionValue(String key) {
