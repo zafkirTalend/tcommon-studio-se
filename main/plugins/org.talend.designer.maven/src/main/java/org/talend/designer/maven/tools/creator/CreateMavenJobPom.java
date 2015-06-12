@@ -35,6 +35,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
@@ -387,8 +388,9 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
         checkPomProperty(properties, "talend.job.date", ETalendMavenVariables.JobDate,
                 jobInfoProp.getProperty(JobInfoProperties.DATE, JobInfoProperties.DATAFORMAT.format(new Date())));
-        checkPomProperty(properties, "talend.job.context", ETalendMavenVariables.JobContext,
-                "--context=" + jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName()));
+
+        String contextName = jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName());
+        checkPomProperty(properties, "talend.job.context", ETalendMavenVariables.JobContext, contextName);
         checkPomProperty(properties, "talend.job.id", ETalendMavenVariables.JobId,
                 jobInfoProp.getProperty(JobInfoProperties.JOB_ID, process.getId()));
 
@@ -405,12 +407,21 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         /*
          * for bat/sh in assembly
          */
+        final String contextParamPart = "--context=" + contextName;
         checkPomProperty(properties, "talend.job.bat.classpath", ETalendMavenVariables.JobBatClasspath,
                 this.getWindowsClasspath());
-        checkPomProperty(properties, "talend.job.bat.addition", ETalendMavenVariables.JobBatAddition,
-                this.getWindowsScriptAddition());
+        String windowsScriptAdditionValue = contextParamPart;
+        if (StringUtils.isNotEmpty(this.getWindowsScriptAddition())) {
+            windowsScriptAdditionValue += ' ' + this.getWindowsScriptAddition();
+        }
+        checkPomProperty(properties, "talend.job.bat.addition", ETalendMavenVariables.JobBatAddition, windowsScriptAdditionValue);
+
         checkPomProperty(properties, "talend.job.sh.classpath", ETalendMavenVariables.JobShClasspath, this.getUnixClasspath());
-        checkPomProperty(properties, "talend.job.sh.addition", ETalendMavenVariables.JobShAddition, this.getUnixScriptAddition());
+        String unixScriptAdditionValue = contextParamPart;
+        if (StringUtils.isNotEmpty(this.getUnixScriptAddition())) {
+            unixScriptAdditionValue += ' ' + this.getUnixScriptAddition();
+        }
+        checkPomProperty(properties, "talend.job.sh.addition", ETalendMavenVariables.JobShAddition, unixScriptAdditionValue);
 
         String finalNameStr = JavaResourcesHelper.getJobJarName(property.getLabel(), property.getVersion());
         checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameStr);
