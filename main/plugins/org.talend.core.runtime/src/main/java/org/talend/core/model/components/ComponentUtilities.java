@@ -13,6 +13,7 @@
 package org.talend.core.model.components;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +35,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
  * DOC ggu class global comment. Detailled comment
  */
 public final class ComponentUtilities {
+
+    public static final String FAMILY_SEPARATOR_REGEX = "\\|"; //$NON-NLS-1$
 
     private static final String CASE_SENSITIVE = "CASE_SENSITIVE"; //$NON-NLS-1$
 
@@ -185,5 +188,36 @@ public final class ComponentUtilities {
             path = folder + "-" + workspaceName; //$NON-NLS-1$
         }
         return path;
+    }
+
+    public static Collection<IComponent> filterVisibleComponents(Collection<IComponent> components) {
+        if (components == null || components.isEmpty()) {
+            return components;
+        }
+
+        Iterator<IComponent> iter = components.iterator();
+        while (iter.hasNext()) {
+            IComponent component = iter.next();
+            if (component == null || !isComponentVisible(component)) {
+                iter.remove();
+            }
+        }
+
+        return components;
+    }
+
+    public static boolean isComponentVisible(IComponent component) {
+        String family = component.getTranslatedFamilyName();
+        String oraFamily = component.getOriginalFamilyName();
+        String[] strings = family.split(FAMILY_SEPARATOR_REGEX);
+        String[] oraStrings = oraFamily.split(FAMILY_SEPARATOR_REGEX);
+        boolean isVisible = false;
+        for (int j = 0; j < strings.length; j++) {
+            if (component.isVisible(oraStrings[j])) {
+                isVisible = true;
+                break;
+            }
+        }
+        return isVisible;
     }
 }

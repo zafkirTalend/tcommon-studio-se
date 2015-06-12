@@ -17,6 +17,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.talend.commons.exception.IllegalPluginConfigurationException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.components.IComponentFileNaming;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
@@ -34,7 +35,7 @@ import org.talend.designer.core.IPaletteFilter;
  */
 public class ComponentsFactoryProvider {
 
-    public static final String FAMILY_SEPARATOR_REGEX = "\\|"; //$NON-NLS-1$
+    public static final String FAMILY_SEPARATOR_REGEX = ComponentUtilities.FAMILY_SEPARATOR_REGEX;
 
     private static IComponentsFactory factorySingleton = null;
 
