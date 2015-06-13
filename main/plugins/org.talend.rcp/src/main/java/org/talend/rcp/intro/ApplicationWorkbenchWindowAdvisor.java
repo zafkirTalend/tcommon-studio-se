@@ -31,6 +31,7 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
@@ -61,6 +62,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.utils.CheatSheetPerspectiveAdapter;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
@@ -79,6 +81,7 @@ import org.talend.core.model.utils.TalendPropertiesUtil;
 import org.talend.core.prefs.IDEInternalPreferences;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.util.JavaHomeUtil;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
@@ -220,7 +223,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      */
     @Override
     public void postWindowOpen() {
-        // intro
+
+        if (!JavaHomeUtil.isJDKSetup()) {
+            MessageDialog.openWarning(DisplayUtils.getDefaultShell(), Messages.getString("ApplicationWorkbenchWindowAdvisor.0"), //$NON-NLS-1$
+                    Messages.getString("ApplicationWorkbenchWindowAdvisor.1") //$NON-NLS-1$
+                    + Messages.getString("ApplicationWorkbenchWindowAdvisor.2")); //$NON-NLS-1$
+        }
 
         IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
         boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
@@ -297,7 +305,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                         activePage.resetPerspective();
                     } else {
                         // if no bonita menue is filtered ,need to recaculate
-                        String bonitaMenues = "org.bonitasoft.studio";
+                        String bonitaMenues = "org.bonitasoft.studio"; //$NON-NLS-1$
                         boolean isBPMFilterWork = false;
                         for (int i = 0; hideMenuArray != null && i < hideMenuArray.length; i++) {
                             IMemento hideMenu = hideMenuArray[i];
@@ -356,7 +364,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         for (IContributionItem menuItem : menuItems) {
             // Hack to remove the Run menu - it seems you cannot do this using the
             // "org.eclipse.ui.activities" extension
-            if ("org.eclipse.ui.run".equals(menuItem.getId())) {
+            if (Messages.getString("ApplicationWorkbenchWindowAdvisor.4").equals(menuItem.getId())) { //$NON-NLS-1$
                 menuManager.remove(menuItem);
             }
         }
