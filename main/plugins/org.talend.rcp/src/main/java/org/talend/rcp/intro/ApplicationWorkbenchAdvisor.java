@@ -68,7 +68,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     @Override
     public void initialize(IWorkbenchConfigurer configurer) {
         super.initialize(configurer);
-        configurer.setSaveAndRestore(true);
+        configurer.setSaveAndRestore(false);
         TrayDialog.setDialogHelpAvailable(false);
 
         PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.CLOSE_EDITORS_ON_EXIT, true);
