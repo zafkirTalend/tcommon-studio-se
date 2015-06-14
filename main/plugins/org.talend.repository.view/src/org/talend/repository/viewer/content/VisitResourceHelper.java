@@ -77,15 +77,11 @@ public class VisitResourceHelper {
                     for (IResourceDelta childResourceDelta : delta.getAffectedChildren()) {
                         IResource childResource = childResourceDelta.getResource();
                         // if not under talend project. ignore
-                        if (childResource.getProject() != null && !childResource.getProject().hasNature(TalendNature.ID)) {
-                            return true; // if not talend project, ignore.
+                        if (childResource.getProject() != null && childResource.getProject().hasNature(TalendNature.ID)) {
+                            return false; // only validate if there is a talend project here.
                         }
-                        // if under svn folder, ignore
-                        if (FilesUtils.isSVNFolder(childResource)) {
-                            return true;
-                        }
-
                     }
+                    return true;
                 } else {
                     // if not under talend project. ignore
                     if (!resource.getProject().hasNature(TalendNature.ID)) {
