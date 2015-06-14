@@ -70,9 +70,9 @@ public class JavaHomeUtil {
     }
 
     public static String getJDKHomeVariable() {
-        String jdkHome = System.getenv("JDK_HOME"); //$NON-NLS-1$
+        String jdkHome = System.getProperty("jdk.home"); //$NON-NLS-1$
         if (jdkHome == null || "".equals(jdkHome)) { //$NON-NLS-1$
-            jdkHome = System.getProperty("jdk.home"); //$NON-NLS-1$
+            jdkHome = System.getenv("JDK_HOME"); //$NON-NLS-1$
         }
         return jdkHome;
     }
