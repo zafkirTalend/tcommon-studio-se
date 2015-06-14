@@ -16,9 +16,5 @@
             name="InitWorkspaceMigrationTask"
             version="5.1.2"/>
    </extension>
-   <extension
-         point="org.eclipse.ui.startup">
-      <startup class="org.talend.migrationtool.model.summary.AlertUserOnLogin"/>
-   </extension>
 
 </plugin>
