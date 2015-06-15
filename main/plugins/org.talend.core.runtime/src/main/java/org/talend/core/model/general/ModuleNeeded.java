@@ -231,8 +231,7 @@ public class ModuleNeeded {
             if (existLibraries.contains(getModuleName())) {
                 status = ELibraryInstallStatus.INSTALLED;
             } else {// then try to resolve locally
-                String localMavenUri = getMavenUri();
-                localMavenUri.replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!"); //$NON-NLS-1$ //$NON-NLS-2$
+                String localMavenUri = getMavenUri().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!"); //$NON-NLS-1$ //$NON-NLS-2$
                 try {
                     mavenResolver.resolve(localMavenUri);
                     status = ELibraryInstallStatus.INSTALLED;
