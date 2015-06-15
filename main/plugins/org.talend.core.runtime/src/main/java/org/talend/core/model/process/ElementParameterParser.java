@@ -113,6 +113,77 @@ public final class ElementParameterParser {
         return value;
     }
 
+    public static String getPasswordValue(final IElement node, final String parameterName) {
+        if (getObjectValue(node, parameterName) == null) {
+            // this exception only be allowed in dev environment
+            ExceptionHandler.process(new Exception("Can't get value from current node " + node + " or the paramter name" //$NON-NLS-1$ //$NON-NLS-2$
+                    + parameterName));
+            return null;
+        } else {
+            if (ElementParameterParser.canEncrypt(node, parameterName)) {
+                return "routines.system.PasswordEncryptUtil.decryptPassword(" + ElementParameterParser.getEncryptedValue(node, parameterName) //$NON-NLS-1$
+                        + ")"; //$NON-NLS-1$
+            } else {
+                return ElementParameterParser.getValue(node, parameterName);
+            }
+        }
+    }
+
+    public static Boolean getBooleanValue(final IElement node, final String parameterName) {
+        if (getObjectValue(node, parameterName) == null) {
+            // this exception only be allowed in dev environment
+            ExceptionHandler.process(new Exception("Can't get value from current node " + node + " or the paramter name" //$NON-NLS-1$ //$NON-NLS-2$
+                    + parameterName));
+            return null;
+        } else {
+            return Boolean.valueOf(getValue(node, parameterName));
+        }
+    }
+
+    public static INode getLinkedNodeValue(final IElement node, final String parameterName) {
+        if (getObjectValue(node, parameterName) == null) {
+            // this exception only be allowed in dev environment
+            ExceptionHandler.process(new Exception("Can't get value from current node " + node + " or the paramter name" //$NON-NLS-1$ //$NON-NLS-2$
+                    + parameterName));
+            return null;
+        } else {
+            String linkedNodeName = ElementParameterParser.getValue(node, parameterName);
+            java.util.List<? extends INode> linkedNodes = ((INode) node).getProcess().getNodesOfType(
+                    linkedNodeName.substring(0, linkedNodeName.lastIndexOf("_"))); //$NON-NLS-1$
+            if (linkedNodes != null && linkedNodes.size() > 0) {
+                for (INode linkedNode : linkedNodes) {
+                    if (linkedNode.getUniqueName().equals(linkedNodeName)) {
+                        return linkedNode;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static String getWrapDoubleQuoteValue(final IElement node, final String parameterName) {
+        if (getObjectValue(node, parameterName) == null) {
+            // this exception only be allowed in dev environment
+            ExceptionHandler.process(new Exception("Can't get value from current node " + node + " or the paramter name" //$NON-NLS-1$ //$NON-NLS-2$
+                    + parameterName));
+            return null;
+        } else {
+            return "\"" + getValue(node, parameterName) + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+        }
+    }
+
+    public static List<Map<String, String>> getTableValue(final IElement node, final String parameterName) {
+        Object objectValue = getObjectValue(node, parameterName);
+        if (objectValue == null) {
+            // this exception only be allowed in dev environment
+            ExceptionHandler.process(new Exception("Can't get value from current node " + node + " or the paramter name" //$NON-NLS-1$ //$NON-NLS-2$
+                    + parameterName));
+            return null;
+        } else {
+            return ((List<Map<String, String>>) objectValue);
+        }
+    }
+
     public static List<Map<String, String>> getTableElementParameterValue(IElementParameter parameter) {
         if (parameter.getFieldType() == EParameterFieldType.TABLE) {
             return createTableValues((List<Map<String, Object>>) parameter.getValue(), parameter);
