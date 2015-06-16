@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -93,8 +92,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     private String windowsScriptAddition, unixScriptAddition;
 
-    private Set<JobInfo> clonedJobInfos = new HashSet<JobInfo>();
-
     private final ProcessorDependenciesManager processorDependenciesManager;
 
     private IFile assemblyFile;
@@ -108,6 +105,8 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
+        // for job always ignore case.
+        this.setIgnoreFileNameCase(true);
     }
 
     public IProcessor getJobProcessor() {
@@ -404,6 +403,14 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
         IFile assemblyFile = this.getAssemblyFile();
         if (assemblyFile != null) {
+
+            try {
+                checkCreatingFile(monitor, assemblyFile);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+                return;
+            }
+
             boolean set = false;
             // read template from project setting
             try {

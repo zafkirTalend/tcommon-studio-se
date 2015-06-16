@@ -12,21 +12,25 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.PluginChecker;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
-import org.talend.designer.maven.utils.PomUtil;
 
 /**
  * created by ggu on 2 Feb 2015 Detailled comment
@@ -46,6 +50,11 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
     private final IFile pomFile;
 
     private boolean overwrite = true;
+
+    /*
+     * specially for win os, with file name for different case. make sure all platform are same, can set true.
+     */
+    private boolean ignoreFileNameCase = false;
 
     public CreateMavenBundleTemplatePom(IFile pomFile, String bundleTemplateName) {
         super();
@@ -67,6 +76,14 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
     public void setOverwrite(boolean overwrite) {
         this.overwrite = overwrite;
+    }
+
+    public boolean isIgnoreFileNameCase() {
+        return ignoreFileNameCase;
+    }
+
+    public void setIgnoreFileNameCase(boolean ignoreFileNameCase) {
+        this.ignoreFileNameCase = ignoreFileNameCase;
     }
 
     @Override
@@ -135,13 +152,11 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
         // curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
 
-        if (curPomFile.exists()) {
-            if (isOverwrite()) {
-                curPomFile.delete(true, monitor);
-            } else {
-                // throw new IOException("The pom file have been existed. it's " + curPomFile);
-                return;
-            }
+        try {
+            checkCreatingFile(monitor, curPomFile);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+            return;
         }
 
         Model model = createModel();
@@ -152,6 +167,50 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
         curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
 
+    }
+
+    protected void checkCreatingFile(IProgressMonitor monitor, IFile currentFile) throws Exception {
+        List<IFile> existedSameFiles = getExistedFiles(currentFile);
+
+        if (existedSameFiles.contains(currentFile)) { // existed current one
+            if (isOverwrite()) {// delete all
+                for (IFile file : existedSameFiles) {
+                    file.delete(true, monitor);
+                }
+            } else { // nothing to do
+                throw new IOException("Can't overwrite the file: " + currentFile);
+            }
+        } else { // only existed other case files. delete all.
+            for (IFile file : existedSameFiles) {
+                file.delete(true, monitor);
+            }
+        }
+    }
+
+    protected List<IFile> getExistedFiles(IFile file) {
+        List<IFile> existedFiles = new ArrayList<IFile>();
+        if (isIgnoreFileNameCase()) {
+            final String currentFileName = file.getName();
+            File parentFile = file.getLocation().toFile().getParentFile();
+            if (parentFile.exists()) {
+                File[] listFiles = parentFile.listFiles(new FilenameFilter() {
+
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.equalsIgnoreCase(currentFileName);
+                    }
+                });
+                if (listFiles != null) {
+                    for (File f : listFiles) {
+                        IFile sameFile = file.getParent().getFile(new Path(f.getName()));
+                        existedFiles.add(sameFile);
+                    }
+                }
+            }
+        } else if (file.exists()) { // only add current file
+            existedFiles.add(file);
+        }
+        return existedFiles;
     }
 
 }

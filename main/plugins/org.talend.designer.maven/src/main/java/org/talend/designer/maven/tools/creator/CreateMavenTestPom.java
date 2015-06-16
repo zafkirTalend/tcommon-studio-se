@@ -63,6 +63,7 @@ public class CreateMavenTestPom extends CreateMavenBundleTemplatePom {
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
+        this.setIgnoreFileNameCase(true);
     }
 
     public IProcessor getJobProcessor() {
