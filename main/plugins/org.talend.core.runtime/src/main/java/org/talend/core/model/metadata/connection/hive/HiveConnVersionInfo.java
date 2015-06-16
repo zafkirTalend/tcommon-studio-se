@@ -92,13 +92,6 @@ public enum HiveConnVersionInfo {
             true,
             HiveConnVersionInfo.HORTONWORKS),
 
-    HDP_1_0(
-            1,
-            EHadoopVersion4Drivers.HDP_1_0.getVersionValue(),
-            EHadoopVersion4Drivers.HDP_1_0.getVersionDisplay(),
-            true,
-            HiveConnVersionInfo.HORTONWORKS),
-
     APACHE_1_0_0(1, EHadoopVersion4Drivers.APACHE_1_0_0.getVersionValue(), EHadoopVersion4Drivers.APACHE_1_0_0
             .getVersionDisplay(), false, HiveConnVersionInfo.APACHE),
 
@@ -129,9 +122,6 @@ public enum HiveConnVersionInfo {
 
     Cloudera_CDH4(1, EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH4
             .getVersionDisplay(), true, true, HiveConnVersionInfo.CLOUDERA),
-
-    Cloudera_CDH3(1, EHadoopVersion4Drivers.CLOUDERA_CDH3.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH3
-            .getVersionDisplay(), false, HiveConnVersionInfo.CLOUDERA),
 
     MAPR4_0_1(
               1,
@@ -196,13 +186,6 @@ public enum HiveConnVersionInfo {
                      EHadoopVersion4Drivers.APACHE_1_0_3_EMR.getVersionValue(),
                      "Apache 1.0.3 (Hive 0.8.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$
 
-    MapR_EMR(
-             1,
-             EHadoopVersion4Drivers.MAPR_EMR.getVersionValue(),
-             EHadoopVersion4Drivers.MAPR_EMR.getVersionDisplay(),
-             false,
-             HiveConnVersionInfo.AMAZON_EMR),
-
     PIVOTAL_HD_2_0(1, EHadoopVersion4Drivers.PIVOTAL_HD_2_0.getVersionValue(), EHadoopVersion4Drivers.PIVOTAL_HD_2_0
             .getVersionDisplay(), true, false, true, true, HiveConnVersionInfo.PIVOTAL_HD),
 
@@ -214,7 +197,6 @@ public enum HiveConnVersionInfo {
     MODE_EMBEDDED(2, "EMBEDDED",//$NON-NLS-1$
                   "Embedded",//$NON-NLS-1$
                   false,
-                  HiveConnVersionInfo.HDP_1_0,
                   HiveConnVersionInfo.HDP_1_2,
                   HiveConnVersionInfo.HDP_1_3,
                   HiveConnVersionInfo.HDP_2_0,
@@ -249,7 +231,6 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.HDP_2_2,
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
-                    HiveConnVersionInfo.Cloudera_CDH3,
                     HiveConnVersionInfo.Cloudera_CDH4,
                     HiveConnVersionInfo.Cloudera_CDH4_YARN,
                     HiveConnVersionInfo.Cloudera_CDH5,
@@ -263,7 +244,6 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MAPR3_0_1,
                     HiveConnVersionInfo.MAPR3_1_0,
                     HiveConnVersionInfo.MAPR4_0_1,
-                    HiveConnVersionInfo.MapR_EMR,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.APACHE_2_4_0_EMR,
                     HiveConnVersionInfo.PIVOTAL_HD_1_0_1,

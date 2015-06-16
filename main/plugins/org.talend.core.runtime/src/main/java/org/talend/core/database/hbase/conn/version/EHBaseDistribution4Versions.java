@@ -36,9 +36,6 @@ public enum EHBaseDistribution4Versions {
     HDP_1_2(EHBaseDistributions.HORTONWORKS, EHadoopVersion4Drivers.HDP_1_2.getVersionDisplay(), EHadoopVersion4Drivers.HDP_1_2
             .getVersionValue()),
 
-    HDP_1_0(EHBaseDistributions.HORTONWORKS, EHadoopVersion4Drivers.HDP_1_0.getVersionDisplay(), EHadoopVersion4Drivers.HDP_1_0
-            .getVersionValue()),
-
     APACHE_0_20_203(
                     EHBaseDistributions.APACHE,
                     EHadoopVersion4Drivers.APACHE_0_20_203.getVersionDisplay(),
@@ -88,11 +85,6 @@ public enum EHBaseDistribution4Versions {
                   EHBaseDistributions.CLOUDERA,
                   EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionDisplay(),
                   EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionValue()),
-
-    CLOUDERA_CDH3(
-                  EHBaseDistributions.CLOUDERA,
-                  EHadoopVersion4Drivers.CLOUDERA_CDH3.getVersionDisplay(),
-                  EHadoopVersion4Drivers.CLOUDERA_CDH3.getVersionValue()),
 
     MAPR_4_0_1(EHBaseDistributions.MAPR, EHadoopVersion4Drivers.MAPR401.getVersionDisplay(), EHadoopVersion4Drivers.MAPR401
             .getVersionValue()),

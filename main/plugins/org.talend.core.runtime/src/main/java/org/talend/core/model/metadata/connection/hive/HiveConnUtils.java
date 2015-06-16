@@ -227,16 +227,13 @@ public class HiveConnUtils {
     }
 
     private static boolean isSupportEmbedded(HiveConnVersionInfo hiveVersionObj) {
-        return !(HiveConnVersionInfo.APACHE_0_20_203.equals(hiveVersionObj) || HiveConnVersionInfo.MAPR1.equals(hiveVersionObj)
-                || HiveConnVersionInfo.MapR_EMR.equals(hiveVersionObj) || HiveConnVersionInfo.Cloudera_CDH3
-                    .equals(hiveVersionObj));
+        return !(HiveConnVersionInfo.APACHE_0_20_203.equals(hiveVersionObj) || HiveConnVersionInfo.MAPR1.equals(hiveVersionObj));
     }
 
     private static boolean isSupportStandalone(HiveConnVersionInfo hiveVersionObj, int hiveServerIndex) {
         boolean isHiveServer1 = "HIVE".equals(HiveServerVersionUtils.extractKey(hiveServerIndex)); //$NON-NLS-1$
-        return !(HiveConnVersionInfo.HDP_1_0.equals(hiveVersionObj) || isHiveServer1
-                && (HiveConnVersionInfo.HDP_1_2.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_1_3.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_2_0
-                        .equals(hiveVersionObj)));
+        return !(isHiveServer1 && (HiveConnVersionInfo.HDP_1_2.equals(hiveVersionObj)
+                || HiveConnVersionInfo.HDP_1_3.equals(hiveVersionObj) || HiveConnVersionInfo.HDP_2_0.equals(hiveVersionObj)));
     }
 
     protected static List<String> getHiveModeNameList(int distributionIndex, int versionIndex, int hiveServerIndex) {

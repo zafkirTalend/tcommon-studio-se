@@ -44,8 +44,6 @@ public enum EHadoopVersion4Drivers {
 
     HDP_1_2(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.2.0(Bimota)", "HDP_1_2", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    HDP_1_0(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V1.0.0(deprecated)", "HDP_1_0", true, false), //$NON-NLS-1$ //$NON-NLS-2$
-
     APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
     APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false), //$NON-NLS-1$ //$NON-NLS-2$
@@ -86,8 +84,6 @@ public enum EHadoopVersion4Drivers {
 
     CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    CLOUDERA_CDH3(EHadoopDistributions.CLOUDERA, "Cloudera CDH3(deprecated)", "Cloudera_CDH3", false, false), //$NON-NLS-1$ //$NON-NLS-2$
-
     MAPR401(EHadoopDistributions.MAPR, "MapR 4.0.1", "MAPR401", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
     MAPR310(EHadoopDistributions.MAPR, "MapR 3.1.0", "MAPR310", false, true), //$NON-NLS-1$ //$NON-NLS-2$
@@ -109,8 +105,6 @@ public enum EHadoopVersion4Drivers {
                      new EMRVersion[] { EMRVersion.YARN }),
 
     APACHE_1_0_3_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 1.0.3", "APACHE_1_0_3_EMR", true, false), //$NON-NLS-1$ //$NON-NLS-2$
-
-    MAPR_EMR(EHadoopDistributions.AMAZON_EMR, "MapR 1.2.8(deprecated)", "MapR_EMR", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
     PIVOTAL_HD_2_0(EHadoopDistributions.PIVOTAL_HD, "Pivotal HD 2.0", //$NON-NLS-1$
                    "PIVOTAL_HD_2_0", //$NON-NLS-1$
