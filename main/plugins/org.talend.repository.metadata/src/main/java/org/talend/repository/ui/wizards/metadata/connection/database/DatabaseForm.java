@@ -1148,7 +1148,8 @@ public class DatabaseForm extends AbstractForm {
             int distributionIndex = distributionCombo.getSelectionIndex();
             int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
             int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-            int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+            int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
+                    hiveServerVersionCombo.getSelectionIndex());
             if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
                 boolean isHive2 = false;
                 if (HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
@@ -4431,7 +4432,8 @@ public class DatabaseForm extends AbstractForm {
                     int distributionIndex = distributionCombo.getSelectionIndex();
                     int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
                     int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-                    int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+                    int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
+                            hiveServerVersionCombo.getSelectionIndex());
                     if (HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex)) {
                         if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex)) {
                             s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_EMBEDDED);
@@ -5478,7 +5480,8 @@ public class DatabaseForm extends AbstractForm {
         int distributionIndex = distributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
+                hiveServerVersionCombo.getSelectionIndex());
         // MOD msjian TDQ-6407 2012-11-26: for top, until now, not support embeded mode for hive
         // if (isTOPStandaloneMode()) {
         // getConnection().setURL(getStringConnection());
@@ -5724,13 +5727,15 @@ public class DatabaseForm extends AbstractForm {
     }
 
     protected void doHiveServerSelected() {
-        if (!isContextMode()) {
-            modifyFieldValue();
-            getConnection().getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION,
-                    HiveServerVersionUtils.extractKey(hiveServerVersionCombo.getSelectionIndex()));
-        }
         int distributionIndex = distributionCombo.getSelectionIndex();
         int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
+        if (!isContextMode()) {
+            modifyFieldValue();
+            getConnection().getParameters().put(
+                    ConnParameterKeys.HIVE_SERVER_VERSION,
+                    HiveServerVersionUtils.extractKey(getRealHiveServerIndex(distributionIndex, currSelectedIndex,
+                            hiveServerVersionCombo.getSelectionIndex())));
+        }
         updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
     }
 
@@ -5773,18 +5778,43 @@ public class DatabaseForm extends AbstractForm {
 
             String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
 
-            hiveServerVersionCombo.select(HiveServerVersionUtils.getIndexofHiveServerByKey(hiveServerKey));
+            int hiveServerIndex = 0;
+            if (hiveServerDisplayNames != null && hiveServerKey != null) {
+                for (hiveServerIndex = 0; hiveServerIndex < hiveServerDisplayNames.length; hiveServerIndex++) {
+                    if (hiveServerKey.equals(hiveServerDisplayNames)) {
+                        break;
+                    }
+                }
+                if (hiveServerDisplayNames.length <= hiveServerIndex) {
+                    hiveServerIndex = 0;
+                }
+            }
+
+            hiveServerVersionCombo.select(hiveServerIndex);
         }
-        int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
+                hiveServerVersionCombo.getSelectionIndex());
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
         updateHiveModeAndMakeSelection(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
+    }
+
+    private int getRealHiveServerIndex(int distributionIndex, int hiveVersionIndex, int relatedHiveServerIndex) {
+        int realIndex = relatedHiveServerIndex;
+        String hiveServerDisplayNames[] = HiveServerVersionUtils.extractAvailableArrayDisplayNames(HiveConnUtils
+                .getHiveVersionObj(distributionIndex, hiveVersionIndex));
+        if (hiveServerDisplayNames != null && 0 <= relatedHiveServerIndex
+                && relatedHiveServerIndex < hiveServerDisplayNames.length) {
+            realIndex = HiveConnUtils.getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[relatedHiveServerIndex]);
+        }
+        return realIndex;
     }
 
     protected String getHiveModeKey() {
         int distributionIndex = distributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
+                hiveServerVersionCombo.getSelectionIndex());
 
         return HiveConnUtils.getHiveModeObjKey(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
     }
@@ -6083,7 +6113,8 @@ public class DatabaseForm extends AbstractForm {
             int distributionIndex = distributionCombo.getSelectionIndex();
             int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
             int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-            int hiveServerIndex = hiveServerVersionCombo.getSelectionIndex();
+            int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
+                    hiveServerVersionCombo.getSelectionIndex());
 
             String key = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex)
                     .getKey();

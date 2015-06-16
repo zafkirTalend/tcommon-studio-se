@@ -336,6 +336,19 @@ public class HiveConnUtils {
         return 0;
     }
 
+    public static int getIndexOfHiveServerByDisplayName(String hiveServerDisplayName) {
+        List<String> hiveServers = HiveServerVersionUtils.extractListDisplayNames();
+        if (hiveServers != null && hiveServers.size() > 0) {
+            for (int i = 0; i < hiveServers.size(); i++) {
+                if (hiveServers.get(i).equals(hiveServerDisplayName)) {
+                    return i;
+                }
+            }
+        }
+
+        return 0;
+    }
+
     public static boolean isEmbeddedMode(int distributionIndex, int hiveVersionIndex, int hiveModeIndex, int hiveServerIndex) {
         List<HiveConnVersionInfo> hiveModes = getHiveModes(distributionIndex, hiveVersionIndex, hiveServerIndex);
         if (hiveModes != null && hiveModes.size() > 0) {
