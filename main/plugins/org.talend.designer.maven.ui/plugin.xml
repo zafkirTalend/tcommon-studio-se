@@ -59,5 +59,12 @@
             class="org.talend.designer.maven.ui.setting.project.MavenUiProjectSettingManagerProvider">
       </ProjectSettingManager>
    </extension>
+   <extension
+         point="org.talend.core.repository.login.task">
+      <loginTask
+            class="org.talend.designer.maven.ui.setting.preference.M2eUserSettingForTalendLoginTask"
+            priority="highest">
+      </loginTask>
+   </extension>
 
 </plugin>

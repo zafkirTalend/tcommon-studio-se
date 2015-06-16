@@ -51,6 +51,8 @@ public interface IProjectSettingTemplateConstants {
 
     final static String PROJECT_TEMPLATE_FILE_NAME = "pom_project_template.xml";
 
+    final static String MAVEN_USER_SETTING_TEMPLATE_FILE_NAME = "maven_user_settings.xml";
+
     /*
      * in runprocess bundle
      */
