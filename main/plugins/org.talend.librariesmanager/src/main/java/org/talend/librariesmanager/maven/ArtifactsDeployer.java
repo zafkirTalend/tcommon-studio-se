@@ -55,11 +55,13 @@ public class ArtifactsDeployer {
 
     private void init() {
         nexusServer = TalendLibsServerManager.getInstance().getCustomNexusServer();
-        String server = nexusServer.getServer();
-        if (server.endsWith(NexusConstants.SLASH)) {
-            server = server.substring(0, server.length() - 1);
+        if (nexusServer != null) {
+            String server = nexusServer.getServer();
+            if (server.endsWith(NexusConstants.SLASH)) {
+                server = server.substring(0, server.length() - 1);
+            }
+            repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
         }
-        repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
     }
 
     /**
