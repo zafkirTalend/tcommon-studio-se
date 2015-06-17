@@ -297,6 +297,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             previewInformationLabel.setText(" " + Messages.getString("FileStep2.previewProgress")); //$NON-NLS-1$ //$NON-NLS-2$
             //$NON-NLS-2$
             processDescription = getProcessDescription();
+            updateStatus(IStatus.ERROR, null);
             return true;
         }
 
@@ -389,6 +390,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
 
         @Override
         public void updateUIInThreadIfThreadFinally() {
+            checkFieldsValue();
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
                 previewButton.setEnabled(true);
@@ -397,6 +399,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
 
         @Override
         public void postProcessCancle() {
+            checkFieldsValue();
             previewButton.setEnabled(false);
         }
     }

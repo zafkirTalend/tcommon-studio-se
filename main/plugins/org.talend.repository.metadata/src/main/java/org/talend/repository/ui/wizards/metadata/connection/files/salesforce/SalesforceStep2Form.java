@@ -569,6 +569,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
                 originalValueConnection = getConnection();
             }
             processDescription = getProcessDescription(originalValueConnection);
+            updateStatus(IStatus.ERROR, null);
             return true;
         }
 
@@ -646,6 +647,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
         @Override
         public void updateUIInThreadIfThreadFinally() {
+            checkFieldsValue();
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
                 previewButton.setEnabled(true);
@@ -655,6 +657,7 @@ public class SalesforceStep2Form extends AbstractSalesforceStepForm {
 
         @Override
         public void postProcessCancle() {
+            checkFieldsValue();
             previewButton.setEnabled(false);
         }
     }

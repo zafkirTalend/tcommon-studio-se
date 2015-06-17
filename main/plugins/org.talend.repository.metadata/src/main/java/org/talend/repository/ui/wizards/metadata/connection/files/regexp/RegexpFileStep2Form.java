@@ -55,8 +55,8 @@ import org.talend.metadata.managment.ui.preview.ProcessDescription;
 import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
-import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils.EFileParamName;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.metadata.managment.ui.wizard.IRefreshable;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.metadata.ui.wizards.form.AbstractRegexpFileStepForm;
@@ -518,6 +518,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         ProcessDescription processDescription = null;
 
+        @Override
         public boolean preProcessStart() {
             previewButton.setText(Messages.getString("FileStep2.stop")); //$NON-NLS-1$
 
@@ -560,9 +561,11 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
                 originalValueConnection = getConnection();
             }
             processDescription = getProcessDescription(originalValueConnection);
+            updateStatus(IStatus.ERROR, null);
             return true;
         }
 
+        @Override
         public void nonUIProcessInThread() {
             // get the XmlArray width an adapt ProcessDescription
             try {
@@ -573,12 +576,14 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsCanceled() {
             if (!previewInformationLabel.isDisposed()) {
                 previewInformationLabel.setText(""); //$NON-NLS-1$
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadIsNotCanceled() {
             if (previewInformationLabel.isDisposed()) {
                 return;
@@ -587,6 +592,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().syncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -606,14 +612,18 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
             }
         }
 
+        @Override
         public void updateUIInThreadIfThreadFinally() {
+            checkFieldsValue();
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
                 previewButton.setEnabled(true);
             }
         }
 
+        @Override
         public void postProcessCancle() {
+            checkFieldsValue();
             previewButton.setEnabled(false);
         }
     }
@@ -749,6 +759,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         // Event : Modify (to control the use of Ctrl V)
         rowsToSkipHeaderCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipHeaderCheckboxCombo.isEmpty()) {
@@ -779,6 +790,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowsToSkipFooterCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipFooterCheckboxCombo.isEmpty()) {
@@ -803,6 +815,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowsToSkipLimitCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipLimitCheckboxCombo.isEmpty()) {
@@ -875,6 +888,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         // Event encodingCombo
         encodingCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setEncoding(encodingCombo.getText());
@@ -885,6 +899,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowSeparatorCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     // Label Custom of rowSeparatorText
@@ -896,6 +911,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         // Separator Text (field and row)
         fieldSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setFieldSeparatorValue(fieldSeparatorText.getText());
@@ -926,6 +942,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
 
         rowSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setRowSeparatorValue(rowSeparatorText.getText());
@@ -1120,6 +1137,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }
@@ -1147,6 +1165,7 @@ public class RegexpFileStep2Form extends AbstractRegexpFileStepForm implements I
         rowsToSkipFooterCheckboxCombo.getCheckbox().setEnabled(!isContextMode());
     }
 
+    @Override
     protected void collectConnParams() {
         super.collectConnParams();
         addContextParams(EFileParamName.RowSeparator, true);

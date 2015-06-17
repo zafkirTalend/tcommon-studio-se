@@ -61,8 +61,8 @@ import org.talend.metadata.managment.ui.preview.ProcessDescription;
 import org.talend.metadata.managment.ui.preview.ShadowProcessPreview;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils;
-import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.metadata.managment.ui.utils.FileConnectionContextUtils.EFileParamName;
+import org.talend.metadata.managment.ui.utils.ShadowProcessHelper;
 import org.talend.metadata.managment.ui.wizard.IRefreshable;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.metadata.ui.wizards.form.AbstractExcelFileStepForm;
@@ -591,6 +591,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
     private void addFieldsListenersDieOnError() {
         firstColumnText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setFirstColumn(firstColumnText.getText());
@@ -602,6 +603,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         lastColumnText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setLastColumn(lastColumnText.getText());
@@ -683,6 +685,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         // Event : Modify (to control the use of Ctrl V)
         rowsToSkipHeaderCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipHeaderCheckboxCombo.isEmpty()) {
@@ -716,6 +719,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         rowsToSkipFooterCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipFooterCheckboxCombo.isEmpty()) {
@@ -741,6 +745,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         rowsToSkipLimitCheckboxCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     if (!rowsToSkipLimitCheckboxCombo.isEmpty()) {
@@ -807,6 +812,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
         // Event encodingCombo
         encodingCombo.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(final ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setEncoding(encodingCombo.getText());
@@ -839,6 +845,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         decimalSeparatorText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setDecimalSeparator(decimalSeparatorText.getText());
@@ -850,6 +857,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         thousandSeparaotrText.addModifyListener(new ModifyListener() {
 
+            @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().setThousandSeparator(thousandSeparaotrText.getText());
@@ -1023,6 +1031,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
                 originalValueConnection = getConnection();
             }
             processDescription = getProcessDescription(originalValueConnection);
+            updateStatus(IStatus.ERROR, null);
             return true;
         }
 
@@ -1063,6 +1072,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
                 previewInformationLabel.setText("   " + Messages.getString("FileStep2.previewFailure")); //$NON-NLS-1$ //$NON-NLS-2$
                 Display.getDefault().asyncExec(new Runnable() {
 
+                    @Override
                     public void run() {
                         handleErrorOutput(outputComposite, tabFolder, outputTabItem);
                     }
@@ -1082,6 +1092,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         @Override
         public void updateUIInThreadIfThreadFinally() {
+            checkFieldsValue();
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
                 previewButton.setEnabled(true);
@@ -1091,6 +1102,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
 
         @Override
         public void postProcessCancle() {
+            checkFieldsValue();
             previewButton.setEnabled(false);
         }
     }
@@ -1194,6 +1206,7 @@ public class ExcelFileStep2Form extends AbstractExcelFileStepForm implements IRe
      * 
      * @see org.talend.repository.ui.swt.utils.IRefreshable#refresh()
      */
+    @Override
     public void refresh() {
         refreshPreview();
     }

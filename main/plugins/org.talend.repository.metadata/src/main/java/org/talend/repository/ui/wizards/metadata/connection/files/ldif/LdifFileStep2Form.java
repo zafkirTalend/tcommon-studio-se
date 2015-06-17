@@ -437,6 +437,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
                 }
             }
             processDescription = getProcessDescription(originalValueConnection);
+            updateStatus(IStatus.ERROR, null);
             return true;
         }
 
@@ -474,7 +475,6 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
                     }
 
                 });
-
                 return;
             }
 
@@ -491,6 +491,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
 
         @Override
         public void updateUIInThreadIfThreadFinally() {
+            checkFieldsValue();
             if (!previewButton.isDisposed()) {
                 previewButton.setText(Messages.getString("FileStep2.refreshPreview")); //$NON-NLS-1$
                 previewButton.setEnabled(true);
@@ -499,6 +500,7 @@ public class LdifFileStep2Form extends AbstractLdifFileStepForm implements IRefr
 
         @Override
         public void postProcessCancle() {
+            checkFieldsValue();
             previewButton.setEnabled(false);
         }
     }
