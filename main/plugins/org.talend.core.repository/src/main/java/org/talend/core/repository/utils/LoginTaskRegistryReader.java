@@ -94,14 +94,14 @@ public class LoginTaskRegistryReader extends RegistryReader {
     }
 
     public ILoginTask[] getAllCommandlineTaskListInstance() {
-        List<LoginTask> commandlineTask = new ArrayList<LoginTask>();
+        List<ILoginTask> commandlineTask = new ArrayList<ILoginTask>();
         ILoginTask[] allTask = getAllTaskListInstance();
         for (ILoginTask task : allTask) {
             if (task.isCommandlineTask()) {
-                commandlineTask.add((LoginTask) task);
+                commandlineTask.add(task);
             }
         }
-        return getAllRunnables(commandlineTask);
+        return commandlineTask.toArray(new ILoginTask[0]);
     }
 
     /**
