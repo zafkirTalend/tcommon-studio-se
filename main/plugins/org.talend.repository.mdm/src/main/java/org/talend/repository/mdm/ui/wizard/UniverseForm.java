@@ -113,7 +113,7 @@ public class UniverseForm extends AbstractForm {
     @Override
     protected void addFields() {
         Group mdmParameterGroup = new Group(this, SWT.NULL);
-        mdmParameterGroup.setText(Messages.getString("UniverseForm_select_version")); //$NON-NLS-1$
+        mdmParameterGroup.setText(Messages.getString("UniverseForm_select_version1")); //$NON-NLS-1$
         GridLayout layoutGroup = new GridLayout();
         layoutGroup.numColumns = 2;
         mdmParameterGroup.setLayout(layoutGroup);
@@ -124,7 +124,7 @@ public class UniverseForm extends AbstractForm {
             universeCombo = new LabelledCombo(mdmParameterGroup,
                     Messages.getString("UniverseForm_version"), "", universList, true); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_model"), "", modelList, true); //$NON-NLS-1$ //$NON-NLS-2$
+        modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_model1"), "", modelList, true); //$NON-NLS-1$ //$NON-NLS-2$
         clusterText = new LabelledCombo(mdmParameterGroup,
                 Messages.getString("UniverseForm_data_container"), "", clusterList, true); //$NON-NLS-1$ //$NON-NLS-2$
 
