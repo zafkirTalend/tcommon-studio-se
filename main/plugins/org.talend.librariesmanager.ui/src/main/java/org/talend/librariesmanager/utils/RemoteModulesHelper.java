@@ -43,17 +43,15 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.ops4j.pax.url.mvn.MavenResolver;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleToInstall;
-import org.talend.core.nexus.MavenResolverCreator;
 import org.talend.core.nexus.NexusServerBean;
-import org.talend.core.nexus.NexusServerManager;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
+import org.talend.librariesmanager.maven.TalendLibsServerManager;
 import org.talend.librariesmanager.ui.dialogs.IModulesListener;
 import org.talend.librariesmanager.ui.i18n.Messages;
 
@@ -141,10 +139,12 @@ public class RemoteModulesHelper {
             if (networkValid) {
                 try {
                     cache = new HashMap<String, ModuleToInstall>();
+                    TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+                    NexusServerBean nexusServer = manager.getLibrariesNexusServer();
                     // TODO , not sure about the version , don't add version in search condition for now
-                    List<MavenArtifact> searchResults = NexusServerManager.search(nexusServer.getServer(),
-                            nexusServer.getUserName(), nexusServer.getPassword(), nexusServer.getRepositoryId(),
-                            MavenConstants.DEFAULT_LIB_GROUP_ID, null);
+                    List<MavenArtifact> searchResults = manager.search(nexusServer.getServer(), nexusServer.getUserName(),
+                            nexusServer.getPassword(), nexusServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, null,
+                            null);
                     monitor.worked(10);
                     for (MavenArtifact artifact : searchResults) {
                         String artifactId = artifact.getArtifactId();
@@ -340,17 +340,11 @@ public class RemoteModulesHelper {
 
     private static final String SEPARATOR_SLIP = "\\|"; //$NON-NLS-1$
 
-    private MavenResolver mvnResolver;
-
-    NexusServerBean nexusServer;
-
     private boolean recheckCache = false;
 
     private Map<String, ModuleToInstall> cache;
 
     private RemoteModulesHelper() {
-        nexusServer = NexusServerManager.getLibrariesNexusServer();
-        mvnResolver = MavenResolverCreator.getInstance().getMavenResolver(nexusServer);
     }
 
     public synchronized static RemoteModulesHelper getInstance() {
@@ -688,12 +682,4 @@ public class RemoteModulesHelper {
         return null;
     }
 
-    /**
-     * Getter for mvnResolver.
-     * 
-     * @return the mvnResolver
-     */
-    public MavenResolver getMvnResolver() {
-        return this.mvnResolver;
-    }
 }

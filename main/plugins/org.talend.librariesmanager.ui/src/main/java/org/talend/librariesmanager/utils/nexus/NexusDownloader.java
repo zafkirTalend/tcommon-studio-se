@@ -13,7 +13,6 @@
 package org.talend.librariesmanager.utils.nexus;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,9 @@ import java.util.List;
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.talend.core.download.DownloadListener;
 import org.talend.core.download.IDownloadHelper;
-import org.talend.librariesmanager.utils.RemoteModulesHelper;
+import org.talend.core.runtime.maven.MavenUrlHelper;
+import org.talend.librariesmanager.maven.ArtifactsDeployer;
+import org.talend.librariesmanager.maven.TalendLibsServerManager;
 
 /**
  * created by wchen on Apr 24, 2015 Detailled comment
@@ -41,11 +42,16 @@ public class NexusDownloader implements IDownloadHelper {
      * @see org.talend.core.download.IDownloadHelper#download(java.net.URL, java.io.File)
      */
     @Override
-    public void download(URL url, File destination) throws IOException {
+    public void download(URL url, File destination) throws Exception {
         fireDownloadStart(100);
-        MavenResolver mvnResolver = RemoteModulesHelper.getInstance().getMvnResolver();
+        MavenResolver mvnResolver = TalendLibsServerManager.getInstance().getMavenResolver();
         if (mvnResolver != null) {
-            mvnResolver.resolve(url.toExternalForm());
+            final String mavenUri = url.toExternalForm();
+            final File resolve = mvnResolver.resolve(mavenUri);
+            String snapshotUri = MavenUrlHelper.generateSnapshotMavenUri(mavenUri);
+            ArtifactsDeployer deployer = new ArtifactsDeployer();
+            deployer.deployToLocalMaven(resolve.getAbsolutePath(), snapshotUri);
+
         }
         fireDownloadComplete();
     }

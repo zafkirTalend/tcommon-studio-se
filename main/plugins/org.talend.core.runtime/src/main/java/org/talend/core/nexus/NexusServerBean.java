@@ -26,14 +26,14 @@ public class NexusServerBean {
 
     String repositoryId;
 
-    String repositoryUrl;
-
     boolean official;
+
+    String repositoryUrl;
 
     public NexusServerBean() {
     }
 
-    public NexusServerBean(boolean official) {
+    public NexusServerBean(Boolean official) {
         this.official = official;
     }
 
@@ -125,5 +125,85 @@ public class NexusServerBean {
      */
     public void setOfficial(boolean official) {
         this.official = official;
+    }
+
+    /**
+     * Getter for repositoryUrl.
+     * 
+     * @return the repositoryUrl
+     */
+    public String getRepositoryUrl() {
+        return this.repositoryUrl;
+    }
+
+    /**
+     * Sets the repositoryUrl.
+     * 
+     * @param repositoryUrl the repositoryUrl to set
+     */
+    public void setRepositoryUrl(String repositoryUrl) {
+        this.repositoryUrl = repositoryUrl;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((server == null) ? 0 : server.hashCode());
+        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+        result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((repositoryId == null) ? 0 : repositoryId.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof NexusServerBean)) {
+            return false;
+        }
+        NexusServerBean other = (NexusServerBean) obj;
+        if (server == null) {
+            if (other.server != null) {
+                return false;
+            }
+        } else if (!server.equals(other.server)) {
+            return false;
+        }
+        if (userName == null) {
+            if (other.userName != null) {
+                return false;
+            }
+        } else if (!userName.equals(other.userName)) {
+            return false;
+        }
+        if (password == null) {
+            if (other.password != null) {
+                return false;
+            }
+        } else if (!password.equals(other.password)) {
+            return false;
+        }
+        if (repositoryId == null) {
+            if (other.repositoryId != null) {
+                return false;
+            }
+        } else if (!repositoryId.equals(other.repositoryId)) {
+            return false;
+        }
+
+        return true;
+
     }
 }

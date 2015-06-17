@@ -10,19 +10,25 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.download;
+package org.talend.librariesmanager.ui.startup;
 
-import java.io.File;
-import java.net.URL;
+import org.eclipse.ui.IStartup;
 
 /**
- * created by wchen on Apr 24, 2015 Detailled comment
+ * created by wchen on 2015年6月15日 Detailled comment
  *
  */
-public interface IDownloadHelper {
+public class ShareLibsSynchronizer implements IStartup {
 
-    public void setCancel(boolean cancel);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.IStartup#earlyStartup()
+     */
+    @Override
+    public void earlyStartup() {
+        // TODO Auto-generated method stub
 
-    public void download(URL componentUrl, File destination) throws Exception;
+    }
 
 }

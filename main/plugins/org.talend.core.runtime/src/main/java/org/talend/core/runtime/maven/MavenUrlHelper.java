@@ -113,33 +113,47 @@ public class MavenUrlHelper {
         return false;
     }
 
-    /**
-     * will build the mvn url with default groupId and version.
-     * "mvn:org.talend.libraries/<jarNameWithoutExtension>/currentVersion/<extension>"
-     */
-    public static String generateMvnUrlForJarName(String jarName) {
+    public static String generateMvnUrlForJarName(String jarName, boolean withPackage, boolean snapshots) {
         if (jarName != null && jarName.length() > 0) {
             String artifactId = jarName;
             String type = null;
             if (jarName.endsWith(MavenConstants.TYPE_JAR)) { // remove the extension .jar
                 artifactId = jarName.substring(0, jarName.lastIndexOf(MavenConstants.TYPE_JAR) - 1);
-                type = MavenConstants.TYPE_JAR;
+                if (withPackage) {
+                    type = MavenConstants.TYPE_JAR;
+                }
             } else { // need process normal files?
                 int dotIndex = jarName.lastIndexOf('.');
                 if (dotIndex == 0) {// don't support the file without name, only extension.
                     return null;
                 } else if (dotIndex > 0) {
                     artifactId = jarName.substring(0, dotIndex);
-                    type = jarName.substring(dotIndex + 1);
+                    if (withPackage) {
+                        type = jarName.substring(dotIndex + 1);
+                    }
                 }
             }
             String currentVersion = VersionUtils.getTalendVersion();
             if (currentVersion == null) {
                 currentVersion = MavenConstants.DEFAULT_VERSION;
             }
+            if (snapshots) {
+                currentVersion = currentVersion + MavenConstants.SNAPSHOT;
+            }
+
             return generateMvnUrl(MavenConstants.DEFAULT_LIB_GROUP_ID, artifactId, currentVersion, type, null);
+
         }
         return null;
+
+    }
+
+    /**
+     * will build the mvn url with default groupId and version.
+     * "mvn:org.talend.libraries/<jarNameWithoutExtension>/currentVersion/<extension>"
+     */
+    public static String generateMvnUrlForJarName(String jarName) {
+        return generateMvnUrlForJarName(jarName, false, true);
     }
 
     /**
@@ -181,6 +195,19 @@ public class MavenUrlHelper {
         }
 
         return mvnUrl.toString();
+    }
+
+    public static String generateSnapshotMavenUri(String mavenUri) {
+        MavenArtifact parseMvnUrl = parseMvnUrl(mavenUri);
+        if (parseMvnUrl == null) {
+            return null;
+        }
+        if (parseMvnUrl.getVersion() != null && parseMvnUrl.getVersion().endsWith(MavenConstants.SNAPSHOT)) {
+            return mavenUri;
+        }
+        return generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getVersion()
+                + MavenConstants.SNAPSHOT, parseMvnUrl.getType(), parseMvnUrl.getClassifier());
+
     }
 
 }

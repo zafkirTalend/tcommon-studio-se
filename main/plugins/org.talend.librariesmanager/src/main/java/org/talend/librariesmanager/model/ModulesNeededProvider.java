@@ -700,7 +700,7 @@ public class ModulesNeededProvider {
                     for (ModuleNeeded module : allPluginsRequiredModules) {
                         // maven uri must not have any url attached to them
                         // we inject a special url to only look for local libs
-                        String mvnUri = module.getMavenUri().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!");
+                        String mvnUri = module.getMavenUriSnapshot().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!");
                         try {
                             // if the resolve succeed it means the artifact is installed.
                             mavenResolver.resolve(mvnUri);

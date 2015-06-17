@@ -23,6 +23,7 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenConstants;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
@@ -62,7 +63,15 @@ public class ModuleNeeded {
 
     private String moduleLocaion;
 
+    /**
+     * the maven uri configured from studio in components,extensions......
+     */
     private String mavenUri;
+
+    /**
+     * snapshot uri with version -SNAPSHOT
+     */
+    private String mavenUriSnapshot;
 
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
@@ -231,7 +240,7 @@ public class ModuleNeeded {
             if (existLibraries.contains(getModuleName())) {
                 status = ELibraryInstallStatus.INSTALLED;
             } else {// then try to resolve locally
-                String localMavenUri = getMavenUri().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!"); //$NON-NLS-1$ //$NON-NLS-2$
+                String localMavenUri = getMavenUriSnapshot().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!"); //$NON-NLS-1$ //$NON-NLS-2$
                 try {
                     mavenResolver.resolve(localMavenUri);
                     status = ELibraryInstallStatus.INSTALLED;
@@ -415,19 +424,35 @@ public class ModuleNeeded {
         return true;
     }
 
+    public String getMavenUriSnapshot() {
+        // set an defaut maven uri if uri is null or empty, this could be done in the set
+        // but this would mean to sure the set is called after the name is set.
+        if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) { //$NON-NLS-1$
+            mavenUriSnapshot = MavenUrlHelper.generateMvnUrlForJarName(getModuleName(), false, true);
+        }
+        return mavenUriSnapshot;
+
+    }
+
     /**
-     * return the maven URI if any wa set or return the default maven uri else. The default is computed like this :
-     * mvn:org.talend.libraries/\<moduleName\>/6.0.0
+     * Sets the mavenUriSnapshot.
      * 
-     * @return, return the maven uri, never null
+     * @param mavenUriSnapshot the mavenUriSnapshot to set
+     */
+    public void setMavenUriSnapshot(String mavenUriSnapshot) {
+        this.mavenUriSnapshot = mavenUriSnapshot;
+    }
+
+    /**
+     * Getter for mavenUriSnapshot.
+     * 
+     * @return the mavenUriSnapshot
      */
     public String getMavenUri() {
         // set an defaut maven uri if uri is null or empty, this could be done in the set
         // but this would mean to sure the set is called after the name is set.
         if (mavenUri == null || "".equals(mavenUri)) { //$NON-NLS-1$
-            String mavenArtifact = moduleName.endsWith(".jar") ? moduleName.substring(0, moduleName.length() - ".jar".length())
-                    : moduleName;
-            mavenUri = "mvn:org.talend.libraries/" + mavenArtifact + "/6.0.0";// default value for unknown libs //$NON-NLS-1$ //$NON-NLS-2$
+            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(getModuleName());
         }
         return mavenUri;
     }

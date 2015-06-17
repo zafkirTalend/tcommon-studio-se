@@ -49,8 +49,8 @@ public class ProcessorDependenciesManager {
             Set<ModuleNeeded> neededLibraries = processor.getNeededModules();
             for (ModuleNeeded module : neededLibraries) {
                 Dependency dependency;
-                if (module.getMavenUri() != null && !module.getMavenUri().isEmpty()) {
-                    dependency = PomUtil.createModuleDependency(module.getMavenUri());
+                if (module.getMavenUriSnapshot() != null && !module.getMavenUriSnapshot().isEmpty()) {
+                    dependency = PomUtil.createModuleDependency(module.getMavenUriSnapshot());
                 } else {
                     dependency = PomUtil.createModuleDependency(module.getModuleName());
                 }

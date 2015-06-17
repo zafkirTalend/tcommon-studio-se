@@ -23,4 +23,6 @@ public class NexusConstants {
     public static final String CONTENT_REPOSITORIES = "/content/repositories/";//$NON-NLS-1$ 
 
     public static final String SLASH = "/";//$NON-NLS-1$ 
+
+    public static final String SNAPSHOTS = "@snapshots";
 }

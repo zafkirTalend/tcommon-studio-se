@@ -31,6 +31,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ModuleToInstall;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.ui.wizards.AcceptModuleLicensesWizard;
@@ -41,9 +42,9 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
     protected List<ModuleToInstall> toDownload;
 
-    protected Set<String>           downloadFailed;
+    protected Set<String> downloadFailed;
 
-    protected Set<String>           installedModules;
+    protected Set<String> installedModules;
 
     /**
      * DOC sgandon DownloadModuleRunnable constructor comment.
@@ -62,12 +63,12 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         SubMonitor subMonitor = SubMonitor
                 .convert(
                         monitor,
-                        Messages.getString( "ExternalModulesInstallDialog.downloading2" ) + " (" + toDownload.size() + ")", toDownload.size() * 10 + 5 ); //$NON-NLS-1$
-        if (checkAndAcceptLicenses( subMonitor )) {
-            downLoad( subMonitor );
+                        Messages.getString("ExternalModulesInstallDialog.downloading2") + " (" + toDownload.size() + ")", toDownload.size() * 10 + 5); //$NON-NLS-1$
+        if (checkAndAcceptLicenses(subMonitor)) {
+            downLoad(subMonitor);
         }
         if (monitor != null) {
-            monitor.setCanceled( subMonitor.isCanceled() );
+            monitor.setCanceled(subMonitor.isCanceled());
             monitor.done();
         }
     }
@@ -76,48 +77,50 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         SubMonitor subMonitor = SubMonitor
                 .convert(
                         monitor,
-                        Messages.getString( "ExternalModulesInstallDialog.downloading2" ) + " (" + toDownload.size() + ")", toDownload.size() + 1 ); //$NON-NLS-1$
+                        Messages.getString("ExternalModulesInstallDialog.downloading2") + " (" + toDownload.size() + ")", toDownload.size() + 1); //$NON-NLS-1$
 
         Map<String, String> customUriToAdd = new HashMap<String, String>();
         for (final ModuleToInstall module : toDownload) {
             if (!monitor.isCanceled()) {
-                monitor.subTask( module.getName() );
+                monitor.subTask(module.getName());
                 boolean accepted;
                 try {
                     // check license
                     boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                            .getBoolean( module.getLicenseType() );
+                            .getBoolean(module.getLicenseType());
                     accepted = isLicenseAccepted;
                     if (!accepted) {
-                        subMonitor.worked( 1 );
+                        subMonitor.worked(1);
                         continue;
                     }
                     if (monitor.isCanceled()) {
                         return;
                     }
                     NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
-                    downloader.download( new URL( null, module.getMavenUri(), new Handler() ), null, subMonitor.newChild( 1 ) );
-                    customUriToAdd.put( module.getName(), module.getMavenUri() );
-                    installedModules.add( module.getName() );
+                    downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
+                    // deploy to index as snapshot
+                    String snapshotUri = MavenUrlHelper.generateSnapshotMavenUri(module.getMavenUri());
+                    customUriToAdd.put(module.getName(), snapshotUri);
+                    installedModules.add(module.getName());
                 } catch (Exception e) {
-                    downloadFailed.add( module.getName() );
-                    ExceptionHandler.process( e );
+                    downloadFailed.add(module.getName());
+                    ExceptionHandler.process(e);
                     continue;
                 }
                 accepted = false;
             } else {
-                downloadFailed.add( module.getName() );
+                downloadFailed.add(module.getName());
             }
         }
         // reset the module install status
         if (!customUriToAdd.isEmpty()) {
             ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                    .getService( ILibraryManagerService.class );
-            libraryManagerService.deployMavenIndex( customUriToAdd, monitor );
+                    .getService(ILibraryManagerService.class);
+            libraryManagerService.deployMavenIndex(customUriToAdd, monitor);
             libraryManagerService.forceListUpdate();
             LibManagerUiPlugin.getDefault().getLibrariesService().resetModulesNeeded();
         }
-        subMonitor.worked( 1 );
+        subMonitor.worked(1);
     }
 
     protected boolean hasLicensesToAccept() {
@@ -126,7 +129,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 String licenseType = module.getLicenseType();
                 if (licenseType != null) {
                     boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                            .getBoolean( module.getLicenseType() );
+                            .getBoolean(module.getLicenseType());
                     if (!isLicenseAccepted) {
                         return true;
                     }
@@ -138,22 +141,22 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
     }
 
     protected boolean checkAndAcceptLicenses(final IProgressMonitor monitor) {
-        final AtomicBoolean accepted = new AtomicBoolean( true );
+        final AtomicBoolean accepted = new AtomicBoolean(true);
         if (hasLicensesToAccept()) {
-            Display.getDefault().syncExec( new Runnable() {
+            Display.getDefault().syncExec(new Runnable() {
 
                 @Override
                 public void run() {
-                    AcceptModuleLicensesWizard licensesWizard = new AcceptModuleLicensesWizard( toDownload );
-                    AcceptModuleLicensesWizardDialog wizardDialog = new AcceptModuleLicensesWizardDialog( PlatformUI
-                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload, monitor );
-                    wizardDialog.setPageSize( 700, 380 );
+                    AcceptModuleLicensesWizard licensesWizard = new AcceptModuleLicensesWizard(toDownload);
+                    AcceptModuleLicensesWizardDialog wizardDialog = new AcceptModuleLicensesWizardDialog(PlatformUI
+                            .getWorkbench().getActiveWorkbenchWindow().getShell(), licensesWizard, toDownload, monitor);
+                    wizardDialog.setPageSize(700, 380);
                     wizardDialog.create();
                     if (wizardDialog.open() != Window.OK) {
-                        accepted.set( false );
+                        accepted.set(false);
                     }
                 }
-            } );
+            });
 
         }
 

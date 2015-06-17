@@ -6,6 +6,9 @@
       <startup
             class="org.talend.librariesmanager.ui.InitializeMissingJarHandler">
       </startup>
+      <startup
+            class="org.talend.librariesmanager.ui.startup.ShareLibsSynchronizer">
+      </startup>
    </extension>
    <extension
          point="org.talend.core.runtime.service">

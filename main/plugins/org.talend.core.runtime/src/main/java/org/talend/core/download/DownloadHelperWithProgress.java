@@ -84,7 +84,7 @@ public class DownloadHelperWithProgress {
      * @throws IOException, if an IO error occurs.
      */
     public void download(URL componentUrl, File destination, @SuppressWarnings("hiding") IProgressMonitor progressMonitor)
-            throws IOException {
+            throws Exception {
         DownloadListenerImplementation downloadProgress = new DownloadListenerImplementation(progressMonitor);
         IDownloadHelper downloadHelper = createDownloadHelperDelegate(downloadProgress);
         downloadHelper.download(componentUrl, destination);
