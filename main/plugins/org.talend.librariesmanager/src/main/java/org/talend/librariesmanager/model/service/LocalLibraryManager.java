@@ -56,6 +56,7 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
@@ -912,11 +913,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         String existVStr = existArtifact.getVersion();
                         String vStr = mvnArtifact.getVersion();
                         if (existVStr != null && vStr != null) {
+                            existVStr = existVStr.replace(MavenConstants.SNAPSHOT, "");
+                            vStr = vStr.replace(MavenConstants.SNAPSHOT, "");
                             Version existVersion = new Version(existVStr);
-                            Version version = new Version(vStr);
-                            if (version.compareTo(existVersion) > 0) {
-                                libsToMavenUri.put(module.getModuleName(), mavenUrl);
-                                libsToMavenUriAll.put(module.getModuleName(), mavenUrl);
+                            if (!existVStr.equals(vStr)) {
+                                Version version = new Version(vStr);
+                                if (version.compareTo(existVersion) > 0) {
+                                    libsToMavenUri.put(module.getModuleName(), mavenUrl);
+                                    libsToMavenUriAll.put(module.getModuleName(), mavenUrl);
+                                }
                             }
                         }
                     }
