@@ -13,6 +13,8 @@
 package org.talend.repository.navigator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +29,13 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.ui.view.RepositoryDropAdapter;
+import org.talend.core.utils.ProductUtils;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
@@ -200,5 +205,36 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
                 listener.refreshNode();
             }
         }
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.viewers.AbstractTreeViewer#getSortedChildren(java.lang.Object)
+     */
+    @Override
+    protected Object[] getSortedChildren(Object parentElementOrTreePath) {
+        if (parentElementOrTreePath instanceof TalendRepositoryRoot) {
+            Object[] objects = (Object[]) super.getSortedChildren(parentElementOrTreePath);
+            List<RepositoryNode> nodes = new ArrayList<RepositoryNode>();
+            for (Object object : objects) {
+                if (object instanceof RepositoryNode) {
+                    nodes.add((RepositoryNode)object);
+                }
+            }
+            Comparator<RepositoryNode> myComparator = new Comparator<RepositoryNode>() {
+
+                @Override
+                public int compare(RepositoryNode o1, RepositoryNode o2) {
+                    if (o1.getContentType() == null) {
+                        return 1;
+                    }
+                        
+                    return o1.getContentType().compareTo(o2.getContentType());
+                }
+            };
+            RepositoryNode[] nodesArray = nodes.toArray(new RepositoryNode[0]);
+            Arrays.sort(nodesArray, myComparator);
+            return nodesArray;
+        }
+        return super.getSortedChildren(parentElementOrTreePath);
     }
 }

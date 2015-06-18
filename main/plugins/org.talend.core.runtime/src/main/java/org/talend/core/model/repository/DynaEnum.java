@@ -37,14 +37,8 @@ public class DynaEnum<E extends DynaEnum<E>> {
         return this.key;
     }
 
-    @Deprecated
     private final int ordinal;
 
-    /**
-     * 
-     * Won't use
-     */
-    @Deprecated
     public final int ordinal() {
         return ordinal;
     }
@@ -112,10 +106,6 @@ public class DynaEnum<E extends DynaEnum<E>> {
         throw new CloneNotSupportedException();
     }
 
-    /**
-     * shouldn't use this to do compareTo, try to use the equals.
-     */
-    @Deprecated
     public final int compareTo(E other) {
         DynaEnum<?> self = this;
         if (self.getClass() != other.getClass() && // optimization

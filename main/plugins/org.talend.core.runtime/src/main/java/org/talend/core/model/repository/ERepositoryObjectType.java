@@ -101,7 +101,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // "documentations", "DOCUMENTATION", true, 11, new String[] { PROD_DI }, new String[] {});
 
     public final static ERepositoryObjectType METADATA = new ERepositoryObjectType("repository.metadata", "metadata", "METADATA",
-            true, 12, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
+            true, 8, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType METADATA_CON_TABLE = new ERepositoryObjectType("repository.metadataTable",
             "METADATA_CON_TABLE", 13, true, true, new String[] { PROD_DI }, new String[] {}, false);
