@@ -170,21 +170,23 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
     }
 
     protected void checkCreatingFile(IProgressMonitor monitor, IFile currentFile) throws Exception {
+        currentFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+
         List<IFile> existedSameFiles = getExistedFiles(currentFile);
 
-        if (existedSameFiles.contains(currentFile)) { // existed current one
-            if (isOverwrite()) {// delete all
-                for (IFile file : existedSameFiles) {
-                    file.delete(true, monitor);
-                }
-            } else { // nothing to do
-                throw new IOException("Can't overwrite the file: " + currentFile);
-            }
-        } else { // only existed other case files. delete all.
-            for (IFile file : existedSameFiles) {
-                file.delete(true, monitor);
+        // existed current one and not overwrite.
+        if (existedSameFiles.contains(currentFile) && !isOverwrite()) {
+            throw new IOException("Can't overwrite the file: " + currentFile);
+        }
+        // delete all
+        for (IFile file : existedSameFiles) {
+            File f = file.getLocation().toFile();
+            if (f.exists()) {
+                f.delete();
             }
         }
+
+        currentFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
     }
 
     protected List<IFile> getExistedFiles(IFile file) {
