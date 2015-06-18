@@ -31,7 +31,6 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.ContextUtils;
-import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Item;
 
@@ -125,8 +124,6 @@ public class ContextOrderProperties extends Properties {
             this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()), BUILT_IN_COMMENT);
         } else if (ContextParameterUtils.isEmptyParameter(firstParameter.getSource())) {
             this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()));
-        } else if (firstParameter.getSource().equals(JobContextManager.dataSource)) {
-            this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()));
         } else {
             this.setProperty(firstParameter.getName(), TalendTextUtils.trimParameter(firstParameter.getValue()),
                     REPOSITORY_COMMENT
@@ -145,8 +142,6 @@ public class ContextOrderProperties extends Properties {
                         BUILT_IN_COMMENT);
             }
         } else if (ContextParameterUtils.isEmptyParameter(currentParameter.getSource())) {
-            this.setProperty(currentParameter.getName(), TalendTextUtils.trimParameter(currentParameter.getValue()));
-        } else if (currentParameter.getSource().equals(JobContextManager.dataSource)) {
             this.setProperty(currentParameter.getName(), TalendTextUtils.trimParameter(currentParameter.getValue()));
         } else {
             Item contextItem = ContextUtils.getRepositoryContextItemById(currentParameter.getSource());

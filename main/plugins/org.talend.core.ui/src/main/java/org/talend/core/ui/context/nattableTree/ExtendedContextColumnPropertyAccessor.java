@@ -159,8 +159,6 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                         } else {
                             return contextParaName + REPOSITORYT_CONTEXT;
                         }
-                    } else if (sourceId.equals(JobContextManager.dataSource)) {
-                        return contextParaName + DATASET_CONTEXT;
                     }
                 } else {
                     return contextParaName;
