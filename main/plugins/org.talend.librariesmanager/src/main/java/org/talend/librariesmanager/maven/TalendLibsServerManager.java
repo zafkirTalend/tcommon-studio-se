@@ -65,7 +65,7 @@ public class TalendLibsServerManager {
             BundleContext context = CoreRuntimePlugin.getInstance().getBundle().getBundleContext();
             ServiceReference<ManagedService> managedServiceRef = context.getServiceReference(ManagedService.class);
             if (managedServiceRef != null) {
-                String repositories = null;
+                String repositories = "";
                 NexusServerBean customServer = getCustomNexusServer();
                 if (customServer != null) {
                     // custom nexus server should use snapshot repository
@@ -167,12 +167,13 @@ public class TalendLibsServerManager {
 
     public NexusServerBean getLibrariesNexusServer() {
         NexusServerBean serverBean = new NexusServerBean();
-        serverBean.setServer(NexusServerUtils.TALEND_LIB_SERVER);
+        serverBean.setServer(System.getProperty("org.talend.libraries.repo.url", NexusServerUtils.TALEND_LIB_SERVER));
         serverBean.setUserName(NexusServerUtils.TALEND_LIB_USER);
         serverBean.setPassword(NexusServerUtils.TALEND_LIB_PASSWORD);
         serverBean.setRepositoryId(NexusServerUtils.TALEND_LIB_REPOSITORY);
         serverBean.setOfficial(true);
         String server = serverBean.getServer();
+        // remove the trailing slash
         if (server.endsWith(NexusConstants.SLASH)) {
             server = server.substring(0, server.length() - 1);
         }
