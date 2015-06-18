@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
@@ -62,7 +61,7 @@ import org.talend.registration.license.LicenseManagement;
 import org.talend.registration.wizards.license.LicenseWizard;
 import org.talend.registration.wizards.license.LicenseWizardDialog;
 import org.talend.repository.model.IRepositoryService;
-import org.talend.repository.ui.login.LoginComposite;
+import org.talend.repository.ui.login.LoginHelper;
 
 /**
  * This class controls all aspects of the application's execution.
@@ -140,7 +139,7 @@ public class Application implements IApplication {
             }
 
             // common restart
-            if (LoginComposite.isRestart) {
+            if (LoginHelper.isRestart) {
                 // if after update,need to lauch the product by loading all new version plugins
                 if (afterUpdate) {
                     EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand("-Dosgi.clean=true", null, false);
