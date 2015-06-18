@@ -66,4 +66,6 @@ public interface ITestContainerProviderService extends IService {
     public String getTestDataValue(IProcess process, IContext context, IContextParameter para);
 
     public List<Information> getTestContainerInformations(Item item);
+
+    public boolean isOriginalNode(INode node);
 }

@@ -15,6 +15,7 @@ package org.talend.core.service;
 import org.talend.core.IService;
 import org.talend.core.model.process.IExternalNode;
 import org.talend.core.model.process.INode;
+import org.talend.designer.core.model.utils.emf.talendfile.AbstractExternalData;
 
 /**
  * DOC talend class global comment. Detailled comment
@@ -24,5 +25,7 @@ public interface IXmlMapService extends IService {
     public boolean isXmlMapComponent(IExternalNode node);
 
     public boolean checkXMLMapDifferents(INode testNode, INode originalNode);
+
+    public AbstractExternalData externalEmfDataClone(AbstractExternalData externalEmfData);
 
 }
