@@ -437,6 +437,9 @@ public class ProcessorUtilities {
             LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                     neededLibraries);
             LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
+
+            // must install the needed libraries before generate codes with poms.
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess);
         }
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
