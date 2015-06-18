@@ -116,7 +116,7 @@ public class NexusServerUtils {
     public static List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,
             String groupIdToSearch, String versionToSearch) throws BusinessException {
         List<MavenArtifact> artifacts = new ArrayList<MavenArtifact>();
-        search(nexusUrl, userName, password, repositoryId, groupIdToSearch, versionToSearch, 0, MAX_SEARCH_COUNT, artifacts);
+        search(nexusUrl, userName, password, repositoryId, groupIdToSearch, null, versionToSearch, 0, MAX_SEARCH_COUNT, artifacts);
 
         return artifacts;
 
@@ -125,19 +125,21 @@ public class NexusServerUtils {
     public static List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,
             String groupIdToSearch, String artifactId, String versionToSearch) throws BusinessException {
         List<MavenArtifact> artifacts = new ArrayList<MavenArtifact>();
-        search(nexusUrl, userName, password, repositoryId, groupIdToSearch, versionToSearch, 0, MAX_SEARCH_COUNT, artifacts);
+        search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId, versionToSearch, 0, MAX_SEARCH_COUNT,
+                artifacts);
 
         return artifacts;
 
     }
 
     private static void search(String nexusUrl, String userName, String password, String repositoryId, String groupIdToSearch,
-            String versionToSearch, int searchFrom, int searchCount, List<MavenArtifact> artifacts) throws BusinessException {
+            String artifactId, String versionToSearch, int searchFrom, int searchCount, List<MavenArtifact> artifacts)
+            throws BusinessException {
         HttpURLConnection urlConnection = null;
         int totalCount = 0;
         try {
             String service = NexusConstants.SERVICES_SEARCH
-                    + getSearchQuery(repositoryId, groupIdToSearch, null, versionToSearch, searchFrom, searchCount);
+                    + getSearchQuery(repositoryId, groupIdToSearch, artifactId, versionToSearch, searchFrom, searchCount);
             urlConnection = getHttpURLConnection(nexusUrl, service, userName, password);
             SAXReader saxReader = new SAXReader();
 
@@ -208,8 +210,8 @@ public class NexusServerUtils {
                 if (totalCount - searchDone < MAX_SEARCH_COUNT) {
                     count = totalCount - searchDone;
                 }
-                search(nexusUrl, userName, password, repositoryId, groupIdToSearch, versionToSearch, searchDone + 1, count,
-                        artifacts);
+                search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId, versionToSearch, searchDone + 1,
+                        count, artifacts);
             }
 
         } catch (Exception e) {

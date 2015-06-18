@@ -124,75 +124,92 @@ public class RemoteModulesHelper {
             Set<String> unavailableModules = new HashSet<String>();
             monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), size * 10 + 10);//$NON-NLS-1$
             // if the network is not valid, all jars are not available.
-            boolean networkValid = false;
-            if (cache == null || recheckCache) {
-                networkValid = NetworkUtil.isNetworkValid();
-                if (!networkValid) {
-                    unavailableModules.addAll(Arrays.asList(jars));
-                    messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
-                    if (!alreadyWarnedAboutConnectionIssue) {
-                        log.warn("failed to connect to internet");
-                        alreadyWarnedAboutConnectionIssue = true;
-                    }// else already warned so do nothing
-                }
+            boolean networkValid = NetworkUtil.isNetworkValid();
+            if (!networkValid) {
+                unavailableModules.addAll(Arrays.asList(jars));
+                messages = Messages.getString("RemoteModulesHelper.offlineMessages"); //$NON-NLS-1$
+                if (!alreadyWarnedAboutConnectionIssue) {
+                    log.warn("failed to connect to internet");
+                    alreadyWarnedAboutConnectionIssue = true;
+                }// else already warned so do nothing
             }
             if (networkValid) {
                 try {
-                    cache = new HashMap<String, ModuleToInstall>();
-                    TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
-                    NexusServerBean nexusServer = manager.getLibrariesNexusServer();
-                    // TODO , not sure about the version , don't add version in search condition for now
-                    List<MavenArtifact> searchResults = manager.search(nexusServer.getServer(), nexusServer.getUserName(),
-                            nexusServer.getPassword(), nexusServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, null,
-                            null);
-                    monitor.worked(10);
-                    for (MavenArtifact artifact : searchResults) {
-                        String artifactId = artifact.getArtifactId();
-                        String packageName = artifact.getType();
-                        if (packageName == null) {
-                            packageName = MavenConstants.TYPE_JAR;
+                    int index = 0;
+                    int limit = 100;
+                    while (index < jars.length) {
+                        // get block of 100 jars
+                        String jarsToCheck = "";
+                        while (index < limit && index < jars.length) {
+                            String toCheck = jars[index];
+                            String artifactId = toCheck;
+                            final int lastIndexOf = toCheck.lastIndexOf(".");
+                            if (lastIndexOf != -1) {
+                                artifactId = toCheck.substring(0, lastIndexOf);
+                            }
+                            jarsToCheck += artifactId;
+                            index++;
+                            if (index < limit && index < jars.length) {
+                                jarsToCheck += ",";
+                            }
                         }
-                        String version = artifact.getVersion();
-                        String description = artifact.getDescription();
-                        String license = artifact.getLicense();
-                        String license_url = artifact.getLicenseUrl();
-                        String distribution = artifact.getDistribution();
-                        String url = null;
-                        if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
-                            url = artifact.getUrl();
-                        }
-                        ModuleToInstall m = new ModuleToInstall();
-                        m.setName(artifactId + "." + packageName);
-                        // a maven uri like mvn:org.talend.libraries/mysql-connector-java-5.1.30-bin/6.0.0 ,no need
-                        // type and classifier
-                        String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, null, null);
-                        m.setMavenUri(mvnUri);
-                        m.setLicenseType(license);
-                        m.setLicenseUrl(license_url);
-                        m.setDescription(description);
-                        m.setUrl_description(url);
-                        m.setUrl_download(url);
-                        // the artiface distribution attribute may be emty because the remote server engine does not
-                        // return it.
-                        // so we use the classifier to check for availability
-                        if (distribution == null || distribution.equals("")) { //$NON-NLS-1$
-                            String artifactType = artifact.getType();
-                            if (artifactType != null && artifactType.equals("pom")) { //$NON-NLS-1$
-                                m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
-                            }// else we do not set anything to the distribution value
-                        } else {// distribution is already set so use it
-                            m.setDistribution(distribution);
-                        }
-                        setContext(m, contextMap);
-
-                        cache.put(m.getName(), m);
-
+                        limit += 100;
+                        TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+                        NexusServerBean nexusServer = manager.getLibrariesNexusServer();
+                        // TODO , not sure about the version , don't add version in search condition for now
+                        // only search required jars from officail server
+                        List<MavenArtifact> searchResults = manager.search(nexusServer.getServer(), nexusServer.getUserName(),
+                                nexusServer.getPassword(), nexusServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID,
+                                jarsToCheck, null);
                         monitor.worked(10);
+                        for (MavenArtifact artifact : searchResults) {
+                            String artifactId = artifact.getArtifactId();
+                            String packageName = artifact.getType();
+                            if (packageName == null) {
+                                packageName = MavenConstants.TYPE_JAR;
+                            }
+                            String version = artifact.getVersion();
+                            String description = artifact.getDescription();
+                            String license = artifact.getLicense();
+                            String license_url = artifact.getLicenseUrl();
+                            String distribution = artifact.getDistribution();
+                            String url = null;
+                            if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
+                                url = artifact.getUrl();
+                            }
+                            ModuleToInstall m = new ModuleToInstall();
+                            m.setName(artifactId + "." + packageName);
+                            // a maven uri like mvn:org.talend.libraries/mysql-connector-java-5.1.30-bin/6.0.0 ,no need
+                            // type and classifier
+                            String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, null, null);
+                            m.setMavenUri(mvnUri);
+                            m.setLicenseType(license);
+                            m.setLicenseUrl(license_url);
+                            m.setDescription(description);
+                            m.setUrl_description(url);
+                            m.setUrl_download(url);
+                            // the artiface distribution attribute may be emty because the remote server engine does not
+                            // return it.
+                            // so we use the classifier to check for availability
+                            if (distribution == null || distribution.equals("")) { //$NON-NLS-1$
+                                String artifactType = artifact.getType();
+                                if (artifactType != null && artifactType.equals("pom")) { //$NON-NLS-1$
+                                    m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
+                                }// else we do not set anything to the distribution value
+                            } else {// distribution is already set so use it
+                                m.setDistribution(distribution);
+                            }
+                            setContext(m, contextMap);
+
+                            cache.put(m.getName(), m);
+
+                            monitor.worked(10);
+                        }
+
                     }
 
                 } catch (Exception e1) {
                     ExceptionHandler.process(e1);
-                    recheckCache = true;
                 }
             }
 
@@ -340,9 +357,7 @@ public class RemoteModulesHelper {
 
     private static final String SEPARATOR_SLIP = "\\|"; //$NON-NLS-1$
 
-    private boolean recheckCache = false;
-
-    private Map<String, ModuleToInstall> cache;
+    private Map<String, ModuleToInstall> cache = new HashMap<String, ModuleToInstall>();;
 
     private RemoteModulesHelper() {
     }
