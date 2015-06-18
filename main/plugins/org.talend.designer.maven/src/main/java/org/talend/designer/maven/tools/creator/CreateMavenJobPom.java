@@ -19,10 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -35,14 +33,12 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
@@ -50,11 +46,9 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
@@ -67,11 +61,8 @@ import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
-import org.talend.designer.maven.tools.ProcessorDependenciesManager;
-import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
-import org.talend.designer.runprocess.ProcessorException;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.utils.io.FilesUtils;
@@ -84,15 +75,11 @@ import org.w3c.dom.NodeList;
  * created by ggu on 4 Feb 2015 Detailled comment
  *
  */
-public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
-
-    private final IProcessor jobProcessor;
+public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
     private String windowsClasspath, unixClasspath;
 
     private String windowsScriptAddition, unixScriptAddition;
-
-    private final ProcessorDependenciesManager processorDependenciesManager;
 
     private IFile assemblyFile;
 
@@ -101,16 +88,7 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
     private IPath itemRelativePath;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
-        super(pomFile, IProjectSettingTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
-        Assert.isNotNull(jobProcessor);
-        this.jobProcessor = jobProcessor;
-        this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
-        // for job always ignore case.
-        this.setIgnoreFileNameCase(true);
-    }
-
-    public IProcessor getJobProcessor() {
-        return this.jobProcessor;
+        super(jobProcessor, pomFile, IProjectSettingTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
     }
 
     public String getWindowsClasspath() {
@@ -167,74 +145,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     public void setItemRelativePath(IPath itemRelativePath) {
         this.itemRelativePath = itemRelativePath;
-    }
-
-    @Override
-    protected Model createModel() {
-        Model model = null;
-        InputStream inputStream = null;
-        try {
-            inputStream = getTemplateStream();
-            if (inputStream != null) {
-                model = MODEL_MANAGER.readMavenModel(inputStream);
-            }
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    //
-                }
-            }
-        }
-        if (model == null) {
-            return null;
-        }
-
-        //
-        final IProcessor jProcessor = getJobProcessor();
-        final IProcess process = jProcessor.getProcess();
-        final Property property = jProcessor.getProperty();
-
-        Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
-        // no need check property is null or not, because if null, will get default ids.
-        variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(property));
-        variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(property));
-        variablesValuesMap.put(ETalendMavenVariables.JobVersion, PomIdsHelper.getJobVersion(property));
-        final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
-        variablesValuesMap.put(ETalendMavenVariables.JobName, jobName);
-
-        if (property != null) {
-            Project currentProject = ProjectManager.getInstance().getProject(property);
-            variablesValuesMap.put(ETalendMavenVariables.ProjectName, currentProject != null ? currentProject.getTechnicalLabel()
-                    : null);
-
-            Item item = property.getItem();
-            if (item != null) {
-                ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
-                if (itemType != null) {
-                    variablesValuesMap.put(ETalendMavenVariables.JobType, itemType.getLabel());
-                }
-            }
-        }
-
-        this.setGroupId(ETalendMavenVariables.replaceVariables(model.getGroupId(), variablesValuesMap));
-        this.setArtifactId(ETalendMavenVariables.replaceVariables(model.getArtifactId(), variablesValuesMap));
-        this.setVersion(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
-        this.setName(ETalendMavenVariables.replaceVariables(model.getName(), variablesValuesMap));
-
-        setAttributes(model);
-        addProperties(model);
-
-        PomUtil.checkParent(model, this.getPomFile());
-
-        addDependencies(model);
-
-        return model;
     }
 
     /*
@@ -356,38 +266,12 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
 
     }
 
-    /**
-     * add dependencies for pom.
-     */
-    protected void addDependencies(Model model) {
-        try {
-            processorDependenciesManager.updateDependencies(null, model);
-
-            // add children jobs in dependencies
-            final List<Dependency> dependencies = model.getDependencies();
-            String parentId = getJobProcessor().getProperty().getId();
-            final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();
-            for (JobInfo jobInfo : clonedChildrenJobInfors) {
-                if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
-                    if (jobInfo.isTestContainer()) {
-                        continue;
-                    }
-                    // same group as main job.
-                    Dependency d = PomUtil.createDependency(model.getGroupId(), PomIdsHelper.getJobArtifactId(jobInfo),
-                            PomIdsHelper.getJobVersion(jobInfo), null);
-                    dependencies.add(d);
-                }
-            }
-
-        } catch (ProcessorException e) {
-            ExceptionHandler.process(e);
-        }
+    protected boolean validChildrenJob(JobInfo jobInfo) {
+        // for job, ignore test container for children.
+        return jobInfo != null && !jobInfo.isTestContainer();
     }
 
-    @Override
-    public void create(IProgressMonitor monitor) throws Exception {
-        super.create(monitor);
-
+    protected void afterCreate(IProgressMonitor monitor) throws Exception {
         generateAssemblyFile(monitor);
 
         // generate routines
@@ -396,8 +280,6 @@ public class CreateMavenJobPom extends CreateMavenBundleTemplatePom {
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 
-        // refresh
-        getPomFile().getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
     }
 
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {

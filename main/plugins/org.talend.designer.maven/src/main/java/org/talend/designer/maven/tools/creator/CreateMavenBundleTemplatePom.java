@@ -56,6 +56,11 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
      */
     private boolean ignoreFileNameCase = false;
 
+    /*
+     * if true, will load from tempalte. else, can create one pom with attributes settings.
+     */
+    private boolean baseOnTemplateOnly = false;
+
     public CreateMavenBundleTemplatePom(IFile pomFile, String bundleTemplateName) {
         super();
         this.pomFile = pomFile;
@@ -86,6 +91,14 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         this.ignoreFileNameCase = ignoreFileNameCase;
     }
 
+    public boolean isBaseOnTemplateOnly() {
+        return baseOnTemplateOnly;
+    }
+
+    public void setBaseOnTemplateOnly(boolean baseOnTemplateOnly) {
+        this.baseOnTemplateOnly = baseOnTemplateOnly;
+    }
+
     @Override
     public String toString() {
         return pomFile.toString();
@@ -99,12 +112,13 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
             inputStream = getTemplateStream();
             if (inputStream != null) {
                 model = MODEL_MANAGER.readMavenModel(inputStream);
-                inputStream.close();
             }
             // load failure. try default one.
             if (model == null) {
-                // create default model
-                model = super.createModel();
+                if (!isBaseOnTemplateOnly()) {
+                    // create default model
+                    model = super.createModel();
+                }
             } else { // if load from template, try to set the attributes again.
                 setAttributes(model);
                 addProperties(model);
@@ -165,6 +179,8 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         }
         MODEL_MANAGER.createMavenModel(curPomFile, model);
 
+        afterCreate(monitor);
+
         curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
 
     }
@@ -213,6 +229,10 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
             existedFiles.add(file);
         }
         return existedFiles;
+    }
+
+    protected void afterCreate(IProgressMonitor monitor) throws Exception {
+        // nothing to do
     }
 
 }
