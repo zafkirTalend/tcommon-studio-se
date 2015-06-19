@@ -59,6 +59,8 @@ public interface TalendMavenConstants {
 
     static final String GOAL_TEST_COMPILE = "test-compile";
 
+    static final String GOAL_REFRESH = "refresh"; // custom one for talend use, needed to do a refresh of artifacts
+
     static final String GOAL_PACKAGE = "package";
 
     static final String GOAL_INSTALL = "install";

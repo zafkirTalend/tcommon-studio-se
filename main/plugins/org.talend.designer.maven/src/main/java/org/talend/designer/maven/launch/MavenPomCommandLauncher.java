@@ -13,6 +13,8 @@
 package org.talend.designer.maven.launch;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.model.Dependency;
@@ -24,6 +26,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.eclipse.m2e.core.internal.MavenPluginActivator;
+import org.eclipse.m2e.core.project.MavenUpdateRequest;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.utils.PomUtil;
@@ -55,6 +59,12 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
     @Override
     public void execute(IProgressMonitor monitor) throws Exception {
         if (!launcherPomFile.exists()) {
+            return;
+        }
+        if (getGoals().equals(TalendMavenConstants.GOAL_REFRESH)) {
+            MavenUpdateRequest request = new MavenUpdateRequest(launcherPomFile.getProject(), true, false);
+            MavenPluginActivator.getDefault().getProjectManagerRefreshJob().refresh(request);
+            MavenPluginActivator.getDefault().getProjectManagerRefreshJob().run(monitor);
             return;
         }
         final MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
