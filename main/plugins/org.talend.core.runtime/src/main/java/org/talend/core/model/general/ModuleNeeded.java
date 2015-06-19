@@ -22,6 +22,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 
@@ -425,6 +426,12 @@ public class ModuleNeeded {
     }
 
     public String getMavenUriSnapshot() {
+        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(getMavenUri());
+        // for non-talend libs.
+        if (artifact != null && !MavenConstants.DEFAULT_LIB_GROUP_ID.equals(artifact.getGroupId())) {
+            return getMavenUri(); // snapshot url same as maven url
+        }
+
         // set an defaut maven uri if uri is null or empty, this could be done in the set
         // but this would mean to sure the set is called after the name is set.
         if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) { //$NON-NLS-1$
