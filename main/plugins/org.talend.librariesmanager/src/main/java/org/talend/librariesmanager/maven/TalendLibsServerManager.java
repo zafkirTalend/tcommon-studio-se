@@ -12,10 +12,12 @@
 // ============================================================================
 package org.talend.librariesmanager.maven;
 
+import java.io.File;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.eclipse.m2e.core.MavenPlugin;
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.ops4j.pax.url.mvn.ServiceConstants;
 import org.osgi.framework.BundleContext;
@@ -76,7 +78,14 @@ public class TalendLibsServerManager {
 
                 ManagedService managedService = context.getService(managedServiceRef);
                 Dictionary<String, String> props = new Hashtable<String, String>();
-                props.put(ServiceConstants.PID + "." + ServiceConstants.PROPERTY_REPOSITORIES, repositories);
+                props.put(ServiceConstants.PID + '.' + ServiceConstants.PROPERTY_REPOSITORIES, repositories);
+
+                // get the setting file same as M2E preference in M2eUserSettingForTalendLoginTask.
+                String settingsFile = MavenPlugin.getMavenConfiguration().getUserSettingsFile();
+                if (settingsFile != null && new File(settingsFile).exists()) {
+                    props.put(ServiceConstants.PID + '.' + ServiceConstants.PROPERTY_SETTINGS_FILE, settingsFile);
+                }
+
                 try {
                     managedService.updated(props);
                 } catch (ConfigurationException e) {
