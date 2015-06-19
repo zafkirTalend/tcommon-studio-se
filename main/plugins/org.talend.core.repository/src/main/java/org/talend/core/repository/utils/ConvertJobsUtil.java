@@ -19,6 +19,7 @@ import org.eclipse.swt.custom.CCombo;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -301,5 +302,24 @@ public class ConvertJobsUtil {
             }
         }
         return new String[0];
+    }
+
+    /**
+     * Update framework if change it when duplicating DOC Comment method "updateFramework".
+     * 
+     * @param item
+     * @param newFrameworkNewValue
+     */
+    public static void updateFramework(Item item, String frameworkNewValue) {
+        if (item instanceof ProcessItem) {
+            Property newProperty = item.getProperty();
+            if (newProperty != null && newProperty.getAdditionalProperties() != null
+                    && newProperty.getAdditionalProperties().containsKey(ConvertJobsUtil.FRAMEWORK)) {
+                String currentFramework = (String) newProperty.getAdditionalProperties().get(ConvertJobsUtil.FRAMEWORK);
+                if (currentFramework != null && frameworkNewValue != null && !currentFramework.equals(frameworkNewValue)) {
+                    newProperty.getAdditionalProperties().put(ConvertJobsUtil.FRAMEWORK, frameworkNewValue);
+                }
+            }
+        }
     }
 }

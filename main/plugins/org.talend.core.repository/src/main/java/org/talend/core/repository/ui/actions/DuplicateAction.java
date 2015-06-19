@@ -105,6 +105,8 @@ public class DuplicateAction extends AContextualAction {
 
     protected IProcessConvertService converter;// Just for the page which would like to convert self to another process.
 
+    private String frameworkNewValue = null;
+
     public DuplicateAction() {
         super();
         this.setText(Messages.getString("DuplicateAction.thisText.duplicate")); //$NON-NLS-1$
@@ -230,7 +232,7 @@ public class DuplicateAction extends AContextualAction {
             }
             String jobNewName = jobNewNameDialog.getNameValue();
             String jobTypeValue = jobNewNameDialog.getJobTypeValue();
-            String frameworkValue = jobNewNameDialog.getFrameworkValue();
+            frameworkNewValue = jobNewNameDialog.getFrameworkValue();
             try {
                 jobNameValue = getDuplicateName(sourceNode, jobNewName, selectionInClipboard);
             } catch (BusinessException e) {
@@ -239,7 +241,7 @@ public class DuplicateAction extends AContextualAction {
             // if not change job type , we no need convert job
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
             if (jobTypeValue != null && !jobTypeValue.equals(sourceJobType)) {
-                ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkValue, sourceNode.getObject());
+                ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkNewValue, sourceNode.getObject());
             } else {
                 createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
             }
@@ -519,6 +521,9 @@ public class DuplicateAction extends AContextualAction {
                                         Item selectedItem = object.getProperty().getItem();
                                         Item copy;
                                         copy = factory.copy(selectedItem, path, newJobName);
+                                        // update framework if change it when duplicating
+                                        ConvertJobsUtil.updateFramework(copy, frameworkNewValue);
+
                                         newItems.add(copy);
                                         if (isfirst) {
                                             id = copy.getProperty().getId();
@@ -616,6 +621,8 @@ public class DuplicateAction extends AContextualAction {
                     }
 
                     final Item newItem = factory.copy(item, path, newName);
+                    // update framework if change it when duplicating
+                    ConvertJobsUtil.updateFramework(newItem, frameworkNewValue);
 
                     // qli modified to fix the bug 5400 and 6185.
                     if (newItem instanceof RoutineItem) {
