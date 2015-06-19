@@ -627,24 +627,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
         String libPath = null;
         try {
             // maven
-            EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
-            String mavenUri = jarsToMavenUri.get(jarName);
-            if (mavenUri == null) {
-                mavenUri = mavenUriFromExtensions.get(jarName);
-            }
-
-            if (mavenUri == null) {
-                // check if jar is already installed on the local maven repository with the standard mvn uri
-                mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
-            }
-            libPath = mavenJarInstalled.get(mavenUri);
+            libPath = getJarPathFromMaven(jarName);
             if (libPath != null) {
                 return libPath;
-            } else if (checkJarInstalledInMaven(mavenUri)) {
-                libPath = mavenJarInstalled.get(mavenUri);
-                if (libPath != null) {
-                    return libPath;
-                }
             }
 
             // java/lib folder
@@ -672,6 +657,38 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
 
         return libPath;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerService#getJarPathFromMaven(java.lang.String)
+     */
+    @Override
+    public String getJarPathFromMaven(String jarNameOrMavenUri) {
+        String libPath = null;
+        String mavenUri = null;
+        if (MavenUrlHelper.isMvnUrl(jarNameOrMavenUri)) {
+            mavenUri = jarNameOrMavenUri;
+        } else {
+            EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
+            mavenUri = jarsToMavenUri.get(jarNameOrMavenUri);
+            if (mavenUri == null) {
+                mavenUri = mavenUriFromExtensions.get(jarNameOrMavenUri);
+            }
+            if (mavenUri == null) {
+                mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarNameOrMavenUri);
+            }
+        }
+
+        if (checkJarInstalledInMaven(mavenUri)) {
+            libPath = mavenJarInstalled.get(mavenUri);
+            if (libPath != null) {
+                return libPath;
+            }
+        }
+
+        return null;
     }
 
     private boolean checkJarInstalledInMaven(String mvnUri) {

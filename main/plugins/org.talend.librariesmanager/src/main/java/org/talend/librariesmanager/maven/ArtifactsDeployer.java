@@ -124,7 +124,7 @@ public class ArtifactsDeployer {
         }
     }
 
-    protected void installToRemote(File content, MavenArtifact artifact, String type) throws BusinessException {
+    public void installToRemote(File content, MavenArtifact artifact, String type) throws BusinessException {
         URL targetURL;
         try {
             String artifactPath = PomUtil.getArtifactPath(artifact);

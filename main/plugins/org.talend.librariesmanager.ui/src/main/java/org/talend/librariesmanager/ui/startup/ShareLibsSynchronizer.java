@@ -15,7 +15,7 @@ package org.talend.librariesmanager.ui.startup;
 import org.eclipse.ui.IStartup;
 
 /**
- * created by wchen on 2015年6月15日 Detailled comment
+ * created by wchen on 2015-6-15 Detailled comment
  *
  */
 public class ShareLibsSynchronizer implements IStartup {
@@ -27,8 +27,8 @@ public class ShareLibsSynchronizer implements IStartup {
      */
     @Override
     public void earlyStartup() {
-        // TODO Auto-generated method stub
-
+        ShareLibsJob job = new ShareLibsJob();
+        job.schedule();
     }
 
 }

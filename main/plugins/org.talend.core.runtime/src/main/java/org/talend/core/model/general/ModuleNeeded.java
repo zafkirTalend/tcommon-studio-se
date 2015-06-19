@@ -428,7 +428,12 @@ public class ModuleNeeded {
         // set an defaut maven uri if uri is null or empty, this could be done in the set
         // but this would mean to sure the set is called after the name is set.
         if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) { //$NON-NLS-1$
-            mavenUriSnapshot = MavenUrlHelper.generateMvnUrlForJarName(getModuleName(), false, true);
+            if (mavenUri != null && !"".equals(mavenUri)) {//$NON-NLS-1$
+                mavenUriSnapshot = MavenUrlHelper.generateSnapshotMavenUri(mavenUri);
+            }
+            if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) {//$NON-NLS-1$
+                mavenUriSnapshot = MavenUrlHelper.generateMvnUrlForJarName(getModuleName(), false, true);
+            }
         }
         return mavenUriSnapshot;
 

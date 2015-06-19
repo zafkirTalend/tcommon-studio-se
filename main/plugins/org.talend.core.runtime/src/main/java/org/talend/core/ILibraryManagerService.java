@@ -106,6 +106,8 @@ public interface ILibraryManagerService extends IService {
      */
     public String getJarPath(String jarName);
 
+    public String getJarPathFromMaven(String jarNameOrMavenUri);
+
     @Deprecated
     public Set<String> listAllDllFiles();
 

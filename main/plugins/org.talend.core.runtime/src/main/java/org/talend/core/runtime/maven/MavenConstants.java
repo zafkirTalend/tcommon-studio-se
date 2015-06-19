@@ -47,4 +47,8 @@ public interface MavenConstants {
 
     static final String LOCAL_RESOLUTION_URL = "localrepositories://@id=talend.local";
 
+    static final String PACKAGING_JAR = "jar";
+
+    static final String PACKAGING_POM = "pom";
+
 }
