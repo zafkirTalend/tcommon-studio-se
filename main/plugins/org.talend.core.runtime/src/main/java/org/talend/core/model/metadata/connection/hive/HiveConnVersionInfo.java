@@ -123,6 +123,14 @@ public enum HiveConnVersionInfo {
     Cloudera_CDH4(1, EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH4
             .getVersionDisplay(), true, true, HiveConnVersionInfo.CLOUDERA),
 
+    MAPR4_1_0(
+              1,
+              EHadoopVersion4Drivers.MAPR410.getVersionValue(),
+              EHadoopVersion4Drivers.MAPR410.getVersionDisplay(),
+              true,
+              false,
+              HiveConnVersionInfo.MAPR),
+
     MAPR4_0_1(
               1,
               EHadoopVersion4Drivers.MAPR401.getVersionValue(),
@@ -215,6 +223,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.MAPR3_0_1,
                   HiveConnVersionInfo.MAPR3_1_0,
                   HiveConnVersionInfo.MAPR4_0_1,
+                  HiveConnVersionInfo.MAPR4_1_0,
                   HiveConnVersionInfo.APACHE_1_0_3_EMR,
                   HiveConnVersionInfo.APACHE_2_4_0_EMR,
                   HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
@@ -244,6 +253,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MAPR3_0_1,
                     HiveConnVersionInfo.MAPR3_1_0,
                     HiveConnVersionInfo.MAPR4_0_1,
+                    HiveConnVersionInfo.MAPR4_1_0,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.APACHE_2_4_0_EMR,
                     HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
@@ -272,7 +282,8 @@ public enum HiveConnVersionInfo {
             HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR };
 
     private static HiveConnVersionInfo[] hiveVersionsSupportingTez = new HiveConnVersionInfo[] { HiveConnVersionInfo.HDP_2_2,
-            HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.MAPR4_0_1, HiveConnVersionInfo.DISTRO_VERSION_CUSTOM };
+            HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.MAPR4_0_1, HiveConnVersionInfo.MAPR4_1_0,
+            HiveConnVersionInfo.DISTRO_VERSION_CUSTOM };
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {

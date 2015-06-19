@@ -86,6 +86,9 @@ public enum EHBaseDistribution4Versions {
                   EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionDisplay(),
                   EHadoopVersion4Drivers.CLOUDERA_CDH4.getVersionValue()),
 
+    MAPR_4_1_0(EHBaseDistributions.MAPR, EHadoopVersion4Drivers.MAPR410.getVersionDisplay(), EHadoopVersion4Drivers.MAPR410
+            .getVersionValue()),
+
     MAPR_4_0_1(EHBaseDistributions.MAPR, EHadoopVersion4Drivers.MAPR401.getVersionDisplay(), EHadoopVersion4Drivers.MAPR401
             .getVersionValue()),
 
