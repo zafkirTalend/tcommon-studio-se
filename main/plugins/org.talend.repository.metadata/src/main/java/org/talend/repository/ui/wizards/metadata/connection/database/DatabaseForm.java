@@ -1460,33 +1460,10 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void setHidAuthenticationForHive(boolean hide) {
-        if (!hide) {
-            GridData keytabGridData = (GridData) useKeyTab.getLayoutData();
-            GridData keytabDetailGridData = (GridData) keyTabComponent.getLayoutData();
-            if (!isHiveEmbeddedMode()) {
-                useKeyTab.setVisible(false);
-                keyTabComponent.setVisible(false);
-                keytabGridData.exclude = true;
-                keytabDetailGridData.exclude = true;
-                useKeyTab.setSelection(false);
-                getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB, "false"); //$NON-NLS-1$
-            } else {
-                boolean keytabCompositeVisible = useKeyTab.getSelection();
-                useKeyTab.setVisible(true);
-                keyTabComponent.setVisible(keytabCompositeVisible);
-                keytabGridData.exclude = false;
-                keytabDetailGridData.exclude = !keytabCompositeVisible;
-            }
-            useKeyTab.setLayoutData(keytabGridData);
-            keyTabComponent.setLayoutData(keytabDetailGridData);
-            useKeyTab.getParent().layout();
-        }
-
         GridData hadoopData = (GridData) authenticationGrp.getLayoutData();
         hadoopData.exclude = hide;
         authenticationGrp.setVisible(!hide);
         authenticationGrp.setLayoutData(hadoopData);
-        authenticationGrp.layout();
         authenticationGrp.getParent().layout();
     }
 
@@ -5781,15 +5758,15 @@ public class DatabaseForm extends AbstractForm {
             int hiveServerIndex = 0;
             if (hiveServerDisplayNames != null && hiveServerKey != null) {
                 for (hiveServerIndex = 0; hiveServerIndex < hiveServerDisplayNames.length; hiveServerIndex++) {
-                    if (hiveServerKey.equals(hiveServerDisplayNames)) {
+                    if (hiveServerKey.equals(HiveServerVersionUtils.extractKey(HiveConnUtils
+                            .getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[hiveServerIndex])))) {
                         break;
                     }
                 }
-                if (hiveServerDisplayNames.length <= hiveServerIndex) {
-                    hiveServerIndex = 0;
-                }
+                // if (hiveServerDisplayNames.length <= hiveServerIndex) {
+                // hiveServerIndex = 0;
+                // }
             }
-
             hiveServerVersionCombo.select(hiveServerIndex);
         }
         int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
