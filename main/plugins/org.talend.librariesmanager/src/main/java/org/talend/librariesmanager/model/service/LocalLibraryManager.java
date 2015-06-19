@@ -179,9 +179,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                 customUriToAdd.put(jarName, mavenUri);
                             }
                         }
-                        sourceAndMavenUri.put(jarFile.getAbsolutePath(), mavenUri);
+                        sourceAndMavenUri.put(mavenUri, jarFile.getAbsolutePath());
                         if (!defaultMavenUri.equals(mavenUri)) {
-                            sourceAndMavenUri.put(jarFile.getAbsolutePath(), defaultMavenUri);
+                            sourceAndMavenUri.put(defaultMavenUri, jarFile.getAbsolutePath());
                         }
                     }
                     deployer.deployToLocalMaven(sourceAndMavenUri);
@@ -196,9 +196,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     }
                 }
                 Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
-                sourceAndMavenUri.put(file.getAbsolutePath(), mavenUri);
+                sourceAndMavenUri.put(mavenUri, file.getAbsolutePath());
                 if (!defaultMavenUri.equals(mavenUri)) {
-                    sourceAndMavenUri.put(file.getAbsolutePath(), defaultMavenUri);
+                    sourceAndMavenUri.put(defaultMavenUri,file.getAbsolutePath());
                 }
 
                 deployer.deployToLocalMaven(sourceAndMavenUri);
@@ -886,7 +886,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
                     customUriToAdd.put(jarName, mavenUri);
                 }
-                sourceAndMavenUri.put(file, mavenUri);
+                sourceAndMavenUri.put(mavenUri,file);
             }
             try {
                 deployer.deployToLocalMaven(sourceAndMavenUri);

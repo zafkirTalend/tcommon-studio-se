@@ -72,8 +72,8 @@ public class ArtifactsDeployer {
      * @throws Exception
      */
     public void deployToLocalMaven(Map<String, String> jarSourceAndMavenUri) throws Exception {
-        for (String path : jarSourceAndMavenUri.keySet()) {
-            deployToLocalMaven(path, jarSourceAndMavenUri.get(path));
+        for (String mavenUri : jarSourceAndMavenUri.keySet()) {
+            deployToLocalMaven(jarSourceAndMavenUri.get(mavenUri), mavenUri);
         }
     }
 
