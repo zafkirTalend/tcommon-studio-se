@@ -173,6 +173,7 @@ public class RemoteModulesHelper {
                             String license = artifact.getLicense();
                             String license_url = artifact.getLicenseUrl();
                             String distribution = artifact.getDistribution();
+                            String packaging = artifact.getType();
                             String url = null;
                             if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
                                 url = artifact.getUrl();
@@ -181,7 +182,8 @@ public class RemoteModulesHelper {
                             m.setName(artifactId + "." + packageName);
                             // a maven uri like mvn:org.talend.libraries/mysql-connector-java-5.1.30-bin/6.0.0 ,no need
                             // type and classifier
-                            String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, null, null);
+                            String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, packaging,
+                                    null);
                             m.setMavenUri(mvnUri);
                             m.setLicenseType(license);
                             m.setLicenseUrl(license_url);
