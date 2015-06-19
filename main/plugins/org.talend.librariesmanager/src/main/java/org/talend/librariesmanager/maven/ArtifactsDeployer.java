@@ -90,11 +90,6 @@ public class ArtifactsDeployer {
         // change to snapshot version to deploy
 
         if (parseMvnUrl != null) {
-            String absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
-            // skip if already in maven
-            if (absArtifactPath != null) {
-                return;
-            }
             // install to local maven repository and create pom
             // repositoryManager.install(new File(path), parseMvnUrl);
             String artifactType = parseMvnUrl.getType();
