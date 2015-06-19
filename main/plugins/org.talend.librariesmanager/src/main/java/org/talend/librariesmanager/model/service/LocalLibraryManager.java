@@ -136,7 +136,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         // deploy to maven
         Map<String, String> customUriToAdd = new HashMap<String, String>();
-        deployFile(file, customUriToAdd, monitorWrap);
+        deployFile(file, null, customUriToAdd, monitorWrap);
         // add custom uri map to the index
         if (!customUriToAdd.isEmpty()) {
             deployMavenIndex(customUriToAdd, monitorWrap);
@@ -160,7 +160,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
     }
 
-    private void deployFile(File file, Map<String, String> customUriToAdd, IProgressMonitor... monitorWrap) {
+    private void deployFile(File file, String mavenUri, Map<String, String> customUriToAdd, IProgressMonitor... monitorWrap) {
         try {
             listToUpdate = true;
             if (file.isDirectory()) {
@@ -169,24 +169,39 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 if (!jarFiles.isEmpty()) {
                     for (File jarFile : jarFiles) {
                         String jarName = jarFile.getName();
-                        String mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath()
-                                .get(jarName);
+                        String defaultMavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
                         if (mavenUri == null) {
-                            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
-                            customUriToAdd.put(jarName, mavenUri);
+                            mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath()
+                                    .get(jarName);
+
+                            if (mavenUri == null) {
+                                mavenUri = defaultMavenUri;
+                                customUriToAdd.put(jarName, mavenUri);
+                            }
                         }
                         sourceAndMavenUri.put(jarFile.getAbsolutePath(), mavenUri);
+                        if (!defaultMavenUri.equals(mavenUri)) {
+                            sourceAndMavenUri.put(jarFile.getAbsolutePath(), defaultMavenUri);
+                        }
                     }
                     deployer.deployToLocalMaven(sourceAndMavenUri);
                 }
             } else {
-                String mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath()
-                        .get(file.getName());
+                String defaultMavenUri = MavenUrlHelper.generateMvnUrlForJarName(file.getName());
                 if (mavenUri == null) {
-                    mavenUri = MavenUrlHelper.generateMvnUrlForJarName(file.getName());
-                    customUriToAdd.put(file.getName(), mavenUri);
+                    mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath().get(file.getName());
+                    if (mavenUri == null) {
+                        mavenUri = MavenUrlHelper.generateMvnUrlForJarName(file.getName());
+                        customUriToAdd.put(file.getName(), mavenUri);
+                    }
                 }
-                deployer.deployToLocalMaven(file.getAbsolutePath(), mavenUri);
+                Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
+                sourceAndMavenUri.put(file.getAbsolutePath(), mavenUri);
+                if (!defaultMavenUri.equals(mavenUri)) {
+                    sourceAndMavenUri.put(file.getAbsolutePath(), defaultMavenUri);
+                }
+
+                deployer.deployToLocalMaven(sourceAndMavenUri);
             }
 
         } catch (IOException e) {
@@ -214,7 +229,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 return;
             }
             // deploy to maven
-            deployFile(file, customUriToAdd, monitorWrap);
+            deployFile(file, null, customUriToAdd, monitorWrap);
             // deploy to configuration/lib/java if tac still use the svn lib
             try {
                 if (isSvnLibSetup()) {
@@ -549,19 +564,18 @@ public class LocalLibraryManager implements ILibraryManagerService {
         boolean modified = false;
         LibrariesIndex index = LibrariesIndexManager.getInstance().getStudioLibIndex();
         EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
-        List<File> filesToDeploy = new ArrayList<File>();
+        Map<String, String> customUriToAdd = new HashMap<String, String>();
         for (ModuleNeeded module : modules) {
+            File fileToDeploy = null;
             String moduleLocation = module.getModuleLocaion();
-            EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
-            String mavenUri = jarsToMavenUri.get(module.getModuleName());
+            String mavenUri = module.getMavenUriSnapshot();
+            if (mavenUri == null || "".equals(mavenUri)) {
+                EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex()
+                        .getJarsToRelativePath();
+                mavenUri = jarsToMavenUri.get(module.getModuleName());
+            }
             if (checkJarInstalledInMaven(mavenUri)) {
                 continue;
-            }
-            if (module.getMavenUriSnapshot() != null && !module.getMavenUriSnapshot().isEmpty()) {
-                // should never go here normally, since all the jars should be in the maven index, but just in case.
-                if (checkJarInstalledInMaven(module.getMavenUriSnapshot())) {
-                    continue;
-                }
             }
             boolean found = false;
             if (moduleLocation != null && moduleLocation.startsWith("platform:/")) {
@@ -580,7 +594,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     jarsToRelativePath.put(module.getModuleName(), moduleLocation);
                     modified = true;
                     found = true;
-                    filesToDeploy.add(new File(studioJarInstalled.get(moduleLocation)));
+                    fileToDeploy = new File(studioJarInstalled.get(moduleLocation));
                 }
             }
             if (!found) {
@@ -589,16 +603,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 String relativePath = jarsToRelative.get(module.getModuleName());
                 if (relativePath != null && checkJarInstalledFromPlatform(relativePath)) {
                     found = true;
-                    filesToDeploy.add(new File(studioJarInstalled.get(relativePath)));
+                    fileToDeploy = new File(studioJarInstalled.get(relativePath));
                 }
             }
             if (!found) {
                 ExceptionHandler.log("missing jar:" + module.getModuleName());
             }
-        }
-        Map<String, String> customUriToAdd = new HashMap<String, String>();
-        for (File file : filesToDeploy) {
-            deployFile(file, customUriToAdd, monitorWrap);
+            if (fileToDeploy != null) {
+                deployFile(fileToDeploy, mavenUri, customUriToAdd, monitorWrap);
+            }
         }
         // add custom uri map to the index and save after deploy all
         if (!customUriToAdd.isEmpty()) {
@@ -619,21 +632,21 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (mavenUri == null) {
                 mavenUri = mavenUriFromExtensions.get(jarName);
             }
-            if (mavenUri != null) {
+
+            if (mavenUri == null) {
+                // check if jar is already installed on the local maven repository with the standard mvn uri
+                mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
+            }
+            libPath = mavenJarInstalled.get(mavenUri);
+            if (libPath != null) {
+                return libPath;
+            } else if (checkJarInstalledInMaven(mavenUri)) {
                 libPath = mavenJarInstalled.get(mavenUri);
                 if (libPath != null) {
                     return libPath;
                 }
-            } else {
-                // check if jar is already installed on the local maven repository with the standard mvn uri
-                mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
-                if (checkJarInstalledInMaven(mavenUri)) {
-                    libPath = mavenJarInstalled.get(mavenUri);
-                    if (libPath != null) {
-                        return libPath;
-                    }
-                }
             }
+
             // java/lib folder
             List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), jarName);
             if (jarFiles.size() > 0) {
