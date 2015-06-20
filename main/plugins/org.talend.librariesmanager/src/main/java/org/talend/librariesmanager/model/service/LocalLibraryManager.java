@@ -198,7 +198,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
                 sourceAndMavenUri.put(mavenUri, file.getAbsolutePath());
                 if (!defaultMavenUri.equals(mavenUri)) {
-                    sourceAndMavenUri.put(defaultMavenUri,file.getAbsolutePath());
+                    sourceAndMavenUri.put(defaultMavenUri, file.getAbsolutePath());
                 }
 
                 deployer.deployToLocalMaven(sourceAndMavenUri);
@@ -607,6 +607,20 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
             }
             if (!found) {
+                try {
+                    fileToDeploy = getJarFile(module.getModuleName());
+                } catch (MalformedURLException e) {
+                    ExceptionHandler.process(e);
+                }
+                if (fileToDeploy != null) {
+                    found = true;
+                }
+            }
+            if (!fileToDeploy.exists()) {
+                fileToDeploy = null;
+                found = false;
+            }
+            if (!found) {
                 ExceptionHandler.log("missing jar:" + module.getModuleName());
             }
             if (fileToDeploy != null) {
@@ -886,7 +900,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
                     customUriToAdd.put(jarName, mavenUri);
                 }
-                sourceAndMavenUri.put(mavenUri,file);
+                sourceAndMavenUri.put(mavenUri, file);
             }
             try {
                 deployer.deployToLocalMaven(sourceAndMavenUri);
