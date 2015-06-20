@@ -616,7 +616,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     found = true;
                 }
             }
-            if (!fileToDeploy.exists()) {
+            if (fileToDeploy != null && !fileToDeploy.exists()) {
                 fileToDeploy = null;
                 found = false;
             }
