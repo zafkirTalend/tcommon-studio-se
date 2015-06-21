@@ -1601,7 +1601,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
                 || objToDelete.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
             if (coreSerivce.isAlreadyBuilt(project)) {
-                coreSerivce.removeItemRelations(objToDelete.getProperty().getItem());
+                if (objToDelete.getProperty() != null) {
+                    coreSerivce.removeItemRelations(objToDelete.getProperty().getItem());
+                }
             }
         }
 
