@@ -22,6 +22,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorException;
@@ -48,11 +49,9 @@ public class ProcessorDependenciesManager {
             // add the job modules.
             Set<ModuleNeeded> neededLibraries = processor.getNeededModules();
             for (ModuleNeeded module : neededLibraries) {
-                Dependency dependency;
-                if (module.getMavenUriSnapshot() != null && !module.getMavenUriSnapshot().isEmpty()) {
+                Dependency dependency = null;
+                if (module.getMavenUriSnapshot() != null && !module.getMavenUriSnapshot().isEmpty() && module.getStatus() != ELibraryInstallStatus.NOT_INSTALLED) {
                     dependency = PomUtil.createModuleDependency(module.getMavenUriSnapshot());
-                } else {
-                    dependency = PomUtil.createModuleDependency(module.getModuleName());
                 }
                 if (dependency != null) {
                     neededDependencies.add(dependency);
