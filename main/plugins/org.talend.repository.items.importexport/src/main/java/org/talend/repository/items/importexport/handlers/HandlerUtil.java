@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -168,6 +169,23 @@ public final class HandlerUtil {
                         inputStream = null;
                     }
                     return inputStream;
+                }
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#contentDescription(org.eclipse.emf
+                 * .common.util.URI, java.util.Map)
+                 */
+                @Override
+                public Map<String, ?> contentDescription(URI uri, Map<?, ?> options) throws IOException {
+                    EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
+                    if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
+                        return super.contentDescription(uri, options);
+                    } else {
+                        return Collections.emptyMap();
+                    }
                 }
             });
             resource.load(stream, null);
