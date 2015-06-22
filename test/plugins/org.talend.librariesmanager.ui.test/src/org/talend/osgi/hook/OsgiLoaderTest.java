@@ -435,7 +435,24 @@ public class OsgiLoaderTest {
         Bundle bundle = osgiBundle.getBundleContext().installBundle(BUNDLE_CALLING_LIB_FOLDER_URL);
         final Boolean[] observerCalled = new Boolean[1];
         observerCalled[0] = false;
-        Observer observer = new MissingJarObserverWithMavenResolution(observerCalled, false);
+        Observer observer = new Observer() {
+
+            @Override
+            public void update(Observable o, Object arg) {
+                if (arg != null && arg instanceof JarMissingEvent) {
+                    JarMissingEvent jarMissingEvent = (JarMissingEvent) arg;
+                    try {
+                        if (jarMissingEvent.getMvnUri().toASCIIString().equals("mvn:org.talend.studio/any-existing/1.0.0")) {
+                            observerCalled[0] = true;
+                        }// else ignor this bundle
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {// notification is not expected so thrown an exception for the test to fail
+                    throw new RuntimeException("Missing jar observer did not receive the proper event :" + arg);
+                }
+            }
+        };
         setupMissingJarLoadingObserver(observer);
 
         try {

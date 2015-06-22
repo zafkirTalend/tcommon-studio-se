@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.osgi.container.ModuleRevision;
 import org.eclipse.osgi.internal.hookregistry.BundleFileWrapperFactoryHook;
 import org.eclipse.osgi.storage.BundleInfo.Generation;
 import org.eclipse.osgi.storage.bundlefile.BundleEntry;
@@ -80,7 +81,9 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
         public BundleEntry getEntry(String path) {
             // we are using te getEntry to trick equinox when a jar file is missing
             BundleEntry be = super.getEntry(path);
-            if (be == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file that does not exists.
+            // handle missing jar only for Hosts Bundles and not Fragments
+            if (be == null
+                    && path.endsWith(".jar") && ((generation.getRevision().getTypes() & ModuleRevision.TYPE_FRAGMENT) == 0)) { //$NON-NLS-1$ //jar file that does not exists.
                 // use the getFile to find the jar from the lib/java folder.
                 File file = getFile(path, false, false);
                 if (file == null) {
@@ -192,7 +195,9 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
          */
         protected File getFile(String path, boolean nativeCode, boolean notifyMissingJar) {
             File file = super.getFile(path, nativeCode);
-            if (file == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file not found in current bundle.
+            // handle missing jar only for Host Bundles and not Fragments
+            if (file == null
+                    && path.endsWith(".jar") && ((generation.getRevision().getTypes() & ModuleRevision.TYPE_FRAGMENT) == 0)) { //$NON-NLS-1$ //jar file not found in current bundle.
                 URL resourcePathInFragment = findInFragments(generation.getRevision().getBundle(), path);
                 if (resourcePathInFragment != null) {
                     return null;
