@@ -36,6 +36,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.ops4j.pax.url.mvn.MavenResolver;
 import org.ops4j.pax.url.mvn.ServiceConstants;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -128,9 +129,9 @@ public class OsgiLoaderTest {
                 String jarName = jarMissingEvent.getJarName();
                 if (!checkJarName || jarName.equals(EXISTING_JAR_NAME)) {
                     try {
-                        copyExistingJarIntoMavenLocalRepo();
+                        copyExistingJarIntoMavenLocalRepo(false);
                         this.observerCalled[0] = true;
-                    } catch (URISyntaxException e1) {
+                    } catch (URISyntaxException | IOException e1) {
                         throw new RuntimeException(e1);
                     }
 
@@ -173,6 +174,8 @@ public class OsgiLoaderTest {
     final File libJavaFolderFile = getLibJavaFolderFile();
 
     public File temp_maven_repo;
+
+    private MavenResolver paxResolver;
 
     /**
      * return the folder where to find the missing libraries or null if none was defined
@@ -225,6 +228,10 @@ public class OsgiLoaderTest {
             props.put(ServiceConstants.PID + "." + ServiceConstants.PROPERTY_LOCAL_REPOSITORY, temp_maven_repo.toURI()
                     .toASCIIString());
             managedService.updated(props);
+            ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = osgiBundle.getBundleContext()
+                    .getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
+            paxResolver = osgiBundle.getBundleContext().getService(mavenResolverService);
+
         } else {
             throw new RuntimeException("Failed to load the service :" + ManagedService.class.getCanonicalName()); //$NON-NLS-1$
         }
@@ -303,7 +310,26 @@ public class OsgiLoaderTest {
             URL[] jarURL = FileLocator.findEntries(bundle, new Path("lib/any-existing.jar")); //$NON-NLS-1$ 
             URL fileURL = FileLocator.toFileURL(jarURL[0]);
             assertFalse("File should not exists", new File(fileURL.getFile()).exists()); //$NON-NLS-1$
-            copyExistingJarIntoMavenLocalRepo();
+            copyExistingJarIntoMavenLocalRepo(false);
+            jarURL = FileLocator.findEntries(bundle, new Path("lib/any-existing.jar")); //$NON-NLS-1$ 
+            fileURL = FileLocator.toFileURL(jarURL[0]);
+            assertTrue("File should exists", new File(fileURL.getFile()).exists()); //$NON-NLS-1$
+        } finally {
+            bundle.uninstall();
+        }
+        bundle = Platform.getBundle(BUNDLE_NO_LIB);
+        assertNull(bundle);
+    }
+
+    @Test
+    public void CheckFindingExistingJarUsingFindEntriesAndMavenOnlySnapshot() throws IOException, BundleException,
+            URISyntaxException {
+        Bundle bundle = osgiBundle.getBundleContext().installBundle(BUNDLE_NO_LIB_FOLDER_URL);
+        try {
+            URL[] jarURL = FileLocator.findEntries(bundle, new Path("lib/any-existing.jar")); //$NON-NLS-1$ 
+            URL fileURL = FileLocator.toFileURL(jarURL[0]);
+            assertFalse("File should not exists", new File(fileURL.getFile()).exists()); //$NON-NLS-1$
+            copyExistingJarIntoMavenLocalRepo(true);
             jarURL = FileLocator.findEntries(bundle, new Path("lib/any-existing.jar")); //$NON-NLS-1$ 
             fileURL = FileLocator.toFileURL(jarURL[0]);
             assertTrue("File should exists", new File(fileURL.getFile()).exists()); //$NON-NLS-1$
@@ -839,6 +865,17 @@ public class OsgiLoaderTest {
         assertNull(bundleNoJar);
     }
 
+    @Test
+    public void testAddSnapshotToMvnURI() throws URISyntaxException {
+        assertEquals(new URI("mvn:foo/bar"), URIUtil.addSnapshotToUri(new URI("mvn:foo/bar")));
+        assertEquals(new URI("mvn:foo/bar/LATEST"), URIUtil.addSnapshotToUri(new URI("mvn:foo/bar/LATEST")));
+        assertEquals(new URI("mvn:foo/bar/12-SNAPSHOT"), URIUtil.addSnapshotToUri(new URI("mvn:foo/bar/12-SNAPSHOT")));
+        assertEquals(new URI("mvn:foo/bar/12-SNAPSHOT"), URIUtil.addSnapshotToUri(new URI("mvn:foo/bar/12")));
+        assertEquals(new URI("mvn:foo/bar/12-SNAPSHOT/jar"), URIUtil.addSnapshotToUri(new URI("mvn:foo/bar/12/jar")));
+        assertEquals(new URI("mvn:http://!foo/bar/12-SNAPSHOT/jar"),
+                URIUtil.addSnapshotToUri(new URI("mvn:http://!foo/bar/12/jar")));
+    }
+
     /**
      * DOC sgandon Comment method "unsetupMissingJarLoadingObserver".
      * 
@@ -906,20 +943,15 @@ public class OsgiLoaderTest {
     /**
      * DOC sgandon Comment method "copyExistingJarIntoLibJavaFolder".
      * 
+     * @param isSnapshot
+     * 
      * @param jarName
      * @throws URISyntaxException
+     * @throws IOException
      */
-    private void copyExistingJarIntoMavenLocalRepo() throws URISyntaxException {
+    private void copyExistingJarIntoMavenLocalRepo(boolean isSnapshot) throws URISyntaxException, IOException {
         File sourceFile = new File(new URI(FRAGMENT_WITH_LIB_FOLDER_URL + "lib/any-existing.jar")); //$NON-NLS-1$
-        File desctinationFile = new File(temp_maven_repo, "org/talend/studio/any-existing/1.0.0/any-existing-1.0.0.jar");
-        File pomSourceFile = new File(new URI(LIB_POM_URL));
-        File pomDestFile = new File(temp_maven_repo, "org/talend/studio/any-existing/1.0.0/any-existing-1.0.0.pom");
-        try {
-            FileUtils.copyFile(sourceFile, desctinationFile);
-            FileUtils.copyFile(pomSourceFile, pomDestFile);
-        } catch (IOException e) {
-            throw new RuntimeException("failed to copy jar", e); //$NON-NLS-1$
-        }
+        paxResolver.upload("org.talend.studio", "any-existing", null, "jar", isSnapshot ? "1.0.0-SNAPSHOT" : "1.0.0", sourceFile);
     }
 
 }

@@ -114,11 +114,19 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
                             try {
                                 File jarFile = mavenResolver.resolve(mvnUri.toASCIIString());
                                 be = new FileBundleEntry(jarFile, path);
-                            } catch (IOException e) {// failed to find local artifact
-                                MissingJarServices
-                                        .getLogService()
-                                        .log(LogService.LOG_DEBUG,
-                                                "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e); //$NON-NLS-2$
+                            } catch (IOException e) {// failed to find local artifact, try snapshot
+                                try {
+                                    // add snapshot to uri
+                                    URI snapMvnUri = URIUtil.addSnapshotToUri(mvnUri);
+                                    File jarFile = mavenResolver.resolve(snapMvnUri.toASCIIString());
+                                    be = new FileBundleEntry(jarFile, path);
+                                } catch (IOException e1) {// failed to find SNAPSHOT artifact
+
+                                    MissingJarServices
+                                            .getLogService()
+                                            .log(LogService.LOG_DEBUG,
+                                                    "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e1); //$NON-NLS-2$
+                                }
                             }
                         }// else no maven URI found so try old style lib/java folder
                         if (be == null) {

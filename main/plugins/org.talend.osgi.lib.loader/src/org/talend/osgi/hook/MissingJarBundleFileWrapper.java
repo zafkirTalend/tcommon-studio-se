@@ -37,14 +37,14 @@ import org.talend.osgi.hook.notification.JarMissingObservable;
  */
 public class MissingJarBundleFileWrapper extends BundleFileWrapper {
 
-    private BundleFile          resolvedBundleFile;
+    private BundleFile resolvedBundleFile;
 
-    private String              jarPath;
+    private String jarPath;
 
-    private Generation          generation;
+    private Generation generation;
 
     @SuppressWarnings("unchecked")
-    private Enumeration<String> EMPTY_STRING_ENUM = Collections.enumeration( Collections.EMPTY_LIST );
+    private Enumeration<String> EMPTY_STRING_ENUM = Collections.enumeration(Collections.EMPTY_LIST);
 
     /**
      * DOC sgandon MissingJarBundleFileWrapper constructor comment.
@@ -54,7 +54,7 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
      * @param jarPath
      */
     public MissingJarBundleFileWrapper(BundleFile bundleFile, Generation generation, String jarPath) {
-        super( bundleFile );
+        super(bundleFile);
         this.generation = generation;
         this.jarPath = jarPath;
     }
@@ -70,7 +70,7 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
             resolveMissingJarBundleFile();
         }
         if (resolvedBundleFile != null) {
-            return resolvedBundleFile.getFile( path, nativeCode );
+            return resolvedBundleFile.getFile(path, nativeCode);
         }
         return null;
     }
@@ -81,9 +81,9 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
      * @param jarFile
      */
     private void createResolvedBundleFile(File jarFile) {
-        resolvedBundleFile = generation.getBundleInfo().getStorage().createBundleFile( jarFile, generation, false, false );
+        resolvedBundleFile = generation.getBundleInfo().getStorage().createBundleFile(jarFile, generation, false, false);
         MissingJarServices
-                .logDebugInfo( "MissingJarBundleFileWrapper resolved :" + generation.getRevision().getSymbolicName() + "/" + jarPath + "(" + jarFile.getAbsolutePath() + ")" ); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$                     
+                .logDebugInfo("MissingJarBundleFileWrapper resolved :" + generation.getRevision().getSymbolicName() + "/" + jarPath + "(" + jarFile.getAbsolutePath() + ")"); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$                     
     }
 
     /*
@@ -97,7 +97,7 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
             resolveMissingJarBundleFile();
         }
         if (resolvedBundleFile != null) {
-            return resolvedBundleFile.getEntry( path );
+            return resolvedBundleFile.getEntry(path);
         }
         return null;
     }
@@ -113,7 +113,7 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
             resolveMissingJarBundleFile();
         }
         if (resolvedBundleFile != null) {
-            return resolvedBundleFile.getEntryPaths( path );
+            return resolvedBundleFile.getEntryPaths(path);
         }
         return EMPTY_STRING_ENUM;
     }
@@ -129,7 +129,7 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
             resolveMissingJarBundleFile();
         }
         if (resolvedBundleFile != null) {
-            return resolvedBundleFile.getEntryPaths( path, recurse );
+            return resolvedBundleFile.getEntryPaths(path, recurse);
         }
         return EMPTY_STRING_ENUM;
     }
@@ -146,7 +146,7 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
             resolveMissingJarBundleFile();
         }
         if (resolvedBundleFile != null) {
-            return resolvedBundleFile.getResourceURL( path, hostModule, index );
+            return resolvedBundleFile.getResourceURL(path, hostModule, index);
         }
         return null;
     }
@@ -155,19 +155,19 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
      * DOC sgandon Comment method "resolveMissingJarBundleFile".
      */
     void resolveMissingJarBundleFile() {
-        File jarFile = lookForMissingJar( jarPath.substring( 0, jarPath.length() - 1 ), generation, true );
+        File jarFile = lookForMissingJar(jarPath.substring(0, jarPath.length() - 1), generation, true);
         if (jarFile != null && jarFile.exists()) {
-            createResolvedBundleFile( jarFile );
+            createResolvedBundleFile(jarFile);
         } else {// log an error if observer where notified and nothing was resolved
             if (MissingJarServices.getJarMissingObservable().countObservers() != 0) {
-                String message = "one third party library file [" + jarPath.substring( 0, jarPath.length() - 1 ) //$NON-NLS-1$
+                String message = "one third party library file [" + jarPath.substring(0, jarPath.length() - 1) //$NON-NLS-1$
                         + "] was not found, it is required for bundle [" + getBundleFile().getBaseFile().getName() //$NON-NLS-1$
                         + "]."; //$NON-NLS-1$ 
                 if (MissingJarServices.getLogService() != null) {
-                    MissingJarServices.getLogService().log( LogService.LOG_DEBUG, message );
+                    MissingJarServices.getLogService().log(LogService.LOG_DEBUG, message);
                 } else {// no log service available so throw a runtime exception to try
                     // notifying the user of the problem.
-                    throw new RuntimeException( message );
+                    throw new RuntimeException(message);
                 }
             }// else we don't have any observer, this means the Studio is not yet completly loaded.
         }
@@ -186,44 +186,53 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
         // look for mvn url.
         try {
             MavenResolver mavenResolver = MissingJarServices.getMavenResolver();
-            URI mvnUri = URIUtil.getMvnUri( path, generation, true );
+            URI mvnUri = URIUtil.getMvnUri(path, generation, true);
             if (mvnUri != null && mavenResolver != null) {// try to resolve it
                 try {
-                    File jarFile = mavenResolver.resolve( mvnUri.toASCIIString() );
+                    File jarFile = mavenResolver.resolve(mvnUri.toASCIIString());
                     return jarFile;
-                } catch (IOException e) {// failed to find local artifact
-                    MissingJarServices
-                            .getLogService()
-                            .log( LogService.LOG_DEBUG,
-                                    "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e ); //$NON-NLS-2$
+                } catch (IOException e) {// failed to find local artifact, try snapshot
+                    try {
+                        // add snapshot to uri
+                        URI snapMvnUri = URIUtil.addSnapshotToUri(mvnUri);
+                        File jarFile = mavenResolver.resolve(snapMvnUri.toASCIIString());
+                        return jarFile;
+                    } catch (IOException e1) {// failed to find SNAPSHOT artifact
+
+                        MissingJarServices
+                                .getLogService()
+                                .log(LogService.LOG_DEBUG,
+                                        "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e1); //$NON-NLS-2$
+                    }
                 }
             }// else no maven URI found so try old style lib/java folder
             File libJavaFolderFile = MissingJarServices.getLibJavaFolderFile();
             if (libJavaFolderFile != null) {
-                String jarName = new File( path ).getName();
-                File jarFile = new File( libJavaFolderFile, jarName );
+                String jarName = new File(path).getName();
+                File jarFile = new File(libJavaFolderFile, jarName);
                 if (jarFile.exists()) {
                     return jarFile;
                 } else {// jar file not found in the lib/java folder
                     if (notifyMissingJar) {
                         // notify any observable to get a chance for the lib to be installed
-                        MissingJarServices.getJarMissingObservable().notifyObservers(
-                                new JarMissingObservable.JarMissingEvent( jarName, generation, libJavaFolderFile
-                                        .getAbsolutePath() ) );
+                        MissingJarServices.getJarMissingObservable()
+                                .notifyObservers(
+                                        new JarMissingObservable.JarMissingEvent(jarName, generation, libJavaFolderFile
+                                                .getAbsolutePath()));
                         MissingJarServices
-                                .logDebugInfo( "MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)." ); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                                .logDebugInfo("MissingJar notification for :" + generation.getRevision().getSymbolicName() + "/" + path + " (" + MissingJarServices.getJarMissingObservable().countObservers() + " observers)."); //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
                         // let's do another check to see if the bundle was installed during the above
                         // notification
                         if (mvnUri != null && mavenResolver != null) {// try to resolve it
                             try {
-                                jarFile = mavenResolver.resolve( mvnUri.toASCIIString() );
+                                jarFile = mavenResolver.resolve(mvnUri.toASCIIString());
                                 return jarFile;
                             } catch (IOException e) {// failed to find local artifact
                                 MissingJarServices
                                         .getLogService()
-                                        .log( LogService.LOG_DEBUG,
-                                                "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e ); //$NON-NLS-2$
+                                        .log(LogService.LOG_DEBUG,
+                                                "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e); //$NON-NLS-2$
                             }
                         }// else no maven URI found so try old style lib/java folder
                         if (jarFile.exists()) {
@@ -235,8 +244,8 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
         } catch (URISyntaxException e) {
             MissingJarServices
                     .getLogService()
-                    .log( LogService.LOG_ERROR,
-                            "Error reading the Bundle-Classpath maven URI for path :" + generation.getRevision().getSymbolicName() + "/" + path, e ); //$NON-NLS-2$
+                    .log(LogService.LOG_ERROR,
+                            "Error reading the Bundle-Classpath maven URI for path :" + generation.getRevision().getSymbolicName() + "/" + path, e); //$NON-NLS-2$
         }
         return null;
     }
