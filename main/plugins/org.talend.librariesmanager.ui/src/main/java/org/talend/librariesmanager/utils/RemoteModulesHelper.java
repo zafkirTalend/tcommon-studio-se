@@ -573,7 +573,7 @@ public class RemoteModulesHelper {
         List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
         ModuleToInstall m1 = new ModuleToInstall();
         m1 = new ModuleToInstall();
-        m1.setName("jtds-1.2.5.jar");
+        m1.setName("jtds-1.3.1.jar");
         m1.setContext("tMysqlInput | tMysqlOutput");
         m1.setDescription("Mysql Driver");
         m1.setUrl_description("http://jtds.sourceforge.net/");
