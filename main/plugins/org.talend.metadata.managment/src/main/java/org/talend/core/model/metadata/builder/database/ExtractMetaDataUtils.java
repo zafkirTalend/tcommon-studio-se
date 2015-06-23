@@ -59,7 +59,6 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
-import org.talend.core.IService;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -79,7 +78,6 @@ import org.talend.designer.core.IDesignerCoreService;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.hive.EmbeddedHiveDataBaseMetadata;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IMetadataService;
 import org.talend.utils.exceptions.MissingDriverException;
 import org.talend.utils.sql.ConnectionUtils;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -246,9 +244,10 @@ public class ExtractMetaDataUtils {
         try {
             if (conn != null && !conn.isClosed()) {
                 // MOD sizhaoliu 2012-5-21 TDQ-4884
-                if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
-                    dbMetaData = createJtdsDatabaseMetaData(conn);
-                } else if (EDatabaseTypeName.IBMDB2ZOS.getXmlName().equals(dbType)) {
+                // if (MSSQL_CONN_CLASS.equals(conn.getClass().getName())) {
+                // dbMetaData = createJtdsDatabaseMetaData(conn);
+                // } else
+                if (EDatabaseTypeName.IBMDB2ZOS.getXmlName().equals(dbType)) {
                     dbMetaData = createDB2ForZosFakeDatabaseMetaData(conn);
                 } else if (EDatabaseTypeName.TERADATA.getXmlName().equals(dbType) && isSqlMode) {
                     dbMetaData = createTeradataFakeDatabaseMetaData(conn);
@@ -407,20 +406,20 @@ public class ExtractMetaDataUtils {
         return dmd;
     }
 
-    private DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataService.class)) {
-            IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
-            if (service != null) {
-                return ((IMetadataService) service).findCustomizedJTDSDBMetadata(conn);
-            }
-        }
-        try {
-            return conn.getMetaData();
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-    }
+    // private DatabaseMetaData createJtdsDatabaseMetaData(Connection conn) {
+    // if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataService.class)) {
+    // IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
+    // if (service != null) {
+    // return ((IMetadataService) service).findCustomizedJTDSDBMetadata(conn);
+    // }
+    // }
+    // try {
+    // return conn.getMetaData();
+    // } catch (SQLException e) {
+    // log.error(e.toString());
+    // throw new RuntimeException(e);
+    // }
+    // }
 
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
