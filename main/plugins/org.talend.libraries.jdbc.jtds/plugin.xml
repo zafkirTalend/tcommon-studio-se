@@ -6,7 +6,7 @@
             context="plugin:org.talend.libraries.jdbc.jtds"
             language="java"
             message="Needed for jtds jdbc plugin"
-            name="jtds-1.2.5.jar"
+            name="jtds-1.3.1.jar"
             required="true">
       </libraryNeeded>
    </extension>
