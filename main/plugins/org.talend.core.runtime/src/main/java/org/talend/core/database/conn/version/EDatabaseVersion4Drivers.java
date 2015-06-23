@@ -67,7 +67,7 @@ public enum EDatabaseVersion4Drivers {
     MYSQL_5(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 5", "MYSQL_5", "mysql-connector-java-5.1.30-bin.jar")), //$NON-NLS-1$  //$NON-NLS-2$ //$NON-NLS-3$
     MYSQL_4(new DbVersion4Drivers(EDatabaseTypeName.MYSQL, "MySQL 4", "MYSQL_4", "mysql-connector-java-3.1.14-bin.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     // add for 9594
-    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.2.5.jar")), //$NON-NLS-1$
+    MSSQL(new DbVersion4Drivers(EDatabaseTypeName.MSSQL, "jtds-1.3.1.jar")), //$NON-NLS-1$
 
     VERTICA_7(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 7.0.x", "VERTICA_7_0_X", "vertica-jdbc-7.0.1-0.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     VERTICA_6_1_X(new DbVersion4Drivers(EDatabaseTypeName.VERTICA, "VERTICA 6.1.x", "VERTICA_6_1_X", "vertica-jdk5-6.1.2-0.jar")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
