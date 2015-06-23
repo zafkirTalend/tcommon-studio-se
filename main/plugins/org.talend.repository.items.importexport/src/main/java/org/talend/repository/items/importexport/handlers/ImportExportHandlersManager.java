@@ -395,12 +395,31 @@ public final class ImportExportHandlersManager {
                                 final boolean overwriting, ImportItem[] allPopulatedImportItemRecords, IPath destinationPath,
                                 final Set<String> overwriteDeletedItems, final Set<String> idDeletedBeforeImport)
                                 throws Exception {
+                            boolean hasJoblet = false;
+                            boolean reloadJoblet = false;
                             for (ImportItem itemRecord : processingItemRecords) {
                                 if (monitor.isCanceled()) {
                                     return;
                                 }
                                 if (itemRecord.isImported()) {
                                     continue; // have imported
+                                }
+                                if (ERepositoryObjectType.JOBLET == itemRecord.getRepositoryType()) {
+                                    hasJoblet = true;
+                                }
+                                if (hasJoblet) {
+                                    if (ERepositoryObjectType.JOBLET != itemRecord.getRepositoryType()) {
+                                        // fix for TUP-3032 load joblet process before import job in order to build
+                                        // items relationship
+                                        reloadJoblet = true;
+                                        if (PluginChecker.isJobLetPluginLoaded()) {
+                                            IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister
+                                                    .getDefault().getService(IJobletProviderService.class);
+                                            if (jobletService != null) {
+                                                jobletService.loadComponentsFromProviders();
+                                            }
+                                        }
+                                    }
                                 }
                                 try {
                                     final IImportItemsHandler importHandler = itemRecord.getImportHandler();
@@ -452,7 +471,17 @@ public final class ImportExportHandlersManager {
                                         ExceptionHandler.process(e);
                                     }
                                 }
+
                             }
+
+                            if (hasJoblet && !reloadJoblet && PluginChecker.isJobLetPluginLoaded()) {
+                                IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister
+                                        .getDefault().getService(IJobletProviderService.class);
+                                if (jobletService != null) {
+                                    jobletService.loadComponentsFromProviders();
+                                }
+                            }
+
                         }
 
                     };
