@@ -629,6 +629,15 @@ public class WSDLSchemaWizard extends CheckLastVersionRepositoryWizard implement
         if (!flag) {
             return false;
         }
-        return true;
+
+        if (dynamicWizardPages != null) {
+            for (IWizardPage wizardPage : dynamicWizardPages) {
+                if (!wizardPage.isPageComplete()) {
+                    return false;
+                }
+            }
+        }
+
+        return super.canFinish();
     }
 }

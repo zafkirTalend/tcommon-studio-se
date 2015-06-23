@@ -542,9 +542,9 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
-                    checkFieldsValue();
+                    boolean noError = checkFieldsValue();
                     getConnection().setWSDL(wsdlText.getText());
-                    if (methodText.getText() != null && !methodText.getText().equals("")) { //$NON-NLS-1$
+                    if (noError && methodText.getText() != null && !methodText.getText().equals("")) { //$NON-NLS-1$
                         updateStatus(IStatus.OK, null);
                     }
                 }
@@ -556,9 +556,9 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
-                    checkFieldsValue();
+                    boolean noError = checkFieldsValue();
                     getConnection().setMethodName(methodText.getText());
-                    if (wsdlText.getText() != null && !wsdlText.getText().equals("")) { //$NON-NLS-1$
+                    if (noError && wsdlText.getText() != null && !wsdlText.getText().equals("")) { //$NON-NLS-1$
                         updateStatus(IStatus.OK, null);
                     }
                 }
@@ -622,7 +622,7 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 refreshPreview();
-                updateStatus(IStatus.OK, null);
+                // updateStatus(IStatus.OK, null);
             }
         });
 
@@ -749,7 +749,7 @@ public class WSDLSchemaStep1Form extends AbstractWSDLSchemaStepForm {
             return checkPerlFieldsValue();
         } else {
             updateStatus(IStatus.ERROR, null);
-            return true;
+            return false;
         }
 
     }
