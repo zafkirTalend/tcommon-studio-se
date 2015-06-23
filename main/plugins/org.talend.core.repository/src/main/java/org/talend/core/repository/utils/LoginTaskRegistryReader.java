@@ -101,7 +101,7 @@ public class LoginTaskRegistryReader extends RegistryReader {
                 commandlineTask.add(task);
             }
         }
-        return commandlineTask.toArray(new ILoginTask[0]);
+        return commandlineTask.toArray(new ILoginTask[commandlineTask.size()]);
     }
 
     /**

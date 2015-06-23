@@ -15,6 +15,8 @@ package org.talend.designer.maven.ui.setting.preference;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -35,11 +37,22 @@ import org.talend.utils.io.FilesUtils;
  */
 public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
-    private static final String MAVEN_SETTING_HAVE_SET = "Maven_Setting_have_set"; //$NON-NLS-1$
+    private static final String MAVEN_SETTING_HAVE_SET = "Maven_Setting_Have_Set"; //$NON-NLS-1$
 
     @Override
     public boolean isCommandlineTask() {
         return true; // also enable support for commandline, so set true.
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.login.ILoginTask#getOrder()
+     */
+    @Override
+    public Date getOrder() {
+        GregorianCalendar gc = new GregorianCalendar(2015, 6, 17, 12, 0, 0);
+        return gc.getTime();
     }
 
     /*
