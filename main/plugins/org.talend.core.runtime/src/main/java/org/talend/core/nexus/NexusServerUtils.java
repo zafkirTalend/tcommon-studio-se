@@ -180,11 +180,6 @@ public class NexusServerUtils {
                     artifact.setLicenseUrl(licenseUrlNode.getText());
                 }
 
-                Node distributionNode = arNode.selectSingleNode("distribution");//$NON-NLS-1$ 
-                if (distributionNode != null) {
-                    artifact.setDistribution(distributionNode.getText());
-                }
-
                 List<Node> artLinks = arNode.selectNodes("artifactHits/artifactHit/artifactLinks/artifactLink");//$NON-NLS-1$ 
                 for (Node link : artLinks) {
                     Node extensionElement = link.selectSingleNode("extension");//$NON-NLS-1$ 

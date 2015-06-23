@@ -172,7 +172,6 @@ public class RemoteModulesHelper {
                             String description = artifact.getDescription();
                             String license = artifact.getLicense();
                             String license_url = artifact.getLicenseUrl();
-                            String distribution = artifact.getDistribution();
                             String packaging = artifact.getType();
                             String url = null;
                             if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
@@ -190,16 +189,11 @@ public class RemoteModulesHelper {
                             m.setDescription(description);
                             m.setUrl_description(url);
                             m.setUrl_download(url);
-                            // the artiface distribution attribute may be emty because the remote server engine does not
-                            // return it.
-                            // so we use the classifier to check for availability
-                            if (distribution == null || distribution.equals("")) { //$NON-NLS-1$
-                                String artifactType = artifact.getType();
-                                if (artifactType != null && artifactType.equals("pom")) { //$NON-NLS-1$
-                                    m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
-                                }// else we do not set anything to the distribution value
-                            } else {// distribution is already set so use it
-                                m.setDistribution(distribution);
+                            if (artifact.getType() == null
+                                    || "".equals(artifact.getType()) || MavenConstants.PACKAGING_POM.equals(artifact.getType())) { //$NON-NLS-1$
+                                m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
+                            } else {
+                                m.setDistribution(artifact.getType());
                             }
                             setContext(m, contextMap);
 
