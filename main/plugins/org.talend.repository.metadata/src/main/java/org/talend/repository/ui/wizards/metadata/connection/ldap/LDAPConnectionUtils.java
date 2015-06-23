@@ -305,7 +305,7 @@ public class LDAPConnectionUtils {
                 || (encryptionMethod.equals(EEncryptionMethod.STARTTSL_EXTENSION_METHOD.getName()))) {
             hostUrl = LDAPS_URL_PREFIX + hostName + ":" + port; //$NON-NLS-1$
             env.put(javax.naming.Context.SECURITY_PROTOCOL, "ssl"); //$NON-NLS-1$
-            env.put("java.naming.ldap.factory.socket", "org.talend.core.ldap.AdvancedSocketFactory"); //$NON-NLS-1$ //$NON-NLS-2$
+            env.put("java.naming.ldap.factory.socket", AdvancedSocketFactory.class.getName()); //$NON-NLS-1$ 
         } else if (encryptionMethod.equals(EEncryptionMethod.NO_ENCRYPTION_METHOD.getName())) {
             hostUrl = LDAP_URL_PREFIX + hostName + ":" + port; //$NON-NLS-1$
             env.remove(javax.naming.Context.SECURITY_PROTOCOL);
