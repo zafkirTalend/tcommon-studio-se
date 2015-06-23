@@ -159,7 +159,7 @@ public class ArtifactsDeployer {
                 }
             }
         } catch (Exception e) {
-            throw new BusinessException("softwareupdate.error.cannotupload", e.getMessage());
+            throw new BusinessException(targetURL.toString(), e);
         } finally {
             httpClient.getConnectionManager().shutdown();
         }

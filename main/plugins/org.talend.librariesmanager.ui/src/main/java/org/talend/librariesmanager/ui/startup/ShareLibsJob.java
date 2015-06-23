@@ -117,11 +117,16 @@ public class ShareLibsJob extends Job {
                                 index++;
                             }
                             limit += shareLimit;
-                            if (jars.size() > 0) {
-                                mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", jarName)); //$NON-NLS-1$
-                                service.deployNewJar(jars);
+                            try {
+                                if (jars.size() > 0) {
+                                    mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", jarName)); //$NON-NLS-1$
+                                    service.deployNewJar(jars);
+                                }
+                                mainSubMonitor.worked(limit);
+                            } catch (Exception e) {
+                                ExceptionHandler.process(new Exception("Share libraries :" + jarName + " failed !", e));
+                                continue;
                             }
-                            mainSubMonitor.worked(limit);
                         }
                     } else {
                         // share to custom nexus
@@ -200,12 +205,17 @@ public class ShareLibsJob extends Job {
                                 if (indexOf != -1) {
                                     pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
                                 }
-                                deployer.installToRemote(file, artifact, artifact.getType());
-                                File pomFile = new File(pomPath);
-                                if (pomFile.exists()) {
-                                    deployer.installToRemote(pomFile, artifact, MavenConstants.PACKAGING_POM);
+                                try {
+                                    deployer.installToRemote(file, artifact, artifact.getType());
+                                    File pomFile = new File(pomPath);
+                                    if (pomFile.exists()) {
+                                        deployer.installToRemote(pomFile, artifact, MavenConstants.PACKAGING_POM);
+                                    }
+                                    mainSubMonitor.worked(1);
+                                } catch (Exception e) {
+                                    ExceptionHandler.process(new Exception("Share libraries :" + name + " failed !", e));
+                                    continue;
                                 }
-                                mainSubMonitor.worked(1);
                             }
                         }
 
@@ -236,6 +246,13 @@ public class ShareLibsJob extends Job {
             if (monitor.isCanceled()) {
                 return null;
             }
+
+            // only deploy libraries with group id org.talend.libraries
+            MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(module.getMavenUriSnapshot());
+            if (parseMvnUrl == null || !MavenConstants.DEFAULT_LIB_GROUP_ID.equals(parseMvnUrl.getGroupId())) {
+                continue;
+            }
+
             final String jarPathFromMaven = librariesService.getJarPathFromMaven(module.getMavenUriSnapshot());
             if (jarPathFromMaven == null) {
                 continue;
