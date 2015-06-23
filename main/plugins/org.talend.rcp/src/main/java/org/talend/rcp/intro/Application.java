@@ -82,6 +82,13 @@ public class Application implements IApplication {
 
     @Override
     public Object start(IApplicationContext context) throws Exception {
+        if (!ArrayUtils.contains(Platform.getApplicationArgs(), EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND)
+                && !ArrayUtils.contains(Platform.getApplicationArgs(), "-clean")
+                && "true".equals(System.getProperty("talend.osgi.clean"))) {//$NON-NLS-1$ //$NON-NLS-2$  
+            // start studio with -clean
+            EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand("-clean", null, false);
+            return IApplication.EXIT_RELAUNCH;
+        }
         Display display = PlatformUI.createDisplay();
         JavaHomeUtil.initializeJavaHome();
 
@@ -142,7 +149,7 @@ public class Application implements IApplication {
             if (LoginHelper.isRestart) {
                 // if after update,need to lauch the product by loading all new version plugins
                 if (afterUpdate) {
-                    EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand("-Dosgi.clean=true", null, false);
+                    EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand("-clean", null, false);
                     EclipseCommandLine.updateOrCreateExitDataPropertyWithCommand(EclipseCommandLine.TALEND_RELOAD_COMMAND,
                             Boolean.TRUE.toString(), false);
                     // if relaunch, should delete the "disableLoginDialog" argument in eclipse data for bug TDI-19214

@@ -14,6 +14,7 @@ package org.talend.core;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.swt.widgets.Display;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
@@ -39,17 +40,27 @@ public class BrandingChecker {
                 IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                         IBrandingService.class);
                 final String fullProductName = brandingService.getFullProductName();
-                IEclipsePreferences node = InstanceScope.INSTANCE.getNode(CoreRuntimePlugin.PLUGIN_ID);
-                String oldBrandingName = node.get(LAST_STARTED_PRODUCT, ""); //$NON-NLS-1$
-                if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
-                    isBrandingChanged = true;
-                    node.put(LAST_STARTED_PRODUCT, fullProductName);
-                    try {
-                        node.flush();
-                    } catch (BackingStoreException e) {
-                        ExceptionHandler.process(e);
-                    }
+                Display display = Display.getDefault();
+                if (display == null) {
+                    display = Display.getCurrent();
                 }
+                display.syncExec(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        IEclipsePreferences node = new InstanceScope().getNode(CoreRuntimePlugin.PLUGIN_ID);
+                        String oldBrandingName = node.get(LAST_STARTED_PRODUCT, "");
+                        if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
+                            isBrandingChanged = true;
+                            node.put(LAST_STARTED_PRODUCT, fullProductName);
+                            try {
+                                node.flush();
+                            } catch (BackingStoreException e) {
+                                ExceptionHandler.process(e);
+                            }
+                        }
+                    }
+                });
             }
             initialized = true;
         }
