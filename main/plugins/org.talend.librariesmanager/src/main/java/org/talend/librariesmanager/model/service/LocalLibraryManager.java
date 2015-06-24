@@ -300,9 +300,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
     @Override
     public boolean retrieve(String jarNeeded, String pathToStore, boolean popUp, IProgressMonitor... monitorWrap) {
         String sourcePath = null, targetPath = pathToStore;
+        File jarFile = null;
+        // retreive form custom nexus server automatically
         try {
-            File jarFile = null;
-            // retreive form custom nexus server automatically
             TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
             final NexusServerBean customNexusServer = manager.getCustomNexusServer();
             if (customNexusServer != null) {
@@ -327,6 +327,14 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     }
                 }
             }
+        } catch (BusinessException e) {
+            CommonExceptionHandler.process(e);
+        } catch (IOException e) {
+            CommonExceptionHandler.process(e);
+        } catch (RuntimeException e) {
+            CommonExceptionHandler.process(e);
+        }
+        try {
             jarFile = getJarFile(jarNeeded);
             if (jarFile == null) {
                 if (popUp && !CommonsPlugin.isHeadless()) {
@@ -368,8 +376,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
             CommonExceptionHandler.process(e);
         } catch (IOException e) {
             CommonExceptionHandler.process(new Exception("Can not copy: " + sourcePath + " to :" + targetPath, e));
-        } catch (BusinessException e) {
-            CommonExceptionHandler.process(e);
         }
         return false;
 
