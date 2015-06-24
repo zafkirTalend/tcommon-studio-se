@@ -225,9 +225,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowOpen() {
 
         if (!JavaHomeUtil.isJDKSetup()) {
-            MessageDialog.openWarning(DisplayUtils.getDefaultShell(), Messages.getString("ApplicationWorkbenchWindowAdvisor.0"), //$NON-NLS-1$
-                    Messages.getString("ApplicationWorkbenchWindowAdvisor.1") //$NON-NLS-1$
-                    + Messages.getString("ApplicationWorkbenchWindowAdvisor.2")); //$NON-NLS-1$
+            MessageDialog.openWarning(DisplayUtils.getDefaultShell(), Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
+                    Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
         }
 
         IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
@@ -364,7 +363,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         for (IContributionItem menuItem : menuItems) {
             // Hack to remove the Run menu - it seems you cannot do this using the
             // "org.eclipse.ui.activities" extension
-            if (Messages.getString("ApplicationWorkbenchWindowAdvisor.4").equals(menuItem.getId())) { //$NON-NLS-1$
+            if ("org.eclipse.ui.run".equals(menuItem.getId())) { //$NON-NLS-1$
                 menuManager.remove(menuItem);
             }
         }
