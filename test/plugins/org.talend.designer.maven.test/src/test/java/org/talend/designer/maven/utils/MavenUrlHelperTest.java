@@ -173,7 +173,7 @@ public class MavenUrlHelperTest {
         Assert.assertNull(MavenUrlHelper.generateMvnUrlForJarName(""));
         // without snapshot
         String mvnUrl1 = MavenUrlHelper.generateMvnUrlForJarName("test.jar");
-        Assert.assertEquals("mvn:org.talend.libraries/test/6.0.0-SNAPSHOT", mvnUrl1);
+        Assert.assertEquals("mvn:org.talend.libraries/test/6.0.0-SNAPSHOT/jar", mvnUrl1);
         // with type
         String mvnUrl11 = MavenUrlHelper.generateMvnUrlForJarName("test.jar", true, false);
         Assert.assertEquals("mvn:org.talend.libraries/test/6.0.0/jar", mvnUrl11);
@@ -185,10 +185,10 @@ public class MavenUrlHelperTest {
         Assert.assertEquals("mvn:org.talend.libraries/test/6.0.0-SNAPSHOT/jar", mvnUrl13);
 
         String mvnUrl2 = MavenUrlHelper.generateMvnUrlForJarName("abc");
-        Assert.assertEquals("mvn:org.talend.libraries/abc/6.0.0", mvnUrl2);
+        Assert.assertEquals("mvn:org.talend.libraries/abc/6.0.0-SNAPSHOT", mvnUrl2);
 
         String mvnUrl3 = MavenUrlHelper.generateMvnUrlForJarName("abc.zip");
-        Assert.assertEquals("mvn:org.talend.libraries/abc/6.0.0", mvnUrl3);
+        Assert.assertEquals("mvn:org.talend.libraries/abc/6.0.0-SNAPSHOT/zip", mvnUrl3);
 
         String mvnUrl4 = MavenUrlHelper.generateMvnUrlForJarName(".zip");
         Assert.assertNull(mvnUrl4);

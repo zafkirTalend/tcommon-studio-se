@@ -153,7 +153,7 @@ public class MavenUrlHelper {
      * "mvn:org.talend.libraries/<jarNameWithoutExtension>/currentVersion/<extension>"
      */
     public static String generateMvnUrlForJarName(String jarName) {
-        return generateMvnUrlForJarName(jarName, false, true);
+        return generateMvnUrlForJarName(jarName, true, true);
     }
 
     /**

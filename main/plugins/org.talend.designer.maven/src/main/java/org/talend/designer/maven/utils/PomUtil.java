@@ -386,6 +386,11 @@ public class PomUtil {
             pomModel.setGroupId(artifact.getGroupId());
             pomModel.setArtifactId(artifact.getArtifactId());
             pomModel.setVersion(artifact.getVersion());
+            String artifactType = artifact.getType();
+            if (artifactType == null || "".equals(artifactType)) {
+                artifactType = TalendMavenConstants.PACKAGING_JAR;
+            }
+            pomModel.setPackaging(artifactType);
             MODEL_MANAGER.createMavenModel(pomFile, pomModel);
             return pomFile.getLocation().toPortableString();
         } catch (PersistenceException e) {
