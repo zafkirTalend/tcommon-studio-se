@@ -251,7 +251,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         boolean isEnable = false;
         if (!theInputList.isEmpty()) {
             for (ModuleToInstall module : theInputList) {
-                if (module.getUrl_download() != null) {
+                if (!MavenConstants.DOWNLOAD_MANUAL.equals(module.getDistribution())) {
                     isEnable = true;
                     break;
                 }
