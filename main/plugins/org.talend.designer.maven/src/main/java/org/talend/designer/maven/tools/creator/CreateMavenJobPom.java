@@ -266,16 +266,25 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         List paramsList = ProcessUtils.getOptionValue(getArgumentsMap(), TalendProcessArgumentConstant.ARG_CONTEXT_PARAMS,
                 (List) null);
         if (paramsList != null && !paramsList.isEmpty()) {
-            StringBuffer contextParamPart = new StringBuffer(50);
+            StringBuffer contextParamPart = new StringBuffer(100);
+            // do codes same as JobScriptsManager.getSettingContextParametersValue
             for (Object param : paramsList) {
                 if (param instanceof ContextParameterType) {
                     ContextParameterType contextParamType = (ContextParameterType) param;
                     contextParamPart.append(' ');
                     contextParamPart.append(TalendProcessArgumentConstant.CMD_ARG_CONTEXT_PARAMETER);
                     contextParamPart.append(' ');
-                    // quote?
-                    contextParamPart.append(contextParamType.getName() + '='
-                            + TalendQuoteUtils.addQuotesIfNotExist(contextParamType.getValue()));
+                    contextParamPart.append(contextParamType.getName());
+                    contextParamPart.append('=');
+
+                    String value = contextParamType.getRawValue();
+                    if (value == null) {
+                        contextParamPart.append((String) null);
+                    } else if (value.contains(" ")) { //$NON-NLS-1$
+                        contextParamPart.append(TalendQuoteUtils.addQuotesIfNotExist(value));
+                    } else {
+                        contextParamPart.append(value);
+                    }
                 }
             }
             if (contextParamPart.length() > 0) {
