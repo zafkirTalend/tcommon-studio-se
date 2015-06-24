@@ -26,6 +26,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.service.IMRProcessService;
+import org.talend.core.service.IStormProcessService;
 
 /**
  * DOC qzhang class global comment. Detailled comment
@@ -96,5 +97,18 @@ public abstract class CustomExternalActions extends SelectionAction {
         }
         IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
         return mrService.isMapReduceEditor(activeEditor);
+    }
+
+    protected boolean isStormEditorActive() {
+        if (!GlobalServiceRegister.getDefault().isServiceRegistered(IStormProcessService.class)) {
+            return false;
+        }
+        IStormProcessService mrService = (IStormProcessService) GlobalServiceRegister.getDefault().getService(
+                IStormProcessService.class);
+        if (mrService == null) {
+            return false;
+        }
+        IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+        return mrService.isStormEditor(activeEditor);
     }
 }

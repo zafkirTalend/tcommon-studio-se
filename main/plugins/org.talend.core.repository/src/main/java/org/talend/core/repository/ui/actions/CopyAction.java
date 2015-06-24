@@ -121,22 +121,23 @@ public class CopyAction extends AContextualAction {
                         || (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_VALIDATION_RULES && node
                                 .getParent().getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.METADATA_VALIDATIONS_RULES_FOLDER)) {
                     canWork = false;
-                } else if (node.getContentType() != null
-                        && GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                    ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
-                            .getService(ICamelDesignerCoreService.class);
-                    if (node.getContentType().equals(camelService.getRouteDocsType())
-                            || node.getContentType().equals(camelService.getRouteDocType())) {
-                        canWork = false;
-                    }
-                } else if (node.getProperties(EProperties.CONTENT_TYPE) != null
-                        && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-                    Object nodProperty = node.getProperties(EProperties.CONTENT_TYPE);
-                    ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                            .getDefault().getService(ITestContainerProviderService.class);
-                    if ((testContainerService != null) && (nodProperty instanceof ERepositoryObjectType)) {
-                        if (testContainerService.isTestContainerType((ERepositoryObjectType) nodProperty)) {
+                } else if (node.getContentType() != null) {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+                        ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault()
+                                .getService(ICamelDesignerCoreService.class);
+                        if (node.getContentType().equals(camelService.getRouteDocsType())
+                                || node.getContentType().equals(camelService.getRouteDocType())) {
                             canWork = false;
+                        }
+                    }
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                        Object nodProperty = node.getProperties(EProperties.CONTENT_TYPE);
+                        ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                                .getDefault().getService(ITestContainerProviderService.class);
+                        if ((testContainerService != null) && (nodProperty instanceof ERepositoryObjectType)) {
+                            if (testContainerService.isTestContainerType((ERepositoryObjectType) nodProperty)) {
+                                canWork = false;
+                            }
                         }
                     }
                 }
