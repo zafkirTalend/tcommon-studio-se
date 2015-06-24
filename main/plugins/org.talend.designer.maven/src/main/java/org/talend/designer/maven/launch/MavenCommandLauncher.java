@@ -50,6 +50,7 @@ import org.eclipse.m2e.core.project.IMavenProjectRegistry;
 import org.eclipse.m2e.core.project.ResolverConfiguration;
 import org.eclipse.m2e.internal.launch.MavenLaunchDelegate;
 import org.eclipse.osgi.util.NLS;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.runtime.debug.TalendDebugHandler;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
@@ -110,6 +111,17 @@ public class MavenCommandLauncher {
         this.captureOutputInConsoleView = captureOutputInConsoleView;
     }
 
+    protected boolean isCaptureOutputInConsoleView() {
+        if (CommonUIPlugin.isFullyHeadless()) { // headless will be false always.
+            return false;
+        }
+        // when debug, capture always.
+        if (TalendDebugHandler.isEclipseDebug() || CommonsPlugin.isDebugMode()) {
+            return true;
+        }
+        return captureOutputInConsoleView;
+    }
+
     public void setSkipTests(boolean skipTests) {
         this.skipTests = skipTests;
     }
@@ -152,10 +164,11 @@ public class MavenCommandLauncher {
             // basedir.getProject().getName());
 
             // --------------Special settings for Talend----------
-            if (CommonUIPlugin.isFullyHeadless()) {
-                workingCopy.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, false);
+            if (isCaptureOutputInConsoleView()) {
+                // by default will catch the output in console. so set null
+                workingCopy.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, (String) null);
             } else {
-                workingCopy.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, this.captureOutputInConsoleView);
+                workingCopy.setAttribute(DebugPlugin.ATTR_CAPTURE_OUTPUT, Boolean.FALSE.toString());
             }
 
             // not same, set it. Else use the preference directly.
@@ -244,6 +257,9 @@ public class MavenCommandLauncher {
         /*
          * use launch way
          */
+
+        // try{
+
         ILaunchConfiguration launchConfiguration = createLaunchConfiguration();
         if (launchConfiguration == null) {
             throw new Exception("Can't create maven command launcher.");
@@ -259,10 +275,12 @@ public class MavenCommandLauncher {
         for (IProcess process : launch.getProcesses()) {
             String log = process.getStreamsProxy().getOutputStreamMonitor().getContents();
 
-            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher log START -----------------------\n");
-            TalendDebugHandler.debug(log);
-            TalendDebugHandler.debug("\n------------------ Talend Maven Launcher log END -----------------------\n");
-
+            if (!isCaptureOutputInConsoleView()) {
+                // specially for commandline. if studio, when debug model, will log it in console view, so no need this.
+                TalendDebugHandler.debug("\n------------------ Talend Maven Launcher log START -----------------------\n");
+                TalendDebugHandler.debug(log);
+                TalendDebugHandler.debug("\n------------------ Talend Maven Launcher log END -----------------------\n");
+            }
             for (String line : log.split("\n")) { //$NON-NLS-1$
                 if (line.startsWith("[ERROR]")) { //$NON-NLS-1$
                     errors.append(line + "\n"); //$NON-NLS-1$
@@ -272,6 +290,13 @@ public class MavenCommandLauncher {
         if (errors.length() > 0) {
             ExceptionHandler.process(new Exception(errors.toString()));
         }
+
+        // }finally{
+        // if (launch != null) {
+        // if remove, after execute launch, will remove the console also. so shouldn't remove it.
+        // DebugPlugin.getDefault().getLaunchManager().removeLaunch(launch);
+        // }
+        // }
     }
 
     protected ILaunch buildAndLaunch(ILaunchConfiguration configuration, String mode, IProgressMonitor monitor)
@@ -280,8 +305,15 @@ public class MavenCommandLauncher {
         try {
             MavenLaunchDelegate mvld = new TalendMavenLaunchDelegate();
             ILaunch launch = new Launch(configuration, mode, null);
+            ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
+            launch.setAttribute(DebugPlugin.ATTR_LAUNCH_TIMESTAMP, Long.toString(System.currentTimeMillis()));
+            launch.setAttribute(DebugPlugin.ATTR_CONSOLE_ENCODING, launchManager.getEncoding(configuration));
+            if (isCaptureOutputInConsoleView()) {
+                launchManager.addLaunch(launch);
+            }
+
             String type = "org.eclipse.m2e.launching.MavenSourceLocator"; //$NON-NLS-1$
-            IPersistableSourceLocator locator = DebugPlugin.getDefault().getLaunchManager().newSourceLocator(type);
+            IPersistableSourceLocator locator = launchManager.newSourceLocator(type);
             locator.initializeDefaults(configuration);
             launch.setSourceLocator(locator);
             mvld.launch(configuration, mode, launch, monitor);
