@@ -56,6 +56,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.process.ReplaceNodesInProcessProvider;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
@@ -784,15 +785,7 @@ public class ProcessorUtilities {
             } else {
                 processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
             }
-
-            final Map<String, Object> argumentsMap = new HashMap<String, Object>();
-            argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
-            argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
-            argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN,
-                    jobInfo.isApplyContextToChildren());
-            argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
-
-            processor.setArguments(argumentsMap);
+            processor.setArguments(jobInfo.getArgumentsMap());
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);
@@ -1106,17 +1099,25 @@ public class ProcessorUtilities {
         return result;
     }
 
-    public static IProcessor generateCode(ProcessItem process, String contextName, String version, boolean statistics,
-            boolean trace, boolean applyContextToChildren, boolean needContext, int option, IProgressMonitor... monitors)
-            throws ProcessorException {
+    public static IProcessor generateCode(ProcessItem process, String contextName, String version,
+            final Map<String, Object> argumentsMap, IProgressMonitor... monitors) throws ProcessorException {
         IProgressMonitor monitor = null;
         if (monitors == null) {
             monitor = new NullProgressMonitor();
         } else {
             monitor = monitors[0];
         }
+
         JobInfo jobInfo = new JobInfo(process, contextName, version);
-        jobInfo.setApplyContextToChildren(applyContextToChildren);
+        jobInfo.setApplyContextToChildren(ProcessUtils.isOptionChecked(argumentsMap,
+                TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN));
+        jobInfo.setArgumentsMap(argumentsMap);
+
+        boolean statistics = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS);
+        boolean trace = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_ENABLE_TRAC);
+        boolean needContext = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_NEED_CONTEXT);
+        int option = ProcessUtils.getOptionValue(argumentsMap, TalendProcessArgumentConstant.ARG_GENERATE_OPTION, 0);
+
         jobList.clear();
         IProcessor result = generateCode(jobInfo, contextName, statistics, trace, needContext, option, monitor);
         jobList.clear();
@@ -1411,7 +1412,7 @@ public class ProcessorUtilities {
             }
         }
         if (needContextInCurrentGeneration && contextName != null && !contextName.equals("")) {
-            cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName); //$NON-NLS-1$
+            cmd = (String[]) ArrayUtils.add(cmd, TalendProcessArgumentConstant.CMD_ARG_CONTEXT_NAME + contextName); //$NON-NLS-1$
         }
         if (statisticPort != -1) {
             cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort); //$NON-NLS-1$

@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.Map;
+
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -39,8 +41,10 @@ public class JobInfo {
     private boolean forceRegenerate;
 
     private String projectFolderName;
-    
+
     private boolean testContainer = false;
+
+    private Map<String, Object> argumentsMap;
 
     public JobInfo(String jobId, String contextName, String version) {
         this.jobId = jobId;
@@ -388,6 +392,7 @@ public class JobInfo {
 
     /**
      * Getter for testContainer.
+     * 
      * @return the testContainer
      */
     public boolean isTestContainer() {
@@ -396,9 +401,19 @@ public class JobInfo {
 
     /**
      * Sets the testContainer.
+     * 
      * @param testContainer the testContainer to set
      */
     public void setTestContainer(boolean testContainer) {
         this.testContainer = testContainer;
     }
+
+    public Map<String, Object> getArgumentsMap() {
+        return argumentsMap;
+    }
+
+    public void setArgumentsMap(Map<String, Object> argumentsMap) {
+        this.argumentsMap = argumentsMap;
+    }
+
 }

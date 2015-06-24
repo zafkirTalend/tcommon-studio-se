@@ -29,4 +29,24 @@ public interface TalendProcessArgumentConstant {
     static final String ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN = "ENABLE_APPLY_CONTEXT_TO_CHILDREN";
 
     static final String ARG_GENERATE_OPTION = "GENERATE_OPTION";
+
+    static final String ARG_NEED_CONTEXT = "NEED_CONTEXT";
+
+    static final String ARG_CONTEXT_NAME = "CONTEXT_NAME";
+
+    static final String ARG_CONTEXT_PARAMS = "CONTEXT_PARAMS";
+
+    static final String ARG_NEED_LOG4J_LEVEL = "NEED_LOG4J_LEVEL";
+
+    static final String ARG_LOG4J_LEVEL = "LOG4J_LEVEL";
+
+    /*
+     * command
+     */
+    public static final String CMD_ARG_CONTEXT_PARAMETER = "--context_param"; //$NON-NLS-1$
+
+    public static final String CMD_ARG_CONTEXT_NAME = "--context=";
+
+    public static final String CMD_ARG_LOG4J_LEVEL = "--log4jLevel=";
+
 }

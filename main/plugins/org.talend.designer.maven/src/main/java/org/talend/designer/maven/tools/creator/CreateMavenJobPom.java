@@ -46,6 +46,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
@@ -57,6 +58,8 @@ import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.template.MavenTemplateManager;
@@ -198,10 +201,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
             mainProjectBranch = SVNConstant.NAME_TRUNK;
         }
 
-        JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), context.getName(),
-                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN),
-                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS));
-
         checkPomProperty(properties, "talend.job.path", ETalendMavenVariables.JobPath, jobClassPackageFolder);
         checkPomProperty(properties, "talend.job.package", ETalendMavenVariables.JobPackage, jobClassPackage);
 
@@ -210,6 +209,15 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
          * 
          * should be same as JobInfoBuilder
          */
+        String contextName = getOptionString(TalendProcessArgumentConstant.ARG_CONTEXT_NAME);
+        if (contextName == null) {
+            contextName = context.getName();
+        }
+
+        JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), contextName,
+                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN),
+                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS));
+
         checkPomProperty(properties, "talend.project.name", ETalendMavenVariables.ProjectName,
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_NAME, project.getTechnicalLabel()));
         checkPomProperty(properties, "talend.project.name.lowercase", ETalendMavenVariables.ProjectName,
@@ -227,8 +235,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         checkPomProperty(properties, "talend.job.date", ETalendMavenVariables.JobDate,
                 jobInfoProp.getProperty(JobInfoProperties.DATE, JobInfoProperties.DATAFORMAT.format(new Date())));
 
-        String contextName = jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName());
-        checkPomProperty(properties, "talend.job.context", ETalendMavenVariables.JobContext, contextName);
+        checkPomProperty(properties, "talend.job.context", ETalendMavenVariables.JobContext,
+                jobInfoProp.getProperty(JobInfoProperties.CONTEXT_NAME, context.getName()));
         checkPomProperty(properties, "talend.job.id", ETalendMavenVariables.JobId,
                 jobInfoProp.getProperty(JobInfoProperties.JOB_ID, process.getId()));
 
@@ -245,25 +253,70 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         /*
          * for bat/sh in assembly
          */
-        final String contextParamPart = "--context=" + contextName;
+        StringBuffer windowsScriptAdditionValue = new StringBuffer(50);
+        StringBuffer unixScriptAdditionValue = new StringBuffer(50);
+
+        // context
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_CONTEXT)) {
+            final String contextPart = TalendProcessArgumentConstant.CMD_ARG_CONTEXT_NAME + contextName;
+            addScriptAddition(windowsScriptAdditionValue, contextPart);
+            addScriptAddition(unixScriptAdditionValue, contextPart);
+        }
+        // context params
+        List paramsList = ProcessUtils.getOptionValue(getArgumentsMap(), TalendProcessArgumentConstant.ARG_CONTEXT_PARAMS,
+                (List) null);
+        if (paramsList != null && !paramsList.isEmpty()) {
+            StringBuffer contextParamPart = new StringBuffer(50);
+            for (Object param : paramsList) {
+                if (param instanceof ContextParameterType) {
+                    ContextParameterType contextParamType = (ContextParameterType) param;
+                    contextParamPart.append(' ');
+                    contextParamPart.append(TalendProcessArgumentConstant.CMD_ARG_CONTEXT_PARAMETER);
+                    contextParamPart.append(' ');
+                    // quote?
+                    contextParamPart.append(contextParamType.getName() + '='
+                            + TalendQuoteUtils.addQuotesIfNotExist(contextParamType.getValue()));
+                }
+            }
+            if (contextParamPart.length() > 0) {
+                addScriptAddition(windowsScriptAdditionValue, contextParamPart.toString());
+                addScriptAddition(unixScriptAdditionValue, contextParamPart.toString());
+            }
+        }
+
+        // log4j level
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_LOG4J_LEVEL)) {
+            String log4jLevel = getOptionString(TalendProcessArgumentConstant.ARG_LOG4J_LEVEL);
+            if (StringUtils.isNotEmpty(log4jLevel)) {
+                String log4jLevelPart = TalendProcessArgumentConstant.CMD_ARG_LOG4J_LEVEL + log4jLevel;
+                addScriptAddition(windowsScriptAdditionValue, log4jLevelPart);
+                addScriptAddition(unixScriptAdditionValue, log4jLevelPart);
+            }
+        }
+
+        //
+        addScriptAddition(windowsScriptAdditionValue, this.getWindowsScriptAddition());
+        addScriptAddition(unixScriptAdditionValue, this.getUnixScriptAddition());
+
         checkPomProperty(properties, "talend.job.bat.classpath", ETalendMavenVariables.JobBatClasspath,
                 this.getWindowsClasspath());
-        String windowsScriptAdditionValue = contextParamPart;
-        if (StringUtils.isNotEmpty(this.getWindowsScriptAddition())) {
-            windowsScriptAdditionValue += ' ' + this.getWindowsScriptAddition();
-        }
-        checkPomProperty(properties, "talend.job.bat.addition", ETalendMavenVariables.JobBatAddition, windowsScriptAdditionValue);
+        checkPomProperty(properties, "talend.job.bat.addition", ETalendMavenVariables.JobBatAddition,
+                windowsScriptAdditionValue.toString());
 
         checkPomProperty(properties, "talend.job.sh.classpath", ETalendMavenVariables.JobShClasspath, this.getUnixClasspath());
-        String unixScriptAdditionValue = contextParamPart;
-        if (StringUtils.isNotEmpty(this.getUnixScriptAddition())) {
-            unixScriptAdditionValue += ' ' + this.getUnixScriptAddition();
-        }
-        checkPomProperty(properties, "talend.job.sh.addition", ETalendMavenVariables.JobShAddition, unixScriptAdditionValue);
+        checkPomProperty(properties, "talend.job.sh.addition", ETalendMavenVariables.JobShAddition,
+                unixScriptAdditionValue.toString());
 
         String finalNameStr = JavaResourcesHelper.getJobJarName(property.getLabel(), property.getVersion());
         checkPomProperty(properties, "talend.job.finalName", ETalendMavenVariables.JobFinalName, finalNameStr);
 
+    }
+
+    private void addScriptAddition(StringBuffer scripts, String value) {
+        if (StringUtils.isNotEmpty(value)) {
+            scripts.append(' '); // separator
+            scripts.append(value);
+        }
     }
 
     protected boolean validChildrenJob(JobInfo jobInfo) {

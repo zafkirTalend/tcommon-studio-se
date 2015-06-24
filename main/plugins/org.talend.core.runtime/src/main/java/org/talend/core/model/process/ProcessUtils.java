@@ -738,4 +738,37 @@ public final class ProcessUtils {
         }
         return false;
     }
+
+    public static String getOptionValue(Map<String, Object> argumentsMap, String key, String defaultValue, Object... args) {
+        if (key != null && argumentsMap != null) {
+            final Object value = argumentsMap.get(key);
+            if (value != null) {
+                return value.toString();
+            }
+        }
+        return defaultValue;
+    }
+
+    public static int getOptionValue(Map<String, Object> argumentsMap, String key, int defaultValue, Object... args) {
+        if (key != null && argumentsMap != null) {
+            final Object value = argumentsMap.get(key);
+            if (value != null && value instanceof Integer) {
+                return (Integer) value;
+            }
+        }
+        return defaultValue;
+    }
+
+    public static List getOptionValue(Map<String, Object> argumentsMap, String key, List defaultValue, Object... args) {
+        if (key != null && argumentsMap != null) {
+            final Object value = argumentsMap.get(key);
+            if (value != null && value instanceof List) {
+                return (List) value;
+            }
+        }
+        if (defaultValue == null) {
+            return Collections.emptyList();
+        }
+        return defaultValue;
+    }
 }

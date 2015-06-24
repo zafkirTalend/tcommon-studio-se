@@ -92,22 +92,16 @@ public abstract class CreateMaven {
         return argumentsMap;
     }
 
-    protected boolean isOptionChecked(String key, Object... args) {
-        return ProcessUtils.isOptionChecked(argumentsMap, key, args);
-    }
-
-    protected String getOptionValue(String key) {
-        if (argumentsMap != null) {
-            final Object object = argumentsMap.get(key);
-            if (object instanceof String) {
-                return (String) object;
-            }
-        }
-        return null;
-    }
-
     public void setArgumentsMap(Map<String, Object> argumentsMap) {
         this.argumentsMap = argumentsMap;
+    }
+
+    protected boolean isOptionChecked(String key, Object... args) {
+        return ProcessUtils.isOptionChecked(getArgumentsMap(), key, args);
+    }
+
+    protected String getOptionString(String key) {
+        return ProcessUtils.getOptionValue(getArgumentsMap(), key, (String) null);
     }
 
     @Override
