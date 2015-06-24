@@ -99,7 +99,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
             }
         }
         if (enable) {
-            tableNebulas.setEnabled(enable);
+            tableNebulas.setEnabled(true);
         }
     }
 

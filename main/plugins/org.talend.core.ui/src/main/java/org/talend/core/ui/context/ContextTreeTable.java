@@ -271,7 +271,7 @@ public class ContextTreeTable {
             natTable = new NatTable(parent, NatTable.DEFAULT_STYLE_OPTIONS | SWT.BORDER, gridLayer, false);
             natTable.setConfigRegistry(configRegistry);
 
-            addCustomStylingBehaviour(parent.getFont(), bodyDataProvider, columnGroupModel, manager.getContextManager(), manager);
+            addCustomStylingBehaviour(parent.getFont(), bodyDataProvider, columnGroupModel, manager);
 
             addCustomContextMenuBehavior(manager, bodyDataProvider, selectionProvider);
 
@@ -527,13 +527,14 @@ public class ContextTreeTable {
     }
 
     private void addCustomStylingBehaviour(Font contextFont, final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
-            ColumnGroupModel groupModel, IContextManager contextManager, IContextModelManager modelManager) {
+            ColumnGroupModel groupModel, IContextModelManager modelManager) {
         ContextNatTableStyleConfiguration natTableConfiguration = new ContextNatTableStyleConfiguration(contextFont);
         natTableConfiguration.cellPainter = new ContextNatTableBackGroudPainter(new ContextAutoResizeTextPainter(false, false,
                 true), bodyDataProvider);
 
         natTable.addConfiguration(natTableConfiguration);
-        natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel, contextManager, modelManager));
+        natTable.addConfiguration(new ContextNatTableConfiguration(bodyDataProvider, groupModel,
+                modelManager.getContextManager(), modelManager));
     }
 
     private void addCustomContextMenuBehavior(final IContextModelManager modelManager,
