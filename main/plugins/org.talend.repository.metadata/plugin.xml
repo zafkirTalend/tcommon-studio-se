@@ -76,6 +76,15 @@
             name="ODBCMigrationTask"
             version="6.0.0">
       </projecttask>
+      <projecttask
+            beforeLogon="false"
+            breaks="1.0.0"
+            class="org.talend.repository.metadata.migration.AccessMigrationTask"
+            description="Access Database of Studio from jdbc-odbc bridge method to pure jdbc"
+            id="org.talend.repository.metadata.migration.AccessMigrationTask"
+            name="AccessMigrationTask"
+            version="6.0.0">
+      </projecttask>
    </extension>
    <extension
          point="org.talend.core.repositoryContextualsActions">
