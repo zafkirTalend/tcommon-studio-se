@@ -419,6 +419,9 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
     tab-maximize-button-none-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
     tab-maximize-button-hot-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
     tab-maximize-button-selected-image: url('./default/pics/studio_6.0-repo-expand-view-main.png');
+    
+    swt-maximize-visible: true;
+    swt-minimize-visible: true;
 }
 
 #org-eclipse-e4-primaryDataStack>CTabItem {
