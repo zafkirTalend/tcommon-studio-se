@@ -148,10 +148,9 @@ public final class ElementParameterParser {
             return null;
         } else {
             String linkedNodeName = ElementParameterParser.getValue(node, parameterName);
-            java.util.List<? extends INode> linkedNodes = ((INode) node).getProcess().getNodesOfType(
-                    linkedNodeName.substring(0, linkedNodeName.lastIndexOf("_"))); //$NON-NLS-1$
-            if (linkedNodes != null && linkedNodes.size() > 0) {
-                for (INode linkedNode : linkedNodes) {
+            java.util.List<? extends INode> allGraphicNodes = ((INode) node).getProcess().getGraphicalNodes();
+            if (allGraphicNodes != null && allGraphicNodes.size() > 0) {
+                for (INode linkedNode : allGraphicNodes) {
                     if (linkedNode.getUniqueName().equals(linkedNodeName)) {
                         return linkedNode;
                     }
