@@ -785,7 +785,17 @@ public class ProcessorUtilities {
             } else {
                 processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
             }
-            processor.setArguments(jobInfo.getArgumentsMap());
+            if (jobInfo.getArgumentsMap() != null) {
+                processor.setArguments(jobInfo.getArgumentsMap());
+            } else {
+                final Map<String, Object> argumentsMap = new HashMap<String, Object>();
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
+
+                processor.setArguments(argumentsMap);
+            }
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);

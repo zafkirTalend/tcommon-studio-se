@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -145,6 +146,7 @@ import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
@@ -153,6 +155,7 @@ import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -756,8 +759,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (!prj.exists()) {
                 prj.create(desc, null);
             }
-            prj.open(IResource.BACKGROUND_REFRESH, null);
-            prj.setDefaultCharset("UTF-8", null);
+            prj.open(IResource.NONE, null);
+            prj.setDefaultCharset("UTF-8", null); //$NON-NLS-1$
         } catch (CoreException e) {
             throw new PersistenceException(e);
         }
