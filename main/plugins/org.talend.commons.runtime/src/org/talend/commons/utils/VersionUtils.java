@@ -87,6 +87,10 @@ public class VersionUtils {
     }
 
     public static String getInternalVersion() {
+    	if (Platform.inDevelopmentMode()) {
+    		return getVersion();
+    	}
+    	
         String version = null;
         Bundle bundle = FrameworkUtil.getBundle(VersionUtils.class);
         if (bundle != null) {
