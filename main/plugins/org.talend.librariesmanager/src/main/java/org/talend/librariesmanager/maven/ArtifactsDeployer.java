@@ -119,7 +119,7 @@ public class ArtifactsDeployer {
         }
     }
 
-    public void installToRemote(File content, MavenArtifact artifact, String type) throws BusinessException {
+    public void installToRemote(File content, MavenArtifact artifact, String type) throws Exception {
         URL targetURL;
         try {
             String artifactPath = PomUtil.getArtifactPath(artifact);
@@ -139,7 +139,7 @@ public class ArtifactsDeployer {
         }
     }
 
-    private void installToRemote(HttpEntity entity, URL targetURL) throws BusinessException {
+    private void installToRemote(HttpEntity entity, URL targetURL) throws Exception {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         try {
             httpClient.getCredentialsProvider().setCredentials(new AuthScope(targetURL.getHost(), targetURL.getPort()),
@@ -159,7 +159,7 @@ public class ArtifactsDeployer {
                 }
             }
         } catch (Exception e) {
-            throw new BusinessException(targetURL.toString(), e);
+            throw new Exception(targetURL.toString(), e);
         } finally {
             httpClient.getConnectionManager().shutdown();
         }

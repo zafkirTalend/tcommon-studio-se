@@ -13,10 +13,18 @@
 package org.talend.librariesmanager.maven;
 
 import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.ops4j.pax.url.mvn.ServiceConstants;
@@ -38,6 +46,9 @@ import org.talend.core.service.IRemoteService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.json.JSONObject;
+import org.talend.utils.ssl.SSLUtils;
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  * created by wchen on 2015年6月16日 Detailled comment
@@ -50,6 +61,8 @@ public class TalendLibsServerManager {
     private MavenResolver mavenResolver = null;
 
     private NexusServerBean previousCustomBean;
+
+    public static final int CONNECTION_OK = 200;
 
     private TalendLibsServerManager() {
 
@@ -134,7 +147,6 @@ public class TalendLibsServerManager {
                     JSONObject libServerObject;
                     libServerObject = remoteService.getLibNexusServer(userName, password, adminUrl);
                     if (libServerObject != null) {
-                        serverBean = new NexusServerBean();
                         String nexus_url = libServerObject.getString(NexusServerUtils.KEY_NEXUS_RUL);
                         String nexus_user = libServerObject.getString(NexusServerUtils.KEY_NEXUS_USER);
                         String nexus_pass = libServerObject.getString(NexusServerUtils.KEY_NEXUS_PASS);
@@ -143,6 +155,12 @@ public class TalendLibsServerManager {
                         if (newUrl.endsWith(NexusConstants.SLASH)) {
                             newUrl = newUrl.substring(0, newUrl.length() - 1);
                         }
+
+                        // TODO check if custom nexus is valid , only check http response for now , need check if it is
+                        // snapshot latter
+                        String urlToCheck = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId;
+                        checkConnectionStatus(urlToCheck, nexus_user, nexus_pass);
+
                         if (nexus_user != null && !"".equals(nexus_user)) {//$NON-NLS-1$
                             String[] split = newUrl.split("://");//$NON-NLS-1$
                             if (split.length != 2) {
@@ -153,6 +171,7 @@ public class TalendLibsServerManager {
                         }
                         newUrl = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId + "@id=" + repositoryId;//$NON-NLS-1$ 
 
+                        serverBean = new NexusServerBean();
                         serverBean.setServer(nexus_url);
                         serverBean.setUserName(nexus_user);
                         serverBean.setPassword(nexus_pass);
@@ -163,6 +182,7 @@ public class TalendLibsServerManager {
 
             }
         } catch (Exception e) {
+            serverBean = null;
             ExceptionHandler.process(e);
         }
         if (previousCustomBean == null && serverBean != null || previousCustomBean != null
@@ -172,6 +192,36 @@ public class TalendLibsServerManager {
         previousCustomBean = serverBean;
         return serverBean;
 
+    }
+
+    public static void checkConnectionStatus(String urlToCheck, String userName, String password) throws Exception {
+        int status = -1;
+        URL url = new URL(urlToCheck);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        if (userName != null && !"".equals(userName)) {
+            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+        }
+        if (urlConnection instanceof HttpsURLConnection) {
+            String userDir = Platform.getInstallLocation().getURL().getPath();
+            final SSLSocketFactory socketFactory = SSLUtils.getSSLContext(userDir).getSocketFactory();
+            HttpsURLConnection httpsConnection = (HttpsURLConnection) urlConnection;
+            httpsConnection.setSSLSocketFactory(socketFactory);
+            httpsConnection.setHostnameVerifier(new HostnameVerifier() {
+
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+
+            });
+        }
+        status = urlConnection.getResponseCode();
+        if (status == CONNECTION_OK) {
+            // do nothing
+        } else {
+            throw new Exception("Connect to " + urlConnection.getURL().toString()
+                    + " failed , please contract the administrator to change 'User Libraries' settings !");
+        }
     }
 
     public NexusServerBean getLibrariesNexusServer() {
