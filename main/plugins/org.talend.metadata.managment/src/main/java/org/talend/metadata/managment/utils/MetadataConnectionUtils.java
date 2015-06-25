@@ -1151,6 +1151,16 @@ public class MetadataConnectionUtils {
         return false;
     }
 
+    public static boolean isSQLite(IMetadataConnection metadataConnection) {
+        if (metadataConnection != null) {
+            String dbType = metadataConnection.getDbType();
+            if (dbType != null && dbType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isGeneralJDBC(IMetadataConnection metadataConnection) {
         if (metadataConnection != null) {
             String dbType = metadataConnection.getDbType();
