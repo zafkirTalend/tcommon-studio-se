@@ -58,6 +58,7 @@ import org.talend.core.model.components.ComponentManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
@@ -700,7 +701,8 @@ public class ModulesNeededProvider {
                     for (ModuleNeeded module : allPluginsRequiredModules) {
                         // maven uri must not have any url attached to them
                         // we inject a special url to only look for local libs
-                        String mvnUri = module.getMavenUriSnapshot().replace("mvn:", "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!");
+                        String mvnUri = module.getMavenUriSnapshot().replace("mvn:",
+                                "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!");
                         try {
                             // if the resolve succeed it means the artifact is installed.
                             mavenResolver.resolve(mvnUri);
@@ -853,4 +855,19 @@ public class ModulesNeededProvider {
         return runningModules;
     }
 
+    private static List<ILibrariesService.IChangedLibrariesListener> changedLibrariesListeners = new ArrayList<ILibrariesService.IChangedLibrariesListener>();
+
+    public static boolean addChangedLibrariesListener(ILibrariesService.IChangedLibrariesListener listener) {
+        return changedLibrariesListeners.add(listener);
+    }
+
+    public static boolean removeChangedLibrariesListener(ILibrariesService.IChangedLibrariesListener listener) {
+        return changedLibrariesListeners.remove(listener);
+    }
+
+    public static void fireChangedLibrariesListener() {
+        for (ILibrariesService.IChangedLibrariesListener listener : changedLibrariesListeners) {
+            listener.afterChangingLibraries();
+        }
+    }
 }

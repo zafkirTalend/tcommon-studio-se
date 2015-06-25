@@ -585,6 +585,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                                             service.refreshComponentView();
                                         }
                                     }
+                                    ModulesNeededProvider.fireChangedLibrariesListener();
                                 }
                             }
                         });
@@ -929,7 +930,7 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                     service.refreshComponentView();
                 }
             }
-
+            ModulesNeededProvider.fireChangedLibrariesListener();
         }
     }
 
