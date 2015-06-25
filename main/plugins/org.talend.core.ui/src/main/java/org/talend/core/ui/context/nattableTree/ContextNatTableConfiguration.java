@@ -34,6 +34,7 @@ import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
 import org.eclipse.nebula.widgets.nattable.painter.cell.CheckBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ComboBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ImagePainter;
+import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.MoveDirectionEnum;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleUtil;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
@@ -46,6 +47,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
+import org.talend.core.ui.context.IContextModelManager;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableConstants;
 
@@ -60,16 +62,22 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
     private IContextManager manager;
 
+    private IContextModelManager modelManager;
+
+    private ProxyDynamicCellEditor cutomCellEditor;
+
     /**
      * DOC ldong ContextNatTableConfiguration constructor comment.
      * 
      * @param dataProvider
      */
-    public ContextNatTableConfiguration(IDataProvider dataProvider, ColumnGroupModel columnGroupModel, IContextManager manager) {
+    public ContextNatTableConfiguration(IDataProvider dataProvider, ColumnGroupModel columnGroupModel, IContextManager manager,
+            IContextModelManager modelManager) {
         super();
         this.dataProvider = dataProvider;
         this.columnGroupModel = columnGroupModel;
         this.manager = manager;
+        this.modelManager = modelManager;
     }
 
     /*
@@ -157,6 +165,9 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
             @Override
             public boolean isEditable(int columnIndex, int rowIndex) {
+                if (modelManager != null && modelManager.isReadOnly()) {
+                    return false;
+                }
                 ContextTreeNode rowNode = ((GlazedListsDataProvider<ContextTreeNode>) dataProvider).getRowObject(rowIndex);
                 if (ContextNatTableUtils.isEmptyTreeNode(rowNode.getTreeData())) {
                     return false;
@@ -326,5 +337,11 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
             return super.canonicalToDisplayValue(canonicalValue);
         }
 
+    }
+
+    public void notifyFinish() {
+        if (cutomCellEditor != null) {
+            cutomCellEditor.commit(MoveDirectionEnum.NONE);
+        }
     }
 }
