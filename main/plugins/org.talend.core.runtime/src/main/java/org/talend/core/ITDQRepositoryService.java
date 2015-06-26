@@ -27,6 +27,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
@@ -197,4 +198,8 @@ public interface ITDQRepositoryService extends IService {
     public Item createFile(String content, IPath path, String label, String extension);
 
     public void changePerspectiveAction(String perspectiveId);
+
+    boolean createHive(RepositoryNode currentNode);
+
+    void reloadTableList(final DatabaseConnectionItem hiveConnectionItem2);
 }
