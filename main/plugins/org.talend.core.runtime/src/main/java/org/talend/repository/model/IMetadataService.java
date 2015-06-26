@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -50,5 +53,5 @@ public interface IMetadataService extends IService {
     public AbstractRlueOperationChoice getOperationChoice(Shell shell, INode node, RulesItem[] repositoryRuleItems,
             LinkRulesItem[] linkRuleItems, EProcessTypeForRule rule, String ruleToEdit, boolean readOnly);
 
-    // public DatabaseMetaData findCustomizedJTDSDBMetadata(Connection conn);
+    public DatabaseMetaData findCustomizedJTDSDBMetadata(Connection conn);
 }
