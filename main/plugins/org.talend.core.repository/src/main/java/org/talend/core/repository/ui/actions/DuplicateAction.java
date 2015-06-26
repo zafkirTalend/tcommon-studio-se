@@ -247,7 +247,7 @@ public class DuplicateAction extends AContextualAction {
                 createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
             }
         } else {
-            InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title"), //$NON-NLS-1$
+            InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title.v2"), //$NON-NLS-1$
                     Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
 
                         @Override
