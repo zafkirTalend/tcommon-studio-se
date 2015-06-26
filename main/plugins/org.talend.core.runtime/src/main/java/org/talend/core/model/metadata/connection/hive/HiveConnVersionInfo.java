@@ -184,10 +184,12 @@ public enum HiveConnVersionInfo {
           false,
           HiveConnVersionInfo.MAPR),
 
+    APACHE_2_4_0_EMR_0_13_1(1, "APACHE_2_4_0_EMR_0_13_1", "Apache 2.4.0 (Hive 0.13.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$ //$NON-NLS-2$
+
     APACHE_2_4_0_EMR(
                      1,
                      EHadoopVersion4Drivers.APACHE_2_4_0_EMR.getVersionValue(),
-                     "Apache 2.4.0 (Hive 0.11.0)", true, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$
+                     "Apache 2.4.0 (Hive 0.11.0)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$
 
     APACHE_1_0_3_EMR(
                      1,
@@ -256,6 +258,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.MAPR4_1_0,
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.APACHE_2_4_0_EMR,
+                    HiveConnVersionInfo.APACHE_2_4_0_EMR_0_13_1,
                     HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
                     HiveConnVersionInfo.PIVOTAL_HD_2_0,
                     HiveConnVersionInfo.DISTRO_VERSION_CUSTOM);
@@ -279,7 +282,7 @@ public enum HiveConnVersionInfo {
     private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
             HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.Cloudera_CDH5_4,
             HiveConnVersionInfo.HDP_2_2, HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0,
-            HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR };
+            HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR, HiveConnVersionInfo.APACHE_2_4_0_EMR_0_13_1 };
 
     private static HiveConnVersionInfo[] hiveVersionsSupportingTez = new HiveConnVersionInfo[] { HiveConnVersionInfo.HDP_2_2,
             HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.MAPR4_0_1, HiveConnVersionInfo.MAPR4_1_0,
