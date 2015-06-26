@@ -54,7 +54,9 @@ public class NexusServerUtils {
 
     public static final String KEY_NEXUS_PASS = "password";//$NON-NLS-1$ 
 
-    public static final String KEY_NEXUS_REPOSITORY = "repository";//$NON-NLS-1$ 
+    public static final String KEY_CUSTOM_LIB_REPOSITORY = "repository";//$NON-NLS-1$ 
+
+    public static final String KEY_SOFTWARE_UPDATE_REPOSITORY = "repositoryID";//$NON-NLS-1$ 
 
     public static final String TALEND_LIB_SERVER = "https://talend-update.talend.com/nexus/";//$NON-NLS-1$ 
 
@@ -63,6 +65,8 @@ public class NexusServerUtils {
     public static final String TALEND_LIB_PASSWORD = "";//$NON-NLS-1$ 
 
     public static final String TALEND_LIB_REPOSITORY = "libraries";//$NON-NLS-1$ 
+
+    public static final int CONNECTION_OK = 200;
 
     //    public static final String TALEND_LIB_SERVER = "http://localhost:8081/nexus/";//$NON-NLS-1$ 
     //
@@ -95,12 +99,17 @@ public class NexusServerUtils {
                 String nexus_url = updateRepositoryUrl.getString(KEY_NEXUS_RUL);
                 String nexus_user = updateRepositoryUrl.getString(KEY_NEXUS_USER);
                 String nexus_pass = updateRepositoryUrl.getString(KEY_NEXUS_PASS);
-                String nexus_repository = updateRepositoryUrl.getString(KEY_NEXUS_REPOSITORY);
+                String nexus_repository = updateRepositoryUrl.getString(KEY_SOFTWARE_UPDATE_REPOSITORY);
+                boolean connectionOK = checkConnectionStatus(nexus_url, nexus_repository, nexus_user, nexus_pass);
+                if (!connectionOK) {
+                    return null;
+                }
                 NexusServerBean serverBean = new NexusServerBean();
                 serverBean.setServer(nexus_url);
                 serverBean.setUserName(nexus_user);
                 serverBean.setPassword(nexus_pass);
                 serverBean.setRepositoryId(nexus_repository);
+                return serverBean;
             }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
@@ -111,6 +120,58 @@ public class NexusServerUtils {
         }
 
         return null;
+    }
+
+    /**
+     * 
+     * DOC check if the repository exist or not
+     * 
+     * @param nexusUrl
+     * @param repositoryId
+     * @param userName
+     * @param password
+     * @return
+     */
+    public static boolean checkConnectionStatus(String nexusUrl, String repositoryId, String userName, String password) {
+        int status = -1;
+        try {
+            if (nexusUrl == null || "".equals(nexusUrl) || repositoryId == null || "".equals(repositoryId)) {
+                return false;
+            }
+            String newUrl = nexusUrl;
+            if (newUrl.endsWith(NexusConstants.SLASH)) {
+                newUrl = newUrl.substring(0, newUrl.length() - 1);
+            }
+            String urlToCheck = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId;
+
+            URL url = new URL(urlToCheck);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            if (userName != null && !"".equals(userName)) {
+                urlConnection.setRequestProperty(
+                        "Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+            }
+            if (urlConnection instanceof HttpsURLConnection) {
+                String userDir = Platform.getInstallLocation().getURL().getPath();
+                final SSLSocketFactory socketFactory = SSLUtils.getSSLContext(userDir).getSocketFactory();
+                HttpsURLConnection httpsConnection = (HttpsURLConnection) urlConnection;
+                httpsConnection.setSSLSocketFactory(socketFactory);
+                httpsConnection.setHostnameVerifier(new HostnameVerifier() {
+
+                    @Override
+                    public boolean verify(String arg0, SSLSession arg1) {
+                        return true;
+                    }
+
+                });
+            }
+            status = urlConnection.getResponseCode();
+            if (status == CONNECTION_OK) {
+                return true;
+            }
+        } catch (Exception e) {
+            // do nothing
+        }
+        return false;
     }
 
     public static List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,

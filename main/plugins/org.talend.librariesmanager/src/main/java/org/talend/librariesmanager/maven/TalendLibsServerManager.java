@@ -15,18 +15,10 @@ package org.talend.librariesmanager.maven;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.ops4j.pax.url.mvn.ServiceConstants;
@@ -48,9 +40,6 @@ import org.talend.core.service.IRemoteService;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.json.JSONObject;
-import org.talend.utils.ssl.SSLUtils;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  * created by wchen on 2015年6月16日 Detailled comment
@@ -152,17 +141,20 @@ public class TalendLibsServerManager {
                         String nexus_url = libServerObject.getString(NexusServerUtils.KEY_NEXUS_RUL);
                         String nexus_user = libServerObject.getString(NexusServerUtils.KEY_NEXUS_USER);
                         String nexus_pass = libServerObject.getString(NexusServerUtils.KEY_NEXUS_PASS);
-                        String repositoryId = libServerObject.getString(NexusServerUtils.KEY_NEXUS_REPOSITORY);
+                        String repositoryId = libServerObject.getString(NexusServerUtils.KEY_CUSTOM_LIB_REPOSITORY);
+
+                        // TODO check if custom nexus is valid , only check http response for now , need check if it is
+                        // snapshot latter
+                        boolean connectionOk = NexusServerUtils.checkConnectionStatus(nexus_url, repositoryId, nexus_user,
+                                nexus_pass);
+                        if (!connectionOk) {
+                            return null;
+                        }
+
                         String newUrl = nexus_url;
                         if (newUrl.endsWith(NexusConstants.SLASH)) {
                             newUrl = newUrl.substring(0, newUrl.length() - 1);
                         }
-
-                        // TODO check if custom nexus is valid , only check http response for now , need check if it is
-                        // snapshot latter
-                        String urlToCheck = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId;
-                        checkConnectionStatus(urlToCheck, nexus_user, nexus_pass);
-
                         if (nexus_user != null && !"".equals(nexus_user)) {//$NON-NLS-1$
                             String[] split = newUrl.split("://");//$NON-NLS-1$
                             if (split.length != 2) {
@@ -194,36 +186,6 @@ public class TalendLibsServerManager {
         previousCustomBean = serverBean;
         return serverBean;
 
-    }
-
-    public static void checkConnectionStatus(String urlToCheck, String userName, String password) throws Exception {
-        int status = -1;
-        URL url = new URL(urlToCheck);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        if (userName != null && !"".equals(userName)) {
-            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
-        }
-        if (urlConnection instanceof HttpsURLConnection) {
-            String userDir = Platform.getInstallLocation().getURL().getPath();
-            final SSLSocketFactory socketFactory = SSLUtils.getSSLContext(userDir).getSocketFactory();
-            HttpsURLConnection httpsConnection = (HttpsURLConnection) urlConnection;
-            httpsConnection.setSSLSocketFactory(socketFactory);
-            httpsConnection.setHostnameVerifier(new HostnameVerifier() {
-
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-
-            });
-        }
-        status = urlConnection.getResponseCode();
-        if (status == CONNECTION_OK) {
-            // do nothing
-        } else {
-            throw new Exception("Connect to " + urlConnection.getURL().toString()
-                    + " failed , please contract the administrator to change 'User Libraries' settings !");
-        }
     }
 
     public NexusServerBean getLibrariesNexusServer() {
