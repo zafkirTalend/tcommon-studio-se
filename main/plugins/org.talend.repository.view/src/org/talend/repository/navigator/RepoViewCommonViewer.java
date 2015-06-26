@@ -29,13 +29,11 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.ui.view.RepositoryDropAdapter;
-import org.talend.core.utils.ProductUtils;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
@@ -207,7 +205,9 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.viewers.AbstractTreeViewer#getSortedChildren(java.lang.Object)
      */
     @Override
@@ -217,18 +217,20 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
             List<RepositoryNode> nodes = new ArrayList<RepositoryNode>();
             for (Object object : objects) {
                 if (object instanceof RepositoryNode) {
-                    nodes.add((RepositoryNode)object);
+                    nodes.add((RepositoryNode) object);
                 }
             }
             Comparator<RepositoryNode> myComparator = new Comparator<RepositoryNode>() {
 
                 @Override
                 public int compare(RepositoryNode o1, RepositoryNode o2) {
-                    if (o1.getContentType() == null) {
+                    ERepositoryObjectType type1 = o1.getContentType();
+                    ERepositoryObjectType type2 = o2.getContentType();
+                    if (type1 == null || type2 == null) { // null, will be front, seems only recycle bin will be null.
                         return 1;
                     }
-                        
-                    return o1.getContentType().compareTo(o2.getContentType());
+
+                    return type1.compareTo(type2);
                 }
             };
             RepositoryNode[] nodesArray = nodes.toArray(new RepositoryNode[0]);
