@@ -152,7 +152,7 @@ public class ClassLoaderFactory {
 
     private static DynamicClassLoader createCustomClassLoader(String index, Set<String> libraries) {
         DynamicClassLoader classLoader = new DynamicClassLoader();
-        loadLibraries(classLoader, libraries.toArray(new String[0]), false);
+        loadLibraries(classLoader, libraries.toArray(new String[0]), true);
         classLoadersMap.put(index, classLoader);
 
         return classLoader;
