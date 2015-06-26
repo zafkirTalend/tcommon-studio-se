@@ -380,7 +380,7 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
 /**************************************************
  * Inactive MultiPageEditor Header Part Stack
  **************************************************/
-#org-eclipse-e4-primaryDataStack {
+#org-eclipse-ui-editorss>CTabFolder {
     swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     
     /* tab background */
@@ -424,12 +424,12 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
     swt-minimize-visible: true;
 }
 
-#org-eclipse-e4-primaryDataStack>CTabItem {
+#org-eclipse-ui-editorss>CTabFolder>CTabItem {
     /* unselected tab text */
     color: #ededed;
 }
 
-#org-eclipse-e4-primaryDataStack>CTabItem:selected {
+#org-eclipse-ui-editorss>CTabFolder>CTabItem:selected {
     /* selected tab text */
     color: #ffffff;
 }
@@ -438,7 +438,7 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
 /**************************************************
  * Active MultiPageEditor Header Part Stack
  **************************************************/
-#org-eclipse-e4-primaryDataStack.active {
+#org-eclipse-ui-editorss>CTabFolder.active {
     swt-tab-renderer: url('bundleclass://org.talend.themes.core/org.talend.themes.core.elements.renderers.TalendTabRenderer');
     
     /* tab background */
@@ -472,12 +472,12 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
     jtab-chevron-color: #000000;
 }
 
-#org-eclipse-e4-primaryDataStack.active>CTabItem {
+#org-eclipse-ui-editorss>CTabFolder.active>CTabItem {
     /* unselected tab text */
     color: #ededed;
 }
 
-#org-eclipse-e4-primaryDataStack.active>CTabItem:selected {
+#org-eclipse-ui-editorss>CTabFolder.active>CTabItem:selected {
     /* selected tab text */
     color: #ffffff;
 }
