@@ -182,7 +182,7 @@ public class ModulesNeededProvider {
      */
     public static List<ModuleNeeded> getModulesNeededForName(String moduleName) {
         ArrayList<ModuleNeeded> modulesMatching = new ArrayList<ModuleNeeded>();
-        for (ModuleNeeded modNeed : componentImportNeedsList) {
+        for (ModuleNeeded modNeed : getModulesNeeded()) {
             if (moduleName.equals(modNeed.getModuleName())) {
                 modulesMatching.add(modNeed);
             }
@@ -192,7 +192,7 @@ public class ModulesNeededProvider {
 
     public static List<String> getModulesNeededNames() {
         List<String> componentImportNeedsListNames = new ArrayList<String>();
-        for (ModuleNeeded m : componentImportNeedsList) {
+        for (ModuleNeeded m : getModulesNeeded()) {
             componentImportNeedsListNames.add(m.getModuleName());
         }
         return componentImportNeedsListNames;
