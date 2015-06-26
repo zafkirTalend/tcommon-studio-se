@@ -1452,13 +1452,25 @@ public class RepositoryToComponentProperty {
             return impalaVersion;
         }
 
+        if (value.equals("SET_SCHEDULER_ADDRESS")) {
+            return true;
+        }
+
         if (value.equals("RESOURCEMANAGER_SCHEDULER_ADDRESS")) {
             return TalendQuoteUtils.addQuotes(connection.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_RESOURCEMANAGER_SCHEDULER_ADDRESS));
         }
 
+        if (value.equals("SET_JOBHISTORY_ADDRESS")) {
+            return true;
+        }
+
         if (value.equals("JOBHISTORY_ADDRESS")) {
             return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOBHISTORY_ADDRESS));
+        }
+
+        if (value.equals("SET_STAGING_DIRECTORY")) {
+            return true;
         }
 
         if (value.equals("STAGING_DIRECTORY")) {
