@@ -159,13 +159,13 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
                     Model model = mavenProject.getOriginalModel();
                     // if not pom, change to pom
                     if (!TalendMavenConstants.PACKAGING_POM.equals(model.getPackaging())) {
-                        model.setPackaging(TalendMavenConstants.PACKAGING_POM);
 
                         Model codeProjectTemplateModel = MavenTemplateManager.getCodeProjectTemplateModel();
                         model.setGroupId(codeProjectTemplateModel.getGroupId());
                         model.setArtifactId(codeProjectTemplateModel.getArtifactId());
                         model.setVersion(codeProjectTemplateModel.getVersion());
                         model.setName(codeProjectTemplateModel.getName());
+                        model.setPackaging(codeProjectTemplateModel.getPackaging());
 
                         PomUtil.savePom(monitor, model, pomFile);
 
