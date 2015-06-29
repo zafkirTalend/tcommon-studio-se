@@ -28,6 +28,7 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.repository.ProjectManager;
@@ -228,6 +229,7 @@ public class MavenTemplateManager {
         templateCodeProjectMOdel.setGroupId(PomIdsHelper.getProjectGroupId());
         templateCodeProjectMOdel.setArtifactId(PomIdsHelper.getProjectArtifactId());
         templateCodeProjectMOdel.setVersion(PomIdsHelper.getProjectVersion());
+        templateCodeProjectMOdel.setPackaging(TalendMavenConstants.PACKAGING_POM);
 
         return templateCodeProjectMOdel;
     }

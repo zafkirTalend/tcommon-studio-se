@@ -117,6 +117,7 @@ public class ProjectPomManager {
         projectModel.setArtifactId(templateModel.getArtifactId());
         projectModel.setVersion(templateModel.getVersion());
         projectModel.setName(templateModel.getName());
+        projectModel.setPackaging(templateModel.getPackaging());
     }
 
     /**
