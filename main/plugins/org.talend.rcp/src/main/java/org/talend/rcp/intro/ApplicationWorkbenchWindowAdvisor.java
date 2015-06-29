@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.commands.IHandler;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.IAction;
@@ -60,6 +61,7 @@ import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.gmf.util.DisplayUtils;
@@ -224,8 +226,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void postWindowOpen() {
 
+        try {
+            JavaHomeUtil.initializeJavaHome();
+        } catch (CoreException e1) {
+            CommonExceptionHandler.process(e1);
+        }
+
         if (!JavaHomeUtil.isJDKSetup()) {
-            MessageDialog.openWarning(DisplayUtils.getDefaultShell(), Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
+            MessageDialog.openWarning(DisplayUtils.getDefaultShell(),
+                    Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
                     Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
         }
 

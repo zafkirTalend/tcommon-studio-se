@@ -49,7 +49,6 @@ import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
-import org.talend.core.runtime.util.JavaHomeUtil;
 import org.talend.core.services.ICoreTisService;
 import org.talend.core.ui.TalendBrowserLaunchHelper;
 import org.talend.core.ui.branding.IBrandingService;
@@ -84,7 +83,6 @@ public class Application implements IApplication {
     public Object start(IApplicationContext context) throws Exception {
 
         Display display = PlatformUI.createDisplay();
-        JavaHomeUtil.initializeJavaHome();
 
         try {
             Shell shell = new Shell(display, SWT.ON_TOP);
