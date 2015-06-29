@@ -256,6 +256,10 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         StringBuffer windowsScriptAdditionValue = new StringBuffer(50);
         StringBuffer unixScriptAdditionValue = new StringBuffer(50);
 
+        //
+        addScriptAddition(windowsScriptAdditionValue, this.getWindowsScriptAddition());
+        addScriptAddition(unixScriptAdditionValue, this.getUnixScriptAddition());
+
         // context
         if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_CONTEXT)) {
             final String contextPart = TalendProcessArgumentConstant.CMD_ARG_CONTEXT_NAME + contextName;
@@ -302,10 +306,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 addScriptAddition(unixScriptAdditionValue, log4jLevelPart);
             }
         }
-
-        //
-        addScriptAddition(windowsScriptAdditionValue, this.getWindowsScriptAddition());
-        addScriptAddition(unixScriptAdditionValue, this.getUnixScriptAddition());
 
         checkPomProperty(properties, "talend.job.bat.classpath", ETalendMavenVariables.JobBatClasspath,
                 this.getWindowsClasspath());
