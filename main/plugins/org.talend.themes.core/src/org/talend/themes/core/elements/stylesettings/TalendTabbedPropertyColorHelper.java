@@ -24,7 +24,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
  * created by Talend on Jan 30, 2015 Detailled comment
  *
  */
-public class TalendTabbedPropertyColorHelper {
+public class TalendTabbedPropertyColorHelper extends CommonCSSStyleSetting {
 
     private Color widgetForeground = null;
 
@@ -79,7 +79,7 @@ public class TalendTabbedPropertyColorHelper {
 
     public TalendTabbedPropertyColorHelper(TabbedPropertySheetWidgetFactory factory) {
         this.factory = factory;
-        initColours();
+        init();
     }
 
     public Color getWidgetForeground() {
@@ -143,8 +143,8 @@ public class TalendTabbedPropertyColorHelper {
 
     public Color getHoverGradientEnd() {
         if (hoverGradientEnd == null) {
-            hoverGradientEnd = factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientEnd", //$NON-NLS-1$
-                    FormColors.blend(widgetNormalShadow.getRGB(), widgetBackground.getRGB(), 10));
+            hoverGradientEnd = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientEnd", //$NON-NLS-1$
+                    FormColors.blend(widgetNormalShadow.getRGB(), widgetBackground.getRGB(), 10)).getRGB());
         }
         return this.hoverGradientEnd;
     }
@@ -291,9 +291,9 @@ public class TalendTabbedPropertyColorHelper {
     }
 
     private void initTitleGradient() {
-        titleForeground = factory.getColors().getColor(IFormColors.TITLE);
-        titleBottomForegroundKeyline1 = factory.getColors().getColor(IFormColors.H_BOTTOM_KEYLINE1);
-        titleBottomForegroundKeyline2 = factory.getColors().getColor(IFormColors.H_BOTTOM_KEYLINE2);
+        titleForeground = getColorByRGB(factory.getColors().getColor(IFormColors.TITLE).getRGB());
+        titleBottomForegroundKeyline1 = getColorByRGB(factory.getColors().getColor(IFormColors.H_BOTTOM_KEYLINE1).getRGB());
+        titleBottomForegroundKeyline2 = getColorByRGB(factory.getColors().getColor(IFormColors.H_BOTTOM_KEYLINE2).getRGB());
     }
 
     private void initGradient() {
@@ -301,60 +301,60 @@ public class TalendTabbedPropertyColorHelper {
          * gradient in the default tab: start colour WIDGET_NORMAL_SHADOW 100% + white 20% + INFO_BACKGROUND 60% end
          * colour WIDGET_NORMAL_SHADOW 100% + INFO_BACKGROUND 40%
          */
-        defaultGradientStart = factory.getColors().createColor("TabbedPropertyList.defaultTabGradientStart", //$NON-NLS-1$
-                FormColors.blend(infoBackground, FormColors.blend(white, widgetNormalShadow.getRGB(), 20), 60));
-        defaultGradientEnd = factory.getColors().createColor("TabbedPropertyList.defaultTabGradientEnd", //$NON-NLS-1$
-                FormColors.blend(infoBackground, widgetNormalShadow.getRGB(), 40));
+        defaultGradientStart = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.defaultTabGradientStart", //$NON-NLS-1$
+                FormColors.blend(infoBackground, FormColors.blend(white, widgetNormalShadow.getRGB(), 20), 60)).getRGB());
+        defaultGradientEnd = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.defaultTabGradientEnd", //$NON-NLS-1$
+                FormColors.blend(infoBackground, widgetNormalShadow.getRGB(), 40)).getRGB());
 
-        navigationElementShadowStroke = factory.getColors().createColor("TabbedPropertyList.shadowStroke", //$NON-NLS-1$
-                FormColors.blend(white, widgetNormalShadow.getRGB(), 55));
-        //        bottomNavigationElementShadowStroke1 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke1", //$NON-NLS-1$
-        // FormColors.blend(black, widgetBackground.getRGB(), 10));
-        //        bottomNavigationElementShadowStroke2 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke2", //$NON-NLS-1$
-        // FormColors.blend(black, widgetBackground.getRGB(), 5));
+        navigationElementShadowStroke = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.shadowStroke", //$NON-NLS-1$
+                FormColors.blend(white, widgetNormalShadow.getRGB(), 55)).getRGB());
+        //        bottomNavigationElementShadowStroke1 = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.tabShadowStroke1", //$NON-NLS-1$
+        // FormColors.blend(black, widgetBackground.getRGB(), 10)));
+        //        bottomNavigationElementShadowStroke2 = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.tabShadowStroke2", //$NON-NLS-1$
+        // FormColors.blend(black, widgetBackground.getRGB(), 5)));
 
         /*
          * gradient in the hover tab: start colour WIDGET_BACKGROUND 100% + white 20% end colour WIDGET_BACKGROUND 100%
          * + WIDGET_NORMAL_SHADOW 10%
          */
-        hoverGradientStart = factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientStart", //$NON-NLS-1$
-                FormColors.blend(white, widgetBackground.getRGB(), 20));
+        hoverGradientStart = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientStart", //$NON-NLS-1$
+                FormColors.blend(white, widgetBackground.getRGB(), 20)).getRGB());
 
-        indentedDefaultBackground = factory.getColors().createColor("TabbedPropertyList.indentedDefaultBackground", //$NON-NLS-1$
-                FormColors.blend(white, widgetBackground.getRGB(), 10));
-        indentedHoverBackground = factory.getColors().createColor("TabbedPropertyList.indentedHoverBackground", //$NON-NLS-1$
-                FormColors.blend(white, widgetBackground.getRGB(), 75));
+        indentedDefaultBackground = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.indentedDefaultBackground", //$NON-NLS-1$
+                FormColors.blend(white, widgetBackground.getRGB(), 10)).getRGB());
+        indentedHoverBackground = getColorByRGB(factory.getColors().createColor("TabbedPropertyList.indentedHoverBackground", //$NON-NLS-1$
+                FormColors.blend(white, widgetBackground.getRGB(), 75)).getRGB());
     }
 
     /**
      * Initialize the colours used in the list.
      */
-    private void initColours() {
+    private void init() {
         /*
          * Colour 3 COLOR_LIST_BACKGROUND
          */
-        listBackground = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND);
+        listBackground = getColorByRGB(new RGB(0xD3, 0xD3, 0xD3));
 
         /*
          * Colour 13 COLOR_WIDGET_BACKGROUND
          */
-        widgetBackground = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
+        widgetBackground = getColorByRGB(Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND).getRGB());
 
         /*
          * Colour 15 COLOR_WIDGET_DARK_SHADOW
          */
-        widgetDarkShadow = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_DARK_SHADOW);
+        widgetDarkShadow = getColorByRGB(Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND).getRGB());
 
         /*
          * Colour 16 COLOR_WIDGET_FOREGROUND
          */
-        widgetForeground = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
+        widgetForeground = getColorByRGB(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_FOREGROUND).getRGB());
 
         /*
          * Colour 19 COLOR_WIDGET_NORMAL_SHADOW
          */
-        widgetNormalShadow = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW);
+        widgetNormalShadow = getColorByRGB(Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND).getRGB());
 
-        widgetVerticalLineColor = Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
+        widgetVerticalLineColor = getColorByRGB(Display.getCurrent().getSystemColor(SWT.COLOR_GRAY).getRGB());
     }
 }

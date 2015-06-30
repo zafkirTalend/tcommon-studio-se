@@ -498,7 +498,7 @@ CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem {
 }
 
 CTabFolder.org-talend-rcp-abstractMultiPageEditor-footer CTabItem:selected {
-    background-color: #555964 #555964 80%  #c0d72d #c0d72d 80% 100%;
+    background-color: #555964 #555964 #e5e5e5 #c0d72d #c0d72d 80% 80% 80% 100%;
     color: white;
 }
 

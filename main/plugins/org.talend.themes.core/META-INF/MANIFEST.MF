@@ -16,9 +16,13 @@ Require-Bundle: org.eclipse.ui,
  net.jeeeyul.eclipse.themes,
  net.jeeeyul.swtend,
  org.talend.commons.runtime,
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.ui.css.swt.theme,
+ org.eclipse.osgi.services
 Bundle-ActivationPolicy: lazy
-Export-Package: org.talend.themes.core.elements.interfaces,
+Export-Package: org.talend.themes.core.elements.constants,
+ org.talend.themes.core.elements.interfaces,
  org.talend.themes.core.elements.renderers,
  org.talend.themes.core.elements.stylesettings,
+ org.talend.themes.core.elements.utils,
  org.talend.themes.core.elements.widgets

@@ -8,6 +8,7 @@
              basestylesheeturi="themes/default/css/default.css"
              id="org.talend.themes.css.talend.default"
              label="Talend default theme">
+             <!-- please see: TalendThemeConstants.TALEND_DEFAULT_THEME_ID -->
        </theme>
     </extension>
 

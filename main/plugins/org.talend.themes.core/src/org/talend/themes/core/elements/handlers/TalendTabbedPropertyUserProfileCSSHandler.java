@@ -18,7 +18,9 @@ import org.eclipse.e4.ui.css.core.dom.properties.converters.ICSSValueConverter;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.properties.AbstractCSSPropertySWTHandler;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Control;
+import org.talend.themes.core.elements.stylesettings.CommonCSSStyleSetting;
 import org.talend.themes.core.elements.stylesettings.TalendTabbedPropertyColorHelper;
 import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyListWidget;
 import org.talend.themes.core.elements.widgets.ITalendTabbedPropertyTitleWidget;
@@ -62,24 +64,24 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
             ITalendTabbedPropertyListWidget userProfileWidget = (ITalendTabbedPropertyListWidget) control;
             TalendTabbedPropertyColorHelper colorHelper = userProfileWidget.getColorHelper();
             if (value != null && CSSValue.CSS_PRIMITIVE_VALUE == value.getCssValueType()) {
-                Color newColor = (Color) engine.convert(value, Color.class, control.getDisplay());
+                RGB newColor = ((Color) engine.convert(value, Color.class, control.getDisplay())).getRGB();
                 if (WIDGET_FOREGROUND_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setWidgetForeground(newColor);
+                    colorHelper.setWidgetForeground(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (WIDGET_BACKGROUND_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setWidgetBackground(newColor);
+                    colorHelper.setWidgetBackground(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (WIDGET_NORMAL_SHADOW_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setWidgetNormalShadow(newColor);
+                    colorHelper.setWidgetNormalShadow(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (WIDGET_DARK_SHADOW_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setWidgetDarkShadow(newColor);
+                    colorHelper.setWidgetDarkShadow(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (WIDGET_VERTICAL_LINE_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setWidgetVerticalLineColor(newColor);
+                    colorHelper.setWidgetVerticalLineColor(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (LIST_BACKGROUND_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setListBackground(newColor);
+                    colorHelper.setListBackground(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (BORDER_VISIBLE.equalsIgnoreCase(property)) {
                     String isVisibleBorderValue = value.getCssText();
@@ -106,18 +108,18 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
             ITalendTabbedPropertyTitleWidget tabbedPropertyTitle = (ITalendTabbedPropertyTitleWidget) control;
             TalendTabbedPropertyColorHelper colorHelper = tabbedPropertyTitle.getColorHelper();
             if (value != null && CSSValue.CSS_PRIMITIVE_VALUE == value.getCssValueType()) {
-                Color newColor = (Color) engine.convert(value, Color.class, control.getDisplay());
+                RGB newColor = ((Color) engine.convert(value, Color.class, control.getDisplay())).getRGB();
                 if (TITLE_FOREGROUND_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setTitleForeground(newColor);
+                    colorHelper.setTitleForeground(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (TITLE_BACKGROUND_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setTitleBackground(newColor);
+                    colorHelper.setTitleBackground(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (TITLE_BOTTOM_FOREGROUND_KEYLINE1_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setTitleBottomForegroundKeyline1(newColor);
+                    colorHelper.setTitleBottomForegroundKeyline1(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (TITLE_BOTTOM_FOREGROUND_KEYLINE2_COLOR.equalsIgnoreCase(property)) {
-                    colorHelper.setTitleBottomForegroundKeyline2(newColor);
+                    colorHelper.setTitleBottomForegroundKeyline2(CommonCSSStyleSetting.getColorByRGB(newColor));
                 }
                 if (BORDER_VISIBLE.equalsIgnoreCase(property)) {
                     String isVisibleBorderValue = value.getCssText();
