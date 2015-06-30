@@ -129,6 +129,7 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
         for (ModuleNeeded module : requiredModulesForBundle) {
             String moduleName = module.getModuleName();
             // if jar does not exist at expected folder then check if it is registered in the Studio
+            boolean installed = false;
             if (!new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
                 // check that library is already available and registered but not deployed to lib/java.
                 try {
@@ -144,6 +145,7 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
                                 URL url = FileLocator.toFileURL(uri.toURL());
                                 if ("file".equals(url.getProtocol())) { //$NON-NLS-1$
                                     libraryManagerService.deploy(url.toURI(), null);
+                                    installed = true;
                                 }// else not a file so keep going
                                 break;
                             }// else not an installed module or no url so keep so keep looking
@@ -157,7 +159,7 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
                     log.warn("Could not get installade status for library:" + moduleName, e);
                 }
             }
-            if (!new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
+            if (!installed && !new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
                 requiredJars.add(moduleName);
             }// else jar already installed to filter it by ignoring it.
         }
