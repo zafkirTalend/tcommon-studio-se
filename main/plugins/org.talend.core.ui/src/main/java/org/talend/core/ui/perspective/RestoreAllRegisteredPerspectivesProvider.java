@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.core.ui.perspective;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -32,7 +32,6 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.nebula.widgets.nattable.util.ArrayUtil;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -140,17 +139,21 @@ public class RestoreAllRegisteredPerspectivesProvider {
         // find the selected perspective to re-select it after all perspective creation
         MPerspectiveStack mPerspStack = getMPerspectiveStack();
         MPerspective initialSelectedPerspective = null;
-        Set<String> showPersArr = new HashSet<String>();
-        showPersArr.addAll(ArrayUtil.asCollection(showPerspectiveIds));
+
+        // because it's sorted, so use list, not set.
+        List<String> showPersIdsList = new ArrayList<String>(Arrays.asList(showPerspectiveIds));
         if (mPerspStack != null) {
             for (MPerspective mp : mPerspStack.getChildren()) {
-                showPersArr.add(mp.getElementId());
+                String elementId = mp.getElementId();
+                if (!showPersIdsList.contains(elementId)) { // not existed.
+                    showPersIdsList.add(elementId);
+                }
             }
             initialSelectedPerspective = mPerspStack.getSelectedElement();
         }
 
         // create the perspectives.
-        for (String perspId : showPersArr.toArray(new String[0])) {
+        for (String perspId : showPersIdsList.toArray(new String[0])) {
             restorePerspective(mPerspStack, perspId);
         }
 
@@ -214,31 +217,31 @@ public class RestoreAllRegisteredPerspectivesProvider {
             MPerspective mPersp = null;
 
             IPerspectiveRegistry perspectiveRegistry = workbench.getPerspectiveRegistry();
-            IPerspectiveDescriptor perspDesc = perspectiveRegistry.findPerspectiveWithId(id);
-            // find the existed.
-            if (mPerspStack != null) {
-                for (MPerspective mp : mPerspStack.getChildren()) {
-                    if (mp.getElementId().equals(id)) { // existed.
-                        mPersp = mp;
-                        break;
-                    } else { // try to check custom perspective. (the element id should be different with id.)
-                        IPerspectiveDescriptor persp = perspectiveRegistry.findPerspectiveWithId(mp.getElementId());
-                        if (persp != null && persp instanceof PerspectiveDescriptor) {
-                            PerspectiveDescriptor pd = (PerspectiveDescriptor) persp;
 
-                            // if custom perspective, the original id and id are different.
-                            if (!pd.getOriginalId().equals(pd.getId()) //
-                                    && pd.getOriginalId().equals(id)) { // when custom, just use it.
-                                mPersp = mp;
-                                break;
-                            }
+            // find the existed.
+            for (MPerspective mp : mPerspStack.getChildren()) {
+                if (mp.getElementId().equals(id)) { // existed.
+                    mPersp = mp;
+                    break;
+                } else { // try to check custom perspective. (the element id should be different with id.)
+                    IPerspectiveDescriptor persp = perspectiveRegistry.findPerspectiveWithId(mp.getElementId());
+                    if (persp != null && persp instanceof PerspectiveDescriptor) {
+                        PerspectiveDescriptor pd = (PerspectiveDescriptor) persp;
+
+                        // if custom perspective, the original id and id are different.
+                        if (!pd.getOriginalId().equals(pd.getId()) //
+                                && pd.getOriginalId().equals(id)) { // when custom, just use it.
+                            mPersp = mp;
+                            break;
                         }
                     }
-
                 }
+
             }
-            if (perspDesc == null) {
-                if (mPersp != null) {
+
+            IPerspectiveDescriptor perspDesc = perspectiveRegistry.findPerspectiveWithId(id);
+            if (perspDesc == null) { // the id of perspective is not loaded
+                if (mPersp != null) {// existed in stack, remove it
                     mPerspStack.getChildren().remove(mPersp);
                 }
                 return;
@@ -284,10 +287,11 @@ public class RestoreAllRegisteredPerspectivesProvider {
                 // add it to the stack
                 mPerspStack.getChildren().add(mPersp);
 
-            }// else already create so do nothing
-             // } else { // can't find or not be loaded.
-             // mPerspStack.getChildren().remove(perspDesc)
-             // }
+            } else { // existed
+                // add in last. because the perspectives list have been sorted.
+                mPerspStack.getChildren().remove(mPersp);
+                mPerspStack.getChildren().add(mPersp);
+            }
 
         }
     }
