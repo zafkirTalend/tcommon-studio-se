@@ -199,7 +199,7 @@ public interface ITDQRepositoryService extends IService {
 
     public void changePerspectiveAction(String perspectiveId);
 
-    boolean createHive(RepositoryNode currentNode);
+    ConnectionItem createHive(RepositoryNode currentNode);
 
     void reloadTableList(final DatabaseConnectionItem hiveConnectionItem2);
 }
