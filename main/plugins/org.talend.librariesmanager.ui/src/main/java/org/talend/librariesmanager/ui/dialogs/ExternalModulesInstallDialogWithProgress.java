@@ -63,7 +63,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
     private Cursor waitCursor;
 
     private static final String FOCUS_CONTROL = "focusControl"; //$NON-NLS-1$
-    
+
     private boolean fork = true;
 
     /**
@@ -297,7 +297,7 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
         activeRunningOperations++;
         progressMonitorPart.attachToCancelComponent(null);// nasty hack to enable the cancel button
         try {
-            ModalContext.run(runnable,fork, getProgressMonitor(), getShell().getDisplay());
+            ModalContext.run(runnable, fork, getProgressMonitor(), getShell().getDisplay());
         } finally {
             // explicitly invoke done() on our progress monitor so that its
             // label does not spill over to the next invocation, see bug 271530
@@ -672,11 +672,12 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
             CommonExceptionHandler.warn("missing jars: " + ArrayUtils.toString(requiredJars)); //$NON-NLS-1$
             return;
         }
-        fork = !block;
+        // fork = !block;
         IRunnableWithProgress notInstalledModulesRunnable = RemoteModulesHelper.getInstance().getNotInstalledModulesRunnable(
                 requiredJars, inputList);
         setBlockOnOpen(block);
         setInitialRunnable(notInstalledModulesRunnable);
         open();
     }
+
 }
