@@ -36,6 +36,12 @@ public final class TalendCodeProjectUtil {
         IProject codeProject = root.getProject(TalendMavenConstants.PROJECT_NAME);
 
         if (!codeProject.exists() || needRecreate(codeProject)) {
+            if (codeProject.exists()) {// if existed, must delete it first
+                if (codeProject.isOpen()) {
+                    codeProject.close(monitor);
+                }
+                codeProject.delete(true, true, monitor);
+            }
             CreateMavenCodeProject createProject = new CreateMavenCodeProject(codeProject);
             createProject.create(monitor);
             codeProject = createProject.getProject();
