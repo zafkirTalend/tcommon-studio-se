@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
-import net.sourceforge.jtds.jdbc.ConnectionJDBC2;
+import net.sourceforge.jtds.jdbc.JtdsConnection;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
@@ -281,8 +281,8 @@ public class MetadataService implements IMetadataService {
 
     @Override
     public DatabaseMetaData findCustomizedJTDSDBMetadata(Connection jtdsConn) {
-        if (jtdsConn instanceof ConnectionJDBC2) {
-            return new JtdsMetadataAdapter((ConnectionJDBC2) jtdsConn);
+        if (jtdsConn instanceof JtdsConnection) {
+            return new JtdsMetadataAdapter((JtdsConnection) jtdsConn);
         } else {
             try {
                 return jtdsConn.getMetaData();
