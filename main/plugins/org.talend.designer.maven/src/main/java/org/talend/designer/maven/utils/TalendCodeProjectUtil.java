@@ -11,12 +11,16 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.m2e.core.internal.IMavenConstants;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.tools.creator.CreateMavenCodeProject;
 
@@ -26,32 +30,61 @@ import org.talend.designer.maven.tools.creator.CreateMavenCodeProject;
  */
 public final class TalendCodeProjectUtil {
 
-    @SuppressWarnings("restriction")
     public static IProject initCodeProject(IProgressMonitor monitor) throws Exception {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
         IProject codeProject = root.getProject(TalendMavenConstants.PROJECT_NAME);
-        boolean recreate = false;
-        if (codeProject.exists()) {
-            IFile pomFile = codeProject.getFile(TalendMavenConstants.POM_FILE_NAME);
-            // if no pom or maven nature, will re-create pure Maven project.
-            if (!pomFile.exists() || !codeProject.hasNature(IMavenConstants.NATURE_ID)) {
-                codeProject.close(monitor);
-                codeProject.delete(true, true, monitor); // delete
-                recreate = true;
-            }
-        } else {
-            recreate = true;
-        }
-        if (recreate) {
+
+        if (!codeProject.exists() || needRecreate(codeProject)) {
             CreateMavenCodeProject createProject = new CreateMavenCodeProject(codeProject);
             createProject.create(monitor);
             codeProject = createProject.getProject();
         }
 
-        codeProject.open(IProject.BACKGROUND_REFRESH, monitor);
-
+        if (!codeProject.isOpen()) {
+            codeProject.open(IProject.BACKGROUND_REFRESH, monitor);
+        } else {
+            codeProject.refreshLocal(IProject.DEPTH_INFINITE, monitor);
+        }
         return codeProject;
+    }
+
+    @SuppressWarnings("restriction")
+    private static boolean needRecreate(IProject codeProject) {
+        if (codeProject.exists()) {
+            try {
+                codeProject.refreshLocal(IResource.DEPTH_ONE, null);
+                // not java project
+                if (!codeProject.hasNature(JavaCore.NATURE_ID)) {
+                    return true;
+                }
+
+                // like TDI-33044, when creating, kill the studio. the classpath file won't be created.
+                if (!codeProject.getFile(IJavaProject.CLASSPATH_FILE_NAME).exists()) {
+                    return true;
+                }
+
+                // IJavaProject javaProject = JavaCore.create(codeProject);
+                // javaProject.getRawClasspath(); //test the nature and classpath?
+
+                // no maven nature.
+                if (!codeProject.hasNature(IMavenConstants.NATURE_ID)) {
+                    return true;
+                }
+
+                // no pom
+                if (!codeProject.getFile(TalendMavenConstants.POM_FILE_NAME).exists()) {
+                    return true;
+                }
+
+                // FIXME pom is not "pom" packaging?
+                // will change to "pom" packaging when ProjectPomManager.updateAttributes. so no need check.
+
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return false;
     }
 
     // public static IMarker[] getMavenMarks(IFile file) throws CoreException {
