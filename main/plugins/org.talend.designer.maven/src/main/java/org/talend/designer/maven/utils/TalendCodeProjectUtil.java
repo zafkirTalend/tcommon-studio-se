@@ -59,7 +59,14 @@ public final class TalendCodeProjectUtil {
     private static boolean needRecreate(IProject codeProject) {
         if (codeProject.exists()) {
             try {
+                // because some cases, the project is not opened.
+                if (!codeProject.isOpen()) {
+                    // if not opened, will have exception when check nature or such
+                    codeProject.open(null);
+                }
+
                 codeProject.refreshLocal(IResource.DEPTH_ONE, null);
+
                 // not java project
                 if (!codeProject.hasNature(JavaCore.NATURE_ID)) {
                     return true;
