@@ -29,7 +29,6 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.download.DownloadListener;
 import org.talend.core.download.IDownloadHelper;
@@ -122,8 +121,6 @@ public class NexusDownloader implements IDownloadHelper {
 
             }
             fireDownloadComplete();
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
         } finally {
             if (bis != null) {
                 bis.close();

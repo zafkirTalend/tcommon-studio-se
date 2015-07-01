@@ -13,11 +13,9 @@
 package org.talend.core.nexus;
 
 import java.io.InputStream;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -29,7 +27,6 @@ import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.eclipse.core.runtime.Platform;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -177,7 +174,7 @@ public class NexusServerUtils {
     }
 
     public static List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,
-            String groupIdToSearch, String versionToSearch) throws BusinessException {
+            String groupIdToSearch, String versionToSearch) throws Exception {
         List<MavenArtifact> artifacts = new ArrayList<MavenArtifact>();
         search(nexusUrl, userName, password, repositoryId, groupIdToSearch, null, versionToSearch, 0, MAX_SEARCH_COUNT, artifacts);
 
@@ -186,7 +183,7 @@ public class NexusServerUtils {
     }
 
     public static List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,
-            String groupIdToSearch, String artifactId, String versionToSearch) throws BusinessException {
+            String groupIdToSearch, String artifactId, String versionToSearch) throws Exception {
         List<MavenArtifact> artifacts = new ArrayList<MavenArtifact>();
         search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId, versionToSearch, 0, MAX_SEARCH_COUNT,
                 artifacts);
@@ -197,7 +194,7 @@ public class NexusServerUtils {
 
     private static void search(String nexusUrl, String userName, String password, String repositoryId, String groupIdToSearch,
             String artifactId, String versionToSearch, int searchFrom, int searchCount, List<MavenArtifact> artifacts)
-            throws BusinessException {
+            throws Exception {
         HttpURLConnection urlConnection = null;
         int totalCount = 0;
         try {
@@ -272,13 +269,6 @@ public class NexusServerUtils {
                         count, artifacts);
             }
 
-        } catch (Exception e) {
-            if (e instanceof ConnectException) {
-                throw new BusinessException("Can not connect to nexus server ,please contact the administrator", nexusUrl);
-            } else {
-                throw new BusinessException(e);
-            }
-
         } finally {
             if (null != urlConnection) {
                 urlConnection.disconnect();
@@ -344,28 +334,4 @@ public class NexusServerUtils {
         return urlConnection;
     }
 
-    public static void main(String[] args) {
-
-        try {
-            Date data1 = new Date();
-            final List<MavenArtifact> search = NexusServerUtils.search("http://localhost:8081/nexus/", "admin", "admin123",
-                    "org.talend.libraries", "org.talend.libraries", null);
-            Date data2 = new Date();
-            System.out.println("***** Size" + search.size());
-            System.out.println("***** Time" + (data2.getTime() - data1.getTime()));
-
-            Date data3 = new Date();
-            for (int i = 0; i < 50; i++) {
-                NexusServerUtils.search("http://localhost:8081/nexus/", "admin", "admin123", "org.talend.libraries",
-                        "org.talend.libraries", "8.9.0");
-            }
-            Date data4 = new Date();
-            System.out.println("***** Time" + (data4.getTime() - data3.getTime()));
-
-        } catch (BusinessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
 }

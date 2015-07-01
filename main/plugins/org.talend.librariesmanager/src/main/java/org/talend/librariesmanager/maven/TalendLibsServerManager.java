@@ -26,7 +26,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.RepositoryContext;
@@ -207,7 +206,7 @@ public class TalendLibsServerManager {
     }
 
     public List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,
-            String groupIdToSearch, String artifactId, String versionToSearch) throws BusinessException {
+            String groupIdToSearch, String artifactId, String versionToSearch) throws Exception {
         Authenticator oldAuthenticator = null;
         try {
             try {

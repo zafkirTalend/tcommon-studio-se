@@ -37,7 +37,6 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.Version;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
@@ -327,11 +326,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     }
                 }
             }
-        } catch (BusinessException e) {
-            CommonExceptionHandler.process(e);
         } catch (IOException e) {
             CommonExceptionHandler.process(e);
         } catch (RuntimeException e) {
+            CommonExceptionHandler.process(e);
+        } catch (Exception e) {
             CommonExceptionHandler.process(e);
         }
         try {

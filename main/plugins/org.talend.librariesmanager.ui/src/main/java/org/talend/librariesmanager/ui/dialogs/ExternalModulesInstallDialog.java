@@ -945,7 +945,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
         if (!jarsInstalledSuccuss.isEmpty()) {
             for (ModuleToInstall module : theInputList) {
-                if (!jarsInstalledSuccuss.contains(module.getName())) {
+                if (!MavenConstants.DOWNLOAD_MANUAL.equals(module.getDistribution())
+                        && !jarsInstalledSuccuss.contains(module.getName())) {
                     toInstall.add(module);
                 }
             }
@@ -964,7 +965,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
      * enabeling or disabeling the button
      * @param data, the data to install
      */
-    protected void launchIndividualDownload(final AtomicInteger enabledButtonCount, final ModuleToInstall data, Button button) {
+    protected void launchIndividualDownload(final AtomicInteger enabledButtonCount, final ModuleToInstall data,
+            final Button button) {
         button.setEnabled(false);
         enabledButtonCount.decrementAndGet();
         final DownloadModuleJob job = new DownloadModuleJob(Collections.singletonList(data));
@@ -984,6 +986,8 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
                             ImportExternalJarAction.cleanupLib(installedModule);
                         } else {
                             message = Messages.getString("ExternalModulesInstallDialog_Download_Fialed", data.getName());; //$NON-NLS-1$
+                            // set enable to let user be able to try download again
+                            button.setEnabled(true);
                         }
                         MessageDialog.openInformation(getShell(),
                                 Messages.getString("ExternalModulesInstallDialog.MessageDialog.Infor"), message); //$NON-NLS-1$
