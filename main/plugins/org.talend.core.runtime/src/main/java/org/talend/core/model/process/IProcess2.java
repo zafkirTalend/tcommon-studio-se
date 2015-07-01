@@ -137,4 +137,8 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
 
     public void setMRData();
 
+    public boolean isNeedLoadmodules();
+
+    public void setNeedLoadmodules(boolean isNeedLoadmodules);
+
 }
