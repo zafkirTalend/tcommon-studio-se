@@ -671,15 +671,48 @@ public final class ProcessUtils {
         return false;
     }
 
-    public static String getTestDataValue(IProcess process, IContext context, IContextParameter para) {
+    public static String getTestDataValue(IProcess process, String instance, String testData) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
                     .getDefault().getService(ITestContainerProviderService.class);
             if (testContainerService != null) {
-                return testContainerService.getTestDataValue(process, context, para);
+                return testContainerService.getTestDataValue(process, instance, testData);
             }
         }
         return null;
+    }
+
+    public static List<String> getTestInstances(IProcess process) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                return testContainerService.getTestInstances(process);
+            }
+        }
+        return new ArrayList<String>();
+    }
+
+    public static String getInstanceContext(IProcess process, String instance) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                return testContainerService.getInstanceContext(process, instance);
+            }
+        }
+        return null;
+    }
+
+    public static List<String> getTestData(IProcess process, String instanceName) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                return testContainerService.getTestData(process, instanceName);
+            }
+        }
+        return new ArrayList<String>();
     }
 
     public static Item getTestContainerBaseItem(Item item) {

@@ -19,8 +19,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
-import org.talend.core.model.process.IContext;
-import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Information;
@@ -63,9 +61,15 @@ public interface ITestContainerProviderService extends IService {
 
     public void copyDataSetFiles(IProcess process, IPath srcPath);
 
-    public String getTestDataValue(IProcess process, IContext context, IContextParameter para);
+    public String getTestDataValue(IProcess process, String instance, String testData);
 
     public List<Information> getTestContainerInformations(Item item);
 
     public boolean isOriginalNode(INode node);
+
+    public List<String> getTestInstances(IProcess process);
+
+    public List<String> getTestData(IProcess process, String instanceName);
+
+    public String getInstanceContext(IProcess process, String instance);
 }
