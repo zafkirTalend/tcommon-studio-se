@@ -11,6 +11,7 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
+import org.apache.log4j.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -35,16 +36,23 @@ public final class TalendCodeProjectUtil {
 
         IProject codeProject = root.getProject(TalendMavenConstants.PROJECT_NAME);
 
-        if (!codeProject.exists() || needRecreate(codeProject)) {
-            if (codeProject.exists()) {// if existed, must delete it first
-                if (codeProject.isOpen()) {
-                    codeProject.close(monitor);
+        try {
+            if (!codeProject.exists() || needRecreate(monitor, codeProject)) {
+                // if existed, must delete it first, else when do CreateMavenCodeProject will cause problem.
+                if (codeProject.exists()) {
+                    if (codeProject.isOpen()) {
+                        codeProject.close(monitor);
+                    }
+                    codeProject.delete(true, true, monitor);
                 }
-                codeProject.delete(true, true, monitor);
+                CreateMavenCodeProject createProject = new CreateMavenCodeProject(codeProject);
+                createProject.create(monitor);
+                codeProject = createProject.getProject();
             }
-            CreateMavenCodeProject createProject = new CreateMavenCodeProject(codeProject);
-            createProject.create(monitor);
-            codeProject = createProject.getProject();
+        } catch (Exception e) {
+            // create failure?
+            ExceptionHandler.process(e, Level.FATAL);
+            throw e;
         }
 
         if (!codeProject.isOpen()) {
@@ -56,46 +64,49 @@ public final class TalendCodeProjectUtil {
     }
 
     @SuppressWarnings("restriction")
-    private static boolean needRecreate(IProject codeProject) {
-        if (codeProject.exists()) {
-            try {
-                // because some cases, the project is not opened.
-                if (!codeProject.isOpen()) {
-                    // if not opened, will have exception when check nature or such
-                    codeProject.open(null);
-                }
+    private static boolean needRecreate(IProgressMonitor monitor, IProject codeProject) throws CoreException {
+        if (codeProject.exists()) { // exist the project for workspace metadata.
 
-                codeProject.refreshLocal(IResource.DEPTH_ONE, null);
-
-                // not java project
-                if (!codeProject.hasNature(JavaCore.NATURE_ID)) {
-                    return true;
-                }
-
-                // like TDI-33044, when creating, kill the studio. the classpath file won't be created.
-                if (!codeProject.getFile(IJavaProject.CLASSPATH_FILE_NAME).exists()) {
-                    return true;
-                }
-
-                // IJavaProject javaProject = JavaCore.create(codeProject);
-                // javaProject.getRawClasspath(); //test the nature and classpath?
-
-                // no maven nature.
-                if (!codeProject.hasNature(IMavenConstants.NATURE_ID)) {
-                    return true;
-                }
-
-                // no pom
-                if (!codeProject.getFile(TalendMavenConstants.POM_FILE_NAME).exists()) {
-                    return true;
-                }
-
-                // FIXME pom is not "pom" packaging?
-                // will change to "pom" packaging when ProjectPomManager.updateAttributes. so no need check.
-
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
+            // If the project is not existed physically (in disk). sometime, because delete it manually. Then finally,
+            // will cause problem.
+            if (!codeProject.getLocation().toFile().exists()) {
+                return true;
             }
+
+            // because some cases, the project is not opened.
+            if (!codeProject.isOpen()) {
+                // if not opened, will have exception when check nature or such
+                codeProject.open(monitor);
+            }
+
+            codeProject.refreshLocal(IResource.DEPTH_ONE, monitor);
+
+            // not java project
+            if (!codeProject.hasNature(JavaCore.NATURE_ID)) {
+                return true;
+            }
+
+            // like TDI-33044, when creating, kill the studio. the classpath file won't be created.
+            if (!codeProject.getFile(IJavaProject.CLASSPATH_FILE_NAME).exists()) {
+                return true;
+            }
+
+            // IJavaProject javaProject = JavaCore.create(codeProject);
+            // javaProject.getRawClasspath(); //test the nature and classpath?
+
+            // no maven nature.
+            if (!codeProject.hasNature(IMavenConstants.NATURE_ID)) {
+                return true;
+            }
+
+            // no pom
+            if (!codeProject.getFile(TalendMavenConstants.POM_FILE_NAME).exists()) {
+                return true;
+            }
+
+            // FIXME pom is not "pom" packaging?
+            // will change to "pom" packaging when ProjectPomManager.updateAttributes. so no need check.
+
         }
         return false;
     }
