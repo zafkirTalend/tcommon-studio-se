@@ -70,7 +70,11 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.hadoop.IHadoopService;
+import org.talend.core.model.components.ComponentCategory;
+import org.talend.core.model.process.INode;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ui.dialog.LibrariesListSelectionDialog;
 
 /**
@@ -491,11 +495,31 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
      * @return Types({@link ECustomVersionType}) array which you want to display in this dialog.
      */
     protected ECustomVersionType[] getDisplayTypes() {
-        // filter ALL and PIG
         ECustomVersionType[] values = ECustomVersionType.values();
-        Object[] removeElement = ArrayUtils.removeElement(values, ECustomVersionType.ALL);
-        // removeElement = ArrayUtils.removeElement(removeElement, ECustomVersionType.PIG);
-        return (ECustomVersionType[]) removeElement;
+        values = filterTypes(values);
+        return values;
+    }
+
+    private ECustomVersionType[] filterTypes(Object[] types) {
+        Object[] filteredTypes = ArrayUtils.removeElement(types, ECustomVersionType.ALL);
+        IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
+        INode node = designerCoreService.getRefrenceNode("tPigLoad"); //$NON-NLS-1$
+        if (node == null) {
+            filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.PIG);
+        }
+        node = designerCoreService.getRefrenceNode("tMRConfiguration", ComponentCategory.CATEGORY_4_MAPREDUCE.getName());//$NON-NLS-1$
+        if (node == null) {
+            filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.MAP_REDUCE);
+        }
+        node = designerCoreService.getRefrenceNode("tSparkConfiguration", ComponentCategory.CATEGORY_4_SPARK.getName());//$NON-NLS-1$
+        if (node == null) {
+            filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.SPARK);
+        }
+        node = designerCoreService.getRefrenceNode("tSparkConfiguration", ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName());//$NON-NLS-1$
+        if (node == null) {
+            filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.SPARK_STREAMING);
+        }
+        return (ECustomVersionType[]) filteredTypes;
     }
 
     private void doChangeViewerContent() {
