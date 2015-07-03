@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.model.general.ModuleNeeded;
@@ -218,6 +219,9 @@ public class RemoteModulesHelper {
                 } else {
                     unavailableModules.add(name);
                     ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$//$NON-NLS-2$
+                    if (CommonsPlugin.isDebugMode()) {
+                        appendToLogFile(name + "\n");
+                    }
                 }
                 monitor.worked(10);
             }
@@ -319,7 +323,7 @@ public class RemoteModulesHelper {
 
     private void appendToLogFile(String logTxt) {
         Path absolutePath = new Path(Platform.getInstallLocation().getURL().getPath());
-        File fullLogFile = new File(absolutePath.append("NotAvailableJarsFromWebservice.txt").toPortableString());
+        File fullLogFile = new File(absolutePath.append("NotAvailableJarsFromNexus.txt").toPortableString());
 
         FileWriter writer = null;
         try {
