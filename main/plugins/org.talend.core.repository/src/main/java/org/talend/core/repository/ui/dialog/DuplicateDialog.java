@@ -12,7 +12,8 @@
 // ============================================================================
 package org.talend.core.repository.ui.dialog;
 
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -20,9 +21,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
-import org.talend.commons.ui.swt.formtools.LabelledText;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -38,15 +37,11 @@ import org.talend.repository.model.RepositoryNode;
  * created by hcyi on May 25, 2015 Detailled comment
  *
  */
-public class DuplicateDialog extends Dialog {
-
-    private LabelledText nameLabel;
+public class DuplicateDialog extends CustomInputDialog {
 
     private LabelledCombo jobTypeCombo;
 
     private LabelledCombo frameworkCombo;
-
-    private String nameValue = null;
 
     private String jobTypeValue = null;
 
@@ -54,49 +49,43 @@ public class DuplicateDialog extends Dialog {
 
     private RepositoryNode sourceNode;
 
-    private String jobNameValue;
-
     private Composite typeGroup;
 
-    public DuplicateDialog(Shell parentShell, RepositoryNode sourceNode, String jobNameValue) {
-        super(parentShell);
+    public DuplicateDialog(RepositoryNode sourceNode, String dialogTitle, String dialogMessage, String jobNameValue,
+            IInputValidator validator) {
+        super(null, dialogTitle, dialogMessage, jobNameValue, validator);
         this.sourceNode = sourceNode;
-        this.jobNameValue = jobNameValue;
-    }
-
-    @Override
-    protected void configureShell(Shell newShell) {
-        super.configureShell(newShell);
-        newShell.setText("Duplicate"); //$NON-NLS-1$
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
-        super.createDialogArea(parent);
-        Composite nameGroup = new Composite(parent, SWT.NONE);
-        GridLayout nameLayout = new GridLayout();
-        nameLayout.numColumns = 2;
-        nameGroup.setLayout(nameLayout);
-        nameGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        nameLabel = new LabelledText(nameGroup, "Input new name:", 5); //$NON-NLS-1$
-
-        typeGroup = new Composite(parent, SWT.NONE);
+        Composite composite = new Composite(parent, SWT.NONE);
+        GridLayout layout = new GridLayout();
+        layout.marginHeight = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_MARGIN);
+        layout.marginWidth = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
+        layout.verticalSpacing = convertVerticalDLUsToPixels(IDialogConstants.VERTICAL_SPACING);
+        layout.horizontalSpacing = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_SPACING);
+        composite.setLayout(layout);
+        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        super.createMessageWidget(parent, composite);
+        super.createInputWidget(composite);
+        typeGroup = new Composite(composite, SWT.NONE);
         GridLayout typeLayout = new GridLayout();
         typeLayout.numColumns = 6;
         typeGroup.setLayout(typeLayout);
         typeGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         jobTypeCombo = new LabelledCombo(typeGroup, "Job Type:", "job type", JobType.getJobTypeToDispaly(), 2, true); //$NON-NLS-1$//$NON-NLS-2$
         frameworkCombo = new LabelledCombo(typeGroup, "Framework:", "framework", new String[0], 2, true); //$NON-NLS-1$//$NON-NLS-2$
+        super.createErrorMessageWidget(composite);
+        applyDialogFont(composite);
         // add listener
         addListener();
-
         // init
         init();
         return parent;
     }
 
     private void init() {
-        nameLabel.setText(jobNameValue);
         if (sourceNode != null) {
             // job type
             if (sourceNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS) {
@@ -121,22 +110,12 @@ public class DuplicateDialog extends Dialog {
     }
 
     private void addListener() {
-
-        nameLabel.addModifyListener(new ModifyListener() {
-
-            @Override
-            public void modifyText(ModifyEvent e) {
-                nameValue = nameLabel.getText();
-                validateField();
-            }
-        });
         jobTypeCombo.addModifyListener(new ModifyListener() {
 
             @Override
             public void modifyText(final ModifyEvent e) {
                 jobTypeValue = jobTypeCombo.getText();
                 updateJobFrameworkPart();
-                validateField();
                 typeGroup.layout();
             }
         });
@@ -145,22 +124,8 @@ public class DuplicateDialog extends Dialog {
             @Override
             public void modifyText(final ModifyEvent e) {
                 frameworkValue = frameworkCombo.getText();
-                validateField();
             }
         });
-    }
-
-    private void validateField() {
-        if (nameValue == null || "".equals(nameValue)) {
-            getOKButton().setEnabled(false);
-            return;
-        } else if (getOKButton() != null) {
-            getOKButton().setEnabled(true);
-        }
-    }
-
-    public String getNameValue() {
-        return this.nameValue;
     }
 
     public String getJobTypeValue() {

@@ -227,18 +227,23 @@ public class DuplicateAction extends AContextualAction {
         }
         //
         if (item instanceof ProcessItem && PluginChecker.isTIS()) {
-            DuplicateDialog jobNewNameDialog = new DuplicateDialog(null, sourceNode, jobNameValue);
+            DuplicateDialog jobNewNameDialog = new DuplicateDialog(sourceNode,
+                    Messages.getString("DuplicateAction.input.title.v2"), //$NON-NLS-1$
+                    Messages.getString("DuplicateAction.input.message"), jobNameValue, new IInputValidator() { //$NON-NLS-1$
+
+                        @Override
+                        public String isValid(String newText) {
+                            return validJobName(sourceNode, newText, selectionInClipboard);
+                        }
+
+                    });
+
             if (jobNewNameDialog.open() != Dialog.OK) {
                 return;
             }
-            String jobNewName = jobNewNameDialog.getNameValue();
+            String jobNewName = jobNewNameDialog.getValue();
             String jobTypeValue = jobNewNameDialog.getJobTypeValue();
             frameworkNewValue = jobNewNameDialog.getFrameworkValue();
-            try {
-                jobNameValue = getDuplicateName(sourceNode, jobNewName, selectionInClipboard);
-            } catch (BusinessException e) {
-                jobNameValue = ""; //$NON-NLS-1$
-            }
             // if not change job type , we no need convert job
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
             if (jobTypeValue != null && !jobTypeValue.equals(sourceJobType)) {
@@ -318,7 +323,7 @@ public class DuplicateAction extends AContextualAction {
      */
     private String validJobName(RepositoryNode node, String itemName, TreeSelection selectionInClipboard) {
         if (!isValid(node, itemName)) {
-            return Messages.getString("DuplicateAction.NameFormatError");
+            return Messages.getString("DuplicateAction.NameFormatError");//$NON-NLS-1$
         }
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
@@ -330,23 +335,48 @@ public class DuplicateAction extends AContextualAction {
              * maybe Messages.getString("PropertiesWizardPage.KeywordsError")
              */
             return Messages.getString("DuplicateAction.NameFormatError"); //$NON-NLS-1$
+        } else if (itemName.equalsIgnoreCase(ProjectManager.getInstance().getCurrentProject().getLabel())) {
+            return Messages.getString("DuplicateAction.SameAsProjectname");//$NON-NLS-1$
         } else {
-            try {
-                Item testNewItem = createNewItem();
-                if (testNewItem != null) {
-                    if (!repositoryFactory.isNameAvailable(testNewItem, itemName)) {
+            ERepositoryObjectType repositoryType = node.getObjectType();
+            if (repositoryType != null) {
+                if (repositoryType == ERepositoryObjectType.PROCESS) {
+                    try {
+                        List<IRepositoryViewObject> listExistingObjects = repositoryFactory.getAll(ERepositoryObjectType.PROCESS,
+                                true, false);
+                        if (PluginChecker.isStormPluginLoader()) {
+                            listExistingObjects
+                                    .addAll(repositoryFactory.getAll(ERepositoryObjectType.PROCESS_STORM, true, false));
+                        }
+                        if (PluginChecker.isMapReducePluginLoader()) {
+                            listExistingObjects.addAll(repositoryFactory.getAll(ERepositoryObjectType.PROCESS_MR, true, false));
+                        }
+                        if (((RepositoryNode) selectionInClipboard.toArray()[0]).getObject().getProperty() != null
+                                && !repositoryFactory.isNameAvailable(((RepositoryNode) selectionInClipboard.toArray()[0])
+                                        .getObject().getProperty().getItem(), itemName, listExistingObjects)) {
+                            return Messages.getString("DuplicateAction.ItemExistsError");//$NON-NLS-1$
+                        }
+                    } catch (PersistenceException e1) {
+                        return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
+                    }
+                } else {
+                    try {
+                        Item testNewItem = createNewItem();
+                        if (testNewItem != null) {
+                            if (!repositoryFactory.isNameAvailable(testNewItem, itemName)) {
+                                return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
+                            }
+                        }
+                    } catch (PersistenceException e) {
                         return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
                     }
                 }
-            } catch (PersistenceException e) {
-                return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
             }
             // see bug 0004157: Using specific name for (main) tream
             if (isKeyword(itemName)) {
                 return Messages.getString("DuplicateAction.KeywordsError"); //$NON-NLS-1$
             }
         }
-
         return null;
     }
 
