@@ -177,8 +177,8 @@ public final class ConnectionContextHelper {
      * ggu Comment method "exportAsContext".
      * 
      */
-    public static Map<ContextItem, List<ConectionAdaptContextVariableModel>> exportAsContext(ConnectionItem connItem,
-            Set<IConnParamName> paramSet) {
+    public static Map<ContextItem, List<ConectionAdaptContextVariableModel>> exportAsContext(String defaultContextName,
+            ConnectionItem connItem, Set<IConnParamName> paramSet) {
         if (connItem == null) {
             return null;
         }
@@ -187,9 +187,7 @@ public final class ConnectionContextHelper {
             return null;
         }
 
-        String contextName = convertContextLabel(connItem.getProperty().getLabel());
-
-        ISelection selection = getRepositoryContext(contextName, false);
+        ISelection selection = getRepositoryContext(defaultContextName, false);
 
         if (selection == null) {
             return null;
@@ -198,7 +196,7 @@ public final class ConnectionContextHelper {
         List<ConectionAdaptContextVariableModel> models = new ArrayList<ConectionAdaptContextVariableModel>();
 
         Set<String> connectionVaribles = getConnVariables(connItem, paramSet);
-        ContextModeWizard contextWizard = new ContextModeWizard(contextName, selection.isEmpty(), selection, varList,
+        ContextModeWizard contextWizard = new ContextModeWizard(defaultContextName, selection.isEmpty(), selection, varList,
                 connectionVaribles);
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), contextWizard);
         if (dlg.open() == Window.OK) {
@@ -347,42 +345,42 @@ public final class ConnectionContextHelper {
         }
     }
 
-    public static void setPropertiesForContextMode(ConnectionItem connectionItem, ContextItem contextItem,
-            Set<IConnParamName> paramSet, Map<String, String> map) {
+    public static void setPropertiesForContextMode(String defaultContextName, ConnectionItem connectionItem,
+            ContextItem contextItem, Set<IConnParamName> paramSet, Map<String, String> map) {
         if (connectionItem == null || contextItem == null) {
             return;
         }
 
-        final String label = contextItem.getProperty().getLabel();
         Connection conn = connectionItem.getConnection();
 
         if (conn instanceof DatabaseConnection) {
-            DBConnectionContextUtils.setPropertiesForContextMode(label, (DatabaseConnection) conn, contextItem, paramSet, map);
+            DBConnectionContextUtils.setPropertiesForContextMode(defaultContextName, (DatabaseConnection) conn, contextItem,
+                    paramSet, map);
             // DBConnectionContextUtils.updateConnectionParam((DatabaseConnection) conn, map);
         } else if (conn instanceof FileConnection) {
-            FileConnectionContextUtils.setPropertiesForContextMode(label, (FileConnection) conn, paramSet);
+            FileConnectionContextUtils.setPropertiesForContextMode(defaultContextName, (FileConnection) conn, paramSet);
         } else if (conn instanceof LdifFileConnection) {
-            OtherConnectionContextUtils.setLdifFilePropertiesForContextMode(label, (LdifFileConnection) conn, contextItem,
-                    paramSet);
+            OtherConnectionContextUtils.setLdifFilePropertiesForContextMode(defaultContextName, (LdifFileConnection) conn,
+                    contextItem, paramSet);
         } else if (conn instanceof XmlFileConnection) {
-            OtherConnectionContextUtils
-                    .setXmlFilePropertiesForContextMode(label, (XmlFileConnection) conn, contextItem, paramSet);
+            OtherConnectionContextUtils.setXmlFilePropertiesForContextMode(defaultContextName, (XmlFileConnection) conn,
+                    contextItem, paramSet);
         } else if (conn instanceof LDAPSchemaConnection) {
-            OtherConnectionContextUtils.setLDAPSchemaPropertiesForContextMode(label, (LDAPSchemaConnection) conn, contextItem,
-                    paramSet);
+            OtherConnectionContextUtils.setLDAPSchemaPropertiesForContextMode(defaultContextName, (LDAPSchemaConnection) conn,
+                    contextItem, paramSet);
         } else if (conn instanceof WSDLSchemaConnection) {
-            OtherConnectionContextUtils.setWSDLSchemaPropertiesForContextMode(label, (WSDLSchemaConnection) conn, contextItem,
-                    paramSet);
+            OtherConnectionContextUtils.setWSDLSchemaPropertiesForContextMode(defaultContextName, (WSDLSchemaConnection) conn,
+                    contextItem, paramSet);
         } else if (conn instanceof SalesforceSchemaConnection) {
-            OtherConnectionContextUtils.setSalesforcePropertiesForContextMode(label, (SalesforceSchemaConnection) conn,
-                    contextItem, paramSet, map);
+            OtherConnectionContextUtils.setSalesforcePropertiesForContextMode(defaultContextName,
+                    (SalesforceSchemaConnection) conn, contextItem, paramSet, map);
         } else if (conn instanceof GenericSchemaConnection) {
             //
         } else if (conn instanceof SAPConnection) {
-            OtherConnectionContextUtils.setSAPConnectionPropertiesForContextMode(label, (SAPConnection) conn, contextItem,
-                    paramSet);
+            OtherConnectionContextUtils.setSAPConnectionPropertiesForContextMode(defaultContextName, (SAPConnection) conn,
+                    contextItem, paramSet);
         } else {
-            ExtendedNodeConnectionContextUtils.setConnectionPropertiesForContextMode(label, conn, paramSet);
+            ExtendedNodeConnectionContextUtils.setConnectionPropertiesForContextMode(defaultContextName, conn, paramSet);
         }
         // set connection for context mode
         connectionItem.getConnection().setContextMode(true);
