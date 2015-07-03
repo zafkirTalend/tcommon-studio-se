@@ -15,7 +15,7 @@ package org.talend.core.ui.context;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,7 +119,8 @@ public class ContextTreeTable {
 
     private ContextNatTableConfiguration contextTableConfiguration;
 
-    private Map<String, ContextTreeNode> treeNodes = new HashMap<String, ContextTreeNode>();
+    // for bug TDI-32821， use LinkedHashMap to keep the original order of context parameter list.
+    private Map<String, ContextTreeNode> treeNodes = new LinkedHashMap<String, ContextTreeNode>();
 
     private IStructuredSelection currentNatTabSel;
 

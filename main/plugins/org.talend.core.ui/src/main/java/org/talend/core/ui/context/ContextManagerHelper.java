@@ -40,6 +40,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.cmd.OrderContextParameterCommand;
+import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabParentModel;
 import org.talend.core.ui.context.model.template.ContextConstant;
 import org.talend.core.ui.context.model.template.ContextVariableTabChildModel;
@@ -487,6 +488,8 @@ public final class ContextManagerHelper {
 
         if (model instanceof ContextTableTabParentModel) {
             movedParam = ((ContextTableTabParentModel) model).getContextParameter();
+        } else if (model instanceof ContextTableTabChildModel) { // for bug TDI-32821
+            movedParam = ((ContextTableTabChildModel) model).getContextParameter();
         }
         if (movedParam == null) {
             return false;
