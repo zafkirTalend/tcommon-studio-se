@@ -13,8 +13,6 @@
 package org.talend.librariesmanager.maven;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.net.Authenticator;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
@@ -207,24 +205,6 @@ public class TalendLibsServerManager {
 
     public List<MavenArtifact> search(String nexusUrl, String userName, String password, String repositoryId,
             String groupIdToSearch, String artifactId, String versionToSearch) throws Exception {
-        Authenticator oldAuthenticator = null;
-        try {
-            try {
-                Field theAuthenticatorField = Authenticator.class.getDeclaredField("theAuthenticator"); //$NON-NLS-1$
-                theAuthenticatorField.setAccessible(true);
-                oldAuthenticator = (Authenticator) theAuthenticatorField.get(null);
-            } catch (Exception e) {
-                //
-            }
-            Authenticator.setDefault(null);
-            return NexusServerUtils.search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId,
-                    versionToSearch);
-
-        } finally {
-            // set back the Authenticator
-            if (oldAuthenticator != null) {
-                Authenticator.setDefault(oldAuthenticator);
-            }
-        }
+        return NexusServerUtils.search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId, versionToSearch);
     }
 }
