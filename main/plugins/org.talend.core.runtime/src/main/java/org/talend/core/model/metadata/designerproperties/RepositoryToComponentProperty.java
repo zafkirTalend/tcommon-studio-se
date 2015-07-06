@@ -2609,6 +2609,11 @@ public class RepositoryToComponentProperty {
             }
             return connection.getMode().toUpperCase();
         }
+
+        if (value.equals("USE_ENCODING")) {
+            return connection.isSFTP();
+        }
+
         if (value.equals("ENCODING")) {
             if (isContextMode(connection, connection.getCustomEncode())) {
                 return connection.getCustomEncode();
