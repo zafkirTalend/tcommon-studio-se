@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.runtime.services;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.talend.core.IService;
 
@@ -25,4 +26,5 @@ public interface IMavenUIService extends IService {
      */
     void addCustomMavenSettingChildren(IPreferenceNode parent);
 
+    void checkUserSettings(IProgressMonitor monitor);
 }
