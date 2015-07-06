@@ -36,7 +36,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.IMaven;
-import org.eclipse.m2e.core.embedder.IMavenConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.DesignerMavenPlugin;
@@ -88,7 +87,6 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
         IPreferenceStore mvnUiStore = DesignerMavenUiPlugin.getDefault().getPreferenceStore();
 
-        final IMavenConfiguration mavenConfiguration = MavenPlugin.getMavenConfiguration();
         try {
             boolean set = mvnUiStore.getBoolean(MAVEN_SETTING_HAVE_SET);
             if (!set) {// first time to set
@@ -102,14 +100,14 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                 }
                 // re-check
                 if (userSettingsFile.exists()) {
-                    mavenConfiguration.setUserSettingsFile(userSettingsFile.getAbsolutePath());
+                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(userSettingsFile.getAbsolutePath());
                     mvnUiStore.setValue(MAVEN_SETTING_HAVE_SET, true);
                 } else { // not set, set default
-                    mavenConfiguration.setUserSettingsFile(null);
+                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(null);
                 }
             } else if (!userSettingsFile.exists()) { // not first time, but deleted by manually.
                 // FIXME, try use system default one?
-                mavenConfiguration.setUserSettingsFile(null);
+                MavenPlugin.getMavenConfiguration().setUserSettingsFile(null);
             }
         } catch (Exception e) {
             ExceptionHandler.process(e);
@@ -130,7 +128,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                 // FIXME, only deal with for special settings in studio, if use use other setting, nothing to do, just
                 // keep the problem for user, because we should change the setting for Studio in configuration folder
                 // only.
-                if (mavenConfiguration.getUserSettingsFile().equals(userSettingsFile.getAbsolutePath())) {
+                if (MavenPlugin.getMavenConfiguration().getUserSettingsFile().equals(userSettingsFile.getAbsolutePath())) {
                     // make sure the setting file can be changed.
                     if (userSettingsFile.canRead() && userSettingsFile.canWrite()) {
                         // modify the setting file for "localRepository"
