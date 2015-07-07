@@ -53,6 +53,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
+import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
@@ -1631,7 +1632,8 @@ public abstract class RepositoryUpdateManager {
             deletedOrReselectTablesMap = new HashMap<String, EUpdateResult>();
 
             List<IMetadataTable> newMetadataTable = new ArrayList<IMetadataTable>();
-            if (coreService != null && connection instanceof DatabaseConnection) {
+            if (coreService != null
+                    && ((connection instanceof DatabaseConnection) || (connection instanceof GenericSchemaConnection))) {
                 Set<org.talend.core.model.metadata.builder.connection.MetadataTable> newTables = ConnectionHelper
                         .getTables(connection);
                 if (newTables != null) {
