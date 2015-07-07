@@ -23,6 +23,7 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryTypeProcessor;
@@ -114,6 +115,28 @@ public interface IHadoopClusterService extends IService {
      * @return
      */
     public boolean isValidHadoopSubItem(Item item);
+
+    /**
+     * DOC ycbai Comment method "isHadoopSubItem".
+     * <p>
+     * Estimate whether or not the item is hadoop subconnection item.
+     * 
+     * @param item
+     * @return
+     */
+    public boolean isHadoopSubItem2(Item item);
+
+    /**
+     * DOC ycbai Comment method "isInContextMode".
+     * <p>
+     * Estimate whether or not the item is in context mode. <br>
+     * Hadoop subconnections are in context mode even though it is not context mode itself if the hadoop cluster is in
+     * context mode.
+     * 
+     * @param connItem
+     * @return
+     */
+    public boolean isInContextMode(ConnectionItem connItem);
 
     /**
      * DOC ycbai Comment method "getSubitemIdsOfHadoopCluster".

@@ -38,6 +38,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
@@ -625,6 +626,11 @@ public final class ConnectionContextHelper {
             return;
         }
 
+        if (isHadoopSubItem(connItem)) {
+            addContextForHadoopElementParameters(process, connItem, elementParameters, category, ignoreContextMode);
+            return;
+        }
+
         Connection connection = connItem.getConnection();
         if (connection != null && connection.isContextMode()) {
             // get the context variables from the node parameters.
@@ -662,6 +668,149 @@ public final class ConnectionContextHelper {
             }
 
         }
+    }
+
+    private static boolean isHadoopSubItem(ConnectionItem connItem) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.isHadoopSubItem2(connItem);
+        }
+        return false;
+    }
+
+    private static void addContextForHadoopElementParameters(final IProcess2 process, final ConnectionItem connItem,
+            List<? extends IElementParameter> elementParameters, final EComponentCategory category,
+            final boolean ignoreContextMode) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            if (hadoopClusterService.isInContextMode(connItem)) {
+                Connection connection = connItem.getConnection();
+                Set<String> neededVars = retrieveContextVar(elementParameters, connection, category);
+                if (neededVars != null && !neededVars.isEmpty()) {
+                    ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
+                    ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService.getHadoopClusterBySubitemId(connItem
+                            .getProperty().getId());
+                    Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
+                    ContextItem hadoopClusterContextItem = ContextUtils.getContextItemById2(hadoopClusterConnection
+                            .getContextId());
+                    List<ContextItem> contextItems = new ArrayList<>();
+                    if (contextItem != null || hadoopClusterContextItem != null) {
+                        // find added variables
+                        Set<String> connAddedVars = null;
+                        Set<String> hcAddedVars = null;
+                        if (contextItem != null) {
+                            connAddedVars = checkAndAddContextVariables(contextItem, neededVars, process.getContextManager(),
+                                    false);
+                            contextItems.add(contextItem);
+                        }
+                        if (hadoopClusterContextItem != null) {
+                            hcAddedVars = checkAndAddContextVariables(hadoopClusterContextItem, neededVars,
+                                    process.getContextManager(), false);
+                            contextItems.add(hadoopClusterContextItem);
+                        }
+
+                        boolean added = false;
+                        Map<String, Set<String>> addedVarsMap = new HashMap<>();
+                        Map<ContextItem, Set<String>> contextToVars = new HashMap<>();
+                        if (connAddedVars != null && !connAddedVars.isEmpty()
+                                && !isAddContextVar(contextItem, process.getContextManager(), neededVars)) {
+                            if (ignoreContextMode) {
+                                addContextVarForJob(process, contextItem, connAddedVars);
+                                added = true;
+                            } else {
+                                addedVarsMap.put(connItem.getProperty().getId(), connAddedVars);
+                                contextToVars.put(contextItem, connAddedVars);
+                            }
+                        }
+                        if (hcAddedVars != null && !hcAddedVars.isEmpty()
+                                && !isAddContextVar(hadoopClusterContextItem, process.getContextManager(), neededVars)) {
+                            if (ignoreContextMode) {
+                                addContextVarForJob(process, hadoopClusterContextItem, hcAddedVars);
+                                added = true;
+                            } else {
+                                addedVarsMap.put(hadoopClusterItem.getProperty().getId(), hcAddedVars);
+                                contextToVars.put(hadoopClusterContextItem, hcAddedVars);
+                            }
+                        }
+
+                        if (addedVarsMap.size() > 0) {
+                            if (showContextDialogForHadoop(process, contextItems, process.getContextManager(), addedVarsMap,
+                                    contextToVars)) {
+                                added = true;
+                            }
+                        }
+
+                        // refresh context view
+                        if (added) {
+                            if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
+                                IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
+                                        .getService(IDesignerCoreService.class);
+                                service.switchToCurContextsView();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void addContextVarsToExistVariable(IProcess2 process, ContextItem contextItem, Set<String> addedVars,
+            IContextManager contextMgr) {
+        Set<String> addedContext = ConnectionContextHelper.checkAndAddContextVariables(contextItem, addedVars, contextMgr, false);
+        if (addedContext != null && addedContext.size() > 0) {
+            ConnectionContextHelper.addContextVarForJob(process, contextItem, addedVars);
+        }
+    }
+
+    private static boolean showContextDialogForHadoop(IProcess2 process, List<ContextItem> contextItems,
+            IContextManager contextMgr, Map<String, Set<String>> addedVarsMap, Map<ContextItem, Set<String>> contextToVars) {
+        boolean isAddContext = false;
+        ShowAddedContextdialog showDialog = new ShowAddedContextdialog(addedVarsMap, true);
+        if (showDialog.open() == Window.OK) {
+            if (ConnectionContextHelper.containsVariable(contextMgr)) {
+                for (ContextItem contextItem : contextItems) {
+                    addContextVarsToExistVariable(process, contextItem, contextToVars.get(contextItem), contextMgr);
+                }
+            } else {
+                // construct selectedContextItems
+                List<ContextItem> selectedContextItems = new ArrayList<>();
+                Set<String> groupSet = new HashSet<>();
+                for (ContextItem contextItem : contextItems) {
+                    selectedContextItems.add(contextItem);
+                    // check Show ContextGroup
+                    for (ContextType type : (List<ContextType>) contextItem.getContext()) {
+                        groupSet.add(type.getName());
+                    }
+                }
+                Set<String> curGroupSet = new HashSet<>();
+                for (IContext context : contextMgr.getListContext()) {
+                    curGroupSet.add(context.getName());
+                }
+                Set<String> contextGoupNameSet = new HashSet<>();
+                if (!curGroupSet.containsAll(groupSet)) {
+                    // ask to copy all context group
+                    SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(PlatformUI
+                            .getWorkbench().getDisplay().getActiveShell(), contextMgr, new ContextManagerHelper(contextMgr),
+                            selectedContextItems);
+                    if (Dialog.OK == groupDialog.open()) {
+                        contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+                    }
+                }
+                for (ContextItem contextItem : contextItems) {
+                    addContextVarForJob(process, contextItem, contextMgr, contextToVars.get(contextItem), contextGoupNameSet);
+                }
+            }
+            isAddContext = true;
+        }
+        return isAddContext;
     }
 
     public static boolean showContextdialog(IProcess2 process, ContextItem contextItem, IContextManager contextManager,
