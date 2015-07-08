@@ -60,6 +60,7 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.StringUtils;
 import org.talend.commons.utils.encoding.CharsetToolkit;
+import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.repository.SVNConstant;
 import org.w3c.dom.Document;
@@ -853,6 +854,7 @@ public class FilesUtils {
 
     /** fullPath,eg: "D:\\ALL_integrate_patch_v4.2.2.r63143-20110722.zip **/
     public static void downloadFileFromWeb(URL resourceURL, String fullPath, final String username, final String password) {
+        Authenticator defaultAuthenticator = NetworkUtil.getDefaultAuthenticator();
         // authentification for the url by using username and password,see bugTDI-18626
         Authenticator.setDefault(new Authenticator() {
 
@@ -900,6 +902,7 @@ public class FilesUtils {
                 e.printStackTrace();
             }
             conn.disconnect();
+            Authenticator.setDefault(defaultAuthenticator);
         }
     }
 
