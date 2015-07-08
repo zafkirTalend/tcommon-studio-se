@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mdm
 Bundle-SymbolicName: org.talend.libraries.mdm
-Bundle-Version: 6.0.0.qualifier
+Bundle-Version: 6.1.0.qualifier
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.apache.axis;visibility:=reexport,
  javax.wsdl,
