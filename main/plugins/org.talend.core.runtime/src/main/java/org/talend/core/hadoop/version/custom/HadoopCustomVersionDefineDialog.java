@@ -504,14 +504,6 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
         if (node == null) {
             filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.MAP_REDUCE);
         }
-        node = designerCoreService.getRefrenceNode("tSparkConfiguration", ComponentCategory.CATEGORY_4_SPARK.getName());//$NON-NLS-1$
-        if (node == null) {
-            filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.SPARK);
-        }
-        node = designerCoreService.getRefrenceNode("tSparkConfiguration", ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName());//$NON-NLS-1$
-        if (node == null) {
-            filteredTypes = ArrayUtils.removeElement(filteredTypes, ECustomVersionType.SPARK_STREAMING);
-        }
         return (ECustomVersionType[]) filteredTypes;
     }
 
