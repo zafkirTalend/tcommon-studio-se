@@ -16,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashSet;
@@ -120,6 +122,20 @@ public class NetworkUtil {
             return false;
         }
         return true;
+    }
+
+    public static Authenticator getDefaultAuthenticator() {
+        try {
+            Field theAuthenticatorField = Authenticator.class.getDeclaredField("theAuthenticator");
+            if (theAuthenticatorField != null) {
+                theAuthenticatorField.setAccessible(true);
+                Authenticator setAuthenticator = (Authenticator) theAuthenticatorField.get(null);
+                return setAuthenticator;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public final static void main(String[] args) {

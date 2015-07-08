@@ -13,6 +13,8 @@
 package org.talend.core.ui.token;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.net.Authenticator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -205,10 +207,16 @@ public final class TokenCollectorFactory {
                 @Override
                 protected IStatus run(IProgressMonitor monitor) {
                     if (NetworkUtil.isNetworkValid()) {
+                        Authenticator defaultAuth = NetworkUtil.getDefaultAuthenticator();
                         try {
                             JSONObject tokenInfors = collectTokenInfors();
 
                             Resty r = new Resty();
+                            // set back the rath for Resty.
+                            Field rathField = Resty.class.getDeclaredField("rath"); //$NON-NLS-1$
+                            rathField.setAccessible(true);
+                            Authenticator auth = (Authenticator) rathField.get(null);
+                            Authenticator.setDefault(auth);
 
                             AbstractContent ac = Resty.content(tokenInfors);
                             MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
@@ -220,6 +228,8 @@ public final class TokenCollectorFactory {
                             // still "optional".
                         } catch (Exception e) {
                             // nothing
+                        } finally {
+                            Authenticator.setDefault(defaultAuth);
                         }
                     }
                     return org.eclipse.core.runtime.Status.OK_STATUS;
