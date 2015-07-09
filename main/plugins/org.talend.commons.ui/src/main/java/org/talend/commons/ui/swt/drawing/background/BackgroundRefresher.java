@@ -63,6 +63,18 @@ public class BackgroundRefresher implements IBackgroundRefresher {
 
     private Thread threadToEvaluatePerformance;
 
+    private AsynchronousThreading asynchronousThreading1;
+
+    private AsynchronousThreading asynchronousThreading2;
+
+    private ExecutionLimiterImproved executionLimiter;
+
+    private IPerformanceEvaluatorListener iPerformanceEvaluatorListener;
+
+    private ControlListener drawableCompositeControlListener;
+
+    private DisposeListener drawableCompositeDisposeListener;
+
     /**
      * DOC amaumont Linker constructor comment.
      * 
@@ -87,8 +99,6 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         init(minimalTimeBetweenEachRefresh);
     }
 
-    private ExecutionLimiterImproved executionLimiter;
-
     private void init(long refreshTimeMax) {
 
         executionLimiter = new ExecutionLimiterImproved(refreshTimeMax, true, this.getClass().getSimpleName() + ".init(long)") {
@@ -98,6 +108,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
              * 
              * @see org.talend.commons.utils.threading.ExecutionLimiter#execute(boolean)
              */
+            @Override
             protected void execute(final boolean isFinalExecution, Object data) {
                 drawableComposite.getBgDrawableComposite().getDisplay().syncExec(new Runnable() {
 
@@ -114,7 +125,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         };
 
         initTimeLimitForBackgroundRefresh();
-        drawableComposite.getBgDrawableComposite().addControlListener(new ControlListener() {
+        drawableCompositeControlListener = new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
             }
@@ -125,9 +136,10 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                 // updateBackground(true, false);
             }
 
-        });
+        };
+        drawableComposite.getBgDrawableComposite().addControlListener(drawableCompositeControlListener);
 
-        drawableComposite.getBgDrawableComposite().addDisposeListener(new DisposeListener() {
+        drawableCompositeDisposeListener = new DisposeListener() {
 
             public void widgetDisposed(DisposeEvent e) {
                 releaseBgImages();
@@ -136,7 +148,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                 }
             }
 
-        });
+        };
+        drawableComposite.getBgDrawableComposite().addDisposeListener(drawableCompositeDisposeListener);
 
     }
 
@@ -144,7 +157,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         (new Object() {
 
             void init() {
-                performanceEvaluator.addListener(new IPerformanceEvaluatorListener() {
+                iPerformanceEvaluatorListener = new IPerformanceEvaluatorListener() {
 
                     public void handleEvent(PerformanceEvaluatorEvent event) {
                         boolean previousAntialiasAllowed = antialiasAllowed;
@@ -154,30 +167,33 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                                 && !drawableComposite.getBgDrawableComposite().isDisposed()
                                 && drawableComposite.getBgDrawableComposite().getDisplay() != null) {
 
-                            new AsynchronousThreading(0, false, drawableComposite.getBgDrawableComposite().getDisplay(),
-                                    new Runnable() {
+                            asynchronousThreading1 = new AsynchronousThreading(0, false, drawableComposite
+                                    .getBgDrawableComposite().getDisplay(), new Runnable() {
 
-                                        public void run() {
-                                            // System.out.println(antialiasAllowed);
-                                            refreshBackground();
+                                public void run() {
+                                    // System.out.println(antialiasAllowed);
+                                    refreshBackground();
 
-                                        }
-                                    }).start();
+                                }
+                            });
+                            asynchronousThreading1.start();
 
                         }
                     }
-                });
+                };
+                performanceEvaluator.addListener(iPerformanceEvaluatorListener);
             }
         }).init();
 
-        new AsynchronousThreading(50, new Runnable() {
+        asynchronousThreading2 = new AsynchronousThreading(50, new Runnable() {
 
             public void run() {
 
                 launchEvaluatingPerformanceLoop();
 
             }
-        }).start();
+        });
+        asynchronousThreading2.start();
 
     }
 
@@ -348,6 +364,43 @@ public class BackgroundRefresher implements IBackgroundRefresher {
      */
     public void refreshBackgroundWithLimiter() {
         executionLimiter.startIfExecutable();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher#dispose()
+     */
+    public void dispose() {
+
+        if (threadToEvaluatePerformance != null && !threadToEvaluatePerformance.isInterrupted()) {
+            threadToEvaluatePerformance.interrupt();
+        }
+
+        if (asynchronousThreading1 != null) {
+            asynchronousThreading1.interrupt();
+        }
+
+        if (asynchronousThreading2 != null) {
+            asynchronousThreading2.interrupt();
+        }
+
+        if (executionLimiter != null) {
+            executionLimiter.shutdown();
+        }
+
+        drawableComposite.getBgDrawableComposite().removeControlListener(drawableCompositeControlListener);
+        drawableComposite.getBgDrawableComposite().removeDisposeListener(drawableCompositeDisposeListener);
+
+        if (bgImage1 != null && !bgImage1.isDisposed()) {
+            bgImage1.dispose();
+        }
+        if (bgImage2 != null && !bgImage2.isDisposed()) {
+            bgImage2.dispose();
+        }
+        if (oldImage != null && !oldImage.isDisposed()) {
+            oldImage.dispose();
+        }
     }
 
 }

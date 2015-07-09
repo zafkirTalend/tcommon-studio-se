@@ -312,4 +312,8 @@ public interface IProcessDescription {
     public void setSalesforceSchemaBean(SalesforceSchemaBean salesforceSchemaBean);
 
     public boolean isSplitRecord();
+
+    public String getReadbyMode();
+
+    public void setReadbyMode(String readbyMode);
 }

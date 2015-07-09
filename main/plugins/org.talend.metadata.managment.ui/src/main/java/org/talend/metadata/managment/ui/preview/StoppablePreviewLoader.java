@@ -64,10 +64,12 @@ public abstract class StoppablePreviewLoader<R> {
         if (previewHandler != null && previewHandlerListener == null) {
             previewHandlerListener = new IPreviewHandlerListener<R>() {
 
+                @Override
                 public void handleEvent(final PreviewHandlerEvent<R> event) {
 
                     infoLabel.getDisplay().asyncExec(new Runnable() {
 
+                        @Override
                         public void run() {
 
                             executePreviewHandlerEvent(event);
@@ -84,12 +86,17 @@ public abstract class StoppablePreviewLoader<R> {
 
         infoLabel.getDisplay().syncExec(new Runnable() {
 
+            @Override
             public void run() {
-                previewHandler.launchPreview(processDescription, "FILE_XML"); //$NON-NLS-1$
+                previewHandler.launchPreview(processDescription, getShadowProcessType());
             }
 
         });
 
+    }
+
+    protected String getShadowProcessType() {
+        return "FILE_XML"; //$NON-NLS-1$
     }
 
     /**
@@ -105,9 +112,11 @@ public abstract class StoppablePreviewLoader<R> {
 
             final IRunnableWithProgress op = new IRunnableWithProgress() {
 
+                @Override
                 public void run(final IProgressMonitor monitor) {
                     infoLabel.getDisplay().asyncExec(new Runnable() {
 
+                        @Override
                         public void run() {
 
                             monitorWrap = new EventLoopProgressMonitor(monitor);
@@ -135,6 +144,7 @@ public abstract class StoppablePreviewLoader<R> {
 
             infoLabel.getDisplay().syncExec(new Runnable() {
 
+                @Override
                 public void run() {
 
                     try {

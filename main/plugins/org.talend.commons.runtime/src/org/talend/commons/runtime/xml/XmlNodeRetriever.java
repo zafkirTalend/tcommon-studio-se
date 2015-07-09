@@ -65,7 +65,7 @@ public class XmlNodeRetriever {
 
     private XPath xpath;
 
-    private String currentLoopXPath;
+    protected String currentLoopXPath;
 
     private NamespaceContext namespaceContext;
 
@@ -98,17 +98,20 @@ public class XmlNodeRetriever {
     private void initNamespaceContext() {
         namespaceContext = new NamespaceContext() {
 
+            @Override
             public String getNamespaceURI(String prefix) {
                 String namespaceForPrefix = getNamespaceForPrefix(prefix);
                 return namespaceForPrefix;
             }
 
             // Dummy implementation - not used!
+            @Override
             public Iterator getPrefixes(String val) {
                 return null;
             }
 
             // Dummy implemenation - not used!
+            @Override
             public String getPrefix(String uri) {
                 return null;
             }

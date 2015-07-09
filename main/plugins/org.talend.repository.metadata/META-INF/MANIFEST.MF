@@ -35,7 +35,8 @@ Require-Bundle: org.apache.commons.lang,
  org.talend.repository.view;resolution:=optional;visibility:=reexport,
  org.talend.libraries.jdbc.jtds,
  org.talend.repository.items.importexport,
- org.talend.libraries.dom4j-jaxen
+ org.talend.libraries.dom4j-jaxen,
+ org.talend.libraries.jackson
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Export-Package: org.talend.repository.metadata,
@@ -49,6 +50,7 @@ Export-Package: org.talend.repository.metadata,
  org.talend.repository.ui.wizards.metadata.connection.database,
  org.talend.repository.ui.wizards.metadata.connection.files.delimited,
  org.talend.repository.ui.wizards.metadata.connection.files.excel,
+ org.talend.repository.ui.wizards.metadata.connection.files.json,
  org.talend.repository.ui.wizards.metadata.connection.files.ldif,
  org.talend.repository.ui.wizards.metadata.connection.files.positional,
  org.talend.repository.ui.wizards.metadata.connection.files.regexp,

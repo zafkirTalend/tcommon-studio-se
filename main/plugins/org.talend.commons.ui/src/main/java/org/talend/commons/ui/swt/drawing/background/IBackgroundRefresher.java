@@ -54,4 +54,5 @@ public interface IBackgroundRefresher {
      */
     public boolean isAntialiasAllowed();
 
+    public void dispose();
 }

@@ -31,13 +31,13 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
 import org.talend.datatools.xml.utils.UtilConstants;
 import org.talend.datatools.xml.utils.XSDPopulationUtil2;
 import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.CopyDeleteFileUtilForWizard;
+import org.talend.repository.ui.wizards.metadata.connection.files.json.AbstractTreePopulator;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -45,15 +45,11 @@ import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.CopyDeleteFile
  * $Id$
  * 
  */
-public class TreePopulator {
+public class TreePopulator extends AbstractTreePopulator {
 
     private final TreeViewer availableXmlTree;
 
     private final BidiMap xPathToTreeItem = new DualHashBidiMap();
-
-    private String filePath;
-
-    private static int limit;
 
     /**
      * Use the constructor with TreeViewer instead.
@@ -85,6 +81,7 @@ public class TreePopulator {
      * populate xml tree.
      * 
      */
+    @Override
     public boolean populateTree(String filePath, ATreeNode treeNode) {
         return populateTree(filePath, treeNode, null);
     }
@@ -104,6 +101,7 @@ public class TreePopulator {
         return true;
     }
 
+    @Override
     public boolean populateTree(String filePath, ATreeNode treeNode, String selectedEntity) {
         if (!isValidFile(filePath)) {
             Display.getDefault().syncExec(new Runnable() {
@@ -248,13 +246,16 @@ public class TreePopulator {
         return false;
     }
 
+    @Override
     public TreeItem getTreeItem(String absoluteXPath) {
         TreeItem[] items = availableXmlTree.getTree().getItems();
         String path = absoluteXPath;
         String targetName = absoluteXPath;
         if (targetName.contains(UtilConstants.XPATH_SLASH)) {
             String[] names = targetName.split(UtilConstants.XPATH_SLASH);
-            targetName = names[names.length - 1];
+            if (names != null && 0 < names.length) {
+                targetName = names[names.length - 1];
+            }
         }
         TreeItem item = null;
         while (!path.isEmpty()) {
@@ -288,6 +289,7 @@ public class TreePopulator {
         return item;
     }
 
+    @Override
     public String getAbsoluteXPath(TreeItem treeItem) {
         TreeItem item = treeItem;
         String path = ""; //$NON-NLS-1$
@@ -298,39 +300,20 @@ public class TreePopulator {
         return path;
     }
 
-    /**
-     * Getter for filePath.
-     * 
-     * @return the filePath
-     */
-    public String getFilePath() {
-        return this.filePath;
+    public static int getLimit() {
+        return AbstractTreePopulator.getLimit();
     }
 
     public static int getMaximumRowsToPreview() {
-        return RepositoryManagerHelper.getMaximumRowsToPreview();
+        return AbstractTreePopulator.getMaximumRowsToPreview();
     }
 
-    /**
-     * Sets the limit.
-     * 
-     * @param limit the limit to set
-     */
-    public void setLimit(int lit) {
-        limit = lit;
+    @Override
+    public void configureDefaultTreeViewer() {
+        if (availableXmlTree.getContentProvider() != null) {
+            availableXmlTree.setInput(null);
+        }
+        availableXmlTree.setContentProvider(new ATreeNodeContentProvider());
+        availableXmlTree.setLabelProvider(new VirtualXmlTreeLabelProvider());
     }
-
-    /**
-     * Getter for limit.
-     * 
-     * @return the limit
-     */
-    public static int getLimit() {
-        return limit;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
 }

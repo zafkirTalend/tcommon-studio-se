@@ -87,6 +87,16 @@ public class LinkableTable implements ILinkableControl {
         return this.table;
     }
 
+    private Listener tablePaintListener;
+
+    private ControlListener controlListener;
+
+    private ILineSelectionListener tableViewerLineSelectionListener;
+
+    private SelectionListener tableSelectionListener;
+
+    private SelectionListener scrollListener;
+
     /**
      * DOC amaumont Comment method "addListeners".
      */
@@ -94,17 +104,18 @@ public class LinkableTable implements ILinkableControl {
 
         // to correct graphic bug under Linux-GTK when the wizard is opened the first time
         if (WindowSystem.isGTK() && forceDrawLinksGtk) {
-            table.addListener(SWT.Paint, new Listener() {
+            tablePaintListener = new Listener() {
 
                 public void handleEvent(Event event) {
                     // System.out.println("table Paint");
                     paintEvent(event);
                 }
 
-            });
+            };
+            table.addListener(SWT.Paint, tablePaintListener);
         }
 
-        ControlListener controlListener = new ControlListener() {
+        controlListener = new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
             }
@@ -117,16 +128,17 @@ public class LinkableTable implements ILinkableControl {
         table.addControlListener(controlListener);
 
         if (tableViewerCreator != null) {
-            tableViewerCreator.getSelectionHelper().addAfterSelectionListener(new ILineSelectionListener() {
+            tableViewerLineSelectionListener = new ILineSelectionListener() {
 
                 public void handle(LineSelectionEvent e) {
                     controlsLinker.updateLinksStyleAndControlsSelection(table, true);
                 }
 
-            });
+            };
+            tableViewerCreator.getSelectionHelper().addAfterSelectionListener(tableViewerLineSelectionListener);
 
         } else {
-            table.addSelectionListener(new SelectionListener() {
+            tableSelectionListener = new SelectionListener() {
 
                 public void widgetDefaultSelected(SelectionEvent e) {
                 }
@@ -135,19 +147,35 @@ public class LinkableTable implements ILinkableControl {
                     controlsLinker.updateLinksStyleAndControlsSelection(table, true);
                 }
 
-            });
+            };
+            table.addSelectionListener(tableSelectionListener);
         }
 
         ScrollBar vBarTable = table.getVerticalBar();
 
-        SelectionListener scrollListener = new SelectionAdapter() {
+        scrollListener = new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 backgroundRefresher.refreshBackgroundWithLimiter();
             }
         };
         vBarTable.addSelectionListener(scrollListener);
 
+    }
+
+    private void removeListeners() {
+        if (tablePaintListener != null) {
+            table.removeListener(SWT.Paint, tablePaintListener);
+        }
+        table.removeControlListener(controlListener);
+        if (tableViewerLineSelectionListener != null) {
+            tableViewerCreator.getSelectionHelper().removeAfterSelectionListener(tableViewerLineSelectionListener);
+        }
+        if (tableSelectionListener != null) {
+            table.removeSelectionListener(tableSelectionListener);
+        }
+        table.getVerticalBar().removeSelectionListener(scrollListener);
     }
 
     private void paintEvent(Event event) {
@@ -159,6 +187,15 @@ public class LinkableTable implements ILinkableControl {
         bgDrawableComposite.drawBackground(event.gc);
 
         // executionLimiter.startIfExecutable(event);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.linking.ILinkableControl#dispose()
+     */
+    public void dispose() {
+        removeListeners();
     }
 
 }

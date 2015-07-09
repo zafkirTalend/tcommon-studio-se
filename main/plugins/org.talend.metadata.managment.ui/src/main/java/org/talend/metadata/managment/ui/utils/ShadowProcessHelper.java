@@ -393,6 +393,17 @@ public class ShadowProcessHelper {
      * @throws CoreException
      */
     private static IPreview createPreview() throws CoreException {
+        return createPreview(null);
+    }
+
+    /**
+     * DOC amaumont Comment method "createPreview".
+     * 
+     * @param configurationElements
+     * @return
+     * @throws CoreException
+     */
+    private static IPreview createPreview(String type) throws CoreException {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
 
         // use the org.talend.repository.filepreview_provider
@@ -407,6 +418,12 @@ public class ShadowProcessHelper {
         }
 
         for (IConfigurationElement configurationElement : configurationElements) {
+            if (type != null && !type.isEmpty()) {
+                String fileType = configurationElement.getAttribute("type"); //$NON-NLS-1$
+                if (fileType == null || fileType.isEmpty() || !fileType.equals(type)) {
+                    continue;
+                }
+            }
             IPreview pre = (IPreview) configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
             if (!PluginChecker.isOnlyTopLoaded() && !pre.isTopPreview()) {
                 preview = pre;
@@ -421,9 +438,13 @@ public class ShadowProcessHelper {
         return preview;
     }
 
-    public static AsynchronousPreviewHandler<CsvArray> createPreviewHandler() throws CoreException {
-        IPreview preview = createPreview();
+    public static AsynchronousPreviewHandler<CsvArray> createPreviewHandler(String type) throws CoreException {
+        IPreview preview = createPreview(type);
         return new AsynchronousPreviewHandler<CsvArray>(preview);
+    }
+
+    public static AsynchronousPreviewHandler<CsvArray> createPreviewHandler() throws CoreException {
+        return createPreviewHandler(null);
     }
 
     /**
