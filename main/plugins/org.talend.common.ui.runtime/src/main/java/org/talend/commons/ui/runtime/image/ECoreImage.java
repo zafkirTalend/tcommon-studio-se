@@ -63,12 +63,17 @@ public enum ECoreImage implements IImage {
     PROCESS_STREAMING_GENERIC_CATEGORY_OPEN_ICON("/icons1/process_streaming_generic_category_open.png"), //$NON-NLS-1$
     PROCESS_BATCH_GENERIC_CATEGORY_CLOSE_ICON("/icons1/process_batch_generic_category_close.png"), //$NON-NLS-1$
     PROCESS_BATCH_GENERIC_CATEGORY_OPEN_ICON("/icons1/process_batch_generic_category_open.png"), //$NON-NLS-1$
+    PROCESS_STREAMING_STORM_ICON("/icons1/process_streaming_storm.png"), //$NON-NLS-1$
+    PROCESS_STREAMING_SPARK_ICON("/icons1/process_streaming_spark.png"), //$NON-NLS-1$
+    PROCESS_BATCH_MR_ICON("/icons1/process_batch_map_reduce.png"), //$NON-NLS-1$
+    PROCESS_BATCH_SPARK_ICON("/icons1/process_batch_spark.png"), //$NON-NLS-1$
     SERVICES_ICON("/icons1/services.png"), //$NON-NLS-1$
     JOBLET_ICON("/icons1/joblet_icon.png"), //$NON-NLS-1$
     CONTEXT_ICON("/icons1/context_icon.png"), //$NON-NLS-1$
     CONTEXT_CONF_ICON("/icons1/context_conf_icon.gif"), //$NON-NLS-1$
     CONTEXT_WIZ("/icons1/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons1/code.png"), //$NON-NLS-1$
+    ROUTES_ICON("/icons1/routes_icon.png"), //$NON-NLS-1$
     ROUTINE_ICON("/icons1/routine.png"), //$NON-NLS-1$
     ROUTINE_EDITOR_ICON("/icons1/routine_editor.png"), //$NON-NLS-1$
     JOB_SCRIPTS_ICON("/icons1/job_scripts.png"), //$NON-NLS-1$
