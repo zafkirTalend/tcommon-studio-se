@@ -12,9 +12,11 @@
 // ============================================================================
 package org.talend.commons.ui.swt.linking;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -72,6 +74,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
     private LinkableTree linkableTree;
 
+    private List<LinkableTable> linkableTableList;
+
     /**
      * DOC amaumont TreeToTableLinker constructor comment.
      * 
@@ -80,6 +84,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
      */
     public TreeToTablesLinker(Composite commonParent) {
         super(commonParent);
+        linkableTableList = new ArrayList<LinkableTable>();
     }
 
     /**
@@ -93,9 +98,10 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         this.display = tree.getDisplay();
         this.backgroundRefresher = backgroundRefresher;
         for (Table table : tables) {
-            new LinkableTable(this, backgroundRefresher, table, (BgDrawableComposite) this, false);
+            LinkableTable linkableTable = new LinkableTable(this, backgroundRefresher, table, this, false);
+            linkableTableList.add(linkableTable);
         }
-        linkableTree = new LinkableTree(this, backgroundRefresher, tree, (BgDrawableComposite) this, true);
+        linkableTree = new LinkableTree(this, backgroundRefresher, tree, this, true);
         this.tables = Arrays.asList(tables);
         this.tree = tree;
     }
@@ -104,9 +110,10 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         this.display = tree.getDisplay();
         this.backgroundRefresher = backgroundRefresher;
         for (Table table : tables) {
-            new LinkableTable(controlsLinker, backgroundRefresher, table, (BgDrawableComposite) this, false);
+            LinkableTable linkableTable = new LinkableTable(controlsLinker, backgroundRefresher, table, this, false);
+            linkableTableList.add(linkableTable);
         }
-        linkableTree = new LinkableTree(controlsLinker, backgroundRefresher, tree, (BgDrawableComposite) this, true);
+        linkableTree = new LinkableTree(controlsLinker, backgroundRefresher, tree, this, true);
         this.tables = Arrays.asList(tables);
         this.tree = tree;
     }
@@ -202,7 +209,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             IExtremityLink<TreeItem, D1> extremity1 = link.getExtremity1();
             IExtremityLink<Table, D2> extremity2 = link.getExtremity2();
 
-            TreeItem treeItem = getTreeItem(tree, (Object) extremity1.getDataItem(), (Object) extremity2.getDataItem());
+            TreeItem treeItem = getTreeItem(tree, extremity1.getDataItem(), extremity2.getDataItem());
 
             TreeItem firstExpandedAscTreeItem = TreeUtils.findFirstVisibleItemAscFrom(treeItem);
 
@@ -212,7 +219,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width, yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
-            TableItem tableItem = TableUtils.getTableItem(table, (Object) extremity2.getDataItem());
+            TableItem tableItem = TableUtils.getTableItem(table, extremity2.getDataItem());
 
             if (tableItem == null) {
                 continue;
@@ -279,8 +286,8 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
      * @return
      */
     private int findXRightStartBezierLink(TreeItem[] items, int maxWidth) {
-        for (int i = 0; i < items.length; i++) {
-            TreeItem item = items[i];
+        for (TreeItem item2 : items) {
+            TreeItem item = item2;
             if (!item.isDisposed()) {
                 Rectangle bounds = item.getBounds();
                 maxWidth = Math.max(maxWidth, bounds.x + bounds.width);
@@ -319,8 +326,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             }
 
             TableItem[] selection = ((Table) currentControl).getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TableItem tableItem = selection[i];
+            for (TableItem tableItem : selection) {
                 selectedItems.add(tableItem.getData());
             }
 
@@ -328,8 +334,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             tree.deselectAll();
 
             TreeItem[] selection = tree.getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TreeItem treeItem = selection[i];
+            for (TreeItem treeItem : selection) {
                 selectedItems.add(treeItem.getData());
             }
 
@@ -443,6 +448,20 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
      */
     protected LinksManager<TreeItem, D1, Table, D2> getLinksManager() {
         return this.linksManager;
+    }
+
+    public void dispose() {
+        if (linkableTree != null) {
+            linkableTree.dispose();
+        }
+        if (linkableTableList != null) {
+            Iterator<LinkableTable> iter = linkableTableList.iterator();
+            while (iter.hasNext()) {
+                LinkableTable linkableTable = iter.next();
+                linkableTable.dispose();
+            }
+            linkableTableList.clear();
+        }
     }
 
 }

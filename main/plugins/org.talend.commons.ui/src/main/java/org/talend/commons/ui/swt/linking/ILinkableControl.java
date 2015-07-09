@@ -20,4 +20,5 @@ package org.talend.commons.ui.swt.linking;
  */
 public interface ILinkableControl {
 
+    public void dispose();
 }

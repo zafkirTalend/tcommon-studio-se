@@ -61,5 +61,4 @@ public abstract class BgDrawableComposite implements IBgDrawableComposite {
     public Point getOffset() {
         return this.offsetPoint;
     }
-
 }

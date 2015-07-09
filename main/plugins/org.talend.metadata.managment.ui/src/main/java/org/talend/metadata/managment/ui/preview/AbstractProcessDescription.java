@@ -62,6 +62,8 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
 
     private Map<String, List<IMetadataTable>> schemas;
 
+    private String readbyMode;
+
     public Map<String, List<IMetadataTable>> getSchemas() {
         return this.schemas;
     }
@@ -85,6 +87,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the escapeCharacter
      */
+    @Override
     public String getEscapeCharacter() {
         return this.escapeCharacter;
     }
@@ -94,6 +97,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param escapeCharacter the escapeCharacter to set
      */
+    @Override
     public void setEscapeCharacter(String escapeCharacter) {
         this.escapeCharacter = escapeCharacter;
     }
@@ -103,6 +107,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the fieldSeparator
      */
+    @Override
     public String getFieldSeparator() {
         return this.fieldSeparator;
     }
@@ -112,6 +117,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param fieldSeparator the fieldSeparator to set
      */
+    @Override
     public void setFieldSeparator(String fieldSeparator) {
         this.fieldSeparator = fieldSeparator;
     }
@@ -121,6 +127,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the filepath
      */
+    @Override
     public String getFilepath() {
         return this.filepath;
     }
@@ -130,6 +137,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param filepath the filepath to set
      */
+    @Override
     public void setFilepath(String filepath) {
         this.filepath = filepath;
     }
@@ -139,6 +147,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the footerRow
      */
+    @Override
     public int getFooterRow() {
         return this.footerRow;
     }
@@ -148,6 +157,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param footerRow the footerRow to set
      */
+    @Override
     public void setFooterRow(int footerRow) {
         this.footerRow = footerRow;
     }
@@ -157,6 +167,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the headerRow
      */
+    @Override
     public int getHeaderRow() {
         return this.headerRow;
     }
@@ -166,6 +177,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param headerRow the headerRow to set
      */
+    @Override
     public void setHeaderRow(int headerRow) {
         this.headerRow = headerRow;
     }
@@ -175,6 +187,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the rowSeparator
      */
+    @Override
     public String getRowSeparator() {
         return this.rowSeparator;
     }
@@ -184,6 +197,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param rowSeparator the rowSeparator to set
      */
+    @Override
     public void setRowSeparator(String rowSeparator) {
         this.rowSeparator = rowSeparator;
     }
@@ -193,6 +207,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the server
      */
+    @Override
     public String getServer() {
         return this.server;
     }
@@ -202,6 +217,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param server the server to set
      */
+    @Override
     public void setServer(String server) {
         this.server = server;
     }
@@ -211,6 +227,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the textEnclosure
      */
+    @Override
     public String getTextEnclosure() {
         return this.textEnclosure;
     }
@@ -220,6 +237,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param textEnclosure the textEnclosure to set
      */
+    @Override
     public void setTextEnclosure(String textEnclosure) {
         this.textEnclosure = textEnclosure;
     }
@@ -229,6 +247,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the limitRows
      */
+    @Override
     public int getLimitRows() {
         return this.limitRows;
     }
@@ -238,6 +257,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param limitRows the limitRows to set
      */
+    @Override
     public void setLimitRows(int limitRows) {
         this.limitRows = limitRows;
     }
@@ -247,6 +267,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param boolean
      */
+    @Override
     public void setRemoveEmptyRow(boolean selection) {
         this.removeEmptyRow = selection;
     }
@@ -256,6 +277,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return boolean
      */
+    @Override
     public boolean getRemoveEmptyRowsToSkip() {
         return removeEmptyRow;
     }
@@ -265,6 +287,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the pattern
      */
+    @Override
     public String getPattern() {
         return this.pattern;
     }
@@ -274,6 +297,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param pattern the pattern to set
      */
+    @Override
     public void setPattern(String pattern) {
         this.pattern = pattern;
     }
@@ -283,6 +307,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the encoding
      */
+    @Override
     public String getEncoding() {
         return this.encoding;
     }
@@ -292,6 +317,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param encoding the encoding to set
      */
+    @Override
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
@@ -301,6 +327,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the schema
      */
+    @Override
     public List<IMetadataTable> getSchema() {
         return this.schema;
     }
@@ -310,6 +337,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param schema the schema to set
      */
+    @Override
     public void setSchema(List<IMetadataTable> schema) {
         this.schema = schema;
     }
@@ -319,6 +347,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the loopQuery
      */
+    @Override
     public String getLoopQuery() {
         return this.loopQuery;
     }
@@ -328,6 +357,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param loopQuery the loopQuery to set
      */
+    @Override
     public void setLoopQuery(String loopQuery) {
         this.loopQuery = loopQuery;
     }
@@ -337,6 +367,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the loopQuery
      */
+    @Override
     public Integer getLoopLimit() {
         return this.loopLimit;
     }
@@ -346,6 +377,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param loopLimit the loopLimit to set
      */
+    @Override
     public void setLoopLimit(Integer loopLimit) {
         this.loopLimit = loopLimit;
     }
@@ -355,6 +387,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the mapping
      */
+    @Override
     public List<Map<String, String>> getMapping() {
         return this.mapping;
     }
@@ -364,6 +397,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @param mapping the mapping to set
      */
+    @Override
     public void setMapping(List<Map<String, String>> mapping) {
         this.mapping = mapping;
     }
@@ -373,6 +407,7 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
      * 
      * @return the splitRecord
      */
+    @Override
     public boolean isSplitRecord() {
         return this.splitRecord;
     }
@@ -392,6 +427,16 @@ public abstract class AbstractProcessDescription implements IProcessDescription 
 
     public void setCSVOption(boolean isCSVOption) {
         this.isCSVOption = isCSVOption;
+    }
+
+    @Override
+    public String getReadbyMode() {
+        return this.readbyMode;
+    }
+
+    @Override
+    public void setReadbyMode(String readbyMode) {
+        this.readbyMode = readbyMode;
     }
 
 }

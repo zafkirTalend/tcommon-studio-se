@@ -48,6 +48,14 @@ public class LinkableTree implements ILinkableControl {
 
     private boolean forceDrawLinksGtk;
 
+    private ControlListener controlListener;
+
+    private SelectionListener scrollListener;
+
+    private TreeListener treeListener;
+
+    private Listener paintListener;
+
     /**
      * DOC amaumont LinkableTable constructor comment.
      * 
@@ -110,16 +118,17 @@ public class LinkableTree implements ILinkableControl {
      */
     private void addListeners() {
         if (WindowSystem.isGTK() && forceDrawLinksGtk) {
-            tree.addListener(SWT.Paint, new Listener() {
+            paintListener = new Listener() {
 
                 public void handleEvent(Event event) {
                     // paintEvent(event);
                 }
 
-            });
+            };
+            tree.addListener(SWT.Paint, paintListener);
         }
 
-        ControlListener controlListener = new ControlListener() {
+        controlListener = new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
                 // updateBackgroundWithLimiter();
@@ -133,7 +142,7 @@ public class LinkableTree implements ILinkableControl {
 
         tree.addControlListener(controlListener);
 
-        tree.addTreeListener(new TreeListener() {
+        treeListener = new TreeListener() {
 
             public void treeCollapsed(TreeEvent e) {
                 backgroundRefresher.refreshBackgroundWithLimiter();
@@ -143,7 +152,9 @@ public class LinkableTree implements ILinkableControl {
                 backgroundRefresher.refreshBackgroundWithLimiter();
             }
 
-        });
+        };
+
+        tree.addTreeListener(treeListener);
         selectionListener = new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -160,8 +171,9 @@ public class LinkableTree implements ILinkableControl {
         ScrollBar vBarTree = tree.getVerticalBar();
         ScrollBar hBarTree = tree.getHorizontalBar();
 
-        SelectionListener scrollListener = new SelectionAdapter() {
+        scrollListener = new SelectionAdapter() {
 
+            @Override
             public void widgetSelected(SelectionEvent event) {
                 // updateBackgroundWithLimiter();
                 backgroundRefresher.refreshBackgroundWithLimiter();
@@ -170,6 +182,19 @@ public class LinkableTree implements ILinkableControl {
         vBarTree.addSelectionListener(scrollListener);
         hBarTree.addSelectionListener(scrollListener);
 
+    }
+
+    private void removeListeners() {
+        if (paintListener != null) {
+            tree.removeListener(SWT.Paint, paintListener);
+        }
+        tree.removeControlListener(controlListener);
+        tree.removeTreeListener(treeListener);
+        tree.removeSelectionListener(selectionListener);
+        ScrollBar vBarTree = tree.getVerticalBar();
+        vBarTree.removeSelectionListener(scrollListener);
+        ScrollBar hBarTree = tree.getHorizontalBar();
+        hBarTree.removeSelectionListener(scrollListener);
     }
 
     /**
@@ -186,6 +211,15 @@ public class LinkableTree implements ILinkableControl {
         bgDrawableComposite.setOffset(offsetPoint);
         bgDrawableComposite.drawBackground(event.gc);
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.linking.ILinkableControl#dispose()
+     */
+    public void dispose() {
+        removeListeners();
     }
 
 }
