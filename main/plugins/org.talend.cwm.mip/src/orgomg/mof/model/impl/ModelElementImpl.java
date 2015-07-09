@@ -21,14 +21,13 @@ import orgomg.mof.model.ModelElement;
 import orgomg.mof.model.ModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link orgomg.mof.model.impl.ModelElementImpl#getModeledGraphSubset <em>Modeled Graph Subset</em>}</li>
- *   <li>{@link orgomg.mof.model.impl.ModelElementImpl#getModeledProjection <em>Modeled Projection</em>}</li>
- *   <li>{@link orgomg.mof.model.impl.ModelElementImpl#getModeledSemanticContext <em>Modeled Semantic Context</em>}</li>
+ * <li>{@link orgomg.mof.model.impl.ModelElementImpl#getModeledGraphSubset <em>Modeled Graph Subset</em>}</li>
+ * <li>{@link orgomg.mof.model.impl.ModelElementImpl#getModeledProjection <em>Modeled Projection</em>}</li>
+ * <li>{@link orgomg.mof.model.impl.ModelElementImpl#getModeledSemanticContext <em>Modeled Semantic Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,9 +36,9 @@ import orgomg.mof.model.ModelPackage;
 public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
-     * The cached value of the '{@link #getModeledGraphSubset() <em>Modeled Graph Subset</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getModeledGraphSubset() <em>Modeled Graph Subset</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getModeledGraphSubset()
      * @generated
      * @ordered
@@ -47,9 +46,9 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
     protected EList<ModeledGraphSubset> modeledGraphSubset;
 
     /**
-     * The cached value of the '{@link #getModeledProjection() <em>Modeled Projection</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getModeledProjection() <em>Modeled Projection</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getModeledProjection()
      * @generated
      * @ordered
@@ -58,8 +57,8 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * The cached value of the '{@link #getModeledSemanticContext() <em>Modeled Semantic Context</em>}' reference list.
-     * <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getModeledSemanticContext()
      * @generated
      * @ordered
@@ -68,6 +67,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ModelElementImpl() {
@@ -76,6 +76,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -85,8 +86,10 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<ModeledGraphSubset> getModeledGraphSubset() {
         if (modeledGraphSubset == null) {
             modeledGraphSubset = new EObjectWithInverseResolvingEList<ModeledGraphSubset>(ModeledGraphSubset.class, this,
@@ -97,8 +100,10 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<ModeledSemanticContext> getModeledProjection() {
         if (modeledProjection == null) {
             modeledProjection = new EObjectWithInverseResolvingEList.ManyInverse<ModeledSemanticContext>(
@@ -110,8 +115,10 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<ModeledSemanticContext> getModeledSemanticContext() {
         if (modeledSemanticContext == null) {
             modeledSemanticContext = new EObjectWithInverseResolvingEList.ManyInverse<ModeledSemanticContext>(
@@ -123,6 +130,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -141,6 +149,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -158,6 +167,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -175,6 +185,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -199,6 +210,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -219,6 +231,7 @@ public class ModelElementImpl extends EObjectImpl implements ModelElement {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override

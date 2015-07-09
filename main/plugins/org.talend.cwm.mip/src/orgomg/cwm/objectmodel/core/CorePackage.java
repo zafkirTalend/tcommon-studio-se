@@ -342,12 +342,21 @@ public interface CorePackage extends EPackage {
     int MODEL_ELEMENT__DASDL_PROPERTY = ELEMENT_FEATURE_COUNT + 18;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODEL_ELEMENT__ID = ELEMENT_FEATURE_COUNT + 19;
+
+    /**
      * The number of structural features of the '<em>Model Element</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int MODEL_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 19;
+    int MODEL_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 20;
 
     /**
      * The meta object id for the '{@link orgomg.cwm.objectmodel.core.impl.NamespaceImpl <em>Namespace</em>}' class.
@@ -518,6 +527,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int NAMESPACE__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NAMESPACE__ID = MODEL_ELEMENT__ID;
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -708,6 +726,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int CLASSIFIER__DASDL_PROPERTY = NAMESPACE__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CLASSIFIER__ID = NAMESPACE__ID;
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1021,6 +1048,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int CLASS__DASDL_PROPERTY = CLASSIFIER__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CLASS__ID = CLASSIFIER__ID;
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -1346,6 +1382,15 @@ public interface CorePackage extends EPackage {
     int DATA_TYPE__DASDL_PROPERTY = CLASSIFIER__DASDL_PROPERTY;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATA_TYPE__ID = CLASSIFIER__ID;
+
+    /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1660,6 +1705,15 @@ public interface CorePackage extends EPackage {
     int PACKAGE__DASDL_PROPERTY = NAMESPACE__DASDL_PROPERTY;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PACKAGE__ID = NAMESPACE__ID;
+
+    /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1861,6 +1915,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int SUBSYSTEM__DASDL_PROPERTY = CLASSIFIER__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SUBSYSTEM__ID = CLASSIFIER__ID;
 
     /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2193,6 +2256,15 @@ public interface CorePackage extends EPackage {
     int MODEL__DASDL_PROPERTY = PACKAGE__DASDL_PROPERTY;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MODEL__ID = PACKAGE__ID;
+
+    /**
      * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2394,6 +2466,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int FEATURE__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FEATURE__ID = MODEL_ELEMENT__ID;
 
     /**
      * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
@@ -2618,6 +2699,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int STRUCTURAL_FEATURE__DASDL_PROPERTY = FEATURE__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STRUCTURAL_FEATURE__ID = FEATURE__ID;
 
     /**
      * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
@@ -2944,6 +3034,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int ATTRIBUTE__DASDL_PROPERTY = STRUCTURAL_FEATURE__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ATTRIBUTE__ID = STRUCTURAL_FEATURE__ID;
 
     /**
      * The feature id for the '<em><b>Owner Scope</b></em>' attribute. <!--
@@ -3284,6 +3383,15 @@ public interface CorePackage extends EPackage {
     int CONSTRAINT__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONSTRAINT__ID = MODEL_ELEMENT__ID;
+
+    /**
      * The feature id for the '<em><b>Body</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -3488,6 +3596,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int DEPENDENCY__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DEPENDENCY__ID = MODEL_ELEMENT__ID;
 
     /**
      * The feature id for the '<em><b>Kind</b></em>' attribute. <!--
@@ -3878,6 +3995,15 @@ public interface CorePackage extends EPackage {
      * @ordered
      */
     int STEREOTYPE__DASDL_PROPERTY = MODEL_ELEMENT__DASDL_PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int STEREOTYPE__ID = MODEL_ELEMENT__ID;
 
     /**
      * The feature id for the '<em><b>Base Class</b></em>' attribute. <!--
@@ -4314,6 +4440,17 @@ public interface CorePackage extends EPackage {
      * @generated
      */
     EReference getModelElement_DasdlProperty();
+
+    /**
+     * Returns the meta object for the attribute '{@link orgomg.cwm.objectmodel.core.ModelElement#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see orgomg.cwm.objectmodel.core.ModelElement#getId()
+     * @see #getModelElement()
+     * @generated
+     */
+    EAttribute getModelElement_Id();
 
     /**
      * Returns the meta object for class '
@@ -5417,6 +5554,14 @@ public interface CorePackage extends EPackage {
          * @generated
          */
         EReference MODEL_ELEMENT__DASDL_PROPERTY = eINSTANCE.getModelElement_DasdlProperty();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MODEL_ELEMENT__ID = eINSTANCE.getModelElement_Id();
 
         /**
          * The meta object literal for the '

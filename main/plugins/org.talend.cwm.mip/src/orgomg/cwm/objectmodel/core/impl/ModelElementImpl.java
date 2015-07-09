@@ -13,10 +13,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import orgomg.cwm.analysis.businessnomenclature.BusinessnomenclaturePackage;
 import orgomg.cwm.analysis.businessnomenclature.VocabularyElement;
 import orgomg.cwm.analysis.informationvisualization.InformationvisualizationPackage;
@@ -44,30 +46,30 @@ import orgomg.cwmx.resource.dmsii.DASDLProperty;
 import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Model Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Model Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getName <em>Name</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getVisibility <em>Visibility</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getClientDependency <em>Client Dependency</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getSupplierDependency <em>Supplier Dependency</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getNamespace <em>Namespace</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getImporter <em>Importer</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getStereotype <em>Stereotype</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getTaggedValue <em>Tagged Value</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getDocument <em>Document</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getResponsibleParty <em>Responsible Party</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getElementNode <em>Element Node</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getSet <em>Set</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getRenderedObject <em>Rendered Object</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getVocabularyElement <em>Vocabulary Element</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getMeasurement <em>Measurement</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getChangeRequest <em>Change Request</em>}</li>
- *   <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getDasdlProperty <em>Dasdl Property</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getName <em>Name</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getVisibility <em>Visibility</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getClientDependency <em>Client Dependency</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getSupplierDependency <em>Supplier Dependency</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getConstraint <em>Constraint</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getNamespace <em>Namespace</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getImporter <em>Importer</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getStereotype <em>Stereotype</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getTaggedValue <em>Tagged Value</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getDocument <em>Document</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getResponsibleParty <em>Responsible Party</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getElementNode <em>Element Node</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getSet <em>Set</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getRenderedObject <em>Rendered Object</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getVocabularyElement <em>Vocabulary Element</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getMeasurement <em>Measurement</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getChangeRequest <em>Change Request</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getDasdlProperty <em>Dasdl Property</em>}</li>
+ * <li>{@link orgomg.cwm.objectmodel.core.impl.ModelElementImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,8 +78,9 @@ import orgomg.cwmx.resource.dmsii.DmsiiPackage;
 public abstract class ModelElementImpl extends ElementImpl implements ModelElement {
 
     /**
-     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getName()
      * @generated
      * @ordered
@@ -85,8 +88,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected static final String NAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getName()
      * @generated
      * @ordered
@@ -94,8 +98,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The default value of the '{@link #getVisibility() <em>Visibility</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getVisibility()
      * @generated
      * @ordered
@@ -103,8 +108,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected static final VisibilityKind VISIBILITY_EDEFAULT = VisibilityKind.VK_PUBLIC;
 
     /**
-     * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getVisibility() <em>Visibility</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getVisibility()
      * @generated
      * @ordered
@@ -112,9 +118,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected VisibilityKind visibility = VISIBILITY_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getClientDependency() <em>Client Dependency</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getClientDependency() <em>Client Dependency</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getClientDependency()
      * @generated
      * @ordered
@@ -122,9 +128,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<Dependency> clientDependency;
 
     /**
-     * The cached value of the '{@link #getSupplierDependency() <em>Supplier Dependency</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getSupplierDependency() <em>Supplier Dependency</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getSupplierDependency()
      * @generated
      * @ordered
@@ -132,8 +138,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<Dependency> supplierDependency;
 
     /**
-     * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' reference list. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
      * @see #getConstraint()
      * @generated
      * @ordered
@@ -141,8 +148,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<Constraint> constraint;
 
     /**
-     * The cached value of the '{@link #getImporter() <em>Importer</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getImporter() <em>Importer</em>}' reference list. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getImporter()
      * @generated
      * @ordered
@@ -150,8 +158,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<orgomg.cwm.objectmodel.core.Package> importer;
 
     /**
-     * The cached value of the '{@link #getStereotype() <em>Stereotype</em>}' reference.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getStereotype() <em>Stereotype</em>}' reference. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getStereotype()
      * @generated
      * @ordered
@@ -159,8 +168,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected Stereotype stereotype;
 
     /**
-     * The cached value of the '{@link #getTaggedValue() <em>Tagged Value</em>}' containment reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getTaggedValue() <em>Tagged Value</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getTaggedValue()
      * @generated
      * @ordered
@@ -168,8 +178,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<TaggedValue> taggedValue;
 
     /**
-     * The cached value of the '{@link #getDocument() <em>Document</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getDocument() <em>Document</em>}' reference list. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getDocument()
      * @generated
      * @ordered
@@ -177,8 +188,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<Document> document;
 
     /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' reference list. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -186,9 +198,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<Description> description;
 
     /**
-     * The cached value of the '{@link #getResponsibleParty() <em>Responsible Party</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getResponsibleParty() <em>Responsible Party</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getResponsibleParty()
      * @generated
      * @ordered
@@ -196,8 +208,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<ResponsibleParty> responsibleParty;
 
     /**
-     * The cached value of the '{@link #getElementNode() <em>Element Node</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getElementNode() <em>Element Node</em>}' reference list. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
      * @see #getElementNode()
      * @generated
      * @ordered
@@ -205,8 +218,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<ElementNode> elementNode;
 
     /**
-     * The cached value of the '{@link #getSet() <em>Set</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getSet() <em>Set</em>}' reference list. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getSet()
      * @generated
      * @ordered
@@ -214,9 +228,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<DataObjectSet> set;
 
     /**
-     * The cached value of the '{@link #getRenderedObject() <em>Rendered Object</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getRenderedObject() <em>Rendered Object</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getRenderedObject()
      * @generated
      * @ordered
@@ -224,9 +238,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<RenderedObject> renderedObject;
 
     /**
-     * The cached value of the '{@link #getVocabularyElement() <em>Vocabulary Element</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getVocabularyElement() <em>Vocabulary Element</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getVocabularyElement()
      * @generated
      * @ordered
@@ -234,8 +248,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<VocabularyElement> vocabularyElement;
 
     /**
-     * The cached value of the '{@link #getMeasurement() <em>Measurement</em>}' reference list.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getMeasurement() <em>Measurement</em>}' reference list. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
      * @see #getMeasurement()
      * @generated
      * @ordered
@@ -243,9 +258,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<Measurement> measurement;
 
     /**
-     * The cached value of the '{@link #getChangeRequest() <em>Change Request</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getChangeRequest() <em>Change Request</em>}' reference list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getChangeRequest()
      * @generated
      * @ordered
@@ -253,9 +268,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<ChangeRequest> changeRequest;
 
     /**
-     * The cached value of the '{@link #getDasdlProperty() <em>Dasdl Property</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The cached value of the '{@link #getDasdlProperty() <em>Dasdl Property</em>}' reference list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     * 
      * @see #getDasdlProperty()
      * @generated
      * @ordered
@@ -263,7 +278,26 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     protected EList<DASDLProperty> dasdlProperty;
 
     /**
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected static final String ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected String id = ID_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ModelElementImpl() {
@@ -272,6 +306,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -281,47 +316,59 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public String getName() {
         return name;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public void setName(String newName) {
         String oldName = name;
         name = newName;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MODEL_ELEMENT__NAME, oldName, name));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public VisibilityKind getVisibility() {
         return visibility;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public void setVisibility(VisibilityKind newVisibility) {
         VisibilityKind oldVisibility = visibility;
         visibility = newVisibility == null ? VISIBILITY_EDEFAULT : newVisibility;
-        if (eNotificationRequired())
+        if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MODEL_ELEMENT__VISIBILITY, oldVisibility,
                     visibility));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<Dependency> getClientDependency() {
         if (clientDependency == null) {
             clientDependency = new EObjectWithInverseResolvingEList.ManyInverse<Dependency>(Dependency.class, this,
@@ -332,8 +379,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<Dependency> getSupplierDependency() {
         if (supplierDependency == null) {
             supplierDependency = new EObjectWithInverseResolvingEList.ManyInverse<Dependency>(Dependency.class, this,
@@ -344,8 +393,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<Constraint> getConstraint() {
         if (constraint == null) {
             constraint = new EObjectWithInverseResolvingEList.ManyInverse<Constraint>(Constraint.class, this,
@@ -356,16 +407,20 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public Namespace getNamespace() {
-        if (eContainerFeatureID() != CorePackage.MODEL_ELEMENT__NAMESPACE)
+        if (eContainerFeatureID() != CorePackage.MODEL_ELEMENT__NAMESPACE) {
             return null;
-        return (Namespace) eContainer();
+        }
+        return (Namespace) eInternalContainer();
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public NotificationChain basicSetNamespace(Namespace newNamespace, NotificationChain msgs) {
@@ -375,31 +430,40 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public void setNamespace(Namespace newNamespace) {
         if (newNamespace != eInternalContainer()
                 || (eContainerFeatureID() != CorePackage.MODEL_ELEMENT__NAMESPACE && newNamespace != null)) {
-            if (EcoreUtil.isAncestor(this, newNamespace))
+            if (EcoreUtil.isAncestor(this, newNamespace)) {
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            }
             NotificationChain msgs = null;
-            if (eInternalContainer() != null)
+            if (eInternalContainer() != null) {
                 msgs = eBasicRemoveFromContainer(msgs);
-            if (newNamespace != null)
+            }
+            if (newNamespace != null) {
                 msgs = ((InternalEObject) newNamespace).eInverseAdd(this, CorePackage.NAMESPACE__OWNED_ELEMENT, Namespace.class,
                         msgs);
+            }
             msgs = basicSetNamespace(newNamespace, msgs);
-            if (msgs != null)
+            if (msgs != null) {
                 msgs.dispatch();
-        } else if (eNotificationRequired())
+            }
+        } else if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MODEL_ELEMENT__NAMESPACE, newNamespace,
                     newNamespace));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<orgomg.cwm.objectmodel.core.Package> getImporter() {
         if (importer == null) {
             importer = new EObjectWithInverseResolvingEList.ManyInverse<orgomg.cwm.objectmodel.core.Package>(
@@ -411,16 +475,19 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public Stereotype getStereotype() {
         if (stereotype != null && stereotype.eIsProxy()) {
             InternalEObject oldStereotype = (InternalEObject) stereotype;
             stereotype = (Stereotype) eResolveProxy(oldStereotype);
             if (stereotype != oldStereotype) {
-                if (eNotificationRequired())
+                if (eNotificationRequired()) {
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, CorePackage.MODEL_ELEMENT__STEREOTYPE,
                             oldStereotype, stereotype));
+                }
             }
         }
         return stereotype;
@@ -428,6 +495,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public Stereotype basicGetStereotype() {
@@ -436,6 +504,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public NotificationChain basicSetStereotype(Stereotype newStereotype, NotificationChain msgs) {
@@ -444,39 +513,48 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         if (eNotificationRequired()) {
             ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CorePackage.MODEL_ELEMENT__STEREOTYPE,
                     oldStereotype, newStereotype);
-            if (msgs == null)
+            if (msgs == null) {
                 msgs = notification;
-            else
+            } else {
                 msgs.add(notification);
+            }
         }
         return msgs;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public void setStereotype(Stereotype newStereotype) {
         if (newStereotype != stereotype) {
             NotificationChain msgs = null;
-            if (stereotype != null)
+            if (stereotype != null) {
                 msgs = ((InternalEObject) stereotype).eInverseRemove(this, CorePackage.STEREOTYPE__EXTENDED_ELEMENT,
                         Stereotype.class, msgs);
-            if (newStereotype != null)
+            }
+            if (newStereotype != null) {
                 msgs = ((InternalEObject) newStereotype).eInverseAdd(this, CorePackage.STEREOTYPE__EXTENDED_ELEMENT,
                         Stereotype.class, msgs);
+            }
             msgs = basicSetStereotype(newStereotype, msgs);
-            if (msgs != null)
+            if (msgs != null) {
                 msgs.dispatch();
-        } else if (eNotificationRequired())
+            }
+        } else if (eNotificationRequired()) {
             eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MODEL_ELEMENT__STEREOTYPE, newStereotype,
                     newStereotype));
+        }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<TaggedValue> getTaggedValue() {
         if (taggedValue == null) {
             taggedValue = new EObjectContainmentWithInverseEList<TaggedValue>(TaggedValue.class, this,
@@ -487,8 +565,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<Document> getDocument() {
         if (document == null) {
             document = new EObjectWithInverseResolvingEList.ManyInverse<Document>(Document.class, this,
@@ -499,8 +579,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<Description> getDescription() {
         if (description == null) {
             description = new EObjectWithInverseResolvingEList.ManyInverse<Description>(Description.class, this,
@@ -511,8 +593,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<ResponsibleParty> getResponsibleParty() {
         if (responsibleParty == null) {
             responsibleParty = new EObjectWithInverseResolvingEList.ManyInverse<ResponsibleParty>(ResponsibleParty.class, this,
@@ -523,8 +607,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<ElementNode> getElementNode() {
         if (elementNode == null) {
             elementNode = new EObjectWithInverseResolvingEList<ElementNode>(ElementNode.class, this,
@@ -535,8 +621,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<DataObjectSet> getSet() {
         if (set == null) {
             set = new EObjectWithInverseResolvingEList.ManyInverse<DataObjectSet>(DataObjectSet.class, this,
@@ -547,8 +635,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<RenderedObject> getRenderedObject() {
         if (renderedObject == null) {
             renderedObject = new EObjectWithInverseResolvingEList<RenderedObject>(RenderedObject.class, this,
@@ -559,8 +649,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<VocabularyElement> getVocabularyElement() {
         if (vocabularyElement == null) {
             vocabularyElement = new EObjectWithInverseResolvingEList.ManyInverse<VocabularyElement>(VocabularyElement.class,
@@ -572,8 +664,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<Measurement> getMeasurement() {
         if (measurement == null) {
             measurement = new EObjectWithInverseResolvingEList<Measurement>(Measurement.class, this,
@@ -584,8 +678,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<ChangeRequest> getChangeRequest() {
         if (changeRequest == null) {
             changeRequest = new EObjectWithInverseResolvingEList.ManyInverse<ChangeRequest>(ChangeRequest.class, this,
@@ -596,8 +692,10 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
+    @Override
     public EList<DASDLProperty> getDasdlProperty() {
         if (dasdlProperty == null) {
             dasdlProperty = new EObjectWithInverseResolvingEList<DASDLProperty>(DASDLProperty.class, this,
@@ -607,7 +705,48 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
     }
 
     /**
+     * <!-- begin-user-doc --> Id represents the unique model in bussiness word, it distinguishes with UUID that it
+     * identifies unique businuss object but UUID identifies an object instance technially. <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
+    @Override
+    public String getId() {
+        if (id == null || "".equals(id.trim())) {
+            id = getUUID();
+        }
+        return id;
+    }
+
+    private String getUUID() {
+        if (eIsProxy()) {
+            return ((InternalEObject) this).eProxyURI().fragment();
+        }
+        Resource resource = eResource();
+        if (resource == null || !(resource instanceof XMLResource)) {
+            return null;
+        }
+        XMLResource xmlResource = (XMLResource) resource;
+        return xmlResource.getID(this);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
+    public void setId(String newId) {
+        String oldId = id;
+        id = newId;
+        if (eNotificationRequired()) {
+            eNotify(new ENotificationImpl(this, Notification.SET, CorePackage.MODEL_ELEMENT__ID, oldId, id));
+        }
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -621,15 +760,17 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         case CorePackage.MODEL_ELEMENT__CONSTRAINT:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getConstraint()).basicAdd(otherEnd, msgs);
         case CorePackage.MODEL_ELEMENT__NAMESPACE:
-            if (eInternalContainer() != null)
+            if (eInternalContainer() != null) {
                 msgs = eBasicRemoveFromContainer(msgs);
+            }
             return basicSetNamespace((Namespace) otherEnd, msgs);
         case CorePackage.MODEL_ELEMENT__IMPORTER:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getImporter()).basicAdd(otherEnd, msgs);
         case CorePackage.MODEL_ELEMENT__STEREOTYPE:
-            if (stereotype != null)
+            if (stereotype != null) {
                 msgs = ((InternalEObject) stereotype).eInverseRemove(this, CorePackage.STEREOTYPE__EXTENDED_ELEMENT,
                         Stereotype.class, msgs);
+            }
             return basicSetStereotype((Stereotype) otherEnd, msgs);
         case CorePackage.MODEL_ELEMENT__TAGGED_VALUE:
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getTaggedValue()).basicAdd(otherEnd, msgs);
@@ -659,6 +800,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -704,6 +846,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -717,6 +860,7 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -737,8 +881,9 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         case CorePackage.MODEL_ELEMENT__IMPORTER:
             return getImporter();
         case CorePackage.MODEL_ELEMENT__STEREOTYPE:
-            if (resolve)
+            if (resolve) {
                 return getStereotype();
+            }
             return basicGetStereotype();
         case CorePackage.MODEL_ELEMENT__TAGGED_VALUE:
             return getTaggedValue();
@@ -762,12 +907,15 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
             return getChangeRequest();
         case CorePackage.MODEL_ELEMENT__DASDL_PROPERTY:
             return getDasdlProperty();
+        case CorePackage.MODEL_ELEMENT__ID:
+            return getId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -846,12 +994,16 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
             getDasdlProperty().clear();
             getDasdlProperty().addAll((Collection<? extends DASDLProperty>) newValue);
             return;
+        case CorePackage.MODEL_ELEMENT__ID:
+            setId((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -914,12 +1066,16 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
         case CorePackage.MODEL_ELEMENT__DASDL_PROPERTY:
             getDasdlProperty().clear();
             return;
+        case CorePackage.MODEL_ELEMENT__ID:
+            setId(ID_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
@@ -963,24 +1119,30 @@ public abstract class ModelElementImpl extends ElementImpl implements ModelEleme
             return changeRequest != null && !changeRequest.isEmpty();
         case CorePackage.MODEL_ELEMENT__DASDL_PROPERTY:
             return dasdlProperty != null && !dasdlProperty.isEmpty();
+        case CorePackage.MODEL_ELEMENT__ID:
+            return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     @Override
     public String toString() {
-        if (eIsProxy())
+        if (eIsProxy()) {
             return super.toString();
+        }
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (name: ");
         result.append(name);
         result.append(", visibility: ");
         result.append(visibility);
+        result.append(", id: ");
+        result.append(id);
         result.append(')');
         return result.toString();
     }

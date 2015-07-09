@@ -710,6 +710,15 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getModelElement_Id() {
+        return (EAttribute) modelElementEClass.getEStructuralFeatures().get(19);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1462,6 +1471,7 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
         createEReference(modelElementEClass, MODEL_ELEMENT__MEASUREMENT);
         createEReference(modelElementEClass, MODEL_ELEMENT__CHANGE_REQUEST);
         createEReference(modelElementEClass, MODEL_ELEMENT__DASDL_PROPERTY);
+        createEAttribute(modelElementEClass, MODEL_ELEMENT__ID);
 
         namespaceEClass = createEClass(NAMESPACE);
         createEReference(namespaceEClass, NAMESPACE__OWNED_ELEMENT);
@@ -1725,6 +1735,8 @@ public class CorePackageImpl extends EPackageImpl implements CorePackage {
                 theDmsiiPackage.getDASDLProperty_Owner(), "dasdlProperty", null, 0, -1, ModelElement.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                 IS_ORDERED);
+        initEAttribute(getModelElement_Id(), ecorePackage.getEString(), "id", null, 0, 1, ModelElement.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(namespaceEClass, Namespace.class, "Namespace", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNamespace_OwnedElement(), this.getModelElement(), this.getModelElement_Namespace(), "ownedElement",

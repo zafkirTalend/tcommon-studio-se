@@ -46,8 +46,7 @@ public class CoreFactoryImpl extends EFactoryImpl implements CoreFactory {
      */
     public static CoreFactory init() {
         try {
-            CoreFactory theCoreFactory = (CoreFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http:///orgomg/cwm/objectmodel/core.ecore");
+            CoreFactory theCoreFactory = (CoreFactory) EPackage.Registry.INSTANCE.getEFactory(CorePackage.eNS_URI);
             if (theCoreFactory != null) {
                 return theCoreFactory;
             }

@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import orgomg.cwm.objectmodel.core.ModelElement;
+import orgomg.cwm.objectmodel.core.util.CoreSwitch;
 
 /**
  * @author scorreia
@@ -26,6 +28,14 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
  * Helper on resources.
  */
 public final class ResourceHelper {
+
+    public static final CoreSwitch<ModelElement> MODELEMENT = new CoreSwitch<ModelElement>() {
+
+        @Override
+        public ModelElement caseModelElement(ModelElement object) {
+            return object;
+        };
+    };
 
     private ResourceHelper() {
     }
@@ -42,6 +52,10 @@ public final class ResourceHelper {
         }
         if (object.eIsProxy()) {
             return ((InternalEObject) object).eProxyURI().fragment();
+        }
+        // MOD TDQ-10626 mzhao 2015-7-7
+        if (MODELEMENT.doSwitch(object) != null) {
+            return ((ModelElement) object).getId();
         }
         Resource resource = object.eResource();
         if (resource == null || !(resource instanceof XMLResource)) {

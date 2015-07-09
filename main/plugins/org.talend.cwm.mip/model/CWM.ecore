@@ -150,6 +150,7 @@
               <details key="documentation" value="Identifies the DASDLProperties that apply to a ModelElement."/>
             </eAnnotations>
           </eStructuralFeatures>
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Namespace" abstract="true" eSuperTypes="#//cwm/objectmodel/core/ModelElement">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
