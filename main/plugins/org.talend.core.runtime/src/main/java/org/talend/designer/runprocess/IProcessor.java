@@ -323,4 +323,9 @@ public interface IProcessor {
 
     void setArguments(Map<String, Object> argumentsMap);
 
+    /**
+     * Clean the working directory which can be created by the run method.
+     */
+    void cleanWorkingDirectory() throws SecurityException;
+
 }
