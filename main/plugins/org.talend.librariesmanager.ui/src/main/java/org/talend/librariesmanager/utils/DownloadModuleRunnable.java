@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.librariesmanager.utils;
 
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,8 +81,10 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                         Messages.getString("ExternalModulesInstallDialog.downloading2") + " (" + toDownload.size() + ")", toDownload.size() + 1); //$NON-NLS-1$
 
         Map<String, String> customUriToAdd = new HashMap<String, String>();
+        // TUP-3135 : stop to try to download at the first timeout.
+        boolean connectionTimeOut = false;
         for (final ModuleToInstall module : toDownload) {
-            if (!monitor.isCanceled()) {
+            if (!monitor.isCanceled() && !connectionTimeOut) {
                 monitor.subTask(module.getName());
                 boolean accepted;
                 try {
@@ -93,15 +96,17 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                         subMonitor.worked(1);
                         continue;
                     }
-                    if (monitor.isCanceled()) {
-                        return;
-                    }
                     NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
                     downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
                     // deploy to index as snapshot
                     String snapshotUri = MavenUrlHelper.generateSnapshotMavenUri(module.getMavenUri());
                     customUriToAdd.put(module.getName(), snapshotUri);
                     installedModules.add(module.getName());
+                } catch (SocketTimeoutException e) {
+                    downloadFailed.add(module.getName());
+                    connectionTimeOut = true;
+                    ExceptionHandler.process(e);
+                    continue;
                 } catch (Exception e) {
                     downloadFailed.add(module.getName());
                     ExceptionHandler.process(e);
