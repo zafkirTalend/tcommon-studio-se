@@ -12,24 +12,18 @@
 // ============================================================================
 package org.talend.themes.core.elements.stylesettings;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
-import org.talend.themes.core.elements.interfaces.ICSSStylingChangedListener;
 
 /**
  * created by cmeng on Jan 30, 2015 Detailled comment
  *
  */
 public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
-
-    protected List<ICSSStylingChangedListener> stylingChangeListeners = new ArrayList<ICSSStylingChangedListener>();
 
     protected Color mouseOverForgroundColor1;
 
@@ -174,18 +168,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     private static int getNewValue(int oldValue, int increment) {
         int result = oldValue - increment;
         return (result > 0 ? result : 0);
-    }
-
-    public void addStylingChangeListener(ICSSStylingChangedListener listener) {
-        if (!stylingChangeListeners.contains(listener)) {
-            stylingChangeListeners.add(listener);
-        }
-    }
-
-    public void applyChange() {
-        for (ICSSStylingChangedListener listener : stylingChangeListeners) {
-            listener.applyChange(this);
-        }
     }
 
     /**
@@ -725,24 +707,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
     public void setCollapseNotExpandedLineForgroundColor(Color collapseNotExpandedLineForgroundColor) {
 
         this.collapseNotExpandedLineForgroundColor = collapseNotExpandedLineForgroundColor;
-    }
-
-    /**
-     * Getter for stylingChangeListeners.
-     * 
-     * @return the stylingChangeListeners
-     */
-    public List<ICSSStylingChangedListener> getStylingChangeListeners() {
-        return this.stylingChangeListeners;
-    }
-
-    /**
-     * Sets the stylingChangeListeners.
-     * 
-     * @param stylingChangeListeners the stylingChangeListeners to set
-     */
-    public void setStylingChangeListeners(List<ICSSStylingChangedListener> stylingChangeListeners) {
-        this.stylingChangeListeners = stylingChangeListeners;
     }
 
     /**
