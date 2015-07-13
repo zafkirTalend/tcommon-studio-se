@@ -12,16 +12,12 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.json;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.datatools.xml.utils.ATreeNode;
 
 /**
@@ -95,37 +91,53 @@ public class JsonTreePopulator extends AbstractTreePopulator {
         if (fileValue == null || !fileValue.exists() || !fileValue.isFile()) {
             return false;
         }
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-        try {
-            fileReader = new FileReader(fileValue);
-            bufferedReader = new BufferedReader(fileReader);
-            String line = null;
-            StringBuffer jsonBuffer = new StringBuffer();
-            while ((line = bufferedReader.readLine()) != null) {
-                jsonBuffer.append(line).append("\n"); //$NON-NLS-1$
-            }
-            return populateTree(treeNode, selectedEntity, jsonBuffer.toString());
-        } catch (Exception e) {
-            CommonExceptionHandler.process(e);
-            return false;
-        } finally {
-            if (fileReader != null) {
-                try {
-                    fileReader.close();
-                } catch (IOException e) {
-                    // nothing need to do
-                }
-            }
-
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    // nothing need to do
-                }
-            }
+        if (selectedEntity instanceof JsonTreeNode) {
+            SchemaPopulationUtil.fetchTreeNode((JsonTreeNode) selectedEntity, 1);
+            treeNode = (ATreeNode) selectedEntity;
+        } else {
+            treeNode = SchemaPopulationUtil.getSchemaTree(fileValue, limit);
         }
+        if (treeNode == null) {
+            return false;
+        } else {
+            List<JsonTreeNode> input = new ArrayList<JsonTreeNode>();
+            input.add((JsonTreeNode) treeNode);
+            treeViewer.setInput(input);
+            treeViewer.expandToLevel(3);
+        }
+        return true;
+
+        // FileReader fileReader = null;
+        // BufferedReader bufferedReader = null;
+        // try {
+        // fileReader = new FileReader(fileValue);
+        // bufferedReader = new BufferedReader(fileReader);
+        // String line = null;
+        // StringBuffer jsonBuffer = new StringBuffer();
+        // while ((line = bufferedReader.readLine()) != null) {
+        //                jsonBuffer.append(line).append("\n"); //$NON-NLS-1$
+        // }
+        // return populateTree(treeNode, selectedEntity, jsonBuffer.toString());
+        // } catch (Exception e) {
+        // CommonExceptionHandler.process(e);
+        // return false;
+        // } finally {
+        // if (fileReader != null) {
+        // try {
+        // fileReader.close();
+        // } catch (IOException e) {
+        // // nothing need to do
+        // }
+        // }
+        //
+        // if (bufferedReader != null) {
+        // try {
+        // bufferedReader.close();
+        // } catch (IOException e) {
+        // // nothing need to do
+        // }
+        // }
+        // }
     }
 
     @Override

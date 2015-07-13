@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.ui.wizards.metadata.connection.files.json;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -59,6 +60,22 @@ public class SchemaPopulationUtil {
             }
         }
         return null;
+    }
+
+    public static JsonTreeNode getSchemaTree(File jsonFile, int numberOfElementsAccessiable) {
+        JsonTreeNode jsonTreeNode = null;
+        try {
+            ObjectMapper objMapper = new ObjectMapper();
+            JsonNode jsonNode = objMapper.readTree(jsonFile);
+            jsonTreeNode = new JsonTreeNode();
+            jsonTreeNode.addValue(jsonNode);
+            jsonTreeNode.setLabel("$"); //$NON-NLS-1$
+            jsonTreeNode.setJsonPath("$"); //$NON-NLS-1$
+            fetchTreeNode(jsonTreeNode, numberOfElementsAccessiable - 1);
+        } catch (IOException e) {
+            CommonExceptionHandler.process(e);
+        }
+        return jsonTreeNode;
     }
 
     public static JsonTreeNode getSchemaTree(String jsonString, int numberOfElementsAccessiable) {
