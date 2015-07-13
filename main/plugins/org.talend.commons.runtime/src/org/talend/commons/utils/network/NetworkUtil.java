@@ -128,6 +128,7 @@ public class NetworkUtil {
         try {
             Field theAuthenticatorField = Authenticator.class.getDeclaredField("theAuthenticator");
             if (theAuthenticatorField != null) {
+                theAuthenticatorField.setAccessible(true);
                 Authenticator setAuthenticator = (Authenticator) theAuthenticatorField.get(null);
                 return setAuthenticator;
             }
