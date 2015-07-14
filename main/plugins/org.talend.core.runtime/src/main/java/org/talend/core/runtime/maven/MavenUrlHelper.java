@@ -14,7 +14,6 @@ package org.talend.core.runtime.maven;
 
 import org.eclipse.core.runtime.Assert;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.VersionUtils;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -133,10 +132,13 @@ public class MavenUrlHelper {
                     }
                 }
             }
-            String currentVersion = VersionUtils.getTalendVersion();
-            if (currentVersion == null) {
-                currentVersion = MavenConstants.DEFAULT_VERSION;
-            }
+
+            // fix for TUP-3276 , only use the defult version 6.0.0 now in the maven uri
+            // String currentVersion = VersionUtils.getTalendVersion();
+            // if (currentVersion == null) {
+            // currentVersion = MavenConstants.DEFAULT_VERSION;
+            // }
+            String currentVersion = MavenConstants.DEFAULT_VERSION;
             if (snapshots) {
                 currentVersion = currentVersion + MavenConstants.SNAPSHOT;
             }
