@@ -297,6 +297,12 @@ public class GenericSchemaWizard extends CheckLastVersionRepositoryWizard implem
             pathToSave = null;
         }
 
+        if (!creation) {
+            if (ConnectionHelper.getTables(connectionItem.getConnection()).isEmpty()) {
+                this.isSinglePageOnly = true;
+            }
+        }
+
         if (creation) {
             setWindowTitle(Messages.getString("GenericSchemaWizard.CreateNewGenericSchema"));// Messages.getString( //$NON-NLS-1$
             // "DelimitedFileWizard.windowTitleCreate"
