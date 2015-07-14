@@ -704,6 +704,16 @@ public final class ProcessUtils {
         return null;
     }
 
+    public static int getAssertAmount(IProcess process) {
+        List<INode> nodes = new ArrayList<INode>();
+        for (INode node : process.getGraphicalNodes()) {
+            if (node.getComponent().getName().equals("tAssert")) {
+                nodes.add(node);
+            }
+        }
+        return nodes.size();
+    }
+
     public static List<String> getTestData(IProcess process, String instanceName) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
