@@ -69,8 +69,12 @@ public class SchemaPopulationUtil {
             JsonNode jsonNode = objMapper.readTree(jsonFile);
             jsonTreeNode = new JsonTreeNode();
             jsonTreeNode.addValue(jsonNode);
-            jsonTreeNode.setLabel("$"); //$NON-NLS-1$
-            jsonTreeNode.setJsonPath("$"); //$NON-NLS-1$
+            String label = "$"; //$NON-NLS-1$
+            if (jsonNode.isArray()) {
+                label = label + "[*]"; //$NON-NLS-1$
+            }
+            jsonTreeNode.setLabel(label);
+            jsonTreeNode.setJsonPath(label);
             fetchTreeNode(jsonTreeNode, numberOfElementsAccessiable - 1);
         } catch (IOException e) {
             CommonExceptionHandler.process(e);
@@ -85,8 +89,12 @@ public class SchemaPopulationUtil {
             JsonNode jsonNode = objMapper.readTree(jsonString);
             jsonTreeNode = new JsonTreeNode();
             jsonTreeNode.addValue(jsonNode);
-            jsonTreeNode.setLabel("$"); //$NON-NLS-1$
-            jsonTreeNode.setJsonPath("$"); //$NON-NLS-1$
+            String label = "$"; //$NON-NLS-1$
+            if (jsonNode.isArray()) {
+                label = label + "[*]"; //$NON-NLS-1$
+            }
+            jsonTreeNode.setLabel(label);
+            jsonTreeNode.setJsonPath(label);
             fetchTreeNode(jsonTreeNode, numberOfElementsAccessiable - 1);
         } catch (IOException e) {
             CommonExceptionHandler.process(e);
