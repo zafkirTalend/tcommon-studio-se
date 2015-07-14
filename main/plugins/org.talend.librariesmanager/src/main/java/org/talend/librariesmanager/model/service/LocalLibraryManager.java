@@ -13,6 +13,8 @@
 package org.talend.librariesmanager.model.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
@@ -1068,4 +1071,53 @@ public class LocalLibraryManager implements ILibraryManagerService {
         return missingJarObservable;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerService#synToLocalMaven()
+     */
+    @Override
+    public void synToLocalMaven() {
+        File libDirectory = getStorageDirectory();
+        Map<String, String> customUriToAdd = new HashMap<String, String>();
+        for (File svnLibFile : libDirectory.listFiles()) {
+            if (svnLibFile.isFile()) {
+                String jarName = svnLibFile.getName();
+                EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex()
+                        .getJarsToRelativePath();
+                Map<String, String> mavenUriToCheck = new HashMap<String, String>();
+                mavenUriToCheck.putAll(jarsToMavenUri.map());
+                mavenUriToCheck.putAll(mavenUriFromExtensions);
+                String mvnUri = mavenUriToCheck.get(jarName);
+                if (mvnUri == null) {
+                    customUriToAdd.put(jarName, mvnUri);
+                    mvnUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
+                }
+                boolean installed = checkJarInstalledInMaven(mvnUri);
+                if (installed) {
+                    File jarInMaven = new File(mavenJarInstalled.get(mvnUri));
+                    try {
+                        String mavenLibMD5 = DigestUtils.md5Hex(new FileInputStream(jarInMaven));
+                        String svnLibMD5 = DigestUtils.md5Hex(new FileInputStream(svnLibFile));
+                        // check the md5 to see if jar is updated
+                        if (mavenLibMD5 != null && !mavenLibMD5.equals(svnLibMD5)) {
+                            deployer.deployToLocalMaven(svnLibFile.getAbsolutePath(), mvnUri);
+                        }
+                        // System.out.println("mavenLibMD5 : " + mavenLibMD5);
+                        // System.out.println("svnLibMD5 : " + svnLibMD5);
+                    } catch (FileNotFoundException e) {
+                        ExceptionHandler.process(e);
+                    } catch (IOException e) {
+                        ExceptionHandler.process(e);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+
+            }
+            if (!customUriToAdd.isEmpty()) {
+                deployMavenIndex(customUriToAdd);
+            }
+        }
+    }
 }
