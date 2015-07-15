@@ -7,14 +7,14 @@
             context="plugin:org.talend.libraries.apache.cassandra"
             id="cassandra-driver-core-2.0.3.jar"
             language="java"
-            name="cassandra-driver-core-2.0.3.jar"
+            name="cassandra-driver-core-2.0.3.jar" mvn_uri="mvn:org.talend.libraries/cassandra-driver-core-2.0.3/6.0.0" 
             required="true">
       </libraryNeeded>
       <libraryNeeded
             context="plugin:org.talend.libraries.apache.cassandra"
             id="metrics-core-3.0.2.jar"
             language="java"
-            name="metrics-core-3.0.2.jar"
+            name="metrics-core-3.0.2.jar" mvn_uri="mvn:org.talend.libraries/metrics-core-3.0.2/6.0.0" 
             required="true">
       </libraryNeeded>
    </extension>

@@ -6,7 +6,7 @@
               context="plugin:org.talend.libraries.nattable"
               language="java"
               message="Needed for context nattable"
-              name="glazedlists_java15-1.9.0.jar"
+              name="glazedlists_java15-1.9.0.jar" mvn_uri="mvn:org.talend.libraries/glazedlists_java15-1.9.0/6.0.0" 
               required="true">
         </libraryNeeded>
     </extension>
