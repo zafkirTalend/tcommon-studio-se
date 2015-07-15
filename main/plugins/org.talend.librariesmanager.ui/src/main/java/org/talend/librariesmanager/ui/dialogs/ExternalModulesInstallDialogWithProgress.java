@@ -15,8 +15,10 @@ package org.talend.librariesmanager.ui.dialogs;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -673,8 +675,13 @@ public class ExternalModulesInstallDialogWithProgress extends ExternalModulesIns
             return;
         }
         // fork = !block;
+        // remove duplicated
+        Set<String> removeDuplicated = new HashSet<String>();
+        for (String jarName : requiredJars) {
+            removeDuplicated.add(jarName.trim());
+        }
         IRunnableWithProgress notInstalledModulesRunnable = RemoteModulesHelper.getInstance().getNotInstalledModulesRunnable(
-                requiredJars, inputList);
+                removeDuplicated.toArray(new String[removeDuplicated.size()]), inputList);
         setBlockOnOpen(block);
         setInitialRunnable(notInstalledModulesRunnable);
         open();
