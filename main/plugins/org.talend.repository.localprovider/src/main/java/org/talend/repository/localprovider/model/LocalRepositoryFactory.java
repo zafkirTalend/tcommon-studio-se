@@ -1672,7 +1672,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             if (!(item instanceof ConnectionItem) || !ProjectRepositoryNode.getInstance().hasDeletedSubItem((ConnectionItem)item)) {
                 RecycleBinManager.getInstance().removeFromRecycleBin(getRepositoryContext().getProject(), item);
             } else {
-                RecycleBinManager.getInstance().updateRecycleBin(getRepositoryContext().getProject());
+                RecycleBinManager.getInstance().saveRecycleBin(getRepositoryContext().getProject());
             }
         }
     }

@@ -68,6 +68,12 @@ public class RecycleBinManager {
         return new ArrayList<String>(project.getEmfProject().getDeletedFolders());
     }
 
+    public void clearIndex(Project project) {
+        loadRecycleBin(project);
+        projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems().clear();
+        saveRecycleBin(project);
+    }
+
     public List<IRepositoryViewObject> getDeletedObjects(Project project) {
         loadRecycleBin(project);
         List<IRepositoryViewObject> deletedObjects = new ArrayList<IRepositoryViewObject>();
@@ -84,6 +90,10 @@ public class RecycleBinManager {
     }
 
     public void addToRecycleBin(Project project, Item item) {
+        addToRecycleBin(project, item, false);
+    }
+
+    public void addToRecycleBin(Project project, Item item, boolean skipAutoSave) {
         loadRecycleBin(project);
         boolean contains = false;
         for (TalendItem deletedItem : projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems()) {
@@ -99,10 +109,16 @@ public class RecycleBinManager {
             recBinItem.setType(ERepositoryObjectType.getItemType(item).getType());
             projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems().add(recBinItem);
         }
-        saveRecycleBin(project);
+        if (!skipAutoSave) {
+            saveRecycleBin(project);
+        }
     }
 
     public void removeFromRecycleBin(Project project, Item item) {
+        removeFromRecycleBin(project, item, false);
+    }
+
+    public void removeFromRecycleBin(Project project, Item item, boolean skipAutoSave) {
         loadRecycleBin(project);
         TalendItem itemToDelete = null;
         for (TalendItem deletedItem : projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems()) {
@@ -113,11 +129,17 @@ public class RecycleBinManager {
         }
         if (itemToDelete != null) {
             projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems().remove(itemToDelete);
-            saveRecycleBin(project);
+            if (!skipAutoSave) {
+                saveRecycleBin(project);
+            }
         }
     }
 
     private void loadRecycleBin(Project project) {
+        if (projectRecyclebins.get(project.getTechnicalLabel()) != null) {
+            // already loaded, nothing to do. Don't do any force reload
+            return;
+        }
         Resource resource = getResource(project);
         try {
             if (resource != null) {
@@ -135,14 +157,10 @@ public class RecycleBinManager {
         }
     }
 
-    public void updateRecycleBin(Project project) {
-        // only update the date of modification of the recycle bin.
-        loadRecycleBin(project);
-        projectRecyclebins.get(project.getTechnicalLabel()).setLastUpdate(new Date());
-        saveRecycleBin(project);
-    }
-
-    private void saveRecycleBin(Project project) {
+    public void saveRecycleBin(Project project) {
+        if (projectRecyclebins.get(project.getTechnicalLabel()) == null) {
+            loadRecycleBin(project);
+        }
         try {
             Resource resource = getResource(project);
             if (resource == null) {
