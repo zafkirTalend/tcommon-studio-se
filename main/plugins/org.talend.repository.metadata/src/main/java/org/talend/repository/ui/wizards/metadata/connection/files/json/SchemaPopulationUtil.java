@@ -35,7 +35,10 @@ public class SchemaPopulationUtil {
         if (jsonPath == null || jsonPath.isEmpty()) {
             return jsonPath;
         }
-        return jsonPath.replaceAll("\\.@", ""); //$NON-NLS-1$//$NON-NLS-2$
+        // $.data.@
+        // $.data.@.a
+        String filteredJsonPath = jsonPath.replaceAll("\\.@", ""); //$NON-NLS-1$//$NON-NLS-2$
+        return filteredJsonPath.replaceAll(getJsonPathArrayWildcardExpr(), ""); //$NON-NLS-1$
     }
 
     public static JsonTreeNode getJsonTreeNodeByJsonPath(Object[] treeNodes, String jsonPath) {
@@ -50,10 +53,10 @@ public class SchemaPopulationUtil {
                 continue;
             }
             JsonTreeNode childJsonTreeNode = (JsonTreeNode) childObj;
-            String treeNodePath = childJsonTreeNode.getJsonPath();
+            String treeNodePath = getFilteredJsonPath(childJsonTreeNode.getJsonPath());
             if (jsonPath.equals(treeNodePath)) {
                 return childJsonTreeNode;
-            } else if (jsonPath.startsWith(treeNodePath + ".")) {
+            } else if (jsonPath.startsWith(treeNodePath + ".")) { //$NON-NLS-1$
                 return getJsonTreeNodeByJsonPath(childJsonTreeNode.getChildren(), jsonPath);
             } else {
                 continue;
@@ -71,7 +74,7 @@ public class SchemaPopulationUtil {
             jsonTreeNode.addValue(jsonNode);
             String label = "$"; //$NON-NLS-1$
             if (jsonNode.isArray()) {
-                label = label + "[*]"; //$NON-NLS-1$
+                label = label + getJsonPathArrayWildcard();
             }
             jsonTreeNode.setLabel(label);
             jsonTreeNode.setJsonPath(label);
@@ -90,8 +93,8 @@ public class SchemaPopulationUtil {
             jsonTreeNode = new JsonTreeNode();
             jsonTreeNode.addValue(jsonNode);
             String label = "$"; //$NON-NLS-1$
-            if (jsonNode.isArray()) {
-                label = label + "[*]"; //$NON-NLS-1$
+            if (jsonNode != null && jsonNode.isArray()) {
+                label = label + getJsonPathArrayWildcard();
             }
             jsonTreeNode.setLabel(label);
             jsonTreeNode.setJsonPath(label);
@@ -103,15 +106,17 @@ public class SchemaPopulationUtil {
     }
 
     public static void fetchTreeNode(JsonTreeNode parentNode, int numberOfElementsAccessiable) {
-        if (parentNode == null || numberOfElementsAccessiable == 0 || !parentNode.hasChildren()) {
+        if (parentNode == null || numberOfElementsAccessiable == 0) {
             return;
         }
+        parentNode.setRetrieved();
         Set<JsonNode> valueSet = parentNode.getValues();
         if (valueSet == null || valueSet.isEmpty()) {
             return;
         }
 
         Iterator<JsonNode> valueIter = valueSet.iterator();
+        // get all children based on all the possible values
         while (valueIter.hasNext()) {
             JsonNode jsonNode = valueIter.next();
             if (jsonNode.isArray()) {
@@ -119,31 +124,43 @@ public class SchemaPopulationUtil {
                 Set<JsonNode> arraySet = new HashSet<JsonNode>();
                 while (childrenIter.hasNext()) {
                     JsonNode childJsonNode = childrenIter.next();
-                    arraySet.add(childJsonNode);
+                    if (hasChildren(childJsonNode)) {
+                        arraySet.add(childJsonNode);
+                    }
                 }
                 fetchArrayTreeNode(parentNode, arraySet, numberOfElementsAccessiable);
             } else {
                 Iterator<Entry<String, JsonNode>> childrenIter = jsonNode.fields();
                 while (childrenIter.hasNext()) {
                     Entry<String, JsonNode> childEntry = childrenIter.next();
-                    JsonTreeNode childJsonTreeNode = new JsonTreeNode();
-                    String label = childEntry.getKey();
-                    JsonNode value = childEntry.getValue();
-                    if (value != null && value.isArray()) {
-                        label = label + "[*]"; //$NON-NLS-1$
-                    }
-                    String jsonPath = parentNode.getJsonPath() + "." + label; //$NON-NLS-1$
-                    childJsonTreeNode.setLabel(label);
-                    childJsonTreeNode.addValue(value);
-                    childJsonTreeNode.setJsonPath(jsonPath);
-                    parentNode.addChild(childJsonTreeNode);
-                    if (childJsonTreeNode.hasChildren()) {
-                        fetchTreeNode(childJsonTreeNode, numberOfElementsAccessiable - 1);
-                    }
+                    JsonTreeNode childJsonTreeNode = addChildJsonTreeNode(parentNode, childEntry);
+                    fetchTreeNode(childJsonTreeNode, numberOfElementsAccessiable - 1);
                 }
             }
         }
 
+    }
+
+    private static JsonTreeNode addChildJsonTreeNode(JsonTreeNode parentNode, Entry<String, JsonNode> childEntry) {
+        String label = getValidName(childEntry.getKey());
+        String key = label + getJsonPathArrayWildcard();
+        JsonTreeNode childJsonTreeNode = parentNode.getFromValueMap(key);
+        JsonNode value = childEntry.getValue();
+        if (childJsonTreeNode == null) {
+            childJsonTreeNode = new JsonTreeNode();
+            if (value != null && value.isArray()) {
+                label = label + getJsonPathArrayWildcard();
+            }
+            String jsonPath = parentNode.getJsonPath() + "." + label; //$NON-NLS-1$
+            childJsonTreeNode.setLabel(label);
+            childJsonTreeNode.addValue(value);
+            childJsonTreeNode.setJsonPath(jsonPath);
+            parentNode.addChild(childJsonTreeNode);
+            parentNode.putValueMap(key, childJsonTreeNode);
+        } else {
+            childJsonTreeNode.addValue(value);
+        }
+        return childJsonTreeNode;
     }
 
     public static boolean hasChildren(JsonNode jsonNode) {
@@ -170,6 +187,7 @@ public class SchemaPopulationUtil {
         if (parentNode == null || numberOfElementsAccessiable == 0 || arraySet == null || arraySet.isEmpty()) {
             return;
         }
+        parentNode.setRetrieved();
         Iterator<JsonNode> iter = arraySet.iterator();
         while (iter.hasNext()) {
             fetchArrayTreeNode(parentNode, iter.next());
@@ -197,21 +215,31 @@ public class SchemaPopulationUtil {
         Iterator<Entry<String, JsonNode>> childrenIter = jsonNode.fields();
         while (childrenIter.hasNext()) {
             Entry<String, JsonNode> childEntry = childrenIter.next();
-            String name = childEntry.getKey();
-            JsonTreeNode childJsonTreeNode = parentNode.getFromValueMap(name);
-            if (childJsonTreeNode == null) {
-                childJsonTreeNode = new JsonTreeNode();
-                childJsonTreeNode.setLabel(name);
-                JsonNode value = childEntry.getValue();
-                String jsonPath = parentNode.getJsonPath() + "." + name; //$NON-NLS-1$
-                childJsonTreeNode.addValue(value);
-                childJsonTreeNode.setJsonPath(jsonPath);
-                parentNode.addChild(childJsonTreeNode);
-                parentNode.putValueMap(name, childJsonTreeNode);
-            } else {
-                childJsonTreeNode.addValue(childEntry.getValue());
-            }
-
+            addChildJsonTreeNode(parentNode, childEntry);
         }
+    }
+
+    private static String getValidName(String name) {
+        if (name == null) {
+            return name;
+        }
+        String retValue = name;
+        // fix bug: field name contains dot
+        if (name.contains(".")) { //$NON-NLS-1$
+            retValue = "['" + name + "']"; //$NON-NLS-1$//$NON-NLS-2$
+        }
+        return retValue;
+    }
+
+    public static String getJsonPathArrayWildcard() {
+        return "[*]"; //$NON-NLS-1$
+    }
+
+    public static String getJsonPathArrayWildcardExpr() {
+        // cases:
+        // $.data.id[*]
+        // $.data.id[1]
+        // $.data.id[ 12 ]
+        return "\\[(\\*|(\\s*\\d+\\s*))\\]"; //$NON-NLS-1$
     }
 }

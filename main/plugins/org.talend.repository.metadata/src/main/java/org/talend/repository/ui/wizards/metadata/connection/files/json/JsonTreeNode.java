@@ -14,7 +14,6 @@ package org.talend.repository.ui.wizards.metadata.connection.files.json;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +28,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class JsonTreeNode extends ATreeNode {
 
     private String jsonPath;
+
+    private boolean retrievedFlag = false;
 
     private Map<String, JsonTreeNode> valueMap = new HashMap<String, JsonTreeNode>();
 
@@ -55,25 +56,16 @@ public class JsonTreeNode extends ATreeNode {
     }
 
     public boolean hasChildren() {
+        if (!retrievedFlag) {
+            SchemaPopulationUtil.fetchTreeNode(this, 1);
+        }
         Object[] children = super.getChildren();
         if (children != null && 0 < children.length) {
             return true;
+        } else {
+            return false;
         }
 
-        Object obj = getValues();
-        boolean hasChildren = false;
-        if (obj instanceof Set) {
-            Iterator<Object> iter = ((Set) obj).iterator();
-            while (iter.hasNext()) {
-                Object jsonObj = iter.next();
-                JsonNode jsonNode = (JsonNode) jsonObj;
-                hasChildren = SchemaPopulationUtil.hasChildren(jsonNode);
-                if (hasChildren) {
-                    return hasChildren;
-                }
-            }
-        }
-        return hasChildren;
     }
 
     @Override
@@ -131,4 +123,7 @@ public class JsonTreeNode extends ATreeNode {
         return true;
     }
 
+    public void setRetrieved() {
+        this.retrievedFlag = true;
+    }
 }
