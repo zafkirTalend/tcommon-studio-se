@@ -161,6 +161,9 @@ public class Application implements IApplication {
                 IPreferenceStore store = PlatformUI.getPreferenceStore();
                 store.putValue(IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID, "org.talend.rcp.presentationfactory"); //$NON-NLS-1$
             }
+            System.setProperty("clearPersistedState", Boolean.TRUE.toString());
+            System.setProperty("persistState", Boolean.FALSE.toString());
+            
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
                 // use relaunch instead of restart to remove change the restart property that may have been added in the

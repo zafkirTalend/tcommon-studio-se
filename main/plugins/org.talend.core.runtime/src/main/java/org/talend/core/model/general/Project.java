@@ -12,13 +12,17 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.ExchangeUser;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -290,22 +294,33 @@ public class Project {
     }
 
     public ExchangeUser getExchangeUser() {
+        ExchangeUser user = getExchangeUserFromEmail(""); // default one //$NON-NLS-1$
+
+        Context ctx = CoreRuntimePlugin.getInstance().getContext();
+        RepositoryContext context = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        if (context.getUser() != null && context.getUser().getLogin() != null) {
+            user = getExchangeUserFromEmail(context.getUser().getLogin());
+        }
+        if (project.getAuthor() != null && "".equals(user.getLogin())) { //$NON-NLS-1$
+            user = getExchangeUserFromEmail(project.getAuthor().getLogin());
+        }
+        return user;
+    }
+
+    private ExchangeUser getExchangeUserFromEmail(String connectionEmail) {
         ExchangeUser user = PropertiesFactory.eINSTANCE.createExchangeUser();
-        if (project.getAuthor() != null) {
-            IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
-            String connectionEmail = project.getAuthor().getLogin();
-            String string = prefStore.getString(connectionEmail);
-            if (string != null) {
-                String[] split = string.split(":");
-                if (split.length == 3) {
-                    user.setLogin(split[0]);
-                    user.setUsername(split[1]);
-                    user.setPassword(split[2]);
-                } else {
-                    user.setLogin("");
-                    user.setUsername("");
-                    user.setPassword("");
-                }
+        IPreferenceStore prefStore = PlatformUI.getPreferenceStore();
+        String string = prefStore.getString(connectionEmail);
+        if (string != null) {
+            String[] split = string.split(":"); //$NON-NLS-1$
+            if (split.length == 3) {
+                user.setLogin(split[0]);
+                user.setUsername(split[1]);
+                user.setPassword(split[2]);
+            } else {
+                user.setLogin(""); //$NON-NLS-1$
+                user.setUsername(""); //$NON-NLS-1$
+                user.setPassword(""); //$NON-NLS-1$
             }
         }
         return user;

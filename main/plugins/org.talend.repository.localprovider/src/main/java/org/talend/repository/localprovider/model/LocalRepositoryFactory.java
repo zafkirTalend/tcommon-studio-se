@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -138,15 +137,16 @@ import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.core.repository.model.FolderHelper;
 import org.talend.core.repository.model.ILocalRepositoryFactory;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.VersionList;
+import org.talend.core.repository.recyclebin.RecycleBinManager;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.ResourceFilenameHelper;
 import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.core.repository.utils.XmiResourceManager;
-import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.repository.ProjectManager;
@@ -1582,6 +1582,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             state.setDeleted(true);
             xmiResourceManager.saveResource(state.eResource());
         }
+        if (!allVersionToDelete.isEmpty()) {
+            RecycleBinManager.getInstance().addToRecycleBin(project, allVersionToDelete.get(0).getProperty().getItem());
+        }
     }
 
     @Override
@@ -1647,6 +1650,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             }
         }
+        if (!allVersionToDelete.isEmpty()) {
+            RecycleBinManager.getInstance().removeFromRecycleBin(project, allVersionToDelete.get(0).getProperty().getItem());
+        }
         if (!fromEmptyRecycleBin) {
             saveProject(project);
         }
@@ -1660,6 +1666,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
             xmiResourceManager.saveResource(itemState.eResource());
+        }
+        if (!allVersionToDelete.isEmpty()) {
+            Item item = allVersionToDelete.get(0).getProperty().getItem();
+            if (!(item instanceof ConnectionItem) || !ProjectRepositoryNode.getInstance().hasDeletedSubItem((ConnectionItem)item)) {
+                RecycleBinManager.getInstance().removeFromRecycleBin(getRepositoryContext().getProject(), item);
+            } else {
+                RecycleBinManager.getInstance().saveRecycleBin(getRepositoryContext().getProject());
+            }
         }
     }
 

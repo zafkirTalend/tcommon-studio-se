@@ -72,8 +72,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     protected MenuManager fileMenu;
 
-    protected ICoolBarManager coolBar;
-
     protected static SwitchProjectAction switchProjectAction;
 
     protected static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
@@ -251,38 +249,13 @@ public class ActionBarBuildHelper implements IActionBarHelper {
 
     @Override
     public void fillCoolBar(ICoolBarManager coolBar) {
-        this.coolBar = coolBar;
         IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         coolBar.add(new ToolBarContributionItem(toolBar, Messages.getString("ApplicationActionBarAdvisor.save"))); //$NON-NLS-1$
         toolBar.add(ActionFactory.SAVE.create(window));
-        //
-        if (PluginChecker.isRefProjectLoaded()) {
-            IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault().getService(
-                    IReferencedProjectService.class);
-            if (service != null) {
-                toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
-                coolBar.add(new ToolBarContributionItem(toolBar, "Default")); //$NON-NLS-1$
-                service.addMergeAction(window, toolBar);
-            }
-        }
-        //
+
         IToolBarManager toolBarManager = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         toolBarManager.add(new LinksToolbarItem());
         coolBar.add(new ToolBarContributionItem(toolBarManager, LinksToolbarItem.COOLITEM_LINKS_ID));
-    }
-
-    public void printCoolBar() {
-        System.out.println("coolBar-" + coolBar); //$NON-NLS-1$
-
-        IContributionItem[] items = coolBar.getItems();
-        for (IContributionItem item : items) {
-            if (item instanceof ToolBarContributionItem) {
-                ToolBarContributionItem it = (ToolBarContributionItem) item;
-                IToolBarManager manager = it.getToolBarManager();
-                printItemId(manager);
-            }
-
-        }
     }
 
     /**
@@ -415,13 +388,6 @@ public class ActionBarBuildHelper implements IActionBarHelper {
                     }
                 }
             }
-        }
-    }
-
-    protected void hideCoolBarActions() {
-        String[] removeIds = { "org.eclipse.wst.xml.ui.design.DesignToolBar", "org.eclipse.debug.ui.launchActionSet" }; //$NON-NLS-1$ //$NON-NLS-2$
-        for (String id : removeIds) {
-            coolBar.remove(id);
         }
     }
 
