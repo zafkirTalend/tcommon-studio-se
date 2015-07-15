@@ -15,9 +15,12 @@ package routines.system;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -280,6 +283,17 @@ public class ParserUtils {
         if (s == null || s.length() == 0) {
             return null;
         }
+        
+		if (s.indexOf(":") == -1 && s.matches("\\d{4}-\\d{2}-\\d{2}")) {
+			s += " 00:00:00";
+			Calendar cal = Calendar.getInstance();
+			Timestamp tt = Timestamp.valueOf(s);
+			long theTime = tt.getTime();
+			cal.setTimeInMillis(theTime);
+			Date date = cal.getTime();
+			return date;
+		}
+        
         if (pattern == null) {
             pattern = Constant.dateDefaultPattern;
         }
