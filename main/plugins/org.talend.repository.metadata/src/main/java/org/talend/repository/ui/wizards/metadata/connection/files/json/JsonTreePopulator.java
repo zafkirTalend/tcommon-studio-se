@@ -159,7 +159,6 @@ public class JsonTreePopulator extends AbstractTreePopulator {
             return null;
         }
 
-        //        String path = absolutePath.replaceAll("\\[\\*\\]", ""); //$NON-NLS-1$//$NON-NLS-2$
         return getTreeItem(items, SchemaPopulationUtil.getFilteredJsonPath(absolutePath));
     }
 
@@ -182,7 +181,7 @@ public class JsonTreePopulator extends AbstractTreePopulator {
         for (TreeItem treeItem : treeItems) {
             Object obj = treeItem.getData();
             if (obj instanceof JsonTreeNode) {
-                String jsonPath = ((JsonTreeNode) obj).getJsonPath();
+                String jsonPath = SchemaPopulationUtil.getFilteredJsonPath(((JsonTreeNode) obj).getJsonPath());
                 if (absolutePath.equals(jsonPath)) {
                     return treeItem;
                 } else if (absolutePath.startsWith(jsonPath + ".")) { //$NON-NLS-1$
