@@ -14,6 +14,7 @@ package org.talend.core.repository.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
@@ -121,6 +122,7 @@ import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+import org.talend.utils.io.FilesUtils;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -1478,6 +1480,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @throws PersistenceException
      */
     private void emptyTempFolder(Project project) throws PersistenceException {
+    	String str=(System.getProperty("eclipse.home.location") +"temp").substring(5);
+    	FilesUtils.deleteFolder(new File(str), false);
+    	
         long start = System.currentTimeMillis();
         IProject fsProject = ResourceUtils.getProject(project);
         IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
