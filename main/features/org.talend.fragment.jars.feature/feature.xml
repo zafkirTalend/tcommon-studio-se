@@ -11,10 +11,16 @@
          version="0.0.0" />
          
 	<plugin
-         id="net.sourceforge.sqlexplorer.nl"
+         id="org.talend.dataprofiler.core.hadoopcluster"
          download-size="0"
          install-size="0"
          version="0.0.0" />
+         
+        <plugin
+         id="org.talend.libraries.javacsv.jars"
+         download-size="0"
+         install-size="0"
+         version="0.0.0" /
          
         <plugin
          id="org.talend.libraries.javacsv.jars"
