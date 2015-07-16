@@ -110,7 +110,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     public LocalLibraryManager() {
         super();
-        deployExtensionIndex();
     }
 
     @Override
@@ -136,13 +135,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (file == null || !file.exists()) {
             return;
         }
-        // deploy to maven
-        Map<String, String> customUriToAdd = new HashMap<String, String>();
-        deployFile(file, null, customUriToAdd, monitorWrap);
-        // add custom uri map to the index
-        if (!customUriToAdd.isEmpty()) {
-            deployMavenIndex(customUriToAdd, monitorWrap);
-        }
+        deployFile(file, null, monitorWrap);
         // deploy to configuration/lib/java if tac still use the svn lib
         try {
             if (isSvnLibSetup()) {
@@ -162,7 +155,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
     }
 
-    private void deployFile(File file, String mavenUri, Map<String, String> customUriToAdd, IProgressMonitor... monitorWrap) {
+    private void deployFile(File file, String mavenUri, IProgressMonitor... monitorWrap) {
         try {
             listToUpdate = true;
             if (file.isDirectory()) {
@@ -178,7 +171,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
                             if (mavenUri == null) {
                                 mavenUri = defaultMavenUri;
-                                customUriToAdd.put(jarName, mavenUri);
                             }
                         }
                         sourceAndMavenUri.put(mavenUri, jarFile.getAbsolutePath());
@@ -194,7 +186,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath().get(file.getName());
                     if (mavenUri == null) {
                         mavenUri = MavenUrlHelper.generateMvnUrlForJarName(file.getName());
-                        customUriToAdd.put(file.getName(), mavenUri);
                     }
                 }
                 Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
@@ -224,14 +215,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (jarFileUris == null || jarFileUris.size() == 0) {
             return;
         }
-        Map<String, String> customUriToAdd = new HashMap<String, String>();
         for (URI uri : jarFileUris) {
             File file = new File(uri);
             if (file == null || !file.exists()) {
                 return;
             }
             // deploy to maven
-            deployFile(file, null, customUriToAdd, monitorWrap);
+            deployFile(file, null, monitorWrap);
             // deploy to configuration/lib/java if tac still use the svn lib
             try {
                 if (isSvnLibSetup()) {
@@ -251,10 +241,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 CommonExceptionHandler.process(e);
             }
         }
-        // add custom uri map to the index
-        if (!customUriToAdd.isEmpty()) {
-            deployMavenIndex(customUriToAdd, monitorWrap);
-        }
+
     }
 
     private boolean isSvnLibSetup() {
@@ -455,7 +442,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
         EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
         Map<String, String> mavenUriToCheck = new HashMap<String, String>();
         mavenUriToCheck.putAll(jarsToMavenUri.map());
-        mavenUriToCheck.putAll(mavenUriFromExtensions);
         for (String jarName : mavenUriToCheck.keySet()) {
             String mvnUri = mavenUriToCheck.get(jarName);
             if (checkJarInstalledInMaven(mvnUri)) {
@@ -479,7 +465,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
         EMap<String, String> jarsToRelative = LibrariesIndexManager.getInstance().getStudioLibIndex().getJarsToRelativePath();
         Map<String, String> platformUriToCheck = new HashMap<String, String>();
         platformUriToCheck.putAll(jarsToRelative.map());
-        platformUriToCheck.putAll(platfromUriFromExtensions);
         for (String jarName : platformUriToCheck.keySet()) {
             String relativePath = platformUriToCheck.get(jarName);
             boolean jarFound = false;
@@ -572,16 +557,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         boolean modified = false;
         LibrariesIndex index = LibrariesIndexManager.getInstance().getStudioLibIndex();
         EMap<String, String> jarsToRelativePath = index.getJarsToRelativePath();
-        Map<String, String> customUriToAdd = new HashMap<String, String>();
         for (ModuleNeeded module : modules) {
             File fileToDeploy = null;
             String moduleLocation = module.getModuleLocaion();
             String mavenUri = module.getMavenUriSnapshot();
-            if (mavenUri == null || "".equals(mavenUri)) {
-                EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex()
-                        .getJarsToRelativePath();
-                mavenUri = jarsToMavenUri.get(module.getModuleName());
-            }
             if (checkJarInstalledInMaven(mavenUri)) {
                 continue;
             }
@@ -632,13 +611,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 ExceptionHandler.log("missing jar:" + module.getModuleName());
             }
             if (fileToDeploy != null) {
-                deployFile(fileToDeploy, mavenUri, customUriToAdd, monitorWrap);
+                deployFile(fileToDeploy, mavenUri, monitorWrap);
             }
         }
-        // add custom uri map to the index and save after deploy all
-        if (!customUriToAdd.isEmpty()) {
-            deployMavenIndex(customUriToAdd, monitorWrap);
-        }
+
         if (modified) {
             LibrariesIndexManager.getInstance().saveStudioIndexResource();
         }
@@ -695,9 +671,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
         } else {
             EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
             mavenUri = jarsToMavenUri.get(jarNameOrMavenUri);
-            if (mavenUri == null) {
-                mavenUri = mavenUriFromExtensions.get(jarNameOrMavenUri);
-            }
             if (mavenUri == null) {
                 mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarNameOrMavenUri);
             }
@@ -795,7 +768,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
         Set<String> duplicateLocationJar = new HashSet<String>();
         Set<String> duplicateMavenUri = new HashSet<String>();
         List<ModuleNeeded> modulesNeededForApplication = ModulesNeededProvider.getModulesNeededForApplication();
-        deploy(modulesNeededForApplication, null, libsToRelativePath, duplicateLocationJar, libsToMavenUri, duplicateMavenUri);
+        deployIndex(modulesNeededForApplication, null, libsToRelativePath, duplicateLocationJar, libsToMavenUri,
+                duplicateMavenUri);
         if (!duplicateLocationJar.isEmpty()) {
             warnDuplicated(modulesNeededForApplication, duplicateLocationJar, "Library:");
         }
@@ -808,7 +782,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
     }
 
     @Override
-    public void deployComponentsLibs(IProgressMonitor... monitorWrap) {
+    public void deployComponentAndExtensionLibs(IProgressMonitor... monitorWrap) {
         // jars needed in component but didn't set platfrom uri
         Set<String> libsWithoutUri = new HashSet<String>();
         Map<String, String> libsToRelativePath = new HashMap<String, String>();
@@ -822,7 +796,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
         for (IComponent component : service.getComponentsFactory().getComponents()) {
             modules.addAll(component.getModulesNeeded());
         }
-        deploy(modules, libsWithoutUri, libsToRelativePath, duplicateLocationJar, libsToMavenUri, duplicateMavenUri, monitorWrap);
+        deployIndex(modules, libsWithoutUri, libsToRelativePath, duplicateLocationJar, libsToMavenUri, duplicateMavenUri,
+                monitorWrap);
         if (!duplicateLocationJar.isEmpty()) {
             warnDuplicated(modules, duplicateLocationJar, "Library:");
         }
@@ -833,6 +808,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
         deploy(libsToRelativePath, monitorWrap);
         deployMavenIndex(libsToMavenUri, monitorWrap);
+
+        // deploy platform uri/maven uri configured from extension to index
+        if (platfromUriFromExtensions.isEmpty() || mavenUriFromExtensions.isEmpty()) {
+            deployExtensionIndex();
+        }
+        deploy(platfromUriFromExtensions, monitorWrap);
+        deployMavenIndex(mavenUriFromExtensions, monitorWrap);
     }
 
     private void deployLibForComponentProviders(IComponentsService service, Set<String> libsWithoutUri,
@@ -939,7 +921,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
     }
 
-    private void deploy(List<ModuleNeeded> modules, Set<String> libsWithoutUri, Map<String, String> libsToRelativePath,
+    private void deployIndex(List<ModuleNeeded> modules, Set<String> libsWithoutUri, Map<String, String> libsToRelativePath,
             Set<String> duplicateLocationJar, Map<String, String> libsToMavenUri, Set<String> duplicateMavenUri,
             IProgressMonitor... monitorWrap) {
         Map<String, String> libsToMavenUriAll = new HashMap<String, String>();
@@ -952,7 +934,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
         for (ModuleNeeded module : modules) {
             String moduleLocation = module.getModuleLocaion();
-            String mavenUrl = module.getMavenUriSnapshot();
+            // take snapshot maven uri from configuration to deploy , don't generate by module name automatically
+            String mavenUrl = module.getMavenUriSnapshot(false);
             if (mavenUrl != null && mavenUrl.startsWith(MavenUrlHelper.MVN_PROTOCOL)) {
                 String existUri = libsToMavenUriAll.get(module.getModuleName());
                 if (existUri != null && !existUri.equals(mavenUrl)) {
@@ -1087,7 +1070,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         .getJarsToRelativePath();
                 Map<String, String> mavenUriToCheck = new HashMap<String, String>();
                 mavenUriToCheck.putAll(jarsToMavenUri.map());
-                mavenUriToCheck.putAll(mavenUriFromExtensions);
                 String mvnUri = mavenUriToCheck.get(jarName);
                 if (mvnUri == null) {
                     customUriToAdd.put(jarName, mvnUri);
@@ -1119,5 +1101,16 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 deployMavenIndex(customUriToAdd);
             }
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerService#getMavenUriFromIndex()
+     */
+    @Override
+    public String getMavenUriFromIndex(String jarName) {
+        EMap<String, String> jarsToMavenuri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
+        return jarsToMavenuri.get(jarName);
     }
 }

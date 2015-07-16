@@ -425,7 +425,7 @@ public class ModuleNeeded {
         return true;
     }
 
-    public String getMavenUriSnapshot() {
+    public String getMavenUriSnapshot(boolean autoGenerate) {
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(getMavenUri());
         // for non-talend libs.
         if (artifact != null && !MavenConstants.DEFAULT_LIB_GROUP_ID.equals(artifact.getGroupId())) {
@@ -435,15 +435,26 @@ public class ModuleNeeded {
         // set an defaut maven uri if uri is null or empty, this could be done in the set
         // but this would mean to sure the set is called after the name is set.
         if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) { //$NON-NLS-1$
-            if (mavenUri != null && !"".equals(mavenUri)) {//$NON-NLS-1$
-                mavenUriSnapshot = MavenUrlHelper.generateSnapshotMavenUri(mavenUri);
+            String configuredUri = getMavenUri();
+            if (configuredUri != null) {
+                mavenUriSnapshot = MavenUrlHelper.generateSnapshotMavenUri(configuredUri);
             }
-            if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) {//$NON-NLS-1$
-                mavenUriSnapshot = MavenUrlHelper.generateMvnUrlForJarName(getModuleName(), false, true);
+            if (mavenUriSnapshot == null || "".equals(mavenUriSnapshot)) {
+                // get snapshot maven uri from index
+                ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                        .getService(ILibraryManagerService.class);
+                mavenUriSnapshot = libManagerService.getMavenUriFromIndex(getModuleName());
+            }
+            if (autoGenerate && (mavenUriSnapshot == null || "".equals(mavenUriSnapshot))) {//$NON-NLS-1$
+                return MavenUrlHelper.generateMvnUrlForJarName(getModuleName());
             }
         }
         return mavenUriSnapshot;
 
+    }
+
+    public String getMavenUriSnapshot() {
+        return getMavenUriSnapshot(true);
     }
 
     /**
@@ -455,18 +466,24 @@ public class ModuleNeeded {
         this.mavenUriSnapshot = mavenUriSnapshot;
     }
 
+    public String getMavenUri(boolean autoGenerate) {
+        // set an defaut maven uri if uri is null or empty, this could be done in the set
+        // but this would mean to sure the set is called after the name is set.
+        if (autoGenerate && (mavenUri == null || "".equals(mavenUri))) { //$NON-NLS-1$
+            return MavenUrlHelper.generateMvnUrlForJarName(getModuleName());
+        }
+        return mavenUri;
+    }
+
     /**
      * Getter for mavenUriSnapshot.
      * 
      * @return the mavenUriSnapshot
      */
     public String getMavenUri() {
-        // set an defaut maven uri if uri is null or empty, this could be done in the set
-        // but this would mean to sure the set is called after the name is set.
-        if (mavenUri == null || "".equals(mavenUri)) { //$NON-NLS-1$
-            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(getModuleName());
-        }
-        return mavenUri;
+        // fix for TUP-3276 , get maven uri configured in studio(configured in component imoport/neededLibraries
+        // extension), don't generate automatically
+        return getMavenUri(false);
     }
 
     /**

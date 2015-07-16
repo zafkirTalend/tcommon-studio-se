@@ -68,7 +68,7 @@ public interface ILibraryManagerService extends IService {
      */
     public void deployMavenIndex(Map<String, String> libsToMavenUri, IProgressMonitor... monitorWrap);
 
-    public void deployComponentsLibs(IProgressMonitor... monitorWrap);
+    public void deployComponentAndExtensionLibs(IProgressMonitor... monitorWrap);
 
     /**
      * DOC ycbai Comment method "retrieve".
@@ -135,5 +135,7 @@ public interface ILibraryManagerService extends IService {
      * "synToLocalMaven".
      */
     public void synToLocalMaven();
+
+    public String getMavenUriFromIndex(String jarName);
 
 }
