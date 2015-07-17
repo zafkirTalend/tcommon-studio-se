@@ -25,6 +25,7 @@ import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
@@ -72,4 +73,6 @@ public interface ITestContainerProviderService extends IService {
     public List<String> getTestData(IProcess process, String instanceName);
 
     public String getInstanceContext(IProcess process, String instance);
+
+    public String getOriginalID(IRepositoryViewObject curNode);
 }
