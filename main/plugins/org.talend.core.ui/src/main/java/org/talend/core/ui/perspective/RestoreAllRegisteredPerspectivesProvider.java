@@ -183,7 +183,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
                     String defaultPerspectiveId = service.getBrandingConfiguration().getInitialWindowPerspectiveId();
                     // this is not the fastest way but this is to try the find API
                     List<MPerspective> matchPerspectives = fModelService.findElements(mPerspStack, MPerspective.class,
-                            EModelService.IN_ACTIVE_PERSPECTIVE, new ElementMatcher(defaultPerspectiveId, null, (String) null));
+                            EModelService.IN_ANY_PERSPECTIVE, new ElementMatcher(defaultPerspectiveId, null, (String) null));
                     if (!matchPerspectives.isEmpty()) { // get the first
                         perspectiveToSelect = matchPerspectives.get(0);
                     }// else no perspective found matching the Talend, this should only occur when no default
