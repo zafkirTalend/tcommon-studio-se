@@ -44,6 +44,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -339,7 +340,7 @@ public class RepositoryNodeUtilities {
         if (children != null) {
             // in the first, search the current folder
             List<IRepositoryNode> folderChild = new ArrayList<IRepositoryNode>();
-
+            List<IRepositoryNode> testCaseFather = new ArrayList<IRepositoryNode>();
             for (IRepositoryNode childNode : children) {
                 RepositoryNode node = (RepositoryNode) childNode;
                 if (isRepositoryFolder(node) || node.getType() == ENodeType.REFERENCED_PROJECT) {
@@ -352,11 +353,28 @@ public class RepositoryNodeUtilities {
                     }
                 } else if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
                     return node;
+                } else {
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                        ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                                .getDefault().getService(ITestContainerProviderService.class);
+                        if (testContainerService != null) {
+                            String originalID = testContainerService.getOriginalID(curNode);
+                            if (originalID != null && node.getId().equals(originalID)) {
+                                testCaseFather.add(node);
+                            }
+                        }
+                    }
                 }
-
             }
             for (IRepositoryNode folderNode : folderChild) {
                 final RepositoryNode repositoryNode = getRepositoryNode(folderNode, curNode, view, expanded);
+                if (repositoryNode != null) {
+                    return repositoryNode;
+                }
+            }
+
+            for (IRepositoryNode jobNode : testCaseFather) {
+                final RepositoryNode repositoryNode = getRepositoryNode(jobNode, curNode, view, expanded);
                 if (repositoryNode != null) {
                     return repositoryNode;
                 }
