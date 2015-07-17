@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
@@ -163,7 +164,7 @@ public class Application implements IApplication {
             }
             System.setProperty("clearPersistedState", Boolean.TRUE.toString());
             System.setProperty("persistState", Boolean.FALSE.toString());
-            
+
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
                 // use relaunch instead of restart to remove change the restart property that may have been added in the
@@ -343,7 +344,14 @@ public class Application implements IApplication {
         boolean doForce = force;
         do {
             // okay to use the shell now - this is the splash shell
-            new ChooseWorkspaceDialog(shell, launchData, false, true).prompt(doForce);
+            ChooseWorkspaceDialog chooseWorkspaceDialog = new ChooseWorkspaceDialog(shell, launchData, false, true);
+            // fix bug TUP-3165
+            boolean isDisableLoginDialog = ArrayUtils.contains(Platform.getApplicationArgs(),
+                    EclipseCommandLine.TALEND_DISABLE_LOGINDIALOG_COMMAND);
+            if (isDisableLoginDialog) {
+                chooseWorkspaceDialog.setForceHide(true);
+            }
+            chooseWorkspaceDialog.prompt(doForce);
             String instancePath = launchData.getSelection();
             if (instancePath == null) {
                 return null;

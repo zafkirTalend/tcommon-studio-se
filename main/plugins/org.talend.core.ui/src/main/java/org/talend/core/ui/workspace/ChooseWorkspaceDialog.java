@@ -53,6 +53,8 @@ public class ChooseWorkspaceDialog extends TitleAreaDialog {
 
     private boolean centerOnMonitor = false;
 
+    private boolean forceHide = false;
+
     /**
      * Create a modal dialog on the arugment shell, using and updating the argument data object.
      * 
@@ -80,7 +82,7 @@ public class ChooseWorkspaceDialog extends TitleAreaDialog {
      * @param force true if the dialog should be opened regardless of the value of the show dialog checkbox
      */
     public void prompt(boolean force) {
-        if (force || launchData.getShowDialog()) {
+        if (force || shouldShowDialog()) {
             open();
 
             // 70576: make sure dialog gets dismissed on ESC too
@@ -362,4 +364,15 @@ public class ChooseWorkspaceDialog extends TitleAreaDialog {
         return section;
     }
 
+    public void setForceHide(boolean forceHide) {
+        this.forceHide = forceHide;
+    }
+
+    private boolean shouldShowDialog() {
+        if (forceHide) {
+            return false;
+        } else {
+            return launchData.getShowDialog();
+        }
+    }
 }
