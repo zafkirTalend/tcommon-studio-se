@@ -168,6 +168,10 @@ public final class ContextParameterUtils {
             String paraName = getContextString(code);
             IContextParameter param = context.getContextParameter(paraName);
             if (param != null) {
+                String value = param.getValue();
+                if (value == null || code.equals(value.trim())) {
+                    return value;
+                }
                 return parseScriptContextCode(param.getValue(), context);// Multi-layer
                 // context
                 // refrence
