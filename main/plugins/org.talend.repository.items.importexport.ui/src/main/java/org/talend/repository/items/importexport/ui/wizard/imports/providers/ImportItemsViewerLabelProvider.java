@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryNodeProviderRegistryReader;
 import org.talend.core.ui.images.CoreImageProvider;
@@ -41,11 +42,22 @@ public class ImportItemsViewerLabelProvider extends LabelProvider {
             if (element instanceof ProjectImportNode) {
                 return ImageProvider.getImage(ECoreImage.PROJECT_ICON);
             } else if (element instanceof ItemImportNode) {
-                final ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(((ItemImportNode) element)
-                        .getItemRecord().getItem());
+                Item item = ((ItemImportNode) element).getItemRecord().getItem();
+                final ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+                if (itemType == ERepositoryObjectType.PROCESS_MR || itemType == ERepositoryObjectType.PROCESS_STORM) {
+                    return ImageProvider.getImage(CoreImageProvider.getIcon(item));
+                }
                 return getImage(itemType);
             } else if (element instanceof TypeImportNode) {
-                return getImage(((TypeImportNode) element).getType());
+                ERepositoryObjectType repObjectType = ((TypeImportNode) element).getType();
+                // also see RepoViewCommonNavigator.java
+                if (repObjectType == ERepositoryObjectType.PROCESS_STORM) {
+                    return ImageProvider.getImage(ECoreImage.PROCESS_STREAMING_GENERIC_CATEGORY_OPEN_ICON);
+                } else if (repObjectType == ERepositoryObjectType.PROCESS_MR) {
+                    return ImageProvider.getImage(ECoreImage.PROCESS_BATCH_GENERIC_CATEGORY_OPEN_ICON);
+                } else {
+                    return getImage(repObjectType);
+                }
             } else if (element instanceof FolderImportNode) {
                 return CoreImageProvider.getImage(ERepositoryObjectType.FOLDER);
             }

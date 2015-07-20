@@ -17,11 +17,15 @@ import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils.ICON_SIZE;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.BigDataBasicUtil;
+import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.designer.core.IDesignerCoreService;
@@ -44,6 +48,29 @@ public class CoreImageProvider {
 
     public static IImage getIcon(ERepositoryObjectType type) {
         return RepositoryImageProvider.getIcon(type);
+    }
+
+    public static IImage getIcon(Item item) {
+        if (item == null) {
+            return null;
+        }
+        ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
+        if (itemType == null) {
+            return null;
+        }
+        if (itemType == ERepositoryObjectType.PROCESS_MR || itemType == ERepositoryObjectType.PROCESS_STORM) {
+            Object framework = BigDataBasicUtil.getFramework(item);
+            if (HadoopConstants.FRAMEWORK_SPARK.equals(framework)) {
+                return ECoreImage.PROCESS_BATCH_SPARK_ICON;
+            } else if (HadoopConstants.FRAMEWORK_MAPREDUCE.equals(framework)) {
+                return ECoreImage.PROCESS_BATCH_MR_ICON;
+            } else if (HadoopConstants.FRAMEWORK_SPARKSTREAMING.equals(framework)) {
+                return ECoreImage.PROCESS_STREAMING_SPARK_ICON;
+            } else if (HadoopConstants.FRAMEWORK_STORM.equals(framework)) {
+                return ECoreImage.PROCESS_STREAMING_STORM_ICON;
+            }
+        }
+        return getIcon(itemType);
     }
 
     private static Map<ImageDescriptor, Image> componentCachedImages = new HashMap<ImageDescriptor, Image>();
