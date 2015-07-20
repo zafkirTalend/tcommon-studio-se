@@ -539,7 +539,7 @@ public abstract class AbstractNode implements INode {
             return;
         }
 
-        for (IElementParameter param : this.getElementParameters()) {
+        for (IElementParameter param : this.getElementParametersWithChildrens()) {
             if (param.getName().equals("UNIQUE_NAME") || isSQLQueryParameter(param) || isTDMParameter(param)) { //$NON-NLS-1$
                 continue;
             }
@@ -581,7 +581,7 @@ public abstract class AbstractNode implements INode {
     @Override
     public boolean useData(String name) {
 
-        for (IElementParameter param : this.getElementParameters()) {
+        for (IElementParameter param : this.getElementParametersWithChildrens()) {
             if (param.getFieldType() == EParameterFieldType.IMAGE) {
                 continue;
             }
