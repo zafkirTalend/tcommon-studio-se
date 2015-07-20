@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.custom.CCombo;
+import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.properties.Item;
@@ -23,10 +25,13 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.IProcessConvertToAllTypeService;
 import org.talend.designer.core.convert.ProcessConvertManager;
 import org.talend.designer.core.convert.ProcessConverterType;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * created by hcyi on May 25, 2015 Detailled comment
@@ -321,5 +326,37 @@ public class ConvertJobsUtil {
                 }
             }
         }
+    }
+
+    public static String getDuplicateName(RepositoryNode node, String value) throws BusinessException {
+        char j = 'a';
+        String temp = value + "_a";//$NON-NLS-1$
+        while (validJobName(node, temp)) {
+            if (j > 'z') {
+                //
+            }
+            temp = value + "_" + (j++) + ""; //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        return temp;
+    }
+
+    public static boolean validJobName(RepositoryNode node, String itemName) {
+        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        try {
+            List<IRepositoryViewObject> listExistingObjects = proxyRepositoryFactory.getAll(ERepositoryObjectType.PROCESS, true,
+                    false);
+            if (PluginChecker.isStormPluginLoader()) {
+                listExistingObjects.addAll(proxyRepositoryFactory.getAll(ERepositoryObjectType.PROCESS_STORM, true, false));
+            }
+            if (PluginChecker.isMapReducePluginLoader()) {
+                listExistingObjects.addAll(proxyRepositoryFactory.getAll(ERepositoryObjectType.PROCESS_MR, true, false));
+            }
+            if (!proxyRepositoryFactory.isNameAvailable(node.getObject().getProperty().getItem(), itemName, listExistingObjects)) {
+                return true;
+            }
+        } catch (PersistenceException e1) {
+            return true;
+        }
+        return false;
     }
 }
