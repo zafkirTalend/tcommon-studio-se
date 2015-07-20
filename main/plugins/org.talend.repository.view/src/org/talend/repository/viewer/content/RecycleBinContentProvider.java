@@ -114,7 +114,8 @@ public class RecycleBinContentProvider extends ProjectRepoDirectChildrenNodeCont
             } else if (resource.getType() == IResource.PROJECT) {
                 try {
                     if (resource.getProject().hasNature(TalendNature.ID)) {
-                        if (!ProjectManager.getInstance().getCurrentProject().getTechnicalLabel().equals(resource.getProject().getName())) {
+                        if (!ProjectManager.getInstance().getCurrentProject().getTechnicalLabel()
+                                .equals(resource.getProject().getName())) {
                             return false;
                         }
                         return true; // if not talend project, ignore.
@@ -127,9 +128,15 @@ public class RecycleBinContentProvider extends ProjectRepoDirectChildrenNodeCont
             } else if (resource.getType() == IResource.FILE) {
                 if (resource.getName().equals(RecycleBinManager.TALEND_RECYCLE_BIN_INDEX)
                         || resource.getName().equals(FileConstants.LOCAL_PROJECT_FILENAME)) {
-                    if (viewer != null && !viewer.getTree().isDisposed()) {
-                        viewer.refresh(binRepositoryNode);
-                    }
+                    if (viewer != null && viewer.getControl() != null && !viewer.getTree().isDisposed()) {
+                        viewer.getControl().getDisplay().asyncExec(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                viewer.refresh(binRepositoryNode);
+                            }
+                        });
+                    }// else the viewer as not control so not displayed
                 }
             }
             return false;
