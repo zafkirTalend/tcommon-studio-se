@@ -109,36 +109,19 @@ public class ProcessConvertManager {
         return null;
     }
 
-    /**
-     * For user in studio, only the following cases can be converted by m/r process covert service:
-     * 
-     * <pre>
-     * <li>Source node is process node, and target node is "Map/Reduce Jobs".
-     * <li>Source node is m/r process node, and target node is "Standard Jobs".
-     * </pre>
-     * 
-     * Added by Marvin Wang on Mar 19, 2013.
-     * 
-     * @param sourceNode that should be job node or m/r job node.
-     * @param targetNode which type should be {@link ENodeType#SYSTEM_FOLDER} or {@link ENodeType#SIMPLE_FOLDER}, and
-     * the content type must be {@link ERepositoryObjectType#PROCESS_MR} or {@link ERepositoryObjectType#PROCESS}.
-     * @return
-     */
-    public boolean isMapReduceProcessConvertService(RepositoryNode sourceNode, RepositoryNode targetNode) {
-        boolean isMapReduceConvertService = false;
-        if (sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS_MR) {
+    public boolean CheckConvertProcess(RepositoryNode sourceNode, RepositoryNode targetNode) {
+        boolean checkConvertProcess = false;
+        if (sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                || sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS_STORM
+                || sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS_MR) {
             if (ENodeType.SYSTEM_FOLDER == targetNode.getType() || ENodeType.SIMPLE_FOLDER == targetNode.getType()) {
-                if (targetNode.getContentType() == ERepositoryObjectType.PROCESS) {
-                    isMapReduceConvertService = true;
-                }
-            }
-        } else if (sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS) {
-            if (ENodeType.SYSTEM_FOLDER == targetNode.getType() || ENodeType.SIMPLE_FOLDER == targetNode.getType()) {
-                if (targetNode.getContentType() == ERepositoryObjectType.PROCESS_MR) {
-                    isMapReduceConvertService = true;
+                if (targetNode.getContentType() == ERepositoryObjectType.PROCESS
+                        || targetNode.getContentType() == ERepositoryObjectType.PROCESS_STORM
+                        || targetNode.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                    checkConvertProcess = true;
                 }
             }
         }
-        return isMapReduceConvertService;
+        return checkConvertProcess;
     }
 }

@@ -33,10 +33,9 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.ui.ICDCProviderService;
-import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.ProcessConvertManager;
-import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -70,25 +69,31 @@ public class PasteAction extends AContextualAction {
     protected void doRun() {
         IStructuredSelection selection = (IStructuredSelection) getSelection();
         RepositoryNode target = (RepositoryNode) selection.getFirstElement();
-
         CopyObjectAction copyObjectAction = CopyObjectAction.getInstance();
-
         TreeSelection selectionInClipboard = (TreeSelection) LocalSelectionTransfer.getTransfer().getSelection();
         if (selectionInClipboard != null) {
             for (Object currentSource : selectionInClipboard.toArray()) {
                 RepositoryNode sourceNode = (RepositoryNode) currentSource;
                 // To check if the source copied node meets the condition to convert or paste for TDI-25360.(Ctrl+V)
-                if (ProcessConvertManager.getInstance().isMapReduceProcessConvertService(sourceNode, target)) {
-
-                    IProcessConvertService convertService = ProcessConvertManager.getInstance().extractConvertService(
-                            ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
-                    if (ERepositoryObjectType.PROCESS == (sourceNode.getObjectType())) {
-                        IRepositoryViewObject repViewObj = sourceNode.getObject();
-                        convertService.convertFromProcess(repViewObj.getProperty().getItem(), repViewObj);
-                    } else if (ERepositoryObjectType.PROCESS_MR == (sourceNode.getObjectType())) {
-                        IRepositoryViewObject repViewObj = sourceNode.getObject();
-                        convertService.convertToProcess(repViewObj.getProperty().getItem(), repViewObj);
+                if (ProcessConvertManager.getInstance().CheckConvertProcess(sourceNode, target)) {
+                    String jobNewName = null;
+                    String jobTypeValue = null;
+                    String frameworkNewValue = null;
+                    if (target.getContentType() == ERepositoryObjectType.PROCESS) {
+                        jobTypeValue = ConvertJobsUtil.JobType.STANDARD.getDisplayName();
+                    } else if (target.getContentType() == ERepositoryObjectType.PROCESS_STORM) {
+                        jobTypeValue = ConvertJobsUtil.JobType.BIGDATASTREAMING.getDisplayName();
+                        frameworkNewValue = ConvertJobsUtil.JobStreamingFramework.SPARKSTREAMINGFRAMEWORK.getDisplayName();
+                    } else if (target.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                        jobTypeValue = ConvertJobsUtil.JobType.BIGDATABATCH.getDisplayName();
+                        frameworkNewValue = ConvertJobsUtil.JobBatchFramework.MAPREDUCEFRAMEWORK.getDisplayName();
                     }
+                    try {
+                        jobNewName = ConvertJobsUtil.getDuplicateName(sourceNode, sourceNode.getObject().getLabel());
+                    } catch (BusinessException e) {
+                        jobNewName = sourceNode.getObject().getLabel();
+                    }
+                    ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkNewValue, sourceNode.getObject());
                 } else {
                     try {
                         if (copyObjectAction.validateAction((RepositoryNode) currentSource, target)) {

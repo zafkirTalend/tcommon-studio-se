@@ -42,6 +42,7 @@ import org.eclipse.ui.navigator.CommonDropAdapter;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.part.PluginDropAdapter;
 import org.osgi.framework.FrameworkUtil;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -59,13 +60,12 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.CopyObjectAction;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
+import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.ITransformService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
-import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.ProcessConvertManager;
-import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -112,18 +112,24 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
             for (Object selectedRepNode : selectedRepNodes) {
                 if (selectedRepNode instanceof RepositoryNode) {
                     RepositoryNode sourceNode = (RepositoryNode) selectedRepNode;
-                    if (ProcessConvertManager.getInstance().isMapReduceProcessConvertService(sourceNode, targetNode)) {
-
-                        IProcessConvertService convertService = ProcessConvertManager.getInstance().extractConvertService(
-                                ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
-                        if (ERepositoryObjectType.PROCESS == (sourceNode.getObjectType())) {
-                            IRepositoryViewObject repViewObj = sourceNode.getObject();
-                            convertService.convertFromProcess(repViewObj.getProperty().getItem(), repViewObj, targetNode);
-                        } else if (ERepositoryObjectType.PROCESS_MR == (sourceNode.getObjectType())) {
-                            IRepositoryViewObject repViewObj = sourceNode.getObject();
-                            convertService.convertToProcess(repViewObj.getProperty().getItem(), repViewObj, targetNode);
-                        }
+                    String jobNewName = null;
+                    String jobTypeValue = null;
+                    String frameworkNewValue = null;
+                    if (targetNode.getContentType() == ERepositoryObjectType.PROCESS) {
+                        jobTypeValue = ConvertJobsUtil.JobType.STANDARD.getDisplayName();
+                    } else if (targetNode.getContentType() == ERepositoryObjectType.PROCESS_STORM) {
+                        jobTypeValue = ConvertJobsUtil.JobType.BIGDATASTREAMING.getDisplayName();
+                        frameworkNewValue = ConvertJobsUtil.JobStreamingFramework.SPARKSTREAMINGFRAMEWORK.getDisplayName();
+                    } else if (targetNode.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                        jobTypeValue = ConvertJobsUtil.JobType.BIGDATABATCH.getDisplayName();
+                        frameworkNewValue = ConvertJobsUtil.JobBatchFramework.MAPREDUCEFRAMEWORK.getDisplayName();
                     }
+                    try {
+                        jobNewName = ConvertJobsUtil.getDuplicateName(sourceNode, sourceNode.getObject().getLabel());
+                    } catch (BusinessException e) {
+                        jobNewName = sourceNode.getObject().getLabel();
+                    }
+                    ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkNewValue, sourceNode.getObject());
                 }
             }
         }
@@ -181,7 +187,7 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 List<?> selectedRepNodes = selection.toList();
                 if (selectedRepNodes != null && selectedRepNodes.size() > 0) {
                     RepositoryNode sourceNode = (RepositoryNode) selection.getFirstElement();
-                    if (ProcessConvertManager.getInstance().isMapReduceProcessConvertService(sourceNode, targetNode)) {
+                    if (ProcessConvertManager.getInstance().CheckConvertProcess(sourceNode, targetNode)) {
                         doMapReduceConversion(selection, targetNode);
                     } else {
                         // Otherwise do removing job.
@@ -354,7 +360,18 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                     if (target instanceof RepositoryNode) {
                         RepositoryNode targetRN = (RepositoryNode) target;
                         if (ENodeType.SYSTEM_FOLDER == targetRN.getType() || ENodeType.SIMPLE_FOLDER == targetRN.getType()) {
-                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS) {
+                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS
+                                    || targetRN.getContentType() == ERepositoryObjectType.PROCESS_STORM) {
+                                return isValid = true;
+                            }
+                        }
+                    }
+                } else if (object.getRepositoryObjectType() == ERepositoryObjectType.PROCESS_STORM) {
+                    if (target instanceof RepositoryNode) {
+                        RepositoryNode targetRN = (RepositoryNode) target;
+                        if (ENodeType.SYSTEM_FOLDER == targetRN.getType() || ENodeType.SIMPLE_FOLDER == targetRN.getType()) {
+                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS
+                                    || targetRN.getContentType() == ERepositoryObjectType.PROCESS_MR) {
                                 return isValid = true;
                             }
                         }
@@ -363,7 +380,8 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                     if (target instanceof RepositoryNode) {
                         RepositoryNode targetRN = (RepositoryNode) target;
                         if (ENodeType.SYSTEM_FOLDER == targetRN.getType() || ENodeType.SIMPLE_FOLDER == targetRN.getType()) {
-                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS_MR) {
+                            if (targetRN.getContentType() == ERepositoryObjectType.PROCESS_MR
+                                    || targetRN.getContentType() == ERepositoryObjectType.PROCESS_STORM) {
                                 return isValid = true;
                             }
                         }
@@ -552,7 +570,8 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                 if (object instanceof RepositoryNode) {
                     RepositoryNode repositoryNode = (RepositoryNode) object;
                     boolean isLock = false;
-                    monitor.subTask(Messages.getString("RepositoryDropAdapter.checkingLockStatus",repositoryNode.getObject().getLabel())); //$NON-NLS-1$
+                    monitor.subTask(Messages.getString(
+                            "RepositoryDropAdapter.checkingLockStatus", repositoryNode.getObject().getLabel())); //$NON-NLS-1$
                     isLock = MoveObjectAction.getInstance().isLock(repositoryNode);
                     if (isLock) {
                         String errorMsg = null;
