@@ -161,6 +161,9 @@ public class JavaResourcesHelper {
 
     public static String getJobClassName(IProcess2 process) {
         Item processItem = process.getProperty().getItem();
+        if(ProcessUtils.isTestContainer(process)){
+        	return getJobClassPackageName(processItem, true) + "." + process.getLabel() + "Test";
+        }
         return getJobClassPackageName(processItem) + "." + process.getLabel();
     }
 
