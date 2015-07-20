@@ -17,6 +17,9 @@ package org.talend.core.runtime.process;
  */
 public interface TalendProcessOptionConstants {
 
+    /**
+     * generate options
+     */
     public static final int GENERATE_MAIN_ONLY = 1 << 1;
 
     public static final int GENERATE_WITH_FIRST_CHILD = 1 << 2;
@@ -26,4 +29,13 @@ public interface TalendProcessOptionConstants {
     public static final int GENERATE_TESTS = 1 << 4;
 
     public static final int GENERATE_WITHOUT_COMPILING = 1 << 5;
+
+    /**
+     * clean options
+     */
+    public static final int CLEAN_JAVA_CODES = 1;
+
+    public static final int CLEAN_CONTEXTS = 1 << 1;
+
+    public static final int CLEAN_DATA_SETS = 1 << 2;
 }
