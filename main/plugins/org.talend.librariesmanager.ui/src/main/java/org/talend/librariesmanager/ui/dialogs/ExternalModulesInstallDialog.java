@@ -943,15 +943,11 @@ public class ExternalModulesInstallDialog extends TitleAreaDialog implements IMo
         List<ModuleToInstall> theInputList = tableViewerCreator.getInputList();
 
         List<ModuleToInstall> toInstall = new ArrayList<ModuleToInstall>();
-        if (!jarsInstalledSuccuss.isEmpty()) {
-            for (ModuleToInstall module : theInputList) {
-                if (!MavenConstants.DOWNLOAD_MANUAL.equals(module.getDistribution())
-                        && !jarsInstalledSuccuss.contains(module.getName())) {
-                    toInstall.add(module);
-                }
+        for (ModuleToInstall module : theInputList) {
+            if (!MavenConstants.DOWNLOAD_MANUAL.equals(module.getDistribution())
+                    && !jarsInstalledSuccuss.contains(module.getName())) {
+                toInstall.add(module);
             }
-        } else {
-            toInstall.addAll(theInputList);
         }
         return toInstall;
     }
