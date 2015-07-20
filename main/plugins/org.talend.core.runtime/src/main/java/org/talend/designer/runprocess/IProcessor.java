@@ -47,6 +47,8 @@ public interface IProcessor {
 
     public static final int STATES_RUNTIME = 1;
 
+    public void cleanBeforeGenerate(int options) throws ProcessorException;
+
     /**
      * generate the code of the current Process.
      * 

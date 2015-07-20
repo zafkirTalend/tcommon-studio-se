@@ -411,6 +411,20 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
+
+        IProcessor processor = null;
+        if (processor2 != null) {
+            processor = processor2;
+        } else {
+            if (selectedProcessItem == null) { // shadow process
+                processor = getProcessor(currentProcess, null);
+            } else {
+                processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+            }
+        }
+        processor.cleanBeforeGenerate(TalendProcessOptionConstants.CLEAN_JAVA_CODES | TalendProcessOptionConstants.CLEAN_CONTEXTS
+                | TalendProcessOptionConstants.CLEAN_DATA_SETS);
+
         generateJobInfo(jobInfo, isMainJob, currentProcess, selectedProcessItem);
 
         // pigudf
@@ -446,17 +460,6 @@ public class ProcessorUtilities {
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
         generateNodeInfo(jobInfo, selectedContextName, statistics, needContext, option, progressMonitor, currentProcess);
-
-        IProcessor processor = null;
-        if (processor2 != null) {
-            processor = processor2;
-        } else {
-            if (selectedProcessItem == null) { // shadow process
-                processor = getProcessor(currentProcess, null);
-            } else {
-                processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
-            }
-        }
 
         final Map<String, Object> argumentsMap = new HashMap<String, Object>();
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
@@ -611,6 +614,7 @@ public class ProcessorUtilities {
 
             // always generate all context files.
             if (needContext) {
+
                 List<IContext> list = currentProcess.getContextManager().getListContext();
                 for (IContext context : list) {
                     if (context.getName().equals(currentContext.getName())) {
@@ -741,6 +745,16 @@ public class ProcessorUtilities {
             } else {
                 currentProcess = jobInfo.getProcess();
             }
+
+            IProcessor processor = null;
+            if (selectedProcessItem == null) { // shadow process
+                processor = getProcessor(currentProcess, null);
+            } else {
+                processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
+            }
+            processor.cleanBeforeGenerate(TalendProcessOptionConstants.CLEAN_JAVA_CODES
+                    | TalendProcessOptionConstants.CLEAN_CONTEXTS | TalendProcessOptionConstants.CLEAN_DATA_SETS);
+
             if (!timerStarted) {
                 idTimer = "generateCode for job: " + currentProcess.getName();
                 TimeMeasure.begin(idTimer);
@@ -791,19 +805,14 @@ public class ProcessorUtilities {
             generateNodeInfo(jobInfo, selectedContextName, statistics, needContext, option, progressMonitor, currentProcess);
             TimeMeasure.step(idTimer, "generateNodeInfo");
 
-            IProcessor processor = null;
-            if (selectedProcessItem == null) { // shadow process
-                processor = getProcessor(currentProcess, null);
-            } else {
-                processor = getProcessor(currentProcess, selectedProcessItem.getProperty());
-            }
             if (jobInfo.getArgumentsMap() != null) {
                 processor.setArguments(jobInfo.getArgumentsMap());
             } else {
                 final Map<String, Object> argumentsMap = new HashMap<String, Object>();
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
-                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN,
+                        jobInfo.isApplyContextToChildren());
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
 
                 processor.setArguments(argumentsMap);
