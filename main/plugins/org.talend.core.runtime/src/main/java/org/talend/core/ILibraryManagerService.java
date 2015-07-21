@@ -129,6 +129,13 @@ public interface ILibraryManagerService extends IService {
      */
     public void forceListUpdate();
 
+    /**
+     * deploy jars from lib/java to local maven if any jar already exist in maven and need update , for jars that not
+     * exist in maven won't be deploy by this funciton , those jars should be deploy when it is needed Comment method
+     * "synToLocalMaven".
+     */
+    public void synToLocalMaven();
+
     public String getMavenUriFromIndex(String jarName);
 
 }
