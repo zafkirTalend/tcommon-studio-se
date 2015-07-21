@@ -13,11 +13,12 @@
 package org.talend.commons.ui.utils;
 
 import org.apache.log4j.Logger;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.PartSite;
 import org.eclipse.ui.internal.cheatsheets.ICheatSheetResource;
 import org.eclipse.ui.internal.cheatsheets.views.CheatSheetView;
 import org.eclipse.ui.internal.util.PrefUtil;
@@ -35,7 +36,7 @@ public class CheatSheetUtils {
      * this flag means the first time when studio start. only when this value is true, when close the welcome page, we
      * will display and maximum display cheatsheet view, else do nothing.
      */
-    private boolean isFirstTime = true;
+    private boolean isFirstTime = !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName());
 
     /**
      * Sets the isFirstTime.
@@ -73,15 +74,24 @@ public class CheatSheetUtils {
      */
     public void maxDisplayCheatSheetView(CheatSheetView view) {
         // ADD msjian TDQ-7407 2013-8-23: Only display the Cheat Sheet view on new startup of the studio
-        if (isFirstTime() && !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName())) {
-            // PartPane pane = ((PartSite) view.getSite()).getPane();
-            // view.getSite().getPage().toggleZoom(pane.getPartReference());
-            view.getSite().getPage().toggleZoom(((PartSite) view.getSite()).getPartReference());
-            view.setFocus();
-
-            setFirstTime(false);
-            PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
+        IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        activePage.setEditorAreaVisible(true);
+        // activePage.resetPerspective();
+        for (IViewReference ref : activePage.getViewReferences()) {
+            if (view.equals(ref.getView(false))) {
+                activePage.setPartState(ref, IWorkbenchPage.STATE_MAXIMIZED);
+                activePage.bringToTop(ref.getView(false));
+            }
+            else {
+                activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
+            }
         }
+        for (IEditorReference ref : activePage.getEditorReferences()) {
+            activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
+        }
+        
+        PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
+        setFirstTime(!PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName()));
         // TDQ-7407~
     }
 
