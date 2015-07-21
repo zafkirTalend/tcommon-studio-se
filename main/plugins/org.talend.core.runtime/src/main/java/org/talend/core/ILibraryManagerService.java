@@ -68,7 +68,7 @@ public interface ILibraryManagerService extends IService {
      */
     public void deployMavenIndex(Map<String, String> libsToMavenUri, IProgressMonitor... monitorWrap);
 
-    public void deployComponentsLibs(IProgressMonitor... monitorWrap);
+    public void deployComponentAndExtensionLibs(IProgressMonitor... monitorWrap);
 
     /**
      * DOC ycbai Comment method "retrieve".
@@ -128,5 +128,7 @@ public interface ILibraryManagerService extends IService {
      * Mostly usefull for SVN libraries, after a SVN Update, this will force to refresh the current list of jars
      */
     public void forceListUpdate();
+
+    public String getMavenUriFromIndex(String jarName);
 
 }

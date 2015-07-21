@@ -28,7 +28,6 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.codegen.PigTemplate;
@@ -198,10 +197,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         // if clean the component cache, it will automatically recheck all libs still.
         if (!repositoryBundleService.isInitialized()) {
             // 2. Components libraries
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
-                repositoryBundleService.deployComponentsLibs(monitorWrap);
-                repositoryBundleService.setInitialized();
-            }
+            repositoryBundleService.deployComponentAndExtensionLibs(monitorWrap);
+            repositoryBundleService.setInitialized();
         }
 
         checkInstalledLibraries();
