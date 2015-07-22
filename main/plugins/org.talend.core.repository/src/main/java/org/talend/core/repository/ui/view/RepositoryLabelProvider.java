@@ -120,7 +120,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
             }
         } else {
             String oldPath = object.getPath();
-            if (oldPath != null && !"".equals(oldPath)) {
+            if (object.isDeleted() && oldPath != null && !"".equals(oldPath)) {
                 string.append(" (" + oldPath + ")"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
