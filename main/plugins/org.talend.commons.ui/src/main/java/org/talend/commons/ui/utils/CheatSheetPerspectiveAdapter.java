@@ -108,8 +108,9 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                     } else {
                         view.setInput(DQ_CHEATSHEET_START_ID);
                     }
-
-                    CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);
+                    if (CheatSheetUtils.getInstance().isFirstTime()) {
+                        CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);
+                    }
                 }
                 if (null != activePart) {
                     activePart.setFocus();
