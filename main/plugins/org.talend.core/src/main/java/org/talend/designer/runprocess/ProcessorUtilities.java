@@ -1343,14 +1343,23 @@ public class ProcessorUtilities {
 
     /**
      * 
-     * @deprecated seems never use this one
+     * Seems only work for jet code generator.
      */
-    @Deprecated
     public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processId, String contextName,
             int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         ProcessItem selectedProcessItem = ItemCacheManager.getProcessItem(processId);
-        return getCommandLine(targetPlatform, externalUse, selectedProcessItem, contextName, true, statisticPort, tracePort,
-                codeOptions);
+        if (selectedProcessItem == null) {
+            return new String[] {};
+        }
+        IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+
+        IProcess process = service.getProcessFromProcessItem(selectedProcessItem);
+        if (process == null) {
+            return new String[] {};
+        }
+        // because all jobs are based one new way, set the flag "oldBuildJob" to false.
+        return getCommandLine(false, targetPlatform, externalUse, process, selectedProcessItem.getProperty(), contextName, true,
+                statisticPort, tracePort, codeOptions);
     }
 
     /**
@@ -1430,6 +1439,10 @@ public class ProcessorUtilities {
         return processor.getCommandLine(needContext, externalUse, statisticPort, tracePort, codeOptions);
     }
 
+    /**
+     * 
+     * Seems only work for jet code generator.
+     */
     public static String[] getMainCommand(String processName, String processVersion, String contextName, int statisticPort,
             int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
