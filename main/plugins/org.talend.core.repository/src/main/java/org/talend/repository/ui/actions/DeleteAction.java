@@ -490,7 +490,7 @@ public class DeleteAction extends AContextualAction {
             curItem = parentFolder;
         }
         if (!objectType.getKey().toString().startsWith("repository.metadata") && objectType != ERepositoryObjectType.SQLPATTERNS //$NON-NLS-1$
-                && objectType != ERepositoryObjectType.ROUTINES && objectType != ERepositoryObjectType.JOB_SCRIPT
+                && objectType != ERepositoryObjectType.ROUTINES  && objectType != ERepositoryObjectType.getType("BEANS") && objectType != ERepositoryObjectType.JOB_SCRIPT
                 && curItem.getParent() instanceof FolderItem && ((Item) curItem.getParent()).getParent() instanceof FolderItem
                 && !objectType.isDQItemType()) {// MOD qiongli 2011-1-20 except DQItem.
             FolderItem parentFolder = (FolderItem) curItem.getParent();
