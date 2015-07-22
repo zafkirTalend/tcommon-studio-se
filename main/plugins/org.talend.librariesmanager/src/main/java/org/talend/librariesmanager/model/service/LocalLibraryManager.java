@@ -51,6 +51,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.components.ComponentProviderInfo;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ILibrariesService;
@@ -804,10 +805,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!duplicateMavenUri.isEmpty()) {
             warnDuplicated(modules, duplicateMavenUri, "Maven Uri:");
         }
-        deployLibForComponentProviders(service, libsWithoutUri, libsToRelativePath, libsToMavenUri);
-
         deploy(libsToRelativePath, monitorWrap);
         deployMavenIndex(libsToMavenUri, monitorWrap);
+
+        deployLibForComponentProviders(service, libsWithoutUri, libsToRelativePath, libsToMavenUri);
 
         // deploy platform uri/maven uri configured from extension to index
         if (platfromUriFromExtensions.isEmpty() || mavenUriFromExtensions.isEmpty()) {
@@ -819,14 +820,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private void deployLibForComponentProviders(IComponentsService service, Set<String> libsWithoutUri,
             Map<String, String> libsToRelativePath, Map<String, String> libsToMavenUri) {
-        Set<String> needToDeploy = new HashSet<String>();
-        Map<String, File> componentsFolders = service.getComponentsFactory().getComponentsProvidersFolder();
-        Set<String> contributeIdSet = componentsFolders.keySet();
-        for (String contributeID : contributeIdSet) {
+        Set<File> needToDeploy = new HashSet<File>();
+        List<ComponentProviderInfo> componentsFolders = service.getComponentsFactory().getComponentsProvidersInfo();
+        for (ComponentProviderInfo providerInfo : componentsFolders) {
+            String contributeID = providerInfo.getContributer();
+            String id = providerInfo.getId();
             try {
-                File file = new File(componentsFolders.get(contributeID).toURI());
-                if ("org.talend.designer.components.model.UserComponentsProvider".contains(contributeID)
-                        || "org.talend.designer.components.exchange.ExchangeComponentsProvider".contains(contributeID)) {
+                File file = new File(providerInfo.getLocation());
+                if ("org.talend.designer.components.model.UserComponentsProvider".equals(id)
+                        || "org.talend.designer.components.exchange.ExchangeComponentsProvider".equals(id)) {
                     if (file.isDirectory()) {
                         List<File> jarFiles = FilesUtils.getJarFilesFromFolder(file, null);
                         if (jarFiles.size() > 0) {
@@ -835,17 +837,17 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                 if (!libsWithoutUri.contains(name)) {
                                     continue;
                                 }
-                                needToDeploy.add(jarFile.getAbsolutePath());
+                                needToDeploy.add(jarFile);
                             }
                         }
                     } else {
                         if (!libsWithoutUri.contains(file.getName())) {
                             continue;
                         }
-                        needToDeploy.add(file.getAbsolutePath());
+                        needToDeploy.add(file);
                     }
                 } else {
-                    List<File> jarFiles = FilesUtils.getJarFilesFromFolder(file, null);
+                    List<File> jarFiles = FilesUtils.getJarFilesFromFolder(file, null, "ext");
                     if (jarFiles.size() > 0) {
                         for (File jarFile : jarFiles) {
                             String name = jarFile.getName();
@@ -877,29 +879,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
 
         // deploy needed jars for User and Exchange component providers
-        Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
-        Map<String, String> customUriToAdd = new HashMap<String, String>();
-        Map<String, String> libsToMavenUriAll = new HashMap<String, String>();
-        libsToMavenUriAll.putAll(libsToMavenUri);
-        libsToMavenUriAll.putAll(LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath().map());
         if (!needToDeploy.isEmpty()) {
-            for (String file : needToDeploy) {
-                String jarName = new File(file).getName();
-                String mavenUri = libsToMavenUriAll.get(jarName);
-                if (mavenUri == null) {
-                    mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
-                    customUriToAdd.put(jarName, mavenUri);
+            for (File file : needToDeploy) {
+                try {
+                    deploy(file.toURI());
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                 }
-                sourceAndMavenUri.put(mavenUri, file);
-            }
-            try {
-                deployer.deployToLocalMaven(sourceAndMavenUri);
-                // add custom uri map to the index
-                if (!customUriToAdd.isEmpty()) {
-                    deployMavenIndex(customUriToAdd);
-                }
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
             }
         }
     }
@@ -1062,17 +1048,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
     @Override
     public void synToLocalMaven() {
         File libDirectory = getStorageDirectory();
-        Map<String, String> customUriToAdd = new HashMap<String, String>();
         for (File svnLibFile : libDirectory.listFiles()) {
             if (svnLibFile.isFile()) {
                 String jarName = svnLibFile.getName();
                 EMap<String, String> jarsToMavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex()
                         .getJarsToRelativePath();
-                Map<String, String> mavenUriToCheck = new HashMap<String, String>();
-                mavenUriToCheck.putAll(jarsToMavenUri.map());
-                String mvnUri = mavenUriToCheck.get(jarName);
+                String mvnUri = jarsToMavenUri.get(jarName);
                 if (mvnUri == null) {
-                    customUriToAdd.put(jarName, mvnUri);
                     mvnUri = MavenUrlHelper.generateMvnUrlForJarName(jarName);
                 }
                 boolean installed = checkJarInstalledInMaven(mvnUri);
@@ -1096,9 +1078,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     }
                 }
 
-            }
-            if (!customUriToAdd.isEmpty()) {
-                deployMavenIndex(customUriToAdd);
             }
         }
     }
