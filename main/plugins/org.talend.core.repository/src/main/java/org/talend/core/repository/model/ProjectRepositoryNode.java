@@ -596,12 +596,12 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         List<String> folders = RecycleBinManager.getInstance().getDeletedFolders(rootNode.getRoot().getProject());
         Collections.sort(folders);
         for (String fullPath : folders) {
-            String folderType = fullPath.substring(0, fullPath.indexOf("/"));
-            String path = fullPath.substring(fullPath.indexOf("/") + 1);
+            String path = null;
             ERepositoryObjectType currentType = null;
             for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
                 ERepositoryObjectType objectType = (ERepositoryObjectType) type;
-                if (objectType.isResouce() && folderType.equals(objectType.getFolder())) {
+                if (objectType.isResouce() && fullPath.startsWith(objectType.getFolder())) {
+                    path = fullPath.substring(objectType.getFolder().length()+1);
                     currentType = objectType;
                     break;
                 }
