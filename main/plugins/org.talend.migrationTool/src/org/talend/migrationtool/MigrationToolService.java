@@ -448,7 +448,7 @@ public class MigrationToolService implements IMigrationToolService {
                             throw new CoreException(new Status(Status.ERROR, "org.talend.migrationTool", e.getMessage(), e)); //$NON-NLS-1$
                         }
                         if (!isMigrationOnNewProject() && !beforeLogon) {
-                            appendToLogFile(project, " ---=== Enf of migration ===---\n"); //$NON-NLS-1$
+                            appendToLogFile(project, " ---=== End of migration ===---\n"); //$NON-NLS-1$
                         }
                     }
                 };
