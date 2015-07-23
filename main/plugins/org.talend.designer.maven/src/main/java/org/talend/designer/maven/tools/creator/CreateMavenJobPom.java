@@ -307,6 +307,16 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
             }
         }
 
+        String[] jvmArgs = jProcessor.getJVMArgs();
+        StringBuffer jvmArgsStr = new StringBuffer();
+        if (jvmArgs != null && jvmArgs.length > 0) {
+            for (String arg : jvmArgs) {
+                jvmArgsStr.append(arg);
+                jvmArgsStr.append(' ');
+            }
+        }
+        checkPomProperty(properties, "talend.job.jvmargs", ETalendMavenVariables.JobJvmArgs, jvmArgsStr.toString());
+
         checkPomProperty(properties, "talend.job.bat.classpath", ETalendMavenVariables.JobBatClasspath,
                 this.getWindowsClasspath());
         checkPomProperty(properties, "talend.job.bat.addition", ETalendMavenVariables.JobBatAddition,

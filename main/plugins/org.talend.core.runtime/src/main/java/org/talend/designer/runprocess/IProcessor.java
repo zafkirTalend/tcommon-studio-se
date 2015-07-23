@@ -306,6 +306,8 @@ public interface IProcessor {
 
     String getMainClass();
 
+    String[] getJVMArgs();
+
     Set<ModuleNeeded> getNeededModules();
 
     Set<JobInfo> getBuildChildrenJobs();
