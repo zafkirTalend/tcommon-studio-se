@@ -872,9 +872,7 @@ public class NodeUtil {
             if (!linesIter.hasNext()) {
                 return "\"[]\"";
             }
-            value.append("new StringBuilder().append(\"[");
-            
-            int counter = 0;
+            value.append("\"[");
             for (;;) {
                 Map<String, String> columns = linesIter.next();
                 Iterator<Entry<String, String>> columnsIter = columns.entrySet().iterator();
@@ -890,15 +888,13 @@ public class NodeUtil {
                     printedColumnExist = true;
 
                     value.append(column.getKey());
-                    value.append("=\").append(");
+                    value.append("=\"+(");
                     value.append(getNormalizeParameterValue(column.getValue(), types.get(column.getKey()), true));
-                    value.append(").append(\"");
+                    value.append(")+\"");
 
                     if (columnsIter.hasNext()) {
                         value.append(", ");
                     }
-                    
-                    counter++;
                 }
                 if (printedColumnExist && column != null && (types.get(column.getKey()) == null)) {
                     value.setLength(value.length() - 2);
@@ -906,14 +902,9 @@ public class NodeUtil {
                 value.append("}");
 
                 if (!linesIter.hasNext()) {
-                    return value.append("]\").toString()").toString();
+                	return value.append("]\"").toString();
                 }
                 value.append(",").append(" ");
-                
-                if(counter > 1000){
-                	value.append("\").toString() + new StringBuilder().append(\"");
-                	counter = 0;
-                }
             }
         } else {
             String value = ElementParameterParser.getValue(node, "__" + ep.getName() + "__");
