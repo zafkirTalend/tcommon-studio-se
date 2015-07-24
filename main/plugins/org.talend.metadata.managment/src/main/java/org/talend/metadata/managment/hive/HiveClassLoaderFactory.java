@@ -15,7 +15,6 @@ package org.talend.metadata.managment.hive;
 import java.io.File;
 import java.util.Set;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.talend.core.GlobalServiceRegister;
@@ -135,15 +134,15 @@ public class HiveClassLoaderFactory {
             }
         }
 
-        String executionEngine = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_EXECUTION_ENGINE);
-        EHiveExecutionTypes executionType = EHiveExecutionTypes.getTypeFromValue(executionEngine);
-        if (Boolean.valueOf(EHiveExecutionTypes.TEZ.equals(executionType))) {
-            String hiveVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-            String[] tezJars = EHiveWithTezJars.getJarsByVersion(hiveVersion);
-            if (tezJars != null) {
-                configurationJars = ArrayUtils.addAll(configurationJars, tezJars);
-            }
-        }
+        // It is no use for now since there are some fix jars configurations in component.
+        /*
+         * String executionEngine = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_EXECUTION_ENGINE);
+         * EHiveExecutionTypes executionType = EHiveExecutionTypes.getTypeFromValue(executionEngine); if
+         * (Boolean.valueOf(EHiveExecutionTypes.TEZ.equals(executionType))) { String hiveVersion = (String)
+         * metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION); String[] tezJars =
+         * EHiveWithTezJars.getJarsByVersion(hiveVersion); if (tezJars != null) { configurationJars =
+         * ArrayUtils.addAll(configurationJars, tezJars); } }
+         */
 
         ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                 ILibraryManagerService.class);
