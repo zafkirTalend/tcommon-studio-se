@@ -188,6 +188,7 @@ public class DeleteTableAction extends AContextualAction {
                             }
                             if (confirm) {
                                 subRepositoryObject.removeFromParent();
+                                ProxyRepositoryFactory.getInstance().setSubItemDeleted(item, abstractMetadataObject, false);
                             }
                         }
                         // bug 20963
