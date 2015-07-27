@@ -229,14 +229,10 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
                 if (previousValue instanceof Integer) {
                     Integer integer = (Integer) previousValue;
                     if (integer == 0) {
-                        if (value == null) {
-                            needChange = false;
-                        } else {
-                            if (value instanceof Integer) {
-                                Integer intValue = (Integer) value;
-                                if (intValue == 0) {
-                                    needChange = false;
-                                }
+                        if (value != null && value instanceof Integer) {
+                            Integer intValue = (Integer) value;
+                            if (intValue == 0) {
+                                needChange = false;
                             }
                         }
                     } else {
