@@ -81,7 +81,12 @@ public class RecycleBinManager {
             try {
                 IRepositoryViewObject object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId(),
                         deletedItem.getPath(), ERepositoryObjectType.getType(deletedItem.getType()));
-                deletedObjects.add(object);
+                if (object == null) {
+                    object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId());
+                }
+                if (object != null) {
+                    deletedObjects.add(object);
+                }
             } catch (PersistenceException e) {
                 ExceptionHandler.process(e);
             }

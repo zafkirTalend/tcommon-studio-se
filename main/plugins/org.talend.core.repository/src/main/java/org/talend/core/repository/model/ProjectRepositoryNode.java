@@ -680,11 +680,12 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     if (fullPath.equals(path)) {
                         folderNode = (RepositoryNode) node;
                         remainingPath = null;
+                        break;
                     } else if (path.startsWith(fullPath)){
                         folderNode = (RepositoryNode) node;
                         remainingPath = path.substring(fullPath.length()+1);
+                        break;
                     }
-                    break;
                 }
             }
         }
