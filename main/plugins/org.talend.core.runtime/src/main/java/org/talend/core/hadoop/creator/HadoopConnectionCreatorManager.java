@@ -34,7 +34,7 @@ public class HadoopConnectionCreatorManager {
 
     private static List<IHadoopConnectionCreator> creators = null;
 
-    public static List<IHadoopConnectionCreator> getCreators() {
+    public static List<IHadoopConnectionCreator> getCreators(String hadoopClusterId) {
         if (creators == null) {
             creators = new ArrayList<>();
             IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -47,7 +47,9 @@ public class HadoopConnectionCreatorManager {
                         try {
                             Object creator = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
                             if (creator instanceof IHadoopConnectionCreator) {
-                                creators.add((IHadoopConnectionCreator) creator);
+                                IHadoopConnectionCreator connectionCreator = (IHadoopConnectionCreator) creator;
+                                connectionCreator.init(hadoopClusterId);
+                                creators.add(connectionCreator);
                             }
                         } catch (CoreException e) {
                             ExceptionHandler.process(e);
