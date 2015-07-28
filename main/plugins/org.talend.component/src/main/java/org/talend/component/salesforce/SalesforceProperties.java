@@ -8,7 +8,6 @@ import org.talend.component.common.OauthProperties;
 import org.talend.component.common.ProxyProperties;
 import org.talend.component.common.UserPasswordProperties;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("salesforceProperties")

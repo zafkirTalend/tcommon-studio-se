@@ -2,12 +2,10 @@ package org.talend.component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * TODO - need to serialize the annotations associated with each property so the client can see them.

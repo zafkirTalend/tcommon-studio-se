@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Salesforce
-Bundle-SymbolicName: org.talend.component.salesforce
-Bundle-Version: 6.1.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.talend.component;bundle-version="6.1.0"

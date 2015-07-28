@@ -1,7 +1,5 @@
 package org.talend.component;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 /**
  * Component design service.
  * 
