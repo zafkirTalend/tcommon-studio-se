@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class UserPasswordProperties extends ComponentProperties {
 
 	@JsonProperty
-	protected String userId;
+	public String userId;
 
 	@JsonProperty
-	protected String password;
+	public String password;
 	
 	public String getUserId() {
 		return userId;

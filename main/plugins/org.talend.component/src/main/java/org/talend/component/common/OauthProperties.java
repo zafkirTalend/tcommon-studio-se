@@ -9,19 +9,19 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class OauthProperties extends ComponentProperties {
 
 	@JsonProperty
-	protected String clientId;
+	public String clientId;
 	
 	@JsonProperty
-	protected String clientSecret;
+	public String clientSecret;
 	
 	@JsonProperty
-	protected String callbackHost;
+	public String callbackHost;
 	
 	@JsonProperty
-	protected int callbackPort;
+	public int callbackPort;
 
 	@JsonProperty
-	protected String tokenFile;
+	public String tokenFile;
 
 	public String getClientId() {
 		return clientId;

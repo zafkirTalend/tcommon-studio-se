@@ -9,19 +9,19 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class ProxyProperties extends ComponentProperties {
 	
 	@JsonProperty
-	protected boolean useProxy;
+	public boolean useProxy;
 
 	@JsonProperty
-	protected String host;
+	public String host;
 
 	@JsonProperty
-	protected int port;
+	public int port;
 
 	@JsonProperty
-	protected String userName;
+	public String userName;
 
 	@JsonProperty
-	protected String password;
+	public String password;
 	
 	public boolean isUseProxy() {
 		return useProxy;

@@ -1,10 +1,12 @@
 package org.talend.component.salesforce;
 
+import org.springframework.stereotype.Service;
 import org.talend.component.ComponentConnector;
 import org.talend.component.ComponentConnector.Type;
 import org.talend.component.ComponentDesign;
 import org.talend.component.ComponentProperties;
 
+@Service
 public class SalesforceDesign extends ComponentDesign {
 
 	protected ComponentConnector[] connectors = {
@@ -16,7 +18,7 @@ public class SalesforceDesign extends ComponentDesign {
 	protected SalesforceProperties properties;
 
 	@Override
-	public ComponentProperties getProperties() {
+	public ComponentProperties createProperties() {
 		return new SalesforceProperties();
 	}
 
