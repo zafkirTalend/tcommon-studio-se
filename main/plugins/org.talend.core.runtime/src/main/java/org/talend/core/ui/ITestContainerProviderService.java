@@ -75,4 +75,8 @@ public interface ITestContainerProviderService extends IService {
     public String getInstanceContext(IProcess process, String instance);
 
     public String getOriginalID(IRepositoryViewObject curNode);
+
+    public List<IRepositoryViewObject> listExistingTestCases();
+
+    public boolean isDuplicateTestCaseOptionSelected();
 }
