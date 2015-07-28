@@ -32,7 +32,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.routines.RoutinesUtil;
-import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.librariesmanager.ui.i18n.Messages;
@@ -156,13 +156,12 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
     }
 
     @Override
-    public boolean confirmDialog(MavenArtifact parseMvnUrl, String mvnJarFileName) {
-        String originalJarFileName = parseMvnUrl.getArtifactId() + "." + parseMvnUrl.getType();
-        String jarFileVersion = parseMvnUrl.getVersion();
+    public boolean confirmDialog(String originalJarFileName) {
+        String mvnUrlForJarName = MavenUrlHelper.generateMvnUrlForJarName(originalJarFileName, true, true);
         return MessageDialog
                 .openQuestion(new Shell(),
                         Messages.getString("ArtifactsDeployer.uploadJarEncounterMvnRepositroySameName.Title"), //$NON-NLS-1$
                         Messages.getString(
-                                "ArtifactsDeployer.uploadJarEncounterMvnRepositroySameName.MessageContent", originalJarFileName, jarFileVersion, mvnJarFileName));//$NON-NLS-1$
+                                "ArtifactsDeployer.uploadJarEncounterMvnRepositroySameName.MessageContent", originalJarFileName, mvnUrlForJarName));//$NON-NLS-1$
     }
 }

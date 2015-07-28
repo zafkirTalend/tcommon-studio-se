@@ -105,9 +105,13 @@ public class ArtifactsDeployer {
                     parseMvnUrl.getClassifier(), artifactType, parseMvnUrl.getVersion());
             if (mvnRepositoryJarFile.exists()) {
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
+                    String originalJarFileName = null;
                     ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
                             .getService(ILibraryManagerUIService.class);
-                    if (libUiService != null && !libUiService.confirmDialog(parseMvnUrl, mvnRepositoryJarFile.getName())) {
+                    if (path != null) {
+                        originalJarFileName = (new File(path)).getName();
+                    }
+                    if (libUiService != null && !libUiService.confirmDialog(originalJarFileName)) {
                         return;
                     }
                 }

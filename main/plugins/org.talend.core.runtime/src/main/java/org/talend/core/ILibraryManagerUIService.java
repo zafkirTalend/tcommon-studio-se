@@ -22,7 +22,6 @@ import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
-import org.talend.core.runtime.maven.MavenArtifact;
 
 /**
  * created by wchen on 2013-1-24 Detailled comment
@@ -47,6 +46,6 @@ public interface ILibraryManagerUIService extends IService {
 
     public boolean isModuleInstalledForBundle(String bundleName);
 
-    public boolean confirmDialog(MavenArtifact parseMvnUrl, String mvnJarFileName);
+    public boolean confirmDialog(String originalJarFileName);
 
 }
