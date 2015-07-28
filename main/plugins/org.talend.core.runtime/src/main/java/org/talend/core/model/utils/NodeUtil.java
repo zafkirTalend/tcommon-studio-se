@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.AbstractNode;
@@ -691,13 +692,14 @@ public class NodeUtil {
      */
     public static INode getNodeByUniqueName(final IProcess process, String uniqueName) {
 
-        return getNodeByUniqueName(process,uniqueName,false);
+        return getNodeByUniqueName(process, uniqueName, false);
     }
-    
+
     /**
      * DOC jzhao
      * <p>
-     * function:get the node(maybe include virtual node) from generating nodes by unique name. aim:to get the property value from any node.
+     * function:get the node(maybe include virtual node) from generating nodes by unique name. aim:to get the property
+     * value from any node.
      * </p>
      * Notice: It is used to get property values from the pointed node we can also get the virtual node.
      * 
@@ -707,13 +709,13 @@ public class NodeUtil {
      * 
      * @return
      */
-    public static INode getNodeByUniqueName(final IProcess process, String uniqueName ,boolean isReturnVirtualNode) {
+    public static INode getNodeByUniqueName(final IProcess process, String uniqueName, boolean isReturnVirtualNode) {
 
         List<INode> nodes = (List<INode>) process.getGeneratingNodes();
         for (INode current_node : nodes) {
-        	if(isReturnVirtualNode && current_node.isVirtualGenerateNode()){
-        		current_node = getVirtualNode(current_node);
-        	}
+            if (isReturnVirtualNode && current_node.isVirtualGenerateNode()) {
+                current_node = getVirtualNode(current_node);
+            }
             if (uniqueName.equals(current_node.getUniqueName())) {
                 return current_node;
             }
@@ -902,7 +904,7 @@ public class NodeUtil {
                 value.append("}");
 
                 if (!linesIter.hasNext()) {
-                	return value.append("]\"").toString();
+                    return value.append("]\"").toString();
                 }
                 value.append(",").append(" ");
             }
@@ -1009,25 +1011,41 @@ public class NodeUtil {
         }
         return false;
     }
-    
+
     public static boolean subBranchContainsParallelIterate(INode node) {
-    	for (IConnection connection : node.getIncomingConnections()) {
-    		if(connection==null || !connection.isActivate()) {
-    			continue;
-    		}
-    		
-    		if(!(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.MAIN | IConnectionCategory.USE_ITERATE))) {
-    			continue;
-    		}
-    		
-    		if(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.USE_ITERATE)) {
-				if (Boolean.TRUE.toString().equals(ElementParameterParser.getValue(connection, "__ENABLE_PARALLEL__"))) {
-					return true;
-				}
-    		}
-    		
-    		return subBranchContainsParallelIterate(connection.getSource());
-    	}
-    	return false;
+        for (IConnection connection : node.getIncomingConnections()) {
+            if (connection == null || !connection.isActivate()) {
+                continue;
+            }
+
+            if (!(connection.getLineStyle().hasConnectionCategory(IConnectionCategory.MAIN | IConnectionCategory.USE_ITERATE))) {
+                continue;
+            }
+
+            if (connection.getLineStyle().hasConnectionCategory(IConnectionCategory.USE_ITERATE)) {
+                if (Boolean.TRUE.toString().equals(ElementParameterParser.getValue(connection, "__ENABLE_PARALLEL__"))) {
+                    return true;
+                }
+            }
+
+            return subBranchContainsParallelIterate(connection.getSource());
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * DOC rdubois Comment method "isBigDataFrameworkNode".
+     * 
+     * @return true if a Node is a BigData framework component.
+     */
+    public static boolean isBigDataFrameworkNode(INode node) {
+        if (node != null && node.getComponent() != null && node.getComponent().getType() != null) {
+            ComponentCategory cat = ComponentCategory.getComponentCategoryFromName(node.getComponent().getType());
+            return (ComponentCategory.CATEGORY_4_MAPREDUCE == cat || ComponentCategory.CATEGORY_4_STORM == cat
+                    || ComponentCategory.CATEGORY_4_SPARK == cat || ComponentCategory.CATEGORY_4_SPARKSTREAMING == cat);
+        }
+
+        return false;
     }
 }
