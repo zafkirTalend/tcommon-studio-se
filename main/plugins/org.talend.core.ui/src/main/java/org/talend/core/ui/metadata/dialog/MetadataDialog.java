@@ -60,6 +60,7 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
+import org.talend.core.model.utils.NodeUtil;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
@@ -366,11 +367,8 @@ public class MetadataDialog extends Dialog {
             }
             outputMetaView = new DialogMetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true,
                     true, false);
-            // mapreduce component need filter "Document"/ "Dynamic" talendType
-            if (outputNode != null && outputNode.getComponent() != null && outputNode.getComponent().getPaletteType() != null
-                    && outputNode.getComponent().getPaletteType().equals("MR")) {
-                outputMetaView.setMapreduce(true);
-            }
+            // mapreduce, spark, storm and spark streaming components need to filter "Document"/ "Dynamic" talendType.
+            outputMetaView.setMapreduce(NodeUtil.isBigDataFrameworkNode(outputNode));
             outputMetaView.setIsRepository(isRepository(outputNode, outputMetaTable));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
@@ -393,11 +391,8 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput);
             inputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
                     metadataTableEditor, inputReadOnly, true, true, false);
-            // mapreduce component need filter "Document"/ "Dynamic" talendType
-            if (inputNode != null && inputNode.getComponent() != null && inputNode.getComponent().getPaletteType() != null
-                    && inputNode.getComponent().getPaletteType().equals("MR")) {
-                inputMetaView.setMapreduce(true);
-            }
+            // mapreduce, spark, storm and spark streaming components need to filter "Document"/ "Dynamic" talendType.
+            inputMetaView.setMapreduce(NodeUtil.isBigDataFrameworkNode(inputNode));
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -544,6 +539,7 @@ public class MetadataDialog extends Dialog {
             }
             outputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     metadataTableEditorForOutput, outputReadOnly, true, true, false);
+            outputMetaView.setMapreduce(NodeUtil.isBigDataFrameworkNode(outputNode));
             outputMetaView.setIsRepository(isRepository(outputNode, outputMetaTable));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
