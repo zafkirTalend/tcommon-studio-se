@@ -115,6 +115,10 @@ public class ProcessConvertManager {
                 || sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS_STORM
                 || sourceNode.getObject().getRepositoryObjectType() == ERepositoryObjectType.PROCESS_MR) {
             if (ENodeType.SYSTEM_FOLDER == targetNode.getType() || ENodeType.SIMPLE_FOLDER == targetNode.getType()) {
+                if (sourceNode.getObject().getRepositoryObjectType() == targetNode.getContentType()) {
+                    // if it's the same type, no conversion needed
+                    return false;
+                }
                 if (targetNode.getContentType() == ERepositoryObjectType.PROCESS
                         || targetNode.getContentType() == ERepositoryObjectType.PROCESS_STORM
                         || targetNode.getContentType() == ERepositoryObjectType.PROCESS_MR) {
