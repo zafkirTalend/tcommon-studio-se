@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.ui.actions;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
@@ -84,6 +86,7 @@ import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.IRepositoryService;
@@ -219,9 +222,10 @@ public class DuplicateAction extends AContextualAction {
         promptForSavingIfNecessary((RepositoryNode) selection.getFirstElement());
 
         String jobNameValue = null;
-
+        final ERepositoryObjectType type = ((RepositoryNode) selectionInClipboard.toArray()[0]).getObject()
+                .getRepositoryObjectType();
         try {
-            jobNameValue = getDuplicateName(sourceNode, initNameValue, selectionInClipboard);
+            jobNameValue = getDuplicateName(sourceNode, initNameValue, type, selectionInClipboard);
         } catch (BusinessException e) {
             jobNameValue = ""; //$NON-NLS-1$
         }
@@ -233,7 +237,7 @@ public class DuplicateAction extends AContextualAction {
 
                         @Override
                         public String isValid(String newText) {
-                            return validJobName(sourceNode, newText, selectionInClipboard);
+                            return validJobName(sourceNode, newText, type, selectionInClipboard);
                         }
 
                     });
@@ -257,7 +261,7 @@ public class DuplicateAction extends AContextualAction {
 
                         @Override
                         public String isValid(String newText) {
-                            return validJobName(sourceNode, newText, selectionInClipboard);
+                            return validJobName(sourceNode, newText, type, selectionInClipboard);
                         }
 
                     });
@@ -270,15 +274,104 @@ public class DuplicateAction extends AContextualAction {
         }
     }
 
-    public String getDuplicateName(RepositoryNode node, String value, final TreeSelection selectionInClipboard)
-            throws BusinessException {
+    private void duplicateTestCases(Item newItem) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                if (!testContainerService.isDuplicateTestCaseOptionSelected()) {
+                    return;
+                }
+            }
+        }
+        if (!(this.sourceNode.getObjectType() == ERepositoryObjectType.PROCESS)) {
+            return;
+        }
+        if (!(newItem instanceof ProcessItem)) {
+            return;
+        }
+        for (IRepositoryNode testNode : this.sourceNode.getChildren()) {
+            Item testItem = testNode.getObject().getProperty().getItem();
+            if (!(testItem instanceof ProcessItem)) {
+                continue;
+            }
+            String initNameValue = "Copy_of_" + testItem.getProperty().getDisplayName(); //$NON-NLS-1$
+            String jobNameValue = null;
+            final TreeSelection selectionInClipboard = (TreeSelection) selection;
+            ERepositoryObjectType type = ((RepositoryNode) selectionInClipboard.toArray()[0]).getObject()
+                    .getRepositoryObjectType();
+            try {
+                jobNameValue = getDuplicateName((RepositoryNode) testNode, initNameValue, type, selectionInClipboard);
+            } catch (BusinessException e) {
+                jobNameValue = ""; //$NON-NLS-1$
+            }
+            StringBuffer pathName = new StringBuffer();
+            if (this.sourceNode.getObjectType() != null) {
+                pathName.append(this.sourceNode.getObjectType().getFolder());
+            } else {
+                pathName.append("process");
+            }
+            pathName.append(File.separator).append(newItem.getProperty().getId());
+            final Path path = new Path(pathName.toString());
 
-        if (validJobName(node, value, selectionInClipboard) == null) {
+            duplicateTestCase(testItem, path, jobNameValue);
+        }
+    }
+
+    private void duplicateTestCase(final Item item, final IPath path, final String newName) {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            @Override
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+
+                    final Item newItem = factory.copy(item, path, newName);
+                    // update framework if change it when duplicating
+                    ConvertJobsUtil.updateFramework(newItem, frameworkNewValue);
+
+                    if (newItem instanceof ProcessItem) {
+                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
+                    }
+
+                    factory.save(newItem);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
+                } catch (BusinessException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
+                }
+            }
+        };
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+
+            }
+        };
+        try {
+            new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
+        } catch (InvocationTargetException e) {
+            ExceptionHandler.process(e);
+        } catch (InterruptedException e) {
+            //
+        }
+    }
+
+    public String getDuplicateName(RepositoryNode node, String value, ERepositoryObjectType type,
+            final TreeSelection selectionInClipboard) throws BusinessException {
+        if (validJobName(node, value, type, selectionInClipboard) == null) {
             return value;
         } else {
             char j = 'a';
             String temp = value;
-            while (validJobName(node, temp, selectionInClipboard) != null) {
+            while (validJobName(node, temp, type, selectionInClipboard) != null) {
                 if (j > 'z') {
                     throw new BusinessException(Messages.getString("DuplicateAction.cannotGenerateItem")); //$NON-NLS-1$
                 }
@@ -321,7 +414,8 @@ public class DuplicateAction extends AContextualAction {
      * @param selectionInClipboard
      * @return null means valid, other means some error exist
      */
-    private String validJobName(RepositoryNode node, String itemName, TreeSelection selectionInClipboard) {
+    private String validJobName(RepositoryNode node, String itemName, ERepositoryObjectType type,
+            TreeSelection selectionInClipboard) {
         if (!isValid(node, itemName)) {
             return Messages.getString("DuplicateAction.NameFormatError");//$NON-NLS-1$
         }
@@ -329,8 +423,7 @@ public class DuplicateAction extends AContextualAction {
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
         if (itemName.length() == 0) {
             return Messages.getString("DuplicateAction.NameEmptyError"); //$NON-NLS-1$
-        } else if (!Pattern.matches(RepositoryConstants.getPattern(((RepositoryNode) selectionInClipboard.toArray()[0])
-                .getObject().getRepositoryObjectType()), itemName)) {
+        } else if (!Pattern.matches(RepositoryConstants.getPattern(type), itemName)) {
             /*
              * maybe Messages.getString("PropertiesWizardPage.KeywordsError")
              */
@@ -340,7 +433,7 @@ public class DuplicateAction extends AContextualAction {
         } else {
             ERepositoryObjectType repositoryType = node.getObjectType();
             if (repositoryType != null) {
-                if (repositoryType == ERepositoryObjectType.PROCESS) {
+                if ((repositoryType == ERepositoryObjectType.PROCESS)) {
                     try {
                         List<IRepositoryViewObject> listExistingObjects = repositoryFactory.getAll(ERepositoryObjectType.PROCESS,
                                 true, false);
@@ -351,6 +444,7 @@ public class DuplicateAction extends AContextualAction {
                         if (PluginChecker.isMapReducePluginLoader()) {
                             listExistingObjects.addAll(repositoryFactory.getAll(ERepositoryObjectType.PROCESS_MR, true, false));
                         }
+
                         if (((RepositoryNode) selectionInClipboard.toArray()[0]).getObject().getProperty() != null
                                 && !repositoryFactory.isNameAvailable(((RepositoryNode) selectionInClipboard.toArray()[0])
                                         .getObject().getProperty().getItem(), itemName, listExistingObjects)) {
@@ -360,16 +454,40 @@ public class DuplicateAction extends AContextualAction {
                         return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
                     }
                 } else {
-                    try {
-                        Item testNewItem = createNewItem();
-                        if (testNewItem != null) {
-                            if (!repositoryFactory.isNameAvailable(testNewItem, itemName)) {
-                                return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
+                    boolean isTestContainer = false;
+                    List<IRepositoryViewObject> testObjectList = new ArrayList<IRepositoryViewObject>();
+                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                        ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                                .getDefault().getService(ITestContainerProviderService.class);
+                        if (testContainerService != null) {
+                            isTestContainer = testContainerService.isTestContainerType(repositoryType);
+                            if (isTestContainer) {
+                                testObjectList = testContainerService.listExistingTestCases();
                             }
                         }
-                    } catch (PersistenceException e) {
-                        return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
                     }
+                    if (isTestContainer && !testObjectList.isEmpty()) {
+                        try {
+                            if (!repositoryFactory.isNameAvailable(node.getObject().getProperty().getItem(), itemName,
+                                    testObjectList)) {
+                                return Messages.getString("DuplicateAction.ItemExistsError");//$NON-NLS-1$
+                            }
+                        } catch (PersistenceException e) {
+                            return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
+                        }
+                    } else {
+                        try {
+                            Item testNewItem = createNewItem();
+                            if (testNewItem != null) {
+                                if (!repositoryFactory.isNameAvailable(testNewItem, itemName)) {
+                                    return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
+                                }
+                            }
+                        } catch (PersistenceException e) {
+                            return Messages.getString("DuplicateAction.ItemExistsError"); //$NON-NLS-1$
+                        }
+                    }
+
                 }
             }
             // see bug 0004157: Using specific name for (main) tream
@@ -596,8 +714,9 @@ public class DuplicateAction extends AContextualAction {
                                             }
 
                                         });
-                                        Item item = (Item) newItems.get(newItems.size() - 1);
-                                        copyDataServiceRelateJob(item);
+                                        Item newItem = (Item) newItems.get(newItems.size() - 1);
+                                        copyDataServiceRelateJob(newItem);
+                                        duplicateTestCases(newItem);
                                     }
                                 } catch (PersistenceException e) {
                                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
@@ -684,6 +803,7 @@ public class DuplicateAction extends AContextualAction {
                     // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new connection
                     notifySQLExplorer(newItem);
                     copyDataServiceRelateJob(newItem);
+                    duplicateTestCases(newItem);
                 } catch (PersistenceException e) {
                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                 } catch (BusinessException e) {
