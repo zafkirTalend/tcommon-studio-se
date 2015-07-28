@@ -144,6 +144,7 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
      * 
      * @return
      */
+    @Override
     public Table createTable() {
         Table table = super.createTable();
         initCellModifier();
@@ -223,26 +224,15 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
             if (previousValue == null) {
                 if (value == null) {
                     needChange = false;
-                } else {
-                    if (value instanceof Integer) {
-                        Integer intValue = (Integer) value;
-                        if (intValue == 0) {
-                            needChange = false;
-                        }
-                    }
                 }
             } else {
                 if (previousValue instanceof Integer) {
                     Integer integer = (Integer) previousValue;
                     if (integer == 0) {
-                        if (value == null) {
-                            needChange = false;
-                        } else {
-                            if (value instanceof Integer) {
-                                Integer intValue = (Integer) value;
-                                if (intValue == 0) {
-                                    needChange = false;
-                                }
+                        if (value != null && value instanceof Integer) {
+                            Integer intValue = (Integer) value;
+                            if (intValue == 0) {
+                                needChange = false;
                             }
                         }
                     } else {
@@ -306,8 +296,8 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
     protected void fireModifiedBeanEvent(ModifiedBeanEvent<B> event) {
         // In all cases, notify listeners of an accepted proposal.
         final Object[] listenerArray = modifiedBeanListeners.getListeners();
-        for (int i = 0; i < listenerArray.length; i++) {
-            ((IModifiedBeanListener<B>) listenerArray[i]).handleEvent(event);
+        for (Object element : listenerArray) {
+            ((IModifiedBeanListener<B>) element).handleEvent(event);
         }
     }
 
@@ -338,8 +328,7 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
             CellEditor activatedCellEditor = null;
             if (tableViewer.isCellEditorActive()) {
                 CellEditor[] cellEditors = tableViewer.getCellEditors();
-                for (int i = 0; i < cellEditors.length; i++) {
-                    CellEditor cellEditor = cellEditors[i];
+                for (CellEditor cellEditor : cellEditors) {
                     if (cellEditor != null && cellEditor.isActivated()
                             && cellEditor instanceof ExtendedTextCellEditorWithProposal) {
                         ((ExtendedTextCellEditorWithProposal) cellEditor).fireApplyEditorValue();
