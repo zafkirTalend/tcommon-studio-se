@@ -2,13 +2,26 @@ package org.talend.component.common;
 
 import org.talend.component.ComponentProperties;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("oauthProperties")
 public class ProxyProperties extends ComponentProperties {
 	
-	boolean useProxy;
-	String host;
-	int port;
-	String userName;
-	String password;
+	@JsonProperty
+	protected boolean useProxy;
+
+	@JsonProperty
+	protected String host;
+
+	@JsonProperty
+	protected int port;
+
+	@JsonProperty
+	protected String userName;
+
+	@JsonProperty
+	protected String password;
 	
 	public boolean isUseProxy() {
 		return useProxy;

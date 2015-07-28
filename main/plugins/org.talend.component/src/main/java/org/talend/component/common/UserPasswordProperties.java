@@ -2,10 +2,17 @@ package org.talend.component.common;
 
 import org.talend.component.ComponentProperties;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("userPasswordProperties")
 public class UserPasswordProperties extends ComponentProperties {
 
-	String userId;
-	String password;
+	@JsonProperty
+	protected String userId;
+
+	@JsonProperty
+	protected String password;
 	
 	public String getUserId() {
 		return userId;
