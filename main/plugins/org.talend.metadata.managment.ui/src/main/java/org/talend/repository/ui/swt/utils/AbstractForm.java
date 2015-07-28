@@ -476,8 +476,9 @@ public abstract class AbstractForm extends Composite {
             if (isContextMode()) {
                 ConnectionContextHelper.openInConetxtModeDialog();
             } else {
+                String defaultContextName = ConnectionContextHelper.convertContextLabel(connectionItem.getProperty().getLabel());
                 Map<ContextItem, List<ConectionAdaptContextVariableModel>> variableModels = ConnectionContextHelper
-                        .exportAsContext(connectionItem, getConetxtParams());
+                        .exportAsContext(defaultContextName, connectionItem, getConetxtParams());
                 contextManager = ConnectionContextHelper.contextManager;
 
                 if (variableModels != null) {
@@ -489,8 +490,8 @@ public abstract class AbstractForm extends Composite {
                             if (contextManager instanceof JobContextManager) {
                                 Map<String, String> map = ((JobContextManager) contextManager).getNameMap();
                                 // set properties for context mode
-                                ConnectionContextHelper.setPropertiesForContextMode(connectionItem, contextItem,
-                                        getConetxtParams(), map);
+                                ConnectionContextHelper.setPropertiesForContextMode(defaultContextName, connectionItem,
+                                        contextItem, getConetxtParams(), map);
                             }
                         } else {
                             // set properties for exist context
