@@ -4,6 +4,7 @@
 		default="true">
 		<dbTypes>
 			<dbType type="ANSIDATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true" />
 			<dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
 			<dbType type="BYTE" ignoreLen="true" ignorePre="true" />
 			<dbType type="BYTE VARYING" ignoreLen="true" ignorePre="true" />
@@ -34,7 +35,8 @@
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
 				<talendType type="id_List"/>
-				<talendType type="id_Boolean">	
+				<talendType type="id_Boolean">
+					<dbType type="BOOLEAN" default="true" />
 				</talendType>
 				<talendType type="id_Byte">
 					<dbType type="BYTE" default="true" />
@@ -115,6 +117,9 @@
 			<dbToTalendTypes>
 				<dbType type="ANSIDATE">
 					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="BOOLEAN">
+					<talendType type="id_Boolean" default="true" />
 				</dbType>
 				<dbType type="BIGINT">
 					<talendType type="id_Long" default="true" />
