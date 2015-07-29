@@ -43,6 +43,7 @@ import org.osgi.util.tracker.ServiceTracker;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.DesignerMavenPlugin;
+import org.talend.designer.maven.repository.DefaultMavenRepositoryProvider;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 import org.talend.login.AbstractLoginTask;
@@ -83,11 +84,12 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
      */
     @Override
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-        Path configPath = new Path(Platform.getConfigurationLocation().getURL().getPath());
+        // sync the default maven repository.
+        DefaultMavenRepositoryProvider.sync();
 
+        Path configPath = new Path(Platform.getConfigurationLocation().getURL().getPath());
         File studioUserSettingsFile = configPath.append(IProjectSettingTemplateConstants.MAVEN_USER_SETTING_TEMPLATE_FILE_NAME)
                 .toFile();
-
         IPreferenceStore mvnUiStore = DesignerMavenUiPlugin.getDefault().getPreferenceStore();
 
         try {
@@ -278,7 +280,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             File userSettingsFile) {
         Profile profile = settings.getProfilesAsMap().get("provider-repository"); //$NON-NLS-1$
         if (profile != null) {
-            String mavenRepoPath = configPath.append("maven_repository").toString(); //$NON-NLS-1$
+            String mavenRepoPath = DefaultMavenRepositoryProvider.getMavenRepoPath().toString(); //$NON-NLS-1$
             // update properties
             profile.getProperties().setProperty("default.repository.path", mavenRepoPath); //$NON-NLS-1$
             profile.getActivation().getFile().setExists(mavenRepoPath);
