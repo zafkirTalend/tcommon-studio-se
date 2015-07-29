@@ -920,9 +920,9 @@ public class ProcessorUtilities {
                     }
                     IElementParameter indepPara = node.getElementParameter("USE_INDEPENDENT_PROCESS");
                     boolean isNeedLoadmodules = true;
-                    if (indepPara != null) {
-                        isNeedLoadmodules = !(boolean) indepPara.getValue();
-                    }
+                    // if (indepPara != null) {
+                    // isNeedLoadmodules = !(boolean) indepPara.getValue();
+                    // }
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                     // feature 19312
                     String jobIds = (String) processIdparam.getValue();
@@ -1466,7 +1466,7 @@ public class ProcessorUtilities {
             }
         }
         if (needContextInCurrentGeneration && contextName != null && !contextName.equals("")) {
-            cmd = (String[]) ArrayUtils.add(cmd, TalendProcessArgumentConstant.CMD_ARG_CONTEXT_NAME + contextName); //$NON-NLS-1$
+            cmd = (String[]) ArrayUtils.add(cmd, TalendProcessArgumentConstant.CMD_ARG_CONTEXT_NAME + contextName);
         }
         if (statisticPort != -1) {
             cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort); //$NON-NLS-1$
