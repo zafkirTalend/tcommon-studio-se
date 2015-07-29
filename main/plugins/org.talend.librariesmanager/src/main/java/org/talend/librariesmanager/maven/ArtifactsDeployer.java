@@ -29,8 +29,6 @@ import org.apache.http.util.EntityUtils;
 import org.ops4j.pax.url.mvn.MavenResolver;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.nexus.NexusConstants;
 import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.runtime.maven.MavenArtifact;
@@ -99,19 +97,6 @@ public class ArtifactsDeployer {
                 artifactType = TalendMavenConstants.PACKAGING_JAR;
             }
             MavenResolver mvnResolver = TalendLibsServerManager.getInstance().getMavenResolver();
-            // parseMvnUrl.
-            // MessageDialog.open(shell,"提示信息","信息内容g");
-            File mvnRepositoryJarFile = mvnResolver.resolve(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(),
-                    parseMvnUrl.getClassifier(), artifactType, parseMvnUrl.getVersion());
-            if (mvnRepositoryJarFile.exists()) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
-                    ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
-                            .getService(ILibraryManagerUIService.class);
-                    if (libUiService != null && !libUiService.confirmDialog(parseMvnUrl, mvnRepositoryJarFile.getName())) {
-                        return;
-                    }
-                }
-            }
             mvnResolver.upload(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getClassifier(), artifactType,
                     parseMvnUrl.getVersion(), new File(path));
             String pomType = TalendMavenConstants.PACKAGING_POM;
