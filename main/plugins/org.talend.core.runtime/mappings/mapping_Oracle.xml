@@ -172,7 +172,8 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CLOB">
-					<talendType type="id_Object" default="true" />				
+					<talendType type="id_String" default="true" />
+					<talendType type="id_Object" />
 				</dbType>
 				<dbType type="BFILE">
 					<talendType type="id_Object" default="true" />				
