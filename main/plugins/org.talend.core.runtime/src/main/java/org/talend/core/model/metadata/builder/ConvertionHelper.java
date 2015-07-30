@@ -433,13 +433,13 @@ public final class ConvertionHelper {
         newColumn.setLabel(column.getLabel());
         newColumn.setPattern(column.getPattern());
         if (column.getLength() == null || column.getLength() < 0) {
-            newColumn.setLength(0);
+            newColumn.setLength(-1);
         } else {
             newColumn.setLength(column.getLength());
         }
         newColumn.setNullable(column.isNullable());
         if (column.getPrecision() == null || column.getPrecision() < 0) {
-            newColumn.setPrecision(0);
+            newColumn.setPrecision(-1);
         } else {
             newColumn.setPrecision(column.getPrecision());
         }
@@ -506,13 +506,13 @@ public final class ConvertionHelper {
             newColumn.setLabel(column.getLabel());
             newColumn.setPattern(column.getPattern());
             if (column.getLength() == null || column.getLength() < 0) {
-                newColumn.setLength(0);
+                newColumn.setLength(-1);
             } else {
                 newColumn.setLength(column.getLength());
             }
             newColumn.setNullable(column.isNullable());
             if (column.getPrecision() == null || column.getPrecision() < 0) {
-                newColumn.setPrecision(0);
+                newColumn.setPrecision(-1);
             } else {
                 newColumn.setPrecision(column.getPrecision());
             }
