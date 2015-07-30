@@ -522,20 +522,19 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         }
     }
 
+    /**
+     * if <0 (mostly, -1) is same as null. Because for the length, originalLength and precision of
+     * ColumnTypeImpl(ColumnType) and MetadataColumnImpl(MetadataColumn) in EMF model, the type is int(long), not
+     * Integer(Long). Can be set null for this class(MetadataColumn), but for EMF, must set -1.
+     */
     private boolean sameIntegerValue(Integer value1, Integer value2) {
         if (value1 == null) {
-            if (value2 == null) {
-                return true;
-            } else {
-                return value2 <= 0;
-            }
-        } else {
-            if (value1 <= 0 && value2 == null) {
-                return true;
-            } else {
-                return (value1 <= 0 && value2 <= 0) || value1.equals(value2);
-            }
+            value1 = -1; // unify to -1 for null
         }
+        if (value2 == null) {
+            value2 = -1; // unify to -1 for null
+        }
+        return (value1 < 0 && value2 < 0) || value1.equals(value2);
     }
 
     private boolean largeValue(Integer value1, Integer value2) {

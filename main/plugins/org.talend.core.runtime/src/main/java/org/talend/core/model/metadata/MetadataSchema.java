@@ -372,19 +372,19 @@ public class MetadataSchema {
                     try {
                         metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
                     } catch (final NumberFormatException e) {
-                        metadataColumn.setLength(0);
+                        metadataColumn.setLength(-1);
                     }
                 } else {
-                    metadataColumn.setLength(0);
+                    metadataColumn.setLength(-1);
                 }
                 if (precision.getNodeValue() != null) {
                     try {
                         metadataColumn.setPrecision(Integer.parseInt(precision.getNodeValue()));
                     } catch (final NumberFormatException e) {
-                        metadataColumn.setPrecision(0);
+                        metadataColumn.setPrecision(-1);
                     }
                 } else {
-                    metadataColumn.setPrecision(0);
+                    metadataColumn.setPrecision(-1);
                 }
                 metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
                 metadataColumn.setDefaultValue(defaultValue.getNodeValue());
@@ -393,9 +393,11 @@ public class MetadataSchema {
                     try {
                         metadataColumn.setOriginalLength(Integer.parseInt(originalLength.getNodeValue()));
                     } catch (final NumberFormatException e) {
-                        metadataColumn.setOriginalLength(0);
+                        metadataColumn.setOriginalLength(-1);
                     }
 
+                } else {
+                    metadataColumn.setOriginalLength(-1);
                 }
                 if (pattern.getNodeValue() != null) {
                     metadataColumn.setPattern(pattern.getNodeValue());
