@@ -29,7 +29,6 @@ import org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
-
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -178,6 +177,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             public void set(MetadataColumn bean, Integer value) {
                 if (value != null) {
                     bean.setOriginalLength(value);
+                } else {
+                    bean.setOriginalLength(-1);
                 }
             }
 
@@ -228,7 +229,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 if (value != null) {
                     bean.setPrecision(value);
                 } else {
-                    bean.setPrecision(0);
+                    bean.setPrecision(-1);
                 }
             }
 
@@ -262,11 +263,12 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             public void set(MetadataColumn bean, Integer value) {
                 if (value != null) {
                     bean.setLength(value);
-                    if (Long.valueOf(bean.getOriginalLength()) == 0) {
+                    // if not set Original Length
+                    if (Long.valueOf(bean.getOriginalLength()) == -1) {
                         bean.setOriginalLength(value);
                     }
                 } else {
-                    bean.setLength(0);
+                    bean.setLength(-1);
                 }
             }
 
@@ -352,6 +354,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 String oldTalendType = bean.getTalendType();
                 bean.setTalendType(value);
                 if (!oldTalendType.equals(value)) {
+                    bean.setLength(-1);
                     String typeLength = getCurrentTypeLength(value);
                     if (typeLength != null && !typeLength.equals("")) { //$NON-NLS-1$
                         bean.setLength(Integer.parseInt(typeLength));

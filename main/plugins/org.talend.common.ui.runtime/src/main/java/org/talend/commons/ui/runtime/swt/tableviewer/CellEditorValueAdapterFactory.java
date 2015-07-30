@@ -39,11 +39,11 @@ public class CellEditorValueAdapterFactory {
                 try {
                     Integer integer = new Integer(value.toString().trim());
                     if (integer < 0) {
-                        return integer * -1;
+                        return integer * -1; // why change to positive???
                     }
                     return integer;
                 } catch (Exception ex) {
-                    return null;
+                    return null; // when remove the value(empty, "")
                 }
             }
 

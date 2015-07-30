@@ -21,7 +21,6 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.types.TypesManager;
-import org.talend.core.model.process.IElementParameter;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 
@@ -201,9 +200,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             }
 
             public void set(IMetadataColumn bean, Integer value) {
-                if (value != null) {
-                    bean.setOriginalLength(value);
-                }
+                bean.setOriginalLength(value);
             }
         };
     }
@@ -315,6 +312,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 
             public void set(IMetadataColumn bean, Integer value) {
                 bean.setLength(value);
+                // if not set Original Length
                 if (bean.getOriginalLength() == null) {
                     bean.setOriginalLength(value);
                 }
