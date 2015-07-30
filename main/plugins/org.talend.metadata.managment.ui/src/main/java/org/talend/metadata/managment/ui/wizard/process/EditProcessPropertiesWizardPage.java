@@ -143,7 +143,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
 
             jobTypeCCombo = new CCombo(typeGroup, SWT.BORDER);
             jobTypeCCombo.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            jobTypeCCombo.setEditable(!readOnly);
+            jobTypeCCombo.setEditable(false);
             jobTypeCCombo.setItems(JobType.getJobTypeToDispaly());
             jobTypeCCombo.setText(JobType.STANDARD.getDisplayName());
 
