@@ -1048,14 +1048,14 @@ public final class MetadataToolHelper {
             createColumnType.setDefaultValue(column.getDefault());
             createColumnType.setKey(column.isKey());
             if (column.getLength() == null) {
-                // colType.setLength(-1);
-                createColumnType.unsetLength();
+                createColumnType.setLength(-1);
+                // createColumnType.unsetLength();
             } else {
                 createColumnType.setLength(column.getLength());
             }
             if (column.getPrecision() == null) {
-                // colType.setPrecision(-1);
-                createColumnType.unsetPrecision();
+                createColumnType.setPrecision(-1);
+                // createColumnType.unsetPrecision();
             } else {
                 createColumnType.setPrecision(column.getPrecision());
             }

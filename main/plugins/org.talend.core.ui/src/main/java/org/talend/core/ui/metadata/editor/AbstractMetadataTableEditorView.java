@@ -368,7 +368,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setMinimumWidth(10);
         TextCellEditor textCellEditor = new TextCellEditor(tableViewerCreator.getTable());
         textCellEditor.addListener(new InegerCellEditorListener(textCellEditor, column));
-        column.setCellEditor(textCellEditor, CellEditorValueAdapterFactory.getPositiveIntAdapter(true));
+        column.setCellEditor(textCellEditor, CellEditorValueAdapterFactory.getPositiveIntAdapter());
     }
 
     /**
@@ -480,7 +480,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setMinimumWidth(10);
         TextCellEditor textCellEditor = new TextCellEditor(tableViewerCreator.getTable());
         textCellEditor.addListener(new InegerCellEditorListener(textCellEditor, column));
-        column.setCellEditor(textCellEditor, CellEditorValueAdapterFactory.getPositiveIntAdapter(false));
+        column.setCellEditor(textCellEditor, CellEditorValueAdapterFactory.getPositiveIntAdapter());
     }
 
     /**
