@@ -163,6 +163,12 @@ public class TalendTabbedPropertyTitle extends Composite implements ITalendTabbe
         redraw();
     }
 
+    public void setTitleImage(Image image) {
+        this.image = image;
+        label.setImage(image);
+        redraw();
+    }
+
     @Override
     public TalendTabbedPropertyColorHelper getColorHelper() {
         return this.colorHelper;

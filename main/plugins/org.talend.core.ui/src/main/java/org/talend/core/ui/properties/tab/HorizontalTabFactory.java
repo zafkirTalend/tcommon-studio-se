@@ -124,6 +124,10 @@ public class HorizontalTabFactory {
         title.setTitle(label, image);
     }
 
+    public void setTitleImage(Image image) {
+        title.setTitleImage(image);
+    }
+
     /**
      * yzhang HorizontalTabFactory class global comment. Detailled comment <br/>
      * 
