@@ -77,15 +77,7 @@ public class ArtifactsDeployer {
         }
     }
 
-    /**
-     * 
-     * DOC Talend Comment method "deployToLocalMaven".
-     * 
-     * @param uriOrPath can be a filePath or platform uri
-     * @param mavenUri maven uri
-     * @throws Exception
-     */
-    public void deployToLocalMaven(String path, String mavenUri) throws Exception {
+    public void deployToLocalMaven(String path, String mavenUri, boolean toRemoteNexus) throws Exception {
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUri);
         // change to snapshot version to deploy
 
@@ -107,7 +99,7 @@ public class ArtifactsDeployer {
             }
 
             // deploy to nexus server if it is not null and not official server
-            if (nexusServer != null && !nexusServer.isOfficial()) {
+            if (toRemoteNexus && nexusServer != null && !nexusServer.isOfficial()) {
                 // repositoryManager.deploy(new File(path), parseMvnUrl);
                 installToRemote(new File(path), parseMvnUrl, artifactType);
                 // deploy the pom
@@ -117,6 +109,19 @@ public class ArtifactsDeployer {
             }
             FilesUtils.deleteFolder(new File(generatePom).getParentFile(), true);
         }
+
+    }
+
+    /**
+     * 
+     * DOC Talend Comment method "deployToLocalMaven".
+     * 
+     * @param uriOrPath can be a filePath or platform uri
+     * @param mavenUri maven uri
+     * @throws Exception
+     */
+    public void deployToLocalMaven(String path, String mavenUri) throws Exception {
+        deployToLocalMaven(path, mavenUri, true);
     }
 
     public void installToRemote(File content, MavenArtifact artifact, String type) throws Exception {

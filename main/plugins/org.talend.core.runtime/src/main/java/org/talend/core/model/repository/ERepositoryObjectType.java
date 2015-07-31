@@ -209,9 +209,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType JOB_DOC = new ERepositoryObjectType(
             "repository.jobdoc", "documentations/generated/jobs", "JOB_DOC", true, 54, new String[] { PROD_DI }, new String[] {}); //$NON-NLS-1$
 
-    public final static ERepositoryObjectType LIBS = new ERepositoryObjectType(
-            "repository.libs", "libs", "LIBS", true, 56, new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$
-
     public final static ERepositoryObjectType JOBLETS = new ERepositoryObjectType(
             "repository.joblets", "documentations/generated/joblets", "JOBLETS", true, 58, new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$
 
