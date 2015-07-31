@@ -26,7 +26,11 @@ import java.util.Set;
 
 import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.metadata.DummyMetadataTalendTypeFilter;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTalendTypeFilter;
+import org.talend.core.model.metadata.MrMetadataTalendTypeFilter;
+import org.talend.core.model.metadata.SparkMetadataTalendTypeFilter;
 import org.talend.core.model.process.AbstractNode;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.EParameterFieldType;
@@ -1047,5 +1051,26 @@ public class NodeUtil {
         }
 
         return false;
+    }
+
+    /**
+     * This static method is a factory for the MetadataTalendTypeFilter extensions. DOC rdubois Comment method
+     * "createMetadataTalendTypeFilter".
+     * 
+     * @param outputNode
+     * @return
+     */
+    public static MetadataTalendTypeFilter createMetadataTalendTypeFilter(INode node) {
+        if (node != null && node.getComponent() != null && node.getComponent().getType() != null) {
+            ComponentCategory cat = ComponentCategory.getComponentCategoryFromName(node.getComponent().getType());
+            if (ComponentCategory.CATEGORY_4_MAPREDUCE == cat) {
+                return new MrMetadataTalendTypeFilter();
+            }
+            if (ComponentCategory.CATEGORY_4_STORM == cat || ComponentCategory.CATEGORY_4_SPARK == cat
+                    || ComponentCategory.CATEGORY_4_SPARKSTREAMING == cat) {
+                return new SparkMetadataTalendTypeFilter();
+            }
+        }
+        return new DummyMetadataTalendTypeFilter();
     }
 }
