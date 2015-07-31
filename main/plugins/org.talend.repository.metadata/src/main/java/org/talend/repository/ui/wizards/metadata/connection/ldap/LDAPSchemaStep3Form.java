@@ -744,7 +744,9 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             attributeModel.registerDataList(itemTableNameList);
 
             EList attributeValueList = getConnection().getValue();
+            boolean isRefreshingPreview = false;
             if (attributeValueList != null && !attributeValueList.isEmpty()) {
+                isRefreshingPreview = true;
                 refreshPreview();
                 checkTheRightAttributes(attributeValueList);
             }
@@ -753,6 +755,9 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
             }
             initialize();
             adaptFormToEditable();
+            if (isRefreshingPreview && processor != null && !processor.isStopped()) {
+                updateStatus(IStatus.ERROR, null);
+            }
         }
     }
 
