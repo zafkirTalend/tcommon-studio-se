@@ -146,12 +146,12 @@ public class SaveAsGenericSchemaCommand extends Command {
                 createMetadataColumn.setKey(column.isKey());
                 Integer length = column.getLength();
                 if (length == null) {
-                    length = 0;
+                    length = -1;
                 }
                 createMetadataColumn.setLength(length);
                 Integer precision = column.getPrecision();
                 if (precision == null) {
-                    precision = 0;
+                    precision = -1;
                 }
                 createMetadataColumn.setPrecision(precision);
                 createMetadataColumn.setPattern(column.getPattern());

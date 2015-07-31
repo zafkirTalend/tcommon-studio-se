@@ -222,26 +222,16 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
             if (previousValue == null) {
                 if (value == null) {
                     needChange = false;
-                } else {
-                    if (value instanceof Integer) {
-                        Integer intValue = (Integer) value;
-                        if (intValue == 0) {
-                            needChange = false;
-                        }
-                    }
                 }
             } else {
                 if (previousValue instanceof Integer) {
                     Integer integer = (Integer) previousValue;
                     if (integer == 0) {
-                        if (value == null) {
-                            needChange = false;
-                        } else {
-                            if (value instanceof Integer) {
-                                Integer intValue = (Integer) value;
-                                if (intValue == 0) {
-                                    needChange = false;
-                                }
+
+                        if (value != null && value instanceof Integer) {
+                            Integer intValue = (Integer) value;
+                            if (intValue == 0) {
+                                needChange = false;
                             }
                         }
                     } else {
@@ -293,10 +283,12 @@ public class TableViewerCreator<B> extends TableViewerCreatorNotModifiable<B> im
         return (B) AccessorUtils.get(currentRowObject, column);
     }
 
+    @Override
     public void addModifiedBeanListener(IModifiedBeanListener<B> modifiedBeanListener) {
         this.modifiedBeanListeners.add(modifiedBeanListener);
     }
 
+    @Override
     public void removeModifiedBeanListener(IModifiedBeanListener<B> modifiedBeanListener) {
         this.modifiedBeanListeners.remove(modifiedBeanListener);
     }
