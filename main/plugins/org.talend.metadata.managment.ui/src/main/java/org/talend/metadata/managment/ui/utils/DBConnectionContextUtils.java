@@ -913,6 +913,13 @@ public final class DBConnectionContextUtils {
             conn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD,
                     ContextParameterUtils.getOriginalValue(contextType, hivePassword));
 
+            String ktPrincipal = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, ktPrincipal));
+
+            String keytab = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getOriginalValue(contextType, keytab));
         }
         // for Hbase
         if (EDatabaseTypeName.HBASE.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
