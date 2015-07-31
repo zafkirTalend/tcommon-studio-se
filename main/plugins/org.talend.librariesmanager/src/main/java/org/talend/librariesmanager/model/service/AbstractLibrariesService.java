@@ -21,14 +21,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
@@ -50,7 +43,6 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -58,9 +50,7 @@ import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -144,16 +134,9 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         final String projectLabel = currentProject.getTechnicalLabel();
 
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        final IProject eclipseProject = workspace.getRoot().getProject(projectLabel);
-
         // synchronize .Java project for all new jars.
         try {
             for (String name : names) {
-                String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-                path = path + File.separatorChar + projectLabel + File.separatorChar
-                        + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
-                File libsTargetFile = new File(path);
                 File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar + name);
                 synJavaLibs(source);
             }
@@ -188,43 +171,6 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
                 }
             }
 
-            // if libs are stored in the project
-            final RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(currentProject, "") {
-
-                @Override
-                public void run() throws PersistenceException {
-                    try {
-                        for (String name : names) {
-                            String path = new Path(Platform.getInstanceLocation().getURL().getPath()).toFile().getPath();
-                            path = path + File.separatorChar + projectLabel + File.separatorChar
-                                    + ERepositoryObjectType.getFolderName(ERepositoryObjectType.LIBS) + File.separatorChar + name;
-                            File libsTargetFile = new File(path);
-                            File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA)
-                                    + File.separatorChar + name);
-                            if (source.exists()) {
-                                FilesUtils.copyFile(source, libsTargetFile);
-                            }
-                        }
-                        eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
-                    } catch (IOException e) {
-                        CommonExceptionHandler.process(e);
-                    } catch (CoreException e) {
-                        CommonExceptionHandler.process(e);
-                    }
-                }
-            };
-            repositoryWorkUnit.setAvoidUnloadResources(true);
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
-                new Thread() {
-
-                    @Override
-                    public void run() {
-                        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                                IRepositoryService.class);
-                        service.getProxyRepositoryFactory().executeRepositoryWorkUnit(repositoryWorkUnit);
-                    }
-                }.start();
-            }
         }
 
     }
