@@ -16,6 +16,8 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.talend.commons.ui.runtime.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.model.metadata.DummyMetadataTalendTypeFilter;
+import org.talend.core.model.metadata.MetadataTalendTypeFilter;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 
@@ -32,29 +34,36 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
 
     private IBeanPropertyAccessors<B, Boolean> nullableAccessors;
 
+    private MetadataTalendTypeFilter talendTypeFilter;
+
     /**
      * DOC amaumont JavaTypeComboValueAdapter constructor comment.
      * 
      * @param nullableAccessors
      */
     public JavaTypeComboValueAdapter(JavaType defaultJavaType, IBeanPropertyAccessors<B, Boolean> nullableAccessors) {
+        this(defaultJavaType, nullableAccessors, new DummyMetadataTalendTypeFilter());
+    }
+
+    public JavaTypeComboValueAdapter(JavaType defaultJavaType, IBeanPropertyAccessors<B, Boolean> nullableAccessors,
+            MetadataTalendTypeFilter filter) {
         super();
         this.defaultJavaType = defaultJavaType;
         this.nullableAccessors = nullableAccessors;
+        this.talendTypeFilter = filter;
     }
 
+    @Override
     public Object getOriginalTypedValue(final CellEditor cellEditor, Object cellEditorTypedValue) {
-        JavaType[] javaTypes = JavaTypesManager.getJavaTypes();
+        JavaType[] javaTypes = this.talendTypeFilter.filter(JavaTypesManager.getJavaTypes());
         int i = (Integer) cellEditorTypedValue;
         if (i >= 0) {
             return javaTypes[i].getId();
         }
-        // else {
-        // return null;
-        // }
         throw new IllegalStateException("No selection is invalid"); //$NON-NLS-1$
     }
 
+    @Override
     public Object getCellEditorTypedValue(final CellEditor cellEditor, Object originalTypedValue) {
         String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
 
@@ -77,8 +86,9 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor,
-     * java.lang.Object)
+     * @see
+     * org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter#getColumnText(org.eclipse.jface.viewers
+     * .CellEditor, java.lang.Object)
      */
     @Override
     public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {

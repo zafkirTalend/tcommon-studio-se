@@ -825,7 +825,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor());
+            comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor(),
+                    metadataTalendTypeFilter);
         } else if (codeLanguage == ECodeLanguage.PERL) {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
         }
