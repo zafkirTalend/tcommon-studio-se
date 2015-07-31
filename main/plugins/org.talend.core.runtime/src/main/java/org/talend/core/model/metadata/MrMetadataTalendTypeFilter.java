@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class MrMetadataTalendTypeFilter extends MetadataTalendTypeFilter {
 
-    private final static List<String> UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Document", "Dynamic", "List", "Object" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ 
+    private final static List<String> UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Document", "Dynamic", "List"/*, Object */}); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 
     @Override
     protected List<String> getUnsupportedTypes() {
