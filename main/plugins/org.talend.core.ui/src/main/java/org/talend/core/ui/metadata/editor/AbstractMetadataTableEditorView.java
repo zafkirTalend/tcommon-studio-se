@@ -13,7 +13,6 @@
 package org.talend.core.ui.metadata.editor;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -52,7 +51,9 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.DummyMetadataTalendTypeFilter;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataTalendTypeFilter;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.update.ConnectionColumnUpdateManager;
 import org.talend.core.ui.i18n.Messages;
@@ -143,6 +144,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     private boolean isSapSpecialSchema = false;
 
     private boolean showDefaultColumn = true;
+
+    // By default, we don't filter on anything.
+    private MetadataTalendTypeFilter metadataTalendTypeFilter = new DummyMetadataTalendTypeFilter();
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -829,19 +833,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         String[] arrayTalendTypes = new String[0];
         try {
             arrayTalendTypes = MetadataTalendType.getTalendTypesLabels();
-            // mapreduce component need filter "Document"/ "Dynamic" talendType
-            if (this.isMapreduce()) {
-                Hashtable<Integer, String> hash = new Hashtable<Integer, String>();
-                for (int i = 0; i < arrayTalendTypes.length; i++) {
-                    if (!arrayTalendTypes[i].equals("Document") && !arrayTalendTypes[i].equals("Dynamic")) {
-                        hash.put(i, arrayTalendTypes[i]);
-                    }
-                }
-                String[] arrayTalendTypesNew = new String[hash.size()];
-                for (int j = 0; j < hash.size(); j++) {
-                    arrayTalendTypesNew[j] = hash.get(j);
-                }
-                arrayTalendTypes = arrayTalendTypesNew;
+            if (metadataTalendTypeFilter != null) {
+                arrayTalendTypes = metadataTalendTypeFilter.filter(arrayTalendTypes);
             }
         } catch (NoClassDefFoundError e) {
             // shouln't be happend
@@ -1168,5 +1161,14 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      */
     public void setShowDefaultColumn(boolean showDefaultColumn) {
         this.showDefaultColumn = showDefaultColumn;
+    }
+
+    /**
+     * Sets the metadataTalendTypeFilter.
+     * 
+     * @param metadataTalendTypeFilter the metadataTalendTypeFilter to set
+     */
+    public void setMetadataTalendTypeFilter(MetadataTalendTypeFilter metadataTalendTypeFilter) {
+        this.metadataTalendTypeFilter = metadataTalendTypeFilter;
     }
 }
