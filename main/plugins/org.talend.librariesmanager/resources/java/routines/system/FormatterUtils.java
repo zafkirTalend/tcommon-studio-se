@@ -8,7 +8,7 @@
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
-//   
+//
 // ============================================================================
 package routines.system;
 
@@ -21,59 +21,85 @@ import routines.TalendDate;
 
 public class FormatterUtils {
 
-	public static String format(Object obj,String pattern) {
-		return (obj == null) ? null : obj.toString();
-	}
-	
-	public static String format(Date date,String pattern) {
-		if (date != null) {
-			return TalendDate.formatDate(pattern == null ? Constant.dateDefaultPattern : pattern, date);
-	    } else {
+    public static String format(Object obj, String pattern) {
+        return (obj == null) ? null : obj.toString();
+    }
+
+    public static String format(Date date, String pattern) {
+        if (date != null) {
+            return TalendDate.formatDate(pattern == null ? Constant.dateDefaultPattern : pattern, date);
+        } else {
             return null;
         }
-	}
-	
-	public static String format(BigDecimal decimal,String pattern) {
-		if(decimal == null) return null;
-		return decimal.toPlainString();
-	}
+    }
 
-	public static String format(byte data[],String pattern) {
-		return Charset.defaultCharset().decode(java.nio.ByteBuffer.wrap(data)).toString();
-	}
-	
-	public static String format(char data[],String pattern) {
-		return String.valueOf(data);
-	}
+    public static String format(BigDecimal decimal, String pattern) {
+        if (decimal == null) {
+            return null;
+        }
+        return decimal.toPlainString();
+    }
 
-	public static String format(boolean b,String pattern) {
-		return String.valueOf(b);
-	}
+    public static String format(byte data[], String pattern) {
+        return Charset.defaultCharset().decode(java.nio.ByteBuffer.wrap(data)).toString();
+    }
 
-	public static String format(char c,String pattern) {
-		return String.valueOf(c);
-	}
+    public static String format(char data[], String pattern) {
+        return String.valueOf(data);
+    }
 
-	public static String format(int i,String pattern) {
-		return String.valueOf(i);
-	}
+    public static String format(boolean b, String pattern) {
+        return String.valueOf(b);
+    }
 
-	public static String format(long l,String pattern) {
-		return String.valueOf(l);
-	}
+    public static String format(char c, String pattern) {
+        return String.valueOf(c);
+    }
 
-	public static String format(float f,String pattern) {
-		return String.valueOf(f);
-	}
+    public static String format(int i, String pattern) {
+        return String.valueOf(i);
+    }
 
-	public static String format(double d,String pattern) {
-		return String.valueOf(d);
-	}
-	
-	
+    public static String format(long l, String pattern) {
+        return String.valueOf(l);
+    }
+
+    public static String format(float f, String pattern) {
+        return String.valueOf(f);
+    }
+
+    public static String format(double d, String pattern) {
+        return String.valueOf(d);
+    }
+
     public static String format_Date(java.util.Date date, String pattern) {
         if (date != null) {
             return TalendDate.formatDate(pattern == null ? Constant.dateDefaultPattern : pattern, date);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Formats a Date into a date/time string under an user specified timezone.
+     *
+     * @param date the time value to be formatted into a time string.
+     * @param pattern the pattern to format.
+     * @return the formatted time string.
+     *
+     * {talendTypes} String
+     *
+     * {Category} TalendDate
+     *
+     * {param} string("yyyy-MM-dd HH:mm:ss") pattern : the pattern to format
+     *
+     * {param} date(myDate) date : the time value to be formatted into a time string
+     *
+     * {example} formatDate("yyyy-MM-dd", new Date()) #
+     */
+    public static String format_DateInUTC(java.util.Date date, String pattern) {
+        if (date != null) {
+            return TalendDate.formatDateInUTC(pattern == null ? Constant.dateDefaultPattern : pattern, date);
         } else {
             return null;
         }
@@ -170,20 +196,22 @@ public class FormatterUtils {
     private static String unformatNumber(String str, Character thousandsSeparator) {
         StringBuilder returnString = new StringBuilder();
         String separator = thousandsSeparator.toString();
-        if (".".equals(separator))
+        if (".".equals(separator)) {
             separator = "\\.";
+        }
         String[] s = str.split(separator);
-        for (String part : s)
+        for (String part : s) {
             returnString.append(part);
+        }
         return returnString.toString();
     }
 
-    
     private static final DecimalFormat df = new DecimalFormat("#.###########################################################");
+
     /**
      * DOC Administrator Comment method "formatUnwithE". In java when double more than six decimal that use toString
      * will rentru contains E scientific natation.
-     * 
+     *
      * @param arg like: double falot String .... e.g:1.0E-8
      * @return 0.00000001 as String
      */
@@ -191,9 +219,9 @@ public class FormatterUtils {
         String doubleString = String.valueOf(arg);
         int index = doubleString.indexOf("E");
         if (index != -1) {
-    		return (new BigDecimal(doubleString)).toPlainString();
+            return (new BigDecimal(doubleString)).toPlainString();
         }
         return doubleString;
     }
-    
+
 }
