@@ -16,7 +16,6 @@ import java.io.File;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.launching.IVMInstall;
@@ -40,7 +39,7 @@ public class JavaHomeUtil {
      */
     public static void initializeJavaHome() throws CoreException {
         IEclipsePreferences pref = InstanceScope.INSTANCE.getNode("org.eclipse.jdt.launching"); //$NON-NLS-1$
-        String defaultVM = pref.get("org.eclipse.jdt.launching.PREF_DEFAULT_ENVIRONMENTS_XML", "");  //$NON-NLS-1$//$NON-NLS-2$
+        String defaultVM = pref.get("org.eclipse.jdt.launching.PREF_DEFAULT_ENVIRONMENTS_XML", ""); //$NON-NLS-1$//$NON-NLS-2$
         boolean needSetupJVM = false;
         if (!"".equals(defaultVM)) { //$NON-NLS-1$
             if (!isJDKSetup()) {
@@ -53,13 +52,27 @@ public class JavaHomeUtil {
             needSetupJVM = true;
         }
         if (needSetupJVM) {
+            IVMInstall currentVM = JavaRuntime.getDefaultVMInstall();
             if (isSetJdkHomeVariable()) {
-                IVMInstall currentVM = JavaRuntime.getDefaultVMInstall();
                 if (currentVM != null) {
-                    currentVM.setInstallLocation(new File(getJDKHomeVariable()));
+                    File installLocation = new File(getJDKHomeVariable());
+                    currentVM.setInstallLocation(installLocation);
+                    currentVM.setName(installLocation.getName());
                 }
-            } else if (!installJDKForEnvironment("JavaSE-1.8")) { //$NON-NLS-1$
-                installJDKForEnvironment("JavaSE-1.7"); //$NON-NLS-1$
+            } else {
+                boolean jkd8 = installJDKForEnvironment("JavaSE-1.8");//$NON-NLS-1$
+                if (!jkd8) {
+                    boolean jdk7 = installJDKForEnvironment("JavaSE-1.7"); //$NON-NLS-1$
+                    if (!jdk7) {
+                        if (isSetJavaHomeVariable()) {
+                            if (currentVM != null) {
+                                File installLocation = new File(getJavaHomeVariable());
+                                currentVM.setInstallLocation(installLocation);
+                                currentVM.setName(installLocation.getName());
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -71,10 +84,51 @@ public class JavaHomeUtil {
 
     public static String getJDKHomeVariable() {
         String jdkHome = System.getProperty("jdk.home"); //$NON-NLS-1$
+
+        if (jdkHome == null || "".equals(jdkHome)) { //$NON-NLS-1$
+            jdkHome = getJDKHomeFromEclipseVm();
+        }
+
         if (jdkHome == null || "".equals(jdkHome)) { //$NON-NLS-1$
             jdkHome = System.getenv("JDK_HOME"); //$NON-NLS-1$
         }
         return jdkHome;
+    }
+
+    private static String getJDKHomeFromEclipseVm() {
+        String eclipseVm = System.getProperty("eclipse.vm"); //$NON-NLS-1$
+        if (eclipseVm != null && !"".equals(eclipseVm)) {
+            File javaexe = new File(eclipseVm);
+            if (javaexe.exists()) {
+                String jdk = getJDKPath(javaexe);
+                if (jdk != null && new File(jdk, "lib/tools.jar").exists()) {//$NON-NLS-1$
+                    return jdk;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    private static String getJDKPath(File file) {
+        if (file == null) {
+            return null;
+        }
+        if ("bin".equals(file.getName())) {//$NON-NLS-1$
+            return file.getParent();
+        } else {
+            return getJDKPath(file.getParentFile());
+        }
+    }
+
+    public static boolean isSetJavaHomeVariable() {
+        String javaHomeValue = getJavaHomeVariable();
+        return javaHomeValue != null && !"".equals(javaHomeValue); //$NON-NLS-1$
+    }
+
+    public static String getJavaHomeVariable() {
+        return System.getenv("JAVA_HOME"); //$NON-NLS-1$
+
     }
 
     public static boolean isJDKSetup() {
