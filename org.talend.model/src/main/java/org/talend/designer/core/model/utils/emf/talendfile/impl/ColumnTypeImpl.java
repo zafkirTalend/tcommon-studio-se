@@ -127,7 +127,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected static final int LENGTH_EDEFAULT = 0;
+    protected static final int LENGTH_EDEFAULT = -1;
 
     /**
      * The cached value of the '{@link #getLength() <em>Length</em>}' attribute.
@@ -243,7 +243,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected static final int PRECISION_EDEFAULT = 0;
+    protected static final int PRECISION_EDEFAULT = -1;
 
     /**
      * The cached value of the '{@link #getPrecision() <em>Precision</em>}' attribute.
