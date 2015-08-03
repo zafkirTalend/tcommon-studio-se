@@ -805,10 +805,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (!duplicateMavenUri.isEmpty()) {
             warnDuplicated(modules, duplicateMavenUri, "Maven Uri:");
         }
+        deployLibForComponentProviders(service, libsWithoutUri, libsToRelativePath, libsToMavenUri);
+
         deploy(libsToRelativePath, monitorWrap);
         deployMavenIndex(libsToMavenUri, monitorWrap);
-
-        deployLibForComponentProviders(service, libsWithoutUri, libsToRelativePath, libsToMavenUri);
 
         // deploy platform uri/maven uri configured from extension to index
         if (platfromUriFromExtensions.isEmpty() || mavenUriFromExtensions.isEmpty()) {
