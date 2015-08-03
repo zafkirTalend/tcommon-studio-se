@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.core.model.metadata.types.JavaType;
@@ -39,34 +39,24 @@ public abstract class MetadataTalendTypeFilter {
      * @return
      */
     public String[] filter(String[] arrayTalendTypes) {
-        Hashtable<Integer, String> hash = new Hashtable<>();
         List<String> unsupportedTypes = getUnsupportedTypes();
-        int index = 0;
+        List<String> arrayTalendTypesNew = new ArrayList<>();
         for (int i = 0; i < arrayTalendTypes.length; i++) {
             if (!unsupportedTypes.contains(arrayTalendTypes[i])) {
-                hash.put(index++, arrayTalendTypes[i]);
+                arrayTalendTypesNew.add(arrayTalendTypes[i]);
             }
         }
-        String[] arrayTalendTypesNew = new String[hash.size()];
-        for (int j = 0; j < hash.size(); j++) {
-            arrayTalendTypesNew[j] = hash.get(j);
-        }
-        return arrayTalendTypesNew;
+        return arrayTalendTypesNew.toArray(new String[arrayTalendTypesNew.size()]);
     }
 
     public JavaType[] filter(JavaType[] arrayTalendTypes) {
-        Hashtable<Integer, JavaType> hash = new Hashtable<>();
         List<String> unsupportedTypes = getUnsupportedTypes();
-        int index = 0;
+        List<JavaType> arrayTalendTypesNew = new ArrayList<>();
         for (int i = 0; i < arrayTalendTypes.length; i++) {
             if (!unsupportedTypes.contains(arrayTalendTypes[i].getLabel())) {
-                hash.put(index++, arrayTalendTypes[i]);
+                arrayTalendTypesNew.add(arrayTalendTypes[i]);
             }
         }
-        JavaType[] arrayTalendTypesNew = new JavaType[hash.size()];
-        for (int j = 0; j < hash.size(); j++) {
-            arrayTalendTypesNew[j] = hash.get(j);
-        }
-        return arrayTalendTypesNew;
+        return arrayTalendTypesNew.toArray(new JavaType[arrayTalendTypesNew.size()]);
     }
 }

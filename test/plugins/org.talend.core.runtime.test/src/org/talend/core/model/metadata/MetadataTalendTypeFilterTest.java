@@ -41,7 +41,7 @@ public class MetadataTalendTypeFilterTest {
     private static final String DYNAMIC = "Dynamic"; //$NON-NLS-1$
 
     @Test
-    public void filterFilter() {
+    public void filterStringTest() {
         String[] types;
         MetadataTalendTypeFilter dummyfilter = new DummyMetadataTalendTypeFilter();
         MetadataTalendTypeFilter mrfilter = new MrMetadataTalendTypeFilter();
