@@ -84,6 +84,8 @@ public final class JavaTypesManager {
 
     public static final JavaType OBJECT = new JavaType(Object.class, false, true);
 
+    public static final JavaType DYNAMIC = new JavaType(Object.class, false, true);
+
     public static final JavaType LIST = new JavaType(List.class, false, true);
 
     public static final JavaType BIGDECIMAL = new JavaType(BigDecimal.class, false, true);

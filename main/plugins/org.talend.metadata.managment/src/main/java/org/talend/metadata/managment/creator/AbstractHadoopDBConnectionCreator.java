@@ -30,7 +30,7 @@ import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
  */
 public abstract class AbstractHadoopDBConnectionCreator extends AbstractHadoopConnectionCreator {
 
-    protected void retrieveCommonParameters(String relativeHadoopClusterId, Map<String, String> paramsMap) {
+    protected void retrieveCommonParameters(Map<String, String> paramsMap) {
         if (relativeHadoopClusterId == null || paramsMap == null) {
             return;
         }

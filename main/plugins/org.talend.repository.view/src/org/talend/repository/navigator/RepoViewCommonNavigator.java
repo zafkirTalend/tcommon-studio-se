@@ -365,6 +365,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                         if (node.getType().equals(ENodeType.SIMPLE_FOLDER)) {
                             item.setImage(ImageProvider.getImage(ECoreImage.FOLDER_OPEN_ICON));
                         } else if (ENodeType.SYSTEM_FOLDER == node.getType()) {
+                            // also see ImportItemsViewerLabelProvider.java
                             if (node.getContentType() == ERepositoryObjectType.PROCESS) {
                                 item.setImage(ImageProvider.getImage(ECoreImage.PROCESS_STANDARD_GENERIC_CATEGORY_OPEN_ICON));
                             } else if (node.getContentType() == ERepositoryObjectType.PROCESS_STORM) {

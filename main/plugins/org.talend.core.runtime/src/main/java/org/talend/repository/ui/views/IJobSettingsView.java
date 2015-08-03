@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.views;
 
+import java.util.Map;
+
 import org.eclipse.jface.viewers.ISelection;
 
 /**
@@ -20,6 +22,8 @@ import org.eclipse.jface.viewers.ISelection;
 public interface IJobSettingsView {
 
     public static final String ID = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView"; //$NON-NLS-1$
+
+    public static final String JOBTYPE_CHANGED = "JOBTYPE_CHANGED"; //$NON-NLS-1$
 
     public void cleanDisplay();
 
@@ -30,5 +34,7 @@ public interface IJobSettingsView {
     public void refreshCurrentViewTab();
 
     public boolean isCleaned();
+
+    public void onPropertiesChanged(Map<String, Object> maps);
 
 }

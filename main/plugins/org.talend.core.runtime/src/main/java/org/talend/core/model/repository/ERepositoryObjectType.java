@@ -445,8 +445,22 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType PROCESS_STORM = ERepositoryObjectType.valueOf("PROCESS_STORM");
 
+    /**
+     * <b>Attention!!!</b><br/>
+     * 1. This enum is <b>always null</b> since it is never configure the extention point
+     * "org.talend.core.repository.repository_node_provider" in the plugin.xml used in
+     * RepositoryNodeProviderRegistryReader.readElement(...) <br/>
+     * 2. both frameworks (mapreduce / spark) should use PROCESS_MAPREDUCE in current code I think <br/>
+     */
     public final static ERepositoryObjectType PROCESS_SPARK = ERepositoryObjectType.valueOf("PROCESS_SPARK");
 
+    /**
+     * <b>Attention!!!</b><br/>
+     * 1. This enum is <b>always null</b> since it is never configure the extention point
+     * "org.talend.core.repository.repository_node_provider" in the plugin.xml used in
+     * RepositoryNodeProviderRegistryReader.readElement(...) <br/>
+     * 2. both frameworks (storm / sparkstreaming) should use PROCESS_STORM in current code I think <br/>
+     */
     public final static ERepositoryObjectType PROCESS_SPARKSTREAMING = ERepositoryObjectType.valueOf("PROCESS_SPARKSTREAMING");
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,

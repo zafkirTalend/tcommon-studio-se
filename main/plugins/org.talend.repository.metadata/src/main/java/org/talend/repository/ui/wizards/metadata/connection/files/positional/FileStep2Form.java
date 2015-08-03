@@ -951,6 +951,7 @@ public class FileStep2Form extends AbstractPositionalFileStepForm implements IRe
     @Override
     protected boolean checkFieldsValue() {
         if (isContextMode()) {
+            updateStatus(IStatus.OK, null);
             return true;
         }
         previewInformationLabel.setText("   " + Messages.getString("FileStep2.settingsIncomplete")); //$NON-NLS-1$ //$NON-NLS-2$

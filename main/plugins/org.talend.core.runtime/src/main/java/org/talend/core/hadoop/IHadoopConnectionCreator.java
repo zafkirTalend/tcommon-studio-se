@@ -23,8 +23,9 @@ import org.talend.core.model.properties.ConnectionItem;
  */
 public interface IHadoopConnectionCreator {
 
-    public ConnectionItem create(String relativeHadoopClusterId, Map<String, Map<String, String>> initParams)
-            throws CoreException;
+    public void init(String hadoopClusterId);
+
+    public ConnectionItem create(Map<String, Map<String, String>> initParams) throws CoreException;
 
     public String getTypeName();
 

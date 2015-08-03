@@ -14,7 +14,6 @@ package org.talend.designer.maven.ui.setting.preference;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -22,10 +21,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Properties;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-
+import org.apache.maven.settings.Activation;
+import org.apache.maven.settings.ActivationFile;
 import org.apache.maven.settings.Profile;
 import org.apache.maven.settings.Proxy;
 import org.apache.maven.settings.Settings;
@@ -48,7 +47,6 @@ import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.ui.DesignerMavenUiPlugin;
 import org.talend.login.AbstractLoginTask;
 import org.talend.utils.io.FilesUtils;
-import org.xml.sax.SAXException;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -134,7 +132,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             final boolean isStudioUserSetting = studioUserSettingsFile.getAbsolutePath().equals(
                     MavenPlugin.getMavenConfiguration().getUserSettingsFile());
 
-            if (isStudioUserSetting) {
+            if (isStudioUserSetting && studioUserSettingsFile.canWrite()) {
                 boolean modified = false;
 
                 // update the local repository
@@ -148,6 +146,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
                 if (modified) { // save changes
                     maven.writeSettings(settings, new FileOutputStream(studioUserSettingsFile));
+                    // after update reload
                     maven.reloadSettings();
                 }
             }
@@ -170,8 +169,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
     }
 
     private boolean checkLocalRepository(IProgressMonitor monitor, IMaven maven, Settings settings, Path configPath,
-            File userSettingsFile) throws CoreException, ParserConfigurationException, SAXException, IOException,
-            TransformerException {
+            File userSettingsFile) throws Exception {
         File oldRepoFolder = new File(maven.getLocalRepositoryPath());
         try {
             if (!oldRepoFolder.exists()) { // TUP-3301
@@ -192,7 +190,11 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                 // modify the setting file for "localRepository"
                 settings.setLocalRepository(studioDefaultRepoFolder.getAbsolutePath());
                 // should same as MavenSettingsPreferencePage.updateSettings update index?
-                MavenPlugin.getIndexManager().getWorkspaceIndex().updateIndex(true, monitor);
+                try {
+                    MavenPlugin.getIndexManager().getWorkspaceIndex().updateIndex(true, monitor);
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
 
                 return true;
             }
@@ -278,15 +280,38 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
     private boolean updateProfileSettings(IProgressMonitor monitor, IMaven maven, Settings settings, Path configPath,
             File userSettingsFile) {
+        boolean modified = false;
         Profile profile = settings.getProfilesAsMap().get("provider-repository"); //$NON-NLS-1$
-        if (profile != null) {
-            String mavenRepoPath = DefaultMavenRepositoryProvider.getMavenRepoPath().toString(); //$NON-NLS-1$
-            // update properties
-            profile.getProperties().setProperty("default.repository.path", mavenRepoPath); //$NON-NLS-1$
-            profile.getActivation().getFile().setExists(mavenRepoPath);
-            return true;
+        if (profile == null) {
+            profile = new Profile();
+            settings.getProfiles().add(profile);
         }
-        return false;
+        String mavenRepoPath = DefaultMavenRepositoryProvider.getMavenRepoPath().toString(); //$NON-NLS-1$
+        // update properties
+        Properties properties = profile.getProperties();
+        String repoPathKey = "default.repository.path"; //$NON-NLS-1$
+        String oldPath = properties.getProperty(repoPathKey);
+        if (oldPath == null || !oldPath.equals(mavenRepoPath)) {
+            properties.setProperty(repoPathKey, mavenRepoPath);
+            modified = true;
+        }
+
+        // update activion
+        Activation activation = profile.getActivation();
+        if (activation == null) {
+            activation = new Activation();
+            profile.setActivation(activation);
+        }
+        ActivationFile file = activation.getFile();
+        if (file == null) {
+            file = new ActivationFile();
+            activation.setFile(file);
+        }
+        if (!mavenRepoPath.equals(file.getExists())) {
+            file.setExists(mavenRepoPath);
+            modified = true;
+        }
+        return modified;
     }
 
 }

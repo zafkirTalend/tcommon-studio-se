@@ -19,7 +19,6 @@ import java.util.List;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
-import org.apache.maven.model.Repository;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -30,7 +29,6 @@ import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
-import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
@@ -49,8 +47,6 @@ public class ProjectPomManager {
      */
     private boolean updateModules = true;
 
-    private boolean updateRepositories = true;
-
     private boolean updateDependencies = true;
 
     public ProjectPomManager(IProject project) {
@@ -63,20 +59,12 @@ public class ProjectPomManager {
         this.updateModules = updateModules;
     }
 
-    public void setUpdateRepositories(boolean updateRepositories) {
-        this.updateRepositories = updateRepositories;
-    }
-
     public void setUpdateDependencies(boolean updateDependencies) {
         this.updateDependencies = updateDependencies;
     }
 
     protected boolean isUpdateModules() {
         return updateModules;
-    }
-
-    protected boolean isUpdateRepositories() {
-        return updateRepositories;
     }
 
     protected boolean isUpdateDependencies() {
@@ -95,8 +83,6 @@ public class ProjectPomManager {
         updateAttributes(monitor, processor, projectModel);
         // modules
         updateModulesList(monitor, processor, projectModel);
-        // check repository
-        updateRepositories(monitor, processor, projectModel);
         // dependencies
         updateDependencies(monitor, processor, projectModel);
 
@@ -174,43 +160,6 @@ public class ProjectPomManager {
                 }
             }
         }
-    }
-
-    /**
-     * When the enable the local repo in codes project(.Java), make sure set the local repository.
-     */
-    protected void updateRepositories(IProgressMonitor monitor, IProcessor processor, Model projectModel) throws Exception {
-        if (!isUpdateRepositories()) {
-            return;
-        }
-        // set repositories.
-        List<Repository> repositories = projectModel.getRepositories();
-        if (repositories == null) {
-            repositories = new ArrayList<Repository>();
-            projectModel.setRepositories(repositories);
-        }
-        Repository localRep = null;
-        for (Repository r : repositories) {
-            if (r.getId().equals(LocalRepositoryManager.REPO_ID)) {
-                localRep = r;
-                break;
-            }
-        }
-        if (LocalRepositoryManager.ENABLE_LOCAL_REPO) {
-            if (localRep == null) { // not existed, add one
-                Repository localRepo = new Repository();
-
-                localRepo.setId(LocalRepositoryManager.REPO_ID);
-                localRepo.setUrl("file://${basedir}/" + LocalRepositoryManager.REPO_FOLDER);
-
-                repositories.add(localRepo);
-            }
-        } else {
-            if (localRep != null) { // existed, delete it
-                repositories.remove(localRep);
-            }
-        }
-
     }
 
     /**

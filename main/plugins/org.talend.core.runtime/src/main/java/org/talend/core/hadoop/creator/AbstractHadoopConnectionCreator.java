@@ -14,11 +14,15 @@ package org.talend.core.hadoop.creator;
 
 import java.util.Date;
 
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.hadoop.IHadoopConnectionCreator;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -28,14 +32,20 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public abstract class AbstractHadoopConnectionCreator implements IHadoopConnectionCreator {
 
+    protected String relativeHadoopClusterId;
+
+    protected Item relativeHadoopClusterItem;
+
     protected IProxyRepositoryFactory factory;
 
-    public AbstractHadoopConnectionCreator() {
+    public void init(String hadoopClusterId) {
+        relativeHadoopClusterId = hadoopClusterId;
+        relativeHadoopClusterItem = getHadoopClusterItem();
         factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
     }
 
-    protected void setPropertyParameters(String relativeHadoopClusterId, Property connectionProperty) {
-        connectionProperty.setDisplayName(relativeHadoopClusterId + "_" + getTypeName()); //$NON-NLS-1$
+    protected void setPropertyParameters(Property connectionProperty) {
+        connectionProperty.setDisplayName(relativeHadoopClusterItem.getProperty().getLabel() + "_" + getTypeName()); //$NON-NLS-1$
         connectionProperty.setLabel(connectionProperty.getDisplayName());
         connectionProperty.setModificationDate(new Date());
         connectionProperty.setAuthor(((RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
@@ -43,6 +53,19 @@ public abstract class AbstractHadoopConnectionCreator implements IHadoopConnecti
         connectionProperty.setVersion(VersionUtils.DEFAULT_VERSION);
         connectionProperty.setStatusCode(""); //$NON-NLS-1$
         connectionProperty.setId(factory.getNextId());
+    }
+
+    private Item getHadoopClusterItem() {
+        IRepositoryViewObject repObj = null;
+        try {
+            repObj = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getLastVersion(relativeHadoopClusterId);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        if (repObj != null && repObj.getProperty() != null) {
+            return repObj.getProperty().getItem();
+        }
+        return null;
     }
 
 }

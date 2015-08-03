@@ -367,8 +367,7 @@ public class MetadataDialog extends Dialog {
             }
             outputMetaView = new DialogMetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true,
                     true, false);
-            // mapreduce, spark, storm and spark streaming components need to filter "Document"/ "Dynamic" talendType.
-            outputMetaView.setMapreduce(NodeUtil.isBigDataFrameworkNode(outputNode));
+            outputMetaView.setMetadataTalendTypeFilter(NodeUtil.createMetadataTalendTypeFilter(outputNode));
             outputMetaView.setIsRepository(isRepository(outputNode, outputMetaTable));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
@@ -391,8 +390,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput);
             inputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
                     metadataTableEditor, inputReadOnly, true, true, false);
-            // mapreduce, spark, storm and spark streaming components need to filter "Document"/ "Dynamic" talendType.
-            inputMetaView.setMapreduce(NodeUtil.isBigDataFrameworkNode(inputNode));
+            inputMetaView.setMetadataTalendTypeFilter(NodeUtil.createMetadataTalendTypeFilter(inputNode));
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -539,7 +537,7 @@ public class MetadataDialog extends Dialog {
             }
             outputMetaView = new DialogMetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     metadataTableEditorForOutput, outputReadOnly, true, true, false);
-            outputMetaView.setMapreduce(NodeUtil.isBigDataFrameworkNode(outputNode));
+            outputMetaView.setMetadataTalendTypeFilter(NodeUtil.createMetadataTalendTypeFilter(outputNode));
             outputMetaView.setIsRepository(isRepository(outputNode, outputMetaTable));
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();

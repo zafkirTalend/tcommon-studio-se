@@ -40,6 +40,8 @@ import org.talend.core.IRepositoryContextUpdateService;
 import org.talend.core.IService;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
+import org.talend.core.hadoop.BigDataBasicUtil;
+import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.model.context.ContextUtils;
@@ -89,6 +91,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.service.IMRProcessService;
 import org.talend.core.service.IMetadataManagmentService;
+import org.talend.core.service.IStormProcessService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.ItemCacheManager;
@@ -1252,17 +1255,46 @@ public abstract class RepositoryUpdateManager {
 
     public static String getUpdateJobInfor(Property property) {
         StringBuffer infor = new StringBuffer();
-        String prefix = UpdatesConstants.JOB;
+        String prefix = "";
         String label = null;
         String version = null;
         if (property.getItem() instanceof JobletProcessItem) { // for joblet
             prefix = UpdatesConstants.JOBLET;
-        } else if (GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
+        }
+        Item item = property.getItem();
+        if (item != null && prefix.isEmpty() && GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
             IMRProcessService mrProcessService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
                     IMRProcessService.class);
-            if (mrProcessService.isMapReduceItem(property.getItem())) {
-                prefix = UpdatesConstants.MAPREDUCE;
+            if (mrProcessService.isMapReduceItem(item)) {
+                Object framework = BigDataBasicUtil.getFramework(item);
+                if (framework != null) {
+                    if (HadoopConstants.FRAMEWORK_SPARK.equals(framework)) {
+                        prefix = UpdatesConstants.SPARK;
+                    }
+                }
+                if (prefix == null || prefix.isEmpty()) {
+                    prefix = UpdatesConstants.MAPREDUCE;
+                }
             }
+        }
+        if (item != null && prefix.isEmpty()
+                && GlobalServiceRegister.getDefault().isServiceRegistered(IStormProcessService.class)) {
+            IStormProcessService stormProcessService = (IStormProcessService) GlobalServiceRegister.getDefault().getService(
+                    IStormProcessService.class);
+            if (stormProcessService.isStormItem(item)) {
+                Object framework = BigDataBasicUtil.getFramework(item);
+                if (framework != null) {
+                    if (HadoopConstants.FRAMEWORK_SPARKSTREAMING.equals(framework)) {
+                        prefix = UpdatesConstants.SPARKSTREAMING;
+                    }
+                }
+                if (prefix == null || prefix.isEmpty()) {
+                    prefix = UpdatesConstants.STORM;
+                }
+            }
+        }
+        if (prefix == null || prefix.isEmpty()) {
+            prefix = UpdatesConstants.JOB;
         }
         label = property.getLabel();
         version = property.getVersion();
