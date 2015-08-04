@@ -162,6 +162,10 @@ public class MetadataConnectionUtils {
                 rc.setOk(false);
                 rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
                 CommonExceptionHandler.process(e);
+            } catch (RuntimeException e) {
+                rc.setOk(false);
+                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
+                CommonExceptionHandler.process(e);
             }
         } else if (EDatabaseTypeName.HBASE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
             rc.setOk(true);
