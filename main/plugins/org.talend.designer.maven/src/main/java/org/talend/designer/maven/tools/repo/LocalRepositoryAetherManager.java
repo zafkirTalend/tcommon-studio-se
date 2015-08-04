@@ -46,12 +46,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
 
 /**
@@ -96,6 +98,16 @@ public class LocalRepositoryAetherManager extends LocalRepositoryManager {
                 if (talendProcessJavaProject != null) {
                     tempFolder = talendProcessJavaProject.createSubFolder(null, (IFolder) talendProcessJavaProject
                             .getResourcesFolder().getParent(), "temp"); //$NON-NLS-1$
+                } else {
+                    try {
+                        tempFolder = ResourceUtils.getProject(
+                                ProjectManager.getInstance().getCurrentProject().getTechnicalLabel()).getFolder("temp");
+                        if (!tempFolder.exists()) {
+                            tempFolder.create(true, true, null);
+                        }
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
                 }
             }
         }
@@ -211,6 +223,9 @@ public class LocalRepositoryAetherManager extends LocalRepositoryManager {
         }
         try {
             IFolder folder = getTempFolder();
+            if (folder == null) {
+                return;
+            }
             folder.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 
             if (folder.exists()) {

@@ -15,12 +15,12 @@ package org.talend.designer.maven.tools.repo;
 import java.io.File;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.runprocess.IRunProcessService;
 
 /**
@@ -39,17 +39,18 @@ public abstract class LocalRepositoryManager {
 
     public static final LocalRepositoryManager LAUNCHER;
 
-//    public static final LocalRepositoryManager AETHER;
+    // public static final LocalRepositoryManager AETHER;
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
             IRunProcessService processService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
-            IProject project = processService.getTalendProcessJavaProject().getProject();
-            LAUNCHER = new LocalRepsitoryLauncherManager(project);
-//            AETHER = new LocalRepositoryAetherManager(project.getLocation().toFile());
+            ITalendProcessJavaProject talendProcessJavaProject = processService.getTalendProcessJavaProject();
+            LAUNCHER = talendProcessJavaProject != null ? new LocalRepsitoryLauncherManager(talendProcessJavaProject.getProject())
+                    : null;
+            // AETHER = new LocalRepositoryAetherManager(project.getLocation().toFile());
         } else {
             LAUNCHER = null;
-//            AETHER = null;
+            // AETHER = null;
         }
     }
 

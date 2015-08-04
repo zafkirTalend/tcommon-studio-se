@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
@@ -165,7 +166,18 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     }
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp, boolean forceUpdate) throws SystemException {
-        if (routineItem != null && (forceUpdate || !isRoutineUptodate(routineItem) || !getFile(routineItem).exists())) {
+        boolean needSync = false;
+        if (routineItem != null) {
+            if (forceUpdate || !isRoutineUptodate(routineItem)) {
+                needSync = true;
+            } else {
+                IFile file = getFile(routineItem);
+                if (file != null && !file.exists()) {
+                    needSync = true;
+                }
+            }
+        }
+        if (needSync) {
             doSyncRoutine(routineItem, copyToTemp);
             setRoutineAsUptodate(routineItem);
         }
@@ -184,7 +196,18 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     }
 
     public void syncBean(Item beanItem, boolean copyToTemp, boolean forceUpdate) throws SystemException {
-        if (beanItem != null && (forceUpdate || !isBeanUptodate(beanItem) || !getFile(beanItem).exists())) {
+        boolean needSync = false;
+        if (beanItem != null) {
+            if (forceUpdate || !isBeanUptodate(beanItem)) {
+                needSync = true;
+            } else {
+                IFile file = getFile(beanItem);
+                if (file != null && !file.exists()) {
+                    needSync = true;
+                }
+            }
+        }
+        if (needSync) {
             doSyncBean(beanItem, copyToTemp);
             setBeanAsUptodate(beanItem);
         }
@@ -251,7 +274,11 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     public void forceSyncRoutine(RoutineItem routineItem) {
         id2date.remove(routineItem.getProperty().getId());
         try {
-            getFile(routineItem).delete(true, new NullProgressMonitor());
+            IFile file = getFile(routineItem);
+            if (file == null) {
+                return;
+            }
+            file.delete(true, new NullProgressMonitor());
         } catch (Exception e) {
             // ignore me
         }
