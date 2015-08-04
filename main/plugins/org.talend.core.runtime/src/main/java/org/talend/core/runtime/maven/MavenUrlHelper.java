@@ -204,9 +204,7 @@ public class MavenUrlHelper {
         if (parseMvnUrl == null) {
             return null;
         }
-        if (parseMvnUrl.getVersion() != null && parseMvnUrl.getVersion().endsWith(MavenConstants.SNAPSHOT)) {
-            return mavenUri;
-        }
+
         return generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getVersion()
                 + MavenConstants.SNAPSHOT, parseMvnUrl.getType(), parseMvnUrl.getClassifier());
 
