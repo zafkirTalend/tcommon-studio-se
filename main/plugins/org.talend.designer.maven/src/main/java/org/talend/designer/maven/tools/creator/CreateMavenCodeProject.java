@@ -30,6 +30,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.eclipse.m2e.core.internal.markers.MavenMarkerManager;
+import org.eclipse.m2e.core.internal.project.ProjectConfigurationManager;
+import org.eclipse.m2e.core.project.IProjectConfigurationManager;
+import org.eclipse.m2e.core.project.MavenUpdateRequest;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
@@ -137,13 +141,24 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         beforeCreate(subMonitor, p);
         subMonitor.worked(10);
 
-        if (!p.isOpen()) {
-            p.open(subMonitor);
-            subMonitor.worked(1);
-        }
+        IProjectConfigurationManager projectConfigurationManager = null;
+        // just need set the "forceDependencyUpdate", so don't use default one.
+        // projectConfigurationManager = MavenPlugin.getProjectConfigurationManager();
 
-        MavenPlugin.getProjectConfigurationManager().createSimpleProject(p, location.append(p.getName()), model, folders,
-                importConfiguration, subMonitor);
+        projectConfigurationManager = new ProjectConfigurationManager(MavenPlugin.getMaven(), null,
+                MavenPlugin.getMavenModelManager(), new MavenMarkerManager(MavenPlugin.getMavenConfiguration()),
+                MavenPlugin.getMavenConfiguration()) {
+
+            public void updateProjectConfiguration(IProject project, IProgressMonitor monitor) throws CoreException {
+                // FIXME change to true, means force updating the dependences
+                updateProjectConfiguration(
+                        new MavenUpdateRequest(project, MavenPlugin.getMavenConfiguration().isOffline(), true), monitor);
+            }
+        };
+
+        projectConfigurationManager.createSimpleProject(p, location.append(p.getName()), model, folders, importConfiguration,
+                subMonitor);
+
         subMonitor.worked(80);
 
         afterCreate(subMonitor, p);
