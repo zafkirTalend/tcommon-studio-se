@@ -434,7 +434,9 @@ public class RuleOperationChoiceDialog extends AbstractRlueOperationChoice {
                                 IRepositoryService.class);
                         if (repoService != null) {
                             String path = repoService.getRulesProviderPath(currentRepositoryItem);
-                            ruleNames = readExc(path);
+                            if (path != null) {
+                                ruleNames = readExc(path);
+                            }
                         }
                     }
                 }

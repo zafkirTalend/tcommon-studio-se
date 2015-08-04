@@ -137,6 +137,11 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         beforeCreate(subMonitor, p);
         subMonitor.worked(10);
 
+        if (!p.isOpen()) {
+            p.open(subMonitor);
+            subMonitor.worked(1);
+        }
+
         MavenPlugin.getProjectConfigurationManager().createSimpleProject(p, location.append(p.getName()), model, folders,
                 importConfiguration, subMonitor);
         subMonitor.worked(80);

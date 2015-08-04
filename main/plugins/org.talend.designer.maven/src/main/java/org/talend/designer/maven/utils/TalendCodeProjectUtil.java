@@ -11,7 +11,6 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
-import org.apache.log4j.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -21,7 +20,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.m2e.core.internal.IMavenConstants;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.services.IMavenUIService;
 import org.talend.designer.maven.model.TalendMavenConstants;
@@ -47,23 +45,17 @@ public final class TalendCodeProjectUtil {
 
         IProject codeProject = root.getProject(TalendMavenConstants.PROJECT_NAME);
 
-        try {
-            if (!codeProject.exists() || needRecreate(monitor, codeProject)) {
-                // if existed, must delete it first, else when do CreateMavenCodeProject will cause problem.
-                if (codeProject.exists()) {
-                    if (codeProject.isOpen()) {
-                        codeProject.close(monitor);
-                    }
-                    codeProject.delete(true, true, monitor);
+        if (!codeProject.exists() || needRecreate(monitor, codeProject)) {
+            // if existed, must delete it first, else when do CreateMavenCodeProject will cause problem.
+            if (codeProject.exists()) {
+                if (codeProject.isOpen()) {
+                    codeProject.close(monitor);
                 }
-                CreateMavenCodeProject createProject = new CreateMavenCodeProject(codeProject);
-                createProject.create(monitor);
-                codeProject = createProject.getProject();
+                codeProject.delete(true, true, monitor);
             }
-        } catch (Exception e) {
-            // create failure?
-            ExceptionHandler.process(e, Level.FATAL);
-            throw e;
+            CreateMavenCodeProject createProject = new CreateMavenCodeProject(codeProject);
+            createProject.create(monitor);
+            codeProject = createProject.getProject();
         }
 
         if (!codeProject.isOpen()) {
