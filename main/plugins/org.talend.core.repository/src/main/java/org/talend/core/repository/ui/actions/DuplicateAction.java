@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.repository.ui.actions;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +31,6 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
@@ -274,22 +272,12 @@ public class DuplicateAction extends AContextualAction {
         }
     }
 
-    private void duplicateTestCases(Item newItem) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                    .getDefault().getService(ITestContainerProviderService.class);
-            if (testContainerService != null) {
-                if (!testContainerService.isDuplicateTestCaseOptionSelected()) {
-                    return;
-                }
-            }
-        }
-        if (!(this.sourceNode.getObjectType() == ERepositoryObjectType.PROCESS)) {
+    private void duplicateTestCases(Item newItem, final CopyObjectAction copyObjectAction) {
+        if (!copyObjectAction.isAllowedToCopyTestCase(newItem, sourceNode)) {
             return;
         }
-        if (!(newItem instanceof ProcessItem)) {
-            return;
-        }
+        final IPath path = copyObjectAction.getTestCasePath(newItem, sourceNode);
+
         for (IRepositoryNode testNode : this.sourceNode.getChildren()) {
             Item testItem = testNode.getObject().getProperty().getItem();
             if (!(testItem instanceof ProcessItem)) {
@@ -305,62 +293,7 @@ public class DuplicateAction extends AContextualAction {
             } catch (BusinessException e) {
                 jobNameValue = ""; //$NON-NLS-1$
             }
-            StringBuffer pathName = new StringBuffer();
-            if (this.sourceNode.getObjectType() != null) {
-                pathName.append(this.sourceNode.getObjectType().getFolder());
-            } else {
-                pathName.append("process");
-            }
-            pathName.append(File.separator).append(newItem.getProperty().getId());
-            final Path path = new Path(pathName.toString());
-
-            duplicateTestCase(testItem, path, jobNameValue);
-        }
-    }
-
-    private void duplicateTestCase(final Item item, final IPath path, final String newName) {
-        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
-
-            @Override
-            public void run(IProgressMonitor monitor) throws CoreException {
-                try {
-
-                    final Item newItem = factory.copy(item, path, newName);
-                    // update framework if change it when duplicating
-                    ConvertJobsUtil.updateFramework(newItem, frameworkNewValue);
-
-                    if (newItem instanceof ProcessItem) {
-                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
-                    }
-
-                    factory.save(newItem);
-                } catch (PersistenceException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
-                } catch (BusinessException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
-                }
-            }
-        };
-        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
-
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                try {
-                    ISchedulingRule schedulingRule = workspace.getRoot();
-                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                } catch (CoreException e) {
-                    throw new InvocationTargetException(e);
-                }
-
-            }
-        };
-        try {
-            new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
-        } catch (InvocationTargetException e) {
-            ExceptionHandler.process(e);
-        } catch (InterruptedException e) {
-            //
+            copyObjectAction.copyTestCase(testItem, path, jobNameValue, true);
         }
     }
 
@@ -623,7 +556,7 @@ public class DuplicateAction extends AContextualAction {
         return item;
     }
 
-    private void createOperation(final String newJobName, final RepositoryNode target, CopyObjectAction copyObjectAction,
+    private void createOperation(final String newJobName, final RepositoryNode target, final CopyObjectAction copyObjectAction,
             final TreeSelection selectionInClipboard) {
 
         Object currentSource = selectionInClipboard.toArray()[0];
@@ -641,7 +574,7 @@ public class DuplicateAction extends AContextualAction {
                 }
 
                 if (allVersion.size() == 1) {
-                    duplicateSingleVersionItem(originalItem, path, newJobName);
+                    duplicateSingleVersionItem(originalItem, path, newJobName, copyObjectAction);
                 } else if (allVersion.size() > 1) {
                     final PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion,
                             sourceNode);
@@ -716,7 +649,7 @@ public class DuplicateAction extends AContextualAction {
                                         });
                                         Item newItem = (Item) newItems.get(newItems.size() - 1);
                                         copyDataServiceRelateJob(newItem);
-                                        duplicateTestCases(newItem);
+                                        duplicateTestCases(newItem, copyObjectAction);
                                     }
                                 } catch (PersistenceException e) {
                                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
@@ -759,7 +692,8 @@ public class DuplicateAction extends AContextualAction {
         }
     }
 
-    private void duplicateSingleVersionItem(final Item item, final IPath path, final String newName) {
+    private void duplicateSingleVersionItem(final Item item, final IPath path, final String newName,
+            final CopyObjectAction copyObjectAction) {
         final IWorkspaceRunnable op = new IWorkspaceRunnable() {
 
             @Override
@@ -803,7 +737,7 @@ public class DuplicateAction extends AContextualAction {
                     // MOD qiongli 2012-10-16 TDQ-6166 notify sqlExplore when duplicate a new connection
                     notifySQLExplorer(newItem);
                     copyDataServiceRelateJob(newItem);
-                    duplicateTestCases(newItem);
+                    duplicateTestCases(newItem, copyObjectAction);
                 } catch (PersistenceException e) {
                     throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
                 } catch (BusinessException e) {
