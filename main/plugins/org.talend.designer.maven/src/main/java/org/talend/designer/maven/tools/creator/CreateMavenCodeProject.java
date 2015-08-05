@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
+import java.io.File;
+import java.io.FileFilter;
+
 import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IFile;
@@ -29,11 +32,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.embedder.IMaven;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
-import org.eclipse.m2e.core.internal.markers.MavenMarkerManager;
-import org.eclipse.m2e.core.internal.project.ProjectConfigurationManager;
 import org.eclipse.m2e.core.project.IProjectConfigurationManager;
-import org.eclipse.m2e.core.project.MavenUpdateRequest;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
@@ -108,7 +109,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
      * can do something before create operation.
      */
     protected void beforeCreate(IProgressMonitor monitor, IResource res) throws Exception {
-        // nothing to do
+        cleanLastUpdatedFiles();
     }
 
     /**
@@ -141,21 +142,7 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         beforeCreate(subMonitor, p);
         subMonitor.worked(10);
 
-        IProjectConfigurationManager projectConfigurationManager = null;
-        // just need set the "forceDependencyUpdate", so don't use default one.
-        // projectConfigurationManager = MavenPlugin.getProjectConfigurationManager();
-
-        projectConfigurationManager = new ProjectConfigurationManager(MavenPlugin.getMaven(), null,
-                MavenPlugin.getMavenModelManager(), new MavenMarkerManager(MavenPlugin.getMavenConfiguration()),
-                MavenPlugin.getMavenConfiguration()) {
-
-            public void updateProjectConfiguration(IProject project, IProgressMonitor monitor) throws CoreException {
-                // FIXME change to true, means force updating the dependences
-                updateProjectConfiguration(
-                        new MavenUpdateRequest(project, MavenPlugin.getMavenConfiguration().isOffline(), true), monitor);
-            }
-        };
-
+        IProjectConfigurationManager projectConfigurationManager = MavenPlugin.getProjectConfigurationManager();
         projectConfigurationManager.createSimpleProject(p, location.append(p.getName()), model, folders, importConfiguration,
                 subMonitor);
 
@@ -166,7 +153,6 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
 
         // update the project
         this.project = p;
-        return;
     }
 
     private void convertJavaProjectToPom(IProgressMonitor monitor, IProject p) {
@@ -250,4 +236,42 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
         }
     }
 
+    /**
+     * 
+     * FIXME, Maybe need find another way to remove the lastUpdated files. seems the
+     * MavenUpdateRequest.isForceDependencyUpdate is not useful when create this .Java project.
+     */
+    private void cleanLastUpdatedFiles() {
+        final IMaven maven = MavenPlugin.getMaven();
+        String localRepositoryPath = maven.getLocalRepositoryPath();
+        if (localRepositoryPath == null) {
+            return;
+        }
+        File localRepoFolder = new File(localRepositoryPath);
+        cleanLastUpdatedFile(localRepoFolder);
+    }
+
+    private final static FileFilter lastUpdatedFilter = new FileFilter() {
+
+        @Override
+        public boolean accept(File pathname) {
+            return pathname.isDirectory() || pathname.getName().endsWith(".lastUpdated") //$NON-NLS-1$
+                    || pathname.getName().equals("m2e-lastUpdated.properties"); //$NON-NLS-1$
+        }
+    };
+
+    private void cleanLastUpdatedFile(final File file) {
+        if (file != null && file.exists()) {
+            if (file.isDirectory()) {
+                File[] list = file.listFiles(lastUpdatedFilter);
+                if (list != null) {
+                    for (File f : list) {
+                        cleanLastUpdatedFile(f);
+                    }
+                }
+            } else if (file.isFile() && lastUpdatedFilter.accept(file)) {
+                file.delete();
+            }
+        }
+    }
 }
