@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.ui.actions;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +27,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -55,10 +59,12 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.ui.ICDCProviderService;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
@@ -157,7 +163,7 @@ public class CopyObjectAction {
         return false;
     }
 
-    public void execute(RepositoryNode sourceNode, RepositoryNode targetNode) throws Exception {
+    public void execute(final RepositoryNode sourceNode, RepositoryNode targetNode) throws Exception {
         if (!validateAction(sourceNode, targetNode)) {
             return;
         }
@@ -183,7 +189,7 @@ public class CopyObjectAction {
                         break;
                     }
                 }
-                copySingleVersionItem(curItem, path);
+                copySingleVersionItem(curItem, path, sourceNode);
             } else if (allVersion.size() > 1) {
                 PastSelectorDialog dialog = new PastSelectorDialog(Display.getCurrent().getActiveShell(), allVersion, sourceNode);
                 if (dialog.open() == Window.OK) {
@@ -246,8 +252,9 @@ public class CopyObjectAction {
                                         }
 
                                     });
-                                    Item item = (Item) newItems.get(newItems.size() - 1);
-                                    copyDataServiceRelateJob(item);
+                                    Item newItem = (Item) newItems.get(newItems.size() - 1);
+                                    copyDataServiceRelateJob(newItem);
+                                    copyTestCases(newItem, sourceNode, false);
                                 }
                             } catch (PersistenceException e) {
                                 ExceptionHandler.process(e);
@@ -302,7 +309,7 @@ public class CopyObjectAction {
         }
     }
 
-    private void copySingleVersionItem(final Item item, final IPath path) {
+    private void copySingleVersionItem(final Item item, final IPath path, final RepositoryNode sourceNode) {
         final RepositoryWorkUnit<Object> workUnit = new RepositoryWorkUnit<Object>("", this) {//$NON-NLS-1$
 
             @Override
@@ -339,6 +346,7 @@ public class CopyObjectAction {
                             }
                             factory.save(newItem);
                             copyDataServiceRelateJob(newItem);
+                            copyTestCases(newItem, sourceNode, false);
                         } catch (Exception e) {
                             ExceptionHandler.process(e);
                         }
@@ -372,6 +380,98 @@ public class CopyObjectAction {
 
         workUnit.setAvoidUnloadResources(true);
         factory.executeRepositoryWorkUnit(workUnit);
+    }
+
+    public void copyTestCases(Item newItem, RepositoryNode sourceNode, boolean isDuplicate) {
+        if (!isAllowedToCopyTestCase(newItem, sourceNode)) {
+            return;
+        }
+        final IPath path = getTestCasePath(newItem, sourceNode);
+        for (IRepositoryNode testNode : sourceNode.getChildren()) {
+            Item testItem = testNode.getObject().getProperty().getItem();
+            if (!(testItem instanceof ProcessItem)) {
+                continue;
+            }
+            copyTestCase(testItem, path, null, false);
+        }
+    }
+
+    public IPath getTestCasePath(Item newItem, RepositoryNode sourceNode) {
+        StringBuffer pathName = new StringBuffer();
+        if (sourceNode.getObjectType() != null) {
+            pathName.append(sourceNode.getObjectType().getFolder());
+        } else {
+            pathName.append("process");
+        }
+        pathName.append(File.separator).append(newItem.getProperty().getId());
+        final Path path = new Path(pathName.toString());
+        return path;
+    }
+
+    public boolean isAllowedToCopyTestCase(Item newItem, RepositoryNode sourceNode) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                if (!testContainerService.isDuplicateTestCaseOptionSelected()) {
+                    return false;
+                }
+            }
+        }
+        if (!(sourceNode.getObjectType() == ERepositoryObjectType.PROCESS)) {
+            return false;
+        }
+        if (!(newItem instanceof ProcessItem)) {
+            return false;
+        }
+        return true;
+    }
+
+    public void copyTestCase(final Item item, final IPath path, final String newName, final boolean isDuplicate) {
+        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
+
+            @Override
+            public void run(IProgressMonitor monitor) throws CoreException {
+                try {
+
+                    Item newItem = null;
+                    if (isDuplicate) {
+                        newItem = factory.copy(item, path, newName);
+                    } else {
+                        newItem = factory.copy(item, path, true);
+                    }
+                    if (newItem instanceof ProcessItem) {
+                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
+                    }
+                    factory.save(newItem);
+                } catch (PersistenceException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
+                } catch (BusinessException e) {
+                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
+                }
+            }
+        };
+        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
+
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
+                } catch (CoreException e) {
+                    throw new InvocationTargetException(e);
+                }
+
+            }
+        };
+        try {
+            new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
+        } catch (InvocationTargetException e) {
+            ExceptionHandler.process(e);
+        } catch (InterruptedException e) {
+            //
+        }
     }
 
     private String getLastestVersion(Set<IRepositoryViewObject> set) {
