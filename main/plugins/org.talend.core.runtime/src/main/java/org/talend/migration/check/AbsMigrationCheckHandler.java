@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.migration.check;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -128,7 +129,8 @@ public abstract class AbsMigrationCheckHandler implements IMigrationCheckHandler
         }
     }
 
-    protected void checkCompilationError(IFile codeFile, MigrateItemInfo itemInfo) throws Exception {
+    protected boolean checkCompilationError(IFile codeFile, MigrateItemInfo itemInfo) throws Exception {
+        boolean hasCompilationError = false;
         if (codeFile != null && codeFile.exists()) {
             IMarker[] markers = codeFile.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
             for (IMarker marker : markers) {
@@ -141,12 +143,14 @@ public abstract class AbsMigrationCheckHandler implements IMigrationCheckHandler
                     problem.setCategory(ProblemCategory.COMPILATION_ERROR);
                     problem.setProblem(errorMessage);
                     itemInfo.getProblems().add(problem);
+                    hasCompilationError = true;
                 }
             }
 
         } else {
             throw new Exception("Can not find source codes :" + codeFile);
         }
+        return hasCompilationError;
     }
 
     protected void checkModules(Set<String> neededLibraries, List<ModuleNeeded> allModulesWithStatus, MigrateItemInfo itemInfo) {
@@ -158,7 +162,8 @@ public abstract class AbsMigrationCheckHandler implements IMigrationCheckHandler
             ILibraryManagerService service = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerService.class);
             for (String libName : neededLibraries) {
-                if (!service.contains(libName)) {
+                String jarPath = service.getJarPath(libName);
+                if (jarPath == null || !new File(jarPath).exists()) {
                     Problem problem = new Problem();
                     problem.setCategory(ProblemCategory.JAR_MISSING);
                     problem.setProblem(libName);
@@ -167,8 +172,6 @@ public abstract class AbsMigrationCheckHandler implements IMigrationCheckHandler
 
             }
         }
-        // test
-        System.out.println();
     }
 
 }
