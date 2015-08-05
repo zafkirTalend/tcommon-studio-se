@@ -20,6 +20,7 @@ public enum ProblemCategory {
     JAR_MISSING("Jar Missing"),
     COMPONENT_MISSING("Component Missing"),
     COMPILATION_ERROR("Compile Error"),
+    RUN_TEST_CASE_FAILED("Test Case Failed"),
     JOBLET_MISSING("Joblet Missging");
 
     private String displayName;
