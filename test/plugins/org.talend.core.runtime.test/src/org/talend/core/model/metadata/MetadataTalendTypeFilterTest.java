@@ -45,7 +45,7 @@ public class MetadataTalendTypeFilterTest {
         String[] types;
         MetadataTalendTypeFilter dummyfilter = new DummyMetadataTalendTypeFilter();
         MetadataTalendTypeFilter mrfilter = new MrMetadataTalendTypeFilter();
-        MetadataTalendTypeFilter sparkfilter = new SparkMetadataTalendTypeFilter();
+        MetadataTalendTypeFilter sparkfilter = new SparkMetadataTalendTypeFilter(""); //$NON-NLS-1$
 
         types = new String[] { INTEGER, DOCUMENT, STRING, OBJECT, LIST, DOUBLE, SHORT, DYNAMIC };
         assertEquals(Arrays.asList(dummyfilter.filter(types)),
