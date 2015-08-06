@@ -37,6 +37,7 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -45,6 +46,7 @@ import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.repository.constants.Constant;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
@@ -249,12 +251,26 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         Resource propFileResouce = item.getProperty() != null ? item.getProperty().eResource() : null;
         if (propFileResouce != null) {
             URI uri = propFileResouce.getURI();
+            ITestContainerProviderService testContainerService = null;
+            boolean isTestContainer = false;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                testContainerService = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(
+                        ITestContainerProviderService.class);
+                if (testContainerService != null) {
+                    isTestContainer = testContainerService.isTestContainerItem(item);
+                }
+            }
 
             Path itemPath = new Path(uri.toPlatformString(false));
             Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
             for (final RepositoryNode repoNode : topLevelNodes) {
+                IPath workspaceTopNodePath = null;
+                if (isTestContainer && testContainerService != null) {
+                    workspaceTopNodePath = testContainerService.getWorkspaceTopNodePath(repoNode);
+                } else {
+                    workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
+                }
 
-                IPath workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
                 if ((workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath))
                         || isLinkedTopNode(repoNode, item)) {
                     Display.getDefault().asyncExec(new Runnable() {
