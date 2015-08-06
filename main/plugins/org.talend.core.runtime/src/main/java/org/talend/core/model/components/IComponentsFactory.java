@@ -90,4 +90,6 @@ public interface IComponentsFactory {
     public void initializeComponents(IProgressMonitor monitor, boolean duringLogon);
 
     public Map<String, File> getComponentsProvidersFolder();
+
+    public List<ComponentProviderInfo> getComponentsProvidersInfo();
 }

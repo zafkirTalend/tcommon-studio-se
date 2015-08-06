@@ -476,6 +476,11 @@ public class FilesUtils {
         return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, null, true);
     }
 
+    public static List<File> getJarFilesFromFolder(File file, String fileName, String excludedFolder)
+            throws MalformedURLException {
+        return getFilesFromFolderByName(file, fileName, new String[] { ANY_FILE_EXT }, excludedFolder, true);
+    }
+
     public static List<File> getDllFilesFromFolder(File file, String fileName) throws MalformedURLException {
         return getFilesFromFolderByName(file, fileName, new String[] { ".dll" }, null, true); //$NON-NLS-1$ 
     }

@@ -121,7 +121,6 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         if (!customUriToAdd.isEmpty()) {
             ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
                     .getService(ILibraryManagerService.class);
-            libraryManagerService.deployMavenIndex(customUriToAdd, monitor);
             libraryManagerService.forceListUpdate();
             LibManagerUiPlugin.getDefault().getLibrariesService().resetModulesNeeded();
         }
