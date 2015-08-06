@@ -211,6 +211,15 @@ public class TalendDate {
      * @param ignoreTimeZone (if true ignore TimeZone when pare date with pattern)
      * @return the result whether the stringDate is a date string that with a right pattern
      *
+     * {talendTypes} Boolean
+     *
+     * {Category} TalendDate
+     *
+     * {param} String(mydate) stringDate : the date to judge
+     *
+     * {param} String("yyyy-MM-dd HH:mm:ss") pattern : the specified pattern
+     *
+     * {param} boolean(true) ignoreTimeZone : ignore the time zone
      */
     public static boolean isDate(String stringDate, String pattern, boolean ignoreTimeZone) {
         TimeZone tz = TimeZone.getDefault();
@@ -328,7 +337,7 @@ public class TalendDate {
      *
      * {param} date(myDate) date : the date to update
      *
-     * {param} date(addValue) nb : the added value
+     * {param} int(addValue) nb : the added value
      *
      * {param} date("MM") dateType : the part to add
      *
@@ -382,11 +391,11 @@ public class TalendDate {
      *
      * {Category} TalendDate
      *
-     * {param} date(myDate) date : the date to update
+     * {param} String("") string : date represent in string
      *
-     * {param} date(pattern) string : the pattern
+     * {param} String("yyyy-MM-dd") pattern : date pattern
      *
-     * {param} date(addValue) nb : the added value
+     * {param} int(addValue) nb : the added value
      *
      * {param} date("MM") dateType : the part to add
      *
@@ -462,6 +471,8 @@ public class TalendDate {
      * {param} date(myDate2) date2 : the second date to compare
      *
      * {param} String("MM") dateType : the difference on the specified part
+     *
+     * {param} boolean(true) ignoreDST : ignore daylight saving time or not.
      *
      * {examples}
      *
@@ -564,8 +575,6 @@ public class TalendDate {
      * {param} date(myDate) date1 : the first date to compare
      *
      * {param} date(myDate2) date2 : the second date to compare
-     *
-     * {param} String("MM") dateType : the difference on the specified part
      *
      * {examples}
      *
@@ -1008,24 +1017,6 @@ public class TalendDate {
         long random = minCal.getTimeInMillis()
                 + (long) ((maxCal.getTimeInMillis() - minCal.getTimeInMillis() + 1) * Math.random());
         return new Date(random);
-    }
-
-    /**
-     *
-     * Method used for tests only.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-
-        // test_formatDate();
-        // test_isDate();
-        // test_getRandomDate();
-        // System.out.println(getPartOfDate("DAY_OF_WEEK_IN_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
-        // System.out.println(getPartOfDate("WEEK_OF_MONTH", parseDate("yyyy-MM-dd", "2010-12-26")));
-
-        System.out.println(TalendDate.diffDateFloor(TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2011/05/10 14:15:16.788"),
-                TalendDate.parseDate("yyyy/MM/dd hh:mm:ss.SSS", "2010/05/10 14:15:16.789"), "MM"));
     }
 
     /**
