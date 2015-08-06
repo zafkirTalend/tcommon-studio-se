@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
@@ -38,4 +39,13 @@ public interface IStormProcessService extends IService {
     public boolean isStormEditor(IEditorPart editorPart);
 
     public List<IRepositoryViewObject> getStormProcesses(Project project);
+
+    /**
+     * This method is responsible for creating additional information which are going to be registered in the Process
+     * (and then in the Item). DOC rdubois Comment method "generateSparkStreamingInfosParameter".
+     * 
+     * @param process the current process.
+     */
+    public void generateSparkStreamingInfosParameter(IProcess2 process);
+
 }
