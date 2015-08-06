@@ -70,6 +70,7 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
         private TalendBundleFileWrapper(BundleFile bundleFile, Generation generation) {
             super(bundleFile);
             this.generation = generation;
+
         }
 
         /*
@@ -84,6 +85,12 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
             // handle missing jar only for Hosts Bundles and not Fragments
             if (be == null
                     && path.endsWith(".jar") && ((generation.getRevision().getTypes() & ModuleRevision.TYPE_FRAGMENT) == 0)) { //$NON-NLS-1$ //jar file that does not exists.
+                // fix for TUP-2623
+                if (MissingJarServices.getJarMissingObservable() == null
+                        || MissingJarServices.getJarMissingObservable().prenventNotificationLock.isLocked()) {
+                    return be;
+                }
+
                 // use the getFile to find the jar from the lib/java folder.
                 File file = getFile(path, false, false);
                 if (file == null) {
@@ -94,6 +101,7 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
                     if (resourcePathInFragment != null) {
                         return null;
                     }
+
                     // if not found in fragments then we can notify the observers
                     // notify any observable to get a chance for the lib to be installed
                     String jarName = new File(path).getName();
