@@ -61,11 +61,6 @@ Shell.MTrimmedWindow {
     background-color:#e5e5e5 #e5e5e5 100%;
 }
 
-#org-eclipse-ui-main-toolbar > .Draggable {
-    handle-image:
-    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
-}
-
 #org-eclipse-ui-main-toolbar > .TrimStack {
     frame-image: none;
     handle-image:
@@ -121,11 +116,6 @@ Shell.MTrimmedWindow {
 Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
     frame-image: url('jeeeyul://frame?background-color=#e5e5e5');
     frame-cuts: 4px 2px 5px 16px;
-    handle-image:
-    url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
-}
-
-Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     handle-image:
     url('jeeeyul://drag-handle?height=22&background-color=#e5e5e5&embossed=false');
 }
