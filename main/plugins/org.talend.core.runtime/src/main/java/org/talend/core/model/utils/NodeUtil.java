@@ -1068,7 +1068,7 @@ public class NodeUtil {
             }
             if (ComponentCategory.CATEGORY_4_STORM == cat || ComponentCategory.CATEGORY_4_SPARK == cat
                     || ComponentCategory.CATEGORY_4_SPARKSTREAMING == cat) {
-                return new SparkMetadataTalendTypeFilter();
+                return new SparkMetadataTalendTypeFilter(node.getComponent().getName());
             }
         }
         return new DummyMetadataTalendTypeFilter();
