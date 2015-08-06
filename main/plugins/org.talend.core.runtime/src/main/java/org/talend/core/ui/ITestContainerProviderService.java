@@ -27,6 +27,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.repository.model.RepositoryNode;
 
 /**
  * created by hwang on Jan 7, 2015 Detailled comment
@@ -79,4 +80,6 @@ public interface ITestContainerProviderService extends IService {
     public List<IRepositoryViewObject> listExistingTestCases();
 
     public boolean isDuplicateTestCaseOptionSelected();
+
+    public IPath getWorkspaceTopNodePath(RepositoryNode topLevelNode);
 }
