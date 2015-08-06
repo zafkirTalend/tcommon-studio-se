@@ -47,6 +47,7 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -278,6 +279,7 @@ public class PropertiesWizard extends Wizard {
 
         IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
+            @Override
             public void run(final IProgressMonitor monitor) throws CoreException {
                 try {
                     IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
@@ -285,6 +287,10 @@ public class PropertiesWizard extends Wizard {
                     object.getProperty().setLabel(object.getProperty().getDisplayName());
                     proxyRepositoryFactory.save(object.getProperty(), originaleObjectLabel, originalVersion);
                     ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
+
+                    if (!originalVersion.equals(object.getVersion())) {
+                        RelationshipItemBuilder.getInstance().addOrUpdateItem(object.getProperty().getItem());
+                    }
                     proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBService.class)) {
                         IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
@@ -381,6 +387,7 @@ public class PropertiesWizard extends Wizard {
         if (isUnlockRequired()) {
             IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
+                @Override
                 public void run(final IProgressMonitor monitor) throws CoreException {
                     unlockObject();
                 }
