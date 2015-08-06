@@ -17,8 +17,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-
-
 /**
  * Utility methods to work with Display object
  * 
@@ -26,12 +24,10 @@ import org.eclipse.ui.PlatformUI;
  * @since 1.2
  */
 public class DisplayUtils {
-    
+
     /**
-     * Returns a non-null instance of Display object. Tries to find the Display
-     * object for the current thread first and if it fails tries to get:
-     * <li> Workbench display if the workbench running
-     * <li> Default display object
+     * Returns a non-null instance of Display object. Tries to find the Display object for the current thread first and
+     * if it fails tries to get: <li>Workbench display if the workbench running <li>Default display object
      * 
      * @return non-null Display object
      * @since 1.2
@@ -43,10 +39,10 @@ public class DisplayUtils {
         }
         return display != null ? display : Display.getDefault();
     }
-    
+
     /**
-     * Attempts to return the default shell. If it cannot return the default
-     * shell, it returns the shell of the first workbench window that has shell.
+     * Attempts to return the default shell. If it cannot return the default shell, it returns the shell of the first
+     * workbench window that has shell.
      * 
      * @return The shell
      * @since 1.2
@@ -62,19 +58,24 @@ public class DisplayUtils {
 
         try {
             if (shell == null) {
-                IWorkbenchWindow activeWindow = PlatformUI.getWorkbench()
-                    .getActiveWorkbenchWindow();
-                if (activeWindow != null)
+                if (!PlatformUI.isWorkbenchRunning()) {
+                    return new Shell();
+                }
+                IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                if (activeWindow != null) {
                     shell = activeWindow.getShell();
-                
+                }
+
             }
         } catch (Exception e) {
             // ignore
         }
 
         if (shell == null) {
-            IWorkbenchWindow[] windows = PlatformUI.getWorkbench()
-                .getWorkbenchWindows();
+            if (!PlatformUI.isWorkbenchRunning()) {
+                return new Shell();
+            }
+            IWorkbenchWindow[] windows = PlatformUI.getWorkbench().getWorkbenchWindows();
             for (int i = 0; shell == null && i < windows.length; i++) {
                 shell = windows[i].getShell();
             }
@@ -82,14 +83,16 @@ public class DisplayUtils {
 
         return shell;
     }
-    
+
     /**
      * Clear the event queue
      * 
      * @since 1.2
      */
     public static void clearEventLoop() {
-        while (getDisplay().readAndDispatch());
+        while (getDisplay().readAndDispatch()) {
+            ;
+        }
     }
 
 }

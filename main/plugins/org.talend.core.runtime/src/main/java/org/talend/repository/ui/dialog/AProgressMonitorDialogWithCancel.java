@@ -178,6 +178,8 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
             threadGroup = new ThreadGroup("ARunnableWithProgressCancel"); //$NON-NLS-1$
             executeThread = new Thread(threadGroup, futureTask);
             executeThread.start();
+            // in case executeResult returns null value
+            boolean executeSuccess = false;
             for (int i = 0; i < iTimeout; i = canGain ? i + 1 : i) {
                 try {
                     if (kill) {
@@ -185,6 +187,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
                     }
                     monitor.worked(1);
                     executeResult = futureTask.get(500, TimeUnit.MILLISECONDS);
+                    executeSuccess = true;
                     break;
                 } catch (TimeoutException timeoutException) {
                     continue;
@@ -193,7 +196,7 @@ public abstract class AProgressMonitorDialogWithCancel<T> extends ProgressMonito
                     break;
                 }
             }
-            if (!kill && executeException == null && executeResult == null) {
+            if (!kill && executeException == null && !executeSuccess) {
                 executeException = new TimeoutException(Messages.getString("ProgressMonitorDialogWithCancel.executeTimeout")); //$NON-NLS-1$
                 kill();
             }
