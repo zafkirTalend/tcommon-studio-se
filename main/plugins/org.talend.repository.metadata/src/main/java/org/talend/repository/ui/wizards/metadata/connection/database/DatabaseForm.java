@@ -453,6 +453,8 @@ public class DatabaseForm extends AbstractForm {
 
     private static final String DOWN = "v"; //$NON-NLS-1$
 
+    private static final String ADDIPARASYMBOL = "?"; //$NON-NLS-1$
+
     /**
      * wheather the db properties group visible
      */
@@ -4153,6 +4155,17 @@ public class DatabaseForm extends AbstractForm {
         // if (!isModify) {
         // setPropertiesFormEditable(false);
         // }
+
+        if ((EDatabaseConnTemplate.MARIADB.toString()).equals(dbVersionCombo.getText().toUpperCase())) {
+            String strOfConnection = urlConnectionStringText.getText();
+            if (strOfConnection != null && ("").equals(additionParamText.getText())) {//$NON-NLS-1$
+                // minus ? on string of connection when the dbversion is MariaDb
+                if (strOfConnection.contains(ADDIPARASYMBOL)) {
+                    strOfConnection = strOfConnection.substring(0, strOfConnection.indexOf(ADDIPARASYMBOL));
+                    urlConnectionStringText.setText(strOfConnection);
+                }
+            }
+        }
 
         if (dbTypeCombo.getSelectionIndex() < 0) {
             updateStatus(IStatus.ERROR, Messages.getString("DatabaseForm.alert", dbTypeCombo.getLabel())); //$NON-NLS-1$
