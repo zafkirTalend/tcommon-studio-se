@@ -82,4 +82,8 @@ public interface ITestContainerProviderService extends IService {
     public boolean isDuplicateTestCaseOptionSelected();
 
     public IPath getWorkspaceTopNodePath(RepositoryNode topLevelNode);
+
+    public void copyTestCase(Item jobItem, Item testItem, IPath path, String newName, boolean isDuplicate);
+
+    public void copyDataFiles(Item newItem, RepositoryNode sourceNode);
 }

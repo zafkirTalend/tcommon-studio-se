@@ -277,24 +277,31 @@ public class DuplicateAction extends AContextualAction {
             return;
         }
         final IPath path = copyObjectAction.getTestCasePath(newItem, sourceNode);
-
-        for (IRepositoryNode testNode : this.sourceNode.getChildren()) {
-            Item testItem = testNode.getObject().getProperty().getItem();
-            if (!(testItem instanceof ProcessItem)) {
-                continue;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                testContainerService.copyDataFiles(newItem, sourceNode);
+                for (IRepositoryNode testNode : this.sourceNode.getChildren()) {
+                    Item testItem = testNode.getObject().getProperty().getItem();
+                    if (!(testItem instanceof ProcessItem)) {
+                        continue;
+                    }
+                    String initNameValue = "Copy_of_" + testItem.getProperty().getDisplayName(); //$NON-NLS-1$
+                    String jobNameValue = null;
+                    final TreeSelection selectionInClipboard = (TreeSelection) selection;
+                    ERepositoryObjectType type = ((RepositoryNode) selectionInClipboard.toArray()[0]).getObject()
+                            .getRepositoryObjectType();
+                    try {
+                        jobNameValue = getDuplicateName((RepositoryNode) testNode, initNameValue, type, selectionInClipboard);
+                    } catch (BusinessException e) {
+                        jobNameValue = ""; //$NON-NLS-1$
+                    }
+                    testContainerService.copyTestCase(newItem, testItem, path, jobNameValue, true);
+                }
             }
-            String initNameValue = "Copy_of_" + testItem.getProperty().getDisplayName(); //$NON-NLS-1$
-            String jobNameValue = null;
-            final TreeSelection selectionInClipboard = (TreeSelection) selection;
-            ERepositoryObjectType type = ((RepositoryNode) selectionInClipboard.toArray()[0]).getObject()
-                    .getRepositoryObjectType();
-            try {
-                jobNameValue = getDuplicateName((RepositoryNode) testNode, initNameValue, type, selectionInClipboard);
-            } catch (BusinessException e) {
-                jobNameValue = ""; //$NON-NLS-1$
-            }
-            copyObjectAction.copyTestCase(testItem, path, jobNameValue, true);
         }
+
     }
 
     public String getDuplicateName(RepositoryNode node, String value, ERepositoryObjectType type,
