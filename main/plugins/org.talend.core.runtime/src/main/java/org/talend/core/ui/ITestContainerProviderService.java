@@ -86,4 +86,6 @@ public interface ITestContainerProviderService extends IService {
     public void copyTestCase(Item jobItem, Item testItem, IPath path, String newName, boolean isDuplicate);
 
     public void copyDataFiles(Item newItem, RepositoryNode sourceNode);
+
+    public String getDataFileSourcePath(Item item, String dataValue);
 }
