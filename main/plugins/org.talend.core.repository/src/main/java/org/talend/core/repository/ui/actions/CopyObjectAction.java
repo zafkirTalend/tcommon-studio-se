@@ -27,9 +27,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -387,12 +385,21 @@ public class CopyObjectAction {
             return;
         }
         final IPath path = getTestCasePath(newItem, sourceNode);
-        for (IRepositoryNode testNode : sourceNode.getChildren()) {
-            Item testItem = testNode.getObject().getProperty().getItem();
-            if (!(testItem instanceof ProcessItem)) {
-                continue;
+
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                testContainerService.copyDataFiles(newItem, sourceNode);
+                for (IRepositoryNode testNode : sourceNode.getChildren()) {
+                    Item testItem = testNode.getObject().getProperty().getItem();
+                    if (!(testItem instanceof ProcessItem)) {
+                        continue;
+                    }
+                    // testContainerService.copyTestCase(testItem, path, null, false);
+                    testContainerService.copyTestCase(newItem, testItem, path, null, false);
+                }
             }
-            copyTestCase(testItem, path, null, false);
         }
     }
 
@@ -425,53 +432,6 @@ public class CopyObjectAction {
             return false;
         }
         return true;
-    }
-
-    public void copyTestCase(final Item item, final IPath path, final String newName, final boolean isDuplicate) {
-        final IWorkspaceRunnable op = new IWorkspaceRunnable() {
-
-            @Override
-            public void run(IProgressMonitor monitor) throws CoreException {
-                try {
-
-                    Item newItem = null;
-                    if (isDuplicate) {
-                        newItem = factory.copy(item, path, newName);
-                    } else {
-                        newItem = factory.copy(item, path, true);
-                    }
-                    if (newItem instanceof ProcessItem) {
-                        RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
-                    }
-                    factory.save(newItem);
-                } catch (PersistenceException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
-                } catch (BusinessException e) {
-                    throw new CoreException(new Status(IStatus.ERROR, "org.talend.core.repository", "", e));
-                }
-            }
-        };
-        IRunnableWithProgress iRunnableWithProgress = new IRunnableWithProgress() {
-
-            @Override
-            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                try {
-                    ISchedulingRule schedulingRule = workspace.getRoot();
-                    workspace.run(op, schedulingRule, IWorkspace.AVOID_UPDATE, monitor);
-                } catch (CoreException e) {
-                    throw new InvocationTargetException(e);
-                }
-
-            }
-        };
-        try {
-            new ProgressMonitorDialog(null).run(false, false, iRunnableWithProgress);
-        } catch (InvocationTargetException e) {
-            ExceptionHandler.process(e);
-        } catch (InterruptedException e) {
-            //
-        }
     }
 
     private String getLastestVersion(Set<IRepositoryViewObject> set) {
