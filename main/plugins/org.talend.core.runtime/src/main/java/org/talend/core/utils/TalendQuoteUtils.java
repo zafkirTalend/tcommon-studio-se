@@ -170,7 +170,7 @@ public final class TalendQuoteUtils {
         if (str == null) {
             return ""; //$NON-NLS-1$
         }
-        if (newStr.contains("\"") && !newStr.contains("\\")) { //$NON-NLS-1$ //$NON-NLS-2$
+        if (newStr.contains("\"")) { //$NON-NLS-1$
             newStr = newStr.replace("\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return newStr;
