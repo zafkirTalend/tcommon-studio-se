@@ -427,9 +427,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         List<String> childrenFolderResourcesIncludes = new ArrayList<String>();
 
         final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();
-        String parentId = getJobProcessor().getProperty().getId();
         for (JobInfo child : clonedChildrenJobInfors) {
-            if (child.getFatherJobInfo() != null && child.getFatherJobInfo().getJobId().equals(parentId)) {
+            if (child.getFatherJobInfo() != null) {
 
                 String jobClassPackageFolder = null;
                 if (child.getProcessItem() != null) {
