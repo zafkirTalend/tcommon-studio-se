@@ -321,6 +321,8 @@ public class ParserUtils {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+			} else {
+				date = format.parse(s, pp);
 			}
 		}else{
         	date = format.parse(s, pp);
