@@ -47,6 +47,8 @@ public enum EHadoopConfProperties {
 
     DFS_HA_NAMENODES_NAMESERVICE_ID("dfs.ha.namenodes.%s", ""), //$NON-NLS-1$//$NON-NLS-2$
 
+    YARN_RESOURCEMANAGER_HOSTNAME("yarn.resourcemanager.hostname", "0.0.0.0"), //$NON-NLS-1$ //$NON-NLS-2$
+
     YARN_RESOURCEMANAGER_HA_ENABLED("yarn.resourcemanager.ha.enabled", false), //$NON-NLS-1$
 
     YARN_RESOURCEMANAGER_HA_RM_IDS("yarn.resourcemanager.ha.rm-ids", ""), //$NON-NLS-1$ //$NON-NLS-2$
