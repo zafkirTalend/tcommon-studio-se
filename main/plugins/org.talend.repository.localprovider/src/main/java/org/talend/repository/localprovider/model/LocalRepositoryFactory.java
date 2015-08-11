@@ -155,7 +155,6 @@ import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1021,7 +1020,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         try {
             if (xmiResourceManager.hasTalendProjectFile(p)) {
                 Project curProject = ProjectManager.getInstance().getCurrentProject();
-                if (curProject != null && curProject.getTechnicalLabel().equals(p.getName())) {
+
+                if (curProject != null && curProject.isLocal() && curProject.getTechnicalLabel().equals(p.getName())) {
+                    // I think only local projects can add itself dirrectly, in case different TACs and locals have
+                    // project with same name
                     toReturn.add(curProject);
                 } else {
                     boolean foundInRefs = false;
@@ -1669,7 +1671,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
         if (!allVersionToDelete.isEmpty()) {
             Item item = allVersionToDelete.get(0).getProperty().getItem();
-            if (!(item instanceof ConnectionItem) || !ProjectRepositoryNode.getInstance().hasDeletedSubItem((ConnectionItem)item)) {
+            if (!(item instanceof ConnectionItem)
+                    || !ProjectRepositoryNode.getInstance().hasDeletedSubItem((ConnectionItem) item)) {
                 RecycleBinManager.getInstance().removeFromRecycleBin(getRepositoryContext().getProject(), item);
             } else {
                 RecycleBinManager.getInstance().saveRecycleBin(getRepositoryContext().getProject());

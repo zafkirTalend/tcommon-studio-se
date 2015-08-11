@@ -36,6 +36,8 @@ public abstract class OverTimePopupDialogTask<T> {
 
     public static final int DEFAULT_WAIT_TIME = 60;
 
+    private static final String OVERTIME_POPUP_DIALOG_TASK_THREADGROUP_NAME = OverTimePopupDialogTask.class.getName();
+
     private String dialogTitle = Messages.getString("OverTimePopupDialogTask.title"); //$NON-NLS-1$
 
     private String dialogMessage = Messages.getString("OverTimePopupDialogTask.message"); //$NON-NLS-1$
@@ -78,94 +80,120 @@ public abstract class OverTimePopupDialogTask<T> {
                 return result;
             }
         });
-        threadGroup = new ThreadGroup(OverTimePopupDialogTask.class.getName());
-        executeThread = new Thread(threadGroup, futureTask);
-        executeThread.start();
-        boolean isTimeout = false;
-        try {
-            executeResult = futureTask.get(overtime, TimeUnit.MILLISECONDS);
-        } catch (TimeoutException timeoutException) {
-            isTimeout = true;
-        } catch (Throwable e) {
-            exception = e;
-            throw e;
-        }
 
-        if (!isTimeout) {
-            return executeResult;
-        }
-
-        DisplayUtils.getDisplay().syncExec(new Runnable() {
-
-            @Override
-            public void run() {
-                ProgressMonitorDialog monitorDialog = new ProgressMonitorDialog(DisplayUtils.getDefaultShell()) {
-
-                    @Override
-                    protected void cancelPressed() {
-                        isUserCancelled = true;
-                        OverTimePopupDialogTask.this.kill();
-                        super.cancelPressed();
-                    }
-                };
-
-                try {
-                    monitorDialog.run(true, true, new IRunnableWithProgress() {
-
-                        @Override
-                        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                            boolean isEndless = false;
-                            int futureTaskTimeout = 500;
-                            monitor.setTaskName(dialogTitle);
-                            if (ENDLESS_WAIT_TIME == dialogProgressTimeout || dialogProgressTimeout <= 0) {
-                                isEndless = true;
-                                dialogProgressTimeout = futureTaskTimeout;
-                                monitor.beginTask(dialogMessage, IProgressMonitor.UNKNOWN);
-                            } else {
-                                monitor.beginTask(dialogMessage, (int) Math.ceil(dialogProgressTimeout * 1.0 / futureTaskTimeout));
-                            }
-                            // in case executeResult returns null value
-                            boolean executeSuccess = false;
-                            for (int remainTime = dialogProgressTimeout; 0 < remainTime; remainTime = (isEndless ? dialogProgressTimeout
-                                    : remainTime - futureTaskTimeout)) {
-                                try {
-                                    if (kill) {
-                                        break;
-                                    }
-                                    if (remainTime < futureTaskTimeout) {
-                                        futureTaskTimeout = remainTime;
-                                    }
-                                    monitor.worked(1);
-                                    executeResult = futureTask.get(futureTaskTimeout, TimeUnit.MILLISECONDS);
-                                    executeSuccess = true;
-                                    break;
-                                } catch (TimeoutException timeoutException) {
-                                    continue;
-                                } catch (Throwable e) {
-                                    exception = e;
-                                    break;
-                                }
-                            }
-                            if (!kill && exception == null && !executeSuccess) {
-                                kill();
-                                exception = new TimeoutException(Messages.getString("OverTimePopupDialogTask.executeTimeout")); //$NON-NLS-1$
-                            } else if (kill) {
-                                exception = new TimeoutException(Messages.getString("OverTimePopupDialogTask.killed")); //$NON-NLS-1$
-                            }
-                            monitor.done();
-                        }
-                    });
-                } catch (Throwable e) {
+        ThreadGroup parentThreadGroup = Thread.currentThread().getThreadGroup();
+        boolean isInOverTimePopupDialogTask = OVERTIME_POPUP_DIALOG_TASK_THREADGROUP_NAME.equals(parentThreadGroup.getName());
+        if (isInOverTimePopupDialogTask) {
+            threadGroup = parentThreadGroup;
+            executeThread = new Thread(threadGroup, futureTask);
+            executeThread.start();
+            try {
+                executeResult = futureTask.get();
+            } catch (Throwable e) {
+                if (exception == null) {
                     exception = e;
                 }
             }
-        });
+            if (exception != null) {
+                throw exception;
+            }
+            return executeResult;
+        } else {
+            threadGroup = new ThreadGroup(OVERTIME_POPUP_DIALOG_TASK_THREADGROUP_NAME);
+            executeThread = new Thread(threadGroup, futureTask);
+            executeThread.start();
+            boolean isTimeout = false;
+            try {
+                executeResult = futureTask.get(overtime, TimeUnit.MILLISECONDS);
+            } catch (TimeoutException timeoutException) {
+                isTimeout = true;
+            } catch (Throwable e) {
+                if (exception == null) {
+                    exception = e;
+                }
+            }
 
-        if (exception != null) {
-            throw exception;
+            if (exception != null) {
+                throw exception;
+            }
+            if (!isTimeout) {
+                return executeResult;
+            }
+
+            DisplayUtils.getDisplay().syncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    ProgressMonitorDialog monitorDialog = new ProgressMonitorDialog(DisplayUtils.getDefaultShell()) {
+
+                        @Override
+                        protected void cancelPressed() {
+                            isUserCancelled = true;
+                            OverTimePopupDialogTask.this.kill();
+                            super.cancelPressed();
+                        }
+                    };
+
+                    try {
+                        monitorDialog.run(true, true, new IRunnableWithProgress() {
+
+                            @Override
+                            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                                boolean isEndless = false;
+                                int futureTaskTimeout = 500;
+                                monitor.setTaskName(dialogTitle);
+                                if (ENDLESS_WAIT_TIME == dialogProgressTimeout || dialogProgressTimeout <= 0) {
+                                    isEndless = true;
+                                    dialogProgressTimeout = futureTaskTimeout;
+                                    monitor.beginTask(dialogMessage, IProgressMonitor.UNKNOWN);
+                                } else {
+                                    monitor.beginTask(dialogMessage,
+                                            (int) Math.ceil(dialogProgressTimeout * 1.0 / futureTaskTimeout));
+                                }
+                                // in case executeResult returns null value
+                                boolean executeSuccess = false;
+                                for (int remainTime = dialogProgressTimeout; 0 < remainTime; remainTime = (isEndless ? dialogProgressTimeout
+                                        : remainTime - futureTaskTimeout)) {
+                                    try {
+                                        if (kill) {
+                                            break;
+                                        }
+                                        if (remainTime < futureTaskTimeout) {
+                                            futureTaskTimeout = remainTime;
+                                        }
+                                        monitor.worked(1);
+                                        executeResult = futureTask.get(futureTaskTimeout, TimeUnit.MILLISECONDS);
+                                        executeSuccess = true;
+                                        break;
+                                    } catch (TimeoutException timeoutException) {
+                                        continue;
+                                    } catch (Throwable e) {
+                                        exception = e;
+                                        break;
+                                    }
+                                }
+                                if (!kill && exception == null && !executeSuccess) {
+                                    kill();
+                                    exception = new TimeoutException(Messages.getString("OverTimePopupDialogTask.executeTimeout")); //$NON-NLS-1$
+                                } else if (kill) {
+                                    exception = new TimeoutException(Messages.getString("OverTimePopupDialogTask.killed")); //$NON-NLS-1$
+                                }
+                                monitor.done();
+                            }
+                        });
+                    } catch (Throwable e) {
+                        exception = e;
+                    }
+                }
+            });
+
+            if (exception != null) {
+                throw exception;
+            }
+
+            return executeResult;
+
         }
-
-        return executeResult;
     }
 
     public void kill() {
