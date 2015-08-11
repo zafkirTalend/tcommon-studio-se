@@ -5758,6 +5758,7 @@ public class DatabaseForm extends AbstractForm {
                 sidOrDatabaseText.setText(getConnection().getSID());
             } else if (defaultDatabase != null) {
                 sidOrDatabaseText.setText(defaultDatabase);
+                getConnection().setSID(defaultDatabase);
             }
         }
     }
