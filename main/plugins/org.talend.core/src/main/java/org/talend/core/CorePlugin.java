@@ -22,6 +22,7 @@ import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IDesignerMapperService;
+import org.talend.core.service.IDesignerSparkMapperService;
 import org.talend.core.service.IDesignerXMLMapperService;
 import org.talend.core.service.IWebService;
 import org.talend.core.service.IWebServiceTos;
@@ -189,6 +190,10 @@ public class CorePlugin extends Plugin {
 
     public IDesignerXMLMapperService getXMLMapperService() {
         return (IDesignerXMLMapperService) GlobalServiceRegister.getDefault().getService(IDesignerXMLMapperService.class);
+    }
+
+    public IDesignerSparkMapperService getSparkMapperService() {
+        return (IDesignerSparkMapperService) GlobalServiceRegister.getDefault().getService(IDesignerSparkMapperService.class);
     }
 
     public IWebService getWebService() {
