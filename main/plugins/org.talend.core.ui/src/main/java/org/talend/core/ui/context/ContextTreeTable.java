@@ -68,6 +68,7 @@ import org.eclipse.nebula.widgets.nattable.selection.config.DefaultSelectionStyl
 import org.eclipse.nebula.widgets.nattable.sort.ISortModel;
 import org.eclipse.nebula.widgets.nattable.sort.SortConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.sort.SortHeaderLayer;
+import org.eclipse.nebula.widgets.nattable.sort.config.SingleClickSortConfiguration;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
 import org.eclipse.nebula.widgets.nattable.style.Style;
@@ -184,9 +185,9 @@ public class ContextTreeTable {
     private TControl createTableControl(Composite parent) {
         ConfigRegistry configRegistry = new ConfigRegistry();
         ColumnGroupModel columnGroupModel = new ColumnGroupModel();
-        configRegistry.registerConfigAttribute(SortConfigAttributes.SORT_COMPARATOR, new DefaultComparator());
+        configRegistry.registerConfigAttribute(SortConfigAttributes.SORT_COMPARATOR, DefaultComparator.getInstance());
         String[] propertyNames = ContextRowDataListFixture.getPropertyNames(manager);
-        int comWidth = parent.getParent().getClientArea().width;
+        int comWidth = parent.getParent().getClientArea().width - 15;
         // the data source for the context
         if (propertyNames.length > 0) {
             treeNodes.clear();
@@ -277,6 +278,7 @@ public class ContextTreeTable {
             addCustomContextMenuBehavior(manager, bodyDataProvider, selectionProvider);
 
             natTable.addConfiguration(new DefaultTreeLayerConfiguration(treeLayer));
+            natTable.addConfiguration(new SingleClickSortConfiguration());
 
             addCustomColumnHeaderStyleBehaviour();
 
