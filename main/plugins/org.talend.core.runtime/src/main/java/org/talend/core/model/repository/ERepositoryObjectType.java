@@ -383,6 +383,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType JOBLET = ERepositoryObjectType.valueOf("JOBLET"); //$NON-NLS-1$
 
+    public final static ERepositoryObjectType TEST_CONTAINER = ERepositoryObjectType.valueOf("TEST_CONTAINER"); //$NON-NLS-1$
+
     public final static ERepositoryObjectType CODE = ERepositoryObjectType.valueOf("CODE"); //$NON-NLS-1$
 
     public final static ERepositoryObjectType ROUTINES = ERepositoryObjectType.valueOf("ROUTINES"); //$NON-NLS-1$
