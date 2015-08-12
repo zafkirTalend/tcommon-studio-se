@@ -26,7 +26,7 @@ public enum ECoreImage implements IImage {
     COPY_ICON("/icons1/copy.gif"), //$NON-NLS-1$
 
     COMPARE_ICON("/icons1/compare_view.gif"), //$NON-NLS-1$
-
+    TEST_CONTAINER("/icons1/testContainer.png"), //$NON-NLS-1$
     STANDARD_ICON("/icons1/palette.png"), //$NON-NLS-1$
 
     PALETTE_FILTER("/icons1/studio_6.0-palette-filter.png"), //$NON-NLS-1$
