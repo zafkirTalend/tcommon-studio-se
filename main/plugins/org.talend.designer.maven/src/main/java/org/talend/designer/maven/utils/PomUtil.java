@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashSet;
@@ -67,24 +69,24 @@ public class PomUtil {
             throw new NullPointerException("the output file is null.");
         }
 
+        // pomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+        // if (pomFile.exists()) {
+        // pomFile.delete(true, monitor);
+        // }
+        // MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
+
         /*
-         * need find one way to do overwrite.
+         * copied the codes from createMavenModel of MavenModelManager
          */
-        // IModelManager modelManager = StructuredModelManager.getModelManager();
-        // IStructuredModel sModel = modelManager.getModelForRead(pomFile);
-        // IDOMModel domModel = (IDOMModel)
-        // modelManager.getModelForEdit(sModel.getStructuredDocument());
-        // ElementValueProvider privider = new ElementValueProvider(PomEdits.ARTIFACT_ID);
-        // Element el = privider.get(domModel.getDocument());
-        // PomEdits.setText(el, model.getArtifactId());
-        // sModel.save();
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        MavenPlugin.getMaven().writeModel(model, buf);
 
-        pomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+        ByteArrayInputStream source = new ByteArrayInputStream(buf.toByteArray());
         if (pomFile.exists()) {
-            pomFile.delete(true, monitor);
+            pomFile.setContents(source, true, false, monitor);
+        } else {
+            pomFile.create(source, true, monitor);
         }
-
-        MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
     }
 
     /**
