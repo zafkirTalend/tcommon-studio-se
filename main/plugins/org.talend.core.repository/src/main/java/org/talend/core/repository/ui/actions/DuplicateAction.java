@@ -249,7 +249,7 @@ public class DuplicateAction extends AContextualAction {
             // if not change job type , we no need convert job
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
             if (jobTypeValue != null && !jobTypeValue.equals(sourceJobType)) {
-                ConvertJobsUtil.createOperation(jobNameValue, jobTypeValue, frameworkNewValue, sourceNode.getObject());
+                ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkNewValue, sourceNode.getObject());
             } else {
                 createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
             }
