@@ -88,6 +88,7 @@ import org.talend.core.ui.context.cmd.MergeContextVariablesCommand;
 import org.talend.core.ui.context.model.table.ConectionAdaptContextVariableModel;
 import org.talend.core.ui.process.IGEFProcess;
 import org.talend.core.ui.services.IDesignerCoreUIService;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -1823,4 +1824,15 @@ public final class ConnectionContextHelper {
         }
         return itemList;
     }
+
+    public static String getParamValueOffContext(Connection connection, String value) {
+        String realValue = value;
+        if (connection != null && connection.isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection,
+                    connection.getContextName());
+            realValue = TalendQuoteUtils.removeQuotes(ContextParameterUtils.getOriginalValue(contextType, value));
+        }
+        return realValue;
+    }
+
 }
