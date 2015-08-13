@@ -32,6 +32,14 @@ public abstract class AbstractDistribution {
         }
     }
 
+    public boolean isHadoop1() {
+        return getHadoopVersion() == EHadoopVersion.HADOOP_1;
+    }
+
+    public boolean isHadoop2() {
+        return getHadoopVersion() == EHadoopVersion.HADOOP_2;
+    }
+
     public boolean doSupportKerberos() {
         if (this.version != null) {
             return this.version.isSupportSecurity();

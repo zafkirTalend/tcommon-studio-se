@@ -1,5 +1,6 @@
 // ============================================================================
 //
+
 // Copyright (C) 2006-2015 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
@@ -32,6 +33,16 @@ public interface HadoopComponent {
      * @return the @link{EHadoopVersion} of the distribution.
      */
     public EHadoopVersion getHadoopVersion();
+
+    /**
+     * @return true if the distribution uses @link{EHadoopVersion} HADOOP_2.
+     */
+    public boolean isHadoop2();
+
+    /**
+     * @return true if the distribution uses @link{EHadoopVersion} HADOOP_1.
+     */
+    public boolean isHadoop1();
 
     /**
      * @return a boolean that indicates if the distribution supports Kerberos.
