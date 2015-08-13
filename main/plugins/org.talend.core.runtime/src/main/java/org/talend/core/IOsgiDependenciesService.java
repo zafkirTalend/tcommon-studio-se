@@ -1,19 +1,24 @@
 package org.talend.core;
+
 import java.util.Map;
 
+import org.osgi.framework.Constants;
 import org.talend.core.model.properties.ProcessItem;
 
-public interface IOsgiDependenciesService extends IService{
+public interface IOsgiDependenciesService extends IService {
 
-	final String IMPORT_PACKAGE = "import_package";
-	final String REQUIRE_BUNDLE = "require_bundle";
-	final String BUNDLE_CLASSPATH = "bundle_classpath";
-	final String EXPORT_PACKAGE = "export_package";
-	final String ITEM_SEPARATOR = ",";
+    String IMPORT_PACKAGE = Constants.IMPORT_PACKAGE;
+    String REQUIRE_BUNDLE = Constants.REQUIRE_BUNDLE;
+    String BUNDLE_CLASSPATH = Constants.BUNDLE_CLASSPATH;
+    String EXPORT_PACKAGE = Constants.EXPORT_PACKAGE;
+    char ITEM_SEPARATOR = ',';
 
-	/**
-	 * key is {@link #IMPORT_PACKAGE} {@link #REQUIRE_BUNDLE} {@link #BUNDLE_CLASSPATH}
-	 * @return
-	 */
-	public Map<String, String> getBundleDependences(ProcessItem pi);
+    /**
+     * key is {@link #IMPORT_PACKAGE} {@link #REQUIRE_BUNDLE}
+     * {@link #BUNDLE_CLASSPATH} {@link #EXPORT_PACKAGE}
+     * 
+     * @return
+     */
+    Map<String, String> getBundleDependences(ProcessItem pi);
+
 }
