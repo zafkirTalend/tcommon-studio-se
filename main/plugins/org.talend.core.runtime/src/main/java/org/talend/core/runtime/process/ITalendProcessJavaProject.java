@@ -89,9 +89,14 @@ public interface ITalendProcessJavaProject {
     IFolder getTestsFolder();
 
     /**
-     * create sub folder under target.
+     * target.
      */
     IFolder getTargetFolder();
+
+    /**
+     * temp
+     */
+    IFolder getTempFolder();
 
     /**
      * 
