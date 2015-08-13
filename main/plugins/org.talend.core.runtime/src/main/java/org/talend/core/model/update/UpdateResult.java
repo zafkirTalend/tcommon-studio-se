@@ -45,8 +45,6 @@ public abstract class UpdateResult {
 
     protected boolean isMR;
 
-    protected boolean isStreaming;
-
     /**
      * closed process only save ID and VERSION in UpdateResult
      */
@@ -303,10 +301,6 @@ public abstract class UpdateResult {
 
     public boolean isMR() {
         return isMR;
-    }
-
-    public boolean isStreaming() {
-        return this.isStreaming;
     }
 
     public void setUpdateObject(Object object) {
