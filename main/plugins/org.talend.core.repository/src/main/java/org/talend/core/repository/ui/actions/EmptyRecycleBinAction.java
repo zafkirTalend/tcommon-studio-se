@@ -188,7 +188,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
             }
         };
         try {
-            PlatformUI.getWorkbench().getProgressService().run(true, true, iRunnableWithProgress);
+            PlatformUI.getWorkbench().getProgressService().run(false, true, iRunnableWithProgress);
             // fix for TDI-22986 , force build the .java if routine is deleted physical
             if (forceBuild) {
                 IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
