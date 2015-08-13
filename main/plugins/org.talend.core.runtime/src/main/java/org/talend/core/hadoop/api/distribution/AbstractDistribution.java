@@ -38,7 +38,6 @@ public abstract class AbstractDistribution {
         } else {
             throw new UnsupportedOperationException("The version should not be null."); //$NON-NLS-1$
         }
-
     }
 
     public EHadoopDistributions getDistribution() {

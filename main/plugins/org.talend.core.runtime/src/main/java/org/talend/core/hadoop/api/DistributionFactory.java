@@ -59,8 +59,9 @@ public class DistributionFactory {
      * @param pDistribution The name of the distribution
      * @param pVersion The name of the version
      * @return an implementation of @link{HadoopComponent}.
+     * @throws Exception
      */
-    public static HadoopComponent buildDistribution(String pDistribution, String pVersion) {
+    public static HadoopComponent buildDistribution(String pDistribution, String pVersion) throws Exception {
 
         if (EHadoopDistributions.getDistributionByName(pDistribution, false) == EHadoopDistributions.CUSTOM) {
             return new CustomDistribution(EHadoopVersion4Drivers.CUSTOM);
@@ -137,7 +138,6 @@ public class DistributionFactory {
             if (distribution == EHadoopVersion4Drivers.PIVOTAL_HD_2_0) {
                 return new Pivotal200Distribution(distribution);
             }
-
             if (distribution == EHadoopVersion4Drivers.MICROSOFT_HD_INSIGHT_3_1) {
                 return new HDInsight31Distribution(distribution);
             }
@@ -148,6 +148,6 @@ public class DistributionFactory {
                 return new EMR400Distribution();
             }
         }
-        return null;
+        throw new Exception("The distribution " + pDistribution + " with the version " + pVersion + " doesn't exist."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 }
