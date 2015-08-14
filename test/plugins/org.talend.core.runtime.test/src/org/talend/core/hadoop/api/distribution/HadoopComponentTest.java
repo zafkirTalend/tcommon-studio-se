@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.talend.core.hadoop.api.DistributionFactory;
 import org.talend.core.hadoop.api.EHadoopVersion;
+import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HadoopComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
@@ -106,6 +107,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) cdh400mr1).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) cdh400mr1).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) cdh400mr1).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) cdh400mr1).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -120,6 +122,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) cdh400mr2).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) cdh400mr2).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh400mr2).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) cdh400mr2).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -134,6 +137,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) cdh500).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) cdh500).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh500).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) cdh500).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -148,6 +152,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) cdh510mr1).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) cdh510mr1).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) cdh510mr1).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) cdh510mr1).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -162,6 +167,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) cdh510mr2).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) cdh510mr2).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh510mr2).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) cdh510mr2).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -176,6 +182,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) cdh540).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) cdh540).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh540).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) cdh540).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -190,6 +197,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) hdp120).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdp120).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) hdp120).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) hdp120).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -204,6 +212,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) hdp130).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdp130).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) hdp130).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) hdp130).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -218,6 +227,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) hdp200).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdp200).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) hdp200).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) hdp200).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -231,6 +241,7 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) hdp210).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp210).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) hdp210).doSupportCrossPlatformSubmission());
+        assertTrue(((HBaseComponent) hdp210).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -244,6 +255,7 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) hdp220).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp220).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) hdp220).doSupportCrossPlatformSubmission());
+        assertTrue(((HBaseComponent) hdp220).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -258,6 +270,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) apache100).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) apache100).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) apache100).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) apache100).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -271,6 +284,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr200).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr200).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) mapr200).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) mapr200).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -285,6 +299,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr212).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr212).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) mapr212).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) mapr212).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -299,6 +314,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr213).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr213).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) mapr213).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) mapr213).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -313,6 +329,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr301).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr301).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) mapr301).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) mapr301).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -327,6 +344,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr310).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr310).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) mapr310).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) mapr310).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -341,6 +359,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr401).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) mapr401).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) mapr401).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) mapr401).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -355,6 +374,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) mapr410).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) mapr410).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) mapr410).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) mapr410).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -369,6 +389,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) emr103).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) emr103).doSupportCrossPlatformSubmission());
         assertEquals(EMPTY, ((MRComponent) emr103).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) emr103).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -382,6 +403,7 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) emr240).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) emr240).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) emr240).doSupportCrossPlatformSubmission());
+        assertFalse(((HBaseComponent) emr240).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -395,6 +417,7 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) emr400).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) emr400).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) emr400).doSupportCrossPlatformSubmission());
+        assertFalse(emr400 instanceof HBaseComponent);
     }
 
     @Test
@@ -409,6 +432,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) piv101).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) piv101).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) piv101).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) piv101).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -423,6 +447,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) piv200).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) piv200).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) piv200).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) piv200).doSupportNewHBaseAPI());
     }
 
     @Test
@@ -437,6 +462,7 @@ public class HadoopComponentTest {
         assertTrue(((MRComponent) hdinsight310).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdinsight310).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) hdinsight310).getYarnApplicationClasspath());
+        assertFalse(hdinsight310 instanceof HBaseComponent);
     }
 
     @Test
@@ -451,6 +477,7 @@ public class HadoopComponentTest {
         assertFalse(((MRComponent) custom).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) custom).doSupportCrossPlatformSubmission());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) custom).getYarnApplicationClasspath());
+        assertFalse(((HBaseComponent) custom).doSupportNewHBaseAPI());
     }
 
     @Test

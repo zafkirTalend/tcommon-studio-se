@@ -12,12 +12,13 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.cloudera;
 
+import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class CDH510MR1Distribution extends AbstractDistribution implements HDFSComponent, MRComponent {
+public class CDH510MR1Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent {
 
     public CDH510MR1Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -26,5 +27,20 @@ public class CDH510MR1Distribution extends AbstractDistribution implements HDFSC
     @Override
     public boolean doSupportUseDatanodeHostname() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportCrossPlatformSubmission() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportSequenceFileShortType() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportNewHBaseAPI() {
+        return true;
     }
 }

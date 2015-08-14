@@ -12,12 +12,13 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.emr;
 
+import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class EMRApache103Distribution extends AbstractDistribution implements HDFSComponent, MRComponent {
+public class EMRApache103Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent {
 
     public EMRApache103Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -29,7 +30,17 @@ public class EMRApache103Distribution extends AbstractDistribution implements HD
     }
 
     @Override
+    public boolean doSupportCrossPlatformSubmission() {
+        return false;
+    }
+
+    @Override
     public boolean doSupportSequenceFileShortType() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportNewHBaseAPI() {
         return false;
     }
 }

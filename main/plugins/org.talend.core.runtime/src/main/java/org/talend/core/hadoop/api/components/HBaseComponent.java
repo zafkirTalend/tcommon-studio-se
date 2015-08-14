@@ -10,14 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.hadoop.api.distribution.mapr;
+package org.talend.core.hadoop.api.components;
 
-import org.talend.core.hadoop.api.distribution.AbstractDistribution;
+/**
+ * Interface that exposes specific HDFS methods.
+ *
+ */
+public interface HBaseComponent extends HadoopComponent {
 
-public abstract class AbstractMapRDistribution extends AbstractDistribution {
-
-    @Override
-    public boolean doSupportGroup() {
-        return true;
-    }
+    /**
+     * @return true if the distribution does support the new HBase API.
+     */
+    public boolean doSupportNewHBaseAPI();
 }

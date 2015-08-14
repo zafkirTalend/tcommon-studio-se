@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.mapr;
 
+import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
@@ -20,9 +21,29 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * created by rdubois on 11 août 2015 Detailled comment
  *
  */
-public class MapR213Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent {
+public class MapR213Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent {
 
     public MapR213Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
+    }
+
+    @Override
+    public boolean doSupportUseDatanodeHostname() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportSequenceFileShortType() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportCrossPlatformSubmission() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportNewHBaseAPI() {
+        return false;
     }
 }

@@ -12,12 +12,13 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.hdp;
 
+import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class HDP120Distribution extends AbstractDistribution implements HDFSComponent, MRComponent {
+public class HDP120Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent {
 
     public HDP120Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -25,6 +26,21 @@ public class HDP120Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportSequenceFileShortType() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportCrossPlatformSubmission() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportUseDatanodeHostname() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportNewHBaseAPI() {
         return false;
     }
 }

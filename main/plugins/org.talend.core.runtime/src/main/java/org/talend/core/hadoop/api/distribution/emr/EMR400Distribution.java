@@ -37,12 +37,22 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
+    public boolean doSupportUseDatanodeHostname() {
+        return true;
+    }
+
+    @Override
     public EHadoopDistributions getDistribution() {
         return EHadoopDistributions.AMAZON_EMR;
     }
 
     @Override
     public boolean doSupportCrossPlatformSubmission() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportSequenceFileShortType() {
         return true;
     }
 

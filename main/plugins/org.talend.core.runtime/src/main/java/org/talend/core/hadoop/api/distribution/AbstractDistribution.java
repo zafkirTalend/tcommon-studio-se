@@ -56,23 +56,11 @@ public abstract class AbstractDistribution {
         }
     }
 
-    public boolean doSupportUseDatanodeHostname() {
-        return true;
-    }
-
     public boolean doSupportGroup() {
         return false;
     }
 
-    public boolean doSupportSequenceFileShortType() {
-        return true;
-    }
-
     public boolean isExecutedThroughWebHCat() {
-        return false;
-    }
-
-    public boolean doSupportCrossPlatformSubmission() {
         return false;
     }
 

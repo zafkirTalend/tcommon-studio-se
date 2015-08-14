@@ -29,6 +29,16 @@ public class HDInsight31Distribution extends AbstractDistribution implements MRC
     }
 
     @Override
+    public boolean doSupportUseDatanodeHostname() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportCrossPlatformSubmission() {
+        return false;
+    }
+
+    @Override
     public String getYarnApplicationClasspath() {
         return YARN_APPLICATION_CLASSPATH;
     }
