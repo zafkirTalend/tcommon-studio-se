@@ -20,6 +20,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.hadoop.IHadoopConnectionCreator;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -54,6 +55,8 @@ public abstract class AbstractHadoopConnectionCreator implements IHadoopConnecti
         connectionProperty.setStatusCode(""); //$NON-NLS-1$
         connectionProperty.setId(factory.getNextId());
     }
+
+    abstract protected void initializeConnectionParameters(Connection connection);
 
     private Item getHadoopClusterItem() {
         IRepositoryViewObject repObj = null;
