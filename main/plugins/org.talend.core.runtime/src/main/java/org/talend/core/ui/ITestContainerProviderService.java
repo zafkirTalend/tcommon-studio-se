@@ -88,4 +88,6 @@ public interface ITestContainerProviderService extends IService {
     public void copyDataFiles(Item newItem, RepositoryNode sourceNode);
 
     public String getDataFileSourcePath(Item item, String dataValue);
+
+    public void renameConnection(INode node, boolean isOpen);
 }
