@@ -16,6 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator
 Export-Package: org.talend.core.repository,
  org.talend.core.repository.constants,
+ org.talend.core.repository.document,
  org.talend.core.repository.handlers,
  org.talend.core.repository.i18n,
  org.talend.core.repository.link,
