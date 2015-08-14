@@ -661,15 +661,24 @@ public class DatabaseForm extends AbstractForm {
         String jarPath = null;
         IPath path = null;
         jarPath = getConnection().getDriverJarPath();
+        String lastSegments = "";
         if (jarPath != null) {
-            path = Path.fromOSString(jarPath);
+            final String[] split = jarPath.split(";");
+            for (String oneJarPath : split) {
+                path = Path.fromOSString(oneJarPath);
+                if (path.lastSegment() != null) {
+                    lastSegments = lastSegments + path.lastSegment() + ";";
+                }
+            }
+            if (lastSegments.length() > 0) {
+                lastSegments = lastSegments.substring(0, lastSegments.length() - 1);
+            }
         }
-        if (path != null && path.lastSegment() != null) {
-            generalJdbcDriverjarText.setText(path.lastSegment());
+        if (lastSegments.length() > 0) {
+            generalJdbcDriverjarText.setText(lastSegments);
         } else {
             generalJdbcDriverjarText.setText(jarPath);
         }
-
         generalMappingFileText.setText(getConnection().getDbmsId());
 
         String jdbcUrlString = ""; //$NON-NLS-1$
