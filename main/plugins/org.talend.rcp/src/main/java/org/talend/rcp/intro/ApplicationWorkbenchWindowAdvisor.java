@@ -372,7 +372,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         for (IContributionItem menuItem : menuItems) {
             // Hack to remove the Run menu - it seems you cannot do this using the
             // "org.eclipse.ui.activities" extension
-            if ("org.eclipse.ui.run".equals(menuItem.getId())) { //$NON-NLS-1$
+            // Hack to remove the Navigate menu -which can't be removed by "org.eclipse.ui.activities
+            if ("org.eclipse.ui.run".equals(menuItem.getId()) || "navigate".equals(menuItem.getId())) { //$NON-NLS-1$//$NON-NLS-2$
                 menuManager.remove(menuItem);
             }
         }
