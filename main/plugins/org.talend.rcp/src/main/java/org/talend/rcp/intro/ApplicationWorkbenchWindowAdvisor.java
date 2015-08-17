@@ -27,6 +27,8 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
@@ -44,6 +46,7 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
@@ -59,6 +62,7 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
+import org.eclipse.ui.internal.util.PrefUtil;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.CommonExceptionHandler;
@@ -87,6 +91,7 @@ import org.talend.core.runtime.util.JavaHomeUtil;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.ui.perspective.RestoreAllRegisteredPerspectivesProvider;
 import org.talend.core.ui.preference.hidden.HidePreferencePageProvider;
 import org.talend.core.ui.preference.hidden.HidePreferencePagesManager;
 import org.talend.core.ui.preference.hidden.IHidePreferencePageValidator;
@@ -205,6 +210,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 tdqRepositoryService.initProxyRepository();
             }
         }
+        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+        boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
+
+        PrefUtil.getAPIPreferenceStore().putValue(
+                IWorkbenchPreferenceConstants.SHOW_INTRO, new Boolean(alwaysWelcome).toString());
     }
 
     /*
@@ -225,7 +235,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      */
     @Override
     public void postWindowOpen() {
-
         try {
             JavaHomeUtil.initializeJavaHome();
         } catch (CoreException e1) {
@@ -236,13 +245,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             MessageDialog.openWarning(DisplayUtils.getDefaultShell(),
                     Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
                     Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
-        }
-
-        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
-        boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
-        if (alwaysWelcome) {
-            getWindowConfigurer().getWindow().getWorkbench().getIntroManager()
-                    .showIntro(getWindowConfigurer().getWindow(), !alwaysWelcome);
         }
 
         createActions();
@@ -379,6 +381,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         }
 
         menuManager.update(true);
+        
+        RestoreAllRegisteredPerspectivesProvider perspProvider = new RestoreAllRegisteredPerspectivesProvider();
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
+
+        ContextInjectionFactory.inject(perspProvider, activeContext);
+        perspProvider.restoreAlwaysVisiblePerspectives();
+
     }
 
     private void showStarting() {
