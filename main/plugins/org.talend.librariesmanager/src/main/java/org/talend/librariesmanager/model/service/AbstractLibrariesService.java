@@ -138,7 +138,9 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         try {
             for (String name : names) {
                 File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar + name);
-                synJavaLibs(source);
+                if (source.exists()) {
+                    synJavaLibs(source);
+                }
             }
         } catch (IOException e) {
             CommonExceptionHandler.process(e);
