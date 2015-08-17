@@ -22,6 +22,7 @@ import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.creator.AbstractHadoopConnectionCreator;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 
 /**
@@ -61,7 +62,11 @@ public abstract class AbstractHadoopDBConnectionCreator extends AbstractHadoopCo
         }
     }
 
-    protected void initializeConnectionParameters(DatabaseConnection connection) {
+    protected void initializeConnectionParameters(Connection conn) {
+        if (!(conn instanceof DatabaseConnection)) {
+            return;
+        }
+        DatabaseConnection connection = (DatabaseConnection) conn;
         EMap<String, String> parameters = connection.getParameters();
         if (connection.getDatabaseType() == null) {
             connection.setDatabaseType(parameters.get(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE));
