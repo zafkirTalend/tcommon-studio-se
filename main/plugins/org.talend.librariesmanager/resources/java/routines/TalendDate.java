@@ -876,6 +876,89 @@ public class TalendDate {
     }
 
     /**
+     * Parses text from the beginning of the given string to produce a date using the given pattern and the default date
+     * format symbols for UTC. The method may not use the entire text of the given string.
+     * <p>
+     *
+     * @param pattern the pattern to parse.
+     * @param stringDate A <code>String</code> whose beginning should be parsed.
+     * @return A <code>Date</code> parsed from the string.
+     * @throws ParseException
+     * @exception ParseException if the beginning of the specified string cannot be parsed.
+     *
+     * {talendTypes} Date
+     *
+     * {Category} TalendDate
+     *
+     * {param} string("yyyy-MM-dd HH:mm:ss") pattern : the pattern to parse
+     *
+     * {param} string("") stringDate : A <code>String</code> whose beginning should be parsed
+     *
+     * {example} parseDate("yyyy-MMM-dd HH:mm:ss", "23-Mar-1979 23:59:59") #
+     */
+    public synchronized static Date parseDateInUTC(String pattern, String stringDate) {
+        return parseDateInUTC(pattern, stringDate, true);
+    }
+
+    /**
+     * Parses text from the beginning of the given string to produce a date in UTC using the given pattern and the
+     * default date format symbols for the UTC. The method may not use the entire text of the given string.
+     * <p>
+     *
+     * @param pattern the pattern to parse.
+     * @param stringDate A <code>String</code> whose beginning should be parsed.
+     * @param isLenient A <code>boolean</code>judge DateFormat parse the date Lenient or not.
+     * @return A <code>Date</code> parsed from the string.
+     * @throws ParseException
+     * @exception ParseException if the beginning of the specified string cannot be parsed.
+     *
+     * {talendTypes} Date
+     *
+     * {Category} TalendDate
+     *
+     * {param} string("yyyy-MM-dd HH:mm:ss") pattern : the pattern to parse
+     *
+     * {param} string("") stringDate : A <code>String</code> whose beginning should be parsed
+     *
+     * {param} boolean(true) isLenient : Judge DateFormat parse the date Lenient or not.
+     *
+     * {example} parseDate("yyyy-MM-dd HH:mm:ss", "29-02-1979 23:59:59",false) #
+     */
+    public synchronized static Date parseDateInUTC(String pattern, String stringDate, boolean isLenient) {
+        try {
+            boolean hasZone = false;
+            boolean inQuote = false;
+            char[] ps = pattern.toCharArray();
+            for (char p : ps) {
+                if (p == '\'') {
+                    inQuote = !inQuote;
+                } else if (!inQuote && (p == 'Z' || p == 'z')) {
+                    hasZone = true;
+                    break;
+                }
+            }
+            DateFormat df = FastDateParser.getInstance(pattern);
+            df.setTimeZone(TimeZone.getTimeZone("UTC"));
+            df.setLenient(isLenient);
+            Date d = df.parse(stringDate);
+            if (hasZone) {
+                int offset = df.getCalendar().get(Calendar.ZONE_OFFSET);
+                char sign = offset >= 0 ? '+' : '-';
+                int hour = Math.abs(offset) / 1000 / 60 / 60;
+                int min = Math.abs(offset) / 1000 / 60 % 60;
+                String minStr = min < 10 ? "0" + min : min + "";
+                TalendTimestampWithTZ tstz = new TalendTimestampWithTZ(new java.sql.Timestamp(d.getTime()),
+                        TimeZone.getTimeZone("GMT" + sign + hour + ":" + minStr));
+                return tstz;
+            } else {
+                return d;
+            }
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Parses text from the beginning of the given string to produce a date. The method may not use the entire text of
      * the given string.
      * <p>
