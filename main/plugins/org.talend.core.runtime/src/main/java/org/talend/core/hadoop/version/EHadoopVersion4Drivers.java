@@ -100,6 +100,12 @@ public enum EHadoopVersion4Drivers {
 
     MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
+    EMR_4_0_0(EHadoopDistributions.AMAZON_EMR, "EMR 4.0.0 (Apache 2.6.0)", //$NON-NLS-1$
+              "EMR_4_0_0", //$NON-NLS-1$
+              false,
+              false,
+              new EMRVersion[] { EMRVersion.YARN }),
+
     APACHE_2_4_0_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 2.4.0", //$NON-NLS-1$
                      "APACHE_2_4_0_EMR", //$NON-NLS-1$
                      false,
@@ -229,6 +235,7 @@ public enum EHadoopVersion4Drivers {
         boolean isSupport = false;
 
         switch (this) {
+        case EMR_4_0_0:
         case CLOUDERA_CDH5_4:
         case CUSTOM:
             isSupport = true;

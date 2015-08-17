@@ -184,6 +184,11 @@ public enum HiveConnVersionInfo {
           false,
           HiveConnVersionInfo.MAPR),
 
+    EMR_4_0_0(1, EHadoopVersion4Drivers.EMR_4_0_0.getVersionValue(), "EMR 4.0.0 (Hive 1.0.0)", //$NON-NLS-1$
+              true,
+              false,
+              HiveConnVersionInfo.AMAZON_EMR),
+
     APACHE_2_4_0_EMR_0_13_1(1, "APACHE_2_4_0_EMR_0_13_1", "Apache 2.4.0 (Hive 0.13.1)", false, HiveConnVersionInfo.AMAZON_EMR), //$NON-NLS-1$ //$NON-NLS-2$
 
     APACHE_2_4_0_EMR(
@@ -259,6 +264,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.APACHE_1_0_3_EMR,
                     HiveConnVersionInfo.APACHE_2_4_0_EMR,
                     HiveConnVersionInfo.APACHE_2_4_0_EMR_0_13_1,
+                    HiveConnVersionInfo.EMR_4_0_0,
                     HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
                     HiveConnVersionInfo.PIVOTAL_HD_2_0,
                     HiveConnVersionInfo.DISTRO_VERSION_CUSTOM);
@@ -282,7 +288,8 @@ public enum HiveConnVersionInfo {
     private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
             HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.Cloudera_CDH5_4,
             HiveConnVersionInfo.HDP_2_2, HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0,
-            HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR, HiveConnVersionInfo.APACHE_2_4_0_EMR_0_13_1 };
+            HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR,
+            HiveConnVersionInfo.APACHE_2_4_0_EMR_0_13_1, HiveConnVersionInfo.EMR_4_0_0 };
 
     private static HiveConnVersionInfo[] hiveVersionsSupportingTez = new HiveConnVersionInfo[] { HiveConnVersionInfo.HDP_2_2,
             HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.MAPR4_0_1, HiveConnVersionInfo.MAPR4_1_0,
@@ -345,6 +352,7 @@ public enum HiveConnVersionInfo {
         switch (hiveServerVersion) {
         case HIVE_SERVER_1:
             switch (this) {
+            case EMR_4_0_0:
             case Cloudera_CDH5_4:
                 isSupport = false;
                 break;
