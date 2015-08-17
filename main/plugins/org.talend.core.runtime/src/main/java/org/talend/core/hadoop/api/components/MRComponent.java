@@ -30,8 +30,14 @@ public interface MRComponent extends HadoopComponent {
     public boolean doSupportCrossPlatformSubmission();
 
     /**
+     * @return true if the distribution supports the user impersonation when submitting a job.
+     */
+    public boolean doSupportImpersonation();
+
+    /**
      * @return the yarn application classpath of the distribution. This method won't be used for @link{EHadoopVersion}
      * HADOOP_1
      */
     public String getYarnApplicationClasspath();
+
 }

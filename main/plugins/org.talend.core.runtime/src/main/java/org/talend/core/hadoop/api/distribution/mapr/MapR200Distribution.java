@@ -15,6 +15,7 @@ package org.talend.core.hadoop.api.distribution.mapr;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
@@ -23,7 +24,7 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  *
  */
 public class MapR200Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent {
+        SqoopComponent, PigComponent {
 
     public MapR200Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -52,5 +53,26 @@ public class MapR200Distribution extends AbstractMapRDistribution implements HDF
     @Override
     public boolean doJavaAPISupportStorePasswordInFile() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportHCatalog() {
+        return false;
+    }
+
+    @Override
+    public boolean pigVersionPriorTo_0_12() {
+        // return false because this distribution doesn't support HCatalog.
+        return false;
+    }
+
+    @Override
+    public boolean doSupportTez() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHBase() {
+        return true;
     }
 }

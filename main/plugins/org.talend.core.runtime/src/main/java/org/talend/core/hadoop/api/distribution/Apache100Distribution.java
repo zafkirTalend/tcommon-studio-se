@@ -15,9 +15,11 @@ package org.talend.core.hadoop.api.distribution;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class Apache100Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent {
+public class Apache100Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
+        PigComponent {
 
     public Apache100Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -40,6 +42,32 @@ public class Apache100Distribution extends AbstractDistribution implements HDFSC
 
     @Override
     public boolean doSupportCrossPlatformSubmission() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHCatalog() {
+        return false;
+    }
+
+    @Override
+    public boolean pigVersionPriorTo_0_12() {
+        // return false because this distribution doesn't support HCatalog.
+        return false;
+    }
+
+    @Override
+    public boolean doSupportTez() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHBase() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportImpersonation() {
         return false;
     }
 }

@@ -21,6 +21,7 @@ import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HadoopComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 
@@ -107,11 +108,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) cdh400mr1).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) cdh400mr1).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) cdh400mr1).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) cdh400mr1).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) cdh400mr1).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) cdh400mr1).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) cdh400mr1).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) cdh400mr1).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) cdh400mr1).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) cdh400mr1).doSupportHCatalog());
+        assertFalse(((PigComponent) cdh400mr1).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) cdh400mr1).doSupportTez());
+        assertTrue(((PigComponent) cdh400mr1).doSupportHBase());
     }
 
     @Test
@@ -125,11 +131,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) cdh400mr2).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) cdh400mr2).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) cdh400mr2).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) cdh400mr2).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh400mr2).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) cdh400mr2).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) cdh400mr2).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) cdh400mr2).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) cdh400mr2).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) cdh400mr2).doSupportHCatalog());
+        assertFalse(((PigComponent) cdh400mr2).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) cdh400mr2).doSupportTez());
+        assertTrue(((PigComponent) cdh400mr2).doSupportHBase());
     }
 
     @Test
@@ -143,11 +154,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) cdh500).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) cdh500).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) cdh500).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) cdh500).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh500).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) cdh500).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) cdh500).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) cdh500).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) cdh500).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) cdh500).doSupportHCatalog());
+        assertFalse(((PigComponent) cdh500).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) cdh500).doSupportTez());
+        assertTrue(((PigComponent) cdh500).doSupportHBase());
     }
 
     @Test
@@ -161,11 +177,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) cdh510mr1).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) cdh510mr1).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) cdh510mr1).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) cdh510mr1).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) cdh510mr1).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) cdh510mr1).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) cdh510mr1).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) cdh510mr1).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) cdh510mr1).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) cdh510mr1).doSupportHCatalog());
+        assertFalse(((PigComponent) cdh510mr1).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) cdh510mr1).doSupportTez());
+        assertTrue(((PigComponent) cdh510mr1).doSupportHBase());
     }
 
     @Test
@@ -179,11 +200,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) cdh510mr2).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) cdh510mr2).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) cdh510mr2).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) cdh510mr2).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh510mr2).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) cdh510mr2).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) cdh510mr2).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) cdh510mr2).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) cdh510mr2).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) cdh510mr2).doSupportHCatalog());
+        assertFalse(((PigComponent) cdh510mr2).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) cdh510mr2).doSupportTez());
+        assertTrue(((PigComponent) cdh510mr2).doSupportHBase());
     }
 
     @Test
@@ -197,11 +223,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) cdh540).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) cdh540).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) cdh540).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) cdh540).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) cdh540).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) cdh540).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) cdh540).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) cdh540).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) cdh540).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) cdh540).doSupportHCatalog());
+        assertFalse(((PigComponent) cdh540).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) cdh540).doSupportTez());
+        assertTrue(((PigComponent) cdh540).doSupportHBase());
     }
 
     @Test
@@ -215,11 +246,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) hdp120).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp120).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdp120).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) hdp120).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) hdp120).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) hdp120).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) hdp120).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) hdp120).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) hdp120).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) hdp120).doSupportHCatalog());
+        assertTrue(((PigComponent) hdp120).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) hdp120).doSupportTez());
+        assertTrue(((PigComponent) hdp120).doSupportHBase());
     }
 
     @Test
@@ -233,11 +269,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) hdp130).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp130).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdp130).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) hdp130).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) hdp130).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) hdp130).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) hdp130).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) hdp130).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) hdp130).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) hdp130).doSupportHCatalog());
+        assertTrue(((PigComponent) hdp130).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) hdp130).doSupportTez());
+        assertTrue(((PigComponent) hdp130).doSupportHBase());
     }
 
     @Test
@@ -251,11 +292,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) hdp200).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp200).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdp200).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) hdp200).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) hdp200).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) hdp200).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) hdp200).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) hdp200).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) hdp200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) hdp200).doSupportHCatalog());
+        assertFalse(((PigComponent) hdp200).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) hdp200).doSupportTez());
+        assertFalse(((PigComponent) hdp200).doSupportHBase());
     }
 
     @Test
@@ -269,10 +315,15 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) hdp210).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp210).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) hdp210).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) hdp210).doSupportImpersonation());
         assertTrue(((HBaseComponent) hdp210).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) hdp210).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) hdp210).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) hdp210).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) hdp210).doSupportHCatalog());
+        assertFalse(((PigComponent) hdp210).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) hdp210).doSupportTez());
+        assertTrue(((PigComponent) hdp210).doSupportHBase());
     }
 
     @Test
@@ -286,10 +337,15 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) hdp220).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) hdp220).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) hdp220).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) hdp220).doSupportImpersonation());
         assertTrue(((HBaseComponent) hdp220).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) hdp220).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) hdp220).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) hdp220).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) hdp220).doSupportHCatalog());
+        assertFalse(((PigComponent) hdp220).pigVersionPriorTo_0_12());
+        assertTrue(((PigComponent) hdp220).doSupportTez());
+        assertTrue(((PigComponent) hdp220).doSupportHBase());
     }
 
     @Test
@@ -303,9 +359,14 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) apache100).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) apache100).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) apache100).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) apache100).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) apache100).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) apache100).doSupportNewHBaseAPI());
         assertFalse(apache100 instanceof SqoopComponent);
+        assertFalse(((PigComponent) apache100).doSupportHCatalog());
+        assertFalse(((PigComponent) apache100).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) apache100).doSupportTez());
+        assertTrue(((PigComponent) apache100).doSupportHBase());
     }
 
     @Test
@@ -318,11 +379,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) mapr200).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr200).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr200).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr200).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) mapr200).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) mapr200).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr200).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr200).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) mapr200).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr200).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr200).doSupportTez());
+        assertTrue(((PigComponent) mapr200).doSupportHBase());
     }
 
     @Test
@@ -336,11 +402,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) mapr212).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr212).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr212).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr212).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) mapr212).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) mapr212).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr212).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr212).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr212).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) mapr212).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr212).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr212).doSupportTez());
+        assertTrue(((PigComponent) mapr212).doSupportHBase());
     }
 
     @Test
@@ -354,11 +425,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) mapr213).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr213).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr213).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr213).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) mapr213).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) mapr213).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr213).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr213).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr213).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) mapr213).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr213).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr213).doSupportTez());
+        assertTrue(((PigComponent) mapr213).doSupportHBase());
     }
 
     @Test
@@ -372,11 +448,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) mapr301).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr301).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr301).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr301).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) mapr301).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) mapr301).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr301).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr301).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr301).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) mapr301).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr301).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr301).doSupportTez());
+        assertTrue(((PigComponent) mapr301).doSupportHBase());
     }
 
     @Test
@@ -390,11 +471,16 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) mapr310).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr310).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) mapr310).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr310).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) mapr310).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) mapr310).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr310).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr310).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr310).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) mapr310).doSupportHCatalog());
+        assertTrue(((PigComponent) mapr310).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr310).doSupportTez());
+        assertTrue(((PigComponent) mapr310).doSupportHBase());
     }
 
     @Test
@@ -408,11 +494,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) mapr401).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr401).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) mapr401).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr401).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) mapr401).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) mapr401).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr401).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr401).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr401).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) mapr401).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr401).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr401).doSupportTez());
+        assertTrue(((PigComponent) mapr401).doSupportHBase());
     }
 
     @Test
@@ -426,11 +517,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) mapr410).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) mapr410).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) mapr410).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr410).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) mapr410).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) mapr410).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) mapr410).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) mapr410).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) mapr410).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) mapr410).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr410).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) mapr410).doSupportTez());
+        assertTrue(((PigComponent) mapr410).doSupportHBase());
     }
 
     @Test
@@ -444,9 +540,14 @@ public class HadoopComponentTest {
         assertFalse(((HDFSComponent) emr103).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) emr103).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) emr103).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) emr103).doSupportImpersonation());
         assertEquals(EMPTY, ((MRComponent) emr103).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) emr103).doSupportNewHBaseAPI());
         assertFalse(emr103 instanceof SqoopComponent);
+        assertFalse(((PigComponent) emr103).doSupportHCatalog());
+        assertFalse(((PigComponent) emr103).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) emr103).doSupportTez());
+        assertTrue(((PigComponent) emr103).doSupportHBase());
     }
 
     @Test
@@ -460,10 +561,15 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) emr240).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) emr240).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) emr240).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) emr240).doSupportImpersonation());
         assertFalse(((HBaseComponent) emr240).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) emr240).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) emr240).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) emr240).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) emr240).doSupportHCatalog());
+        assertFalse(((PigComponent) emr240).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) emr240).doSupportTez());
+        assertTrue(((PigComponent) emr240).doSupportHBase());
     }
 
     @Test
@@ -477,8 +583,13 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) emr400).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) emr400).isExecutedThroughWebHCat());
         assertTrue(((MRComponent) emr400).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) emr400).doSupportImpersonation());
         assertFalse(emr400 instanceof HBaseComponent);
         assertFalse(emr400 instanceof SqoopComponent);
+        assertFalse(((PigComponent) emr400).doSupportHCatalog());
+        assertFalse(((PigComponent) emr400).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) emr400).doSupportTez());
+        assertFalse(((PigComponent) emr400).doSupportHBase());
     }
 
     @Test
@@ -492,11 +603,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) piv101).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) piv101).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) piv101).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) piv101).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) piv101).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) piv101).doSupportNewHBaseAPI());
         assertFalse(((SqoopComponent) piv101).doJavaAPISupportStorePasswordInFile());
         assertFalse(((SqoopComponent) piv101).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertFalse(((SqoopComponent) piv101).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) piv101).doSupportHCatalog());
+        assertFalse(((PigComponent) piv101).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) piv101).doSupportTez());
+        assertTrue(((PigComponent) piv101).doSupportHBase());
     }
 
     @Test
@@ -510,11 +626,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) piv200).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) piv200).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) piv200).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) piv200).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) piv200).getYarnApplicationClasspath());
         assertTrue(((HBaseComponent) piv200).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) piv200).doJavaAPISupportStorePasswordInFile());
         assertTrue(((SqoopComponent) piv200).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) piv200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertFalse(((PigComponent) piv200).doSupportHCatalog());
+        assertFalse(((PigComponent) piv200).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) piv200).doSupportTez());
+        assertFalse(((PigComponent) piv200).doSupportHBase());
     }
 
     @Test
@@ -523,14 +644,19 @@ public class HadoopComponentTest {
         assertEquals(EHadoopDistributions.MICROSOFT_HD_INSIGHT, hdinsight310.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, hdinsight310.getHadoopVersion());
         assertFalse(hdinsight310.doSupportKerberos());
-        assertTrue(hdinsight310.doSupportUseDatanodeHostname());
+        assertFalse(hdinsight310.doSupportUseDatanodeHostname());
         assertFalse(hdinsight310.doSupportGroup());
         assertFalse(hdinsight310 instanceof HDFSComponent);
         assertTrue(((MRComponent) hdinsight310).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) hdinsight310).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) hdinsight310).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) hdinsight310).getYarnApplicationClasspath());
         assertFalse(hdinsight310 instanceof HBaseComponent);
         assertFalse(hdinsight310 instanceof SqoopComponent);
+        assertTrue(((PigComponent) hdinsight310).doSupportHCatalog());
+        assertFalse(((PigComponent) hdinsight310).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) hdinsight310).doSupportTez());
+        assertFalse(((PigComponent) hdinsight310).doSupportHBase());
     }
 
     @Test
@@ -544,11 +670,16 @@ public class HadoopComponentTest {
         assertTrue(((HDFSComponent) custom).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) custom).isExecutedThroughWebHCat());
         assertFalse(((MRComponent) custom).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) custom).doSupportImpersonation());
         assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) custom).getYarnApplicationClasspath());
         assertFalse(((HBaseComponent) custom).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) custom).doJavaAPISupportStorePasswordInFile());
-        assertTrue(((SqoopComponent) custom).doJavaAPISqoopImportSupportDeleteTargetDir());
+        assertFalse(((SqoopComponent) custom).doJavaAPISqoopImportSupportDeleteTargetDir());
         assertTrue(((SqoopComponent) custom).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) custom).doSupportHCatalog());
+        assertFalse(((PigComponent) custom).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) custom).doSupportTez());
+        assertTrue(((PigComponent) custom).doSupportHBase());
     }
 
     @Test

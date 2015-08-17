@@ -28,4 +28,8 @@ public abstract class AbstractMapRDistribution extends AbstractDistribution {
     public boolean doJavaAPISqoopImportAllTablesSupportExcludeTable() {
         return false;
     }
+
+    public boolean doSupportImpersonation() {
+        return false;
+    }
 }

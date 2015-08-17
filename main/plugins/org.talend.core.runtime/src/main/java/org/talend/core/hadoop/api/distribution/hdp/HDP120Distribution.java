@@ -15,12 +15,13 @@ package org.talend.core.hadoop.api.distribution.hdp;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 public class HDP120Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent {
+        SqoopComponent, PigComponent {
 
     public HDP120Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -59,5 +60,30 @@ public class HDP120Distribution extends AbstractDistribution implements HDFSComp
     @Override
     public boolean doJavaAPISqoopImportAllTablesSupportExcludeTable() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportHCatalog() {
+        return true;
+    }
+
+    @Override
+    public boolean pigVersionPriorTo_0_12() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportTez() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHBase() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportImpersonation() {
+        return true;
     }
 }

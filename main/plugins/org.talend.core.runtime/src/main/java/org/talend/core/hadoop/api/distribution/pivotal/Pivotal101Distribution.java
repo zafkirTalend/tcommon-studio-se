@@ -15,12 +15,13 @@ package org.talend.core.hadoop.api.distribution.pivotal;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 public class Pivotal101Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent {
+        SqoopComponent, PigComponent {
 
     private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
 
@@ -66,5 +67,31 @@ public class Pivotal101Distribution extends AbstractDistribution implements HDFS
     @Override
     public boolean doJavaAPISqoopImportAllTablesSupportExcludeTable() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportHCatalog() {
+        return false;
+    }
+
+    @Override
+    public boolean pigVersionPriorTo_0_12() {
+        // return false because this distribution doesn't support HCatalog.
+        return false;
+    }
+
+    @Override
+    public boolean doSupportTez() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHBase() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportImpersonation() {
+        return true;
     }
 }
