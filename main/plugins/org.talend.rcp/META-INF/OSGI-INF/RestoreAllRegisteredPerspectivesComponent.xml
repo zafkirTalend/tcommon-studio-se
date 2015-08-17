@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.talend.rcp.perspective.restore">
-   <implementation class="org.talend.core.ui.perspective.RestoreAllRegisteredPerspectivesStartupMonitor"/>
-   <service>
-      <provide interface="org.eclipse.osgi.service.runnable.StartupMonitor"/>
-   </service>
-   <property name="service.ranking" type="Integer" value="10"/>
-</scr:component>

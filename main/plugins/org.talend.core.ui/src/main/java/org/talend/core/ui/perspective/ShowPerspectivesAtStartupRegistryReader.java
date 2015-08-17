@@ -14,8 +14,10 @@ package org.talend.core.ui.perspective;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.SafeRunner;
@@ -77,27 +79,35 @@ public class ShowPerspectivesAtStartupRegistryReader extends RegistryReader {
             }
 
         }
-        // add the id with "appearsAfter" arg
-        for (String id : validAppearsAfterMap.keySet()) {
-            if (showPerspList.contains(id)) {
-                // in fact, shouldn't contain
-            } else {
-                String appearsAfterId = validAppearsAfterMap.get(id);
-                if (appearsAfterId != null) {
-                    // find the index of "appearsAfter"
-                    int index = showPerspList.indexOf(appearsAfterId);
-                    if (index > -1) { // found
-                        if (index < showPerspList.size()) {
-                            showPerspList.add(index + 1, id);
-                        } else {
-                            showPerspList.add(id);
-                        }
-                    }
 
+        while (!validAppearsAfterMap.isEmpty()) {
+            Set<String> done = new HashSet<>();
+            // add the id with "appearsAfter" arg
+            for (String id : validAppearsAfterMap.keySet()) {
+                if (showPerspList.contains(id)) {
+                    // in fact, shouldn't contain
+                    done.add(id);
+                } else {
+                    String appearsAfterId = validAppearsAfterMap.get(id);
+                    if (appearsAfterId != null) {
+                        // find the index of "appearsAfter"
+                        int index = showPerspList.indexOf(appearsAfterId);
+                        if (index > -1) { // found
+                            if (index < showPerspList.size()) {
+                                showPerspList.add(index + 1, id);
+                            } else {
+                                showPerspList.add(id);
+                            }
+                            done.add(id);
+                        }
+
+                    }
                 }
             }
+            for (String id : done) {
+                validAppearsAfterMap.remove(id);
+            }
         }
-
         this.showPerspIds = showPerspList.toArray(new String[0]);
     }
 

@@ -73,4 +73,13 @@
             class="org.talend.core.ui.preference.metadata.MetadataPreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.e4.workbench.model">
+      <processor
+            apply="always"
+            beforefragment="false"
+            class="org.talend.core.ui.perspective.RemoveQuickAccessProcessor">
+      </processor>
+   </extension>
 </plugin>
