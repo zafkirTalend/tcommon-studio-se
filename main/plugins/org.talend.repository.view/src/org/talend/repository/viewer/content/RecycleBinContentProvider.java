@@ -112,6 +112,9 @@ public class RecycleBinContentProvider extends ProjectRepoDirectChildrenNodeCont
             if (resource.getType() == IResource.ROOT) {
                 return true;
             } else if (resource.getType() == IResource.PROJECT) {
+                if (!resource.getProject().isOpen()) {
+                    return false;
+                }
                 try {
                     if (resource.getProject().hasNature(TalendNature.ID)) {
                         if (!ProjectManager.getInstance().getCurrentProject().getTechnicalLabel()
