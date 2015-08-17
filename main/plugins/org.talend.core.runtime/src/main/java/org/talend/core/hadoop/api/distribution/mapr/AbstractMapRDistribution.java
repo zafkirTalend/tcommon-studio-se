@@ -20,4 +20,12 @@ public abstract class AbstractMapRDistribution extends AbstractDistribution {
     public boolean doSupportGroup() {
         return true;
     }
+
+    public boolean doJavaAPISqoopImportSupportDeleteTargetDir() {
+        return false;
+    }
+
+    public boolean doJavaAPISqoopImportAllTablesSupportExcludeTable() {
+        return false;
+    }
 }

@@ -15,13 +15,15 @@ package org.talend.core.hadoop.api.distribution.mapr;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 /**
  * created by rdubois on 11 août 2015 Detailled comment
  *
  */
-public class MapR200Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent {
+public class MapR200Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
+        SqoopComponent {
 
     public MapR200Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -44,6 +46,11 @@ public class MapR200Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportNewHBaseAPI() {
+        return false;
+    }
+
+    @Override
+    public boolean doJavaAPISupportStorePasswordInFile() {
         return false;
     }
 }

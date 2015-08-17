@@ -15,10 +15,12 @@ package org.talend.core.hadoop.api.distribution.cloudera;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
+import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class CDH4MR1Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent {
+public class CDH4MR1Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
+        SqoopComponent {
 
     public CDH4MR1Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -41,6 +43,21 @@ public class CDH4MR1Distribution extends AbstractDistribution implements HDFSCom
 
     @Override
     public boolean doSupportNewHBaseAPI() {
+        return false;
+    }
+
+    @Override
+    public boolean doJavaAPISupportStorePasswordInFile() {
+        return false;
+    }
+
+    @Override
+    public boolean doJavaAPISqoopImportSupportDeleteTargetDir() {
+        return false;
+    }
+
+    @Override
+    public boolean doJavaAPISqoopImportAllTablesSupportExcludeTable() {
         return false;
     }
 }
