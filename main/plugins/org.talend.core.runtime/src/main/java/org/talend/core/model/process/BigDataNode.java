@@ -336,4 +336,14 @@ public class BigDataNode extends AbstractNode implements IBigDataNode {
     public void setDummy(boolean dummy) {
         this.dummy = dummy;
     }
+
+    @Override
+    public void addInput(IConnection connection) {
+        ((List<IConnection>) getIncomingConnections()).add(connection);
+    }
+
+    @Override
+    public void addOutput(IConnection connection) {
+        ((List<IConnection>) getOutgoingConnections()).add(connection);
+    }
 }
