@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Information;
@@ -90,4 +91,6 @@ public interface ITestContainerProviderService extends IService {
     public String getDataFileSourcePath(Item item, String dataValue);
 
     public void renameConnection(INode node, boolean isOpen);
+
+    public boolean isTestCaseComponent(IComponent component);
 }
