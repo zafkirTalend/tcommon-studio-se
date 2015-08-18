@@ -48,7 +48,6 @@ public class HadoopConnectionCreatorManager {
                             Object creator = configurationElement.createExecutableExtension("class"); //$NON-NLS-1$
                             if (creator instanceof IHadoopConnectionCreator) {
                                 IHadoopConnectionCreator connectionCreator = (IHadoopConnectionCreator) creator;
-                                connectionCreator.init(hadoopClusterId);
                                 creators.add(connectionCreator);
                             }
                         } catch (CoreException e) {
@@ -57,6 +56,9 @@ public class HadoopConnectionCreatorManager {
                     }
                 }
             }
+        }
+        for (IHadoopConnectionCreator hcCreator : creators) {
+            hcCreator.init(hadoopClusterId);
         }
         return creators;
     }
