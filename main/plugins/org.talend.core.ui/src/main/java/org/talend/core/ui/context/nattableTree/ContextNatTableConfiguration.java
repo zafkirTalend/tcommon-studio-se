@@ -34,7 +34,6 @@ import org.eclipse.nebula.widgets.nattable.layer.cell.ILayerCell;
 import org.eclipse.nebula.widgets.nattable.painter.cell.CheckBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ComboBoxPainter;
 import org.eclipse.nebula.widgets.nattable.painter.cell.ImagePainter;
-import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer.MoveDirectionEnum;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleAttributes;
 import org.eclipse.nebula.widgets.nattable.style.CellStyleUtil;
 import org.eclipse.nebula.widgets.nattable.style.DisplayMode;
@@ -337,11 +336,5 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
             return super.canonicalToDisplayValue(canonicalValue);
         }
 
-    }
-
-    public void notifyFinish() {
-        if (cutomCellEditor != null) {
-            cutomCellEditor.commit(MoveDirectionEnum.NONE);
-        }
     }
 }
