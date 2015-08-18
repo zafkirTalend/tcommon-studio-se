@@ -68,4 +68,8 @@ public abstract class AbstractDistribution {
         // Not used in Hadoop 1
         return ""; //$NON-NLS-1$
     }
+
+    public boolean doSupportHive1Standalone() {
+        return true;
+    }
 }

@@ -14,6 +14,7 @@ package org.talend.core.hadoop.api.distribution.mapr;
 
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
+import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
@@ -24,7 +25,7 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  *
  */
 public class MapR310Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent, PigComponent {
+        SqoopComponent, PigComponent, HiveComponent {
 
     public MapR310Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
@@ -72,6 +73,56 @@ public class MapR310Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportHBase() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportEmbeddedMode() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportStandaloneMode() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHive1() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHive2() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportTezForHive() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHBaseForHive() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportSSL() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportORCFormat() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportAvroFormat() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportParquetFormat() {
         return true;
     }
 }

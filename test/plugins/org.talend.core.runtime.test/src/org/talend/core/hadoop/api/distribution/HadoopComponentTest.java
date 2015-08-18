@@ -20,6 +20,7 @@ import org.talend.core.hadoop.api.EHadoopVersion;
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HadoopComponent;
+import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
@@ -87,6 +88,8 @@ public class HadoopComponentTest {
 
     private static final String EMRAPACHE240 = "APACHE_2_4_0_EMR"; //$NON-NLS-1$
 
+    private static final String EMRAPACHE240_HIVE0131 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
+
     private static final String EMR400 = "EMR_4_0_0"; //$NON-NLS-1$
 
     private static final String PIV101 = "PIVOTAL_HD_1_0_1"; //$NON-NLS-1$
@@ -118,6 +121,17 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) cdh400mr1).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) cdh400mr1).doSupportTez());
         assertTrue(((PigComponent) cdh400mr1).doSupportHBase());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportHive1());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportHive2());
+        assertFalse(((HiveComponent) cdh400mr1).doSupportTezForHive());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportSSL());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportHive1Standalone());
+        assertFalse(((HiveComponent) cdh400mr1).doSupportORCFormat());
+        assertTrue(((HiveComponent) cdh400mr1).doSupportAvroFormat());
+        assertFalse(((HiveComponent) cdh400mr1).doSupportParquetFormat());
     }
 
     @Test
@@ -141,6 +155,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) cdh400mr2).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) cdh400mr2).doSupportTez());
         assertTrue(((PigComponent) cdh400mr2).doSupportHBase());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportHive1());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportHive2());
+        assertFalse(((HiveComponent) cdh400mr2).doSupportTezForHive());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportSSL());
+        assertFalse(((HiveComponent) cdh400mr2).doSupportORCFormat());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportAvroFormat());
+        assertTrue(((HiveComponent) cdh400mr2).doSupportParquetFormat());
     }
 
     @Test
@@ -164,6 +188,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) cdh500).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) cdh500).doSupportTez());
         assertTrue(((PigComponent) cdh500).doSupportHBase());
+        assertTrue(((HiveComponent) cdh500).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) cdh500).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) cdh500).doSupportHive1());
+        assertTrue(((HiveComponent) cdh500).doSupportHive2());
+        assertFalse(((HiveComponent) cdh500).doSupportTezForHive());
+        assertTrue(((HiveComponent) cdh500).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) cdh500).doSupportSSL());
+        assertTrue(((HiveComponent) cdh500).doSupportORCFormat());
+        assertTrue(((HiveComponent) cdh500).doSupportAvroFormat());
+        assertTrue(((HiveComponent) cdh500).doSupportParquetFormat());
     }
 
     @Test
@@ -187,6 +221,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) cdh510mr1).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) cdh510mr1).doSupportTez());
         assertTrue(((PigComponent) cdh510mr1).doSupportHBase());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportHive1());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportHive2());
+        assertFalse(((HiveComponent) cdh510mr1).doSupportTezForHive());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportSSL());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportORCFormat());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportAvroFormat());
+        assertTrue(((HiveComponent) cdh510mr1).doSupportParquetFormat());
     }
 
     @Test
@@ -210,6 +254,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) cdh510mr2).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) cdh510mr2).doSupportTez());
         assertTrue(((PigComponent) cdh510mr2).doSupportHBase());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportHive1());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportHive2());
+        assertFalse(((HiveComponent) cdh510mr2).doSupportTezForHive());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportSSL());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportORCFormat());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportAvroFormat());
+        assertTrue(((HiveComponent) cdh510mr2).doSupportParquetFormat());
     }
 
     @Test
@@ -233,6 +287,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) cdh540).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) cdh540).doSupportTez());
         assertTrue(((PigComponent) cdh540).doSupportHBase());
+        assertTrue(((HiveComponent) cdh540).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) cdh540).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) cdh540).doSupportHive1());
+        assertTrue(((HiveComponent) cdh540).doSupportHive2());
+        assertFalse(((HiveComponent) cdh540).doSupportTezForHive());
+        assertTrue(((HiveComponent) cdh540).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) cdh540).doSupportSSL());
+        assertTrue(((HiveComponent) cdh540).doSupportORCFormat());
+        assertTrue(((HiveComponent) cdh540).doSupportAvroFormat());
+        assertTrue(((HiveComponent) cdh540).doSupportParquetFormat());
     }
 
     @Test
@@ -256,6 +320,16 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) hdp120).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) hdp120).doSupportTez());
         assertTrue(((PigComponent) hdp120).doSupportHBase());
+        assertTrue(((HiveComponent) hdp120).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) hdp120).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) hdp120).doSupportHive1());
+        assertTrue(((HiveComponent) hdp120).doSupportHive2());
+        assertFalse(((HiveComponent) hdp120).doSupportTezForHive());
+        assertTrue(((HiveComponent) hdp120).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) hdp120).doSupportSSL());
+        assertFalse(((HiveComponent) hdp120).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdp120).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdp120).doSupportParquetFormat());
     }
 
     @Test
@@ -279,6 +353,16 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) hdp130).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) hdp130).doSupportTez());
         assertTrue(((PigComponent) hdp130).doSupportHBase());
+        assertTrue(((HiveComponent) hdp130).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) hdp130).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) hdp130).doSupportHive1());
+        assertTrue(((HiveComponent) hdp130).doSupportHive2());
+        assertFalse(((HiveComponent) hdp130).doSupportTezForHive());
+        assertTrue(((HiveComponent) hdp130).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) hdp130).doSupportSSL());
+        assertTrue(((HiveComponent) hdp130).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdp130).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdp130).doSupportParquetFormat());
     }
 
     @Test
@@ -302,6 +386,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) hdp200).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) hdp200).doSupportTez());
         assertFalse(((PigComponent) hdp200).doSupportHBase());
+        assertTrue(((HiveComponent) hdp200).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) hdp200).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) hdp200).doSupportHive1());
+        assertTrue(((HiveComponent) hdp200).doSupportHive2());
+        assertFalse(((HiveComponent) hdp200).doSupportTezForHive());
+        assertTrue(((HiveComponent) hdp200).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) hdp200).doSupportSSL());
+        assertTrue(((HiveComponent) hdp200).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdp200).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdp200).doSupportParquetFormat());
     }
 
     @Test
@@ -324,6 +418,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) hdp210).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) hdp210).doSupportTez());
         assertTrue(((PigComponent) hdp210).doSupportHBase());
+        assertTrue(((HiveComponent) hdp210).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) hdp210).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) hdp210).doSupportHive1());
+        assertTrue(((HiveComponent) hdp210).doSupportHive2());
+        assertTrue(((HiveComponent) hdp210).doSupportTezForHive());
+        assertTrue(((HiveComponent) hdp210).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) hdp210).doSupportSSL());
+        assertTrue(((HiveComponent) hdp210).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdp210).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdp210).doSupportParquetFormat());
     }
 
     @Test
@@ -346,6 +450,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) hdp220).pigVersionPriorTo_0_12());
         assertTrue(((PigComponent) hdp220).doSupportTez());
         assertTrue(((PigComponent) hdp220).doSupportHBase());
+        assertTrue(((HiveComponent) hdp220).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) hdp220).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) hdp220).doSupportHive1());
+        assertTrue(((HiveComponent) hdp220).doSupportHive2());
+        assertTrue(((HiveComponent) hdp220).doSupportTezForHive());
+        assertTrue(((HiveComponent) hdp220).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) hdp220).doSupportSSL());
+        assertTrue(((HiveComponent) hdp220).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdp220).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdp220).doSupportParquetFormat());
     }
 
     @Test
@@ -367,6 +481,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) apache100).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) apache100).doSupportTez());
         assertTrue(((PigComponent) apache100).doSupportHBase());
+        assertTrue(((HiveComponent) apache100).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) apache100).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) apache100).doSupportHive1());
+        assertTrue(((HiveComponent) apache100).doSupportHive2());
+        assertFalse(((HiveComponent) apache100).doSupportTezForHive());
+        assertTrue(((HiveComponent) apache100).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) apache100).doSupportSSL());
+        assertFalse(((HiveComponent) apache100).doSupportORCFormat());
+        assertFalse(((HiveComponent) apache100).doSupportAvroFormat());
+        assertFalse(((HiveComponent) apache100).doSupportParquetFormat());
     }
 
     @Test
@@ -389,6 +513,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) mapr200).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr200).doSupportTez());
         assertTrue(((PigComponent) mapr200).doSupportHBase());
+        assertTrue(((HiveComponent) mapr200).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr200).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr200).doSupportHive1());
+        assertTrue(((HiveComponent) mapr200).doSupportHive2());
+        assertFalse(((HiveComponent) mapr200).doSupportTezForHive());
+        assertFalse(((HiveComponent) mapr200).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr200).doSupportSSL());
+        assertFalse(((HiveComponent) mapr200).doSupportORCFormat());
+        assertFalse(((HiveComponent) mapr200).doSupportAvroFormat());
+        assertFalse(((HiveComponent) mapr200).doSupportParquetFormat());
     }
 
     @Test
@@ -412,6 +546,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) mapr212).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr212).doSupportTez());
         assertTrue(((PigComponent) mapr212).doSupportHBase());
+        assertTrue(((HiveComponent) mapr212).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr212).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr212).doSupportHive1());
+        assertTrue(((HiveComponent) mapr212).doSupportHive2());
+        assertFalse(((HiveComponent) mapr212).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr212).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr212).doSupportSSL());
+        assertFalse(((HiveComponent) mapr212).doSupportORCFormat());
+        assertTrue(((HiveComponent) mapr212).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr212).doSupportParquetFormat());
     }
 
     @Test
@@ -435,6 +579,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) mapr213).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr213).doSupportTez());
         assertTrue(((PigComponent) mapr213).doSupportHBase());
+        assertTrue(((HiveComponent) mapr213).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr213).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr213).doSupportHive1());
+        assertTrue(((HiveComponent) mapr213).doSupportHive2());
+        assertFalse(((HiveComponent) mapr213).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr213).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr213).doSupportSSL());
+        assertTrue(((HiveComponent) mapr213).doSupportORCFormat());
+        assertTrue(((HiveComponent) mapr213).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr213).doSupportParquetFormat());
     }
 
     @Test
@@ -458,6 +612,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) mapr301).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr301).doSupportTez());
         assertTrue(((PigComponent) mapr301).doSupportHBase());
+        assertTrue(((HiveComponent) mapr301).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr301).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr301).doSupportHive1());
+        assertTrue(((HiveComponent) mapr301).doSupportHive2());
+        assertFalse(((HiveComponent) mapr301).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr301).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr301).doSupportSSL());
+        assertFalse(((HiveComponent) mapr301).doSupportORCFormat());
+        assertFalse(((HiveComponent) mapr301).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr301).doSupportParquetFormat());
     }
 
     @Test
@@ -481,6 +645,16 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) mapr310).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr310).doSupportTez());
         assertTrue(((PigComponent) mapr310).doSupportHBase());
+        assertTrue(((HiveComponent) mapr310).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr310).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr310).doSupportHive1());
+        assertTrue(((HiveComponent) mapr310).doSupportHive2());
+        assertFalse(((HiveComponent) mapr310).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr310).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr310).doSupportSSL());
+        assertFalse(((HiveComponent) mapr310).doSupportORCFormat());
+        assertFalse(((HiveComponent) mapr310).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr310).doSupportParquetFormat());
     }
 
     @Test
@@ -504,6 +678,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) mapr401).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr401).doSupportTez());
         assertTrue(((PigComponent) mapr401).doSupportHBase());
+        assertTrue(((HiveComponent) mapr401).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr401).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr401).doSupportHive1());
+        assertTrue(((HiveComponent) mapr401).doSupportHive2());
+        assertTrue(((HiveComponent) mapr401).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr401).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr401).doSupportSSL());
+        assertTrue(((HiveComponent) mapr401).doSupportORCFormat());
+        assertTrue(((HiveComponent) mapr401).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr401).doSupportParquetFormat());
     }
 
     @Test
@@ -527,6 +711,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) mapr410).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) mapr410).doSupportTez());
         assertTrue(((PigComponent) mapr410).doSupportHBase());
+        assertTrue(((HiveComponent) mapr410).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr410).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) mapr410).doSupportHive1());
+        assertTrue(((HiveComponent) mapr410).doSupportHive2());
+        assertTrue(((HiveComponent) mapr410).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr410).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr410).doSupportSSL());
+        assertTrue(((HiveComponent) mapr410).doSupportORCFormat());
+        assertTrue(((HiveComponent) mapr410).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr410).doSupportParquetFormat());
     }
 
     @Test
@@ -548,6 +742,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) emr103).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) emr103).doSupportTez());
         assertTrue(((PigComponent) emr103).doSupportHBase());
+        assertTrue(((HiveComponent) emr103).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) emr103).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) emr103).doSupportHive1());
+        assertTrue(((HiveComponent) emr103).doSupportHive2());
+        assertFalse(((HiveComponent) emr103).doSupportTezForHive());
+        assertTrue(((HiveComponent) emr103).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) emr103).doSupportSSL());
+        assertFalse(((HiveComponent) emr103).doSupportORCFormat());
+        assertFalse(((HiveComponent) emr103).doSupportAvroFormat());
+        assertTrue(((HiveComponent) emr103).doSupportParquetFormat());
     }
 
     @Test
@@ -570,6 +774,43 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) emr240).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) emr240).doSupportTez());
         assertTrue(((PigComponent) emr240).doSupportHBase());
+        assertTrue(((HiveComponent) emr240).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) emr240).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) emr240).doSupportHive1());
+        assertTrue(((HiveComponent) emr240).doSupportHive2());
+        assertFalse(((HiveComponent) emr240).doSupportTezForHive());
+        assertTrue(((HiveComponent) emr240).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) emr240).doSupportSSL());
+        assertFalse(((HiveComponent) emr240).doSupportORCFormat());
+        assertFalse(((HiveComponent) emr240).doSupportAvroFormat());
+        assertTrue(((HiveComponent) emr240).doSupportParquetFormat());
+    }
+
+    @Test
+    public void testEMR240_HIVE0131() throws Exception {
+        HadoopComponent emr240hive0131 = DistributionFactory.buildDistribution(AMAZON_EMR, EMRAPACHE240_HIVE0131);
+        assertEquals(EHadoopDistributions.AMAZON_EMR, emr240hive0131.getDistribution());
+        assertEquals(EHadoopVersion.HADOOP_2, emr240hive0131.getHadoopVersion());
+        assertFalse(emr240hive0131.doSupportKerberos());
+        assertTrue(emr240hive0131.doSupportUseDatanodeHostname());
+        assertFalse(emr240hive0131.doSupportGroup());
+        assertFalse(emr240hive0131 instanceof HDFSComponent);
+        assertFalse(((MRComponent) emr240hive0131).isExecutedThroughWebHCat());
+        assertTrue(((MRComponent) emr240hive0131).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) emr240hive0131).doSupportImpersonation());
+        assertFalse(emr240hive0131 instanceof HBaseComponent);
+        assertFalse(emr240hive0131 instanceof SqoopComponent);
+        assertFalse(emr240hive0131 instanceof PigComponent);
+        assertFalse(((HiveComponent) emr240hive0131).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) emr240hive0131).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) emr240hive0131).doSupportHive1());
+        assertTrue(((HiveComponent) emr240hive0131).doSupportHive2());
+        assertFalse(((HiveComponent) emr240hive0131).doSupportTezForHive());
+        assertTrue(((HiveComponent) emr240hive0131).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) emr240hive0131).doSupportSSL());
+        assertFalse(((HiveComponent) emr240hive0131).doSupportORCFormat());
+        assertFalse(((HiveComponent) emr240hive0131).doSupportAvroFormat());
+        assertTrue(((HiveComponent) emr240hive0131).doSupportParquetFormat());
     }
 
     @Test
@@ -590,6 +831,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) emr400).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) emr400).doSupportTez());
         assertFalse(((PigComponent) emr400).doSupportHBase());
+        assertFalse(((HiveComponent) emr400).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) emr400).doSupportStandaloneMode());
+        assertFalse(((HiveComponent) emr400).doSupportHive1());
+        assertTrue(((HiveComponent) emr400).doSupportHive2());
+        assertFalse(((HiveComponent) emr400).doSupportTezForHive());
+        assertFalse(((HiveComponent) emr400).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) emr400).doSupportSSL());
+        assertTrue(((HiveComponent) emr400).doSupportORCFormat());
+        assertTrue(((HiveComponent) emr400).doSupportAvroFormat());
+        assertTrue(((HiveComponent) emr400).doSupportParquetFormat());
     }
 
     @Test
@@ -613,6 +864,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) piv101).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) piv101).doSupportTez());
         assertTrue(((PigComponent) piv101).doSupportHBase());
+        assertTrue(((HiveComponent) piv101).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) piv101).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) piv101).doSupportHive1());
+        assertTrue(((HiveComponent) piv101).doSupportHive2());
+        assertFalse(((HiveComponent) piv101).doSupportTezForHive());
+        assertTrue(((HiveComponent) piv101).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) piv101).doSupportSSL());
+        assertFalse(((HiveComponent) piv101).doSupportORCFormat());
+        assertFalse(((HiveComponent) piv101).doSupportAvroFormat());
+        assertFalse(((HiveComponent) piv101).doSupportParquetFormat());
     }
 
     @Test
@@ -636,6 +897,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) piv200).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) piv200).doSupportTez());
         assertFalse(((PigComponent) piv200).doSupportHBase());
+        assertTrue(((HiveComponent) piv200).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) piv200).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) piv200).doSupportHive1());
+        assertTrue(((HiveComponent) piv200).doSupportHive2());
+        assertFalse(((HiveComponent) piv200).doSupportTezForHive());
+        assertTrue(((HiveComponent) piv200).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) piv200).doSupportSSL());
+        assertTrue(((HiveComponent) piv200).doSupportORCFormat());
+        assertTrue(((HiveComponent) piv200).doSupportAvroFormat());
+        assertTrue(((HiveComponent) piv200).doSupportParquetFormat());
     }
 
     @Test
@@ -657,6 +928,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) hdinsight310).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) hdinsight310).doSupportTez());
         assertFalse(((PigComponent) hdinsight310).doSupportHBase());
+        assertFalse(((HiveComponent) hdinsight310).doSupportEmbeddedMode());
+        assertFalse(((HiveComponent) hdinsight310).doSupportStandaloneMode());
+        assertFalse(((HiveComponent) hdinsight310).doSupportHive1());
+        assertFalse(((HiveComponent) hdinsight310).doSupportHive2());
+        assertFalse(((HiveComponent) hdinsight310).doSupportTezForHive());
+        assertFalse(((HiveComponent) hdinsight310).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) hdinsight310).doSupportSSL());
+        assertTrue(((HiveComponent) hdinsight310).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdinsight310).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdinsight310).doSupportParquetFormat());
     }
 
     @Test
@@ -680,6 +961,16 @@ public class HadoopComponentTest {
         assertFalse(((PigComponent) custom).pigVersionPriorTo_0_12());
         assertFalse(((PigComponent) custom).doSupportTez());
         assertTrue(((PigComponent) custom).doSupportHBase());
+        assertTrue(((HiveComponent) custom).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) custom).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) custom).doSupportHive1());
+        assertTrue(((HiveComponent) custom).doSupportHive2());
+        assertTrue(((HiveComponent) custom).doSupportTezForHive());
+        assertTrue(((HiveComponent) custom).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) custom).doSupportSSL());
+        assertTrue(((HiveComponent) custom).doSupportORCFormat());
+        assertTrue(((HiveComponent) custom).doSupportAvroFormat());
+        assertTrue(((HiveComponent) custom).doSupportParquetFormat());
     }
 
     @Test

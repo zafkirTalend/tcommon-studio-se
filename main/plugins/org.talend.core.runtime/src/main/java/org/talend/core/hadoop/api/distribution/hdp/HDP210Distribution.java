@@ -14,6 +14,7 @@ package org.talend.core.hadoop.api.distribution.hdp;
 
 import org.talend.core.hadoop.api.components.HBaseComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
+import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
@@ -21,7 +22,7 @@ import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 public class HDP210Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent, PigComponent {
+        SqoopComponent, PigComponent, HiveComponent {
 
     private final static String YARN_APPLICATION_CLASSPATH = "/etc/hadoop/conf,/usr/lib/hadoop/*,/usr/lib/hadoop/lib/*,/usr/lib/hadoop-hdfs/*,/usr/lib/hadoop-hdfs/lib/*,/usr/lib/hadoop-yarn/*,/usr/lib/hadoop-yarn/lib/*,/usr/lib/hadoop-mapreduce/*,/usr/lib/hadoop-mapreduce/lib/*"; //$NON-NLS-1$
 
@@ -91,6 +92,61 @@ public class HDP210Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportImpersonation() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportEmbeddedMode() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportStandaloneMode() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHive1() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHive2() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportTezForHive() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHBaseForHive() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportSSL() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHive1Standalone() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportORCFormat() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportAvroFormat() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportParquetFormat() {
         return true;
     }
 }

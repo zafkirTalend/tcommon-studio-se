@@ -12,11 +12,12 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution;
 
+import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class HDInsight31Distribution extends AbstractDistribution implements MRComponent, PigComponent {
+public class HDInsight31Distribution extends AbstractDistribution implements MRComponent, PigComponent, HiveComponent {
 
     private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
 
@@ -67,5 +68,55 @@ public class HDInsight31Distribution extends AbstractDistribution implements MRC
     @Override
     public boolean doSupportImpersonation() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportEmbeddedMode() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportStandaloneMode() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHive1() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHive2() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportTezForHive() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportHBaseForHive() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportSSL() {
+        return false;
+    }
+
+    @Override
+    public boolean doSupportORCFormat() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportAvroFormat() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportParquetFormat() {
+        return true;
     }
 }

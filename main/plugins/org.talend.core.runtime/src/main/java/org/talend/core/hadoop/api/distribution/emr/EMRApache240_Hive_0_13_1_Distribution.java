@@ -12,70 +12,56 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.emr;
 
-import org.talend.core.hadoop.api.components.HBaseComponent;
-import org.talend.core.hadoop.api.components.HDFSComponent;
+import org.talend.core.hadoop.api.EHadoopVersion;
 import org.talend.core.hadoop.api.components.HiveComponent;
-import org.talend.core.hadoop.api.components.MRComponent;
-import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
-import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
+import org.talend.core.hadoop.version.EHadoopDistributions;
 
-public class EMRApache103Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        PigComponent, HiveComponent {
+public class EMRApache240_Hive_0_13_1_Distribution extends AbstractDistribution implements HiveComponent {
 
-    public EMRApache103Distribution(EHadoopVersion4Drivers version) {
-        this.version = version;
+    private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*,/usr/share/aws/emr/emr-fs/lib/*,/usr/share/aws/emr/lib/*"; //$NON-NLS-1$
+
+    public EMRApache240_Hive_0_13_1_Distribution() {
     }
 
     @Override
-    public boolean doSupportUseDatanodeHostname() {
+    public EHadoopDistributions getDistribution() {
+        return EHadoopDistributions.AMAZON_EMR;
+    }
+
+    @Override
+    public EHadoopVersion getHadoopVersion() {
+        return EHadoopVersion.HADOOP_2;
+    }
+
+    @Override
+    public boolean doSupportKerberos() {
         return false;
     }
 
     @Override
     public boolean doSupportCrossPlatformSubmission() {
-        return false;
-    }
-
-    @Override
-    public boolean doSupportSequenceFileShortType() {
-        return false;
-    }
-
-    @Override
-    public boolean doSupportNewHBaseAPI() {
-        return false;
-    }
-
-    @Override
-    public boolean doSupportHCatalog() {
-        return false;
-    }
-
-    @Override
-    public boolean pigVersionPriorTo_0_12() {
-        // return false because this distribution doesn't support HCatalog.
-        return false;
-    }
-
-    @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
-    public boolean doSupportHBase() {
         return true;
     }
 
     @Override
     public boolean doSupportImpersonation() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean doSupportUseDatanodeHostname() {
+        return true;
+    }
+
+    @Override
+    public String getYarnApplicationClasspath() {
+        return YARN_APPLICATION_CLASSPATH;
     }
 
     @Override
     public boolean doSupportEmbeddedMode() {
-        return true;
+        return false;
     }
 
     @Override

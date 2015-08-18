@@ -25,6 +25,7 @@ import org.talend.core.hadoop.api.distribution.cloudera.CDH540Distribution;
 import org.talend.core.hadoop.api.distribution.emr.EMR400Distribution;
 import org.talend.core.hadoop.api.distribution.emr.EMRApache103Distribution;
 import org.talend.core.hadoop.api.distribution.emr.EMRApache240Distribution;
+import org.talend.core.hadoop.api.distribution.emr.EMRApache240_Hive_0_13_1_Distribution;
 import org.talend.core.hadoop.api.distribution.hdp.HDP120Distribution;
 import org.talend.core.hadoop.api.distribution.hdp.HDP130Distribution;
 import org.talend.core.hadoop.api.distribution.hdp.HDP200Distribution;
@@ -51,6 +52,8 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 public class DistributionFactory {
 
     private final static String EMR400 = "EMR_4_0_0"; //$NON-NLS-1$
+
+    private final static String EMR240_HIVE_0_13_1 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
 
     /**
      * 
@@ -146,6 +149,10 @@ public class DistributionFactory {
             // EHadoopVersion4Drivers. In this case, we create this temporary code waiting for them to implement it.
             if (EMR400.equals(pVersion)) {
                 return new EMR400Distribution();
+            }
+
+            if (EMR240_HIVE_0_13_1.equals(pVersion)) {
+                return new EMRApache240_Hive_0_13_1_Distribution();
             }
         }
         throw new Exception("The distribution " + pDistribution + " with the version " + pVersion + " doesn't exist."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
