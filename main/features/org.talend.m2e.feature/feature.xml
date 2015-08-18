@@ -28,6 +28,10 @@
          id="org.eclipse.wst.common_core.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipse.wst.common.fproj"
+         version="0.0.0"/>
+
    <plugin
          id="org.eclipse.m2e.archetype.common"
          download-size="1844"
