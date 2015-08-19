@@ -94,7 +94,7 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportHive2() {
-        return true;
+        return false;
     }
 
     @Override

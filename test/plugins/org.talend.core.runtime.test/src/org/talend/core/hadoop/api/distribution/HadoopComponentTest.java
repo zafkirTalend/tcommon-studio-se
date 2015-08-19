@@ -103,6 +103,7 @@ public class HadoopComponentTest {
     @Test
     public void testCDH400MR1() throws Exception {
         HadoopComponent cdh400mr1 = DistributionFactory.buildDistribution(CLOUDERA, CDH400MR1);
+        assertNotNull(cdh400mr1.getName());
         assertEquals(EHadoopDistributions.CLOUDERA, cdh400mr1.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, cdh400mr1.getHadoopVersion());
         assertTrue(cdh400mr1.doSupportKerberos());
@@ -137,6 +138,7 @@ public class HadoopComponentTest {
     @Test
     public void testCDH400MR2() throws Exception {
         HadoopComponent cdh400mr2 = DistributionFactory.buildDistribution(CLOUDERA, CDH400MR2);
+        assertNotNull(cdh400mr2.getName());
         assertEquals(EHadoopDistributions.CLOUDERA, cdh400mr2.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, cdh400mr2.getHadoopVersion());
         assertTrue(cdh400mr2.doSupportKerberos());
@@ -170,6 +172,7 @@ public class HadoopComponentTest {
     @Test
     public void testCDH500() throws Exception {
         HadoopComponent cdh500 = DistributionFactory.buildDistribution(CLOUDERA, CDH500);
+        assertNotNull(cdh500.getName());
         assertEquals(EHadoopDistributions.CLOUDERA, cdh500.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, cdh500.getHadoopVersion());
         assertTrue(cdh500.doSupportKerberos());
@@ -203,6 +206,7 @@ public class HadoopComponentTest {
     @Test
     public void testCDH510MR1() throws Exception {
         HadoopComponent cdh510mr1 = DistributionFactory.buildDistribution(CLOUDERA, CDH510MR1);
+        assertNotNull(cdh510mr1.getName());
         assertEquals(EHadoopDistributions.CLOUDERA, cdh510mr1.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, cdh510mr1.getHadoopVersion());
         assertTrue(cdh510mr1.doSupportKerberos());
@@ -236,6 +240,7 @@ public class HadoopComponentTest {
     @Test
     public void testCDH510MR2() throws Exception {
         HadoopComponent cdh510mr2 = DistributionFactory.buildDistribution(CLOUDERA, CDH510MR2);
+        assertNotNull(cdh510mr2.getName());
         assertEquals(EHadoopDistributions.CLOUDERA, cdh510mr2.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, cdh510mr2.getHadoopVersion());
         assertTrue(cdh510mr2.doSupportKerberos());
@@ -269,6 +274,7 @@ public class HadoopComponentTest {
     @Test
     public void testCDH540() throws Exception {
         HadoopComponent cdh540 = DistributionFactory.buildDistribution(CLOUDERA, CDH540);
+        assertNotNull(cdh540.getName());
         assertEquals(EHadoopDistributions.CLOUDERA, cdh540.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, cdh540.getHadoopVersion());
         assertTrue(cdh540.doSupportKerberos());
@@ -302,6 +308,7 @@ public class HadoopComponentTest {
     @Test
     public void testHDP120() throws Exception {
         HadoopComponent hdp120 = DistributionFactory.buildDistribution(HORTONWORKS, HDP120);
+        assertNotNull(hdp120.getName());
         assertEquals(EHadoopDistributions.HORTONWORKS, hdp120.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, hdp120.getHadoopVersion());
         assertTrue(hdp120.doSupportKerberos());
@@ -335,6 +342,7 @@ public class HadoopComponentTest {
     @Test
     public void testHDP130() throws Exception {
         HadoopComponent hdp130 = DistributionFactory.buildDistribution(HORTONWORKS, HDP130);
+        assertNotNull(hdp130.getName());
         assertEquals(EHadoopDistributions.HORTONWORKS, hdp130.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, hdp130.getHadoopVersion());
         assertTrue(hdp130.doSupportKerberos());
@@ -368,6 +376,7 @@ public class HadoopComponentTest {
     @Test
     public void testHDP200() throws Exception {
         HadoopComponent hdp200 = DistributionFactory.buildDistribution(HORTONWORKS, HDP200);
+        assertNotNull(hdp200.getName());
         assertEquals(EHadoopDistributions.HORTONWORKS, hdp200.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, hdp200.getHadoopVersion());
         assertTrue(hdp200.doSupportKerberos());
@@ -401,6 +410,7 @@ public class HadoopComponentTest {
     @Test
     public void testHDP210() throws Exception {
         HadoopComponent hdp210 = DistributionFactory.buildDistribution(HORTONWORKS, HDP210);
+        assertNotNull(hdp210.getName());
         assertEquals(EHadoopDistributions.HORTONWORKS, hdp210.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, hdp210.getHadoopVersion());
         assertTrue(hdp210.doSupportKerberos());
@@ -433,6 +443,7 @@ public class HadoopComponentTest {
     @Test
     public void testHDP220() throws Exception {
         HadoopComponent hdp220 = DistributionFactory.buildDistribution(HORTONWORKS, HDP220);
+        assertNotNull(hdp220.getName());
         assertEquals(EHadoopDistributions.HORTONWORKS, hdp220.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, hdp220.getHadoopVersion());
         assertTrue(hdp220.doSupportKerberos());
@@ -465,6 +476,7 @@ public class HadoopComponentTest {
     @Test
     public void testAPACHE100() throws Exception {
         HadoopComponent apache100 = DistributionFactory.buildDistribution(APACHE, APACHE100);
+        assertNotNull(apache100.getName());
         assertEquals(EHadoopDistributions.APACHE, apache100.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, apache100.getHadoopVersion());
         assertTrue(apache100.doSupportKerberos());
@@ -484,7 +496,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) apache100).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) apache100).doSupportStandaloneMode());
         assertTrue(((HiveComponent) apache100).doSupportHive1());
-        assertTrue(((HiveComponent) apache100).doSupportHive2());
+        assertFalse(((HiveComponent) apache100).doSupportHive2());
         assertFalse(((HiveComponent) apache100).doSupportTezForHive());
         assertTrue(((HiveComponent) apache100).doSupportHBaseForHive());
         assertFalse(((HiveComponent) apache100).doSupportSSL());
@@ -496,6 +508,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR200() throws Exception {
         HadoopComponent mapr200 = DistributionFactory.buildDistribution(MAPR, MAPR200);
+        assertNotNull(mapr200.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr200.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, mapr200.getHadoopVersion());
         assertFalse(mapr200.doSupportKerberos());
@@ -516,7 +529,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr200).doSupportStandaloneMode());
         assertTrue(((HiveComponent) mapr200).doSupportHive1());
-        assertTrue(((HiveComponent) mapr200).doSupportHive2());
+        assertFalse(((HiveComponent) mapr200).doSupportHive2());
         assertFalse(((HiveComponent) mapr200).doSupportTezForHive());
         assertFalse(((HiveComponent) mapr200).doSupportHBaseForHive());
         assertFalse(((HiveComponent) mapr200).doSupportSSL());
@@ -528,6 +541,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR212() throws Exception {
         HadoopComponent mapr212 = DistributionFactory.buildDistribution(MAPR, MAPR212);
+        assertNotNull(mapr212.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr212.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, mapr212.getHadoopVersion());
         assertFalse(mapr212.doSupportKerberos());
@@ -549,7 +563,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr212).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr212).doSupportStandaloneMode());
         assertTrue(((HiveComponent) mapr212).doSupportHive1());
-        assertTrue(((HiveComponent) mapr212).doSupportHive2());
+        assertFalse(((HiveComponent) mapr212).doSupportHive2());
         assertFalse(((HiveComponent) mapr212).doSupportTezForHive());
         assertTrue(((HiveComponent) mapr212).doSupportHBaseForHive());
         assertFalse(((HiveComponent) mapr212).doSupportSSL());
@@ -561,6 +575,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR213() throws Exception {
         HadoopComponent mapr213 = DistributionFactory.buildDistribution(MAPR, MAPR213);
+        assertNotNull(mapr213.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr213.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, mapr213.getHadoopVersion());
         assertFalse(mapr213.doSupportKerberos());
@@ -594,6 +609,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR301() throws Exception {
         HadoopComponent mapr301 = DistributionFactory.buildDistribution(MAPR, MAPR301);
+        assertNotNull(mapr301.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr301.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, mapr301.getHadoopVersion());
         assertFalse(mapr301.doSupportKerberos());
@@ -627,6 +643,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR310() throws Exception {
         HadoopComponent mapr310 = DistributionFactory.buildDistribution(MAPR, MAPR310);
+        assertNotNull(mapr310.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr310.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, mapr310.getHadoopVersion());
         assertFalse(mapr310.doSupportKerberos());
@@ -660,6 +677,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR401() throws Exception {
         HadoopComponent mapr401 = DistributionFactory.buildDistribution(MAPR, MAPR401);
+        assertNotNull(mapr401.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr401.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, mapr401.getHadoopVersion());
         assertFalse(mapr401.doSupportKerberos());
@@ -693,6 +711,7 @@ public class HadoopComponentTest {
     @Test
     public void testMAPR410() throws Exception {
         HadoopComponent mapr410 = DistributionFactory.buildDistribution(MAPR, MAPR410);
+        assertNotNull(mapr410.getName());
         assertEquals(EHadoopDistributions.MAPR, mapr410.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, mapr410.getHadoopVersion());
         assertFalse(mapr410.doSupportKerberos());
@@ -726,6 +745,7 @@ public class HadoopComponentTest {
     @Test
     public void testEMR103() throws Exception {
         HadoopComponent emr103 = DistributionFactory.buildDistribution(AMAZON_EMR, EMRAPACHE103);
+        assertNotNull(emr103.getName());
         assertEquals(EHadoopDistributions.AMAZON_EMR, emr103.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_1, emr103.getHadoopVersion());
         assertTrue(emr103.doSupportKerberos());
@@ -745,7 +765,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) emr103).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr103).doSupportStandaloneMode());
         assertTrue(((HiveComponent) emr103).doSupportHive1());
-        assertTrue(((HiveComponent) emr103).doSupportHive2());
+        assertFalse(((HiveComponent) emr103).doSupportHive2());
         assertFalse(((HiveComponent) emr103).doSupportTezForHive());
         assertTrue(((HiveComponent) emr103).doSupportHBaseForHive());
         assertFalse(((HiveComponent) emr103).doSupportSSL());
@@ -757,6 +777,7 @@ public class HadoopComponentTest {
     @Test
     public void testEMR240() throws Exception {
         HadoopComponent emr240 = DistributionFactory.buildDistribution(AMAZON_EMR, EMRAPACHE240);
+        assertNotNull(emr240.getName());
         assertEquals(EHadoopDistributions.AMAZON_EMR, emr240.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, emr240.getHadoopVersion());
         assertFalse(emr240.doSupportKerberos());
@@ -776,7 +797,7 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) emr240).doSupportHBase());
         assertTrue(((HiveComponent) emr240).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr240).doSupportStandaloneMode());
-        assertTrue(((HiveComponent) emr240).doSupportHive1());
+        assertFalse(((HiveComponent) emr240).doSupportHive1());
         assertTrue(((HiveComponent) emr240).doSupportHive2());
         assertFalse(((HiveComponent) emr240).doSupportTezForHive());
         assertTrue(((HiveComponent) emr240).doSupportHBaseForHive());
@@ -789,6 +810,7 @@ public class HadoopComponentTest {
     @Test
     public void testEMR240_HIVE0131() throws Exception {
         HadoopComponent emr240hive0131 = DistributionFactory.buildDistribution(AMAZON_EMR, EMRAPACHE240_HIVE0131);
+        assertNotNull(emr240hive0131.getName());
         assertEquals(EHadoopDistributions.AMAZON_EMR, emr240hive0131.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, emr240hive0131.getHadoopVersion());
         assertFalse(emr240hive0131.doSupportKerberos());
@@ -803,7 +825,7 @@ public class HadoopComponentTest {
         assertFalse(emr240hive0131 instanceof PigComponent);
         assertFalse(((HiveComponent) emr240hive0131).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr240hive0131).doSupportStandaloneMode());
-        assertTrue(((HiveComponent) emr240hive0131).doSupportHive1());
+        assertFalse(((HiveComponent) emr240hive0131).doSupportHive1());
         assertTrue(((HiveComponent) emr240hive0131).doSupportHive2());
         assertFalse(((HiveComponent) emr240hive0131).doSupportTezForHive());
         assertTrue(((HiveComponent) emr240hive0131).doSupportHBaseForHive());
@@ -816,6 +838,7 @@ public class HadoopComponentTest {
     @Test
     public void testEMR400() throws Exception {
         HadoopComponent emr400 = DistributionFactory.buildDistribution(AMAZON_EMR, EMR400);
+        assertNotNull(emr400.getName());
         assertEquals(EHadoopDistributions.AMAZON_EMR, emr400.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, emr400.getHadoopVersion());
         assertFalse(emr400.doSupportKerberos());
@@ -846,6 +869,7 @@ public class HadoopComponentTest {
     @Test
     public void testPIV101() throws Exception {
         HadoopComponent piv101 = DistributionFactory.buildDistribution(PIVOTAL_HD, PIV101);
+        assertNotNull(piv101.getName());
         assertEquals(EHadoopDistributions.PIVOTAL_HD, piv101.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, piv101.getHadoopVersion());
         assertFalse(piv101.doSupportKerberos());
@@ -867,7 +891,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) piv101).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) piv101).doSupportStandaloneMode());
         assertTrue(((HiveComponent) piv101).doSupportHive1());
-        assertTrue(((HiveComponent) piv101).doSupportHive2());
+        assertFalse(((HiveComponent) piv101).doSupportHive2());
         assertFalse(((HiveComponent) piv101).doSupportTezForHive());
         assertTrue(((HiveComponent) piv101).doSupportHBaseForHive());
         assertFalse(((HiveComponent) piv101).doSupportSSL());
@@ -879,6 +903,7 @@ public class HadoopComponentTest {
     @Test
     public void testPIV200() throws Exception {
         HadoopComponent piv200 = DistributionFactory.buildDistribution(PIVOTAL_HD, PIV200);
+        assertNotNull(piv200.getName());
         assertEquals(EHadoopDistributions.PIVOTAL_HD, piv200.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, piv200.getHadoopVersion());
         assertTrue(piv200.doSupportKerberos());
@@ -912,6 +937,7 @@ public class HadoopComponentTest {
     @Test
     public void testHDINSIGHT310() throws Exception {
         HadoopComponent hdinsight310 = DistributionFactory.buildDistribution(HDINSIGHT, HDINSIGHT310);
+        assertNotNull(hdinsight310.getName());
         assertEquals(EHadoopDistributions.MICROSOFT_HD_INSIGHT, hdinsight310.getDistribution());
         assertEquals(EHadoopVersion.HADOOP_2, hdinsight310.getHadoopVersion());
         assertFalse(hdinsight310.doSupportKerberos());
@@ -943,6 +969,7 @@ public class HadoopComponentTest {
     @Test
     public void testCUSTOM() throws Exception {
         HadoopComponent custom = DistributionFactory.buildDistribution(CUSTOM, PIV200);
+        assertNotNull(custom.getName());
         assertEquals(EHadoopDistributions.CUSTOM, custom.getDistribution());
         assertNull(custom.getHadoopVersion());
         assertFalse(custom.doSupportKerberos());

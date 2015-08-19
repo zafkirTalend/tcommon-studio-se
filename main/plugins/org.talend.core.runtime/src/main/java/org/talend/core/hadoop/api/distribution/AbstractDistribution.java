@@ -24,6 +24,14 @@ public abstract class AbstractDistribution {
 
     protected EHadoopVersion4Drivers version = null;
 
+    public String getName() {
+        if (this.version != null) {
+            return this.version.getVersionDisplay();
+        } else {
+            throw new UnsupportedOperationException("The version should not be null."); //$NON-NLS-1$
+        }
+    }
+
     public EHadoopVersion getHadoopVersion() {
         if (this.version != null) {
             return this.version.isSupportYARN() ? EHadoopVersion.HADOOP_2 : EHadoopVersion.HADOOP_1;

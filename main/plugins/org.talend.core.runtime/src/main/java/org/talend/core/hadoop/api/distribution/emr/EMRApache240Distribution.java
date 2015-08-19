@@ -108,7 +108,7 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doSupportHive1() {
-        return true;
+        return false;
     }
 
     @Override

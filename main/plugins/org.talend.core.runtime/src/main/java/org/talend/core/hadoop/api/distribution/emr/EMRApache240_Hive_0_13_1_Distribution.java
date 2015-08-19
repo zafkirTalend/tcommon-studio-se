@@ -25,6 +25,11 @@ public class EMRApache240_Hive_0_13_1_Distribution extends AbstractDistribution 
     }
 
     @Override
+    public String getName() {
+        return "EMR Apache 2.4.0 (Hive 0.13.1)"; //$NON-NLS-1$
+    }
+
+    @Override
     public EHadoopDistributions getDistribution() {
         return EHadoopDistributions.AMAZON_EMR;
     }
@@ -71,7 +76,7 @@ public class EMRApache240_Hive_0_13_1_Distribution extends AbstractDistribution 
 
     @Override
     public boolean doSupportHive1() {
-        return true;
+        return false;
     }
 
     @Override

@@ -89,7 +89,7 @@ public class Apache100Distribution extends AbstractDistribution implements HDFSC
 
     @Override
     public boolean doSupportHive2() {
-        return true;
+        return false;
     }
 
     @Override

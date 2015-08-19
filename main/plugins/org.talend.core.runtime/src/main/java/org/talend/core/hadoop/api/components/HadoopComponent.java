@@ -23,6 +23,11 @@ import org.talend.core.hadoop.version.EHadoopDistributions;
 public interface HadoopComponent {
 
     /**
+     * @return the @link{EHadoopVersion4Drivers} display name of the distribution.
+     */
+    public String getName();
+
+    /**
      * @return the @link{EHadoopDistributions} of the distribution.
      */
     public EHadoopDistributions getDistribution();

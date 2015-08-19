@@ -113,7 +113,7 @@ public class Pivotal101Distribution extends AbstractDistribution implements HDFS
 
     @Override
     public boolean doSupportHive2() {
-        return true;
+        return false;
     }
 
     @Override
