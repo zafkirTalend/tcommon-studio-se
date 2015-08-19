@@ -20,6 +20,18 @@
          id="org.talend.jdt.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipse.wst.xml_core.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.common_core.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.common.fproj"
+         version="0.0.0"/>
+
    <plugin
          id="org.eclipse.m2e.archetype.common"
          download-size="1844"
@@ -149,14 +161,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.slf4j.impl.log4j12"
-         download-size="0"
-         install-size="0"
-         version="1.7.2.v20131105-2200"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.emf.ecore"
          download-size="0"
          install-size="0"
@@ -179,20 +183,6 @@
 
    <plugin
          id="org.eclipse.emf.ecore.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.common.emf"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.sse.core"
          download-size="0"
          install-size="0"
          version="0.0.0"

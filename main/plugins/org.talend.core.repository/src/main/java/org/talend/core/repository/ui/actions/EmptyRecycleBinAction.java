@@ -45,6 +45,7 @@ import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ITDQRepositoryService;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
@@ -251,6 +252,9 @@ public class EmptyRecycleBinAction extends AContextualAction {
             if (!isRootNodeDeleted(currentNode)) {
                 Item item = subRepositoryObject.getProperty().getItem();
                 subRepositoryObject.removeFromParent();
+                if (item instanceof ConnectionItem) {
+                    ProxyRepositoryFactory.getInstance().setSubItemDeleted((ConnectionItem)item, subRepositoryObject.getAbstractMetadataObject(), true);
+                }
                 factory.save(item);
             }
         } else {

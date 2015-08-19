@@ -21,13 +21,14 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
+import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
@@ -68,7 +69,6 @@ public class RestoreAllRegisteredPerspectivesProvider {
     private EModelService fModelService;
 
     @Inject
-    @Optional
     private MWindow fWindow;
 
     @Inject
@@ -158,7 +158,6 @@ public class RestoreAllRegisteredPerspectivesProvider {
         }
 
         activateTheProperPerspective(mPerspStack, initialSelectedPerspective);
-
     }
 
     /**
