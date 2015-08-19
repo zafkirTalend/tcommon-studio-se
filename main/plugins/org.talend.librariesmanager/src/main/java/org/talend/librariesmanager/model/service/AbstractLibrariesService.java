@@ -137,8 +137,13 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         // synchronize .Java project for all new jars.
         try {
             for (String name : names) {
-                File source = new File(LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA) + File.separatorChar + name);
-                synJavaLibs(source);
+                String jarPath = repositoryBundleService.getJarPath(name);
+                if (jarPath != null) {
+                    File source = new File(jarPath);
+                    if (source.exists()) {
+                        synJavaLibs(source);
+                    }
+                }
             }
         } catch (IOException e) {
             CommonExceptionHandler.process(e);
