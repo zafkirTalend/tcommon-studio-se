@@ -2,7 +2,7 @@
     "HORTONWORKS": {
         "NAMENODE_URI": "hdfs://localhost:8020",
         "JOBTRACKER": "localhost:50300",
-        "RESOURCE_MANAGER": "localhost:8032",
+        "RESOURCE_MANAGER": "localhost:8050",
         "RESOURCEMANAGER_SCHEDULER_ADDRESS": "localhost:8030",
         "JOBHISTORY_ADDRESS": "0.0.0.0:10020",
         "STAGING_DIRECTORY": "/user",
