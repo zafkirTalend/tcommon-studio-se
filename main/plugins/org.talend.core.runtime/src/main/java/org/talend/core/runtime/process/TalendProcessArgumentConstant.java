@@ -22,9 +22,13 @@ public interface TalendProcessArgumentConstant {
 
     static final String ARG_PROGRAM_ARGUMENTS = "PROGRAM_ARGUMENTS";
 
-    static final String ARG_ENABLE_STATISTICS = "ENABLE_STATISTICS";
+    static final String ARG_ENABLE_STATS = "ENABLE_STATS";
 
-    static final String ARG_ENABLE_TRAC = "ENABLE_TRAC";
+    static final String ARG_ENABLE_TRACS = "ENABLE_TRACS";
+
+    static final String ARG_PORT_STATS = "PORT_OF_STATS";
+
+    static final String ARG_PORT_TRACS = "PORT_OF_TRACS";
 
     static final String ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN = "ENABLE_APPLY_CONTEXT_TO_CHILDREN";
 
@@ -48,5 +52,9 @@ public interface TalendProcessArgumentConstant {
     public static final String CMD_ARG_CONTEXT_NAME = "--context=";
 
     public static final String CMD_ARG_LOG4J_LEVEL = "--log4jLevel=";
+
+    public static final String CMD_ARG_STATS_PORT = "--stat_port=";
+
+    public static final String CMD_ARG_TRACE_PORT = "--trace_port=";
 
 }
