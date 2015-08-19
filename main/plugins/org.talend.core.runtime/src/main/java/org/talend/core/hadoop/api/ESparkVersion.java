@@ -10,16 +10,9 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.hadoop.api.components;
+package org.talend.core.hadoop.api;
 
-/**
- * Interface that exposes specific HBase methods.
- *
- */
-public interface HBaseComponent extends HadoopComponent {
-
-    /**
-     * @return true if the distribution does support the new HBase API.
-     */
-    public boolean doSupportNewHBaseAPI();
+public enum ESparkVersion {
+    SPARK_1_3,
+    SPARK_1_4;
 }

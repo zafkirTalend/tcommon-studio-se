@@ -13,6 +13,7 @@
 package org.talend.core.hadoop.api.distribution.hdp;
 
 import org.talend.core.hadoop.api.components.HBaseComponent;
+import org.talend.core.hadoop.api.components.HCatalogComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
@@ -22,7 +23,7 @@ import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 public class HDP220Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent, PigComponent, HiveComponent {
+        SqoopComponent, PigComponent, HiveComponent, HCatalogComponent {
 
     private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,/usr/hdp/current/hadoop-client/*,/usr/hdp/current/hadoop-client/lib/*,/usr/hdp/current/hadoop-hdfs-client/*,/usr/hdp/current/hadoop-hdfs-client/lib/*,/usr/hdp/current/hadoop-mapreduce-client/*,/usr/hdp/current/hadoop-mapreduce-client/lib/*,/usr/hdp/current/hadoop-yarn-client/*,/usr/hdp/current/hadoop-yarn-client/lib/*"; //$NON-NLS-1$
 

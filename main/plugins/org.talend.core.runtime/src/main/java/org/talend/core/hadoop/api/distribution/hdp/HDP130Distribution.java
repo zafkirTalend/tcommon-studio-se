@@ -13,6 +13,7 @@
 package org.talend.core.hadoop.api.distribution.hdp;
 
 import org.talend.core.hadoop.api.components.HBaseComponent;
+import org.talend.core.hadoop.api.components.HCatalogComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
@@ -22,7 +23,7 @@ import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 public class HDP130Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent, PigComponent, HiveComponent {
+        SqoopComponent, PigComponent, HiveComponent, HCatalogComponent {
 
     public HDP130Distribution(EHadoopVersion4Drivers version) {
         this.version = version;

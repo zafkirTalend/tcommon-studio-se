@@ -13,7 +13,7 @@
 package org.talend.core.hadoop.api.components;
 
 /**
- * Interface that exposes specific HDFS methods.
+ * Interface that exposes specific Pig methods.
  *
  */
 public interface PigComponent extends MRComponent {

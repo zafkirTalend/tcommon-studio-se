@@ -37,7 +37,7 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doSupportCrossPlatformSubmission() {
-        return false;
+        return true;
     }
 
     @Override

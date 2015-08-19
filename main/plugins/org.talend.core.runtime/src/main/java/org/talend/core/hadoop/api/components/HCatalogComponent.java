@@ -13,13 +13,9 @@
 package org.talend.core.hadoop.api.components;
 
 /**
- * Interface that exposes specific HBase methods.
+ * Interface that exposes specific HCatalog methods.
  *
  */
-public interface HBaseComponent extends HadoopComponent {
-
-    /**
-     * @return true if the distribution does support the new HBase API.
-     */
-    public boolean doSupportNewHBaseAPI();
+public interface HCatalogComponent extends HadoopComponent {
+    // No specific method for HCatalog currently.
 }

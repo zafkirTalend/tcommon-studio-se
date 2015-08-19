@@ -13,7 +13,7 @@
 package org.talend.core.hadoop.api.components;
 
 /**
- * Interface that exposes specific HDFS methods.
+ * Interface that exposes specific Hive methods.
  *
  */
 public interface HiveComponent extends MRComponent {

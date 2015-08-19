@@ -12,14 +12,24 @@
 // ============================================================================
 package org.talend.core.hadoop.api.components;
 
+import org.talend.core.hadoop.api.ESparkVersion;
+
 /**
- * Interface that exposes specific HBase methods.
+ * Interface that exposes specific Spark methods.
  *
  */
-public interface HBaseComponent extends HadoopComponent {
+public interface SparkComponent extends MRComponent {
 
     /**
-     * @return true if the distribution does support the new HBase API.
+     * A distribution can be using Spark 1.3 or Spark 1.4. This method returns the used Spark version.
+     * 
+     * @return the @link{ESparkVersion} of the distribution.
      */
-    public boolean doSupportNewHBaseAPI();
+    public ESparkVersion getSparkVersion();
+
+    /**
+     * @return true if the Spark version included in the distribution is 1.4.
+     */
+    public boolean isSpark14();
+
 }

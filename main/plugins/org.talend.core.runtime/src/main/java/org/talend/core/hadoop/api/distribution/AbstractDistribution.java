@@ -13,6 +13,7 @@
 package org.talend.core.hadoop.api.distribution;
 
 import org.talend.core.hadoop.api.EHadoopVersion;
+import org.talend.core.hadoop.api.ESparkVersion;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
@@ -79,5 +80,15 @@ public abstract class AbstractDistribution {
 
     public boolean doSupportHive1Standalone() {
         return true;
+    }
+
+    // Only used if SparkComponent is implemented
+    public ESparkVersion getSparkVersion() {
+        return ESparkVersion.SPARK_1_3;
+    }
+
+    // Only used if SparkComponent is implemented
+    public boolean isSpark14() {
+        return getSparkVersion() == ESparkVersion.SPARK_1_4;
     }
 }

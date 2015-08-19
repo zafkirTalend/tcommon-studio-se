@@ -13,13 +13,9 @@
 package org.talend.core.hadoop.api.components;
 
 /**
- * Interface that exposes specific HBase methods.
+ * Interface that exposes specific Spark Streaming methods.
  *
  */
-public interface HBaseComponent extends HadoopComponent {
-
-    /**
-     * @return true if the distribution does support the new HBase API.
-     */
-    public boolean doSupportNewHBaseAPI();
+public interface SparkStreamingComponent extends SparkComponent {
+    // No specific method for Spark Streaming currently.
 }

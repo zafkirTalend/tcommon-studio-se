@@ -18,11 +18,15 @@ import org.junit.Test;
 import org.talend.core.hadoop.api.DistributionFactory;
 import org.talend.core.hadoop.api.EHadoopVersion;
 import org.talend.core.hadoop.api.components.HBaseComponent;
+import org.talend.core.hadoop.api.components.HCatalogComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HadoopComponent;
 import org.talend.core.hadoop.api.components.HiveComponent;
+import org.talend.core.hadoop.api.components.ImpalaComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
+import org.talend.core.hadoop.api.components.SparkBatchComponent;
+import org.talend.core.hadoop.api.components.SparkStreamingComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 
@@ -133,6 +137,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) cdh400mr1).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh400mr1).doSupportAvroFormat());
         assertFalse(((HiveComponent) cdh400mr1).doSupportParquetFormat());
+        assertFalse(cdh400mr1 instanceof SparkBatchComponent);
+        assertFalse(cdh400mr1 instanceof SparkStreamingComponent);
+        assertFalse(cdh400mr1 instanceof HCatalogComponent);
+        assertFalse(cdh400mr1 instanceof ImpalaComponent);
     }
 
     @Test
@@ -167,6 +175,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) cdh400mr2).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh400mr2).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh400mr2).doSupportParquetFormat());
+        assertFalse(cdh400mr2 instanceof SparkBatchComponent);
+        assertFalse(cdh400mr2 instanceof SparkStreamingComponent);
+        assertFalse(cdh400mr2 instanceof HCatalogComponent);
+        assertFalse(cdh400mr2 instanceof ImpalaComponent);
     }
 
     @Test
@@ -201,6 +213,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh500).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh500).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh500).doSupportParquetFormat());
+        assertFalse(cdh500 instanceof SparkBatchComponent);
+        assertFalse(cdh500 instanceof SparkStreamingComponent);
+        assertTrue(cdh500 instanceof HCatalogComponent);
+        assertFalse(cdh500 instanceof ImpalaComponent);
     }
 
     @Test
@@ -235,6 +251,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh510mr1).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh510mr1).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh510mr1).doSupportParquetFormat());
+        assertFalse(cdh510mr1 instanceof SparkBatchComponent);
+        assertFalse(cdh510mr1 instanceof SparkStreamingComponent);
+        assertTrue(cdh510mr1 instanceof HCatalogComponent);
+        assertFalse(cdh510mr1 instanceof ImpalaComponent);
     }
 
     @Test
@@ -269,6 +289,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh510mr2).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh510mr2).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh510mr2).doSupportParquetFormat());
+        assertFalse(cdh510mr2 instanceof SparkBatchComponent);
+        assertFalse(cdh510mr2 instanceof SparkStreamingComponent);
+        assertTrue(cdh510mr2 instanceof HCatalogComponent);
+        assertTrue(cdh510mr2 instanceof ImpalaComponent);
     }
 
     @Test
@@ -303,6 +327,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh540).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh540).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh540).doSupportParquetFormat());
+        assertFalse(((SparkBatchComponent) cdh540).isSpark14());
+        assertFalse(((SparkStreamingComponent) cdh540).isSpark14());
+        assertTrue(cdh540 instanceof HCatalogComponent);
+        assertTrue(cdh540 instanceof ImpalaComponent);
     }
 
     @Test
@@ -337,6 +365,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) hdp120).doSupportORCFormat());
         assertTrue(((HiveComponent) hdp120).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdp120).doSupportParquetFormat());
+        assertFalse(hdp120 instanceof SparkBatchComponent);
+        assertFalse(hdp120 instanceof SparkStreamingComponent);
+        assertTrue(hdp120 instanceof HCatalogComponent);
+        assertFalse(hdp120 instanceof ImpalaComponent);
     }
 
     @Test
@@ -371,6 +403,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) hdp130).doSupportORCFormat());
         assertTrue(((HiveComponent) hdp130).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdp130).doSupportParquetFormat());
+        assertFalse(hdp130 instanceof SparkBatchComponent);
+        assertFalse(hdp130 instanceof SparkStreamingComponent);
+        assertTrue(hdp130 instanceof HCatalogComponent);
+        assertFalse(hdp130 instanceof ImpalaComponent);
     }
 
     @Test
@@ -405,6 +441,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) hdp200).doSupportORCFormat());
         assertTrue(((HiveComponent) hdp200).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdp200).doSupportParquetFormat());
+        assertFalse(hdp200 instanceof SparkBatchComponent);
+        assertFalse(hdp200 instanceof SparkStreamingComponent);
+        assertTrue(hdp200 instanceof HCatalogComponent);
+        assertFalse(hdp200 instanceof ImpalaComponent);
     }
 
     @Test
@@ -438,6 +478,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) hdp210).doSupportORCFormat());
         assertTrue(((HiveComponent) hdp210).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdp210).doSupportParquetFormat());
+        assertFalse(hdp210 instanceof SparkBatchComponent);
+        assertFalse(hdp210 instanceof SparkStreamingComponent);
+        assertTrue(hdp210 instanceof HCatalogComponent);
+        assertFalse(hdp210 instanceof ImpalaComponent);
     }
 
     @Test
@@ -471,6 +515,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) hdp220).doSupportORCFormat());
         assertTrue(((HiveComponent) hdp220).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdp220).doSupportParquetFormat());
+        assertFalse(hdp220 instanceof SparkBatchComponent);
+        assertFalse(hdp220 instanceof SparkStreamingComponent);
+        assertTrue(hdp220 instanceof HCatalogComponent);
+        assertFalse(hdp220 instanceof ImpalaComponent);
     }
 
     @Test
@@ -503,6 +551,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) apache100).doSupportORCFormat());
         assertFalse(((HiveComponent) apache100).doSupportAvroFormat());
         assertFalse(((HiveComponent) apache100).doSupportParquetFormat());
+        assertFalse(apache100 instanceof SparkBatchComponent);
+        assertFalse(apache100 instanceof SparkStreamingComponent);
+        assertFalse(apache100 instanceof HCatalogComponent);
+        assertFalse(apache100 instanceof ImpalaComponent);
     }
 
     @Test
@@ -536,6 +588,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) mapr200).doSupportORCFormat());
         assertFalse(((HiveComponent) mapr200).doSupportAvroFormat());
         assertFalse(((HiveComponent) mapr200).doSupportParquetFormat());
+        assertFalse(mapr200 instanceof SparkBatchComponent);
+        assertFalse(mapr200 instanceof SparkStreamingComponent);
+        assertFalse(mapr200 instanceof HCatalogComponent);
+        assertFalse(mapr200 instanceof ImpalaComponent);
     }
 
     @Test
@@ -570,6 +626,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) mapr212).doSupportORCFormat());
         assertTrue(((HiveComponent) mapr212).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr212).doSupportParquetFormat());
+        assertFalse(mapr212 instanceof SparkBatchComponent);
+        assertFalse(mapr212 instanceof SparkStreamingComponent);
+        assertFalse(mapr212 instanceof HCatalogComponent);
+        assertFalse(mapr212 instanceof ImpalaComponent);
     }
 
     @Test
@@ -604,6 +664,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr213).doSupportORCFormat());
         assertTrue(((HiveComponent) mapr213).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr213).doSupportParquetFormat());
+        assertFalse(mapr213 instanceof SparkBatchComponent);
+        assertFalse(mapr213 instanceof SparkStreamingComponent);
+        assertFalse(mapr213 instanceof HCatalogComponent);
+        assertFalse(mapr213 instanceof ImpalaComponent);
     }
 
     @Test
@@ -638,6 +702,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) mapr301).doSupportORCFormat());
         assertFalse(((HiveComponent) mapr301).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr301).doSupportParquetFormat());
+        assertFalse(mapr301 instanceof SparkBatchComponent);
+        assertFalse(mapr301 instanceof SparkStreamingComponent);
+        assertFalse(mapr301 instanceof HCatalogComponent);
+        assertFalse(mapr301 instanceof ImpalaComponent);
     }
 
     @Test
@@ -672,6 +740,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) mapr310).doSupportORCFormat());
         assertFalse(((HiveComponent) mapr310).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr310).doSupportParquetFormat());
+        assertFalse(mapr310 instanceof SparkBatchComponent);
+        assertFalse(mapr310 instanceof SparkStreamingComponent);
+        assertTrue(mapr310 instanceof HCatalogComponent);
+        assertFalse(mapr310 instanceof ImpalaComponent);
     }
 
     @Test
@@ -706,6 +778,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr401).doSupportORCFormat());
         assertTrue(((HiveComponent) mapr401).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr401).doSupportParquetFormat());
+        assertFalse(mapr401 instanceof SparkBatchComponent);
+        assertFalse(mapr401 instanceof SparkStreamingComponent);
+        assertTrue(mapr401 instanceof HCatalogComponent);
+        assertFalse(mapr401 instanceof ImpalaComponent);
     }
 
     @Test
@@ -740,6 +816,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr410).doSupportORCFormat());
         assertTrue(((HiveComponent) mapr410).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr410).doSupportParquetFormat());
+        assertFalse(((SparkBatchComponent) mapr410).isSpark14());
+        assertFalse(mapr410 instanceof SparkStreamingComponent);
+        assertTrue(mapr410 instanceof HCatalogComponent);
+        assertFalse(mapr410 instanceof ImpalaComponent);
     }
 
     @Test
@@ -772,6 +852,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) emr103).doSupportORCFormat());
         assertFalse(((HiveComponent) emr103).doSupportAvroFormat());
         assertTrue(((HiveComponent) emr103).doSupportParquetFormat());
+        assertFalse(emr103 instanceof SparkBatchComponent);
+        assertFalse(emr103 instanceof SparkStreamingComponent);
+        assertFalse(emr103 instanceof HCatalogComponent);
+        assertFalse(emr103 instanceof ImpalaComponent);
     }
 
     @Test
@@ -785,7 +869,7 @@ public class HadoopComponentTest {
         assertFalse(emr240.doSupportGroup());
         assertTrue(((HDFSComponent) emr240).doSupportSequenceFileShortType());
         assertFalse(((MRComponent) emr240).isExecutedThroughWebHCat());
-        assertFalse(((MRComponent) emr240).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) emr240).doSupportCrossPlatformSubmission());
         assertTrue(((MRComponent) emr240).doSupportImpersonation());
         assertFalse(((HBaseComponent) emr240).doSupportNewHBaseAPI());
         assertTrue(((SqoopComponent) emr240).doJavaAPISupportStorePasswordInFile());
@@ -805,6 +889,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) emr240).doSupportORCFormat());
         assertFalse(((HiveComponent) emr240).doSupportAvroFormat());
         assertTrue(((HiveComponent) emr240).doSupportParquetFormat());
+        assertFalse(emr240 instanceof SparkBatchComponent);
+        assertFalse(emr240 instanceof SparkStreamingComponent);
+        assertFalse(emr240 instanceof HCatalogComponent);
+        assertFalse(emr240 instanceof ImpalaComponent);
     }
 
     @Test
@@ -833,6 +921,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) emr240hive0131).doSupportORCFormat());
         assertFalse(((HiveComponent) emr240hive0131).doSupportAvroFormat());
         assertTrue(((HiveComponent) emr240hive0131).doSupportParquetFormat());
+        assertFalse(emr240hive0131 instanceof SparkBatchComponent);
+        assertFalse(emr240hive0131 instanceof SparkStreamingComponent);
+        assertFalse(emr240hive0131 instanceof HCatalogComponent);
+        assertFalse(emr240hive0131 instanceof ImpalaComponent);
     }
 
     @Test
@@ -864,6 +956,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) emr400).doSupportORCFormat());
         assertTrue(((HiveComponent) emr400).doSupportAvroFormat());
         assertTrue(((HiveComponent) emr400).doSupportParquetFormat());
+        assertTrue(((SparkBatchComponent) emr400).isSpark14());
+        assertTrue(((SparkStreamingComponent) emr400).isSpark14());
+        assertFalse(emr400 instanceof HCatalogComponent);
+        assertFalse(emr400 instanceof ImpalaComponent);
     }
 
     @Test
@@ -898,6 +994,10 @@ public class HadoopComponentTest {
         assertFalse(((HiveComponent) piv101).doSupportORCFormat());
         assertFalse(((HiveComponent) piv101).doSupportAvroFormat());
         assertFalse(((HiveComponent) piv101).doSupportParquetFormat());
+        assertFalse(piv101 instanceof SparkBatchComponent);
+        assertFalse(piv101 instanceof SparkStreamingComponent);
+        assertFalse(piv101 instanceof HCatalogComponent);
+        assertFalse(piv101 instanceof ImpalaComponent);
     }
 
     @Test
@@ -932,6 +1032,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) piv200).doSupportORCFormat());
         assertTrue(((HiveComponent) piv200).doSupportAvroFormat());
         assertTrue(((HiveComponent) piv200).doSupportParquetFormat());
+        assertFalse(piv200 instanceof SparkBatchComponent);
+        assertFalse(piv200 instanceof SparkStreamingComponent);
+        assertFalse(piv200 instanceof HCatalogComponent);
+        assertFalse(piv200 instanceof ImpalaComponent);
     }
 
     @Test
@@ -964,6 +1068,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) hdinsight310).doSupportORCFormat());
         assertTrue(((HiveComponent) hdinsight310).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdinsight310).doSupportParquetFormat());
+        assertFalse(hdinsight310 instanceof SparkBatchComponent);
+        assertFalse(hdinsight310 instanceof SparkStreamingComponent);
+        assertFalse(hdinsight310 instanceof HCatalogComponent);
+        assertFalse(hdinsight310 instanceof ImpalaComponent);
     }
 
     @Test
@@ -998,6 +1106,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) custom).doSupportORCFormat());
         assertTrue(((HiveComponent) custom).doSupportAvroFormat());
         assertTrue(((HiveComponent) custom).doSupportParquetFormat());
+        assertFalse(custom instanceof SparkBatchComponent);
+        assertFalse(custom instanceof SparkStreamingComponent);
+        assertFalse(custom instanceof HCatalogComponent);
+        assertFalse(custom instanceof ImpalaComponent);
     }
 
     @Test
