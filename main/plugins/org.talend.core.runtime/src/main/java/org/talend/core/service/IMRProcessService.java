@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
+import org.talend.core.model.components.IComponentsHandler;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
@@ -40,6 +41,8 @@ public interface IMRProcessService extends IService {
 
     public boolean isMapReduceItem(Item item);
 
+    public boolean isSpark(Item item);
+
     public boolean isMapReduceEditor(IEditorPart editorPart);
 
     public List<IRepositoryViewObject> getMapReduceProcesses(Project project);
@@ -49,4 +52,8 @@ public interface IMRProcessService extends IService {
     public boolean isProgressBarNeeded(IProcess2 process);
 
     public void refreshMRStatus(List<INode> nodeList);
+
+    public IComponentsHandler getMapReduceComponentsHandler();
+
+    public IComponentsHandler getSparkComponentsHandler();
 }
