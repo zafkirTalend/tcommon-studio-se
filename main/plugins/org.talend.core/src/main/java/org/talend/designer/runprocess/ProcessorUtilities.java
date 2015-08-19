@@ -462,8 +462,8 @@ public class ProcessorUtilities {
         generateNodeInfo(jobInfo, selectedContextName, statistics, needContext, option, progressMonitor, currentProcess);
 
         final Map<String, Object> argumentsMap = new HashMap<String, Object>();
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATS, statistics);
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRACS, trace);
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
         argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
 
@@ -809,8 +809,8 @@ public class ProcessorUtilities {
                 processor.setArguments(jobInfo.getArgumentsMap());
             } else {
                 final Map<String, Object> argumentsMap = new HashMap<String, Object>();
-                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS, statistics);
-                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRAC, trace);
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATS, statistics);
+                argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRACS, trace);
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN,
                         jobInfo.isApplyContextToChildren());
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
@@ -1154,8 +1154,8 @@ public class ProcessorUtilities {
                 TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN));
         jobInfo.setArgumentsMap(argumentsMap);
 
-        boolean statistics = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS);
-        boolean trace = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_ENABLE_TRAC);
+        boolean statistics = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_ENABLE_STATS);
+        boolean trace = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_ENABLE_TRACS);
         boolean needContext = ProcessUtils.isOptionChecked(argumentsMap, TalendProcessArgumentConstant.ARG_NEED_CONTEXT);
         int option = ProcessUtils.getOptionValue(argumentsMap, TalendProcessArgumentConstant.ARG_GENERATE_OPTION, 0);
 
@@ -1469,10 +1469,10 @@ public class ProcessorUtilities {
             cmd = (String[]) ArrayUtils.add(cmd, TalendProcessArgumentConstant.CMD_ARG_CONTEXT_NAME + contextName);
         }
         if (statisticPort != -1) {
-            cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort); //$NON-NLS-1$
+            cmd = (String[]) ArrayUtils.add(cmd, TalendProcessArgumentConstant.CMD_ARG_STATS_PORT + statisticPort);
         }
         if (tracePort != -1) {
-            cmd = (String[]) ArrayUtils.add(cmd, "--trace_port=" + tracePort); //$NON-NLS-1$
+            cmd = (String[]) ArrayUtils.add(cmd, TalendProcessArgumentConstant.CMD_ARG_TRACE_PORT + tracePort);
         }
         return cmd;
     }

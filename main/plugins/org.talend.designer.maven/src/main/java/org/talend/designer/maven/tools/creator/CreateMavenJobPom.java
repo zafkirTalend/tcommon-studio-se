@@ -216,7 +216,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
         JobInfoProperties jobInfoProp = new JobInfoProperties((ProcessItem) property.getItem(), contextName,
                 isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN),
-                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATISTICS));
+                isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATS));
 
         checkPomProperty(properties, "talend.project.name", ETalendMavenVariables.ProjectName,
                 jobInfoProp.getProperty(JobInfoProperties.PROJECT_NAME, project.getTechnicalLabel()));
@@ -304,6 +304,24 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 String log4jLevelPart = TalendProcessArgumentConstant.CMD_ARG_LOG4J_LEVEL + log4jLevel;
                 addScriptAddition(windowsScriptAdditionValue, log4jLevelPart);
                 addScriptAddition(unixScriptAdditionValue, log4jLevelPart);
+            }
+        }
+        // stats
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATS)) {
+            String statsPort = getOptionString(TalendProcessArgumentConstant.ARG_PORT_STATS);
+            if (StringUtils.isNotEmpty(statsPort)) {
+                String statsPortPart = TalendProcessArgumentConstant.CMD_ARG_STATS_PORT + statsPort;
+                addScriptAddition(windowsScriptAdditionValue, statsPortPart);
+                addScriptAddition(unixScriptAdditionValue, statsPortPart);
+            }
+        }
+        // trac
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_TRACS)) {
+            String tracPort = getOptionString(TalendProcessArgumentConstant.ARG_PORT_TRACS);
+            if (StringUtils.isNotEmpty(tracPort)) {
+                String tracPortPart = TalendProcessArgumentConstant.CMD_ARG_TRACE_PORT + tracPort;
+                addScriptAddition(windowsScriptAdditionValue, tracPortPart);
+                addScriptAddition(unixScriptAdditionValue, tracPortPart);
             }
         }
 
