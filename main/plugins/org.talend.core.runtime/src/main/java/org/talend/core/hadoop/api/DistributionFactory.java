@@ -144,12 +144,12 @@ public class DistributionFactory {
             if (distribution == EHadoopVersion4Drivers.MICROSOFT_HD_INSIGHT_3_1) {
                 return new HDInsight31Distribution(distribution);
             }
+            if (distribution == EHadoopVersion4Drivers.EMR_4_0_0) {
+                return new EMR400Distribution(distribution);
+            }
         } else {
             // The distribution can be null in case of the GUI has not implemented the distribution in
             // EHadoopVersion4Drivers. In this case, we create this temporary code waiting for them to implement it.
-            if (EMR400.equals(pVersion)) {
-                return new EMR400Distribution();
-            }
 
             if (EMR240_HIVE_0_13_1.equals(pVersion)) {
                 return new EMRApache240_Hive_0_13_1_Distribution();

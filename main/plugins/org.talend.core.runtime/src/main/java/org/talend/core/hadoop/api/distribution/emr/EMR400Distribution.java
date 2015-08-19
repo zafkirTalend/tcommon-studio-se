@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.emr;
 
-import org.talend.core.hadoop.api.EHadoopVersion;
 import org.talend.core.hadoop.api.ESparkVersion;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HiveComponent;
@@ -21,7 +20,7 @@ import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SparkBatchComponent;
 import org.talend.core.hadoop.api.components.SparkStreamingComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
-import org.talend.core.hadoop.version.EHadoopDistributions;
+import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 /**
  * created by rdubois on 11 août 2015 Detailled comment
@@ -32,29 +31,13 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
 
     private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,/usr/lib/hadoop-lzo/lib/*,/usr/share/aws/emr/emrfs/conf, /usr/share/aws/emr/emrfs/lib/*,/usr/share/aws/emr/emrfs/auxlib/*,/usr/share/aws/emr/lib/*,/usr/share/aws/emr/ddb/lib/emr-ddb-hadoop.jar, /usr/share/aws/emr/goodies/lib/emr-hadoop-goodies.jar,/usr/share/aws/emr/kinesis/lib/emr-kinesis-hadoop.jar,/usr/lib/spark/yarn/lib/datanucleus-api-jdo.jar,/usr/lib/spark/yarn/lib/datanucleus-core.jar,/usr/lib/spark/yarn/lib/datanucleus-rdbms.jar,/usr/share/aws/emr/cloudwatch-sink/lib/*"; //$NON-NLS-1$
 
-    @Override
-    public String getName() {
-        return "EMR 4.0.0"; //$NON-NLS-1$
-    }
-
-    @Override
-    public EHadoopVersion getHadoopVersion() {
-        return EHadoopVersion.HADOOP_2;
-    }
-
-    @Override
-    public boolean doSupportKerberos() {
-        return false;
+    public EMR400Distribution(EHadoopVersion4Drivers version) {
+        this.version = version;
     }
 
     @Override
     public boolean doSupportUseDatanodeHostname() {
         return true;
-    }
-
-    @Override
-    public EHadoopDistributions getDistribution() {
-        return EHadoopDistributions.AMAZON_EMR;
     }
 
     @Override
