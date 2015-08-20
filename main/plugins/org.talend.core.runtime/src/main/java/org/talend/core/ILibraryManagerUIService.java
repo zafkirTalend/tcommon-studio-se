@@ -46,4 +46,5 @@ public interface ILibraryManagerUIService extends IService {
 
     public boolean isModuleInstalledForBundle(String bundleName);
 
+    public boolean confirmDialog(String originalJarFileName);
 }
