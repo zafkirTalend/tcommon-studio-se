@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
@@ -69,6 +70,7 @@ public class RestoreAllRegisteredPerspectivesProvider {
     private EModelService fModelService;
 
     @Inject
+    @Optional
     private MWindow fWindow;
 
     @Inject
