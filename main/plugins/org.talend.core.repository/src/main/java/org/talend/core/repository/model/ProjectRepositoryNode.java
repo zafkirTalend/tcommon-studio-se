@@ -102,6 +102,7 @@ import org.talend.core.repository.model.repositoryObject.SAPIDocRepositoryObject
 import org.talend.core.repository.model.repositoryObject.SalesforceModuleRepositoryObject;
 import org.talend.core.repository.recyclebin.RecycleBinManager;
 import org.talend.core.ui.ICDCProviderService;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
@@ -601,7 +602,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
                 ERepositoryObjectType objectType = (ERepositoryObjectType) type;
                 if (objectType.isResouce() && fullPath.startsWith(objectType.getFolder())) {
-                    path = fullPath.substring(objectType.getFolder().length()+1);
+                    path = fullPath.substring(objectType.getFolder().length() + 1);
                     currentType = objectType;
                     break;
                 }
@@ -621,11 +622,22 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
      */
     private void addDeletedElements(RepositoryNode rootNode, List<IRepositoryNode> rootNodes) {
         List<IRepositoryViewObject> objects = RecycleBinManager.getInstance().getDeletedObjects(rootNode.getRoot().getProject());
-
+        List<IRepositoryViewObject> elements = new ArrayList<IRepositoryViewObject>();
+        ITestContainerProviderService testContainerService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            testContainerService = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(
+                    ITestContainerProviderService.class);
+        }
         for (IRepositoryViewObject currentObject : objects) {
-            RepositoryNode folder = getFolder(currentObject.getRepositoryObjectType(), currentObject.getPath(), rootNodes);
+            if (testContainerService == null
+                    || !testContainerService.isTestContainerType(currentObject.getRepositoryObjectType())) {
+                elements.add(currentObject);
+            }
+        }
 
-            RepositoryNode parentNode = folder;
+        for (IRepositoryViewObject currentObject : elements) {
+            RepositoryNode parent = getFolder(currentObject.getRepositoryObjectType(), currentObject.getPath(), rootNodes);
+            RepositoryNode parentNode = parent;
             if (parentNode == null) {
                 parentNode = rootNode;
             }
@@ -640,12 +652,67 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 addDeletedSubItems(currentObject.getProperty().getItem(), parentNode);
             }
         }
+        objects.removeAll(elements);
+        addDeletedTestCases(rootNode, objects);
+    }
+
+    /**
+     * DOC nrousseau Comment method "addDeletedElements".
+     * 
+     * @param project2
+     * @param nodes
+     */
+    private void addDeletedTestCases(RepositoryNode rootNode, List<IRepositoryViewObject> elements) {
+        List<IRepositoryNode> rootNodes = rootNode.getChildren();
+        ITestContainerProviderService testContainerService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            testContainerService = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(
+                    ITestContainerProviderService.class);
+        }
+        for (IRepositoryViewObject currentObject : elements) {
+            if (testContainerService != null && testContainerService.isTestContainerType(currentObject.getRepositoryObjectType())) {
+                String originalID = testContainerService.getOriginalID(currentObject);
+                RepositoryNode parentNode = getTestCaseParent(rootNodes, originalID);
+                if (parentNode == null) {
+                    parentNode = rootNode;
+                }
+                if (currentObject.isDeleted()) {
+                    RepositoryNode repNode = new RepositoryNode(new RepositoryViewObject(currentObject.getProperty()),
+                            parentNode, ENodeType.REPOSITORY_ELEMENT);
+                    repNode.setProperties(EProperties.CONTENT_TYPE, currentObject.getRepositoryObjectType());
+                    repNode.setProperties(EProperties.LABEL, currentObject.getLabel());
+                    parentNode.getChildren().add(repNode);
+                    repNode.setParent(parentNode);
+                }
+            }
+        }
     }
 
     public boolean hasDeletedSubItem(ConnectionItem connectionItem) {
         RepositoryNode repNode = new RepositoryNode(null, null, ENodeType.SIMPLE_FOLDER);
         addDeletedSubItems(connectionItem, repNode);
         return !repNode.getChildren().isEmpty();
+    }
+
+    /**
+     * DOC hwang Comment method "getTestCaseParent".
+     * 
+     * @param repositoryObjectType
+     * @param path
+     * @return
+     */
+
+    private RepositoryNode getTestCaseParent(List<IRepositoryNode> rootNodes, String originalID) {
+        for (IRepositoryNode node : rootNodes) {
+            if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
+                if (node.getId().equals(originalID)) {
+                    return (RepositoryNode) node;
+                }
+            } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
+                return getTestCaseParent(node.getChildren(), originalID);
+            }
+        }
+        return null;
     }
 
     /**
@@ -681,9 +748,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                         folderNode = (RepositoryNode) node;
                         remainingPath = null;
                         break;
-                    } else if (path.startsWith(fullPath)){
+                    } else if (path.startsWith(fullPath)) {
                         folderNode = (RepositoryNode) node;
-                        remainingPath = path.substring(fullPath.length()+1);
+                        remainingPath = path.substring(fullPath.length() + 1);
                         break;
                     }
                 }
