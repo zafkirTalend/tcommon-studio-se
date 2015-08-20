@@ -45,9 +45,9 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 /**
  * This is a factory class that provides a way to create a @link{HadoopComponent} using the underlying GUI classes
- * 
+ *
  * @link{EHadoopVersion4Drivers and @link{EHadoopDistributions}
- * 
+ *
  */
 public class DistributionFactory {
 
@@ -56,9 +56,9 @@ public class DistributionFactory {
     private final static String EMR240_HIVE_0_13_1 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
 
     /**
-     * 
+     *
      * Builds a @link{HadoopComponent} distribution.
-     * 
+     *
      * @param pDistribution The name of the distribution
      * @param pVersion The name of the version
      * @return an implementation of @link{HadoopComponent}.
@@ -157,4 +157,21 @@ public class DistributionFactory {
         }
         throw new Exception("The distribution " + pDistribution + " with the version " + pVersion + " doesn't exist."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
+
+    /**
+     * Execute a methode for a given distribution and version. This function must return a booelan
+     *
+     * @param methodName the name of the method
+     * @param distribution the name of the distribution
+     * @param version the name of the version
+     * 
+     * @return
+     * @throws Exception
+     */
+    public static boolean executeBooleanMethod(String methodName, String distribution, String version) throws Exception {
+        HadoopComponent distrib = DistributionFactory.buildDistribution(distribution, version);
+        java.lang.reflect.Method m = distrib.getClass().getMethod(methodName, new Class<?>[0]);
+        return (Boolean) m.invoke(distrib, new Object[0]);
+    }
+
 }
