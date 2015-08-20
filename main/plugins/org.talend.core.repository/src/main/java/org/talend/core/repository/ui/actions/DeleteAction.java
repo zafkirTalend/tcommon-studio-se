@@ -663,6 +663,8 @@ public class DeleteAction extends AContextualAction {
             }
             factory.deleteObjectLogical(objToDelete);
             removeConnFromSQLExplorer(repositoryNode);
+            deleteTestCases(factory, deleteActionCache, repositoryNode, null);
+
             return true;
         }
     }
@@ -1350,10 +1352,27 @@ public class DeleteAction extends AContextualAction {
                 factory.deleteObjectLogical(objToDelete);
                 updateRelatedViews();
                 removeConnFromSQLExplorer(currentJobNode);
+                deleteTestCases(factory, deleteActionCache, currentJobNode, confirm);
             }
         }
 
         return needReturn;
+    }
+
+    private void deleteTestCases(IProxyRepositoryFactory factory, DeleteActionCache deleteActionCache,
+            final IRepositoryNode currentJobNode, Boolean confirm) throws PersistenceException, BusinessException {
+        if (currentJobNode.getType() != ENodeType.REPOSITORY_ELEMENT) {
+            return;
+        }
+        if (!(currentJobNode.getObject().getProperty().getItem() instanceof ProcessItem)) {
+            return;
+        }
+        if (currentJobNode.getChildren().isEmpty()) {
+            return;
+        }
+        for (IRepositoryNode child : currentJobNode.getChildren()) {
+            deleteElements(factory, deleteActionCache, (RepositoryNode) child, confirm);
+        }
     }
 
     /**

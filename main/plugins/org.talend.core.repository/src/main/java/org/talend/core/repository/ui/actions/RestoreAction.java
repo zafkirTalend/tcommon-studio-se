@@ -50,7 +50,7 @@ import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.service.ICoreUIService;
-import org.talend.cwm.helper.SubItemHelper;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -96,7 +96,7 @@ public class RestoreAction extends AContextualAction {
                 ConnectionItem item = (ConnectionItem) node.getObject().getProperty().getItem();
                 AbstractMetadataObject abstractMetadataObject = ((ISubRepositoryObject) node.getObject())
                         .getAbstractMetadataObject();
-                ProxyRepositoryFactory.getInstance().setSubItemDeleted(item,abstractMetadataObject, false);
+                ProxyRepositoryFactory.getInstance().setSubItemDeleted(item, abstractMetadataObject, false);
 
                 final String id = item.getProperty().getId();
                 Item tmpItem = procItems.get(id);
@@ -176,16 +176,25 @@ public class RestoreAction extends AContextualAction {
                     if (obj instanceof RepositoryNode) {
                         RepositoryNode node = (RepositoryNode) obj;
                         restoreNode(node);
+                        boolean isTestcase = false;
+                        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                                    .getDefault().getService(ITestContainerProviderService.class);
+                            if (testContainerService != null && testContainerService.isTestContainerType(node.getObjectType())) {
+                                isTestcase = true;
+                            }
+                        }
 
                         // restore parents folder if deleted also
-
                         while (node.getParent().getObject() != null
                                 && factory.getStatus(node.getParent().getObject()) == ERepositoryStatus.DELETED) {
-                            node = node.getParent();
-                            if (node.getObject().getProperty().getItem() instanceof FolderItem) {
-                                node.getObject().getProperty().getItem().getState().setDeleted(false);
-                            }
 
+                            node = node.getParent();
+                            if ((node.getObject().getProperty().getItem() instanceof FolderItem)) {
+                                node.getObject().getProperty().getItem().getState().setDeleted(false);
+                            } else if (isTestcase) {
+                                restoreNode(node);
+                            }
                         }
                     }
                 }
