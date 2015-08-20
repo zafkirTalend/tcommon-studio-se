@@ -186,12 +186,12 @@ public final class DqRepositoryViewService {
      * @return the list of tables. Theses tables are not added to the given catalog. It must be done by the caller.
      * @throws Exception
      */
-    public static List<TdTable> getTables(Connection dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdTable> getTables(Connection dataProvider, Catalog catalog, String tablePattern, boolean loadFromDB,
+            boolean isPersist2Con) throws Exception {
         TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = trc.getObject();
         try {
-            return getTables(connection, dataProvider, catalog, tablePattern, loadFromDB);
+            return getTables(connection, dataProvider, catalog, tablePattern, loadFromDB, isPersist2Con);
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
@@ -200,20 +200,20 @@ public final class DqRepositoryViewService {
     }
 
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
-            String tablePattern, boolean loadFromDB) throws Exception {
+            String tablePattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
         if (loadFromDB) {
-            return loadTables(sqlConnection, dataProvider, catalog, tablePattern);
+            return loadTables(sqlConnection, dataProvider, catalog, tablePattern, isPersist2Con);
         } else {
             return CatalogHelper.getTables(catalog);
         }
     }
 
-    public static List<TdTable> getTables(Connection dataProvider, Schema schema, String tablePattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdTable> getTables(Connection dataProvider, Schema schema, String tablePattern, boolean loadFromDB,
+            boolean isPersist2Con) throws Exception {
         TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = trc.getObject();
         try {
-            return getTables(connection, dataProvider, schema, tablePattern, loadFromDB);
+            return getTables(connection, dataProvider, schema, tablePattern, loadFromDB, isPersist2Con);
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
@@ -233,21 +233,21 @@ public final class DqRepositoryViewService {
      * @throws Exception
      */
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
-            String tablePattern, boolean loadFromDB) throws Exception {
+            String tablePattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
         if (loadFromDB) {
             final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
-            return loadTables(sqlConnection, dataProvider, parentCatalog, schema, tablePattern);
+            return loadTables(sqlConnection, dataProvider, parentCatalog, schema, tablePattern, isPersist2Con);
         } else {
             return SchemaHelper.getTables(schema);
         }
     }
 
-    public static List<TdTable> getTables(Connection dataProvider, Package pack, String tablePattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdTable> getTables(Connection dataProvider, Package pack, String tablePattern, boolean loadFromDB,
+            boolean isPersist2Con) throws Exception {
         TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = trc.getObject();
         try {
-            return getTables(connection, dataProvider, pack, tablePattern, loadFromDB);
+            return getTables(connection, dataProvider, pack, tablePattern, loadFromDB, isPersist2Con);
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
@@ -256,21 +256,21 @@ public final class DqRepositoryViewService {
     }
 
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Package pack,
-            String tablePattern, boolean loadFromDB) throws Exception {
+            String tablePattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
         if (pack instanceof Schema) {
-            return getTables(sqlConnection, dataProvider, (Schema) pack, tablePattern, loadFromDB);
+            return getTables(sqlConnection, dataProvider, (Schema) pack, tablePattern, loadFromDB, isPersist2Con);
         } else if (pack instanceof Catalog) {
-            return getTables(sqlConnection, dataProvider, (Catalog) pack, tablePattern, loadFromDB);
+            return getTables(sqlConnection, dataProvider, (Catalog) pack, tablePattern, loadFromDB, isPersist2Con);
         }
         return new ArrayList<TdTable>();
     }
 
-    public static List<TdView> getViews(Connection dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdView> getViews(Connection dataProvider, Catalog catalog, String viewPattern, boolean loadFromDB,
+            boolean isPersist2Con) throws Exception {
         TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = trc.getObject();
         try {
-            return getViews(connection, dataProvider, catalog, viewPattern, loadFromDB);
+            return getViews(connection, dataProvider, catalog, viewPattern, loadFromDB, isPersist2Con);
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
@@ -279,20 +279,20 @@ public final class DqRepositoryViewService {
     }
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
-            String viewPattern, boolean loadFromDB) throws Exception {
+            String viewPattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
         if (loadFromDB) {
-            return loadViews(sqlConnection, dataProvider, catalog, null, viewPattern);
+            return loadViews(sqlConnection, dataProvider, catalog, null, viewPattern, isPersist2Con);
         } else {
             return CatalogHelper.getViews(catalog);
         }
     }
 
-    public static List<TdView> getViews(Connection dataProvider, Schema schema, String viewPattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdView> getViews(Connection dataProvider, Schema schema, String viewPattern, boolean loadFromDB,
+            boolean isPersist2Con) throws Exception {
         TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = trc.getObject();
         try {
-            return getViews(connection, dataProvider, schema, viewPattern, loadFromDB);
+            return getViews(connection, dataProvider, schema, viewPattern, loadFromDB, isPersist2Con);
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
@@ -301,22 +301,22 @@ public final class DqRepositoryViewService {
     }
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
-            String viewPattern, boolean loadFromDB) throws Exception {
+            String viewPattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
         if (loadFromDB) {
             // get catalog is exists
             final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
-            return loadViews(sqlConnection, dataProvider, parentCatalog, schema, viewPattern);
+            return loadViews(sqlConnection, dataProvider, parentCatalog, schema, viewPattern, isPersist2Con);
         } else {
             return SchemaHelper.getViews(schema);
         }
     }
 
-    public static List<TdView> getViews(Connection dataProvider, Package pack, String viewPattern, boolean loadFromDB)
-            throws Exception {
+    public static List<TdView> getViews(Connection dataProvider, Package pack, String viewPattern, boolean loadFromDB,
+            boolean isPersist2Con) throws Exception {
         TypedReturnCode<java.sql.Connection> trc = MetadataConnectionUtils.createConnection((DatabaseConnection) dataProvider);
         java.sql.Connection connection = trc.getObject();
         try {
-            return getViews(connection, dataProvider, pack, viewPattern, loadFromDB);
+            return getViews(connection, dataProvider, pack, viewPattern, loadFromDB, isPersist2Con);
         } finally {
             if (connection != null) {
                 ConnectionUtils.closeConnection(connection);
@@ -325,11 +325,11 @@ public final class DqRepositoryViewService {
     }
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Package pack,
-            String viewPattern, boolean loadFromDB) throws Exception {
+            String viewPattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
         if (pack instanceof Schema) {
-            return getViews(sqlConnection, dataProvider, (Schema) pack, viewPattern, loadFromDB);
+            return getViews(sqlConnection, dataProvider, (Schema) pack, viewPattern, loadFromDB, isPersist2Con);
         } else if (pack instanceof Catalog) {
-            return getViews(sqlConnection, dataProvider, (Catalog) pack, viewPattern, loadFromDB);
+            return getViews(sqlConnection, dataProvider, (Catalog) pack, viewPattern, loadFromDB, isPersist2Con);
         }
         return new ArrayList<TdView>();
     }
@@ -406,7 +406,7 @@ public final class DqRepositoryViewService {
      * @throws Exception
      */
     private static List<TdTable> loadTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
-            String tablePattern) throws Exception {
+            String tablePattern, boolean isPersist2Con) throws Exception {
         List<TdTable> tables = new ArrayList<TdTable>();
         assert dataProvider != null;
         assert catalog != null;
@@ -416,19 +416,22 @@ public final class DqRepositoryViewService {
             log.error(Messages.getString("DqRepositoryViewService.NO_CATALOGS")); //$NON-NLS-1$
             return tables;
         }
-        return loadTables(sqlConnection, dataProvider, catalog, null, tablePattern);
+        return loadTables(sqlConnection, dataProvider, catalog, null, tablePattern, isPersist2Con);
     }
 
     private static List<TdTable> loadTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
-            Schema schema, String tablePattern) throws Exception {
+            Schema schema, String tablePattern, boolean isPersist2Con) throws Exception {
         List<TdTable> tables = new ArrayList<TdTable>();
         DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection,
                 (DatabaseConnection) dataProvider, false);
         Package pack = schema == null ? catalog : schema;
         MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(dataProvider);
-        if (PackageHelper.getTables(pack).size() == 0) {
+
+        if (isPersist2Con) {
+            // will persistence to connection item
             tables = dbInstance.fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
         } else {
+            // will not persistence to connection item
             dbInstance.setLinked(false);
             tables = dbInstance.fillTables(pack, dm, null, tablePattern, TABLE_TYPES);
             dbInstance.setLinked(true);
@@ -437,15 +440,18 @@ public final class DqRepositoryViewService {
     }
 
     private static List<TdView> loadViews(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
-            Schema schema, String viewPattern) throws Exception {
+            Schema schema, String viewPattern, boolean isPersist2Con) throws Exception {
         List<TdView> views = new ArrayList<TdView>();
         DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection,
                 (DatabaseConnection) dataProvider, false);
         Package pack = schema == null ? catalog : schema;
         MetadataFillFactory dbInstance = MetadataFillFactory.getDBInstance(dataProvider);
-        if (PackageHelper.getViews(pack).size() == 0) {
+
+        if (isPersist2Con) {
+            // will persistence to connection item
             views = dbInstance.fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
         } else {
+            // will not persistence to connection item
             dbInstance.setLinked(false);
             views = dbInstance.fillViews(pack, dm, null, viewPattern, VIEW_TYPES);
             dbInstance.setLinked(true);
