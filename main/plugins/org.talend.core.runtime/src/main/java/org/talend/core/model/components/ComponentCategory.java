@@ -89,6 +89,9 @@ public enum ComponentCategory {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
             IMRProcessService mrService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
                     IMRProcessService.class);
+            if (mrService.isSpark(item)) {
+                return ComponentCategory.CATEGORY_4_SPARK;
+            }
             if (mrService.isMapReduceItem(item)) {
                 return ComponentCategory.CATEGORY_4_MAPREDUCE;
             }
