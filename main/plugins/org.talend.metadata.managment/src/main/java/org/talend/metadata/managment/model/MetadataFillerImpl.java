@@ -115,12 +115,17 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
         if (connection == null || metadataBean == null) {
             return null;
         }
-        ReturnCode rc = checkConnection(metadataBean);
 
-        if (!rc.isOk()) {
-            return null;
-            // need a dialog to show the error.
-        }
+        /************************************************************************
+         * currently just comment the "checkConnection" function, in case causes any unpredictable problem
+         */
+        // ReturnCode rc = checkConnection(metadataBean);
+        //
+        // if (!rc.isOk()) {
+        // return null;
+        // // need a dialog to show the error.
+        // }
+
         this.fillMetadataParams(metadataBean, connection);
         return connection;
     }

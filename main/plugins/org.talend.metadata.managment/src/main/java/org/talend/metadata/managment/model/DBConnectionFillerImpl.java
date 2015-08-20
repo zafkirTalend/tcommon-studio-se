@@ -143,7 +143,6 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         }
         java.sql.Connection sqlConnection = null;
         try {
-            sqlConnection = MetadataConnectionUtils.createConnection(metadataBean).getObject();
             // MetadataConnectionUtils.setMetadataCon(metadataBean);
             // fill some base parameter
             if (newConnection != null) {
@@ -155,6 +154,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
                 dbMetadata = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataBean);
             } else {
+                sqlConnection = MetadataConnectionUtils.createConnection(metadataBean).getObject();
                 // software
                 dbMetadata = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(sqlConnection, dbconn, false);
             }
