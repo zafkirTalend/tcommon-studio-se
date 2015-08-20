@@ -120,8 +120,7 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
                     model = super.createModel();
                 }
             } else { // if load from template, try to set the attributes again.
-                setAttributes(model);
-                addProperties(model);
+                configModel(model);
             }
             return model;
         } catch (IOException e) {

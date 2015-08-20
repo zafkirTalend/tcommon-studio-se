@@ -117,9 +117,13 @@ public abstract class CreateMaven {
     protected Model createModel() {
         Model model = new Model();
         model.setModelVersion(TalendMavenConstants.POM_VERSION);
+        configModel(model);
+        return model;
+    }
+
+    protected void configModel(Model model) {
         setAttributes(model);
         addProperties(model);
-        return model;
     }
 
     protected void setAttributes(Model model) {

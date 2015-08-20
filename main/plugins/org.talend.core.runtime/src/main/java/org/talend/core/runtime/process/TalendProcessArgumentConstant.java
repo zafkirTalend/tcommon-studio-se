@@ -40,6 +40,8 @@ public interface TalendProcessArgumentConstant {
 
     static final String ARG_CONTEXT_PARAMS = "CONTEXT_PARAMS";
 
+    static final String ARG_ENABLE_LOG4J = "ENABLE_LOG4J";
+
     static final String ARG_NEED_LOG4J_LEVEL = "NEED_LOG4J_LEVEL";
 
     static final String ARG_LOG4J_LEVEL = "LOG4J_LEVEL";
