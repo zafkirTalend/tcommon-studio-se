@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.designer.core;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.dom4j.Element;
 import org.eclipse.core.runtime.IPath;
@@ -62,8 +62,8 @@ public interface ICamelDesignerCoreService extends IService {
 	 * 
 	 * @param item
 	 */
-	public List<IPath> synchronizeRouteResource(Item item);
-	
+	public Collection<IPath> synchronizeRouteResource(Item item);
+
 	public String getDeleteFolderName(ERepositoryObjectType type);
 	
 	public boolean isRouteBuilderNode(INode node);
