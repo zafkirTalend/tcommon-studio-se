@@ -45,9 +45,9 @@ import org.talend.designer.runprocess.ItemCacheManager;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
- * 
+ *
  * $Id: ElementParameterParser.java 52559 2010-12-13 04:14:06Z nrousseau $
- * 
+ *
  */
 public final class ElementParameterParser {
 
@@ -192,7 +192,7 @@ public final class ElementParameterParser {
 
     /**
      * Prefixes and suffixes a Java comment to match Java code problems with UI designer fields.
-     * 
+     *
      * @param node
      * @param text
      * @param fieldName name of field declared in xml component file (or other value for a manual processing)
@@ -209,7 +209,7 @@ public final class ElementParameterParser {
      * <p>
      * if there want a char ',', but user input in GUI like this ",", this method just deal with this case.
      * </p>
-     * 
+     *
      * @param node
      * @param text
      * @param javaType
@@ -255,7 +255,7 @@ public final class ElementParameterParser {
 
     /**
      * Only work with one element.
-     * 
+     *
      * @param element
      * @param text
      * @return
@@ -283,7 +283,7 @@ public final class ElementParameterParser {
 
     /**
      * this method working with tMatchgroup component which has several tables of mathcing rule.
-     * 
+     *
      * @param element
      * @param text
      * @return
@@ -378,7 +378,7 @@ public final class ElementParameterParser {
 
     /**
      * Only work with one element.
-     * 
+     *
      * @param element
      * @param text
      * @return
@@ -442,7 +442,7 @@ public final class ElementParameterParser {
 
     /**
      * Only work with xmlmap.
-     * 
+     *
      * @param element
      * @return
      */
@@ -492,11 +492,11 @@ public final class ElementParameterParser {
     }
 
     /**
-     * 
+     *
      * If a database componenet use an existing connection, its label may replace with variable from the existing
      * connection not the component variable. see bug 0005456: Label Format __DBNAME__ not valid when using existing
      * connection
-     * 
+     *
      * @param text String that contains variables which need to replace
      * @param variableMap A map contains variable name and IElementParameter in a pair
      * @return
@@ -544,7 +544,7 @@ public final class ElementParameterParser {
 
         if (value instanceof String) {
 
-            if (param.getName().equals("PROCESS_TYPE_VERSION") && value.equals(RelationshipItemBuilder.LATEST_VERSION)) { //$NON-NLS-1$
+            if ("PROCESS_TYPE_VERSION".equals(param.getName()) && value.equals(RelationshipItemBuilder.LATEST_VERSION)) { //$NON-NLS-1$
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -552,7 +552,7 @@ public final class ElementParameterParser {
                 }
                 return processItem.getProperty().getVersion();
             }
-            if (param.getName().equals("PROCESS_TYPE_CONTEXT")) { //$NON-NLS-1$
+            if ("PROCESS_TYPE_CONTEXT".equals(param.getName())) { //$NON-NLS-1$
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -575,7 +575,7 @@ public final class ElementParameterParser {
                 return (String) value;
             }
 
-            if (param.getName().equals("SELECTED_JOB_NAME")) {
+            if ("SELECTED_JOB_NAME".equals(param.getName())) {
                 String jobId = (String) param.getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -669,7 +669,7 @@ public final class ElementParameterParser {
 
     /**
      * DOC qiang.zhang Comment method "getUNIQUENAME".
-     * 
+     *
      * @param node
      * @return
      */
@@ -684,9 +684,9 @@ public final class ElementParameterParser {
     }
 
     /**
-     * 
+     *
      * DOC YeXiaowei Comment method "isPerlProject".
-     * 
+     *
      * @return
      */
     public static boolean isPerlProject() {
