@@ -477,10 +477,6 @@ public class ProcessorUtilities {
         // for testContainer dataSet
         generateDataSet(currentProcess, processor);
 
-        // ADDED for TESB-7887 By GangLiu
-        generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                currentJobName, processor);
-
         generatePigudfInfor(jobInfo, selectedProcessItem, currentProcess, processor, neededLibraries);
 
         /*
@@ -572,26 +568,6 @@ public class ProcessorUtilities {
             needContextInCurrentGeneration = true;
             codeModified = false;
         }
-    }
-
-    /*
-     * used to generate spring file for RouteBuilder ADDED for TESB-7887 By GangLiu
-     */
-    private static void generateSpringInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
-            boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
-            IProcessor processor) throws ProcessorException {
-        if (!(currentProcess instanceof IProcess2)) {
-            return;
-        }
-        IProcess2 p = (IProcess2) currentProcess;
-        if (!p.needsSpring()) {
-            return;
-        }
-        String springContent = p.getSpringContent();
-        if (springContent == null) {
-            return;
-        }
-        processor.generateSpringContent();
     }
 
     private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
@@ -823,10 +799,6 @@ public class ProcessorUtilities {
 
             // for testContainer dataSet
             generateDataSet(currentProcess, processor);
-
-            // ADDED for TESB-7887 By GangLiu
-            generateSpringInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                    currentJobName, processor);
 
             generatePigudfInfor(jobInfo, selectedProcessItem, currentProcess, processor, neededLibraries);
 

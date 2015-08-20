@@ -61,7 +61,4 @@ public interface ICodeGenerator {
 
     public void setContextName(String contextName);
 
-    // ADDED for TESB-7887 By GangLiu
-    public String generateSpringContent() throws SystemException;
-
 }
