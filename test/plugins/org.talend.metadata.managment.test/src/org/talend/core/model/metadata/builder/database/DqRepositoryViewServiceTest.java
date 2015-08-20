@@ -42,7 +42,6 @@ import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
-
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -646,13 +645,13 @@ public class DqRepositoryViewServiceTest {
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class, PackageHelper.class,
             // MetadataFillFactory.class, CatalogHelper.class, ConnectionUtils.class);
             // case1: catalog no tables
-            resultList1 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB);
+            resultList1 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB, false);
             // case2:catalog hava tables
             tableList.add(tableMock);
-            resultList2 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB);
+            resultList2 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB, false);
             // // case3:get tables from file
             loadFromDB = false;
-            resultList3 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB);
+            resultList3 = DqRepositoryViewService.getTables(dataProvider, catalog, tablePattern, loadFromDB, false);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
@@ -758,13 +757,13 @@ public class DqRepositoryViewServiceTest {
             // PackageHelper.class,MetadataFillFactory.class, CatalogHelper.class, SchemaHelper.class,
             // ConnectionUtils.class);
             // case1: catalog no tables
-            resultList1 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB);
+            resultList1 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB, false);
             // case2:catalog hava tables
             tableList.add(tableMock);
-            resultList2 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB);
+            resultList2 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB, false);
             // case3:get tables from file
             loadFromDB = false;
-            resultList3 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB);
+            resultList3 = DqRepositoryViewService.getTables(dataProvider, schema, tablePattern, loadFromDB, false);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
@@ -859,13 +858,13 @@ public class DqRepositoryViewServiceTest {
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class,
             // PackageHelper.class,MetadataFillFactory.class, CatalogHelper.class, ConnectionUtils.class);
             // case1: catalog no tables
-            resultList1 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB);
+            resultList1 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB, false);
             // case2:catalog hava tables
             tableList.add(tableMock);
-            resultList2 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB);
+            resultList2 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB, false);
             // // case3:get tables from file
             loadFromDB = false;
-            resultList3 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB);
+            resultList3 = DqRepositoryViewService.getViews(dataProvider, catalog, tablePattern, loadFromDB, false);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
@@ -968,13 +967,13 @@ public class DqRepositoryViewServiceTest {
             // PowerMock.replay(MetadataConnectionUtils.class, ExtractMetaDataUtils.class, PackageHelper.class,
             // MetadataFillFactory.class, CatalogHelper.class, SchemaHelper.class, ConnectionUtils.class);
             // case1: catalog no tables
-            resultList1 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB);
+            resultList1 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB, false);
             // case2:catalog hava tables
             tableList.add(tableMock);
-            resultList2 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB);
+            resultList2 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB, false);
             // case3:get tables from file
             loadFromDB = false;
-            resultList3 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB);
+            resultList3 = DqRepositoryViewService.getViews(dataProvider, schema, tablePattern, loadFromDB, false);
 
             assertTrue(resultList1.size() == 1);
             assertTrue(resultList2.size() == 1);
