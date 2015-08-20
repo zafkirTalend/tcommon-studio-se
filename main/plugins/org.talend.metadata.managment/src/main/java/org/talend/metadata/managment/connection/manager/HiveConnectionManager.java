@@ -20,8 +20,18 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import metadata.managment.i18n.Messages;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -33,6 +43,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.metadata.managment.hive.EmbeddedHiveDataBaseMetadata;
@@ -127,8 +138,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
                 String keytabPath = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
-                boolean useKeytab = Boolean.valueOf((String) metadataConn
-                        .getParameter(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB));
+                boolean useKeytab = Boolean
+                        .valueOf((String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB));
                 if (useKeytab) {
                     ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
                     try {
@@ -151,64 +162,144 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return hiveStandaloneConn;
     }
 
-    private Connection createHive2StandaloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
+    private Connection createHive2StandaloneConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
+
+        FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
+
+            @Override
+            public Connection call() throws Exception {
+                Connection conn = null;
+                String connURL = metadataConn.getUrl();
+                String username = metadataConn.getUsername();
+                String password = metadataConn.getPassword();
+
+                // 1. Get class loader.
+                ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
+                ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+                Thread.currentThread().setContextClassLoader(hiveClassLoader);
+                try {
+                    // 2. Fetch the HiveDriver from the new classloader
+                    Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
+                    Driver hiveDriver = (Driver) driver.newInstance();
+
+                    // 3. Try to connect by driver
+                    Properties info = new Properties();
+                    username = username != null ? username : ""; //$NON-NLS-1$
+                    password = password != null ? password : "";//$NON-NLS-1$
+                    info.setProperty("user", username);//$NON-NLS-1$
+                    info.setProperty("password", password);//$NON-NLS-1$
+                    conn = hiveDriver.connect(connURL, info);
+                } finally {
+                    Thread.currentThread().setContextClassLoader(currClassLoader);
+                }
+
+                return conn;
+            }
+        });
+
+        ThreadGroup threadGroup = new ThreadGroup(this.getClass().getName() + ".createConnection"); //$NON-NLS-1$
+        Thread newThread = new Thread(threadGroup, futureTask);
+        newThread.start();
+
         Connection conn = null;
-        String connURL = metadataConn.getUrl();
-        String username = metadataConn.getUsername();
-        String password = metadataConn.getPassword();
-
-        // 1. Get class loader.
-        ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
-        ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-        Thread.currentThread().setContextClassLoader(hiveClassLoader);
         try {
-            // 2. Fetch the HiveDriver from the new classloader
-            Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE2.getDriverClass(), true, hiveClassLoader);
-            Driver hiveDriver = (Driver) driver.newInstance();
-
-            // 3. Try to connect by driver
-            Properties info = new Properties();
-            username = username != null ? username : ""; //$NON-NLS-1$
-            password = password != null ? password : "";//$NON-NLS-1$
-            info.setProperty("user", username);//$NON-NLS-1$
-            info.setProperty("password", password);//$NON-NLS-1$
-            conn = hiveDriver.connect(connURL, info);
-        } finally {
-            Thread.currentThread().setContextClassLoader(currClassLoader);
+            int timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
+            conn = futureTask.get(timeout, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            threadGroup.interrupt();
+            addBackgroundJob(futureTask, newThread);
+            throw new SQLException(Messages.getString("HiveConnectionManager.getConnection.timeout"), e); //$NON-NLS-1$
+        } catch (Throwable e1) {
+            throw new SQLException(e1);
         }
 
         return conn;
     }
 
-    private Connection createHive1StandaloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
+    private Connection createHive1StandaloneConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
+
+        FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
+
+            @Override
+            public Connection call() throws Exception {
+                Connection conn = null;
+                String connURL = metadataConn.getUrl();
+                String username = metadataConn.getUsername();
+                String password = metadataConn.getPassword();
+
+                // 1. Get class loader.
+                ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
+                ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+                Thread.currentThread().setContextClassLoader(hiveClassLoader);
+                try {
+                    // 2. Fetch the HiveDriver from the new classloader
+                    Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
+                    Driver hiveDriver = (Driver) driver.newInstance();
+
+                    // 3. Try to connect by driver
+                    Properties info = new Properties();
+                    username = username != null ? username : ""; //$NON-NLS-1$
+                    password = password != null ? password : "";//$NON-NLS-1$
+                    info.setProperty("user", username);//$NON-NLS-1$
+                    info.setProperty("password", password);//$NON-NLS-1$
+                    conn = hiveDriver.connect(connURL, info);
+                } finally {
+                    Thread.currentThread().setContextClassLoader(currClassLoader);
+                }
+                return conn;
+            }
+        });
+
+        ThreadGroup threadGroup = new ThreadGroup(this.getClass().getName() + ".createConnection"); //$NON-NLS-1$
+        Thread newThread = new Thread(threadGroup, futureTask);
+        newThread.start();
+
         Connection conn = null;
-        String connURL = metadataConn.getUrl();
-        String username = metadataConn.getUsername();
-        String password = metadataConn.getPassword();
-
-        // 1. Get class loader.
-        ClassLoader currClassLoader = Thread.currentThread().getContextClassLoader();
-        ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-        Thread.currentThread().setContextClassLoader(hiveClassLoader);
         try {
-            // 2. Fetch the HiveDriver from the new classloader
-            Class<?> driver = Class.forName(EDatabase4DriverClassName.HIVE.getDriverClass(), true, hiveClassLoader);
-            Driver hiveDriver = (Driver) driver.newInstance();
-
-            // 3. Try to connect by driver
-            Properties info = new Properties();
-            username = username != null ? username : ""; //$NON-NLS-1$
-            password = password != null ? password : "";//$NON-NLS-1$
-            info.setProperty("user", username);//$NON-NLS-1$
-            info.setProperty("password", password);//$NON-NLS-1$
-            conn = hiveDriver.connect(connURL, info);
-        } finally {
-            Thread.currentThread().setContextClassLoader(currClassLoader);
+            int timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
+            conn = futureTask.get(timeout, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            threadGroup.interrupt();
+            addBackgroundJob(futureTask, newThread);
+            throw new SQLException(Messages.getString("HiveConnectionManager.getConnection.timeout"), e); //$NON-NLS-1$
+        } catch (Throwable e1) {
+            throw new SQLException(e1);
         }
 
         return conn;
+    }
+
+    private void addBackgroundJob(final FutureTask task, Thread thread) {
+        StackTraceElement stElement = null;
+        StackTraceElement stackTraceElements[] = thread.getStackTrace();
+        if (stackTraceElements != null && 0 < stackTraceElements.length) {
+            stElement = stackTraceElements[0];
+        }
+        String currentMethod;
+        String title = ""; //$NON-NLS-1$
+        if (stElement != null) {
+            currentMethod = stElement.getClassName() + "." + stElement.getMethodName(); //$NON-NLS-1$
+            title = Messages.getString("HiveConnectionManager.getConnection.waitFinish", currentMethod); //$NON-NLS-1$
+        } else {
+            title = Messages.getString("HiveConnectionManager.getConnection.waitFinish.empty"); //$NON-NLS-1$
+        }
+        Job backgroundJob = new Job(title) {
+
+            @Override
+            protected IStatus run(IProgressMonitor monitor) {
+                try {
+                    task.get();
+                } catch (Throwable e) {
+                    // nothing need to do
+                }
+                return Status.OK_STATUS;
+            }
+        };
+        backgroundJob.setUser(false);
+        backgroundJob.setPriority(Job.DECORATE);
+        backgroundJob.schedule();
     }
 
     private Connection createHiveEmbeddedConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
