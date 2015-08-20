@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
@@ -31,8 +32,10 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.model.routines.RoutineLibraryMananger;
 import org.talend.core.model.routines.RoutinesUtil;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
+import org.talend.librariesmanager.ui.i18n.Messages;
 import org.talend.librariesmanager.ui.service.RoutineProviderManager;
 import org.talend.librariesmanager.utils.ModulesInstaller;
 
@@ -150,6 +153,22 @@ public class LibraryManagerUIService implements ILibraryManagerUIService {
             return true;
         }
         return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ILibraryManagerUIService#confirmDialog(org.talend.core.runtime.maven.MavenArtifact,
+     * java.lang.String)
+     */
+    @Override
+    public boolean confirmDialog(String originalJarFileName) {
+        String mvnUrlForJarName = MavenUrlHelper.generateMvnUrlForJarName(originalJarFileName, true, true);
+        return MessageDialog
+                .openQuestion(new Shell(),
+                        Messages.getString("ArtifactsDeployer.uploadJarEncounterMvnRepositroySameName.Title"), //$NON-NLS-1$
+                        Messages.getString(
+                                "ArtifactsDeployer.uploadJarEncounterMvnRepositroySameName.MessageContent", originalJarFileName, mvnUrlForJarName));//$NON-NLS-1$
     }
 
 }
