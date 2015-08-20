@@ -18,12 +18,15 @@ import java.util.Map.Entry;
 
 import org.eclipse.emf.common.util.EMap;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.creator.AbstractHadoopConnectionCreator;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
+import org.talend.core.repository.model.provider.IDBMetadataProvider;
 
 /**
  * created by ycbai on 2015年6月29日 Detailled comment
@@ -62,6 +65,7 @@ public abstract class AbstractHadoopDBConnectionCreator extends AbstractHadoopCo
         }
     }
 
+    @Override
     protected void initializeConnectionParameters(Connection conn) {
         if (!(conn instanceof DatabaseConnection)) {
             return;
@@ -91,6 +95,12 @@ public abstract class AbstractHadoopDBConnectionCreator extends AbstractHadoopCo
         }
         if (connection.getUsername() == null) {
             connection.setUsername(parameters.get(ConnParameterKeys.CONN_PARA_KEY_USERNAME));
+        }
+        String databaseType = connection.getDatabaseType();
+        EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(databaseType);
+        IDBMetadataProvider extractor = ExtractMetaDataFromDataBase.getProviderByDbType(databaseType);
+        if (extractor != null && dbType.isUseProvider()) {
+            extractor.fillConnection(connection);
         }
     }
 
