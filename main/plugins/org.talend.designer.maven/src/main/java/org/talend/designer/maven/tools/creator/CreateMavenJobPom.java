@@ -33,8 +33,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.maven.model.Activation;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.model.Profile;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -171,6 +173,12 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
     }
 
+    @Override
+    protected void configModel(Model model) {
+        super.configModel(model);
+        setProfiles(model);
+    }
+
     /**
      * 
      * Add the properties for job.
@@ -298,7 +306,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
 
         // log4j level
-        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_LOG4J_LEVEL)) {
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_LOG4J)
+                && isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_LOG4J_LEVEL)) {
             String log4jLevel = getOptionString(TalendProcessArgumentConstant.ARG_LOG4J_LEVEL);
             if (StringUtils.isNotEmpty(log4jLevel)) {
                 String log4jLevelPart = TalendProcessArgumentConstant.CMD_ARG_LOG4J_LEVEL + log4jLevel;
@@ -306,6 +315,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 addScriptAddition(unixScriptAdditionValue, log4jLevelPart);
             }
         }
+
         // stats
         if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_STATS)) {
             String statsPort = getOptionString(TalendProcessArgumentConstant.ARG_PORT_STATS);
@@ -315,7 +325,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 addScriptAddition(unixScriptAdditionValue, statsPortPart);
             }
         }
-        // trac
+        // tracs
         if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_TRACS)) {
             String tracPort = getOptionString(TalendProcessArgumentConstant.ARG_PORT_TRACS);
             if (StringUtils.isNotEmpty(tracPort)) {
@@ -359,6 +369,38 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     protected boolean validChildrenJob(JobInfo jobInfo) {
         // for job, ignore test container for children.
         return jobInfo != null && !jobInfo.isTestContainer();
+    }
+
+    protected void setProfiles(Model model) {
+        // log4j
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_LOG4J)) {
+            // enable it by default
+            checkLog4jProfile(model, TalendMavenConstants.PROFILE_INCLUDE_LOG4J, true);
+            checkLog4jProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RUNNING_LOG4J, true);
+        }
+    }
+
+    private void checkLog4jProfile(Model model, String profileId, boolean activeByDefault) {
+        if (profileId == null || model == null) {
+            return;
+        }
+        Profile log4jProfile = null;
+        for (Profile p : model.getProfiles()) {
+            if (profileId.equals(p.getId())) { //$NON-NLS-1$
+                log4jProfile = p;
+                break;
+            }
+        }
+        if (log4jProfile != null) {
+            Activation activation = log4jProfile.getActivation();
+            if (activation == null) {
+                activation = new Activation();
+                log4jProfile.setActivation(activation);
+            }
+            if (!activation.isActiveByDefault()) {
+                activation.setActiveByDefault(activeByDefault);
+            }
+        }
     }
 
     protected void afterCreate(IProgressMonitor monitor) throws Exception {

@@ -79,6 +79,8 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_INCLUDE_LOG4J = "include-log4j";
 
+    static final String PROFILE_INCLUDE_RUNNING_LOG4J = "include-running-log4j";
+
     static final String PROFILE_INCLUDE_CONTEXTS = "include-contexts";
 
     static final String PROFILE_INCLUDE_TEST_SOURCES = "include-test-sources";
