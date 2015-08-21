@@ -758,8 +758,8 @@ public final class DBConnectionContextUtils {
          * 
          * working for sql builder especially.
          */
-        cloneConn.setContextId(dbConn.getContextId());
-        cloneConn.setContextMode(dbConn.isContextMode()); // if use context
+        //cloneConn.setContextId(dbConn.getContextId());
+        //cloneConn.setContextMode(dbConn.isContextMode()); // if use context
 
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
