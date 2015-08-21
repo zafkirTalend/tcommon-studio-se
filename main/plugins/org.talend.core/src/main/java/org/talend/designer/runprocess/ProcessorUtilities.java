@@ -530,30 +530,35 @@ public class ProcessorUtilities {
      */
     private static void checkMetadataDynamic(IProcess currentProcess, JobInfo jobInfo) {
         if (exportConfig && !LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
-            boolean hasDynamicMetadata = false;
-            out: for (INode node : (List<? extends INode>) currentProcess.getGeneratingNodes()) {
-                // to check if node is db component , maybe need modification
-                boolean isDbNode = false;
-                for (IElementParameter param : (List<? extends IElementParameter>) node.getElementParameters()) {
-                    if ("TYPE".equals(param.getName()) && "TEXT".equals(param.getFieldType().getName())
-                            && param.getValue() != null && !"".equals(param.getValue())) {
-                        isDbNode = true;
-                        break;
-                    }
+            boolean hasDynamicMetadata = hasMetadataDynamic(currentProcess, jobInfo);
+            LastGenerationInfo.getInstance().setUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion(), hasDynamicMetadata);
+        }
+    }
+
+    public static boolean hasMetadataDynamic(IProcess currentProcess, JobInfo jobInfo) {
+        boolean hasDynamicMetadata = false;
+        out: for (INode node : (List<? extends INode>) currentProcess.getGeneratingNodes()) {
+            // to check if node is db component , maybe need modification
+            boolean isDbNode = false;
+            for (IElementParameter param : (List<? extends IElementParameter>) node.getElementParameters()) {
+                if ("TYPE".equals(param.getName()) && "TEXT".equals(param.getFieldType().getName()) && param.getValue() != null
+                        && !"".equals(param.getValue())) {
+                    isDbNode = true;
+                    break;
                 }
-                if (isDbNode) {
-                    for (IMetadataTable metadataTable : node.getMetadataList()) {
-                        for (IMetadataColumn column : metadataTable.getListColumns()) {
-                            if ("id_Dynamic".equals(column.getTalendType())) {
-                                hasDynamicMetadata = true;
-                                break out;
-                            }
+            }
+            if (isDbNode) {
+                for (IMetadataTable metadataTable : node.getMetadataList()) {
+                    for (IMetadataColumn column : metadataTable.getListColumns()) {
+                        if ("id_Dynamic".equals(column.getTalendType())) {
+                            hasDynamicMetadata = true;
+                            break out;
                         }
                     }
                 }
             }
-            LastGenerationInfo.getInstance().setUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion(), hasDynamicMetadata);
         }
+        return hasDynamicMetadata;
     }
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
@@ -805,10 +810,11 @@ public class ProcessorUtilities {
             generateNodeInfo(jobInfo, selectedContextName, statistics, needContext, option, progressMonitor, currentProcess);
             TimeMeasure.step(idTimer, "generateNodeInfo");
 
-            if (jobInfo.getArgumentsMap() != null) {
-                processor.setArguments(jobInfo.getArgumentsMap());
+            Map<String, Object> argumentsMap = jobInfo.getArgumentsMap();
+            if (argumentsMap != null) {
+                processor.setArguments(argumentsMap);
             } else {
-                final Map<String, Object> argumentsMap = new HashMap<String, Object>();
+                argumentsMap = new HashMap<String, Object>();
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_STATS, statistics);
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_TRACS, trace);
                 argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN,
@@ -817,6 +823,10 @@ public class ProcessorUtilities {
 
                 processor.setArguments(argumentsMap);
             }
+            argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS,
+                    LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion()));
+
+            processor.setArguments(argumentsMap);
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
                     currentJobName, processor);

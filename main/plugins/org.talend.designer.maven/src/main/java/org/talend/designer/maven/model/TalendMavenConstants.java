@@ -65,6 +65,9 @@ public interface TalendMavenConstants {
 
     static final String GOAL_INSTALL = "install";
 
+    /**
+     * Profiles
+     */
     static final String PROFILE_DEFAULT_SETTING = "default-settings";
 
     static final String PROFILE_INCLUDE_JAVA_SOURCES = "include-java-sources";
@@ -87,6 +90,17 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_INCLUDE_TEST_REPORTS = "include-test-reports";
 
+    static final String PROFILE_INCLUDE_XMLMAPPINGS = "include-xmlMappings";
+
+    static final String PROFILE_INCLUDE_RUNNING_XMLMAPPINGS = "include-running-xmlMappings";
+
+    static final String PROFILE_INCLUDE_RULES = "include-rules";
+
+    static final String PROFILE_INCLUDE_SQLTEMPLATES = "include-sqltemplates";
+
+    /**
+     * argments
+     */
     static final String ARG_SKIPTESTS = "-DskipTests";
 
     /* same as the JavaUtils.JAVA_PROJECT_NAME */

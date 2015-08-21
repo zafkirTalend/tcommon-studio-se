@@ -375,31 +375,42 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         // log4j
         if (isOptionChecked(TalendProcessArgumentConstant.ARG_ENABLE_LOG4J)) {
             // enable it by default
-            checkLog4jProfile(model, TalendMavenConstants.PROFILE_INCLUDE_LOG4J, true);
-            checkLog4jProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RUNNING_LOG4J, true);
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_LOG4J, true);
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RUNNING_LOG4J, true);
+        }
+        // xmlMappings
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS)) {
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_XMLMAPPINGS, true);
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RUNNING_XMLMAPPINGS, true);
+        }
+        // rules
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_RULES)) {
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RULES, true);
+        }
+        // sqlTemplates
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_SQLTEMPLATES)) {
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_SQLTEMPLATES, true);
         }
     }
 
-    private void checkLog4jProfile(Model model, String profileId, boolean activeByDefault) {
+    private void setDefaultActivationForProfile(Model model, String profileId, boolean activeByDefault) {
         if (profileId == null || model == null) {
             return;
         }
-        Profile log4jProfile = null;
+        Profile foundProfile = null;
         for (Profile p : model.getProfiles()) {
-            if (profileId.equals(p.getId())) { //$NON-NLS-1$
-                log4jProfile = p;
+            if (profileId.equals(p.getId())) {
+                foundProfile = p;
                 break;
             }
         }
-        if (log4jProfile != null) {
-            Activation activation = log4jProfile.getActivation();
+        if (foundProfile != null) {
+            Activation activation = foundProfile.getActivation();
             if (activation == null) {
                 activation = new Activation();
-                log4jProfile.setActivation(activation);
+                foundProfile.setActivation(activation);
             }
-            if (!activation.isActiveByDefault()) {
-                activation.setActiveByDefault(activeByDefault);
-            }
+            activation.setActiveByDefault(activeByDefault);
         }
     }
 
