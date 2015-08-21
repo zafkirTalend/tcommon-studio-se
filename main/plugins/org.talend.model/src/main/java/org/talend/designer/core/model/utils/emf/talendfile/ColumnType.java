@@ -153,6 +153,7 @@ public interface ColumnType extends EObject {
 
     /**
      * Returns the value of the '<em><b>Length</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Length</em>' attribute isn't clear,
@@ -164,7 +165,7 @@ public interface ColumnType extends EObject {
      * @see #unsetLength()
      * @see #setLength(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Length()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model default="-1" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='length' namespace='##targetNamespace'"
      * @generated
      */
@@ -342,6 +343,7 @@ public interface ColumnType extends EObject {
 
     /**
      * Returns the value of the '<em><b>Precision</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Precision</em>' attribute isn't clear,
@@ -353,7 +355,7 @@ public interface ColumnType extends EObject {
      * @see #unsetPrecision()
      * @see #setPrecision(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Precision()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model default="-1" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='precision' namespace='##targetNamespace'"
      * @generated
      */
