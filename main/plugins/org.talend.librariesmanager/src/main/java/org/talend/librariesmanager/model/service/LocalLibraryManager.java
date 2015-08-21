@@ -169,31 +169,30 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         if (mavenUri == null) {
                             mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath()
                                     .get(jarName);
-
+                            if (deployWithDefaultManvenUri(mavenUri, defaultMavenUri)) {
+                                sourceAndMavenUri.put(defaultMavenUri, jarFile.getAbsolutePath());
+                            }
                             if (mavenUri == null) {
                                 mavenUri = defaultMavenUri;
                             }
                         }
                         sourceAndMavenUri.put(mavenUri, jarFile.getAbsolutePath());
-                        if (!defaultMavenUri.equals(mavenUri)) {
-                            sourceAndMavenUri.put(defaultMavenUri, jarFile.getAbsolutePath());
-                        }
                     }
                     deployer.deployToLocalMaven(sourceAndMavenUri);
                 }
             } else {
+                Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
                 String defaultMavenUri = MavenUrlHelper.generateMvnUrlForJarName(file.getName());
                 if (mavenUri == null) {
                     mavenUri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath().get(file.getName());
+                    if (deployWithDefaultManvenUri(mavenUri, defaultMavenUri)) {
+                        sourceAndMavenUri.put(defaultMavenUri, file.getAbsolutePath());
+                    }
                     if (mavenUri == null) {
                         mavenUri = MavenUrlHelper.generateMvnUrlForJarName(file.getName());
                     }
                 }
-                Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
                 sourceAndMavenUri.put(mavenUri, file.getAbsolutePath());
-                if (!defaultMavenUri.equals(mavenUri)) {
-                    sourceAndMavenUri.put(defaultMavenUri, file.getAbsolutePath());
-                }
 
                 deployer.deployToLocalMaven(sourceAndMavenUri);
             }
@@ -203,6 +202,29 @@ public class LocalLibraryManager implements ILibraryManagerService {
         } catch (Exception e) {
             CommonExceptionHandler.process(e);
         }
+    }
+
+    /**
+     * Check if moduleName and artifactId in maven uri are the same , if not the same then deploy twice to local maven
+     * 1.with maven uri from index 2. with mvn:org.talend.libraries/<moduleName without extension>/6.0.0 DOC Talend
+     * 
+     */
+    private boolean deployWithDefaultManvenUri(String mavenUri, String defaultMavenUri) {
+        if (mavenUri != null) {
+            String artifactId = "";
+            String defaultArtifactId = "";
+            MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mavenUri);
+            if (artifact != null) {
+                MavenArtifact defaultArtifact = MavenUrlHelper.parseMvnUrl(defaultMavenUri);
+                artifactId = artifact.getArtifactId();
+                defaultArtifactId = defaultArtifact.getArtifactId();
+                if (!artifactId.equals(defaultArtifactId)) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
     /*
