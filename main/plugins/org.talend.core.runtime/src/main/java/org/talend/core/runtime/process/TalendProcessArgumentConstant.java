@@ -46,6 +46,12 @@ public interface TalendProcessArgumentConstant {
 
     static final String ARG_LOG4J_LEVEL = "LOG4J_LEVEL";
 
+    static final String ARG_NEED_XMLMAPPINGS = "NEED_XMLMAPPINGS";
+
+    static final String ARG_NEED_RULES = "NEED_RULES";
+
+    static final String ARG_NEED_SQLTEMPLATES = "NEED_SQLTEMPLATES";
+
     /*
      * command
      */
