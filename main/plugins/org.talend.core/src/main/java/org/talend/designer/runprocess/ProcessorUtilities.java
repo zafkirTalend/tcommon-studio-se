@@ -467,6 +467,11 @@ public class ProcessorUtilities {
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
         argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
 
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS,
+                LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion()));
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_RULES,
+                LastGenerationInfo.getInstance().isUseRules(jobInfo.getJobId(), jobInfo.getJobVersion()));
+
         processor.setArguments(argumentsMap);
         // generate the code of the father after the childrens
         // so the code won't have any error during the check, and it will help to check
@@ -825,6 +830,8 @@ public class ProcessorUtilities {
             }
             argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS,
                     LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion()));
+            argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_RULES,
+                    LastGenerationInfo.getInstance().isUseRules(jobInfo.getJobId(), jobInfo.getJobVersion()));
 
             processor.setArguments(argumentsMap);
 
