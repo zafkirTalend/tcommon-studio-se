@@ -83,6 +83,7 @@ public class LinksToolbarItem extends ContributionItem {
         GridLayout layout = new GridLayout(!PluginChecker.isTIS() ? 8 : 6, false);
         layout.marginHeight = 0;
         composite.setLayout(layout);
+        GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 
         // 1.learn
         Label learnLabel = new Label(composite, SWT.NONE);
@@ -94,6 +95,7 @@ public class LinksToolbarItem extends ContributionItem {
         learnLabel.setImage(registry.get("demo")); //$NON-NLS-1$
 
         Link learn = new Link(composite, SWT.NONE);
+        learnLabel.setLayoutData(gd);
         learn.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
         learn.setText(LEARN_URL);
         learn.setToolTipText(Messages.getString("LinksToolbarItem_Learn")); //$NON-NLS-1$
@@ -115,6 +117,7 @@ public class LinksToolbarItem extends ContributionItem {
         askLabel.setImage(registry.get("protocol")); //$NON-NLS-1$
 
         Link ask = new Link(composite, SWT.NONE);
+        askLabel.setLayoutData(gd);
         ask.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
         ask.setText(ASK_URL);
         ask.setToolTipText(Messages.getString("LinksToolbarItem_7")); //$NON-NLS-1$
@@ -130,11 +133,13 @@ public class LinksToolbarItem extends ContributionItem {
         if (!PluginChecker.isTIS()) {
             // 3.upgrade
             Label upgradeLabel = new Label(composite, SWT.NONE);
+
             if (registry.get("wizard") == null) { //$NON-NLS-1$
                 registry.put("wizard", Activator.getImageDescriptor("icons/wizard.png").createImage()); //$NON-NLS-1$ //$NON-NLS-2$
             }
             upgradeLabel.setImage(registry.get("wizard")); //$NON-NLS-1$
             Link upgrade = new Link(composite, SWT.NONE);
+            askLabel.setLayoutData(gd);
             upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
             upgrade.setText(UPGRADE_URL);
             upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11")); //$NON-NLS-1$
