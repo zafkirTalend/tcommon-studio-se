@@ -50,8 +50,6 @@ public interface TalendProcessArgumentConstant {
 
     static final String ARG_NEED_RULES = "NEED_RULES";
 
-    static final String ARG_NEED_SQLTEMPLATES = "NEED_SQLTEMPLATES";
-
     /*
      * command
      */
