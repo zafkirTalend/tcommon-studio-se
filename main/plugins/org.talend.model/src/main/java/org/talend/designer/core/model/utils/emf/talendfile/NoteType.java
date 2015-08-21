@@ -340,7 +340,7 @@ public interface NoteType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Element Parameter</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_ElementParameter()
-     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType" containment="true"
      *        annotation="ExtendedMetaData kind='element' name='ElementParameterType' namespace='##targetNamespace'"
      * @generated
      */

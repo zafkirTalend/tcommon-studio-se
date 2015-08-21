@@ -33,7 +33,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
-        unsettable="true">
+        defaultValueLiteral="-1" unsettable="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="length"/>
@@ -70,7 +70,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="precision" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
-        unsettable="true">
+        defaultValueLiteral="-1" unsettable="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="attribute"/>
         <details key="name" value="precision"/>
@@ -794,8 +794,8 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elementParameter" lowerBound="1"
-        upperBound="-1" eType="#//ElementParameterType" containment="true" resolveProxies="false">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementParameter" upperBound="-1"
+        eType="#//ElementParameterType" containment="true" resolveProxies="false">
       <eAnnotations source="ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="name" value="ElementParameterType"/>
