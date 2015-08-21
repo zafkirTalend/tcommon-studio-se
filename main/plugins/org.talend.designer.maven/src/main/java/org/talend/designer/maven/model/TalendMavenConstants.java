@@ -96,8 +96,6 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_INCLUDE_RULES = "include-rules";
 
-    static final String PROFILE_INCLUDE_SQLTEMPLATES = "include-sqltemplates";
-
     /**
      * argments
      */

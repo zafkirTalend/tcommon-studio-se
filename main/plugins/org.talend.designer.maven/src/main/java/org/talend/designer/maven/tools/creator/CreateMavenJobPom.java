@@ -387,10 +387,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_RULES)) {
             setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RULES, true);
         }
-        // sqlTemplates
-        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_SQLTEMPLATES)) {
-            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_SQLTEMPLATES, true);
-        }
     }
 
     private void setDefaultActivationForProfile(Model model, String profileId, boolean activeByDefault) {
