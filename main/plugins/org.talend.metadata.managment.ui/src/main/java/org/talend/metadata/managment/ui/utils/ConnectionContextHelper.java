@@ -43,6 +43,7 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextParameter;
+import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.AdditionalConnectionProperty;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -1571,6 +1572,17 @@ public final class ConnectionContextHelper {
     public static ContextType getContextTypeForContextMode(Connection connection, String contextName) {
         return getContextTypeForContextMode(connection, contextName, false);
     }
+        
+    /*
+     * Add for TBD use
+     */
+    public static ContextType getContextTypeForContextMode(IMetadataConnection connection) {
+        return getContextTypeForContextMode(connection, false);
+    }
+
+    public static ContextType getContextTypeForContextMode(IMetadataConnection connection, String contextName) {
+        return getContextTypeForContextMode(connection, contextName, false);
+    }
 
     /**
      * 
@@ -1663,6 +1675,30 @@ public final class ConnectionContextHelper {
         return getContextTypeForContextMode(shell, connection, null, false, canCancel);
     }
 
+    /*
+     * Add for TBD using
+     */
+    public static ContextType getContextTypeForContextMode(IMetadataConnection connection, boolean defaultContext) {
+        return getContextTypeForContextMode(null, connection, null, defaultContext);
+    }
+
+    public static ContextType getContextTypeForContextMode(IMetadataConnection connection, String selectedContext, boolean defaultContext) {
+        return getContextTypeForContextMode(null, connection, selectedContext, defaultContext);
+    }
+
+    public static ContextType getContextTypeForContextMode(Shell shell, IMetadataConnection connection) {
+        return getContextTypeForContextMode(shell, connection, null, false);
+    }
+
+    public static ContextType getContextTypeForContextMode(Shell shell, IMetadataConnection connection, String selectedContext,
+            boolean defaultContext) {
+        return getContextTypeForContextMode(shell, connection, selectedContext, defaultContext, false);
+    }
+
+    public static ContextType getContextTypeForContextMode(Shell shell, IMetadataConnection connection, boolean canCancel) {
+        return getContextTypeForContextMode(shell, connection, null, false, canCancel);
+    }
+
     /**
      * 
      * ggu Comment method "getContextTypeForContextMode".
@@ -1683,6 +1719,47 @@ public final class ConnectionContextHelper {
         }
         ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
         if (contextItem != null && connection.isContextMode()) {
+            if (defaultContext) {
+                selectedContext = contextItem.getDefaultContext();
+            } else if (selectedContext == null) {
+                if (contextItem.getContext().size() > 1) {
+                    final ContextSetsSelectionDialog setsDialog = new ContextSetsSelectionDialog(shell, contextItem, canCancel);
+                    Display.getDefault().syncExec(new Runnable() {// launch the dialog box in the UI thread beacause the
+
+                                // method may be called from other threads.
+
+                                @Override
+                                public void run() {
+                                    setsDialog.open();
+                                }
+                            });
+                    selectedContext = setsDialog.getSelectedContext();
+                    connection.setContextName(selectedContext);
+                } else {
+                    selectedContext = contextItem.getDefaultContext();
+                }
+            }
+            // if can cancel, can't return the default contex by auto.
+            return ContextUtils.getContextTypeByName(contextItem, selectedContext, !canCancel);
+        }
+        return null;
+    }
+    
+    /*
+     * Add for TBD use
+     */
+    private static ContextType getContextTypeForContextMode(Shell shell, IMetadataConnection connection, String selectedContext,
+            boolean defaultContext, boolean canCancel) {
+        if (connection == null) {
+            return null;
+        }
+        // TDI-17320
+        Shell sqlBuilderDialogShell = getSqlBuilderDialogShell();
+        if (sqlBuilderDialogShell != null && !sqlBuilderDialogShell.isDisposed() && shell == null) {
+            shell = sqlBuilderDialogShell;
+        }
+        ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
+        if (contextItem != null && connection.getContextId()!=null) {
             if (defaultContext) {
                 selectedContext = contextItem.getDefaultContext();
             } else if (selectedContext == null) {
@@ -1829,6 +1906,19 @@ public final class ConnectionContextHelper {
     public static String getParamValueOffContext(Connection connection, String value) {
         String realValue = value;
         if (connection != null && connection.isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection,
+                    connection.getContextName());
+            realValue = TalendQuoteUtils.removeQuotes(ContextParameterUtils.getOriginalValue(contextType, value));
+        }
+        return realValue;
+    }
+    
+    /*
+     * Add for TBD use
+     */
+    public static String getParamValueOffContext(IMetadataConnection connection, String value) {
+        String realValue = value;
+        if (connection != null && connection.getContextId()!=null) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection,
                     connection.getContextName());
             realValue = TalendQuoteUtils.removeQuotes(ContextParameterUtils.getOriginalValue(contextType, value));
