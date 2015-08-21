@@ -221,19 +221,19 @@ public final class ConvertionHelper {
         result.setSqlMode(connection.isSQLMode());
         result.setCurrentConnection(connection); // keep the connection for the metadataconnection
         result.setContentModel(connection.isContextMode());
-        result.setContextId(connection.getContextId());
-        result.setContextName(connection.getContextName());
+        result.setContextId(sourceConnection.getContextId());
+        result.setContextName(sourceConnection.getContextName());
         // handle oracle database connnection of general_jdbc.
         result.setSchema(getMeataConnectionSchema(result));
         convertOtherParameters(result, connection);
         // ADD msjian TDQ-5908 2012-9-3:should set the UI parameters
         fillUIParams(result, connection);
         // TDQ-5908~
-
+      
         return result;
 
     }
-
+    
     /**
      * Copies other parameters from <code>DatabaseConnection</code> to <code>IMetadataConnection</code>. Added by Marvin
      * Wang on Aug.8, 2012.
