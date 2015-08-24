@@ -334,6 +334,12 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 addScriptAddition(unixScriptAdditionValue, tracPortPart);
             }
         }
+        // watch
+        String watchParam = getOptionString(TalendProcessArgumentConstant.ARG_ENABLE_WATCH);
+        if (StringUtils.isNotEmpty(watchParam)) {
+            addScriptAddition(windowsScriptAdditionValue, TalendProcessArgumentConstant.CMD_ARG_WATCH);
+            addScriptAddition(unixScriptAdditionValue, TalendProcessArgumentConstant.CMD_ARG_WATCH);
+        }
 
         String[] jvmArgs = jProcessor.getJVMArgs();
         StringBuffer jvmArgsStr = new StringBuffer();

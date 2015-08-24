@@ -50,17 +50,21 @@ public interface TalendProcessArgumentConstant {
 
     static final String ARG_NEED_RULES = "NEED_RULES";
 
+    static final String ARG_ENABLE_WATCH = "ENABLE_WATCH";
+
     /*
      * command
      */
-    public static final String CMD_ARG_CONTEXT_PARAMETER = "--context_param"; //$NON-NLS-1$
+    static final String CMD_ARG_CONTEXT_PARAMETER = "--context_param"; //$NON-NLS-1$
 
-    public static final String CMD_ARG_CONTEXT_NAME = "--context=";
+    static final String CMD_ARG_CONTEXT_NAME = "--context=";
 
-    public static final String CMD_ARG_LOG4J_LEVEL = "--log4jLevel=";
+    static final String CMD_ARG_LOG4J_LEVEL = "--log4jLevel=";
 
-    public static final String CMD_ARG_STATS_PORT = "--stat_port=";
+    static final String CMD_ARG_STATS_PORT = "--stat_port=";
 
-    public static final String CMD_ARG_TRACE_PORT = "--trace_port=";
+    static final String CMD_ARG_TRACE_PORT = "--trace_port=";
+
+    static final String CMD_ARG_WATCH = "--watch";
 
 }
