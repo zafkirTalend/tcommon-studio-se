@@ -620,7 +620,7 @@ public class ProcessorUtilities {
 
             processor.setContext(currentContext);
             // main job will use stats / traces
-            processor.generateCode(statistics, trace, true, exportAsOSGI);
+            processor.generateCode(statistics, trace, true);
             if (currentProcess instanceof IProcess2 && ((IProcess2) currentProcess).getProperty() != null) {
                 designerCoreService.getLastGeneratedJobsDateMap().put(currentProcess.getId(),
                         ((IProcess2) currentProcess).getProperty().getModificationDate());
@@ -977,19 +977,6 @@ public class ProcessorUtilities {
                                     .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
                                             subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                            if (exportAsOSGI) {
-                                LastGenerationInfo
-                                        .getInstance()
-                                        .getModulesNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi", jobInfo.getJobVersion())
-                                        .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
-                                                subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
-                                LastGenerationInfo
-                                        .getInstance()
-                                        .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId() + "-osgi", jobInfo.getJobVersion())
-                                        .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
-                                                subJobInfo.getJobId() + "-osgi", subJobInfo.getJobVersion()));
-                            }
-
                             LastGenerationInfo
                                     .getInstance()
                                     .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
@@ -1052,8 +1039,6 @@ public class ProcessorUtilities {
     }
 
     static List<JobInfo> jobList = new ArrayList<JobInfo>();
-
-    static boolean exportAsOSGI = false;
 
     /**
      * This function will generate the code of the process and all of this sub process.
@@ -1630,24 +1615,6 @@ public class ProcessorUtilities {
             }
         }
         return sb.toString();
-    }
-
-    /**
-     * Getter for exportAsOSGI.
-     * 
-     * @return the exportAsOSGI
-     */
-    public static boolean isExportAsOSGI() {
-        return exportAsOSGI;
-    }
-
-    /**
-     * Sets the exportAsOSGI.
-     * 
-     * @param exportAsOSGI the exportAsOSGI to set
-     */
-    public static void setExportAsOSGI(boolean exportAsOSGI) {
-        ProcessorUtilities.exportAsOSGI = exportAsOSGI;
     }
 
 }

@@ -60,17 +60,6 @@ public interface IProcessor {
     public void generateCode(boolean statistics, boolean trace, boolean context) throws ProcessorException;
 
     /**
-     * generate the code of the current Process.
-     * 
-     * @param statistics generate with statistics option ?
-     * @param trace generate with trace option ?
-     * @param context generate also the context file ?
-     * @param set Export As OSGI Parameter
-     * @throws ProcessorException
-     */
-    public void generateCode(boolean statistics, boolean trace, boolean context, boolean exportAsOSGI) throws ProcessorException;
-
-    /**
      * 
      * Only generate context code, not main code.
      * 
