@@ -32,4 +32,10 @@ public interface SparkComponent extends MRComponent {
      */
     public boolean isSpark14();
 
+    /**
+     * @return true if the distribution supports the Dynamic Allocation feature.
+     * @see http://spark.apache.org/docs/latest/configuration.html#dynamic-allocation
+     */
+    public boolean doSupportDynamicMemoryAllocation();
+
 }

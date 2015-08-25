@@ -328,7 +328,9 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh540).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh540).doSupportParquetFormat());
         assertFalse(((SparkBatchComponent) cdh540).isSpark14());
+        assertTrue(((SparkBatchComponent) cdh540).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) cdh540).isSpark14());
+        assertTrue(((SparkStreamingComponent) cdh540).doSupportDynamicMemoryAllocation());
         assertTrue(cdh540 instanceof HCatalogComponent);
         assertTrue(cdh540 instanceof ImpalaComponent);
     }
@@ -817,6 +819,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr410).doSupportAvroFormat());
         assertTrue(((HiveComponent) mapr410).doSupportParquetFormat());
         assertFalse(((SparkBatchComponent) mapr410).isSpark14());
+        assertFalse(((SparkBatchComponent) mapr410).doSupportDynamicMemoryAllocation());
         assertFalse(mapr410 instanceof SparkStreamingComponent);
         assertTrue(mapr410 instanceof HCatalogComponent);
         assertFalse(mapr410 instanceof ImpalaComponent);
@@ -1106,8 +1109,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) custom).doSupportORCFormat());
         assertTrue(((HiveComponent) custom).doSupportAvroFormat());
         assertTrue(((HiveComponent) custom).doSupportParquetFormat());
-        assertFalse(custom instanceof SparkBatchComponent);
-        assertFalse(custom instanceof SparkStreamingComponent);
+        assertFalse(((SparkBatchComponent) custom).isSpark14());
+        assertTrue(((SparkBatchComponent) custom).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkStreamingComponent) custom).isSpark14());
+        assertTrue(((SparkStreamingComponent) custom).doSupportDynamicMemoryAllocation());
         assertFalse(custom instanceof HCatalogComponent);
         assertFalse(custom instanceof ImpalaComponent);
     }

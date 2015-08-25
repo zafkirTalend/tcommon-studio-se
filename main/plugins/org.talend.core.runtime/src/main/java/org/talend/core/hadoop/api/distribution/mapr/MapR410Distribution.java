@@ -140,4 +140,9 @@ public class MapR410Distribution extends AbstractMapRDistribution implements HDF
     public ESparkVersion getSparkVersion() {
         return ESparkVersion.SPARK_1_3;
     }
+
+    @Override
+    public boolean doSupportDynamicMemoryAllocation() {
+        return false;
+    }
 }

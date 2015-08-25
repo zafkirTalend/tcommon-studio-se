@@ -135,4 +135,9 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
     public ESparkVersion getSparkVersion() {
         return ESparkVersion.SPARK_1_4;
     }
+
+    @Override
+    public boolean doSupportDynamicMemoryAllocation() {
+        return true;
+    }
 }
