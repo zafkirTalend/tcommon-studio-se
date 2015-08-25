@@ -354,6 +354,7 @@ public enum HiveConnVersionInfo {
             switch (this) {
             case EMR_4_0_0:
             case Cloudera_CDH5_4:
+            case MAPR4_1_0:
                 isSupport = false;
                 break;
             default:
