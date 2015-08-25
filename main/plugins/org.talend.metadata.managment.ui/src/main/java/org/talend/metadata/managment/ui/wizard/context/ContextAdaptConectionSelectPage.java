@@ -229,26 +229,34 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
 
     private void validateField() {
         boolean hasError = false;
-        boolean emptyModel = true;
         String errorMessage = EMPTY_VALUE;
-        for (ConectionAdaptContextVariableModel model : adaptModels) {
-            if (model.getValue().equals(EMPTY_VALUE)) {
+        int contextVariableNumber = adaptModels.size();
+        int connectionFieldNumber = connectionVaribles.size();
+
+        if (adaptModels.size() < connectionVaribles.size()) {
+            errorMessage = Messages.getString("ContextAdaptConectionSelectPage.lackOfVariablesMsg", contextVariableNumber,
+                    connectionFieldNumber);
+            hasError = true;
+        } else {
+            for (ConectionAdaptContextVariableModel model : adaptModels) {
+                if (model.getValue().equals(EMPTY_VALUE)) {
+                    contextVariableNumber -= 1;
+                }
+            }
+            if (contextVariableNumber < connectionFieldNumber) {
                 errorMessage = Messages.getString("ContextAdaptConectionSelectPage.errorMsg"); //$NON-NLS-1$
                 hasError = true;
-                emptyModel = true;
-                break;
             } else {
-                emptyModel = false;
-            }
-        }
-        if (!emptyModel) {
-            for (int i = 0; i < adaptModels.size(); i++) {
-                for (int j = adaptModels.size() - 1; j > i; j--) {
-                    if (adaptModels.get(i).getValue().equals(adaptModels.get(j).getValue())) {
-                        errorMessage = Messages.getString(
-                                "ContextAdaptConectionSelectPage.duplicateErrorMsg", adaptModels.get(i).getValue()); //$NON-NLS-1$
-                        hasError = true;
-                        break;
+                out: for (int i = 0; i < adaptModels.size(); i++) {
+                    String value = adaptModels.get(i).getValue();
+                    if (value != null && !value.equals(EMPTY_VALUE)) {
+                        for (int j = adaptModels.size() - 1; j > i; j--) {
+                            if (value.equals(adaptModels.get(j).getValue())) {
+                                errorMessage = Messages.getString("ContextAdaptConectionSelectPage.duplicateErrorMsg", value); //$NON-NLS-1$
+                                hasError = true;
+                                break out;
+                            }
+                        }
                     }
                 }
             }

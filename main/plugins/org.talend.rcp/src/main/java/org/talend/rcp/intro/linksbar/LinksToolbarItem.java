@@ -83,7 +83,6 @@ public class LinksToolbarItem extends ContributionItem {
         GridLayout layout = new GridLayout(!PluginChecker.isTIS() ? 8 : 6, false);
         layout.marginHeight = 0;
         composite.setLayout(layout);
-        GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 
         // 1.learn
         Label learnLabel = new Label(composite, SWT.NONE);
@@ -95,7 +94,8 @@ public class LinksToolbarItem extends ContributionItem {
         learnLabel.setImage(registry.get("demo")); //$NON-NLS-1$
 
         Link learn = new Link(composite, SWT.NONE);
-        learnLabel.setLayoutData(gd);
+        GridData learnGd = new GridData(SWT.FILL, SWT.FILL, true, true);
+        learnLabel.setLayoutData(learnGd);
         learn.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
         learn.setText(LEARN_URL);
         learn.setToolTipText(Messages.getString("LinksToolbarItem_Learn")); //$NON-NLS-1$
@@ -117,7 +117,8 @@ public class LinksToolbarItem extends ContributionItem {
         askLabel.setImage(registry.get("protocol")); //$NON-NLS-1$
 
         Link ask = new Link(composite, SWT.NONE);
-        askLabel.setLayoutData(gd);
+        GridData askGd = new GridData(SWT.FILL, SWT.FILL, true, true);
+        askLabel.setLayoutData(askGd);
         ask.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
         ask.setText(ASK_URL);
         ask.setToolTipText(Messages.getString("LinksToolbarItem_7")); //$NON-NLS-1$
@@ -139,7 +140,8 @@ public class LinksToolbarItem extends ContributionItem {
             }
             upgradeLabel.setImage(registry.get("wizard")); //$NON-NLS-1$
             Link upgrade = new Link(composite, SWT.NONE);
-            askLabel.setLayoutData(gd);
+            GridData upgradeGd = new GridData(SWT.FILL, SWT.FILL, true, true);
+            upgradeLabel.setLayoutData(upgradeGd);
             upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
             upgrade.setText(UPGRADE_URL);
             upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11")); //$NON-NLS-1$

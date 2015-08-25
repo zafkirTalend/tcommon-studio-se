@@ -27,6 +27,7 @@ import org.apache.http.entity.FileEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.ops4j.pax.url.mvn.MavenResolver;
+import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
@@ -96,7 +97,7 @@ public class ArtifactsDeployer {
             String absArtifactPath = PomUtil.getAbsArtifactPath(parseMvnUrl);
             if (absArtifactPath != null) {
                 File mvnRepositoryJarFile = new File(absArtifactPath);
-                if (mvnRepositoryJarFile.exists()) {
+                if (mvnRepositoryJarFile.exists() && !CommonsPlugin.isHeadless()) {
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                         String originalJarFileName = null;
                         ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault()
