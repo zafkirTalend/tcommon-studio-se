@@ -15,6 +15,7 @@ package org.talend.designer.codegen;
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,7 +30,6 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PigudfItem;
@@ -37,6 +37,7 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -48,54 +49,24 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     private static Map<String, Date> id2date = new HashMap<String, Date>();
 
     protected List<IRepositoryViewObject> getRoutines() throws SystemException {
-        List<IRepositoryViewObject> routineList = getMainProjectRoutine(ERepositoryObjectType.ROUTINES);
-        // list.addAll(getReferencedProjectRoutine());
-
-        // remove routine with same name in reference project
-        Set<String> routineNames = new HashSet<String>();
-        for (IRepositoryViewObject obj : routineList) {
-            routineNames.add(obj.getProperty().getLabel());
-        }
-
-        List<IRepositoryViewObject> refRoutines = new ArrayList<IRepositoryViewObject>();
-        getReferencedProjectRoutine(refRoutines, ProjectManager.getInstance().getReferencedProjects(),
-                ERepositoryObjectType.ROUTINES);
-        for (IRepositoryViewObject obj : refRoutines) {
-            String name = obj.getProperty().getLabel();
-            // it does not have a routine with same name
-            if (!routineNames.contains(name)) {
-                routineNames.add(name);
-                routineList.add(obj);
-            }
-        }
-        return routineList;
+        return getAll(ERepositoryObjectType.ROUTINES);
     }
 
     protected List<IRepositoryViewObject> getAllPigudf() throws SystemException {
-        List<IRepositoryViewObject> routineList = getMainProjectRoutine(ERepositoryObjectType.PIG_UDF);
-
-        // remove routine with same name in reference project
-        Set<String> routineNames = new HashSet<String>();
-        for (IRepositoryViewObject obj : routineList) {
-            routineNames.add(obj.getProperty().getLabel());
-        }
-
-        List<IRepositoryViewObject> refRoutines = new ArrayList<IRepositoryViewObject>();
-        getReferencedProjectRoutine(refRoutines, ProjectManager.getInstance().getReferencedProjects(),
-                ERepositoryObjectType.PIG_UDF);
-        for (IRepositoryViewObject obj : refRoutines) {
-            String name = obj.getProperty().getLabel();
-            // it does not have a routine with same name
-            if (!routineNames.contains(name)) {
-                routineNames.add(name);
-                routineList.add(obj);
-            }
-        }
-        return routineList;
+        return getAll(ERepositoryObjectType.PIG_UDF);
     }
 
     protected List<IRepositoryViewObject> getBeans() throws SystemException {
-        List<IRepositoryViewObject> beansList = getMainProjectRoutine(ERepositoryObjectType.getTypeFromKey("Beans"));
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
+            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                    ICamelDesignerCoreService.class);
+                return getAll(service.getBeansType());
+        }
+        return Collections.emptyList();
+    }
+
+    private static List<IRepositoryViewObject> getAll(ERepositoryObjectType type) throws SystemException {
+        List<IRepositoryViewObject> beansList = getMainProjectRoutine(type);
 
         // remove routine with same name in reference project
         Set<String> beanNames = new HashSet<String>();
@@ -104,37 +75,31 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         }
 
         List<IRepositoryViewObject> refBeans = new ArrayList<IRepositoryViewObject>();
-        getReferencedProjectRoutine(refBeans, ProjectManager.getInstance().getReferencedProjects(),
-                ERepositoryObjectType.getTypeFromKey("Beans"));
+        getReferencedProjectRoutine(refBeans, ProjectManager.getInstance().getReferencedProjects(), type);
         for (IRepositoryViewObject obj : refBeans) {
             String name = obj.getProperty().getLabel();
             // it does not have a routine with same name
-            if (!beanNames.contains(name)) {
-                beanNames.add(name);
+            if (beanNames.add(name)) {
                 beansList.add(obj);
             }
         }
         return beansList;
     }
 
-    protected List<IRepositoryViewObject> getMainProjectRoutine(ERepositoryObjectType routineObjectType) throws SystemException {
-        IProxyRepositoryFactory repositoryFactory = getRepositoryService().getProxyRepositoryFactory();
+    private static IRepositoryService getRepositoryService() {
+        return (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+    }
 
-        List<IRepositoryViewObject> routines;
+    private static List<IRepositoryViewObject> getMainProjectRoutine(ERepositoryObjectType routineObjectType) throws SystemException {
+        IProxyRepositoryFactory repositoryFactory = getRepositoryService().getProxyRepositoryFactory();
         try {
-            routines = repositoryFactory.getAll(routineObjectType);
+            return repositoryFactory.getAll(routineObjectType);
         } catch (PersistenceException e) {
             throw new SystemException(e);
         }
-        return routines;
     }
 
-    public IRepositoryService getRepositoryService() {
-        IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        return (IRepositoryService) service;
-    }
-
-    private void getReferencedProjectRoutine(List<IRepositoryViewObject> routines, List projects,
+    private static void getReferencedProjectRoutine(List<IRepositoryViewObject> routines, List projects,
             ERepositoryObjectType routineType) throws SystemException {
         if (projects == null || projects.isEmpty()) {
             return;
@@ -162,7 +127,6 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     @Override
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException {
         syncRoutine(routineItem, copyToTemp, false);
-
     }
 
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp, boolean forceUpdate) throws SystemException {
