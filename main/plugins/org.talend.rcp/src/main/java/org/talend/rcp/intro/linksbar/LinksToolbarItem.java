@@ -141,7 +141,7 @@ public class LinksToolbarItem extends ContributionItem {
             upgradeLabel.setImage(registry.get("wizard")); //$NON-NLS-1$
             Link upgrade = new Link(composite, SWT.NONE);
             GridData upgradeGd = new GridData(SWT.FILL, SWT.FILL, true, true);
-            askLabel.setLayoutData(upgradeGd);
+            upgradeLabel.setLayoutData(upgradeGd);
             upgrade.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
             upgrade.setText(UPGRADE_URL);
             upgrade.setToolTipText(Messages.getString("LinksToolbarItem_11")); //$NON-NLS-1$
