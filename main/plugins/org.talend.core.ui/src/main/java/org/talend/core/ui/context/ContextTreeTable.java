@@ -64,6 +64,7 @@ import org.eclipse.nebula.widgets.nattable.selection.config.DefaultSelectionStyl
 import org.eclipse.nebula.widgets.nattable.sort.ISortModel;
 import org.eclipse.nebula.widgets.nattable.sort.SortConfigAttributes;
 import org.eclipse.nebula.widgets.nattable.sort.SortHeaderLayer;
+import org.eclipse.nebula.widgets.nattable.sort.config.SingleClickSortConfiguration;
 import org.eclipse.nebula.widgets.nattable.tree.SortableTreeComparator;
 import org.eclipse.nebula.widgets.nattable.tree.TreeLayer;
 import org.eclipse.nebula.widgets.nattable.tree.config.DefaultTreeLayerConfiguration;
@@ -272,6 +273,7 @@ public class ContextTreeTable {
             addCustomContextMenuBehavior(manager, bodyDataProvider, selectionProvider);
 
             natTable.addConfiguration(new DefaultTreeLayerConfiguration(treeLayer));
+            natTable.addConfiguration(new SingleClickSortConfiguration());
 
             addCustomColumnHeaderStyleBehaviour();
 
