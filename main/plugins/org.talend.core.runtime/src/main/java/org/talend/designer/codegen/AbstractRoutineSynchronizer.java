@@ -12,22 +12,14 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
-import java.io.File;
-import java.net.URI;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -38,9 +30,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.ICamelDesignerCoreService;
-import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /***/
@@ -48,15 +38,15 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     private static Map<String, Date> id2date = new HashMap<String, Date>();
 
-    protected List<IRepositoryViewObject> getRoutines() throws SystemException {
+    protected Collection<RoutineItem> getRoutines() throws SystemException {
         return getAll(ERepositoryObjectType.ROUTINES);
     }
 
-    protected List<IRepositoryViewObject> getAllPigudf() throws SystemException {
+    protected Collection<RoutineItem> getAllPigudf() throws SystemException {
         return getAll(ERepositoryObjectType.PIG_UDF);
     }
 
-    protected List<IRepositoryViewObject> getBeans() throws SystemException {
+    protected Collection<RoutineItem> getBeans() throws SystemException {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
             ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                     ICamelDesignerCoreService.class);
@@ -65,63 +55,35 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         return Collections.emptyList();
     }
 
-    private static List<IRepositoryViewObject> getAll(ERepositoryObjectType type) throws SystemException {
-        List<IRepositoryViewObject> beansList = getMainProjectRoutine(type);
-
+    private static Collection<RoutineItem> getAll(ERepositoryObjectType type) throws SystemException {
         // remove routine with same name in reference project
-        Set<String> beanNames = new HashSet<String>();
-        for (IRepositoryViewObject obj : beansList) {
-            beanNames.add(obj.getProperty().getLabel());
+        final Map<String, RoutineItem> beansList = new HashMap<String, RoutineItem>();
+        for (IRepositoryViewObject obj : getRepositoryService().getProxyRepositoryFactory().getAll(type)) {
+            beansList.put(obj.getProperty().getLabel(), (RoutineItem) obj.getProperty().getItem());
         }
 
-        List<IRepositoryViewObject> refBeans = new ArrayList<IRepositoryViewObject>();
-        getReferencedProjectRoutine(refBeans, ProjectManager.getInstance().getReferencedProjects(), type);
-        for (IRepositoryViewObject obj : refBeans) {
-            String name = obj.getProperty().getLabel();
-            // it does not have a routine with same name
-            if (beanNames.add(name)) {
-                beansList.add(obj);
-            }
+        for (Project project : ProjectManager.getInstance().getReferencedProjects()) {
+            getReferencedProjectRoutine(beansList, project, type);
         }
-        return beansList;
+        return beansList.values();
     }
 
     private static IRepositoryService getRepositoryService() {
         return (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
     }
 
-    private static List<IRepositoryViewObject> getMainProjectRoutine(ERepositoryObjectType routineObjectType) throws SystemException {
-        IProxyRepositoryFactory repositoryFactory = getRepositoryService().getProxyRepositoryFactory();
-        try {
-            return repositoryFactory.getAll(routineObjectType);
-        } catch (PersistenceException e) {
-            throw new SystemException(e);
-        }
-    }
-
-    private static void getReferencedProjectRoutine(List<IRepositoryViewObject> routines, List projects,
+    private static void getReferencedProjectRoutine(final Map<String, RoutineItem> beansList, final Project project,
             ERepositoryObjectType routineType) throws SystemException {
-        if (projects == null || projects.isEmpty()) {
-            return;
-        }
-        IProxyRepositoryFactory repositoryFactory = getRepositoryService().getProxyRepositoryFactory();
-        for (Object obj : projects) {
-            Project project = null;
-            if (obj instanceof Project) {
-                project = (Project) obj;
-            } else if (obj instanceof ProjectReference) {
-                project = new Project(((ProjectReference) obj).getReferencedProject());
-            }
-            if (project != null) {
-                try {
-                    routines.addAll(repositoryFactory.getAll(project, routineType));
-                } catch (PersistenceException e) {
-                    throw new SystemException(e);
-                }
-                getReferencedProjectRoutine(routines, project.getEmfProject().getReferencedProjects(), routineType);
+        for (IRepositoryViewObject obj : getRepositoryService().getProxyRepositoryFactory().getAll(project, routineType)) {
+            final String key = obj.getProperty().getLabel();
+            // it does not have a routine with same name
+            if (!beansList.containsKey(key)) {
+                beansList.put(key, (RoutineItem) obj.getProperty().getItem());
             }
         }
-
+        for (ProjectReference projectReference : (Collection<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
+            getReferencedProjectRoutine(beansList, new Project(projectReference.getReferencedProject()), routineType);
+        }
     }
 
     @Override
@@ -154,53 +116,7 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         }
     }
 
-    @Override
-    public void syncBean(Item beanItem, boolean copyToTemp) throws SystemException {
-        syncBean(beanItem, copyToTemp, false);
-    }
-
-    public void syncBean(Item beanItem, boolean copyToTemp, boolean forceUpdate) throws SystemException {
-        boolean needSync = false;
-        if (beanItem != null) {
-            if (forceUpdate || !isBeanUptodate(beanItem)) {
-                needSync = true;
-            } else {
-                IFile file = getFile(beanItem);
-                if (file != null && !file.exists()) {
-                    needSync = true;
-                }
-            }
-        }
-        if (needSync) {
-            doSyncBean(beanItem, copyToTemp);
-            setBeanAsUptodate(beanItem);
-        }
-    }
-
-    protected boolean isBeanUptodate(Item beanItem) {
-        Date refDate = getRefDate(beanItem);
-        if (refDate == null) {
-            return false;
-        }
-        Date date = id2date.get(beanItem.getProperty().getId());
-        return refDate.equals(date);
-    }
-
-    protected void setBeanAsUptodate(Item beanItem) {
-        Date refDate = getRefDate(beanItem);
-        if (refDate == null) {
-            return;
-        }
-        id2date.put(beanItem.getProperty().getId(), refDate);
-    }
-
-    private Date getRefDate(Item beanItem) {
-        return beanItem.getProperty().getModificationDate();
-    }
-
     protected abstract void doSyncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
-
-    protected abstract void doSyncBean(Item beanItem, boolean copyToTemp) throws SystemException;
 
     @Override
     public abstract void deleteRoutinefile(IRepositoryViewObject objToDelete);
@@ -258,46 +174,6 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     }
 
     /**
-     * bug 12582 by ggu.
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public Map<String, List<URI>> getUserRoutineModules() {
-        Map<String, List<URI>> modules = new HashMap<String, List<URI>>();
-
-        try {
-            for (IRepositoryViewObject ro : getRoutines()) {
-                Item item = ro.getProperty().getItem();
-                if (item instanceof RoutineItem) {
-                    EList imports = ((RoutineItem) item).getImports();
-                    for (Object o : imports) {
-                        if (o instanceof IMPORTType) {
-                            String urlPath = ((IMPORTType) o).getUrlPath();
-                            if (urlPath != null && !"".equals(urlPath)) { //$NON-NLS-1$
-                                File file = new File(urlPath);
-                                if (file.exists()) {
-                                    URI uri = file.toURI();
-                                    List<URI> list = modules.get(ro.getLabel());
-                                    if (list == null) {
-                                        list = new ArrayList<URI>();
-                                        modules.put(ro.getLabel(), list);
-                                    }
-                                    if (!list.contains(uri)) {
-                                        list.add(uri);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (SystemException e) {
-            ExceptionHandler.process(e);
-        }
-        return modules;
-    }
-
-    /**
      * DOC Administrator Comment method "renameBeanClass".
      * 
      * @param beanItem
@@ -322,10 +198,21 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
 
     @Override
     public void syncAllBeansForLogOn() throws SystemException {
+        for (RoutineItem beanItem : getBeans()) {
+            syncRoutine(beanItem, true, true);
+        }
     }
 
     @Override
     public void syncAllPigudfForLogOn() throws SystemException {
     }
+
+    @Override
+    public void syncAllBeans() throws SystemException {
+        for (RoutineItem beanItem : getBeans()) {
+            syncRoutine(beanItem, true);
+        }
+    }
+
 
 }
