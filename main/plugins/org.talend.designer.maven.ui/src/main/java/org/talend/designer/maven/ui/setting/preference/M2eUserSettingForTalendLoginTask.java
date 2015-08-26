@@ -32,6 +32,7 @@ import org.eclipse.core.internal.net.ProxyType;
 import org.eclipse.core.net.proxy.IProxyData;
 import org.eclipse.core.net.proxy.IProxyService;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -180,7 +181,8 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         }
         if (!oldRepoFolder.exists() || !oldRepoFolder.canRead() || !oldRepoFolder.canWrite()) {
             // need change the repo setting
-            File studioDefaultRepoFolder = new File(configPath.toFile(), ".m2/repository"); //$NON-NLS-1$
+            IPath m2RepoPath = configPath.append(".m2/repository"); //$NON-NLS-1$
+            File studioDefaultRepoFolder = m2RepoPath.toFile();
             if (!studioDefaultRepoFolder.exists()) {
                 studioDefaultRepoFolder.mkdirs();
             }
@@ -188,7 +190,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             // make sure the setting file can be changed.
             if (userSettingsFile.canRead() && userSettingsFile.canWrite()) {
                 // modify the setting file for "localRepository"
-                settings.setLocalRepository(studioDefaultRepoFolder.getAbsolutePath());
+                settings.setLocalRepository(m2RepoPath.toString());
                 // should same as MavenSettingsPreferencePage.updateSettings update index?
                 try {
                     MavenPlugin.getIndexManager().getWorkspaceIndex().updateIndex(true, monitor);
