@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -29,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.ops4j.pax.url.mvn.Handler;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.threading.TalendCustomThreadPoolExecutor;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ModuleToInstall;
@@ -47,6 +50,8 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
     protected Set<String> installedModules;
 
+    static private TalendCustomThreadPoolExecutor executor = new TalendCustomThreadPoolExecutor(10);
+
     /**
      * DOC sgandon DownloadModuleRunnable constructor comment.
      * 
@@ -61,12 +66,27 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
     @Override
     public void run(final IProgressMonitor monitor) {
-        SubMonitor subMonitor = SubMonitor
+        final SubMonitor subMonitor = SubMonitor
                 .convert(
                         monitor,
                         Messages.getString("ExternalModulesInstallDialog.downloading2") + " (" + toDownload.size() + ")", toDownload.size() * 10 + 5); //$NON-NLS-1$
         if (checkAndAcceptLicenses(subMonitor)) {
-            downLoad(subMonitor);
+            FutureTask<Boolean> futureTask = new FutureTask<Boolean>(new Callable<Boolean>() {
+
+                @Override
+                public Boolean call() throws Exception {
+                    downLoad(subMonitor);
+                    return true;
+                }
+            });
+            synchronized (executor) {
+                executor.execute(futureTask);
+            }
+            try {
+                futureTask.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (monitor != null) {
             monitor.setCanceled(subMonitor.isCanceled());
@@ -96,7 +116,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                         subMonitor.worked(1);
                         continue;
                     }
-                    NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
+                    final NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
                     downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
                     // deploy to index as snapshot
                     String snapshotUri = MavenUrlHelper.generateSnapshotMavenUri(module.getMavenUri());
