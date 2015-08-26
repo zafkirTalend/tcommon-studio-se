@@ -1027,14 +1027,14 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
                 resource.load(bais, null);
             } else {
-                resource.load(stream, null);
+                HandlerUtil.loadResourceStream(resource, stream);
             }
 
             for (ReferenceFileItem rfItem : (List<ReferenceFileItem>) item.getReferenceResources()) {
                 itemPath = getReferenceItemPath(importItem.getPath(), rfItem);
                 stream = manager.getStream(itemPath);
                 Resource rfResource = createResource(importItem, itemPath, true);
-                rfResource.load(stream, null);
+                HandlerUtil.loadResourceStream(rfResource, stream);
             }
 
             Iterator<EObject> itRef = item.eCrossReferences().iterator();
