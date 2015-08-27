@@ -132,6 +132,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public void deploy(URI jarFileUri, IProgressMonitor... monitorWrap) {
+        if (jarFileUri.isOpaque()) {
+            return;
+        }
         File file = new File(jarFileUri);
         if (file == null || !file.exists()) {
             return;
