@@ -147,7 +147,49 @@ public final class HandlerUtil {
         try {
             final Resource resource = createResource(importItem, importItem.getPath(), false);
             stream = manager.getStream(importItem.getPath());
-            loadResourceStream(resource, stream);
+            final ResourceSet resourceSet = resource.getResourceSet();
+
+            URIConverter uriConverter = resourceSet.getURIConverter();
+            resourceSet.setURIConverter(new ExtensibleURIConverterImpl() {
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#createInputStream(org.eclipse.
+                 * emf.common.util.URI, java.util.Map)
+                 */
+                @Override
+                public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
+                    InputStream inputStream = null;
+                    EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
+                    if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
+                        inputStream = super.createInputStream(uri, options);
+                    } else {
+                        inputStream = null;
+                    }
+                    return inputStream;
+                }
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see
+                 * org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#contentDescription(org.eclipse.emf
+                 * .common.util.URI, java.util.Map)
+                 */
+                @Override
+                public Map<String, ?> contentDescription(URI uri, Map<?, ?> options) throws IOException {
+                    EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
+                    if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
+                        return super.contentDescription(uri, options);
+                    } else {
+                        return Collections.emptyMap();
+                    }
+                }
+            });
+            resource.load(stream, null);
+            // set back the old one
+            resourceSet.setURIConverter(uriConverter);
             return resource;
         } catch (Exception e) {
             // same as old ImportItemUtil.computeProperty ignore, must be one invalid or unknown item
@@ -167,58 +209,6 @@ public final class HandlerUtil {
             }
         }
         return null;
-    }
-
-    /**
-     * DOC nrousseau Comment method "loadResourceStream".
-     * @param resource
-     * @param stream
-     * @throws IOException
-     */
-    public static void loadResourceStream(final Resource resource, InputStream stream) throws IOException {
-        final ResourceSet resourceSet = resource.getResourceSet();
-
-        URIConverter uriConverter = resourceSet.getURIConverter();
-        resourceSet.setURIConverter(new ExtensibleURIConverterImpl() {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#createInputStream(org.eclipse.
-             * emf.common.util.URI, java.util.Map)
-             */
-            @Override
-            public InputStream createInputStream(URI uri, Map<?, ?> options) throws IOException {
-                InputStream inputStream = null;
-                EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
-                if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
-                    inputStream = super.createInputStream(uri, options);
-                } else {
-                    inputStream = null;
-                }
-                return inputStream;
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see
-             * org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl#contentDescription(org.eclipse.emf
-             * .common.util.URI, java.util.Map)
-             */
-            @Override
-            public Map<String, ?> contentDescription(URI uri, Map<?, ?> options) throws IOException {
-                EPackage ePackage = resourceSet.getPackageRegistry().getEPackage(uri.toString());
-                if (ePackage != null || !"http".equals(uri.scheme())) { //$NON-NLS-1$
-                    return super.contentDescription(uri, options);
-                } else {
-                    return Collections.emptyMap();
-                }
-            }
-        });
-        resource.load(stream, null);
-        // set back the old one
-        resourceSet.setURIConverter(uriConverter);
     }
 
     public static Resource createResource(ImportItem importItem, IPath path, boolean byteArrayResource) {
