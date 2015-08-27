@@ -84,12 +84,6 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
             // handle missing jar only for Hosts Bundles and not Fragments
             if (be == null
                     && path.endsWith(".jar") && ((generation.getRevision().getTypes() & ModuleRevision.TYPE_FRAGMENT) == 0)) { //$NON-NLS-1$ //jar file that does not exists.
-                // fix for TUP-2623
-                if (MissingJarServices.getJarMissingObservable() == null
-                        || MissingJarServices.getJarMissingObservable().prenventNotificationLock.isLocked()) {
-                    return be;
-                }
-
                 // use the getFile to find the jar from the lib/java folder.
                 File file = getFile(path, false, false);
                 if (file == null) {
