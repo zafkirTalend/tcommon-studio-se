@@ -128,7 +128,7 @@ public enum EHadoopVersion4Drivers {
 
     MICROSOFT_HD_INSIGHT_3_1(EHadoopDistributions.MICROSOFT_HD_INSIGHT, "Microsoft HD Insight 3.1", //$NON-NLS-1$
                              "MICROSOFT_HD_INSIGHT_3_1", //$NON-NLS-1$
-                             true,
+                             false,
                              false,
                              new EMRVersion[] { EMRVersion.YARN }),
 
@@ -203,7 +203,7 @@ public enum EHadoopVersion4Drivers {
     }
 
     public static List<EHadoopVersion4Drivers> indexOfByDistribution(EHadoopDistributions distribution) {
-        List<EHadoopVersion4Drivers> distribution4Versions = new ArrayList<EHadoopVersion4Drivers>();
+        List<EHadoopVersion4Drivers> distribution4Versions = new ArrayList<>();
         if (distribution != null) {
             for (EHadoopVersion4Drivers d4v : EHadoopVersion4Drivers.values()) {
                 if (d4v.getDistribution().equals(distribution)) {
