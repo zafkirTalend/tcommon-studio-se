@@ -1481,9 +1481,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @throws PersistenceException
      */
     private void emptyTempFolder(Project project) throws PersistenceException {
-    	String str=(System.getProperty("eclipse.home.location") +"temp").substring(5);
-    	FilesUtils.deleteFolder(new File(str), false);
-    	
+        String str = (System.getProperty("eclipse.home.location") + "temp").substring(5);
+        FilesUtils.deleteFolder(new File(str), false);
+
         long start = System.currentTimeMillis();
         IProject fsProject = ResourceUtils.getProject(project);
         IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
@@ -1525,6 +1525,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         } else {
             if (!item.getState().isDeleted() && !ProjectRepositoryNode.getInstance().hasDeletedSubItem(item)) {
                 RecycleBinManager.getInstance().removeFromRecycleBin(ProjectManager.getInstance().getCurrentProject(), item);
+            } else {
+                RecycleBinManager.getInstance().saveRecycleBin(ProjectManager.getInstance().getCurrentProject());
             }
         }
     }

@@ -13,6 +13,7 @@
 package org.talend.core.repository.ui.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -77,14 +78,46 @@ public class DeleteTableAction extends AContextualAction {
 
     private static final String DELETE_FOREVER_TOOLTIP = Messages.getString("DeleteAction.action.logicalToolTipText"); //$NON-NLS-1$
 
+    private List<Object> objectsNeedToBeDeleted;
+
+    /**
+     * will delete all the user selected objects on UI <br>
+     */
     public DeleteTableAction() {
+        this(null);
+    }
+
+    /**
+     * only delete the caller's specified objects, in case the caller already obtains all the selected objects and also
+     * wants to delete them
+     * 
+     * @param objsNeedToBeDeleted
+     */
+    public DeleteTableAction(List<Object> objsNeedToBeDeleted) {
         super();
+        this.objectsNeedToBeDeleted = objsNeedToBeDeleted;
         this.setImageDescriptor(ImageProvider.getImageDesc(EImage.DELETE_ICON));
+    }
+
+    public List<Object> getObjectsNeedToBeDeleted() {
+        return this.objectsNeedToBeDeleted;
+    }
+
+    public void setObjectsNeedToBeDeleted(List<Object> objectsNeedToBeDeleted) {
+        this.objectsNeedToBeDeleted = objectsNeedToBeDeleted;
     }
 
     @Override
     protected void doRun() {
-        ISelection selection = getSelection();
+        if (objectsNeedToBeDeleted == null || objectsNeedToBeDeleted.isEmpty()) {
+            ISelection selection = getSelection();
+            if (!selection.isEmpty()) {
+                objectsNeedToBeDeleted = Arrays.asList(((IStructuredSelection) selection).toArray());
+            }
+        }
+        if (objectsNeedToBeDeleted == null || objectsNeedToBeDeleted.isEmpty()) {
+            return;
+        }
         Boolean confirm = null;
 
         // used to store the database connection object that are used to notify the sqlBuilder.
@@ -92,7 +125,11 @@ public class DeleteTableAction extends AContextualAction {
         final Set<ERepositoryObjectType> types = new HashSet<ERepositoryObjectType>();
         Map<String, Item> procItems = new HashMap<String, Item>();
 
-        for (Object obj : ((IStructuredSelection) selection).toArray()) {
+        // need to clear the objectsNeedToBeDeleted in this execution, in case this delete action is a singleton
+        List<Object> objsNeedToBeDeleted = objectsNeedToBeDeleted;
+        objectsNeedToBeDeleted = null;
+
+        for (Object obj : objsNeedToBeDeleted) {
             if (obj instanceof RepositoryNode) {
                 RepositoryNode node = (RepositoryNode) obj;
                 ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
