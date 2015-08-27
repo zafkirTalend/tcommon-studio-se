@@ -855,6 +855,7 @@ public class ProcessorUtilities {
         // here we recreate a new JobInfo, to be sure to don't have link in memory to Emf or IProcess
         JobInfo generatedJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
         generatedJobInfo.setJobName(currentProcess.getName());
+        generatedJobInfo.setTestContainer(jobInfo.isTestContainer());
         String projectFolderName;
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             projectFolderName = JavaResourcesHelper.getProjectFolderName(selectedProcessItem);
@@ -879,6 +880,7 @@ public class ProcessorUtilities {
                     for (ProcessItem testItem : testsItems) {
                         JobInfo subJobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
                         subJobInfo.setTestContainer(true);
+                        subJobInfo.setFatherJobInfo(jobInfo);
 
                         if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
                             generateCode(subJobInfo, selectedContextName, statistics, false, properties, GENERATE_MAIN_ONLY,

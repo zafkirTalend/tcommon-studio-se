@@ -780,7 +780,10 @@ public final class ConnectionContextHelper {
         if (showDialog.open() == Window.OK) {
             if (ConnectionContextHelper.containsVariable(contextMgr)) {
                 for (ContextItem contextItem : contextItems) {
-                    addContextVarsToExistVariable(process, contextItem, contextToVars.get(contextItem), contextMgr);
+                    Set<String> addedVars = contextToVars.get(contextItem);
+                    if (addedVars != null) {
+                        addContextVarsToExistVariable(process, contextItem, addedVars, contextMgr);
+                    }
                 }
             } else {
                 // construct selectedContextItems
@@ -1572,7 +1575,7 @@ public final class ConnectionContextHelper {
     public static ContextType getContextTypeForContextMode(Connection connection, String contextName) {
         return getContextTypeForContextMode(connection, contextName, false);
     }
-        
+
     /*
      * Add for TBD use
      */
@@ -1682,7 +1685,8 @@ public final class ConnectionContextHelper {
         return getContextTypeForContextMode(null, connection, null, defaultContext);
     }
 
-    public static ContextType getContextTypeForContextMode(IMetadataConnection connection, String selectedContext, boolean defaultContext) {
+    public static ContextType getContextTypeForContextMode(IMetadataConnection connection, String selectedContext,
+            boolean defaultContext) {
         return getContextTypeForContextMode(null, connection, selectedContext, defaultContext);
     }
 
@@ -1744,7 +1748,7 @@ public final class ConnectionContextHelper {
         }
         return null;
     }
-    
+
     /*
      * Add for TBD use
      */
@@ -1759,7 +1763,7 @@ public final class ConnectionContextHelper {
             shell = sqlBuilderDialogShell;
         }
         ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
-        if (contextItem != null && connection.getContextId()!=null) {
+        if (contextItem != null && connection.getContextId() != null) {
             if (defaultContext) {
                 selectedContext = contextItem.getDefaultContext();
             } else if (selectedContext == null) {
@@ -1912,13 +1916,13 @@ public final class ConnectionContextHelper {
         }
         return realValue;
     }
-    
+
     /*
      * Add for TBD use
      */
     public static String getParamValueOffContext(IMetadataConnection connection, String value) {
         String realValue = value;
-        if (connection != null && connection.getContextId()!=null) {
+        if (connection != null && connection.getContextId() != null) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection,
                     connection.getContextName());
             realValue = TalendQuoteUtils.removeQuotes(ContextParameterUtils.getOriginalValue(contextType, value));

@@ -490,7 +490,7 @@ public class CopyObjectAction {
         if (codeGenService != null) {
             codeGenService.createCamelBeanSynchronizer().renameBeanClass(item);
             try {
-                codeGenService.createCamelBeanSynchronizer().syncBean(item, true);
+                codeGenService.createCamelBeanSynchronizer().syncRoutine((RoutineItem)item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

@@ -28,7 +28,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.ops4j.pax.url.mvn.Handler;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ModuleToInstall;
@@ -105,11 +105,11 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 } catch (SocketTimeoutException e) {
                     downloadFailed.add(module.getName());
                     connectionTimeOut = true;
-                    ExceptionHandler.process(e);
+                    MessageBoxExceptionHandler.process(e);
                     continue;
                 } catch (Exception e) {
                     downloadFailed.add(module.getName());
-                    ExceptionHandler.process(e);
+                    MessageBoxExceptionHandler.process(e);
                     continue;
                 }
                 accepted = false;

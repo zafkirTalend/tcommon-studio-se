@@ -57,7 +57,6 @@ import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
-import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.runprocess.IRunProcessService;
 
 /**
@@ -286,13 +285,6 @@ public class MavenCommandLauncher {
                 if (line.startsWith("[ERROR]")) { //$NON-NLS-1$
                     errors.append(line + "\n"); //$NON-NLS-1$
                 }
-            }
-        }
-        if (errors.length() > 0) {
-            if (getGoals() != null && getGoals().matches("(.*)\\b" + TalendMavenConstants.GOAL_TEST + "\\b(.*)")) {//$NON-NLS-1$//$NON-NLS-2$
-                ExceptionHandler.process(new Exception(errors.toString()));
-            } else {
-                throw new Exception(errors.toString());
             }
         }
 
