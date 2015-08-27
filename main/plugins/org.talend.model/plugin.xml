@@ -94,4 +94,11 @@
             type="component"
             class="org.talend.designer.core.model.utils.emf.component.util.ComponentResourceFactoryImpl"/>
    </extension>
+   <extension
+       point="org.eclipse.emf.ecore.uri_mapping">
+       <mapping
+           source="http://www.talend.org"
+           target="dummy.uri">
+    </mapping>
+  </extension>
 </plugin>
