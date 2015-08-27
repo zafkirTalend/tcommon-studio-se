@@ -5,6 +5,10 @@ and import(as binary project) the org.eclipse.osgi plugin into the workspace too
 You also need to add the followin system property in your launch configurator :
      -Dosgi.framework.extensions=org.talend.osgi.lib.loader
 
+IMPORTANT : when modifying this project please always maintain the unit test associated with it. The test are located in 
+the org.talend.librariesmanager.ui.test bundle.
+
+
 for more information see : 
 http://wiki.eclipse.org/index.php/Adaptor_Hooks
 http://eclipsesource.com/blogs/2013/01/23/how-to-track-lifecycle-changes-of-osgi-bundles/

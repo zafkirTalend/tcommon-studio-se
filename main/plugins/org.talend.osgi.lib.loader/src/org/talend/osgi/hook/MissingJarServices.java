@@ -23,6 +23,7 @@ import org.talend.osgi.hook.notification.JarMissingObservable;
 /**
  * created by sgandon on 17 oct. 2014 Detailled comment
  */
+
 /**
  * created by sgandon on 27 mai 2015 Detailled comment
  *
@@ -36,17 +37,17 @@ public class MissingJarServices {
     static final boolean DEBUG = false;// we canot use the PDE debug feature cause we are a osgi fragment loaded way
                                        // before eclipse stuff.
 
-    static public File javaLibFolder;
+    static public File   javaLibFolder;
 
     /**
      * return the folder where to find the missing libraries or null if none was defined
-     * */
+     */
     static public File getLibJavaFolderFile() {
         if (javaLibFolder == null) {
             String property = System.getProperty(OsgiLoaderActivator.ORG_TALEND_EXTERNAL_LIB_FOLDER_SYS_PROP);
             if (property != null) {
                 javaLibFolder = new File(property);
-            }// else keep javaLibFolder null
+            } // else keep javaLibFolder null
         }
         return javaLibFolder;
 
@@ -76,10 +77,13 @@ public class MissingJarServices {
      */
     public static MavenResolver getMavenResolver() {
         if (mavenResolver == null) {
-            ServiceReference<MavenResolver> jarMissObsServRef = OsgiLoaderActivator.getBundleContext().getServiceReference(
-                    MavenResolver.class);
+            ServiceReference<MavenResolver> jarMissObsServRef = OsgiLoaderActivator.getBundleContext()
+                    .getServiceReference(MavenResolver.class);
             if (jarMissObsServRef != null) {
                 mavenResolver = OsgiLoaderActivator.getBundleContext().getService(jarMissObsServRef);
+            } else {// No resolver found so log it
+                getLogService().log(LogService.LOG_ERROR, "Talend Missing jar OSGI loader could not find a Maven Resolver",
+                        new RuntimeException());
             }
         }
         return mavenResolver;
@@ -91,7 +95,7 @@ public class MissingJarServices {
         ServiceReference<LogService> logServRef = OsgiLoaderActivator.getBundleContext().getServiceReference(LogService.class);
         if (logServRef != null) {
             logService = OsgiLoaderActivator.getBundleContext().getService(logServRef);
-        }// else log is set to null
+        } // else log is set to null
         return logService;
     }
 
