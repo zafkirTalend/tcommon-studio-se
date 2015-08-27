@@ -1245,7 +1245,9 @@ public class DeleteAction extends AContextualAction {
 
                 @Override
                 public void run() {
-                    final DeleteTableAction deleteTableAction = new DeleteTableAction();
+                    List<Object> objectsNeedToBeDeleted = new ArrayList<Object>();
+                    objectsNeedToBeDeleted.add(currentJobNode);
+                    final DeleteTableAction deleteTableAction = new DeleteTableAction(objectsNeedToBeDeleted);
                     deleteTableAction.setWorkbenchPart(getWorkbenchPart());
                     deleteTableAction.run();
                 }

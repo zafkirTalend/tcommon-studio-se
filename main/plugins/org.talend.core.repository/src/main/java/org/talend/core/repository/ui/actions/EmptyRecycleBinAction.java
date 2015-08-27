@@ -253,7 +253,8 @@ public class EmptyRecycleBinAction extends AContextualAction {
                 Item item = subRepositoryObject.getProperty().getItem();
                 subRepositoryObject.removeFromParent();
                 if (item instanceof ConnectionItem) {
-                    ProxyRepositoryFactory.getInstance().setSubItemDeleted((ConnectionItem)item, subRepositoryObject.getAbstractMetadataObject(), true);
+                    ProxyRepositoryFactory.getInstance().setSubItemDeleted((ConnectionItem) item,
+                            subRepositoryObject.getAbstractMetadataObject(), false);
                 }
                 factory.save(item);
             }
