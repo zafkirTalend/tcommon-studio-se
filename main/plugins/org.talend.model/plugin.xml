@@ -115,5 +115,11 @@
             class="org.talend.model.recyclebin.RecycleBinPackage"
             genModel="model/recyclebin.genmodel"/>
    </extension>
-
+   <extension
+        point="org.eclipse.emf.ecore.uri_mapping">
+     <mapping
+           source="http://www.talend.org"
+           target="dummy.uri">
+    </mapping>
+  </extension>
 </plugin>
