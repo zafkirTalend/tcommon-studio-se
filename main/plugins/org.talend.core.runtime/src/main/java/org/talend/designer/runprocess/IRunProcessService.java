@@ -176,4 +176,6 @@ public interface IRunProcessService extends IService {
 
     ProjectPreferenceManager getProjectPreferenceManager();
 
+    Set<String> getLibJarsForBD(IProcess process);
+
 }
