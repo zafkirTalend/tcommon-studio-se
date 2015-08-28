@@ -17,7 +17,10 @@ import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections.map.MultiKeyMap;
@@ -33,6 +36,8 @@ import org.talend.utils.sql.ConnectionUtils;
 public class JDBCDriverLoader {
 
     private static MultiKeyMap classLoadersMap = new MultiKeyMap();
+
+    private static Map<String, HotClassLoader> classLoadersMapBasedOnLibraries = new HashMap<String, HotClassLoader>();
 
     /**
      * Loads the jars for hive embedded mode required, I do not think it is the better method to do this here. Due to
@@ -82,6 +87,32 @@ public class JDBCDriverLoader {
         HotClassLoader loader;
         loader = (HotClassLoader) classLoadersMap.get(dbType, dbVersion);
         return loader;
+    }
+
+    private HotClassLoader getHotClassLoaderFromCacheBasedOnLibraries(String[] librariesPaths) {
+        if (librariesPaths == null || librariesPaths.length <= 0) {
+            return new HotClassLoader();
+        }
+        String[] sortedLibrariesPaths = Arrays.copyOf(librariesPaths, librariesPaths.length);
+        Arrays.sort(sortedLibrariesPaths);
+        HotClassLoader cLoader = null;
+        String key = ""; //$NON-NLS-1$
+        for (String library : sortedLibrariesPaths) {
+            if (library == null || (library = library.trim()).isEmpty()) {
+                continue;
+            }
+            key = key + ";" + library; //$NON-NLS-1$
+        }
+
+        cLoader = classLoadersMapBasedOnLibraries.get(key);
+
+        if (cLoader == null) {
+            cLoader = new HotClassLoader();
+            classLoadersMapBasedOnLibraries.put(key, cLoader);
+            addPathsForClassLoader(librariesPaths, cLoader);
+        }
+
+        return cLoader;
     }
 
     public Driver getDriver(HotClassLoader loader, String[] jarPath, String driverClassName, String dbType, String dbVersion)
@@ -175,6 +206,11 @@ public class JDBCDriverLoader {
      * @return
      */
     public HotClassLoader getHotClassLoader(String[] jarPath, String dbType, String dbVersion) {
+
+        if (EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(dbType)) {
+            return getHotClassLoaderFromCacheBasedOnLibraries(jarPath);
+        }
+
         HotClassLoader loader;
         boolean flog = EDatabaseVersion4Drivers.containTypeAndVersion(dbType, dbVersion);
         if (flog) {
@@ -186,6 +222,11 @@ public class JDBCDriverLoader {
         } else {
             loader = new HotClassLoader();
         }
+        addPathsForClassLoader(jarPath, loader);
+        return loader;
+    }
+
+    private void addPathsForClassLoader(String[] jarPath, HotClassLoader loader) {
         for (String element : jarPath) {
             // bug 17800 fixed: fix a problem of jdbc drivers used in the wizard.
             if (element.contains(";")) {
@@ -197,6 +238,5 @@ public class JDBCDriverLoader {
                 loader.addPath(element);
             }
         }
-        return loader;
     }
 }
