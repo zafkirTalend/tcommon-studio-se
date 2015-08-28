@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -276,14 +274,12 @@ public class ParserUtils {
 
     public synchronized static java.util.Date parseTo_Date(String s, String pattern) {
         // check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
-    	SimpleDateFormat baseDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if (s != null) {
             s = s.trim();
         }
         if (s == null || s.length() == 0) {
             return null;
         }
-        
         if (pattern == null) {
             pattern = Constant.dateDefaultPattern;
         }
@@ -307,26 +303,7 @@ public class ParserUtils {
         ParsePosition pp = new ParsePosition(0);
         pp.setIndex(0);
 
-		if (pattern.indexOf("dd-MM-yyyy") != -1) {
-			String[] dateArray = null;
-			if (pattern.indexOf("-") != -1) {
-				dateArray = s.split("-");
-			}
-			if (pattern.indexOf("/") != -1) {
-				dateArray = s.split("/");
-			}
-			if (dateArray != null && dateArray[0].length() == 4) {
-				try {
-					date = format.parse(format.format(baseDateFormat.parse(s)), pp);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			} else {
-				date = format.parse(s, pp);
-			}
-		}else{
-        	date = format.parse(s, pp);
-        }
+        date = format.parse(s, pp);
         if (pp.getIndex() != s.length() || date == null) {
             throw new RuntimeException("Unparseable date: \"" + s + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
