@@ -183,6 +183,9 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                         if (manager.getContextManager() != null) {
                             List<IContext> contexts = manager.getContextManager().getListContext();
                             IContextParameter currentPara = findContextPara(contexts, columnGroupName, contextParaName);
+                            if (currentPara == null) {
+                                return "";
+                            }
                             if (currentColumnName.equals(ContextTableConstants.COLUMN_CHECK_PROPERTY)) {
                                 return currentPara.isPromptNeeded();
                             } else if (currentColumnName.equals(ContextTableConstants.COLUMN_PROMPT_PROPERTY)) {
