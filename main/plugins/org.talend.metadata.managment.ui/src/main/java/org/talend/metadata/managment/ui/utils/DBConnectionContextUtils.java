@@ -649,12 +649,31 @@ public final class DBConnectionContextUtils {
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
             String template = null;
+            EMap<String, String> parameters = dbConn.getParameters();
+            String contextedHivePrinciple = null;
+            String nonContextedHivePrinciple = null;
+            if (parameters != null) {
+                contextedHivePrinciple = parameters.get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+                if (contextedHivePrinciple != null && !contextedHivePrinciple.isEmpty()) {
+                    nonContextedHivePrinciple = ConnectionContextHelper.getOriginalValue(contextType, contextedHivePrinciple);
+                    if (nonContextedHivePrinciple != null && !nonContextedHivePrinciple.isEmpty()) {
+                        parameters.put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA, nonContextedHivePrinciple);
+                    }
+                }
+
+            }
             if (dbConn.getURL() != null && dbConn.getURL().startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
                 template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
             } else {
                 template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
             }
-            return DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase, template);
+            String urlString = DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase, template);
+
+            if (parameters != null && nonContextedHivePrinciple != null && !nonContextedHivePrinciple.isEmpty()) {
+                parameters.put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA, contextedHivePrinciple);
+            }
+
+            return urlString;
         }
 
         String newUrl = DatabaseConnStrUtil.getURLString(dbConn.getDatabaseType(), dbConn.getDbVersionString(), server, username,
@@ -758,11 +777,53 @@ public final class DBConnectionContextUtils {
          * 
          * working for sql builder especially.
          */
-        //cloneConn.setContextId(dbConn.getContextId());
-        //cloneConn.setContextMode(dbConn.isContextMode()); // if use context
+        // cloneConn.setContextId(dbConn.getContextId());
+        // cloneConn.setContextMode(dbConn.isContextMode()); // if use context
 
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
+
+            String hadoopUserName = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
+                    ContextParameterUtils.getOriginalValue(contextType, hadoopUserName));
+            String jobTracker = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
+                    ContextParameterUtils.getOriginalValue(contextType, jobTracker));
+            String nameNode = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
+                    ContextParameterUtils.getOriginalValue(contextType, nameNode));
+            String hivePrincipal = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+            cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA,
+                    ContextParameterUtils.getOriginalValue(contextType, hivePrincipal));
+
+            String hiveMetadata = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
+            cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL,
+                    ContextParameterUtils.getOriginalValue(contextType, hiveMetadata));
+
+            String driverPath = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
+            cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH,
+                    ContextParameterUtils.getOriginalValue(contextType, driverPath));
+
+            String driverClass = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
+            cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS,
+                    ContextParameterUtils.getOriginalValue(contextType, driverClass));
+
+            String hiveUserName = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
+            cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME,
+                    ContextParameterUtils.getOriginalValue(contextType, hiveUserName));
+
+            String hivePassword = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
+            cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD,
+                    ContextParameterUtils.getOriginalValue(contextType, hivePassword));
+
+            String ktPrincipal = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, ktPrincipal));
+
+            String keytab = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getOriginalValue(contextType, keytab));
+
             String template = null;
             String hiveServerVersion = HiveServerVersionInfo.HIVE_SERVER_1.getKey();
             EMap<String, String> parameterMap = dbConn.getParameters();
@@ -780,6 +841,28 @@ public final class DBConnectionContextUtils {
             cloneConn.setURL(newURl);
             return cloneConn;
         }
+
+        // for Hbase
+        if (EDatabaseTypeName.HBASE.equals(EDatabaseTypeName.getTypeFromDbType(cloneConn.getDatabaseType()))) {
+            String hbaseMasterPrin = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseMasterPrin));
+
+            String hbaseRegionPrin = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseRegionPrin));
+            String hbaseKeyTabPrin = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTabPrin));
+
+            String hbaseKeyTab = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTab));
+
+        }
+
         // TDI-28124:tdb2input can't guess schema from join sql on system table
         if (EDatabaseTypeName.IBMDB2.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
             String cursorForDb2 = ":cursorSensitivity=2;";
