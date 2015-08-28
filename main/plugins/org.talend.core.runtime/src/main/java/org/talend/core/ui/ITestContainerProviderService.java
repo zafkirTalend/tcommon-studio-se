@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
@@ -93,4 +94,6 @@ public interface ITestContainerProviderService extends IService {
     public void renameConnection(INode node, boolean isOpen);
 
     public boolean isTestCaseComponent(IComponent component);
+
+    public List<IResource> getDataFiles(Item item);
 }
