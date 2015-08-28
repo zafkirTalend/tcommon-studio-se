@@ -166,8 +166,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
         try {
             return MavenTemplateManager.getTemplateStream(templateFile,
-                    IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, JOB_TEMPLATE_BUNDLE,
-                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + getBundleTemplateName());
+                    IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, JOB_TEMPLATE_BUNDLE, getBundleTemplatePath());
         } catch (Exception e) {
             throw new IOException(e);
         }

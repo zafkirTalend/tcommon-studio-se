@@ -29,7 +29,6 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.PluginChecker;
-import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 
 /**
@@ -45,7 +44,7 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
     protected static final MavenModelManager MODEL_MANAGER = MavenPlugin.getMavenModelManager();
 
-    private final String bundleTemplateName;
+    private final String bundleTemplatePath;
 
     private final IFile pomFile;
 
@@ -61,18 +60,18 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
      */
     private boolean baseOnTemplateOnly = false;
 
-    public CreateMavenBundleTemplatePom(IFile pomFile, String bundleTemplateName) {
+    public CreateMavenBundleTemplatePom(IFile pomFile, String bundleTemplatePath) {
         super();
         this.pomFile = pomFile;
-        this.bundleTemplateName = bundleTemplateName;
+        this.bundleTemplatePath = bundleTemplatePath;
     }
 
     protected IFile getPomFile() {
         return this.pomFile;
     }
 
-    protected String getBundleTemplateName() {
-        return bundleTemplateName;
+    protected String getBundleTemplatePath() {
+        return bundleTemplatePath;
     }
 
     public boolean isOverwrite() {
@@ -141,8 +140,7 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
 
     protected InputStream getTemplateStream() throws IOException {
         try {
-            return MavenTemplateManager.getBundleTemplateStream(JOB_TEMPLATE_BUNDLE,
-                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + bundleTemplateName);
+            return MavenTemplateManager.getBundleTemplateStream(JOB_TEMPLATE_BUNDLE, getBundleTemplatePath());
         } catch (Exception e) {
             throw new IOException(e);
         }

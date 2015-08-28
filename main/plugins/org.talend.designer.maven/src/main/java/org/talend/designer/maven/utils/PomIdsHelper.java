@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.designer.maven.utils;
 
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Property;
@@ -64,28 +63,20 @@ public class PomIdsHelper {
      * 
      * always depend on current project.
      */
-    public static String getRoutineGroupId() {
+    public static String getCodesGroupId(String baseName) {
         final Project currentProject = ProjectManager.getInstance().getCurrentProject();
         if (currentProject != null) {
             String technicalLabel = currentProject.getTechnicalLabel();
-            return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE + '.' + technicalLabel);
+            return JavaResourcesHelper.getGroupName(baseName + '.' + technicalLabel);
         }
-        return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_CODE);
-    }
-
-    /**
-     * @return "routines"
-     * 
-     */
-    public static String getRoutinesArtifactId() {
-        return TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID;
+        return JavaResourcesHelper.getGroupName(baseName);
     }
 
     /**
      * @return "<version>"
      * 
      */
-    public static String getRoutinesVersion() {
+    public static String getCodesVersion() {
         return PomUtil.getDefaultMavenVersion();
     }
 
@@ -98,7 +89,7 @@ public class PomIdsHelper {
         }
         return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_JOB);
     }
-    
+
     public static String getTestGroupId(String name) {
         if (name != null) {
             return JavaResourcesHelper.getGroupName(TalendMavenConstants.DEFAULT_TEST + '.' + name);
@@ -117,7 +108,6 @@ public class PomIdsHelper {
         return getTestGroupId((String) null);
     }
 
-    
     /**
      * @return "org.talend.job.<projectName>".
      */

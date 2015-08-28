@@ -122,15 +122,21 @@ public final class JavaUtils {
 
     public static final String ROUTINE_JAR_NAME = "routines"; //$NON-NLS-1$
 
+    public static final String BEANS_JAR_NAME = "userBeans"; //$NON-NLS-1$
+
+    public static final String PIGUDFS_JAR_NAME = "pigudf"; //$NON-NLS-1$
+
     public static final String ROUTINE_JAR_DEFAULT_VERSION = "1.0";//$NON-NLS-1$
+
+    public static final String ROUTINES_JAR = ROUTINE_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
 
     public static final String SYSTEM_ROUTINE_JAR = "systemRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
     public static final String USER_ROUTINE_JAR = "userRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
-    public static final String USER_BEANS_JAR = "userBeans" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+    public static final String USER_BEANS_JAR = BEANS_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
 
-    public static final String USER_PIGUDF_JAR = "pigudf" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
+    public static final String USER_PIGUDF_JAR = PIGUDFS_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
 
     /**
      * DOC ycbai Get default jvm name.

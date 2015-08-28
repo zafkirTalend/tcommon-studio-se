@@ -25,9 +25,9 @@ import java.util.Map;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.m2e.core.MavenPlugin;
-import org.talend.core.PluginChecker;
 import org.talend.core.model.general.Project;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.setting.project.IProjectSettingManagerProvider;
 import org.talend.designer.maven.utils.PomIdsHelper;
@@ -195,8 +195,8 @@ public class MavenTemplateManager {
     public static Model getCodeProjectTemplateModel() {
         Model defaultModel = getDefaultCodeProjectTemplateModel();
         try {
-            InputStream stream = MavenTemplateManager.getBundleTemplateStream(PluginChecker.MAVEN_JOB_PLUGIN_ID,
-                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
+            InputStream stream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
+                    IProjectSettingTemplateConstants.PATH_GENERAL + '/'
                             + IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
             if (stream != null) {
                 Model model = MavenPlugin.getMavenModelManager().readMavenModel(stream);
@@ -234,22 +234,48 @@ public class MavenTemplateManager {
         return templateCodeProjectMOdel;
     }
 
+    public static Model getRoutinesTempalteModel() {
+        Model defaultModel = createDefaultCodesTempalteModel(PomIdsHelper.getCodesGroupId(TalendMavenConstants.DEFAULT_CODE),
+                TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        return getModelFromGeneralTemplate(defaultModel, IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+    }
+
+    public static Model getBeansTempalteModel() {
+        Model defaultModel = createDefaultCodesTempalteModel(PomIdsHelper.getCodesGroupId(TalendMavenConstants.DEFAULT_BEAN),
+                TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
+        return getModelFromGeneralTemplate(defaultModel, IProjectSettingTemplateConstants.POM_BEANS_TEMPLATE_FILE_NAME);
+    }
+
+    public static Model getPigUDFsTempalteModel() {
+        Model defaultModel = createDefaultCodesTempalteModel(PomIdsHelper.getCodesGroupId(TalendMavenConstants.DEFAULT_PIGUDF),
+                TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
+        return getModelFromGeneralTemplate(defaultModel, IProjectSettingTemplateConstants.POM_PIGUDFS_TEMPLATE_FILE_NAME);
+    }
+
+    private static Model createDefaultCodesTempalteModel(String groupId, String artifactId) {
+        Model templateRoutinesModel = new Model();
+
+        templateRoutinesModel.setGroupId(groupId);
+        templateRoutinesModel.setArtifactId(artifactId);
+        templateRoutinesModel.setVersion(PomIdsHelper.getCodesVersion());
+
+        return templateRoutinesModel;
+    }
+
     /**
      * Try to load the project template from bundle, if load failed, use default instead.
      */
-    public static Model getRoutinesTempalteModel() {
-        Model defaultModel = getDefaultRoutinesTempalteModel();
+    private static Model getModelFromGeneralTemplate(Model defaultModel, String templateFileName) {
         try {
-            InputStream stream = MavenTemplateManager.getBundleTemplateStream(PluginChecker.MAVEN_JOB_PLUGIN_ID,
-                    IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
-                            + IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+            InputStream stream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
+                    IProjectSettingTemplateConstants.PATH_GENERAL + '/' + templateFileName);
             if (stream != null) {
                 Model model = MavenPlugin.getMavenModelManager().readMavenModel(stream);
 
                 Map<ETalendMavenVariables, String> variablesValuesMap = new HashMap<ETalendMavenVariables, String>();
-                variablesValuesMap.put(ETalendMavenVariables.RoutinesGroupId, defaultModel.getGroupId());
-                variablesValuesMap.put(ETalendMavenVariables.RoutinesArtifactId, defaultModel.getArtifactId());
-                variablesValuesMap.put(ETalendMavenVariables.RoutinesVersion, defaultModel.getVersion());
+                variablesValuesMap.put(ETalendMavenVariables.CodesGroupId, defaultModel.getGroupId());
+                variablesValuesMap.put(ETalendMavenVariables.CodesArtifactId, defaultModel.getArtifactId());
+                variablesValuesMap.put(ETalendMavenVariables.CodesVersion, defaultModel.getVersion());
                 Project currentProject = ProjectManager.getInstance().getCurrentProject();
                 variablesValuesMap.put(ETalendMavenVariables.ProjectName,
                         currentProject != null ? currentProject.getTechnicalLabel() : null);
@@ -265,15 +291,5 @@ public class MavenTemplateManager {
             // ExceptionHandler.process(e);
         }
         return defaultModel; // if error, try to use default model
-    }
-
-    private static Model getDefaultRoutinesTempalteModel() {
-        Model templateRoutinesModel = new Model();
-
-        templateRoutinesModel.setGroupId(PomIdsHelper.getRoutineGroupId());
-        templateRoutinesModel.setArtifactId(PomIdsHelper.getRoutinesArtifactId());
-        templateRoutinesModel.setVersion(PomIdsHelper.getRoutinesVersion());
-
-        return templateRoutinesModel;
     }
 }

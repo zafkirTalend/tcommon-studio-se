@@ -114,6 +114,10 @@ public interface TalendMavenConstants {
 
     static final String DEFAULT_CODE = "code";
 
+    static final String DEFAULT_BEAN = "bean";
+
+    static final String DEFAULT_PIGUDF = "pigudf";
+
     static final String DEFAULT_JOB = "job";
 
     static final String DEFAULT_TEST = "test";
@@ -135,7 +139,9 @@ public interface TalendMavenConstants {
 
     static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
-    static final String DEFAULT_ROUTINE_VERSION = DEFAULT_VERSION;
+    static final String DEFAULT_BEANS_ARTIFACT_ID = JavaUtils.BEANS_JAR_NAME;
+
+    static final String DEFAULT_PIGUDFS_ARTIFACT_ID = JavaUtils.PIGUDFS_JAR_NAME;
 
     /*
      * for job

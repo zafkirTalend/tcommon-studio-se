@@ -28,9 +28,9 @@ public enum ETalendMavenVariables {
     ProjectId,
     ProjectBranch,
 
-    RoutinesGroupId,
-    RoutinesArtifactId,
-    RoutinesVersion,
+    CodesGroupId,
+    CodesArtifactId,
+    CodesVersion,
 
     JobGroupId,
     JobArtifactId,

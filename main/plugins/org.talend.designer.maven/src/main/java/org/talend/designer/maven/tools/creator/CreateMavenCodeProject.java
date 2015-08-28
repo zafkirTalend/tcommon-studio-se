@@ -48,7 +48,7 @@ import org.talend.designer.maven.utils.PomUtil;
  * created by ggu on 22 Jan 2015 Detailled comment
  *
  */
-public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
+public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
 
     private IProject project;
 

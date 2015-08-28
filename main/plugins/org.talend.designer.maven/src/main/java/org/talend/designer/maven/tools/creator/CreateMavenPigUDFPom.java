@@ -26,15 +26,15 @@ import org.talend.designer.maven.template.MavenTemplateManager;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public class CreateMavenRoutinePom extends AbstractMavenCodesTemplatePom {
+public class CreateMavenPigUDFPom extends AbstractMavenCodesTemplatePom {
 
-    public CreateMavenRoutinePom(IFile pomFile) {
-        super(pomFile, IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+    public CreateMavenPigUDFPom(IFile pomFile) {
+        super(pomFile, IProjectSettingTemplateConstants.POM_PIGUDFS_TEMPLATE_FILE_NAME);
     }
 
     @Override
     protected Model getTemplateModel() {
-        return MavenTemplateManager.getRoutinesTempalteModel();
+        return MavenTemplateManager.getPigUDFsTempalteModel();
     }
 
     @Override

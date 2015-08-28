@@ -29,6 +29,7 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.JavaResourcesHelper;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomIdsHelper;
@@ -47,7 +48,7 @@ public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplat
     private final ProcessorDependenciesManager processorDependenciesManager;
 
     public AbstractMavenProcessorPom(IProcessor jobProcessor, IFile pomFile, String bundleTemplateName) {
-        super(pomFile, bundleTemplateName);
+        super(pomFile, IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + bundleTemplateName);
         Assert.isNotNull(jobProcessor);
         this.jobProcessor = jobProcessor;
         this.processorDependenciesManager = new ProcessorDependenciesManager(jobProcessor);
