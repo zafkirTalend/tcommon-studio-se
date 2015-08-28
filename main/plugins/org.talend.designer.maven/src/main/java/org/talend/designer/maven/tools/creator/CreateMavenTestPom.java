@@ -74,5 +74,8 @@ public class CreateMavenTestPom extends AbstractMavenProcessorPom {
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
         pomSync.syncRoutinesPom(true);
+        // maybe no need sync?
+        // pomSync.syncBeansPom(true);
+        // pomSync.syncPigUDFsPom(true);
     }
 }

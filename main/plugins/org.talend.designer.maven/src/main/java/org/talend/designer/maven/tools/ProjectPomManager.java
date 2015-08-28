@@ -117,9 +117,11 @@ public class ProjectPomManager {
             return;
         }
         List<String> modulesList = new ArrayList<String>();
-        // add routines always.
-        String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
-        modulesList.add(routinesModule);
+
+        List<String> codesModules = PomUtil.getMavenCodesModules(processor);
+        for (String module : codesModules) {
+            modulesList.add(module);
+        }
 
         if (processor != null) {
             for (JobInfo childJob : processor.getBuildChildrenJobs()) {
@@ -196,15 +198,8 @@ public class ProjectPomManager {
             ProcessorDependenciesManager processorDependenciesManager = new ProcessorDependenciesManager(processor);
             processorDependenciesManager.updateDependencies(monitor, projectModel);
         } else {
-            // if no processor and without base pom, just read routines dependencies.
-            IFile routinesPomFile = projectPomFile.getProject().getFile(
-                    PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
-            Model routinesModel = MavenTemplateManager.getRoutinesTempalteModel();
-            if (routinesPomFile.exists()) {
-                routinesModel = MODEL_MANAGER.readMavenModel(routinesPomFile);
-            }
-            // only add the routines dependencies.
-            List<Dependency> routinesDependencies = routinesModel.getDependencies();
+            // if no processor and without base pom, just read codes dependencies.
+            List<Dependency> routinesDependencies = new ArrayList<Dependency>(PomUtil.getCodesDependencies(projectPomFile));
             ProcessorDependenciesManager.updateDependencies(monitor, projectModel, routinesDependencies, true);
         }
     }

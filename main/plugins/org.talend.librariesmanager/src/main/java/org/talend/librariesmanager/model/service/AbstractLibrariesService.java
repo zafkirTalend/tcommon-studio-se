@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
@@ -43,6 +44,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -300,4 +302,10 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
             }
         }
     }
+
+    @Override
+    public Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
+        return ModulesNeededProvider.getCodesModuleNeededs(type);
+    }
+
 }

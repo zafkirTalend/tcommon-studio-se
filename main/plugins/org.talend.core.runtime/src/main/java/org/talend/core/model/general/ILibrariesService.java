@@ -15,6 +15,7 @@ package org.talend.core.model.general;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
@@ -24,6 +25,7 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.codegen.PigTemplate;
 
 /**
@@ -93,6 +95,8 @@ public interface ILibrariesService extends IService {
     public boolean isLibSynchronized();
 
     void cleanLibs();
+
+    Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type);
 
     /**
      * Listener used to fire that libraries status has been changed (new lib or new check install).

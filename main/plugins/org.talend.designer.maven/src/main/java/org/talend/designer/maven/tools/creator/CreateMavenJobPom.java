@@ -421,6 +421,12 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
         pomSync.syncRoutinesPom(true);
+        if (PomUtil.isRequiredBeans(getJobProcessor())) {
+            pomSync.syncBeansPom(true);
+        }
+        if (PomUtil.isRequiredPigUDF(getJobProcessor())) {
+            pomSync.syncPigUDFsPom(true);
+        }
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 

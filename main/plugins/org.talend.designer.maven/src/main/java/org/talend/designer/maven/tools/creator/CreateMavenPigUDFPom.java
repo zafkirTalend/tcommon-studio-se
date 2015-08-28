@@ -18,8 +18,9 @@ import java.util.Set;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
-import org.talend.core.model.routines.IRoutinesService;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 
@@ -39,11 +40,10 @@ public class CreateMavenPigUDFPom extends AbstractMavenCodesTemplatePom {
 
     @Override
     protected Set<ModuleNeeded> getDependenciesModules() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRoutinesService.class)) {
-            IRoutinesService routiensService = (IRoutinesService) GlobalServiceRegister.getDefault().getService(
-                    IRoutinesService.class);
-            // TODO, maybe should only add the routines, not for pigudfs and beans.
-            Set<ModuleNeeded> runningModules = routiensService.getRunningModules();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesService.class);
+            Set<ModuleNeeded> runningModules = libService.getCodesModuleNeededs(ERepositoryObjectType.PIG_UDF);
             return runningModules;
         }
         return Collections.emptySet();

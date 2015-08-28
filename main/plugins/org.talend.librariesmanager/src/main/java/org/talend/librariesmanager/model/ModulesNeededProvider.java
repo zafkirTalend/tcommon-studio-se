@@ -849,10 +849,24 @@ public class ModulesNeededProvider {
         // add the system routines modules
         runningModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
 
-        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.getType("BEANS")));
+        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.getType("BEANS"))); //$NON-NLS-1$
         runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.PIG_UDF));
 
         return runningModules;
+    }
+
+    public static Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
+        if (type == null) { // return all?
+            return getRunningModules();
+        }
+        Set<ModuleNeeded> codesModules = new HashSet<ModuleNeeded>();
+        codesModules.addAll(getModulesNeededForRoutines(type));
+
+        if (type.equals(ERepositoryObjectType.ROUTINES)) {
+            // add the system routines modules
+            codesModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
+        }
+        return codesModules;
     }
 
     private static List<ILibrariesService.IChangedLibrariesListener> changedLibrariesListeners = new ArrayList<ILibrariesService.IChangedLibrariesListener>();

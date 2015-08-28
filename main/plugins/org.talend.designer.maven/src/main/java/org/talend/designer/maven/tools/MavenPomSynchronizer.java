@@ -35,7 +35,9 @@ import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.tools.creator.CreateMavenBeanPom;
 import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
+import org.talend.designer.maven.tools.creator.CreateMavenPigUDFPom;
 import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.utils.io.FilesUtils;
@@ -62,6 +64,26 @@ public class MavenPomSynchronizer {
                 PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
         // generate new one
         CreateMavenBundleTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
+        createTemplatePom.setOverwrite(overwrite);
+        createTemplatePom.create(null);
+    }
+
+    public void syncBeansPom(boolean overwrite) throws Exception {
+        // pom_beans.xml
+        IFile beansPomFile = codeProject.getProject().getFile(
+                PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID));
+        // generate new one
+        CreateMavenBeanPom createTemplatePom = new CreateMavenBeanPom(beansPomFile);
+        createTemplatePom.setOverwrite(overwrite);
+        createTemplatePom.create(null);
+    }
+
+    public void syncPigUDFsPom(boolean overwrite) throws Exception {
+        // pom_pigudfs.xml
+        IFile beansPomFile = codeProject.getProject().getFile(
+                PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID));
+        // generate new one
+        CreateMavenPigUDFPom createTemplatePom = new CreateMavenPigUDFPom(beansPomFile);
         createTemplatePom.setOverwrite(overwrite);
         createTemplatePom.create(null);
     }
@@ -147,13 +169,16 @@ public class MavenPomSynchronizer {
 
         // remove all job poms
         final String routinesPomFileName = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        final String beansPomFileName = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
+        final String pigudfsPomFileName = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
         FilenameFilter filter = new FilenameFilter() {
 
             @Override
             public boolean accept(File dir, String name) {
                 // pom_xxx.xml
                 return name.startsWith(TalendMavenConstants.POM_NAME + '_') && name.endsWith(TalendMavenConstants.XML_EXT)
-                        && !name.equals(routinesPomFileName);
+                        && !name.equals(routinesPomFileName) && !name.equals(beansPomFileName)
+                        && !name.equals(pigudfsPomFileName);
             }
         };
         cleanupContainer(codeProject.getProject(), filter);
@@ -169,6 +194,12 @@ public class MavenPomSynchronizer {
 
         // when clean, regenerate it.
         syncRoutinesPom(true);
+        if (PomUtil.isRequiredBeans(null)) {
+            syncBeansPom(true);
+        }
+        if (PomUtil.isRequiredPigUDF(null)) {
+            syncPigUDFsPom(true);
+        }
 
         // finally, update project
         ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());

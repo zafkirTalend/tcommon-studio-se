@@ -16,7 +16,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.model.Dependency;
@@ -38,11 +43,16 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
@@ -52,6 +62,8 @@ import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryService;
 
 /**
  * created by ggu on 6 Feb 2015 Detailled comment
@@ -403,5 +415,135 @@ public class PomUtil {
             ExceptionHandler.process(e);
         }
         return null;
+    }
+
+    /**
+     * 
+     * in order to make sure no compile error for editor, so add all needed dependencies always.
+     */
+    public static Collection<Dependency> getCodesDependencies(IFile projectPomFile) throws CoreException {
+        Map<String, Dependency> codesDependencies = new LinkedHashMap<String, Dependency>();
+
+        // routines
+        addCodeDependencies(codesDependencies, projectPomFile, TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID,
+                MavenTemplateManager.getRoutinesTempalteModel());
+
+        // beans
+        addCodeDependencies(codesDependencies, projectPomFile, TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID,
+                MavenTemplateManager.getBeansTempalteModel());
+        // pigudfs
+        addCodeDependencies(codesDependencies, projectPomFile, TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID,
+                MavenTemplateManager.getPigUDFsTempalteModel());
+
+        return codesDependencies.values();
+    }
+
+    private static void addCodeDependencies(Map<String, Dependency> codesDependencies, IFile projectPomFile, String pomName,
+            Model defaultModel) throws CoreException {
+        IFile routinesPomFile = projectPomFile.getProject().getFile(PomUtil.getPomFileName(pomName));
+        Model model = defaultModel;
+        if (routinesPomFile.exists()) {
+            model = MODEL_MANAGER.readMavenModel(routinesPomFile);
+        }
+        List<Dependency> dependencies = model.getDependencies();
+        for (Dependency d : dependencies) {
+            String mvnUrl = generateMvnUrl(d);
+            if (!codesDependencies.containsKey(mvnUrl)) {
+                codesDependencies.put(mvnUrl, d);
+            }
+        }
+    }
+
+    public static List<String> getMavenCodesModules(IProcessor processor) {
+        List<String> codesModules = new ArrayList<String>();
+
+        // add routines always.
+        String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        codesModules.add(routinesModule);
+
+        // Beans
+        if (isRequiredBeans(processor)) {
+            String beansModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
+            codesModules.add(beansModule);
+        }
+
+        // PigUDFs
+        if (isRequiredPigUDF(processor)) {
+            String pigudfsModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
+            codesModules.add(pigudfsModule);
+        }
+        return codesModules;
+    }
+
+    public static boolean isRequiredBeans(IProcessor processor) {
+        boolean needBeans = false;
+        if (processor == null) {
+            needBeans = true; // only check have the pigudf items.
+        } else {
+            IProcess process = processor.getProcess();
+            if (process instanceof IProcess2) {
+                Property property = ((IProcess2) process).getProperty();
+                if (property != null) { // same as isStandardJob in JavaProcessor
+                    ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
+                    // route job
+                    if (itemType != null && itemType.equals(ERepositoryObjectType.valueOf("ROUTES"))) {//$NON-NLS-1$
+                        needBeans = true;
+                    }
+                }
+            }
+        }
+
+        if (needBeans && GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            ERepositoryObjectType beansType = ERepositoryObjectType.valueOf("BEANS"); //$NON-NLS-1$
+            try {
+                IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+                List<IRepositoryViewObject> all = factory.getAll(beansType);
+                if (!all.isEmpty()) { // has bean
+                    return true;
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return false;
+    }
+
+    public static boolean isRequiredPigUDF(IProcessor processor) {
+        boolean needPigUDF = false;
+        if (processor == null) {
+            needPigUDF = true; // only check have the pigudf items.
+        } else {
+            IProcess process = processor.getProcess();
+            if (process instanceof IProcess2) {
+                Property property = ((IProcess2) process).getProperty();
+                if (property != null) { // same as isStandardJob in JavaProcessor
+                    // only for tPigMap?
+                    for (INode n : process.getGeneratingNodes()) {
+                        if (n.getComponent().getName().equals("tPigMap")) {
+                            needPigUDF = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (needPigUDF && GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+            try {
+                List<IRepositoryViewObject> pigUdfsObjects = factory.getAll(ERepositoryObjectType.PIG_UDF);
+                if (!pigUdfsObjects.isEmpty()) {
+                    return true;
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+
+        return false;
     }
 }

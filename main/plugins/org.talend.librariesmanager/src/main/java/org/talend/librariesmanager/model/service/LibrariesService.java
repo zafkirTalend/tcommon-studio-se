@@ -15,15 +15,18 @@ package org.talend.librariesmanager.model.service;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.Problem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.codegen.PigTemplate;
 
 /**
@@ -218,5 +221,10 @@ public class LibrariesService implements ILibrariesService {
     @Override
     public void cleanLibs() {
         this.getLibrariesService().cleanLibs();
+    }
+
+    @Override
+    public Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
+        return getLibrariesService().getCodesModuleNeededs(type);
     }
 }
