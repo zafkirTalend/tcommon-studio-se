@@ -16,6 +16,7 @@ import org.talend.core.hadoop.api.components.HadoopComponent;
 import org.talend.core.hadoop.api.distribution.Apache100Distribution;
 import org.talend.core.hadoop.api.distribution.CustomDistribution;
 import org.talend.core.hadoop.api.distribution.HDInsight31Distribution;
+import org.talend.core.hadoop.api.distribution.HDInsight32Distribution;
 import org.talend.core.hadoop.api.distribution.cloudera.CDH4MR1Distribution;
 import org.talend.core.hadoop.api.distribution.cloudera.CDH4MR2Distribution;
 import org.talend.core.hadoop.api.distribution.cloudera.CDH500MR2Distribution;
@@ -51,9 +52,9 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  */
 public class DistributionFactory {
 
-    private final static String EMR400 = "EMR_4_0_0"; //$NON-NLS-1$
-
     private final static String EMR240_HIVE_0_13_1 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
+
+    private final static String MICROSOFT_HD_INSIGHT_3_2 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
 
     /**
      *
@@ -150,6 +151,10 @@ public class DistributionFactory {
         } else {
             // The distribution can be null in case of the GUI has not implemented the distribution in
             // EHadoopVersion4Drivers. In this case, we create this temporary code waiting for them to implement it.
+
+            if (MICROSOFT_HD_INSIGHT_3_2.equals(pVersion)) {
+                return new HDInsight32Distribution();
+            }
 
             if (EMR240_HIVE_0_13_1.equals(pVersion)) {
                 return new EMRApache240_Hive_0_13_1_Distribution();

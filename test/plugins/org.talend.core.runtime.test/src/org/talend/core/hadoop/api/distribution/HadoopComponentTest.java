@@ -102,6 +102,8 @@ public class HadoopComponentTest {
 
     private static final String HDINSIGHT310 = "MICROSOFT_HD_INSIGHT_3_1"; //$NON-NLS-1$
 
+    private static final String HDINSIGHT320 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
+
     private final static String DEFAULT_YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
 
     @Test
@@ -1075,6 +1077,42 @@ public class HadoopComponentTest {
         assertFalse(hdinsight310 instanceof SparkStreamingComponent);
         assertFalse(hdinsight310 instanceof HCatalogComponent);
         assertFalse(hdinsight310 instanceof ImpalaComponent);
+    }
+
+    @Test
+    public void testHDINSIGHT320() throws Exception {
+        HadoopComponent hdinsight320 = DistributionFactory.buildDistribution(HDINSIGHT, HDINSIGHT320);
+        assertNotNull(hdinsight320.getName());
+        assertEquals(EHadoopDistributions.MICROSOFT_HD_INSIGHT, hdinsight320.getDistribution());
+        assertEquals(EHadoopVersion.HADOOP_2, hdinsight320.getHadoopVersion());
+        assertFalse(hdinsight320.doSupportKerberos());
+        assertFalse(hdinsight320.doSupportUseDatanodeHostname());
+        assertFalse(hdinsight320.doSupportGroup());
+        assertFalse(hdinsight320 instanceof HDFSComponent);
+        assertTrue(((MRComponent) hdinsight320).isExecutedThroughWebHCat());
+        assertFalse(((MRComponent) hdinsight320).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) hdinsight320).doSupportImpersonation());
+        assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) hdinsight320).getYarnApplicationClasspath());
+        assertFalse(hdinsight320 instanceof HBaseComponent);
+        assertFalse(hdinsight320 instanceof SqoopComponent);
+        assertTrue(((PigComponent) hdinsight320).doSupportHCatalog());
+        assertFalse(((PigComponent) hdinsight320).pigVersionPriorTo_0_12());
+        assertFalse(((PigComponent) hdinsight320).doSupportTez());
+        assertFalse(((PigComponent) hdinsight320).doSupportHBase());
+        assertFalse(((HiveComponent) hdinsight320).doSupportEmbeddedMode());
+        assertFalse(((HiveComponent) hdinsight320).doSupportStandaloneMode());
+        assertFalse(((HiveComponent) hdinsight320).doSupportHive1());
+        assertFalse(((HiveComponent) hdinsight320).doSupportHive2());
+        assertFalse(((HiveComponent) hdinsight320).doSupportTezForHive());
+        assertFalse(((HiveComponent) hdinsight320).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) hdinsight320).doSupportSSL());
+        assertTrue(((HiveComponent) hdinsight320).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdinsight320).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdinsight320).doSupportParquetFormat());
+        assertFalse(hdinsight320 instanceof SparkBatchComponent);
+        assertFalse(hdinsight320 instanceof SparkStreamingComponent);
+        assertFalse(hdinsight320 instanceof HCatalogComponent);
+        assertFalse(hdinsight320 instanceof ImpalaComponent);
     }
 
     @Test
