@@ -52,6 +52,8 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  */
 public class DistributionFactory {
 
+    private final static String LEGACY_CDH51_SPARK = "Cloudera_CDH51"; //$NON-NLS-1$
+
     private final static String EMR240_HIVE_0_13_1 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
 
     private final static String MICROSOFT_HD_INSIGHT_3_2 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
@@ -158,6 +160,11 @@ public class DistributionFactory {
 
             if (EMR240_HIVE_0_13_1.equals(pVersion)) {
                 return new EMRApache240_Hive_0_13_1_Distribution();
+            }
+
+            // Only used to support Spark CDH 5.1.3 TUJs.
+            if (LEGACY_CDH51_SPARK.equals(pVersion)) {
+                return new CDH510MR2Distribution(EHadoopVersion4Drivers.CLOUDERA_CDH5_1);
             }
         }
         throw new Exception("The distribution " + pDistribution + " with the version " + pVersion + " doesn't exist."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

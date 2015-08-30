@@ -291,8 +291,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh510mr2).doSupportORCFormat());
         assertTrue(((HiveComponent) cdh510mr2).doSupportAvroFormat());
         assertTrue(((HiveComponent) cdh510mr2).doSupportParquetFormat());
-        assertFalse(cdh510mr2 instanceof SparkBatchComponent);
-        assertFalse(cdh510mr2 instanceof SparkStreamingComponent);
+        assertFalse(((SparkBatchComponent) cdh510mr2).isSpark14());
+        assertFalse(((SparkBatchComponent) cdh510mr2).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkStreamingComponent) cdh510mr2).isSpark14());
+        assertFalse(((SparkStreamingComponent) cdh510mr2).doSupportDynamicMemoryAllocation());
         assertTrue(cdh510mr2 instanceof HCatalogComponent);
         assertTrue(cdh510mr2 instanceof ImpalaComponent);
     }
