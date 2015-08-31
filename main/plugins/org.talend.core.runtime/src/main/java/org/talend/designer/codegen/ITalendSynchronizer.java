@@ -27,37 +27,36 @@ import org.talend.core.model.repository.IRepositoryViewObject;
  */
 public interface ITalendSynchronizer {
 
-    public final static String TEMPLATE = "__TEMPLATE__"; //$NON-NLS-1$
+    String TEMPLATE = "__TEMPLATE__"; //$NON-NLS-1$
 
-    public final static String BEAN_TEMPLATE = "__BEAN_TEMPLATE__"; //$NON-NLS-1$
+    String BEAN_TEMPLATE = "__BEAN_TEMPLATE__"; //$NON-NLS-1$
 
-    public void syncAllRoutines() throws SystemException;
+    void syncAllRoutines() throws SystemException;
 
-    public void syncAllRoutinesForLogOn() throws SystemException;
+    void syncAllRoutinesForLogOn() throws SystemException;
 
-    public void syncAllPigudf() throws SystemException;
+    void syncAllPigudf() throws SystemException;
 
-    public void syncAllPigudfForLogOn() throws SystemException;
+    void syncAllPigudfForLogOn() throws SystemException;
 
-    public void syncAllBeans() throws SystemException;
+    void syncAllBeans() throws SystemException;
 
-    public void syncAllBeansForLogOn() throws SystemException;
+    void syncAllBeansForLogOn() throws SystemException;
 
-    public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
+    void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
-    public IFile getFile(Item item) throws SystemException;
+    IFile getFile(Item item) throws SystemException;
 
-    public IFile getRoutinesFile(Item routineItem) throws SystemException;
+    IFile getRoutinesFile(Item routineItem) throws SystemException;
 
-    public void forceSyncRoutine(RoutineItem routineItem);
+    void forceSyncRoutine(RoutineItem routineItem);
 
-    public abstract void renameRoutineClass(RoutineItem routineItem);
+    abstract void renameRoutineClass(RoutineItem routineItem);
 
-    public abstract void renamePigudfClass(PigudfItem routineItem, String oldLabel);
+    abstract void renamePigudfClass(PigudfItem routineItem, String oldLabel);
 
-    public abstract void renameBeanClass(Item beanItem);
+    void deleteRoutinefile(IRepositoryViewObject objToDelete);
 
-    public void deleteRoutinefile(IRepositoryViewObject objToDelete);
+    void deleteBeanfile(IRepositoryViewObject objToDelete);
 
-    public void deleteBeanfile(IRepositoryViewObject objToDelete);
 }

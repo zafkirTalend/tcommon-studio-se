@@ -719,15 +719,6 @@ public class DuplicateAction extends AContextualAction {
                     if (newItem instanceof RoutineItem) {
                         synDuplicatedRoutine((RoutineItem) newItem, item.getProperty().getLabel());
                     }// end
-                    ICamelDesignerCoreService service = null;
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                        service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                ICamelDesignerCoreService.class);
-                    }
-                    if (service != null && service.isInstanceofCamelBeans(item)) {
-                        // for camel
-                        synDuplicatedBean(newItem);
-                    }
                     if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
                         RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
                     }
@@ -820,19 +811,6 @@ public class DuplicateAction extends AContextualAction {
             }
             try {
                 codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
-            } catch (SystemException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-    }
-
-    private void synDuplicatedBean(Item item) {
-        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                ICodeGeneratorService.class);
-        if (codeGenService != null) {
-            codeGenService.createCamelBeanSynchronizer().renameBeanClass(item);
-            try {
-                codeGenService.createCamelBeanSynchronizer().syncRoutine((RoutineItem)item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

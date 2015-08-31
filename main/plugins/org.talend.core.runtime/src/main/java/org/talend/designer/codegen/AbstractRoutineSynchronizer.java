@@ -19,17 +19,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.SystemException;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PigudfItem;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.utils.JavaResourcesHelper;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.core.ICamelDesignerCoreService;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryService;
 
@@ -84,6 +91,42 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         for (ProjectReference projectReference : (Collection<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
             getReferencedProjectRoutine(beansList, new Project(projectReference.getReferencedProject()), routineType);
         }
+    }
+
+    private static IRunProcessService getRunProcessService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
+        return (IRunProcessService) service;
+    }
+
+    protected IFile getRoutineFile(RoutineItem routineItem) throws SystemException {
+        ITalendProcessJavaProject talendProcessJavaProject = getRunProcessService().getTalendProcessJavaProject();
+        if (talendProcessJavaProject == null) {
+            return null;
+        }
+        IFolder routineFolder = talendProcessJavaProject.getSrcSubFolder(null, routineItem.getPackageType());
+        IFile file = routineFolder.getFile(routineItem.getProperty().getLabel() + JavaUtils.JAVA_EXTENSION);
+        return file;
+    }
+
+    private IFile getProcessFile(ProcessItem item) throws SystemException {
+        final ITalendProcessJavaProject talendProcessJavaProject = getRunProcessService().getTalendProcessJavaProject();
+        if (talendProcessJavaProject == null) {
+            return null;
+        }
+        final String jobName = item.getProperty().getLabel();
+        final String folderName = JavaResourcesHelper.getJobFolderName(jobName, item.getProperty().getVersion());
+        return talendProcessJavaProject.getSrcFolder().getFile(
+            JavaResourcesHelper.getProjectFolderName(item) + '/' + folderName + '/' + jobName + JavaUtils.JAVA_EXTENSION);
+    }
+
+    @Override
+    public IFile getFile(Item item) throws SystemException {
+        if (item instanceof RoutineItem) {
+            return getRoutineFile((RoutineItem) item);
+        } else if (item instanceof ProcessItem) {
+            return getProcessFile((ProcessItem) item);
+        }
+        return null;
     }
 
     @Override
@@ -172,14 +215,6 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     public void renamePigudfClass(PigudfItem routineItem, String oldLabel) {
 
     }
-
-    /**
-     * DOC Administrator Comment method "renameBeanClass".
-     * 
-     * @param beanItem
-     */
-    @Override
-    public abstract void renameBeanClass(Item beanItem);
 
     /*
      * (non-Javadoc)

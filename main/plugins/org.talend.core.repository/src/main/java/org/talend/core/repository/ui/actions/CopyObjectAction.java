@@ -59,7 +59,6 @@ import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.codegen.ICodeGeneratorService;
-import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -326,15 +325,6 @@ public class CopyObjectAction {
                             if (newItem instanceof RoutineItem) {
                                 synDuplicatedRoutine((RoutineItem) newItem, item.getProperty().getLabel());
                             }
-                            ICamelDesignerCoreService service = null;
-                            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-                                service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                                        ICamelDesignerCoreService.class);
-                            }
-                            if (service != null && service.isInstanceofCamelBeans(item)) {
-                                // for camel
-                                synDuplicatedBean(newItem);
-                            }
                             if (newItem instanceof ProcessItem || newItem instanceof JobletProcessItem) {
                                 RelationshipItemBuilder.getInstance().addOrUpdateItem(newItem);
                             }
@@ -478,19 +468,6 @@ public class CopyObjectAction {
             codeGenService.createRoutineSynchronizer().renamePigudfClass(item, oldLabel);
             try {
                 codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
-            } catch (SystemException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-    }
-
-    private void synDuplicatedBean(Item item) {
-        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                ICodeGeneratorService.class);
-        if (codeGenService != null) {
-            codeGenService.createCamelBeanSynchronizer().renameBeanClass(item);
-            try {
-                codeGenService.createCamelBeanSynchronizer().syncRoutine((RoutineItem)item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }
