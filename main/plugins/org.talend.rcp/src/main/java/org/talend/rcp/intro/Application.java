@@ -47,6 +47,7 @@ import org.osgi.service.prefs.Preferences;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.system.EclipseCommandLine;
+import org.talend.core.BrandingChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.repository.CoreRepositoryPlugin;
@@ -60,6 +61,7 @@ import org.talend.registration.RegistrationPlugin;
 import org.talend.registration.license.LicenseManagement;
 import org.talend.registration.wizards.license.LicenseWizard;
 import org.talend.registration.wizards.license.LicenseWizardDialog;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.ui.login.LoginHelper;
 
@@ -162,7 +164,22 @@ public class Application implements IApplication {
                 IPreferenceStore store = PlatformUI.getPreferenceStore();
                 store.putValue(IWorkbenchPreferenceConstants.PRESENTATION_FACTORY_ID, "org.talend.rcp.presentationfactory"); //$NON-NLS-1$
             }
-            
+            // clean the clearPersistedState if branding or project type change
+            IPreferenceStore store = PlatformUI.getPreferenceStore();
+            String lastProjectType = store.getString("last_started_project_type");
+            String projectType = ProjectManager.getInstance().getCurrentProject().getEmfProject().getType();
+            if (projectType == null) {
+                // for local project
+                projectType = System.getProperty("talend.branding.type");
+            }
+            if (lastProjectType != null && !"".equals(lastProjectType) && !lastProjectType.equals(projectType)
+                    || BrandingChecker.isBrandingChanged()) {
+                if (projectType != null) {
+                    store.putValue("last_started_project_type", projectType);
+                }
+                System.setProperty("clearPersistedState", Boolean.TRUE.toString());
+            }
+
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
                 // use relaunch instead of restart to remove change the restart property that may have been added in the
