@@ -42,6 +42,7 @@ import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -454,33 +455,11 @@ public class PomUtil {
         }
     }
 
-    public static List<String> getMavenCodesModules(IProcessor processor) {
-        List<String> codesModules = new ArrayList<String>();
-
-        // add routines always.
-        String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
-        codesModules.add(routinesModule);
-
-        // Beans
-        if (isRequiredBeans(processor)) {
-            String beansModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
-            codesModules.add(beansModule);
-        }
-
-        // PigUDFs
-        if (isRequiredPigUDF(processor)) {
-            String pigudfsModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
-            codesModules.add(pigudfsModule);
-        }
-        return codesModules;
-    }
-
-    public static boolean isRequiredBeans(IProcessor processor) {
+    public static boolean isRequiredBeans(IProcess process) {
         boolean needBeans = false;
-        if (processor == null) {
+        if (process == null) {
             needBeans = true; // only check have the pigudf items.
         } else {
-            IProcess process = processor.getProcess();
             if (process instanceof IProcess2) {
                 Property property = ((IProcess2) process).getProperty();
                 if (property != null) { // same as isStandardJob in JavaProcessor
@@ -510,12 +489,11 @@ public class PomUtil {
         return false;
     }
 
-    public static boolean isRequiredPigUDF(IProcessor processor) {
+    public static boolean isRequiredPigUDF(IProcess process) {
         boolean needPigUDF = false;
-        if (processor == null) {
+        if (process == null) {
             needPigUDF = true; // only check have the pigudf items.
         } else {
-            IProcess process = processor.getProcess();
             if (process instanceof IProcess2) {
                 Property property = ((IProcess2) process).getProperty();
                 if (property != null) { // same as isStandardJob in JavaProcessor
@@ -545,5 +523,41 @@ public class PomUtil {
         }
 
         return false;
+    }
+
+    public static List<String> getMavenCodesModules(IProcess process) {
+        List<String> codesModules = new ArrayList<String>();
+
+        // add routines always.
+        String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
+        codesModules.add(routinesModule);
+
+        // Beans
+        if (isRequiredBeans(process)) {
+            String beansModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
+            codesModules.add(beansModule);
+        }
+
+        // PigUDFs
+        if (isRequiredPigUDF(process)) {
+            String pigudfsModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
+            codesModules.add(pigudfsModule);
+        }
+        return codesModules;
+    }
+
+    public static List<String> getCodesExportJars(IProcess process) {
+        List<String> codesJars = new ArrayList<String>();
+        // add routines always.
+        codesJars.add(JavaUtils.ROUTINES_JAR);
+        // pigudf
+        if (isRequiredPigUDF(process)) {
+            codesJars.add(JavaUtils.USER_PIGUDF_JAR);
+        }
+        // beans
+        if (isRequiredBeans(process)) {
+            codesJars.add(JavaUtils.USER_BEANS_JAR);
+        }
+        return codesJars;
     }
 }

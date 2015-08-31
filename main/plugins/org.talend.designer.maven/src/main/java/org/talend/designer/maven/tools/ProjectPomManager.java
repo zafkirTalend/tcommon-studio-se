@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
@@ -77,6 +78,9 @@ public class ProjectPomManager {
             // create it or nothing to do?
             return;
         }
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
         Model projectModel = MODEL_MANAGER.readMavenModel(projectPomFile);
 
         // attributes
@@ -118,7 +122,7 @@ public class ProjectPomManager {
         }
         List<String> modulesList = new ArrayList<String>();
 
-        List<String> codesModules = PomUtil.getMavenCodesModules(processor);
+        List<String> codesModules = PomUtil.getMavenCodesModules(processor != null ? processor.getProcess() : null);
         for (String module : codesModules) {
             modulesList.add(module);
         }

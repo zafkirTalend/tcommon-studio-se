@@ -29,6 +29,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
@@ -40,6 +44,7 @@ import org.talend.designer.maven.tools.creator.CreateMavenBundleTemplatePom;
 import org.talend.designer.maven.tools.creator.CreateMavenPigUDFPom;
 import org.talend.designer.maven.tools.creator.CreateMavenRoutinePom;
 import org.talend.designer.maven.utils.PomUtil;
+import org.talend.designer.runprocess.IProcessor;
 import org.talend.utils.io.FilesUtils;
 
 /**
@@ -193,22 +198,31 @@ public class MavenPomSynchronizer {
         fullCleanupContainer(codeProject.getTestsFolder());
 
         // when clean, regenerate it.
-        syncRoutinesPom(true);
-        if (PomUtil.isRequiredBeans(null)) {
-            syncBeansPom(true);
-        }
-        if (PomUtil.isRequiredPigUDF(null)) {
-            syncPigUDFsPom(true);
-        }
-
-        // finally, update project
-        ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());
-        projectManager.update(monitor, null);
+        updateCodesPomWithProject(monitor, null);
 
         // try to compile it.
         final Map<String, Object> argumentsMap = new HashMap<String, Object>();
         argumentsMap.put(TalendProcessArgumentConstant.ARG_GOAL, TalendMavenConstants.GOAL_COMPILE);
         codeProject.buildModules(monitor, null, argumentsMap);
+
+        //
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesService.class);
+            libService.addChangeLibrariesListener(new ILibrariesService.IChangedLibrariesListener() {
+
+                @Override
+                public void afterChangingLibraries() {
+                    try {
+                        // update the dependencies
+                        updateCodesPomWithProject(null, null);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            });
+
+        }
     }
 
     private void fullCleanupContainer(IContainer container) {
@@ -234,5 +248,22 @@ public class MavenPomSynchronizer {
                 }
             }
         }
+    }
+
+    public void syncCodesPoms(IProgressMonitor monitor, IProcess process, boolean overwrite) throws Exception {
+        syncRoutinesPom(overwrite);
+        if (PomUtil.isRequiredBeans(process)) {
+            syncBeansPom(overwrite);
+        }
+        if (PomUtil.isRequiredPigUDF(process)) {
+            syncPigUDFsPom(overwrite);
+        }
+    }
+
+    private void updateCodesPomWithProject(IProgressMonitor monitor, IProcessor processor) throws Exception {
+        syncCodesPoms(monitor, processor != null ? processor.getProcess() : null, true);
+        // finally, update project
+        ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());
+        projectManager.update(monitor, processor);
     }
 }

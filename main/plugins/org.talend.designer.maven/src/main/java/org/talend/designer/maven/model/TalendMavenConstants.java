@@ -139,9 +139,9 @@ public interface TalendMavenConstants {
 
     static final String DEFAULT_ROUTINES_ARTIFACT_ID = JavaUtils.ROUTINE_JAR_NAME;
 
-    static final String DEFAULT_BEANS_ARTIFACT_ID = "beans"; // JavaUtils.BEANS_JAR_NAME;
+    static final String DEFAULT_BEANS_ARTIFACT_ID = JavaUtils.BEANS_JAR_NAME;
 
-    static final String DEFAULT_PIGUDFS_ARTIFACT_ID = "pigudfs"; // JavaUtils.PIGUDFS_JAR_NAME;
+    static final String DEFAULT_PIGUDFS_ARTIFACT_ID = JavaUtils.PIGUDFS_JAR_NAME;
 
     /*
      * for job
