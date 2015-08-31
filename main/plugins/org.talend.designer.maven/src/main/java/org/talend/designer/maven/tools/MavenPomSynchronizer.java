@@ -29,6 +29,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
@@ -178,6 +181,27 @@ public class MavenPomSynchronizer {
         final Map<String, Object> argumentsMap = new HashMap<String, Object>();
         argumentsMap.put(TalendProcessArgumentConstant.ARG_GOAL, TalendMavenConstants.GOAL_COMPILE);
         codeProject.buildModules(monitor, null, argumentsMap);
+
+        // when routines
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                    ILibrariesService.class);
+            libService.addChangeLibrariesListener(new ILibrariesService.IChangedLibrariesListener() {
+
+                @Override
+                public void afterChangingLibraries() {
+                    try {
+                        // update the dependencies
+                        syncRoutinesPom(true);
+                        ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());
+                        projectManager.update(null, null);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                    }
+                }
+            });
+        }
+
     }
 
     private void fullCleanupContainer(IContainer container) {
