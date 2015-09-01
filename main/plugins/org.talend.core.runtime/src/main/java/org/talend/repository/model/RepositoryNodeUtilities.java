@@ -24,9 +24,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.gmf.util.DisplayUtils;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.IHadoopClusterService;
@@ -59,8 +59,6 @@ import org.talend.repository.ui.views.IRepositoryView;
  */
 public class RepositoryNodeUtilities {
 
-    private final static String[] METADATA_LABELS = new String[] {};
-
     private static IHadoopClusterService hadoopClusterService = null;
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
@@ -69,7 +67,7 @@ public class RepositoryNodeUtilities {
         }
     }
 
-    public static IPath getPath(RepositoryNode node) {
+    public static IPath getPath(final IRepositoryNode node) {
         if (node == null) {
             return null;
         }
