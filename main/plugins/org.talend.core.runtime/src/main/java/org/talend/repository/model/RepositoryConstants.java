@@ -44,7 +44,7 @@ public class RepositoryConstants {
 
     public static final String USER_DEFINED = "UserDefined"; //$NON-NLS-1$
 
-    public static final String CONTEXT_AND_VARIABLE_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
+    public static final String CONTEXT_AND_VARIABLE_PATTERN = "^[a-zA-Z\\_]+[a-zA-Z0-9\\_]*$";//$NON-NLS-1$
 
     public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$"; //$NON-NLS-1$
 
