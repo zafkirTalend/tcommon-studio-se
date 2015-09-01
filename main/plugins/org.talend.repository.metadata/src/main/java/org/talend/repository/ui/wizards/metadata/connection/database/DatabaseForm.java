@@ -4931,8 +4931,10 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.HiveDriveClass, hasAuthentication());
             addContextParams(EDBParamName.HiveUserName, hasAuthentication());
             addContextParams(EDBParamName.HivePassword, hasAuthentication());
-            addContextParams(EDBParamName.HiveKeyTabPrincipal, hasAuthentication() && useKeyTab.getSelection());
-            addContextParams(EDBParamName.HiveKeyTab, hasAuthentication() && useKeyTab.getSelection());
+            addContextParams(EDBParamName.HiveKeyTabPrincipal, isCurrentDbSupportAuthentication() && useKerberos.getSelection()
+                    && useKeyTab.getSelection());
+            addContextParams(EDBParamName.HiveKeyTab, isCurrentDbSupportAuthentication() && useKerberos.getSelection()
+                    && useKeyTab.getSelection());
         }
     }
 
