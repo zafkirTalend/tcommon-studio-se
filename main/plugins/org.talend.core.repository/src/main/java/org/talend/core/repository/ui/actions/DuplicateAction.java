@@ -373,7 +373,8 @@ public class DuplicateAction extends AContextualAction {
         } else {
             ERepositoryObjectType repositoryType = node.getObjectType();
             if (repositoryType != null) {
-                if ((repositoryType == ERepositoryObjectType.PROCESS)) {
+                if (repositoryType == ERepositoryObjectType.PROCESS || repositoryType == ERepositoryObjectType.PROCESS_STORM
+                        || repositoryType == ERepositoryObjectType.PROCESS_MR) {
                     try {
                         List<IRepositoryViewObject> listExistingObjects = repositoryFactory.getAll(ERepositoryObjectType.PROCESS,
                                 true, false);
@@ -385,9 +386,10 @@ public class DuplicateAction extends AContextualAction {
                             listExistingObjects.addAll(repositoryFactory.getAll(ERepositoryObjectType.PROCESS_MR, true, false));
                         }
 
-                        if (((RepositoryNode) selectionInClipboard.toArray()[0]).getObject().getProperty() != null
-                                && !repositoryFactory.isNameAvailable(((RepositoryNode) selectionInClipboard.toArray()[0])
-                                        .getObject().getProperty().getItem(), itemName, listExistingObjects)) {
+                        Property property = ((RepositoryNode) selectionInClipboard.toArray()[0]).getObject().getProperty();
+                        if (property != null
+                                && (!repositoryFactory.isNameAvailable(property.getItem(), itemName, listExistingObjects) || itemName
+                                        .equals(property.getLabel()))) {
                             return Messages.getString("DuplicateAction.ItemExistsError");//$NON-NLS-1$
                         }
                     } catch (PersistenceException e1) {
