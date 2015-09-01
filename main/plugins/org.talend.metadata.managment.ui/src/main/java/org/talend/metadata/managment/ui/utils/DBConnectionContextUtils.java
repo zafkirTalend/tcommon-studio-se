@@ -836,7 +836,8 @@ public final class DBConnectionContextUtils {
             } else {
                 template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
             }
-            String newURl = DatabaseConnStrUtil.getHiveURLString(dbConn, server, port, sidOrDatabase, template);
+            // the original value is a contexted value
+            String newURl = DatabaseConnStrUtil.getHiveURLString(cloneConn, server, port, sidOrDatabase, template);
 
             cloneConn.setURL(newURl);
             return cloneConn;
