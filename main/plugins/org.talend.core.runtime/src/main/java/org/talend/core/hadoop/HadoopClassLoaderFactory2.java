@@ -137,7 +137,7 @@ public class HadoopClassLoaderFactory2 {
         }
     }
 
-    public static ClassLoader getClassLoader(String relatedClusterId, EHadoopCategory category, String distribution,
+    public static synchronized ClassLoader getClassLoader(String relatedClusterId, EHadoopCategory category, String distribution,
             String version, boolean useKrb, String... extraArgs) {
         Builder builder = HadoopClassLoaderFactory2.builder().withTypePrefix(category.getName()).withDistribution(distribution)
                 .withVersion(version);
@@ -158,7 +158,7 @@ public class HadoopClassLoaderFactory2 {
         return classLoader;
     }
 
-    private static ClassLoader getClassLoader(String index, Object extraJars, boolean showDownloadIfNotExist) {
+    private static synchronized ClassLoader getClassLoader(String index, Object extraJars, boolean showDownloadIfNotExist) {
         ClassLoader loader = null;
         if (index.startsWith(EHadoopCategory.CUSTOM.getName())) {
             loader = getCustomClassLoader(index, extraJars, showDownloadIfNotExist);
@@ -173,7 +173,7 @@ public class HadoopClassLoaderFactory2 {
     }
 
     @SuppressWarnings("unchecked")
-    private static ClassLoader getCustomClassLoader(String index, Object customJars, boolean showDownloadIfNotExist) {
+    private static synchronized ClassLoader getCustomClassLoader(String index, Object customJars, boolean showDownloadIfNotExist) {
         if (customJars instanceof Set) {
             return ClassLoaderFactory.getCustomClassLoader(index, (Set<String>) customJars);
         }
