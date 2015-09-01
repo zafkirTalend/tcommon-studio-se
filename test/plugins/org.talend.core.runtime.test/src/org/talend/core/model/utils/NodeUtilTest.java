@@ -21,6 +21,7 @@ import org.talend.core.model.metadata.DummyMetadataTalendTypeFilter;
 import org.talend.core.model.metadata.MetadataTalendTypeFilter;
 import org.talend.core.model.metadata.MrMetadataTalendTypeFilter;
 import org.talend.core.model.metadata.SparkMetadataTalendTypeFilter;
+import org.talend.core.model.metadata.StormMetadataTalendTypeFilter;
 import org.talend.core.model.process.INode;
 import org.talend.designer.core.model.components.DummyComponent;
 import org.talend.designer.core.model.process.DataNode;
@@ -107,7 +108,7 @@ public class NodeUtilTest {
 
         filter = NodeUtil.createMetadataTalendTypeFilter(node);
 
-        assertTrue(filter instanceof SparkMetadataTalendTypeFilter);
+        assertTrue(filter instanceof StormMetadataTalendTypeFilter);
 
     }
 }

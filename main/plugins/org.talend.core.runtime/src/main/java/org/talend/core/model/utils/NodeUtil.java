@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendTypeFilter;
 import org.talend.core.model.metadata.MrMetadataTalendTypeFilter;
 import org.talend.core.model.metadata.SparkMetadataTalendTypeFilter;
+import org.talend.core.model.metadata.StormMetadataTalendTypeFilter;
 import org.talend.core.model.process.AbstractNode;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.EParameterFieldType;
@@ -43,7 +44,7 @@ import org.talend.core.model.process.IProcess;
 
 /**
  * DOC xtan class global comment. Detailled comment <br/>
- * 
+ *
  */
 public class NodeUtil {
 
@@ -55,7 +56,7 @@ public class NodeUtil {
      * <li>"EConnectionType.FLOW_MAIN(FLOW), EConnectionType.FLOW_REF(REJECT)"</li>
      * <li>"EConnectionType.FLOW_MAIN(REJECT), EConnectionType.FLOW_REF(FLOW)"</li>, make FLOW before "REJECT"
      * </p>
-     * 
+     *
      * @param node
      * @return List<? extends IConnection>
      */
@@ -154,7 +155,7 @@ public class NodeUtil {
 
     /**
      * DOC get the EConnectionType.FLOW_MAIN or EConnectionType.FLOW_REF out goning Connections<br/>
-     * 
+     *
      * @param node
      * @return List<? extends IConnection>
      */
@@ -198,7 +199,7 @@ public class NodeUtil {
 
     /**
      * DOC get the EConnectionType.FLOW_MAIN in coming Connections<br/>
-     * 
+     *
      * @param node
      * @return INode
      */
@@ -251,9 +252,9 @@ public class NodeUtil {
     }
 
     /**
-     * 
+     *
      * wzhang Comment method "getIncomingConnections".
-     * 
+     *
      * @param node
      * @param category
      * @return
@@ -367,7 +368,7 @@ public class NodeUtil {
      * InLineJob means all nodes after a iterate link(The nodes will execute many times on every iterate).
      * </p>
      * Notice: The search method don't consider the second branch of the tUnite, but it is ok.
-     * 
+     *
      * @param node
      * @return
      */
@@ -447,20 +448,20 @@ public class NodeUtil {
      * <p>
      * notice: 1. the node is not in main branch, so there is not possible to have ON_SUBJOB_OK/ON_COMPONENT_OK in
      * start.
-     * 
+     *
      * 2. if there are two or more tUnite components, it will be tHash virtual component, no inner link in this virtual
      * component
-     * 
+     *
      * 3. if there have tIteratToFlow component, no inner link ,as this component also adapt to Merge connection.
      * </p>
      * <p>
      * return: 1. if there have another virtual component(ON_COMPONENT_OK) in the incoming connection, it will be
      * returned.
-     * 
+     *
      * 2. if there have not another virtual component(ON_COMPENT_OK), it will return the start node as it ignore other
      * type of virtual components
      * </p>
-     * 
+     *
      * @param node
      * @return node
      */
@@ -539,7 +540,7 @@ public class NodeUtil {
      * judge if the current connection is the last output connection of the component
      * </p>
      * Notice: It is used in subtree_end.javajet. And the aim is for feature5996
-     * 
+     *
      * @param connection
      * @return
      */
@@ -563,10 +564,10 @@ public class NodeUtil {
     }
 
     /**
-     * 
+     *
      * judge if the current node is in the last branch Notice: It is only used in tPigStoreResult. And the aim is for
      * TDI-25120
-     * 
+     *
      * @param node
      * @return
      */
@@ -659,7 +660,7 @@ public class NodeUtil {
      * avoid 65535 bytes in a method
      * </p>
      * Notice: It is used in tFileOutputMSXML in TDI-21606
-     * 
+     *
      * @param connection
      * @return
      */
@@ -690,7 +691,7 @@ public class NodeUtil {
      * function:get the node from generating nodes by unique name. aim:to get the property value from any node.
      * </p>
      * Notice: It is used to get property values from the pointed node.
-     * 
+     *
      * @param node:node from the job @param uniqueName:the unique name of the pointed node.
      * @return
      */
@@ -706,11 +707,11 @@ public class NodeUtil {
      * value from any node.
      * </p>
      * Notice: It is used to get property values from the pointed node we can also get the virtual node.
-     * 
+     *
      * @param process: a job process
      * @param uniqueName:the unique name of the pointed node.
      * @param isReturnVirtualNode: specify whether return the virtual node.
-     * 
+     *
      * @return
      */
     public static INode getNodeByUniqueName(final IProcess process, String uniqueName, boolean isReturnVirtualNode) {
@@ -728,9 +729,9 @@ public class NodeUtil {
     }
 
     /**
-     * 
+     *
      * DOC liuwu find all the tRecollectors which match to tPartitioner
-     * 
+     *
      * @param node : should be tPartitioner
      * @param recollectors
      */
@@ -935,9 +936,9 @@ public class NodeUtil {
     }
 
     /**
-     * 
+     *
      * DOC liuwu Comment method "replaceMEMO_SQL". aim: to resolve TDI-7487
-     * 
+     *
      * @param original
      * @return
      */
@@ -977,9 +978,9 @@ public class NodeUtil {
     }
 
     /**
-     * 
+     *
      * add it for TDI-28503
-     * 
+     *
      * @param departitioner node in collector subprocess
      * @return collector node as the start node
      */
@@ -1038,9 +1039,9 @@ public class NodeUtil {
     }
 
     /**
-     * 
+     *
      * DOC rdubois Comment method "isBigDataFrameworkNode".
-     * 
+     *
      * @return true if a Node is a BigData framework component.
      */
     public static boolean isBigDataFrameworkNode(INode node) {
@@ -1056,7 +1057,7 @@ public class NodeUtil {
     /**
      * This static method is a factory for the MetadataTalendTypeFilter extensions. DOC rdubois Comment method
      * "createMetadataTalendTypeFilter".
-     * 
+     *
      * @param outputNode
      * @return
      */
@@ -1066,9 +1067,11 @@ public class NodeUtil {
             if (ComponentCategory.CATEGORY_4_MAPREDUCE == cat) {
                 return new MrMetadataTalendTypeFilter();
             }
-            if (ComponentCategory.CATEGORY_4_STORM == cat || ComponentCategory.CATEGORY_4_SPARK == cat
-                    || ComponentCategory.CATEGORY_4_SPARKSTREAMING == cat) {
+            if (ComponentCategory.CATEGORY_4_SPARK == cat || ComponentCategory.CATEGORY_4_SPARKSTREAMING == cat) {
                 return new SparkMetadataTalendTypeFilter(node.getComponent().getName());
+            }
+            if (ComponentCategory.CATEGORY_4_STORM == cat) {
+                return new StormMetadataTalendTypeFilter(node.getComponent().getName());
             }
         }
         return new DummyMetadataTalendTypeFilter();

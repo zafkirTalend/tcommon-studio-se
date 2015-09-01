@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,14 +20,25 @@ import java.util.List;
  * created by rdubois on 30 juil. 2015 Detailled comment
  *
  */
-public class DummyMetadataTalendTypeFilter extends MetadataTalendTypeFilter {
+public class StormMetadataTalendTypeFilter extends SparkMetadataTalendTypeFilter {
 
-    // Vector type is only supported by Spark and Spark Streaming.
-    private final static List<String> UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Vector" }); //$NON-NLS-1$
+    private final static List<String> STORM_UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Document", "Dynamic", "Vector" }); //$NON-NLS-1$ //$NON-NLS-2$
+
+    /**
+     * DOC rdubois SparkMetadataTalendTypeFilter constructor comment.
+     *
+     * @param componentName, the current component name the filter applies on.
+     */
+    public StormMetadataTalendTypeFilter(String componentName) {
+        super(componentName);
+    }
 
     @Override
     protected List<String> getUnsupportedTypes() {
-        return UNSUPPORTED_TYPES;
+        List<String> output = new ArrayList<>();
+        output.addAll(super.getUnsupportedTypes());
+        output.addAll(STORM_UNSUPPORTED_TYPES);
+        return output;
     }
 
 }
