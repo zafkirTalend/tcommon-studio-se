@@ -983,8 +983,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
                         duplicateLocationJar.add(module.getModuleName());
                     }
                 }
-                libsToRelativePath.put(module.getModuleName(), moduleLocation);
-                libsToRelativeAll.put(module.getModuleName(), moduleLocation);
+                if (checkJarInstalledFromPlatform(moduleLocation)) {
+                    libsToRelativePath.put(module.getModuleName(), moduleLocation);
+                    libsToRelativeAll.put(module.getModuleName(), moduleLocation);
+                } else {
+                    libsWithoutUri.add(module.getModuleName());
+                }
             } else {
                 if (libsWithoutUri != null) {
                     libsWithoutUri.add(module.getModuleName());
