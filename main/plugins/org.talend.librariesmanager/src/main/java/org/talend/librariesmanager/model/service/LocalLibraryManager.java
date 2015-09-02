@@ -794,7 +794,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
         Set<String> duplicateLocationJar = new HashSet<String>();
         Set<String> duplicateMavenUri = new HashSet<String>();
         List<ModuleNeeded> modulesNeededForApplication = ModulesNeededProvider.getModulesNeededForApplication();
-        deployIndex(modulesNeededForApplication, null, libsToRelativePath, duplicateLocationJar, libsToMavenUri,
+        Set<String> libsWithoutUri = new HashSet<String>();
+        deployIndex(modulesNeededForApplication, libsWithoutUri, libsToRelativePath, duplicateLocationJar, libsToMavenUri,
                 duplicateMavenUri);
         if (!duplicateLocationJar.isEmpty()) {
             warnDuplicated(modulesNeededForApplication, duplicateLocationJar, "Library:");
