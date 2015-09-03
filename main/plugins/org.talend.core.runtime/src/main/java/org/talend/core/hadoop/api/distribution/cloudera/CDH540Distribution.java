@@ -160,4 +160,9 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
     public boolean doSupportDynamicMemoryAllocation() {
         return true;
     }
+
+    @Override
+    public boolean isExecutedThroughSparkJobServer() {
+        return false;
+    }
 }

@@ -140,4 +140,9 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
     public boolean doSupportDynamicMemoryAllocation() {
         return true;
     }
+
+    @Override
+    public boolean isExecutedThroughSparkJobServer() {
+        return false;
+    }
 }

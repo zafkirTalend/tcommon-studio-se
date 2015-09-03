@@ -145,4 +145,9 @@ public class MapR410Distribution extends AbstractMapRDistribution implements HDF
     public boolean doSupportDynamicMemoryAllocation() {
         return false;
     }
+
+    @Override
+    public boolean isExecutedThroughSparkJobServer() {
+        return false;
+    }
 }

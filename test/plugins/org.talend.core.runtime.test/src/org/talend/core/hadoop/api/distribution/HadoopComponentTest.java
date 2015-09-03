@@ -293,8 +293,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh510mr2).doSupportParquetFormat());
         assertFalse(((SparkBatchComponent) cdh510mr2).isSpark14());
         assertFalse(((SparkBatchComponent) cdh510mr2).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkBatchComponent) cdh510mr2).isExecutedThroughSparkJobServer());
         assertFalse(((SparkStreamingComponent) cdh510mr2).isSpark14());
         assertFalse(((SparkStreamingComponent) cdh510mr2).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkStreamingComponent) cdh510mr2).isExecutedThroughSparkJobServer());
         assertTrue(cdh510mr2 instanceof HCatalogComponent);
         assertTrue(cdh510mr2 instanceof ImpalaComponent);
     }
@@ -333,8 +335,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) cdh540).doSupportParquetFormat());
         assertFalse(((SparkBatchComponent) cdh540).isSpark14());
         assertTrue(((SparkBatchComponent) cdh540).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkBatchComponent) cdh540).isExecutedThroughSparkJobServer());
         assertFalse(((SparkStreamingComponent) cdh540).isSpark14());
         assertTrue(((SparkStreamingComponent) cdh540).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkStreamingComponent) cdh540).isExecutedThroughSparkJobServer());
         assertTrue(cdh540 instanceof HCatalogComponent);
         assertTrue(cdh540 instanceof ImpalaComponent);
     }
@@ -824,6 +828,7 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) mapr410).doSupportParquetFormat());
         assertFalse(((SparkBatchComponent) mapr410).isSpark14());
         assertFalse(((SparkBatchComponent) mapr410).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkBatchComponent) mapr410).isExecutedThroughSparkJobServer());
         assertFalse(mapr410 instanceof SparkStreamingComponent);
         assertTrue(mapr410 instanceof HCatalogComponent);
         assertFalse(mapr410 instanceof ImpalaComponent);
@@ -964,7 +969,11 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) emr400).doSupportAvroFormat());
         assertTrue(((HiveComponent) emr400).doSupportParquetFormat());
         assertTrue(((SparkBatchComponent) emr400).isSpark14());
+        assertTrue(((SparkBatchComponent) emr400).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkBatchComponent) emr400).isExecutedThroughSparkJobServer());
         assertTrue(((SparkStreamingComponent) emr400).isSpark14());
+        assertTrue(((SparkStreamingComponent) emr400).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkStreamingComponent) emr400).isExecutedThroughSparkJobServer());
         assertFalse(emr400 instanceof HCatalogComponent);
         assertFalse(emr400 instanceof ImpalaComponent);
     }
@@ -1111,7 +1120,9 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) hdinsight320).doSupportORCFormat());
         assertTrue(((HiveComponent) hdinsight320).doSupportAvroFormat());
         assertTrue(((HiveComponent) hdinsight320).doSupportParquetFormat());
-        assertFalse(hdinsight320 instanceof SparkBatchComponent);
+        assertFalse(((SparkBatchComponent) hdinsight320).isSpark14());
+        assertFalse(((SparkBatchComponent) hdinsight320).doSupportDynamicMemoryAllocation());
+        assertTrue(((SparkBatchComponent) hdinsight320).isExecutedThroughSparkJobServer());
         assertFalse(hdinsight320 instanceof SparkStreamingComponent);
         assertFalse(hdinsight320 instanceof HCatalogComponent);
         assertFalse(hdinsight320 instanceof ImpalaComponent);
@@ -1151,8 +1162,10 @@ public class HadoopComponentTest {
         assertTrue(((HiveComponent) custom).doSupportParquetFormat());
         assertFalse(((SparkBatchComponent) custom).isSpark14());
         assertTrue(((SparkBatchComponent) custom).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkBatchComponent) custom).isExecutedThroughSparkJobServer());
         assertFalse(((SparkStreamingComponent) custom).isSpark14());
         assertTrue(((SparkStreamingComponent) custom).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkStreamingComponent) custom).isExecutedThroughSparkJobServer());
         assertFalse(custom instanceof HCatalogComponent);
         assertFalse(custom instanceof ImpalaComponent);
     }

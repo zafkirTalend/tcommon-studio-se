@@ -38,4 +38,9 @@ public interface SparkComponent extends MRComponent {
      */
     public boolean doSupportDynamicMemoryAllocation();
 
+    /**
+     * @return true if the distribution executes its M/R job through Spark JobServer.
+     */
+    public boolean isExecutedThroughSparkJobServer();
+
 }

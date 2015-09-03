@@ -154,4 +154,9 @@ public class CDH510MR2Distribution extends AbstractDistribution implements HDFSC
     public boolean doSupportDynamicMemoryAllocation() {
         return false;
     }
+
+    @Override
+    public boolean isExecutedThroughSparkJobServer() {
+        return false;
+    }
 }
