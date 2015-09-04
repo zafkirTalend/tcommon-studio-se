@@ -31,6 +31,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.MetadataToolHelper;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -229,11 +230,11 @@ public final class ConvertionHelper {
         // ADD msjian TDQ-5908 2012-9-3:should set the UI parameters
         fillUIParams(result, connection);
         // TDQ-5908~
-      
+
         return result;
 
     }
-    
+
     /**
      * Copies other parameters from <code>DatabaseConnection</code> to <code>IMetadataConnection</code>. Added by Marvin
      * Wang on Aug.8, 2012.
@@ -350,7 +351,7 @@ public final class ConvertionHelper {
             newColumn.setDefault(column.getDefaultValue());
             newColumn.setKey(column.isKey());
             String label2 = column.getLabel();
-            if (KeywordsValidator.isKeyword(label2)) {
+            if (!MetadataToolHelper.isValidColumnName(label2)) {
                 label2 = "_" + label2; //$NON-NLS-1$
             }
             newColumn.setLabel(label2);
