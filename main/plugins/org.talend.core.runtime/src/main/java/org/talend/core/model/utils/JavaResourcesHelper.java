@@ -127,20 +127,7 @@ public class JavaResourcesHelper {
      */
     public static String getGroupName(String projectName) {
 
-        String itemGroupPrefixName = "org."; //$NON-NLS-1$
-        String corporationName = null;
-        IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
-        if (service != null) {
-            corporationName = service.getCorporationName();
-            if (corporationName != null) {
-                corporationName = corporationName.trim();
-            }
-        }
-        if (corporationName == null || corporationName.length() == 0) {
-            corporationName = "talend"; //$NON-NLS-1$
-        }
-        itemGroupPrefixName += corporationName;
-
+        String itemGroupPrefixName = "org.talend"; //$NON-NLS-1$
         if (projectName != null) {
             itemGroupPrefixName += '.' + projectName;
         }
