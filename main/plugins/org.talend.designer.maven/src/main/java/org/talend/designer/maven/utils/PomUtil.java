@@ -44,16 +44,12 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
-import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
@@ -63,8 +59,6 @@ import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.tools.repo.LocalRepositoryManager;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IProxyRepositoryService;
 
 /**
  * created by ggu on 6 Feb 2015 Detailled comment
@@ -455,76 +449,6 @@ public class PomUtil {
         }
     }
 
-    public static boolean isRequiredBeans(IProcess process) {
-        boolean needBeans = false;
-        if (process == null) {
-            needBeans = true; // only check have the pigudf items.
-        } else {
-            if (process instanceof IProcess2) {
-                Property property = ((IProcess2) process).getProperty();
-                if (property != null) { // same as isStandardJob in JavaProcessor
-                    ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
-                    // route job
-                    if (itemType != null && itemType.equals(ERepositoryObjectType.valueOf("ROUTES"))) {//$NON-NLS-1$
-                        needBeans = true;
-                    }
-                }
-            }
-        }
-
-        if (needBeans && GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
-            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IProxyRepositoryService.class);
-            ERepositoryObjectType beansType = ERepositoryObjectType.valueOf("BEANS"); //$NON-NLS-1$
-            try {
-                IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-                List<IRepositoryViewObject> all = factory.getAll(beansType);
-                if (!all.isEmpty()) { // has bean
-                    return true;
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-        return false;
-    }
-
-    public static boolean isRequiredPigUDF(IProcess process) {
-        boolean needPigUDF = false;
-        if (process == null) {
-            needPigUDF = true; // only check have the pigudf items.
-        } else {
-            if (process instanceof IProcess2) {
-                Property property = ((IProcess2) process).getProperty();
-                if (property != null) { // same as isStandardJob in JavaProcessor
-                    // only for tPigMap?
-                    for (INode n : process.getGeneratingNodes()) {
-                        if (n.getComponent().getName().equals("tPigMap")) {
-                            needPigUDF = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (needPigUDF && GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
-            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IProxyRepositoryService.class);
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            try {
-                List<IRepositoryViewObject> pigUdfsObjects = factory.getAll(ERepositoryObjectType.PIG_UDF);
-                if (!pigUdfsObjects.isEmpty()) {
-                    return true;
-                }
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
-        return false;
-    }
-
     public static List<String> getMavenCodesModules(IProcess process) {
         List<String> codesModules = new ArrayList<String>();
 
@@ -532,17 +456,18 @@ public class PomUtil {
         String routinesModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
         codesModules.add(routinesModule);
 
+        // PigUDFs
+        if (ProcessUtils.isRequiredPigUDFs(process)) {
+            String pigudfsModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
+            codesModules.add(pigudfsModule);
+        }
+
         // Beans
-        if (isRequiredBeans(process)) {
+        if (ProcessUtils.isRequiredBeans(process)) {
             String beansModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
             codesModules.add(beansModule);
         }
 
-        // PigUDFs
-        if (isRequiredPigUDF(process)) {
-            String pigudfsModule = PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
-            codesModules.add(pigudfsModule);
-        }
         return codesModules;
     }
 
@@ -550,12 +475,14 @@ public class PomUtil {
         List<String> codesJars = new ArrayList<String>();
         // add routines always.
         codesJars.add(JavaUtils.ROUTINES_JAR);
-        // pigudf
-        if (isRequiredPigUDF(process)) {
+
+        // PigUDFs
+        if (ProcessUtils.isRequiredPigUDFs(process)) {
             codesJars.add(JavaUtils.PIGUDFS_JAR);
         }
-        // beans
-        if (isRequiredBeans(process)) {
+
+        // Beans
+        if (ProcessUtils.isRequiredBeans(process)) {
             codesJars.add(JavaUtils.BEANS_JAR);
         }
         return codesJars;

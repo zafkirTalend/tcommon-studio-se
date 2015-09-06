@@ -444,6 +444,7 @@ public class ProcessorUtilities {
         if (currentProcess != null) {
             // TDI-26513:For the Dynamic schema,need to check the currentProcess(job or joblet)
             checkMetadataDynamic(currentProcess, jobInfo);
+            checkUsePigUDFs(currentProcess, jobInfo);
         }
         Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
                 .getNeededLibrariesForProcess(currentProcess, false);
@@ -465,10 +466,7 @@ public class ProcessorUtilities {
         argumentsMap.put(TalendProcessArgumentConstant.ARG_ENABLE_APPLY_CONTEXT_TO_CHILDREN, jobInfo.isApplyContextToChildren());
         argumentsMap.put(TalendProcessArgumentConstant.ARG_GENERATE_OPTION, option);
 
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS,
-                LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion()));
-        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_RULES,
-                LastGenerationInfo.getInstance().isUseRules(jobInfo.getJobId(), jobInfo.getJobVersion()));
+        setNeededResources(argumentsMap, jobInfo);
 
         processor.setArguments(argumentsMap);
         // generate the code of the father after the childrens
@@ -489,6 +487,15 @@ public class ProcessorUtilities {
         jobInfo.setProcess(null);
         generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
         return processor;
+    }
+
+    private static void setNeededResources(final Map<String, Object> argumentsMap, JobInfo jobInfo) {
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS,
+                LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion()));
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_RULES,
+                LastGenerationInfo.getInstance().isUseRules(jobInfo.getJobId(), jobInfo.getJobVersion()));
+        argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_PIGUDFS,
+                LastGenerationInfo.getInstance().isUsePigUDFs(jobInfo.getJobId(), jobInfo.getJobVersion()));
     }
 
     private static void deleteGeneratedResources(ITalendProcessJavaProject javaProject, String projectPackage,
@@ -532,6 +539,14 @@ public class ProcessorUtilities {
             boolean hasDynamicMetadata = hasMetadataDynamic(currentProcess, jobInfo);
             LastGenerationInfo.getInstance().setUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion(), hasDynamicMetadata);
         }
+    }
+
+    private static void checkUsePigUDFs(IProcess currentProcess, JobInfo jobInfo) {
+        // FIXME, after remove all PigUDFs, won't update the cache. so comment it.
+        // if (!LastGenerationInfo.getInstance().isUsePigUDFs(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+        boolean usePigUDFs = ProcessUtils.isRequiredPigUDFs(currentProcess);
+        LastGenerationInfo.getInstance().setUsePigUDFs(jobInfo.getJobId(), jobInfo.getJobVersion(), usePigUDFs);
+        // }
     }
 
     public static boolean hasMetadataDynamic(IProcess currentProcess, JobInfo jobInfo) {
@@ -769,6 +784,7 @@ public class ProcessorUtilities {
             }
             if (currentProcess != null) {
                 checkMetadataDynamic(currentProcess, jobInfo);
+                checkUsePigUDFs(currentProcess, jobInfo);
             }
 
             Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
@@ -802,10 +818,7 @@ public class ProcessorUtilities {
 
                 processor.setArguments(argumentsMap);
             }
-            argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_XMLMAPPINGS,
-                    LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion()));
-            argumentsMap.put(TalendProcessArgumentConstant.ARG_NEED_RULES,
-                    LastGenerationInfo.getInstance().isUseRules(jobInfo.getJobId(), jobInfo.getJobVersion()));
+            setNeededResources(argumentsMap, jobInfo);
 
             processor.setArguments(argumentsMap);
 
@@ -988,6 +1001,13 @@ public class ProcessorUtilities {
                                         jobInfo.getJobId(),
                                         jobInfo.getJobVersion(),
                                         LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
+                                                subJobInfo.getJobVersion()));
+                            }
+                            if (!LastGenerationInfo.getInstance().isUsePigUDFs(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+                                LastGenerationInfo.getInstance().setUsePigUDFs(
+                                        jobInfo.getJobId(),
+                                        jobInfo.getJobVersion(),
+                                        LastGenerationInfo.getInstance().isUsePigUDFs(subJobInfo.getJobId(),
                                                 subJobInfo.getJobVersion()));
                             }
                         }

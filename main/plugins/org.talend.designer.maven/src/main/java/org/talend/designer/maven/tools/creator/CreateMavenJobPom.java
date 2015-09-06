@@ -392,6 +392,11 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_RULES)) {
             setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_RULES, true);
         }
+        // pigudfs
+        if (isOptionChecked(TalendProcessArgumentConstant.ARG_NEED_PIGUDFS)) {
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_PIGUDFS_JAVA_SOURCES, true);
+            setDefaultActivationForProfile(model, TalendMavenConstants.PROFILE_INCLUDE_PIGUDFS_BINARIES, true);
+        }
     }
 
     private void setDefaultActivationForProfile(Model model, String profileId, boolean activeByDefault) {

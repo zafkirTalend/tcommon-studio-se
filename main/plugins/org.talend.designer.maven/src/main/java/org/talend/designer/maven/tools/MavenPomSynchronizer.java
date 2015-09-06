@@ -33,6 +33,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
@@ -252,11 +253,13 @@ public class MavenPomSynchronizer {
 
     public void syncCodesPoms(IProgressMonitor monitor, IProcess process, boolean overwrite) throws Exception {
         syncRoutinesPom(overwrite);
-        if (PomUtil.isRequiredBeans(process)) {
-            syncBeansPom(overwrite);
-        }
-        if (PomUtil.isRequiredPigUDF(process)) {
+        // PigUDFs
+        if (ProcessUtils.isRequiredPigUDFs(process)) {
             syncPigUDFsPom(overwrite);
+        }
+        // Beans
+        if (ProcessUtils.isRequiredBeans(process)) {
+            syncBeansPom(overwrite);
         }
     }
 

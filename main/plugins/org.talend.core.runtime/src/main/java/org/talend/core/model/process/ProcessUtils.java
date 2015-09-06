@@ -54,6 +54,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryService;
 
 /**
  * DOC bqian class global comment. Detailled comment
@@ -813,5 +814,84 @@ public final class ProcessUtils {
             return Collections.emptyList();
         }
         return defaultValue;
+    }
+
+    public static boolean isRequiredBeans(IProcess process) {
+        boolean needBeans = false;
+        if (process == null) {
+            needBeans = true; // only check have the pigudf items.
+        } else {
+            if (process instanceof IProcess2) {
+                Property property = ((IProcess2) process).getProperty();
+                if (property != null) { // same as isStandardJob in JavaProcessor
+                    ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
+                    // route job
+                    if (itemType != null && itemType.equals(ERepositoryObjectType.valueOf("ROUTES"))) {//$NON-NLS-1$
+                        needBeans = true;
+                    }
+                }
+            }
+        }
+
+        if (needBeans && GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            ERepositoryObjectType beansType = ERepositoryObjectType.valueOf("BEANS"); //$NON-NLS-1$
+            try {
+                IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+                List<IRepositoryViewObject> all = factory.getAll(beansType);
+                if (!all.isEmpty()) { // has bean
+                    return true;
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return false;
+    }
+
+    public static boolean isRequiredPigUDFs(IProcess process) {
+        boolean needPigUDF = false;
+        if (process == null) {
+            needPigUDF = true; // only check have the pigudf items.
+        } else {
+            if (process instanceof IProcess2) {
+                Property property = ((IProcess2) process).getProperty();
+                if (property != null) { // same as isStandardJob in JavaProcessor
+                    // only for tPigMap?
+                    for (INode n : process.getGeneratingNodes()) {
+                        if (n.getComponent().getName().equals("tPigMap")) { //$NON-NLS-1$
+                            needPigUDF = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (needPigUDF && GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IProxyRepositoryService.class);
+            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+            try {
+                List<IRepositoryViewObject> pigUdfsObjects = factory.getAll(ERepositoryObjectType.PIG_UDF);
+                if (!pigUdfsObjects.isEmpty()) {
+                    /*
+                     * FIXME, don't know need check the this api or not. seem it's not useful. so return true so far
+                     * directly.
+                     */
+                    // Set<String> neededPigudf = process.getNeededPigudf();
+                    // if (neededPigudf != null && !neededPigudf.isEmpty()) {
+                    // return true;
+                    // }
+
+                    return true;
+                }
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+
+        return false;
     }
 }

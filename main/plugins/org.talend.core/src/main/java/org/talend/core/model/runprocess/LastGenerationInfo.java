@@ -38,7 +38,7 @@ public class LastGenerationInfo {
 
     private HashMap<String, Set<String>> contextPerJob;
 
-    private HashMap<String, Boolean> useDynamic, useRules;
+    private HashMap<String, Boolean> useDynamic, useRules, usedPigUDFs;
 
     private static LastGenerationInfo instance;
 
@@ -57,7 +57,7 @@ public class LastGenerationInfo {
         pigudfNeededWithSubjobPerJob = new HashMap<String, Set<String>>();
         useDynamic = new HashMap<String, Boolean>();
         useRules = new HashMap<String, Boolean>();
-
+        usedPigUDFs = new HashMap<String, Boolean>();
     }
 
     public static LastGenerationInfo getInstance() {
@@ -170,6 +170,23 @@ public class LastGenerationInfo {
 
     public HashMap<String, Boolean> getUseRulesMap() {
         return this.useRules;
+    }
+
+    public void setUsePigUDFs(String jobId, String jobVersion, boolean useRules) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        this.usedPigUDFs.put(key, useRules);
+    }
+
+    public boolean isUsePigUDFs(String jobId, String jobVersion) {
+        String key = jobId + "_" + jobVersion; //$NON-NLS-1$
+        if (!usedPigUDFs.containsKey(key)) {
+            return false;
+        }
+        return usedPigUDFs.get(key);
+    }
+
+    public HashMap<String, Boolean> getUsePigUDFsMap() {
+        return this.usedPigUDFs;
     }
 
     /**

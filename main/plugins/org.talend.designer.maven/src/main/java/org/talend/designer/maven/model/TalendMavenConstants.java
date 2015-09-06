@@ -96,6 +96,10 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_INCLUDE_RULES = "include-rules";
 
+    static final String PROFILE_INCLUDE_PIGUDFS_JAVA_SOURCES = "include-pigudfs-java-sources";
+
+    static final String PROFILE_INCLUDE_PIGUDFS_BINARIES = "include-pigudfs-binaries";
+
     /**
      * argments
      */
