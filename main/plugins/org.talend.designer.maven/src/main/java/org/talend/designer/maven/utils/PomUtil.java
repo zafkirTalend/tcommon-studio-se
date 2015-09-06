@@ -552,11 +552,11 @@ public class PomUtil {
         codesJars.add(JavaUtils.ROUTINES_JAR);
         // pigudf
         if (isRequiredPigUDF(process)) {
-            codesJars.add(JavaUtils.USER_PIGUDF_JAR);
+            codesJars.add(JavaUtils.PIGUDFS_JAR);
         }
         // beans
         if (isRequiredBeans(process)) {
-            codesJars.add(JavaUtils.USER_BEANS_JAR);
+            codesJars.add(JavaUtils.BEANS_JAR);
         }
         return codesJars;
     }

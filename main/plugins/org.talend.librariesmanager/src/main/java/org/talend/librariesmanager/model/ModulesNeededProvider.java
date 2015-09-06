@@ -845,12 +845,9 @@ public class ModulesNeededProvider {
     public static Set<ModuleNeeded> getRunningModules() {
         Set<ModuleNeeded> runningModules = new HashSet<ModuleNeeded>();
 
-        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.ROUTINES));
-        // add the system routines modules
-        runningModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
-
-        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.getType("BEANS"))); //$NON-NLS-1$
-        runningModules.addAll(getModulesNeededForRoutines(ERepositoryObjectType.PIG_UDF));
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.ROUTINES));
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.getType("BEANS"))); //$NON-NLS-1$
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.PIG_UDF));
 
         return runningModules;
     }

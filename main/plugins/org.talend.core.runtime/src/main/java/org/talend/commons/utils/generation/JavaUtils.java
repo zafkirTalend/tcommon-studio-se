@@ -124,19 +124,26 @@ public final class JavaUtils {
 
     public static final String ROUTINE_JAR_NAME = "routines"; //$NON-NLS-1$
 
+    public static final String BEANS_JAR_NAME = "beans"; //$NON-NLS-1$
+
+    public static final String PIGUDFS_JAR_NAME = "pigudfs"; //$NON-NLS-1$
+
     public static final String ROUTINES_JAR = ROUTINE_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
 
-    public static final String BEANS_JAR_NAME = "userBeans"; //$NON-NLS-1$
+    public static final String BEANS_JAR = BEANS_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
 
-    public static final String PIGUDFS_JAR_NAME = "pigudf"; //$NON-NLS-1$
+    public static final String PIGUDFS_JAR = PIGUDFS_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
 
+    /*
+     * for old build system JobJavaScriptsManager
+     */
     public static final String SYSTEM_ROUTINE_JAR = "systemRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
     public static final String USER_ROUTINE_JAR = "userRoutines" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
-    public static final String USER_BEANS_JAR = BEANS_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
+    public static final String USER_BEANS_JAR = "userBeans" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
-    public static final String USER_PIGUDF_JAR = PIGUDFS_JAR_NAME + FileExtensions.JAR_FILE_SUFFIX;
+    public static final String USER_PIGUDF_JAR = "pigudf" + FileExtensions.JAR_FILE_SUFFIX; //$NON-NLS-1$
 
     /**
      * DOC ycbai Get default jvm name.
