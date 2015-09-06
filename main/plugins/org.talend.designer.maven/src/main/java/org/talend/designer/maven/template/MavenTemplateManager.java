@@ -20,11 +20,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.m2e.core.MavenPlugin;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.DesignerMavenPlugin;
@@ -237,19 +241,19 @@ public class MavenTemplateManager {
     public static Model getRoutinesTempalteModel() {
         Model defaultModel = createDefaultCodesTempalteModel(PomIdsHelper.getCodesGroupId(TalendMavenConstants.DEFAULT_CODE),
                 TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID);
-        return getModelFromGeneralTemplate(defaultModel, IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+        return getCodesModelFromGeneralTemplate(defaultModel, "Routines", JavaUtils.JAVA_ROUTINES_DIRECTORY); //$NON-NLS-1$
     }
 
     public static Model getBeansTempalteModel() {
         Model defaultModel = createDefaultCodesTempalteModel(PomIdsHelper.getCodesGroupId(TalendMavenConstants.DEFAULT_BEAN),
                 TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID);
-        return getModelFromGeneralTemplate(defaultModel, IProjectSettingTemplateConstants.POM_BEANS_TEMPLATE_FILE_NAME);
+        return getCodesModelFromGeneralTemplate(defaultModel, "Beans", JavaUtils.JAVA_BEANS_DIRECTORY); //$NON-NLS-1$
     }
 
     public static Model getPigUDFsTempalteModel() {
         Model defaultModel = createDefaultCodesTempalteModel(PomIdsHelper.getCodesGroupId(TalendMavenConstants.DEFAULT_PIGUDF),
                 TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID);
-        return getModelFromGeneralTemplate(defaultModel, IProjectSettingTemplateConstants.POM_PIGUDFS_TEMPLATE_FILE_NAME);
+        return getCodesModelFromGeneralTemplate(defaultModel, "PigUDFs", JavaUtils.JAVA_PIGUDF_DIRECTORY); //$NON-NLS-1$
     }
 
     private static Model createDefaultCodesTempalteModel(String groupId, String artifactId) {
@@ -265,10 +269,11 @@ public class MavenTemplateManager {
     /**
      * Try to load the project template from bundle, if load failed, use default instead.
      */
-    private static Model getModelFromGeneralTemplate(Model defaultModel, String templateFileName) {
+    private static Model getCodesModelFromGeneralTemplate(Model defaultModel, String codesName, String codesPackage) {
         try {
             InputStream stream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
-                    IProjectSettingTemplateConstants.PATH_GENERAL + '/' + templateFileName);
+                    IProjectSettingTemplateConstants.PATH_GENERAL + '/'
+                            + IProjectSettingTemplateConstants.POM_CODES_TEMPLATE_FILE_NAME);
             if (stream != null) {
                 Model model = MavenPlugin.getMavenModelManager().readMavenModel(stream);
 
@@ -276,6 +281,9 @@ public class MavenTemplateManager {
                 variablesValuesMap.put(ETalendMavenVariables.CodesGroupId, defaultModel.getGroupId());
                 variablesValuesMap.put(ETalendMavenVariables.CodesArtifactId, defaultModel.getArtifactId());
                 variablesValuesMap.put(ETalendMavenVariables.CodesVersion, defaultModel.getVersion());
+                variablesValuesMap.put(ETalendMavenVariables.CodesName, codesName);
+                variablesValuesMap.put(ETalendMavenVariables.CodesPackage, codesPackage);
+
                 Project currentProject = ProjectManager.getInstance().getCurrentProject();
                 variablesValuesMap.put(ETalendMavenVariables.ProjectName,
                         currentProject != null ? currentProject.getTechnicalLabel() : null);
@@ -285,10 +293,21 @@ public class MavenTemplateManager {
                 model.setVersion(ETalendMavenVariables.replaceVariables(model.getVersion(), variablesValuesMap));
                 model.setName(ETalendMavenVariables.replaceVariables(model.getName(), variablesValuesMap));
 
+                Properties properties = model.getProperties();
+                Iterator<Object> iterator = properties.keySet().iterator();
+                while (iterator.hasNext()) {
+                    String key = iterator.next().toString();
+                    Object object = properties.get(key);
+                    if (object != null) {
+                        String oldValue = object.toString();
+                        String newValue = ETalendMavenVariables.replaceVariables(oldValue, variablesValuesMap);
+                        properties.setProperty(key, newValue);
+                    }
+                }
                 return model;
             }
         } catch (Exception e) {
-            // ExceptionHandler.process(e);
+            ExceptionHandler.process(e);
         }
         return defaultModel; // if error, try to use default model
     }

@@ -21,7 +21,6 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 
 /**
@@ -30,7 +29,7 @@ import org.talend.designer.maven.template.MavenTemplateManager;
 public class CreateMavenRoutinePom extends AbstractMavenCodesTemplatePom {
 
     public CreateMavenRoutinePom(IFile pomFile) {
-        super(pomFile, IProjectSettingTemplateConstants.POM_ROUTINGS_TEMPLATE_FILE_NAME);
+        super(pomFile);
     }
 
     @Override

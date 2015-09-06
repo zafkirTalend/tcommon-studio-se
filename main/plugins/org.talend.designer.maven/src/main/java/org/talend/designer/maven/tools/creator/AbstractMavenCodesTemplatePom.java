@@ -20,6 +20,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.utils.PomUtil;
 
 /**
@@ -27,8 +28,8 @@ import org.talend.designer.maven.utils.PomUtil;
  */
 public abstract class AbstractMavenCodesTemplatePom extends AbstractMavenGeneralTemplatePom {
 
-    public AbstractMavenCodesTemplatePom(IFile pomFile, String bundleTemplateName) {
-        super(pomFile, bundleTemplateName);
+    public AbstractMavenCodesTemplatePom(IFile pomFile) {
+        super(pomFile, IProjectSettingTemplateConstants.POM_CODES_TEMPLATE_FILE_NAME);
     }
 
     @Override

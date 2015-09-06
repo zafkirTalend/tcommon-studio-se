@@ -13,14 +13,14 @@
 	<artifactId>@CodesArtifactId@</artifactId>
 	<version>@CodesVersion@</version>
 
-	<name>@ProjectName@ Routines</name>
+	<name>@ProjectName@ @CodesName@</name>
 
 	<properties>
-		<talend.routines.package>routines</talend.routines.package>
+		<talend.codes.package>@CodesPackage@</talend.codes.package>
 	</properties>
 
 	<dependencies>
-		<!-- routines' dependencies -->
+		<!-- codes' dependencies -->
 	</dependencies>
 	<build>
 		<plugins>
@@ -39,8 +39,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<includes>
-						<!-- only compile the routines source -->
-						<include>${talend.routines.package}/**/*.java</include>
+						<!-- only compile the codes java sources -->
+						<include>${talend.codes.package}/**/*.java</include>
 					</includes>
 					<testExcludes>
 						<!-- exclude every test -->
@@ -53,7 +53,8 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<includes>
-						<include>${talend.routines.package}/**/*.class</include>
+						<!-- only package the codes classes -->
+						<include>${talend.codes.package}/**/*.class</include>
 					</includes>
 				</configuration>
 			</plugin>

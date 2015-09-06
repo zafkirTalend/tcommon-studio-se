@@ -43,11 +43,8 @@ public interface IProjectSettingTemplateConstants {
     /*
      * pom templates
      */
-    final static String POM_ROUTINGS_TEMPLATE_FILE_NAME = "pom_routines_template.xml";
 
-    final static String POM_BEANS_TEMPLATE_FILE_NAME = "pom_beans_template.xml";
-
-    final static String POM_PIGUDFS_TEMPLATE_FILE_NAME = "pom_pigudfs_template.xml";
+    final static String POM_CODES_TEMPLATE_FILE_NAME = "pom_codes_template.xml";
 
     final static String POM_JOB_TEMPLATE_FILE_NAME = "pom_job_template.xml";
 

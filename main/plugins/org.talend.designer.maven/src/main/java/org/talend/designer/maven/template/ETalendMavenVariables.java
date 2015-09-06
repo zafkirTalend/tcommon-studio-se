@@ -31,6 +31,8 @@ public enum ETalendMavenVariables {
     CodesGroupId,
     CodesArtifactId,
     CodesVersion,
+    CodesName,
+    CodesPackage,
 
     JobGroupId,
     JobArtifactId,
