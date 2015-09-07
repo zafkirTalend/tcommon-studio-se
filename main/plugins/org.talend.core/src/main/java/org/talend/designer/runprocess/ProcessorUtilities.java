@@ -986,13 +986,19 @@ public class ProcessorUtilities {
                             }
                             subJobInfo.setFatherJobInfo(jobInfo);
                             if (!jobList.contains(subJobInfo)) {
-                                // children won't have stats / traces
+                                int subJobOption = GENERATE_ALL_CHILDS;
                                 if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
-                                    generateCode(subJobInfo, selectedContextName, statistics, false, properties,
-                                            isNeedLoadmodules, GENERATE_MAIN_ONLY, progressMonitor);
-                                } else {
-                                    generateCode(subJobInfo, selectedContextName, statistics, false, properties,
-                                            isNeedLoadmodules, GENERATE_ALL_CHILDS, progressMonitor);
+                                    subJobOption = GENERATE_MAIN_ONLY;
+                                }
+                                // if need tests, need check for all child jobs.
+                                if (BitwiseOptionUtils.containOption(option, GENERATE_TESTS)) {
+                                    subJobOption |= GENERATE_TESTS;
+                                }
+                                // children won't have stats / traces
+                                generateCode(subJobInfo, selectedContextName, statistics, false, properties, isNeedLoadmodules,
+                                        subJobOption, progressMonitor);
+
+                                if (!BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
                                     currentProcess.setNeedRegenerateCode(true);
                                 }
                             }
