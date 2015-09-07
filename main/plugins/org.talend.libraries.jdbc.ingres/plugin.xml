@@ -6,7 +6,7 @@
               context="plugin:org.talend.libraries.jdbc.ingres"
               language="java"
               message="Needed for Ingres jdbc plugin"
-              name="iijdbc.jar"
+              name="iijdbc.jar" mvn_uri="mvn:org.talend.libraries/iijdbc/6.0.0" 
               required="true">
         </libraryNeeded>
     </extension>
