@@ -853,8 +853,8 @@ public class ModulesNeededProvider {
     }
 
     public static Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
-        if (type == null) { // return all?
-            return getRunningModules();
+        if (type == null) {
+            return Collections.emptySet();
         }
         Set<ModuleNeeded> codesModules = new HashSet<ModuleNeeded>();
         codesModules.addAll(getModulesNeededForRoutines(type));
