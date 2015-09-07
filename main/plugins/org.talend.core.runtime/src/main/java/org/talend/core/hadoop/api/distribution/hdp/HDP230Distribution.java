@@ -84,11 +84,6 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return true;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

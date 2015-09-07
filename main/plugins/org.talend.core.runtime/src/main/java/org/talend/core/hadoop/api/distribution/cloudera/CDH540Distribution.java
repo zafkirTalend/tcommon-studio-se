@@ -87,11 +87,6 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

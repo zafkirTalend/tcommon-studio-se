@@ -86,11 +86,6 @@ public class CDH510MR2Distribution extends AbstractDistribution implements HDFSC
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

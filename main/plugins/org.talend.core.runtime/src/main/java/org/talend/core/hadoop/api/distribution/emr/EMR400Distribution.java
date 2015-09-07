@@ -67,11 +67,6 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return false;
     }

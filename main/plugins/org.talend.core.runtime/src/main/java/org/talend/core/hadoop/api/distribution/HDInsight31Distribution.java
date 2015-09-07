@@ -56,11 +56,6 @@ public class HDInsight31Distribution extends AbstractDistribution implements MRC
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return false;
     }

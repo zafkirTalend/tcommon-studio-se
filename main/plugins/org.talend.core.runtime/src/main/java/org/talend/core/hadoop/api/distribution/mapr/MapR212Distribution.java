@@ -68,11 +68,6 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

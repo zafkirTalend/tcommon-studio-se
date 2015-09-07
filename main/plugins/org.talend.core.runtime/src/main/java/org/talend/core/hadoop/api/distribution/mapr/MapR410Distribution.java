@@ -77,11 +77,6 @@ public class MapR410Distribution extends AbstractMapRDistribution implements HDF
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

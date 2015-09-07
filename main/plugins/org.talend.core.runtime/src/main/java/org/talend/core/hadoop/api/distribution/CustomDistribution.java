@@ -94,11 +94,6 @@ public class CustomDistribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }
