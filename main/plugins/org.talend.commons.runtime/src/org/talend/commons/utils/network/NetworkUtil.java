@@ -37,6 +37,8 @@ public class NetworkUtil {
     private static final Pattern macPattern = Pattern
             .compile(".*((:?[0-9a-f]{2}[-:]){5}[0-9a-f]{2}).*", Pattern.CASE_INSENSITIVE); //$NON-NLS-1$
 
+    private static final String TALEND_DISABLE_INTERNET = "talend.disable.internet";//$NON-NLS-1$
+
     private final static Set<String> getMacAddressList() throws IOException {
         final Set<String> macAddressList = new HashSet<String>();
 
@@ -102,7 +104,10 @@ public class NetworkUtil {
     }
 
     public static boolean isNetworkValid() {
-
+        String disableInternet = System.getProperty(TALEND_DISABLE_INTERNET);
+        if ("true".equals(disableInternet)) { //$NON-NLS-1$
+            return false;
+        }
         try {
             URL url = new URL("http://www.talend.com"); //$NON-NLS-1$
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
