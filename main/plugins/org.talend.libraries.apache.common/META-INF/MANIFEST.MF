@@ -37,8 +37,8 @@ Export-Package: org.apache.commons.cli2,
  org.apache.commons.digester.substitution,
  org.apache.commons.digester.xmlrules,
  org.apache.commons.lang3,
- org.apache.commons.math3.distribution,
- org.apache.commons.math3.random
+ org.apache.commons.math3.distribution;version="3.3.0",
+ org.apache.commons.math3.random;version="3.3.0"
 Require-Bundle: org.apache.commons.beanutils;visibility:=reexport,
  org.apache.commons.logging;visibility:=reexport
 Bundle-ActivationPolicy: lazy
