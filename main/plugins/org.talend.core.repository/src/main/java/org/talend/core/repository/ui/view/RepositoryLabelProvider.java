@@ -156,6 +156,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT || node.getType() == ENodeType.SIMPLE_FOLDER) {
             IRepositoryViewObject object = node.getObject();
             String label = ""; //$NON-NLS-1$
+            object.getProperty();
             if (object.isModified()) {
                 label = "> "; //$NON-NLS-1$
             }
