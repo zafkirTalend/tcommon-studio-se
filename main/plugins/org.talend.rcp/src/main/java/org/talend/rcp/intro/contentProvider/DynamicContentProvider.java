@@ -28,6 +28,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.html.TalendHtmlModelUtil;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -183,6 +184,10 @@ public class DynamicContentProvider extends IntroProvider {
     }
 
     protected void createOnlinePage(Document dom, Element parent) {
+        if (!NetworkUtil.isNetworkValid()) {
+            setDIVStyle(dom, false);
+            return;
+        }
         HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(getOnlinePageURL());
