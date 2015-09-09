@@ -43,6 +43,7 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.types.JavaDataTypeHelper;
 import org.talend.datatools.xml.utils.ATreeNode;
 import org.talend.datatools.xml.utils.OdaException;
 import org.talend.datatools.xml.utils.SchemaPopulationUtil;
@@ -643,6 +644,15 @@ public class TreeUtil {
                 root = ((Element) root).getElementChildren().get(0);
                 root.setParent(null);
                 list.add(root);
+                // Change dataType for the namespace if it is xml file
+                if (XmlUtil.isXMLFile(filePath)) {
+                    List<? extends FOXTreeNode> nameSpaceChildren = ((Element) root).getNameSpaceChildren();
+                    for (FOXTreeNode nameSpaceChild : nameSpaceChildren) {
+                        if (nameSpaceChild instanceof NameSpaceNode) {
+                            nameSpaceChild.setDataType(JavaDataTypeHelper.getTalendTypeOfValue(nameSpaceChild.getDataType()));
+                        }
+                    }
+                }
             }
         }
     }
