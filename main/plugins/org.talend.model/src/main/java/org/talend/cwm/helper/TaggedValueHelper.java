@@ -177,8 +177,8 @@ public final class TaggedValueHelper {
 
     // Added yyin 20121203 TDQ-6497 use "IS_DB_NEED_RELOAD" to replace "USING_URL"
     public static final String IS_CONN_NEED_RELOAD = "Is Conn Need Reload";//$NON-NLS-1$
-    
-    public static final String REP_NO_GENERATE_FILET = "REP_NO_GENERATE_FILET";
+
+    public static final String REP_GENERATE_FILE = "REP_GENERATE_FILE";
 
     private TaggedValueHelper() {
     }
