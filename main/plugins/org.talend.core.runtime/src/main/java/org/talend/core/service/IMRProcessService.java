@@ -21,6 +21,8 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.IRepositoryEditorInput;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
@@ -56,4 +58,7 @@ public interface IMRProcessService extends IService {
     public IComponentsHandler getMapReduceComponentsHandler();
 
     public IComponentsHandler getSparkComponentsHandler();
+
+    public IRepositoryEditorInput createTestCaseMapRedProcessEditorInput(ProcessItem processItem, boolean load,
+            String originalJobID, List<INode> testNodes, Boolean lastVersion, Boolean readonly);
 }
