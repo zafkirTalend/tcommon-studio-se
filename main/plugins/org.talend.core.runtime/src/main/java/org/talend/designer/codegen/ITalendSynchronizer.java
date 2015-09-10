@@ -57,6 +57,4 @@ public interface ITalendSynchronizer {
 
     void deleteRoutinefile(IRepositoryViewObject objToDelete);
 
-    void deleteBeanfile(IRepositoryViewObject objToDelete);
-
 }

@@ -254,7 +254,7 @@ public class CoreService implements ICoreService {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
-            codeGenService.createRoutineSynchronizer().deleteBeanfile(objToDelete);
+            codeGenService.createRoutineSynchronizer().deleteRoutinefile(objToDelete);
         }
     }
 

@@ -20,7 +20,11 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -39,6 +43,7 @@ import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryService;
+import org.talend.repository.model.RepositoryNodeUtilities;
 
 /***/
 public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer {
@@ -130,6 +135,25 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     }
 
     @Override
+    public IFile getRoutinesFile(Item item) throws SystemException {
+        if (item instanceof RoutineItem) {
+            final RoutineItem routineItem = (RoutineItem) item;
+            final IProject project = ResourcesPlugin.getWorkspace().getRoot()
+                .getProject(ProjectManager.getInstance().getProject(routineItem).getTechnicalLabel());
+            IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(ERepositoryObjectType
+                .getItemType(routineItem)));
+            final String folderPath = RepositoryNodeUtilities.getPath(routineItem.getProperty().getId()).toString();
+            if (folderPath != null && !folderPath.trim().isEmpty()) {
+                folder = folder.getFolder(folderPath);
+            }
+            final String fileName = routineItem.getProperty().getLabel() + '_' + routineItem.getProperty().getVersion()
+                + JavaUtils.ITEM_EXTENSION;
+            return folder.getFile(fileName);
+        }
+        return null;
+    }
+
+    @Override
     public void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException {
         syncRoutine(routineItem, copyToTemp, false);
     }
@@ -162,7 +186,21 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
     protected abstract void doSyncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
     @Override
-    public abstract void deleteRoutinefile(IRepositoryViewObject objToDelete);
+    public void deleteRoutinefile(IRepositoryViewObject objToDelete) {
+        Item item = objToDelete.getProperty().getItem();
+        try {
+            ITalendProcessJavaProject talendProcessJavaProject = getRunProcessService().getTalendProcessJavaProject();
+            if (talendProcessJavaProject == null) {
+                return;
+            }
+            IFolder srcFolder = talendProcessJavaProject.getSrcFolder();
+            IFile file = srcFolder.getFile(((RoutineItem) item).getPackageType() + '/' + objToDelete.getLabel()
+                    + JavaUtils.JAVA_EXTENSION);
+            file.delete(true, null);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+    }
 
     protected boolean isRoutineUptodate(RoutineItem routineItem) {
         Date refDate = getRefDate(routineItem);
