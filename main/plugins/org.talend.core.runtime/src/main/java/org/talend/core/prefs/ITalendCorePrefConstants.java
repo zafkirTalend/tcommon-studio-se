@@ -148,7 +148,7 @@ public interface ITalendCorePrefConstants {
     public static final String OOZIE_SCHEDULER_HADOOP_KEYTAB_PATH = "oozie_scheduler_hadoop_keytab_path"; //$NON-NLS-1$
 
     public static final String OOZIE_SCHEDULER_HADOOP_PROPERTIES = "oozie_scheduler_hadoop_properties"; //$NON-NLS-1$
-    
+
     public static final String OOZIE_SCHEDULER_PROPERTY_TYPE = "oozie_scheduler_property_type";
 
     public static final String CoreUIPlugin_ID = "org.talend.core.ui"; //$NON-NLS-1$
@@ -166,5 +166,8 @@ public interface ITalendCorePrefConstants {
      */
     public static final String LOGON_DIALOG_ALWAYS_ASK_ME_AT_STARTUP = "logonDialog.alwaysAskMeAtStartUp"; //$NON-NLS-1$
 
-	
+    /**
+     * PlatformUI.getPreference().getBoolean("NOT_SHOW_ONBOARDING_AT_STARTUP")
+     */
+    public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = "NOT_SHOW_ONBOARDING_AT_STARTUP"; //$NON-NLS-1$
 }

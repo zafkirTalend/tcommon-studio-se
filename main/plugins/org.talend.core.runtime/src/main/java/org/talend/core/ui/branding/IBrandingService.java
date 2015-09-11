@@ -58,4 +58,8 @@ public interface IBrandingService extends IService {
     public String getUserManuals();
 
     public String getRoutineLicenseHeader(String version);
+
+    public Object getOnBoardingPresentationJsonDoc();
+
+    public String getOnBoardingI18NMessage(String key);
 }
