@@ -108,6 +108,8 @@ public class DuplicateAction extends AContextualAction {
 
     private String frameworkNewValue = null;
 
+    boolean isAllowDuplicateTest = true;
+
     public DuplicateAction() {
         super();
         this.setText(Messages.getString("DuplicateAction.thisText.duplicate")); //$NON-NLS-1$
@@ -246,9 +248,20 @@ public class DuplicateAction extends AContextualAction {
             String jobNewName = jobNewNameDialog.getValue();
             String jobTypeValue = jobNewNameDialog.getJobTypeValue();
             frameworkNewValue = jobNewNameDialog.getFrameworkValue();
+            isAllowDuplicateTest = true;
+
+            String sourceFramework = "";
+            Object frameworkObj = ConvertJobsUtil.getFramework(item);
+            if (frameworkObj != null) {
+                sourceFramework = frameworkObj.toString();
+            }
+            if (frameworkNewValue != null && !frameworkNewValue.equals(sourceFramework)) {
+                isAllowDuplicateTest = false;
+            }
             // if not change job type , we no need convert job
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
             if (jobTypeValue != null && !jobTypeValue.equals(sourceJobType)) {
+                isAllowDuplicateTest = false;
                 ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkNewValue, sourceNode.getObject());
             } else {
                 createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
@@ -273,7 +286,7 @@ public class DuplicateAction extends AContextualAction {
     }
 
     private void duplicateTestCases(Item newItem, final CopyObjectAction copyObjectAction) {
-        if (!copyObjectAction.isAllowedToCopyTestCase(newItem, sourceNode)) {
+        if (!copyObjectAction.isAllowedToCopyTestCase(newItem, sourceNode) || !isAllowDuplicateTest) {
             return;
         }
         final IPath path = copyObjectAction.getTestCasePath(newItem, sourceNode);

@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
+import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
@@ -76,6 +77,10 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
                 && mainPage.jobTypeCCombo != null) {
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(object.getProperty().getItem());
             if (sourceJobType != null && sourceJobType.equals(mainPage.jobTypeCCombo.getText())) {
+                return super.performFinish();
+            }
+            if (!MessageDialogWithToggle.openConfirm(null, "Warning",
+                    "Warning\\: You will lost all the testcases when you do converting, do you want to continue?")) {
                 return super.performFinish();
             }
             final IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();

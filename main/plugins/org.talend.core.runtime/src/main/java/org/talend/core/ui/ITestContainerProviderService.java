@@ -96,4 +96,6 @@ public interface ITestContainerProviderService extends IService {
     public boolean isTestCaseComponent(IComponent component);
 
     public List<IResource> getDataFiles(Item item);
+
+    public boolean isSpark(IProcess process);
 }

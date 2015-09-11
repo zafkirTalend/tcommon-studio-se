@@ -715,6 +715,17 @@ public final class ProcessUtils {
         return nodes.size();
     }
 
+    public static boolean isSpark(IProcess process) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                return testContainerService.isSpark(process);
+            }
+        }
+        return false;
+    }
+
     public static List<String> getTestData(IProcess process, String instanceName) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
