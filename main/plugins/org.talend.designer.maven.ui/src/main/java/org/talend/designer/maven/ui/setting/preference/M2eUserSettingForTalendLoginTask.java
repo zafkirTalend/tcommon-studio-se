@@ -23,6 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.maven.cli.MavenCli;
 import org.apache.maven.settings.Activation;
 import org.apache.maven.settings.ActivationFile;
 import org.apache.maven.settings.Profile;
@@ -34,9 +35,11 @@ import org.eclipse.core.net.proxy.IProxyService;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.IMaven;
 import org.osgi.util.tracker.ServiceTracker;
@@ -54,6 +57,7 @@ import org.talend.utils.io.FilesUtils;
  * 
  * set the preference for MavenSettingsPreferencePage.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
     private static final String MAVEN_SETTING_HAVE_SET = "Maven_Setting_Have_Set"; //$NON-NLS-1$
@@ -83,44 +87,25 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
      */
     @Override
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
+        if (monitor.isCanceled()) {
+            return;
+        }
         // sync the default maven repository.
         DefaultMavenRepositoryProvider.sync();
 
-        Path configPath = new Path(Platform.getConfigurationLocation().getURL().getPath());
-        File studioUserSettingsFile = configPath.append(IProjectSettingTemplateConstants.MAVEN_USER_SETTING_TEMPLATE_FILE_NAME)
-                .toFile();
-        IPreferenceStore mvnUiStore = DesignerMavenUiPlugin.getDefault().getPreferenceStore();
+        final Path configPath = new Path(Platform.getConfigurationLocation().getURL().getPath());
+        final File studioUserSettingsFile = configPath.append(
+                IProjectSettingTemplateConstants.MAVEN_USER_SETTING_TEMPLATE_FILE_NAME).toFile();
+        final String studioUserSettingsPath = studioUserSettingsFile.getAbsolutePath();
 
         try {
-            boolean set = mvnUiStore.getBoolean(MAVEN_SETTING_HAVE_SET);
-            if (!set) {// first time to set
-                if (!studioUserSettingsFile.exists()) {
-                    InputStream inputStream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
-                            IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/'
-                                    + IProjectSettingTemplateConstants.MAVEN_USER_SETTING_TEMPLATE_FILE_NAME);
-                    if (inputStream != null) {
-                        FilesUtils.copyFile(inputStream, studioUserSettingsFile);
-                    }
-                }
-                // re-check
-                if (studioUserSettingsFile.exists()) {
-                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(studioUserSettingsFile.getAbsolutePath());
-                    mvnUiStore.setValue(MAVEN_SETTING_HAVE_SET, true);
-                } else { // not set, set default
-                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(null);
-                }
-            } else if (!studioUserSettingsFile.exists()) { // not first time, but deleted by manually.
-                // FIXME, try use system default one?
-                MavenPlugin.getMavenConfiguration().setUserSettingsFile(null);
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
+            checkMavenUserSetting(monitor, studioUserSettingsFile, false);
 
-        try {
             final IMaven maven = MavenPlugin.getMaven();
             maven.reloadSettings();
-            final Settings settings = maven.getSettings();
 
             /*
              * FIXME, only deal with for special settings in studio.
@@ -130,8 +115,37 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
              * Just keep the problem for user, because we should change the setting for Studio in configuration folder
              * only.
              */
-            final boolean isStudioUserSetting = studioUserSettingsFile.getAbsolutePath().equals(
-                    MavenPlugin.getMavenConfiguration().getUserSettingsFile());
+            String userSettingsFile = MavenPlugin.getMavenConfiguration().getUserSettingsFile();
+            boolean isStudioUserSetting = studioUserSettingsPath.equals(userSettingsFile);
+
+            // check the user setting when set for studio, don't existed or have no rights.
+            if (isStudioUserSetting && (!studioUserSettingsFile.exists() || !studioUserSettingsFile.canRead())) {
+                try {
+                    // try use system default one.
+                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(null);
+                    maven.reloadSettings(); // reload again
+                } catch (CoreException e) {
+                    //
+                }
+            }
+
+            final boolean defaultUserSetting = (userSettingsFile == null || MavenCli.DEFAULT_USER_SETTINGS_FILE.getAbsolutePath()
+                    .equals(userSettingsFile));
+
+            // if can't access m2 repository, and for studio setting or set default only.
+            if (!enableAccessM2Repository(monitor, maven) && (isStudioUserSetting || defaultUserSetting)) {
+                if (studioUserSettingsFile.exists()) {// try to use studio one directly.
+                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(studioUserSettingsPath);
+                } else { // if not existed, try to force creating studio user setting and use it.
+                    checkMavenUserSetting(monitor, studioUserSettingsFile, true);
+                }
+                maven.reloadSettings(); // reload again
+            }
+
+            // get new value
+            isStudioUserSetting = studioUserSettingsPath.equals(userSettingsFile);
+
+            final Settings settings = maven.getSettings();
 
             if (isStudioUserSetting && studioUserSettingsFile.canWrite()) {
                 boolean modified = false;
@@ -169,17 +183,46 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         return (IProxyService) proxyTracker.getService();
     }
 
+    private void checkMavenUserSetting(IProgressMonitor monitor, File studioUserSettingsFile, boolean force) {
+        if (monitor.isCanceled()) {
+            return;
+        }
+        try {
+            IEclipsePreferences pref = ConfigurationScope.INSTANCE.getNode(DesignerMavenPlugin.PLUGIN_ID);
+            boolean set = pref.getBoolean(MAVEN_SETTING_HAVE_SET, false);
+            if (!set || force) {// first time to set or force
+                if (!studioUserSettingsFile.exists()) {
+                    InputStream inputStream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
+                            IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/'
+                                    + IProjectSettingTemplateConstants.MAVEN_USER_SETTING_TEMPLATE_FILE_NAME);
+                    if (inputStream != null) {
+                        FilesUtils.copyFile(inputStream, studioUserSettingsFile);
+                    }
+                }
+                if (monitor.isCanceled()) {
+                    return;
+                }
+                // create failure?
+                if (studioUserSettingsFile.exists()) {
+                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(studioUserSettingsFile.getAbsolutePath());
+                    pref.putBoolean(MAVEN_SETTING_HAVE_SET, true);
+                    pref.flush();
+                } else { // set the default one.
+                    MavenPlugin.getMavenConfiguration().setUserSettingsFile(null);
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    @SuppressWarnings("restriction")
     private boolean checkLocalRepository(IProgressMonitor monitor, IMaven maven, Settings settings, Path configPath,
             File userSettingsFile) throws Exception {
-        File oldRepoFolder = new File(maven.getLocalRepositoryPath());
-        try {
-            if (!oldRepoFolder.exists()) { // TUP-3301
-                oldRepoFolder.mkdirs(); // try to create the root folder first.
-            }
-        } catch (Throwable e) {
-            // if can't create, continue.
+        if (monitor.isCanceled()) {
+            return false;
         }
-        if (!oldRepoFolder.exists() || !oldRepoFolder.canRead() || !oldRepoFolder.canWrite()) {
+        if (!enableAccessM2Repository(monitor, maven)) {
             // need change the repo setting
             IPath m2RepoPath = configPath.append(".m2/repository"); //$NON-NLS-1$
             File studioDefaultRepoFolder = m2RepoPath.toFile();
@@ -188,7 +231,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             }
 
             // make sure the setting file can be changed.
-            if (userSettingsFile.canRead() && userSettingsFile.canWrite()) {
+            if (userSettingsFile.exists() && userSettingsFile.canRead() && userSettingsFile.canWrite()) {
                 // modify the setting file for "localRepository"
                 settings.setLocalRepository(m2RepoPath.toString());
                 // should same as MavenSettingsPreferencePage.updateSettings update index?
@@ -204,7 +247,25 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         return false;
     }
 
+    private boolean enableAccessM2Repository(IProgressMonitor monitor, IMaven maven) {
+        File oldRepoFolder = new File(maven.getLocalRepositoryPath());
+        try {
+            if (!oldRepoFolder.exists()) { // TUP-3301
+                oldRepoFolder.mkdirs(); // try to create the root folder first.
+            }
+        } catch (Throwable e) {
+            // if can't create, continue.
+        }
+        if (!oldRepoFolder.exists() || !oldRepoFolder.canRead() || !oldRepoFolder.canWrite()) {
+            return false;
+        }
+        return true;
+    }
+
     private void updateProxiesPreference(IProgressMonitor monitor, IMaven maven, Settings settings) throws CoreException {
+        if (monitor.isCanceled()) {
+            return;
+        }
         List<Proxy> proxiesList = settings.getProxies();
         if (proxiesList != null && !proxiesList.isEmpty()) {
             IProxyService proxyService = getProxyService();
@@ -227,6 +288,9 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
     @SuppressWarnings("restriction")
     private void setProxy(IProgressMonitor monitor, IProxyService proxyService, Proxy p) throws CoreException {
+        if (monitor.isCanceled()) {
+            return;
+        }
         String protocol = p.getProtocol();
         if (protocol == null) {
             return;
@@ -282,6 +346,9 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
 
     private boolean updateProfileSettings(IProgressMonitor monitor, IMaven maven, Settings settings, Path configPath,
             File userSettingsFile) {
+        if (monitor.isCanceled()) {
+            return false;
+        }
         boolean modified = false;
         Profile profile = settings.getProfilesAsMap().get("provider-repository"); //$NON-NLS-1$
         if (profile == null) {
