@@ -150,4 +150,10 @@ public class HDP210Distribution extends AbstractDistribution implements HDFSComp
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
 }

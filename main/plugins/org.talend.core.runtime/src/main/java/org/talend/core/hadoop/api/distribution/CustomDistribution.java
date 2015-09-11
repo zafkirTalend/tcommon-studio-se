@@ -159,6 +159,11 @@ public class CustomDistribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
+    @Override
     public boolean doSupportDynamicMemoryAllocation() {
         return true;
     }

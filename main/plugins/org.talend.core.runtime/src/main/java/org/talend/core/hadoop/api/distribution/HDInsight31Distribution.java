@@ -119,4 +119,9 @@ public class HDInsight31Distribution extends AbstractDistribution implements MRC
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
 }

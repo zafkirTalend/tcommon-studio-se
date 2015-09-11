@@ -122,4 +122,10 @@ public class EMRApache103Distribution extends AbstractDistribution implements HD
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
 }

@@ -152,6 +152,11 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
+    @Override
     public ESparkVersion getSparkVersion() {
         return ESparkVersion.SPARK_1_3;
     }

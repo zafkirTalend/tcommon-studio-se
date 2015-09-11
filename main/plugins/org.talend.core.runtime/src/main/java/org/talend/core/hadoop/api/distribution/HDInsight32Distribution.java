@@ -140,6 +140,11 @@ public class HDInsight32Distribution extends AbstractDistribution implements MRC
     }
 
     @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
+    @Override
     public boolean doSupportDynamicMemoryAllocation() {
         return false;
     }

@@ -126,4 +126,10 @@ public class MapR200Distribution extends AbstractMapRDistribution implements HDF
     public boolean doSupportParquetFormat() {
         return false;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
 }

@@ -162,4 +162,10 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
     public boolean isExecutedThroughSparkJobServer() {
         return false;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return true;
+    }
+
 }
