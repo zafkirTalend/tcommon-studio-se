@@ -18,7 +18,7 @@ package beans;
  * 
  * 5. {example} gives a example for the Function. it is optional.
  */
-public class __BEAN_TEMPLATE__ {
+public class __TEMPLATE__ {
 
     /**
      * helloExample: not return value, only print "hello" + message.

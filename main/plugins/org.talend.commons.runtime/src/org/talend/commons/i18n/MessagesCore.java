@@ -80,7 +80,7 @@ public abstract class MessagesCore {
     // modified by wzhang. add a pluginId parameter
     public static String getString(String key, String pluginId, ResourceBundle resourceBundle, Object... args) {
         try {
-            return MessageFormat.format(getString(key, pluginId, resourceBundle).replaceAll(SINGLE_QUOTE, SINGLE_QUOTE_MUTI),
+            return MessageFormat.format(getString(key, pluginId, resourceBundle).replace(SINGLE_QUOTE, SINGLE_QUOTE_MUTI),
                     args);
         } catch (Exception e) {
             return KEY_NOT_FOUND_PREFIX + key + KEY_NOT_FOUND_SUFFIX;

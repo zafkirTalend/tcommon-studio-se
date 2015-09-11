@@ -228,7 +228,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
         String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
 
-        log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", new String[] { arg1, arg2 })); //$NON-NLS-1$
+        log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", arg1, arg2)); //$NON-NLS-1$
 
         return toReturn;
     }
@@ -255,7 +255,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
             String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
 
-            log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", new String[] { arg1, arg2 })); //$NON-NLS-1$
+            log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", arg1, arg2)); //$NON-NLS-1$
         }
         return toReturn;
     }
@@ -826,7 +826,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void removeContentsFromProject(Resource projectResource, EClassifier type) {
-        Collection contents = EcoreUtil.getObjectsByType(projectResource.getContents(), type);
+        Collection<Object> contents = EcoreUtil.getObjectsByType(projectResource.getContents(), type);
         if (!contents.isEmpty()) {
             projectResource.getContents().removeAll(contents);
         }
@@ -892,21 +892,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * 
      * @param f1
      */
-    private void clearSystemSqlPatterns(IFolder sqlPatternFolder) {
-        try {
-            for (IResource resource : sqlPatternFolder.members()) {
-                if (resource.getType() == IResource.FOLDER) {
-                    IFolder category = (IFolder) resource;
-                    IFolder sysFolder = category.getFolder(RepositoryConstants.SYSTEM_DIRECTORY);
-                    if (sysFolder != null && sysFolder.exists()) {
-                        ResourceUtils.emptyFolder(sysFolder);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
-    }
+//    private void clearSystemSqlPatterns(IFolder sqlPatternFolder) {
+//        try {
+//            for (IResource resource : sqlPatternFolder.members()) {
+//                if (resource.getType() == IResource.FOLDER) {
+//                    IFolder category = (IFolder) resource;
+//                    IFolder sysFolder = category.getFolder(RepositoryConstants.SYSTEM_DIRECTORY);
+//                    if (sysFolder != null && sysFolder.exists()) {
+//                        ResourceUtils.emptyFolder(sysFolder);
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            ExceptionHandler.process(e);
+//        }
+//    }
 
     /**
      * DOC smallet Comment method "createFolders".
@@ -1952,20 +1952,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return copyListOfSpagoBiServer(ProjectManager.getInstance().getCurrentProject().getEmfProject().getSpagoBiServer());
     }
 
-    private List<Status> copyList(List listOfStatus) {
-        List<Status> result = new ArrayList<Status>();
-        for (Object obj : listOfStatus) {
-            result.add((Status) obj);
-        }
-        return result;
+    private List<Status> copyList(List<Status> listOfStatus) {
+        return new ArrayList<Status>(listOfStatus);
     }
 
-    private List<SpagoBiServer> copyListOfSpagoBiServer(List listOfSpagoBiServer) {
-        List<SpagoBiServer> result = new ArrayList<SpagoBiServer>();
-        for (Object obj : listOfSpagoBiServer) {
-            result.add((SpagoBiServer) obj);
-        }
-        return result;
+    private List<SpagoBiServer> copyListOfSpagoBiServer(List<SpagoBiServer> listOfSpagoBiServer) {
+        return new ArrayList<SpagoBiServer>(listOfSpagoBiServer);
     }
 
     @Override
@@ -2696,10 +2688,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     throw new UnsupportedOperationException();
                 }
             } else {
+                final int classifierID = eClass.getClassifierID();
                 for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
-                    itemResource = handler.create(project2, item, eClass.getClassifierID(), path);
-                    screenshotsResource = handler.createScreenShotResource(project2, item, eClass.getClassifierID(), path);
+                    itemResource = handler.create(project2, item, classifierID, path);
                     if (itemResource != null) {
+                        screenshotsResource = handler.createScreenShotResource(project2, item, classifierID, path);
                         break;
                     }
                 }
@@ -2745,10 +2738,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private List<Resource> getReferenceFilesResources(Item item, Resource propertyResource, boolean needLoad) {
-        List referenceResources = item.getReferenceResources();
+        List<ReferenceFileItem> referenceResources = item.getReferenceResources();
         List<Resource> referenceFileReources = new ArrayList<Resource>();
 
-        for (ReferenceFileItem refFile : (List<ReferenceFileItem>) referenceResources) {
+        for (ReferenceFileItem refFile : referenceResources) {
             Resource referenceFileReource = xmiResourceManager.getReferenceFileResource(propertyResource, refFile, needLoad);
             if (needLoad) {
                 if (referenceFileReource.getContents() != null) {
@@ -2806,10 +2799,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project emfProject = getRepositoryContext().getProject().getEmfProject();
         Resource projectResource = emfProject.eResource();
 
-        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
-        for (Iterator iter = users.iterator(); iter.hasNext();) {
-            User emfUser = (User) iter.next();
-
+        Collection<User> users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
+        for (User emfUser : users) {
             if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
                 getRepositoryContext().setUser(emfUser);
                 exist = true;
@@ -3156,9 +3147,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = getRepositoryContext().getProject().getEmfProject().eResource();
 
-        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
-        for (Iterator iter = users.iterator(); iter.hasNext();) {
-            User emfUser = (User) iter.next();
+        Collection<User> users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
+        for (User emfUser : users) {
             if (emfUser.getLogin().equals(login)) {
                 item.getProperty().setAuthor(emfUser);
                 return true;

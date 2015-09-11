@@ -29,8 +29,6 @@ public interface ITalendSynchronizer {
 
     String TEMPLATE = "__TEMPLATE__"; //$NON-NLS-1$
 
-    String BEAN_TEMPLATE = "__BEAN_TEMPLATE__"; //$NON-NLS-1$
-
     void syncAllRoutines() throws SystemException;
 
     void syncAllRoutinesForLogOn() throws SystemException;

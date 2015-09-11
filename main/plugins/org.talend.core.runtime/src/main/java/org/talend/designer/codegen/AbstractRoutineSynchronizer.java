@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
+import java.io.ByteArrayInputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -26,6 +27,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
@@ -39,6 +41,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
@@ -183,7 +186,46 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
         }
     }
 
-    protected abstract void doSyncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
+    private void doSyncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException {
+        try {
+            IFile file = getRoutineFile(routineItem);
+            if (file == null) {
+                return;
+            }
+            if (routineItem.getProperty().getModificationDate() != null) {
+                long modificationItemDate = routineItem.getProperty().getModificationDate().getTime();
+                long modificationFileDate = file.getModificationStamp();
+                if (modificationItemDate <= modificationFileDate) {
+                    return;
+                }
+            } else {
+                routineItem.getProperty().setModificationDate(new Date());
+            }
+
+            if (copyToTemp) {
+                String routineContent = new String(routineItem.getContent().getInnerContent());
+                // see 14713
+                if (routineContent.contains("%GENERATED_LICENSE%")) { //$NON-NLS-1$
+                    IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+                    String routineHeader = service.getRoutineLicenseHeader(VersionUtils.getVersion());
+                    routineContent = routineContent.replace("%GENERATED_LICENSE%", routineHeader); //$NON-NLS-1$
+                }// end
+                String label = routineItem.getProperty().getLabel();
+                if (!label.equals(ITalendSynchronizer.TEMPLATE) && routineContent != null) {
+                    routineContent = routineContent.replaceAll(ITalendSynchronizer.TEMPLATE, label);
+                    // routineContent = renameRoutinePackage(routineItem,
+                    // routineContent);
+                    if (!file.exists()) {
+                        file.create(new ByteArrayInputStream(routineContent.getBytes()), true, null);
+                    } else {
+                        file.setContents(new ByteArrayInputStream(routineContent.getBytes()), true, false, null);
+                    }
+                }
+            }
+        } catch (CoreException e) {
+            throw new SystemException(e);
+        }
+    }
 
     @Override
     public void deleteRoutinefile(IRepositoryViewObject objToDelete) {

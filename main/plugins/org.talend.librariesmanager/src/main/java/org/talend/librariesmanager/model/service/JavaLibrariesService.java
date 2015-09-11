@@ -71,7 +71,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     @Override
     public URL getBeanTemplate() {
         return Platform.getBundle(LibrariesManagerUtils.BUNDLE_DI).getEntry(
-                "resources/java/" + SOURCE_JAVA_BEANS_FOLDER + "/__BEAN_TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
+                "resources/java/" + SOURCE_JAVA_BEANS_FOLDER + "/__TEMPLATE__.java"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /*
