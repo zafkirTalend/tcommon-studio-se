@@ -25,7 +25,6 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.designer.codegen.ITalendSynchronizer;
 
 /**
  * DOC guanglong.du class global comment. Detailled comment
@@ -43,8 +42,6 @@ public interface ICamelDesignerCoreService extends IService {
     public ERepositoryObjectType getRouteDocType();
     
     public ERepositoryObjectType getRouteDocsType();
-
-    public ITalendSynchronizer createCamelJavaSynchronizer();
 
     public ERepositoryObjectType getBeansType();
 

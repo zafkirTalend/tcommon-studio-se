@@ -117,9 +117,8 @@ public final class RepositoryManager {
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
                         ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault()
                                 .getService(ICodeGeneratorService.class);
-
                         try {
-                            codeGenService.createCamelBeanSynchronizer().syncAllBeans();
+                            codeGenService.createRoutineSynchronizer().syncAllBeans();
                         } catch (SystemException e) {
                             ExceptionHandler.process(e);
                         }

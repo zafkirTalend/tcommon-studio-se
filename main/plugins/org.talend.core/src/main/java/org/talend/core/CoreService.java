@@ -289,7 +289,7 @@ public class CoreService implements ICoreService {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
             ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
                     ICodeGeneratorService.class);
-            ITalendSynchronizer talendSynchronizer = codeGenService.createCamelBeanSynchronizer();
+            ITalendSynchronizer talendSynchronizer = codeGenService.createRoutineSynchronizer();
             if (talendSynchronizer != null) {
                 talendSynchronizer.syncAllBeansForLogOn();
             }
