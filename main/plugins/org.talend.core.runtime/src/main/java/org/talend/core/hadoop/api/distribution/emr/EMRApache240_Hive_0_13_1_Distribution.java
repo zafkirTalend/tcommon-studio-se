@@ -113,4 +113,10 @@ public class EMRApache240_Hive_0_13_1_Distribution extends AbstractDistribution 
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
 }

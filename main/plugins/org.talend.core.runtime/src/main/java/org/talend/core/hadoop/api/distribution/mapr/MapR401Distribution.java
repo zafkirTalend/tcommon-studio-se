@@ -133,4 +133,10 @@ public class MapR401Distribution extends AbstractMapRDistribution implements HDF
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
 }

@@ -145,4 +145,10 @@ public class Pivotal101Distribution extends AbstractDistribution implements HDFS
     public boolean doSupportParquetFormat() {
         return false;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
 }

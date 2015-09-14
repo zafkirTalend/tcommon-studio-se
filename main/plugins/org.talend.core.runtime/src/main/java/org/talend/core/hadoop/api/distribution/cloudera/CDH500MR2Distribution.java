@@ -145,4 +145,9 @@ public class CDH500MR2Distribution extends AbstractDistribution implements HDFSC
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
 }

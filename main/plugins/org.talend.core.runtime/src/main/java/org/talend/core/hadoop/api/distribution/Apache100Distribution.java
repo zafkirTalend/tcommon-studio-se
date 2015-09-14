@@ -121,4 +121,9 @@ public class Apache100Distribution extends AbstractDistribution implements HDFSC
     public boolean doSupportParquetFormat() {
         return false;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
 }

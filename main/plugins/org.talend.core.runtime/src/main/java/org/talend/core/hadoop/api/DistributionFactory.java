@@ -32,6 +32,7 @@ import org.talend.core.hadoop.api.distribution.hdp.HDP130Distribution;
 import org.talend.core.hadoop.api.distribution.hdp.HDP200Distribution;
 import org.talend.core.hadoop.api.distribution.hdp.HDP210Distribution;
 import org.talend.core.hadoop.api.distribution.hdp.HDP220Distribution;
+import org.talend.core.hadoop.api.distribution.hdp.HDP230Distribution;
 import org.talend.core.hadoop.api.distribution.mapr.MapR200Distribution;
 import org.talend.core.hadoop.api.distribution.mapr.MapR212Distribution;
 import org.talend.core.hadoop.api.distribution.mapr.MapR213Distribution;
@@ -107,6 +108,9 @@ public class DistributionFactory {
             }
             if (distribution == EHadoopVersion4Drivers.HDP_2_2) {
                 return new HDP220Distribution(distribution);
+            }
+            if (distribution == EHadoopVersion4Drivers.HDP_2_3) {
+                return new HDP230Distribution(distribution);
             }
             if (distribution == EHadoopVersion4Drivers.MAPR2) {
                 return new MapR200Distribution(distribution);

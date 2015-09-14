@@ -10,34 +10,37 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.hadoop.api.distribution.emr;
+package org.talend.core.hadoop.api.distribution.hdp;
 
 import org.talend.core.hadoop.api.components.HBaseComponent;
+import org.talend.core.hadoop.api.components.HCatalogComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
+import org.talend.core.hadoop.api.components.SparkBatchComponent;
+import org.talend.core.hadoop.api.components.SparkStreamingComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
-public class EMRApache240Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent, PigComponent, HiveComponent {
+public class HDP230Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
+        SqoopComponent, PigComponent, HiveComponent, HCatalogComponent, SparkBatchComponent, SparkStreamingComponent {
 
-    private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*,/usr/share/aws/emr/emr-fs/lib/*,/usr/share/aws/emr/lib/*"; //$NON-NLS-1$
+    private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,/usr/hdp/current/hadoop-client/*,/usr/hdp/current/hadoop-client/lib/*,/usr/hdp/current/hadoop-hdfs-client/*,/usr/hdp/current/hadoop-hdfs-client/lib/*,/usr/hdp/current/hadoop-mapreduce-client/*,/usr/hdp/current/hadoop-mapreduce-client/lib/*,/usr/hdp/current/hadoop-yarn-client/*,/usr/hdp/current/hadoop-yarn-client/lib/*"; //$NON-NLS-1$
 
-    public EMRApache240Distribution(EHadoopVersion4Drivers version) {
+    public HDP230Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
-    }
-
-    @Override
-    public String getYarnApplicationClasspath() {
-        return YARN_APPLICATION_CLASSPATH;
     }
 
     @Override
     public boolean doSupportCrossPlatformSubmission() {
         return true;
+    }
+
+    @Override
+    public String getYarnApplicationClasspath() {
+        return YARN_APPLICATION_CLASSPATH;
     }
 
     @Override
@@ -52,7 +55,7 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doSupportNewHBaseAPI() {
-        return false;
+        return true;
     }
 
     @Override
@@ -67,23 +70,22 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doJavaAPISqoopImportAllTablesSupportExcludeTable() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean doSupportHCatalog() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean pigVersionPriorTo_0_12() {
-        // return false because this distribution doesn't support HCatalog.
         return false;
     }
 
     @Override
     public boolean doSupportTez() {
-        return false;
+        return true;
     }
 
     @Override
@@ -108,7 +110,7 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doSupportHive1() {
-        return false;
+        return true;
     }
 
     @Override
@@ -118,7 +120,7 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doSupportTezForHive() {
-        return false;
+        return true;
     }
 
     @Override
@@ -128,17 +130,22 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
 
     @Override
     public boolean doSupportSSL() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportHive1Standalone() {
         return false;
     }
 
     @Override
     public boolean doSupportORCFormat() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean doSupportAvroFormat() {
-        return false;
+        return true;
     }
 
     @Override
@@ -147,8 +154,18 @@ public class EMRApache240Distribution extends AbstractDistribution implements HD
     }
 
     @Override
-    public boolean doSupportStoreAsParquet() {
+    public boolean doSupportDynamicMemoryAllocation() {
+        return true;
+    }
+
+    @Override
+    public boolean isExecutedThroughSparkJobServer() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return true;
     }
 
 }

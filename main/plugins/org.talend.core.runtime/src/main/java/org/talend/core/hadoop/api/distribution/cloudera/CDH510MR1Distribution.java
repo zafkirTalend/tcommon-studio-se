@@ -138,4 +138,9 @@ public class CDH510MR1Distribution extends AbstractDistribution implements HDFSC
     public boolean doSupportParquetFormat() {
         return true;
     }
+
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
 }

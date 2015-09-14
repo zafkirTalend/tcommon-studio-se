@@ -137,6 +137,11 @@ public class MapR410Distribution extends AbstractMapRDistribution implements HDF
     }
 
     @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
+    @Override
     public ESparkVersion getSparkVersion() {
         return ESparkVersion.SPARK_1_3;
     }

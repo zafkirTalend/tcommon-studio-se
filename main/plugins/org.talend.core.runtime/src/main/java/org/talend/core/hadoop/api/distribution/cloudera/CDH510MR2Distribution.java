@@ -151,6 +151,11 @@ public class CDH510MR2Distribution extends AbstractDistribution implements HDFSC
     }
 
     @Override
+    public boolean doSupportStoreAsParquet() {
+        return false;
+    }
+
+    @Override
     public boolean doSupportDynamicMemoryAllocation() {
         return false;
     }

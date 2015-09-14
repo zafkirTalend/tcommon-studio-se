@@ -17,15 +17,15 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 /**
  * This class provides the info for Hive. There are 3 levels as follows:
- * 
+ *
  * <pre>
  * <li> 0 -- stands for "Distribution"
  * <li> 1 -- stands for "Distro version"
  * <li> 2 -- stands for "Hive mode"
  * </pre>
- * 
+ *
  * The <code>key</code> of this enum is matched to the config file of component.
- * 
+ *
  * @author Marvin Wang
  * @version 1.0 jdk1.6
  * @date Aug 9, 2012
@@ -45,6 +45,16 @@ public enum HiveConnVersionInfo {
     PIVOTAL_HD(0, EHadoopDistributions.PIVOTAL_HD.getName(), EHadoopDistributions.PIVOTAL_HD.getDisplayName(), false),
 
     DISTRO_CUSTOM(0, EHadoopDistributions.CUSTOM.getName(), EHadoopDistributions.CUSTOM.getDisplayName(), false),
+
+    HDP_2_3(
+            1,
+            EHadoopVersion4Drivers.HDP_2_3.getVersionValue(),
+            EHadoopVersion4Drivers.HDP_2_3.getVersionDisplay(),
+            true,
+            false,
+            true,
+            true,
+            HiveConnVersionInfo.HORTONWORKS),
 
     HDP_2_2(
             1,
@@ -217,6 +227,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.HDP_2_0,
                   HiveConnVersionInfo.HDP_2_1,
                   HiveConnVersionInfo.HDP_2_2,
+                  HiveConnVersionInfo.HDP_2_3,
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.Cloudera_CDH4_YARN,
@@ -245,6 +256,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.HDP_2_0,
                     HiveConnVersionInfo.HDP_2_1,
                     HiveConnVersionInfo.HDP_2_2,
+                    HiveConnVersionInfo.HDP_2_3,
                     HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
                     HiveConnVersionInfo.Cloudera_CDH4,
@@ -287,6 +299,7 @@ public enum HiveConnVersionInfo {
 
     private static HiveConnVersionInfo[] hiveVersions = new HiveConnVersionInfo[] { HiveConnVersionInfo.Cloudera_CDH5,
             HiveConnVersionInfo.Cloudera_CDH5_1, HiveConnVersionInfo.Cloudera_CDH5_1_MR1, HiveConnVersionInfo.Cloudera_CDH5_4,
+            HiveConnVersionInfo.HDP_2_3,
             HiveConnVersionInfo.HDP_2_2, HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.HDP_2_0,
             HiveConnVersionInfo.PIVOTAL_HD_2_0, HiveConnVersionInfo.APACHE_2_4_0_EMR,
             HiveConnVersionInfo.APACHE_2_4_0_EMR_0_13_1, HiveConnVersionInfo.EMR_4_0_0 };
@@ -335,7 +348,7 @@ public enum HiveConnVersionInfo {
 
     /**
      * Getter for isSupportHive2.
-     * 
+     *
      * @return the isSupportHive2
      */
     public boolean isSupportHive2() {

@@ -72,6 +72,8 @@ public class HadoopComponentTest {
 
     private static final String HDP220 = "HDP_2_2"; //$NON-NLS-1$
 
+    private static final String HDP230 = "HDP_2_3"; //$NON-NLS-1$
+
     private static final String APACHE100 = "APACHE_1_0_0"; //$NON-NLS-1$
 
     private static final String MAPR200 = "MAPR2"; //$NON-NLS-1$
@@ -529,6 +531,43 @@ public class HadoopComponentTest {
         assertFalse(hdp220 instanceof SparkStreamingComponent);
         assertTrue(hdp220 instanceof HCatalogComponent);
         assertFalse(hdp220 instanceof ImpalaComponent);
+    }
+
+    @Test
+    public void testHDP230() throws Exception {
+        HadoopComponent hdp230 = DistributionFactory.buildDistribution(HORTONWORKS, HDP230);
+        assertNotNull(hdp230.getName());
+        assertEquals(EHadoopDistributions.HORTONWORKS, hdp230.getDistribution());
+        assertEquals(EHadoopVersion.HADOOP_2, hdp230.getHadoopVersion());
+        assertTrue(hdp230.doSupportKerberos());
+        assertTrue(hdp230.doSupportUseDatanodeHostname());
+        assertFalse(hdp230.doSupportGroup());
+        assertTrue(((HDFSComponent) hdp230).doSupportSequenceFileShortType());
+        assertFalse(((MRComponent) hdp230).isExecutedThroughWebHCat());
+        assertTrue(((MRComponent) hdp230).doSupportCrossPlatformSubmission());
+        assertTrue(((MRComponent) hdp230).doSupportImpersonation());
+        assertTrue(((HBaseComponent) hdp230).doSupportNewHBaseAPI());
+        assertTrue(((SqoopComponent) hdp230).doJavaAPISupportStorePasswordInFile());
+        assertTrue(((SqoopComponent) hdp230).doJavaAPISqoopImportSupportDeleteTargetDir());
+        assertTrue(((SqoopComponent) hdp230).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) hdp230).doSupportHCatalog());
+        assertFalse(((PigComponent) hdp230).pigVersionPriorTo_0_12());
+        assertTrue(((PigComponent) hdp230).doSupportTez());
+        assertTrue(((PigComponent) hdp230).doSupportHBase());
+        assertTrue(((HiveComponent) hdp230).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) hdp230).doSupportStandaloneMode());
+        assertTrue(((HiveComponent) hdp230).doSupportHive1());
+        assertTrue(((HiveComponent) hdp230).doSupportHive2());
+        assertTrue(((HiveComponent) hdp230).doSupportTezForHive());
+        assertTrue(((HiveComponent) hdp230).doSupportHBaseForHive());
+        assertTrue(((HiveComponent) hdp230).doSupportSSL());
+        assertTrue(((HiveComponent) hdp230).doSupportORCFormat());
+        assertTrue(((HiveComponent) hdp230).doSupportAvroFormat());
+        assertTrue(((HiveComponent) hdp230).doSupportParquetFormat());
+        assertTrue(hdp230 instanceof SparkBatchComponent);
+        assertTrue(hdp230 instanceof SparkStreamingComponent);
+        assertTrue(hdp230 instanceof HCatalogComponent);
+        assertFalse(hdp230 instanceof ImpalaComponent);
     }
 
     @Test
