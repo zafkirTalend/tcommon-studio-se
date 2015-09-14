@@ -19013,13 +19013,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_FUNCTION_PARAMETER__CHILDREN = 6;
 
     /**
+     * The feature id for the '<em><b>Table Reside In Tables</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES = 7;
+
+    /**
      * The number of structural features of the '<em>SAP Function Parameter</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_FUNCTION_PARAMETER_FEATURE_COUNT = 7;
+    int SAP_FUNCTION_PARAMETER_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl <em>SAP Function Param Data</em>}' class.
@@ -23431,6 +23440,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getSAPFunctionParameter_Children();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isTableResideInTables <em>Table Reside In Tables</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Table Reside In Tables</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isTableResideInTables()
+     * @see #getSAPFunctionParameter()
+     * @generated
+     */
+    EAttribute getSAPFunctionParameter_TableResideInTables();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParamData <em>SAP Function Param Data</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -27068,6 +27088,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference SAP_FUNCTION_PARAMETER__CHILDREN = eINSTANCE.getSAPFunctionParameter_Children();
+
+        /**
+         * The meta object literal for the '<em><b>Table Reside In Tables</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES = eINSTANCE.getSAPFunctionParameter_TableResideInTables();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParamDataImpl <em>SAP Function Param Data</em>}' class.
