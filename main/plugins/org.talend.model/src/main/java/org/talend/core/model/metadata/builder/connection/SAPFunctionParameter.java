@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isChanging <em>Changing</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getTestValue <em>Test Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#getChildren <em>Children</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isTableResideInTables <em>Table Reside In Tables</em>}</li>
  * </ul>
  * </p>
  *
@@ -201,5 +202,32 @@ public interface SAPFunctionParameter extends EObject {
      * @generated
      */
     EList<SAPFunctionParameter> getChildren();
+
+    /**
+     * Returns the value of the '<em><b>Table Reside In Tables</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Table Reside In Tables</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Table Reside In Tables</em>' attribute.
+     * @see #setTableResideInTables(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSAPFunctionParameter_TableResideInTables()
+     * @model default="true"
+     * @generated
+     */
+    boolean isTableResideInTables();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SAPFunctionParameter#isTableResideInTables <em>Table Reside In Tables</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Table Reside In Tables</em>' attribute.
+     * @see #isTableResideInTables()
+     * @generated
+     */
+    void setTableResideInTables(boolean value);
 
 } // SAPFunctionParameter
