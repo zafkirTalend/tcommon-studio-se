@@ -36,6 +36,7 @@ import org.talend.core.model.metadata.builder.connection.SAPFunctionParameter;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#isChanging <em>Changing</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#getTestValue <em>Test Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#getChildren <em>Children</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SAPFunctionParameterImpl#isTableResideInTables <em>Table Reside In Tables</em>}</li>
  * </ul>
  * </p>
  *
@@ -172,6 +173,26 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
      * @ordered
      */
     protected EList<SAPFunctionParameter> children;
+
+    /**
+     * The default value of the '{@link #isTableResideInTables() <em>Table Reside In Tables</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTableResideInTables()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean TABLE_RESIDE_IN_TABLES_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isTableResideInTables() <em>Table Reside In Tables</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTableResideInTables()
+     * @generated
+     * @ordered
+     */
+    protected boolean tableResideInTables = TABLE_RESIDE_IN_TABLES_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -340,6 +361,28 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isTableResideInTables() {
+        return tableResideInTables;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTableResideInTables(boolean newTableResideInTables) {
+        boolean oldTableResideInTables = tableResideInTables;
+        tableResideInTables = newTableResideInTables;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    ConnectionPackage.SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES, oldTableResideInTables, tableResideInTables));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -371,6 +414,8 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
             return getTestValue();
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             return getChildren();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES:
+            return isTableResideInTables();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -406,6 +451,9 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
             getChildren().clear();
             getChildren().addAll((Collection<? extends SAPFunctionParameter>) newValue);
             return;
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES:
+            setTableResideInTables((Boolean) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
@@ -439,6 +487,9 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             getChildren().clear();
             return;
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES:
+            setTableResideInTables(TABLE_RESIDE_IN_TABLES_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
@@ -465,6 +516,8 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
             return TEST_VALUE_EDEFAULT == null ? testValue != null : !TEST_VALUE_EDEFAULT.equals(testValue);
         case ConnectionPackage.SAP_FUNCTION_PARAMETER__CHILDREN:
             return children != null && !children.isEmpty();
+        case ConnectionPackage.SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES:
+            return tableResideInTables != TABLE_RESIDE_IN_TABLES_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -492,6 +545,8 @@ public class SAPFunctionParameterImpl extends EObjectImpl implements SAPFunction
         result.append(changing);
         result.append(", testValue: ");
         result.append(testValue);
+        result.append(", tableResideInTables: ");
+        result.append(tableResideInTables);
         result.append(')');
         return result.toString();
     }

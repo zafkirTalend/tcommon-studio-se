@@ -3880,6 +3880,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getSAPFunctionParameter_TableResideInTables() {
+        return (EAttribute) sapFunctionParameterEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getSAPFunctionParamData() {
         return sapFunctionParamDataEClass;
     }
@@ -4664,6 +4673,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__CHANGING);
         createEAttribute(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__TEST_VALUE);
         createEReference(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__CHILDREN);
+        createEAttribute(sapFunctionParameterEClass, SAP_FUNCTION_PARAMETER__TABLE_RESIDE_IN_TABLES);
 
         sapFunctionParamDataEClass = createEClass(SAP_FUNCTION_PARAM_DATA);
         createEReference(sapFunctionParamDataEClass, SAP_FUNCTION_PARAM_DATA__INPUT_ROOT);
@@ -5920,6 +5930,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getSAPFunctionParameter_Children(), this.getSAPFunctionParameter(), null, "children", null, 0, -1,
                 SAPFunctionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSAPFunctionParameter_TableResideInTables(), ecorePackage.getEBoolean(), "tableResideInTables", "true",
+                0, 1, SAPFunctionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                !IS_DERIVED, IS_ORDERED);
 
         initEClass(sapFunctionParamDataEClass, SAPFunctionParamData.class, "SAPFunctionParamData", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
