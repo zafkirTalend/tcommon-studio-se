@@ -101,6 +101,7 @@ import org.talend.core.repository.model.repositoryObject.SAPFunctionRepositoryOb
 import org.talend.core.repository.model.repositoryObject.SAPIDocRepositoryObject;
 import org.talend.core.repository.model.repositoryObject.SalesforceModuleRepositoryObject;
 import org.talend.core.repository.recyclebin.RecycleBinManager;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.ui.branding.IBrandingService;
@@ -146,6 +147,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     private Map<Object, List<Project>> nodeAndProject;
 
     private Map<String, RepositoryNode> repositoryNodeMap = new HashMap<String, RepositoryNode>();
+
+    private Map<String, RepositoryNode> genericNodesMap = new HashMap<>();
 
     private String currentPerspective; // set the current perspective
 
@@ -269,6 +272,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         // *init the repository node from extension
         initExtensionRepositoryNodes(curParentNode);
+        // init the repository nodes from component service
+        initNodesFromComponentSerivice(metadataNode);
         // delete the hidden nodes
         deleteHiddenNodes(nodes);
 
@@ -384,6 +389,22 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         } else {
             for (IRepositoryNode n : nodes) {
                 removeNode(n, node);
+            }
+        }
+    }
+
+    private void initNodesFromComponentSerivice(RepositoryNode curParentNode) {
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null) {
+            List<RepositoryNode> nodes = wizardService.createNodesFromComponentService(curParentNode);
+            for (RepositoryNode repNode : nodes) {
+                ERepositoryObjectType repType = (ERepositoryObjectType) repNode.getProperties(EProperties.CONTENT_TYPE);
+                if (repType != null) {
+                    genericNodesMap.put(repType.getType(), repNode);
+                }
             }
         }
     }
@@ -1886,6 +1907,11 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             }
         }
         return rootTypeNode;
+    }
+
+    @Override
+    public Map<String, RepositoryNode> getGenericTopNodesMap() {
+        return genericNodesMap;
     }
 
     @Override

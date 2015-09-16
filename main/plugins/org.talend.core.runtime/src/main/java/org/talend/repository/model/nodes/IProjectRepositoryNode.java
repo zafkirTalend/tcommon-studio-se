@@ -13,6 +13,7 @@
 package org.talend.repository.model.nodes;
 
 import java.util.List;
+import java.util.Map;
 
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IRepositoryNode;
@@ -32,6 +33,8 @@ public interface IProjectRepositoryNode {
     public IRepositoryNode getRootRepositoryNode(ERepositoryObjectType type);
 
     public RepositoryNode getRootRepositoryNode(ERepositoryObjectType type, boolean tryInit);
+
+    public Map<String, RepositoryNode> getGenericTopNodesMap();
 
     public void dispose();
 
