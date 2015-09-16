@@ -7,6 +7,8 @@ import java.util.Map;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 
+import routines.TalendString;
+
 /**
  * dom4j Document helper
  * @author Administrator
@@ -111,5 +113,14 @@ public class DocumentHelper {
 		}
 		return true;
 	}
+	
+	public static void applyNamespace1(org.dom4j.Element currentElement, String prefix, String uri) {
+	    applyNamespace2(currentElement, currentElement.getName(), prefix, uri);
+    }
+    
+    public static void applyNamespace2(org.dom4j.Element currentElement, String localName, String prefix, String uri) {
+        currentElement.setQName(org.dom4j.DocumentHelper.createQName(localName,
+            org.dom4j.DocumentHelper.createNamespace(prefix,TalendString.replaceSpecialCharForXML(uri))));
+    }
 	
 }
