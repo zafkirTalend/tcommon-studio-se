@@ -34,4 +34,8 @@ public class HadoopConstants {
     public static final String FRAMEWORK_MAPREDUCE = "MapReduce";
 
     public static final String FRAMEWORK_SPARK = "Spark";
+
+    public static final String JOBTYPEBDSTREAMING = "Big Data Streaming";
+
+    public static final String JOBTYPEBDBATCH = "Big Data Batch";
 }

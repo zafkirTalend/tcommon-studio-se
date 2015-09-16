@@ -15,6 +15,7 @@ package org.talend.core.service;
 import java.util.List;
 
 import org.eclipse.ui.IEditorPart;
+import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsHandler;
 import org.talend.core.model.general.Project;
@@ -61,4 +62,6 @@ public interface IMRProcessService extends IService {
 
     public IRepositoryEditorInput createTestCaseMapRedProcessEditorInput(ProcessItem processItem, boolean load,
             String originalJobID, List<INode> testNodes, Boolean lastVersion, Boolean readonly);
+
+    public IImage getMRWizardIcon(String framework);
 }
