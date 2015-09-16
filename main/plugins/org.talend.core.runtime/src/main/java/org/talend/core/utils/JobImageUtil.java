@@ -27,13 +27,17 @@ public class JobImageUtil {
 
     public static IImage getWizardIcon(String jobType, String framework) {
         if (HadoopConstants.JOBTYPEBDSTREAMING.equals(jobType)) {
-            IStormProcessService stormProcessService = (IStormProcessService) GlobalServiceRegister.getDefault().getService(
-                    IStormProcessService.class);
-            return stormProcessService.getStormWizardIcon(framework);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IStormProcessService.class)) {
+                IStormProcessService stormProcessService = (IStormProcessService) GlobalServiceRegister.getDefault().getService(
+                        IStormProcessService.class);
+                return stormProcessService.getStormWizardIcon(framework);
+            }
         } else if (HadoopConstants.JOBTYPEBDBATCH.equals(jobType)) {
-            IMRProcessService mrProcessService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
-                    IMRProcessService.class);
-            return mrProcessService.getMRWizardIcon(framework);
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMRProcessService.class)) {
+                IMRProcessService mrProcessService = (IMRProcessService) GlobalServiceRegister.getDefault().getService(
+                        IMRProcessService.class);
+                return mrProcessService.getMRWizardIcon(framework);
+            }
         }
         return ECoreImage.PROCESS_WIZ;
     }
