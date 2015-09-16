@@ -271,7 +271,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     protected List<IRepositoryViewObject> getAllProcessTypeObjectsWithoutCurrentType() throws PersistenceException {
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
-            final ERepositoryObjectType currentType = ERepositoryObjectType.getItemType(property.getItem());
+            final ERepositoryObjectType currentType = getRepositoryObjectType();
             IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
                     IProxyRepositoryService.class);
 

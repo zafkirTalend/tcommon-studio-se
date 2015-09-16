@@ -114,11 +114,10 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createElement("br"));
             }
-        } else if ("ROUTES".equals(id) && isItemShow("ROUTES")) {
+        } else if (ERepositoryObjectType.PROCESS_ROUTE != null && ERepositoryObjectType.PROCESS_ROUTE.name().equals(id)) {
             String title = Messages.getString("WelcomePageDynamicContentProvider.LatestItemsRoutes.Title");
             createLatestItemTitlePart(dom, parent, imgCommonPath + "imgs/img_route.png", title);
-            ERepositoryObjectType repositoryRoutesType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTES");
-            latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.PROCESS_ROUTE, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&"
                     + "class=org.talend.camel.designer.ui.EditCamelProcess&"
                     + "id=org.talend.camel.designer.ui.EditCamelProcess&nodeId=";
@@ -200,9 +199,9 @@ public class DynamicContentProviderGeneric extends DynamicContentProvider {
             }
 
             // create route
-            if (isItemShow("ROUTES")) {
+            if (isItemShow("ROUTE")) {
                 text = Messages.getString("WelcomePageDynamicContentProvider.CreateNewRouteTitle");
-                url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES";
+                url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTE";
                 title = "Create a route";
                 createANewItem(dom, parent, imgCommonPath + "imgs/img_route.png", text, title, url);
             }

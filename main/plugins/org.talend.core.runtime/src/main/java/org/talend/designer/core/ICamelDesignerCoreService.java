@@ -16,7 +16,6 @@ import java.util.Collection;
 
 import org.dom4j.Element;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.process.EConnectionType;
@@ -31,14 +30,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
  */
 public interface ICamelDesignerCoreService extends IService {
 
-    public IAction getCreateProcessAction(boolean isToolbar);
-
-    public IAction getCreateBeanAction(boolean isToolbar);
-
     public boolean isInstanceofCamelRoutes(Item item);
 
-    public ERepositoryObjectType getRoutes();
-    
     public ERepositoryObjectType getRouteDocType();
     
     public ERepositoryObjectType getRouteDocsType();

@@ -35,7 +35,7 @@ public abstract class IntroProvider implements IIntroXHTMLContentProvider {
             } else {
                 return false;
             }
-        } else if ("SERVICES".equals(type) || "ROUTES".equals(type)) {
+        } else if ("SERVICES".equals(type) || "ROUTE".equals(type)) {
             if (ERepositoryObjectType.valueOf(ERepositoryObjectType.class, type) != null) {
                 return true;
             } else {

@@ -837,7 +837,7 @@ public final class ProcessUtils {
                 if (property != null) { // same as isStandardJob in JavaProcessor
                     ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(property.getItem());
                     // route job
-                    if (itemType != null && itemType.equals(ERepositoryObjectType.valueOf("ROUTES"))) {//$NON-NLS-1$
+                    if (itemType != null && itemType.equals(ERepositoryObjectType.PROCESS_ROUTE)) {
                         needBeans = true;
                     }
                 }

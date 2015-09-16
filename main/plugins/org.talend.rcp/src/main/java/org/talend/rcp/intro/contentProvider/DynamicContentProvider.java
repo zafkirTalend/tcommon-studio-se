@@ -84,9 +84,8 @@ public class DynamicContentProvider extends IntroProvider {
             if (latestItems.size() == 0) {
                 parent.appendChild(dom.createTextNode(Messages.getString("DynamicContentProvider.services"))); //$NON-NLS-1$
             }
-        } else if ("ROUTE".equals(id)) { //$NON-NLS-1$
-            ERepositoryObjectType repositoryRoutesType = ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTES"); //$NON-NLS-1$
-            latestItems = getLatestModifiedItems(repositoryRoutesType, 8);
+        } else if (ERepositoryObjectType.PROCESS_ROUTE != null ERepositoryObjectType.PROCESS_ROUTE.name().equals(id)) { //$NON-NLS-1$
+            latestItems = getLatestModifiedItems(ERepositoryObjectType.PROCESS_ROUTE, 8);
             url = "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&" //$NON-NLS-1$
                     + "class=org.talend.camel.designer.ui.EditCamelProcess&" //$NON-NLS-1$
                     + "id=org.talend.camel.designer.ui.EditCamelProcess&nodeId="; //$NON-NLS-1$
