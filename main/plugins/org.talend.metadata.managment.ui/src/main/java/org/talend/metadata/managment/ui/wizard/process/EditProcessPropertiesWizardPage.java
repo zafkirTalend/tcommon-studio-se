@@ -7,7 +7,7 @@
 //
 // You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
-// 9 rue Pages 92150 Suresnes, France
+// 9 rue Pages 92150 Suresnes, Francee
 //
 // ============================================================================
 package org.talend.metadata.managment.ui.wizard.process;
@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -34,6 +35,8 @@ import org.eclipse.swt.widgets.Text;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.image.IImage;
+import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Property;
@@ -42,6 +45,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.repository.utils.ConvertJobsUtil.JobType;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.utils.JobImageUtil;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.metadata.managment.ui.wizard.PropertiesWizard;
 import org.talend.metadata.managment.ui.wizard.PropertiesWizardPage;
@@ -155,6 +159,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
             framework.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             framework.setEditable(false);
             framework.setItems(new String[0]);
+            framework.setEnabled(false);
 
             // Purpose
             Label purposeLab = new Label(container, SWT.NONE);
@@ -293,6 +298,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
                 public void modifyText(final ModifyEvent e) {
                     ConvertJobsUtil.updateJobFrameworkPart(jobTypeCCombo.getText(), framework);
                     updatePageStatus();
+                    updateFrameworkIcon(framework.getText());
                 }
             });
         }
@@ -302,8 +308,17 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
                 @Override
                 public void modifyText(ModifyEvent e) {
                     updatePageStatus();
+                    updateFrameworkIcon(framework.getText());
                 }
             });
+        }
+    }
+
+    protected void updateFrameworkIcon(String framework) {
+        IImage wizardIcon = JobImageUtil.getWizardIcon(jobTypeCCombo.getText(), framework);
+        if (wizardIcon != null) {
+            ImageDescriptor imageDescriptor = ImageProvider.getImageDesc(wizardIcon);
+            this.setImageDescriptor(imageDescriptor);
         }
     }
 
