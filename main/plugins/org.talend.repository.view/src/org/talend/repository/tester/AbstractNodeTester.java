@@ -24,7 +24,7 @@ public abstract class AbstractNodeTester extends PropertyTester {
 
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-        if (receiver instanceof RepositoryNode) {
+        if (receiver instanceof IRepositoryNode) {
             Boolean testProperty = testProperty(receiver, property, args, expectedValue);
             if (testProperty != null) {
                 return testProperty.booleanValue();
@@ -66,12 +66,12 @@ public abstract class AbstractNodeTester extends PropertyTester {
         return false;
     }
 
-    public boolean isTypeNode(RepositoryNode repositoryNode, ERepositoryObjectType type) {
+    public boolean isTypeNode(IRepositoryNode repositoryNode, ERepositoryObjectType type) {
         ERepositoryObjectType contentType = getNodeContentType(repositoryNode);
         return contentType != null && contentType.equals(type);
     }
 
-    public ERepositoryObjectType getNodeContentType(RepositoryNode repositoryNode) {
+    public ERepositoryObjectType getNodeContentType(IRepositoryNode repositoryNode) {
         return repositoryNode != null ? (ERepositoryObjectType) repositoryNode.getProperties(EProperties.CONTENT_TYPE) : null;
     }
 }
