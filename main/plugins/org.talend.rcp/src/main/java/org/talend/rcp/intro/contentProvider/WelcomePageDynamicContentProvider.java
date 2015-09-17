@@ -277,7 +277,7 @@ public class WelcomePageDynamicContentProvider implements IIntroXHTMLContentProv
             hyperlinkRoute
                     .setAttribute(
                             "href",
-                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTES");
+                            "http://org.eclipse.ui.intro/runAction?pluginId=org.talend.camel.designer&class=org.talend.camel.designer.ui.CreateCamelProcess&id=org.talend.camel.designer.ui.CreateCamelProcess&type=ROUTE");
             Element spanRoute = dom.createElement("span");
             spanRoute.setAttribute("class", "style_3");
             spanRoute.appendChild(dom.createTextNode(" "
