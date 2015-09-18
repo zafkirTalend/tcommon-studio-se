@@ -512,7 +512,7 @@ public class RepositoryNodeUtilities {
         }
     }
 
-    public static void expandParentNode(IRepositoryView view, RepositoryNode node) {
+    public static void expandParentNode(IRepositoryView view, IRepositoryNode node) {
         if (view == null || node == null) {
             return;
         }
