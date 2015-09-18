@@ -20,6 +20,10 @@ import java.awt.Color;
  * Utility class to handle colors.
  */
 public final class AWTColorUtils {
+
+    public static final String[] COLOR_STRS = { "#236192", "#C4D600", "#DB662A", "#F7A800", "#787121", "#00A9CE", "#ECAB7C",
+            "#B8B370", "#D4D3D3", "#83D3E6", "#FFD38B" };
+
     private static final Color[] COLORS = initializeColors();
 
     /**
@@ -34,17 +38,14 @@ public final class AWTColorUtils {
         return COLORS[idx];
     }
 
-    
     private static Color[] initializeColors() {
-        Color[] origColors = { new Color(150, 220, 25) /*Talend Color */ , Color.blue, Color.red, Color.magenta, Color.green, Color.yellow,
-                Color.cyan, Color.black, Color.darkGray, Color.gray, Color.lightGray, Color.orange, Color.pink };
-        Color[] enhancedColors = new Color[origColors.length * 3];
-        for (int i = 0; i < origColors.length; i++) {
-            enhancedColors[i] = origColors[i];
-            enhancedColors[i + origColors.length] = origColors[i].brighter();
-            enhancedColors[i + 2 * origColors.length] = origColors[i].darker();
+        Color[] colors = new Color[COLOR_STRS.length];
+        int i = 0;
+        for (String str : COLOR_STRS) {
+            colors[i] = Color.decode(str);
+            i++;
         }
-        return enhancedColors;
+        return colors;
     }
 
     private AWTColorUtils() {
