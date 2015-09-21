@@ -216,7 +216,7 @@ public final class ProcessUtils {
 
     /**
      * DOC cmeng Comment method "updateRepositoryObjects".
-     * 
+     *
      * @param repositoryObjects
      * @param obj
      */
@@ -231,7 +231,7 @@ public final class ProcessUtils {
     /**
      * To check the obj, if the obj is a subItem of a Hadoop Cluster Metadata, then need to get the Cluster connection
      * item too.
-     * 
+     *
      * @param obj
      * @param factory
      * @return
@@ -708,7 +708,8 @@ public final class ProcessUtils {
     public static int getAssertAmount(IProcess process) {
         List<INode> nodes = new ArrayList<INode>();
         for (INode node : process.getGraphicalNodes()) {
-            if (node.getComponent().getName().equals("tAssert")) {
+            // tAssert will be sued on DI job, tCollectAndCheck will be used on Spark job
+            if (node.getComponent().getName().equals("tAssert") || node.getComponent().getName().equals("tCollectAndCheck")) {
                 nodes.add(node);
             }
         }
