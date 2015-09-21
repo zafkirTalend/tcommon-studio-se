@@ -154,4 +154,20 @@ public class MapR500Distribution extends AbstractMapRDistribution implements HDF
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.hadoop.api.components.HiveComponent#doSupportStoreAsParquet()
+     */
+    @Override
+    public boolean doSupportStoreAsParquet() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean doSupportMapRDB() {
+        return true;
+    }
+
 }

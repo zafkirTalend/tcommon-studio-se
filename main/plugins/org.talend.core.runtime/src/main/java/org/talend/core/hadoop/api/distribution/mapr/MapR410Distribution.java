@@ -150,4 +150,9 @@ public class MapR410Distribution extends AbstractMapRDistribution implements HDF
     public boolean isExecutedThroughSparkJobServer() {
         return false;
     }
+
+    @Override
+    public boolean doSupportMapRDB() {
+        return true;
+    }
 }
