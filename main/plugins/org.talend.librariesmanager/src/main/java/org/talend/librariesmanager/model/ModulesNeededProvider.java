@@ -689,42 +689,15 @@ public class ModulesNeededProvider {
         List<ModuleNeeded> allPluginsRequiredModules = getAllModulesNeededExtensionsForPlugin();
         List<ModuleNeeded> allUninstalledModules = new ArrayList<ModuleNeeded>(allPluginsRequiredModules.size());
         SubMonitor subMonitor = SubMonitor.convert(monitor, allPluginsRequiredModules.size());
-        Bundle bundle = FrameworkUtil.getBundle(ModulesNeededProvider.class);
-        if (bundle != null && bundle.getBundleContext() != null) {
-            ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = bundle.getBundleContext()
-                    .getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
-            if (mavenResolverService != null) {
-                MavenResolver mavenResolver = bundle.getBundleContext().getService(mavenResolverService);
 
-                if (mavenResolver != null) {
-
-                    for (ModuleNeeded module : allPluginsRequiredModules) {
-                        // maven uri must not have any url attached to them
-                        // we inject a special url to only look for local libs
-                        String mvnUri = module.getMavenUriSnapshot().replace("mvn:",
-                                "mvn:" + MavenConstants.LOCAL_RESOLUTION_URL + "!");
-                        try {
-                            // if the resolve succeed it means the artifact is installed.
-                            mavenResolver.resolve(mvnUri);
-                        } catch (IOException ioe) {
-                            // if the resolve fails, it means the module is not installed
-                            allUninstalledModules.add(module);
-                        }
-                        if (subMonitor.isCanceled()) {
-                            return Collections.EMPTY_LIST;
-                        }// else keep going
-                        subMonitor.worked(1);
-                    }
-                } else {// throw an exception to tell that install folder was not properly initialised
-                    throw new IllegalStateException(
-                            "Could not get the maven resolver service, the bundle org.ops4j.pax.url.mvn man not be loaded");
-                }
-            } else {// throw an exception to tell that install folder was not properly initialised
-                throw new IllegalStateException(
-                        "Could not get the maven resolver service referecne, the bundle org.ops4j.pax.url.mvn man not be loaded");
+        for (ModuleNeeded module : allPluginsRequiredModules) {
+            if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED) {
+                allUninstalledModules.add(module);                
             }
-        } else {// throw an exception to tell that install folder was not properly initialised
-            throw new IllegalStateException("Could not find the current bundle context");
+            if (subMonitor.isCanceled()) {
+                return Collections.EMPTY_LIST;
+            }// else keep going
+            subMonitor.worked(1);
         }
         return allUninstalledModules;
     }
