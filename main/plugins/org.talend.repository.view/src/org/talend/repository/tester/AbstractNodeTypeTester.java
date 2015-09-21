@@ -15,7 +15,7 @@ package org.talend.repository.tester;
 import java.util.Map;
 
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.model.IRepositoryNode;
+import org.talend.repository.model.RepositoryNode;
 
 public abstract class AbstractNodeTypeTester extends AbstractNodeTester {
 
@@ -24,12 +24,13 @@ public abstract class AbstractNodeTypeTester extends AbstractNodeTester {
     @Override
     public final boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
         final ERepositoryObjectType type = getPropertyMapping().get(property);
-        if (null != type && receiver instanceof IRepositoryNode) {
-            return isTypeNode((IRepositoryNode) receiver, type);
+        if (null != type && receiver instanceof RepositoryNode) {
+            return isTypeNode((RepositoryNode) receiver, type);
         }
         return false;
     }
 
+    @Override
     protected final Boolean testProperty(Object receiver, String property, Object[] args, Object expectedValue) {
         return null;
     }

@@ -424,7 +424,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     private void doExportLibs() {
         FileDialog dialog = new FileDialog(getParentShell(), SWT.SAVE);
         dialog.setFilterExtensions(HadoopCustomLibrariesUtil.FILE__MASK);
-        dialog.setText("Export to Archive File");
+        dialog.setText("Export to Archive File"); //$NON-NLS-1$
 
         final String selectedArchive = dialog.open();
         if (selectedArchive != null) {
@@ -836,6 +836,7 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
             sparkConfigurations = new HashMap<String, Object>();
             typeConfigurations.put(ECustomVersionType.SPARK, sparkConfigurations);
         }
+
         String strSparkMode = getSparkMode();
         if (strSparkMode == null || strSparkMode.isEmpty()) {
             // the mode is set following the configurations of tSparkConfiguration_java.xml
@@ -933,5 +934,4 @@ public class HadoopCustomVersionDefineDialog extends TitleAreaDialog {
     public void setSparkStreamingMode(String sparkStreamingMode) {
         this.sparkStreamingMode = sparkStreamingMode;
     }
-
 }
