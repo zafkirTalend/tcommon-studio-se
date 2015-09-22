@@ -8,7 +8,7 @@ import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
 import org.talend.presentation.onboarding.utils.OnBoardingConstants;
 import org.talend.presentation.onboarding.utils.OnBoardingUtils;
 
-public class OnBoaringStartup implements IStartup {
+public class OnBoardingStartup implements IStartup {
 
     @Override
     public void earlyStartup() {

@@ -31,7 +31,7 @@
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="org.talend.presentation.onboarding.handlers.OnBoaringStartup">
+            class="org.talend.presentation.onboarding.handlers.OnBoardingStartup">
       </startup>
    </extension>
 </plugin>
