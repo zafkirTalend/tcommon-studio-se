@@ -39,11 +39,19 @@ public interface IGenericWizardService extends IService {
     public List<String> getGenericTypeNames();
 
     /**
-     * Get image by node type name.
+     * Get node image by node type name.
      * 
      * @param typeName
      * @return
      */
     public Image getNodeImage(String typeName);
+
+    /**
+     * Get wizard image by node type name.
+     * 
+     * @param typeName
+     * @return
+     */
+    public Image getWiardImage(String typeName);
 
 }
