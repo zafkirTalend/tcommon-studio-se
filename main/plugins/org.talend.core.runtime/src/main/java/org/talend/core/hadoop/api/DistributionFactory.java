@@ -136,6 +136,9 @@ public class DistributionFactory {
             if (distribution == EHadoopVersion4Drivers.MAPR410) {
                 return new MapR410Distribution(distribution);
             }
+            if (distribution == EHadoopVersion4Drivers.MAPR500) {
+                return new MapR500Distribution(distribution);
+            }
             if (distribution == EHadoopVersion4Drivers.APACHE_1_0_3_EMR) {
                 return new EMRApache103Distribution(distribution);
             }
@@ -154,16 +157,15 @@ public class DistributionFactory {
             if (distribution == EHadoopVersion4Drivers.MICROSOFT_HD_INSIGHT_3_1) {
                 return new HDInsight31Distribution(distribution);
             }
+            if (distribution == EHadoopVersion4Drivers.MICROSOFT_HD_INSIGHT_3_2) {
+                return new HDInsight32Distribution(distribution);
+            }
             if (distribution == EHadoopVersion4Drivers.EMR_4_0_0) {
                 return new EMR400Distribution(distribution);
             }
         } else {
             // The distribution can be null in case of the GUI has not implemented the distribution in
             // EHadoopVersion4Drivers. In this case, we create this temporary code waiting for them to implement it.
-
-            if (MICROSOFT_HD_INSIGHT_3_2.equals(pVersion)) {
-                return new HDInsight32Distribution();
-            }
 
             if (EMR240_HIVE_0_13_1.equals(pVersion)) {
                 return new EMRApache240_Hive_0_13_1_Distribution();
@@ -172,10 +174,6 @@ public class DistributionFactory {
             // Only used to support Spark CDH 5.1.3 TUJs.
             if (LEGACY_CDH51_SPARK.equals(pVersion)) {
                 return new CDH510MR2Distribution(EHadoopVersion4Drivers.CLOUDERA_CDH5_1);
-            }
-
-            if (MAPR_500.equals(pVersion)) {
-                return new MapR500Distribution();
             }
         }
         throw new Exception("The distribution " + pDistribution + " with the version " + pVersion + " doesn't exist."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

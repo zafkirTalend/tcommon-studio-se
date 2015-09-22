@@ -12,37 +12,20 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution;
 
-import org.talend.core.hadoop.api.EHadoopVersion;
 import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.components.SparkBatchComponent;
 import org.talend.core.hadoop.api.components.SparkStreamingComponent;
-import org.talend.core.hadoop.version.EHadoopDistributions;
+import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 public class HDInsight32Distribution extends AbstractDistribution implements MRComponent, PigComponent, HiveComponent,
         SparkBatchComponent, SparkStreamingComponent {
 
     private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
 
-    @Override
-    public String getName() {
-        return "Microsoft HD Insight 3.2"; //$NON-NLS-1$
-    }
-
-    @Override
-    public EHadoopDistributions getDistribution() {
-        return EHadoopDistributions.MICROSOFT_HD_INSIGHT;
-    }
-
-    @Override
-    public EHadoopVersion getHadoopVersion() {
-        return EHadoopVersion.HADOOP_2;
-    }
-
-    @Override
-    public boolean doSupportKerberos() {
-        return false;
+    public HDInsight32Distribution(EHadoopVersion4Drivers version) {
+        this.version = version;
     }
 
     @Override
