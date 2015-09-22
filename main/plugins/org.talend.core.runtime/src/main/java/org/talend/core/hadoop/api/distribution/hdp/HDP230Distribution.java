@@ -163,4 +163,8 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
         return true;
     }
 
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
+    }
 }

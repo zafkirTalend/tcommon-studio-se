@@ -167,4 +167,9 @@ public class CustomDistribution extends AbstractDistribution implements HDFSComp
     public boolean isExecutedThroughSparkJobServer() {
         return false;
     }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
+    }
 }

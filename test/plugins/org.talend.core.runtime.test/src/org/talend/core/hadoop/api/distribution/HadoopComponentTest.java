@@ -128,7 +128,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) cdh400mr1).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) cdh400mr1).doSupportHCatalog());
         assertFalse(((PigComponent) cdh400mr1).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh400mr1).doSupportTez());
         assertTrue(((PigComponent) cdh400mr1).doSupportHBase());
         assertTrue(((HiveComponent) cdh400mr1).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh400mr1).doSupportStandaloneMode());
@@ -167,7 +166,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh400mr2).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) cdh400mr2).doSupportHCatalog());
         assertFalse(((PigComponent) cdh400mr2).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh400mr2).doSupportTez());
         assertTrue(((PigComponent) cdh400mr2).doSupportHBase());
         assertTrue(((HiveComponent) cdh400mr2).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh400mr2).doSupportStandaloneMode());
@@ -205,7 +203,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh500).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh500).doSupportHCatalog());
         assertFalse(((PigComponent) cdh500).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh500).doSupportTez());
         assertTrue(((PigComponent) cdh500).doSupportHBase());
         assertTrue(((HiveComponent) cdh500).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh500).doSupportStandaloneMode());
@@ -243,7 +240,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) cdh510mr1).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh510mr1).doSupportHCatalog());
         assertFalse(((PigComponent) cdh510mr1).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh510mr1).doSupportTez());
         assertTrue(((PigComponent) cdh510mr1).doSupportHBase());
         assertTrue(((HiveComponent) cdh510mr1).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh510mr1).doSupportStandaloneMode());
@@ -281,7 +277,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh510mr2).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh510mr2).doSupportHCatalog());
         assertFalse(((PigComponent) cdh510mr2).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh510mr2).doSupportTez());
         assertTrue(((PigComponent) cdh510mr2).doSupportHBase());
         assertTrue(((HiveComponent) cdh510mr2).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh510mr2).doSupportStandaloneMode());
@@ -299,6 +294,7 @@ public class HadoopComponentTest {
         assertFalse(((SparkStreamingComponent) cdh510mr2).isSpark14());
         assertFalse(((SparkStreamingComponent) cdh510mr2).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) cdh510mr2).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) cdh510mr2).doSupportCheckpointing());
         assertTrue(cdh510mr2 instanceof HCatalogComponent);
         assertTrue(cdh510mr2 instanceof ImpalaComponent);
     }
@@ -323,7 +319,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh540).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh540).doSupportHCatalog());
         assertFalse(((PigComponent) cdh540).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh540).doSupportTez());
         assertTrue(((PigComponent) cdh540).doSupportHBase());
         assertTrue(((HiveComponent) cdh540).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh540).doSupportStandaloneMode());
@@ -341,6 +336,7 @@ public class HadoopComponentTest {
         assertFalse(((SparkStreamingComponent) cdh540).isSpark14());
         assertTrue(((SparkStreamingComponent) cdh540).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) cdh540).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) cdh540).doSupportCheckpointing());
         assertTrue(cdh540 instanceof HCatalogComponent);
         assertTrue(cdh540 instanceof ImpalaComponent);
     }
@@ -365,7 +361,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) hdp120).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp120).doSupportHCatalog());
         assertTrue(((PigComponent) hdp120).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp120).doSupportTez());
         assertTrue(((PigComponent) hdp120).doSupportHBase());
         assertTrue(((HiveComponent) hdp120).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp120).doSupportStandaloneMode());
@@ -403,7 +398,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) hdp130).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp130).doSupportHCatalog());
         assertTrue(((PigComponent) hdp130).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp130).doSupportTez());
         assertTrue(((PigComponent) hdp130).doSupportHBase());
         assertTrue(((HiveComponent) hdp130).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp130).doSupportStandaloneMode());
@@ -441,7 +435,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp200).doSupportHCatalog());
         assertFalse(((PigComponent) hdp200).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp200).doSupportTez());
         assertFalse(((PigComponent) hdp200).doSupportHBase());
         assertTrue(((HiveComponent) hdp200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp200).doSupportStandaloneMode());
@@ -478,7 +471,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp210).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp210).doSupportHCatalog());
         assertFalse(((PigComponent) hdp210).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp210).doSupportTez());
         assertTrue(((PigComponent) hdp210).doSupportHBase());
         assertTrue(((HiveComponent) hdp210).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp210).doSupportStandaloneMode());
@@ -515,7 +507,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp220).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp220).doSupportHCatalog());
         assertFalse(((PigComponent) hdp220).pigVersionPriorTo_0_12());
-        assertTrue(((PigComponent) hdp220).doSupportTez());
         assertTrue(((PigComponent) hdp220).doSupportHBase());
         assertTrue(((HiveComponent) hdp220).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp220).doSupportStandaloneMode());
@@ -552,7 +543,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp230).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp230).doSupportHCatalog());
         assertFalse(((PigComponent) hdp230).pigVersionPriorTo_0_12());
-        assertTrue(((PigComponent) hdp230).doSupportTez());
         assertTrue(((PigComponent) hdp230).doSupportHBase());
         assertTrue(((HiveComponent) hdp230).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp230).doSupportStandaloneMode());
@@ -588,7 +578,6 @@ public class HadoopComponentTest {
         assertFalse(apache100 instanceof SqoopComponent);
         assertFalse(((PigComponent) apache100).doSupportHCatalog());
         assertFalse(((PigComponent) apache100).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) apache100).doSupportTez());
         assertTrue(((PigComponent) apache100).doSupportHBase());
         assertTrue(((HiveComponent) apache100).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) apache100).doSupportStandaloneMode());
@@ -625,7 +614,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr200).doSupportHCatalog());
         assertFalse(((PigComponent) mapr200).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr200).doSupportTez());
         assertTrue(((PigComponent) mapr200).doSupportHBase());
         assertTrue(((HiveComponent) mapr200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr200).doSupportStandaloneMode());
@@ -663,7 +651,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr212).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr212).doSupportHCatalog());
         assertFalse(((PigComponent) mapr212).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr212).doSupportTez());
         assertTrue(((PigComponent) mapr212).doSupportHBase());
         assertTrue(((HiveComponent) mapr212).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr212).doSupportStandaloneMode());
@@ -701,7 +688,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr213).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr213).doSupportHCatalog());
         assertFalse(((PigComponent) mapr213).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr213).doSupportTez());
         assertTrue(((PigComponent) mapr213).doSupportHBase());
         assertTrue(((HiveComponent) mapr213).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr213).doSupportStandaloneMode());
@@ -739,7 +725,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr301).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr301).doSupportHCatalog());
         assertFalse(((PigComponent) mapr301).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr301).doSupportTez());
         assertTrue(((PigComponent) mapr301).doSupportHBase());
         assertTrue(((HiveComponent) mapr301).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr301).doSupportStandaloneMode());
@@ -777,7 +762,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr310).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) mapr310).doSupportHCatalog());
         assertTrue(((PigComponent) mapr310).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr310).doSupportTez());
         assertTrue(((PigComponent) mapr310).doSupportHBase());
         assertTrue(((HiveComponent) mapr310).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr310).doSupportStandaloneMode());
@@ -815,7 +799,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr401).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) mapr401).doSupportHCatalog());
         assertFalse(((PigComponent) mapr401).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr401).doSupportTez());
         assertTrue(((PigComponent) mapr401).doSupportHBase());
         assertTrue(((HiveComponent) mapr401).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr401).doSupportStandaloneMode());
@@ -853,7 +836,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr410).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) mapr410).doSupportHCatalog());
         assertFalse(((PigComponent) mapr410).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr410).doSupportTez());
         assertTrue(((PigComponent) mapr410).doSupportHBase());
         assertTrue(((HiveComponent) mapr410).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr410).doSupportStandaloneMode());
@@ -891,7 +873,6 @@ public class HadoopComponentTest {
         assertFalse(emr103 instanceof SqoopComponent);
         assertFalse(((PigComponent) emr103).doSupportHCatalog());
         assertFalse(((PigComponent) emr103).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) emr103).doSupportTez());
         assertTrue(((PigComponent) emr103).doSupportHBase());
         assertTrue(((HiveComponent) emr103).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr103).doSupportStandaloneMode());
@@ -928,7 +909,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) emr240).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) emr240).doSupportHCatalog());
         assertFalse(((PigComponent) emr240).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) emr240).doSupportTez());
         assertTrue(((PigComponent) emr240).doSupportHBase());
         assertTrue(((HiveComponent) emr240).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr240).doSupportStandaloneMode());
@@ -995,7 +975,6 @@ public class HadoopComponentTest {
         assertFalse(emr400 instanceof SqoopComponent);
         assertFalse(((PigComponent) emr400).doSupportHCatalog());
         assertFalse(((PigComponent) emr400).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) emr400).doSupportTez());
         assertFalse(((PigComponent) emr400).doSupportHBase());
         assertFalse(((HiveComponent) emr400).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr400).doSupportStandaloneMode());
@@ -1013,6 +992,7 @@ public class HadoopComponentTest {
         assertTrue(((SparkStreamingComponent) emr400).isSpark14());
         assertTrue(((SparkStreamingComponent) emr400).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) emr400).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) emr400).doSupportCheckpointing());
         assertFalse(emr400 instanceof HCatalogComponent);
         assertFalse(emr400 instanceof ImpalaComponent);
     }
@@ -1037,7 +1017,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) piv101).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) piv101).doSupportHCatalog());
         assertFalse(((PigComponent) piv101).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) piv101).doSupportTez());
         assertTrue(((PigComponent) piv101).doSupportHBase());
         assertTrue(((HiveComponent) piv101).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) piv101).doSupportStandaloneMode());
@@ -1075,7 +1054,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) piv200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) piv200).doSupportHCatalog());
         assertFalse(((PigComponent) piv200).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) piv200).doSupportTez());
         assertFalse(((PigComponent) piv200).doSupportHBase());
         assertTrue(((HiveComponent) piv200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) piv200).doSupportStandaloneMode());
@@ -1111,7 +1089,6 @@ public class HadoopComponentTest {
         assertFalse(hdinsight310 instanceof SqoopComponent);
         assertTrue(((PigComponent) hdinsight310).doSupportHCatalog());
         assertFalse(((PigComponent) hdinsight310).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdinsight310).doSupportTez());
         assertFalse(((PigComponent) hdinsight310).doSupportHBase());
         assertFalse(((HiveComponent) hdinsight310).doSupportEmbeddedMode());
         assertFalse(((HiveComponent) hdinsight310).doSupportStandaloneMode());
@@ -1147,7 +1124,6 @@ public class HadoopComponentTest {
         assertFalse(hdinsight320 instanceof SqoopComponent);
         assertTrue(((PigComponent) hdinsight320).doSupportHCatalog());
         assertFalse(((PigComponent) hdinsight320).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdinsight320).doSupportTez());
         assertFalse(((PigComponent) hdinsight320).doSupportHBase());
         assertFalse(((HiveComponent) hdinsight320).doSupportEmbeddedMode());
         assertFalse(((HiveComponent) hdinsight320).doSupportStandaloneMode());
@@ -1162,7 +1138,10 @@ public class HadoopComponentTest {
         assertFalse(((SparkBatchComponent) hdinsight320).isSpark14());
         assertFalse(((SparkBatchComponent) hdinsight320).doSupportDynamicMemoryAllocation());
         assertTrue(((SparkBatchComponent) hdinsight320).isExecutedThroughSparkJobServer());
-        assertFalse(hdinsight320 instanceof SparkStreamingComponent);
+        assertFalse(((SparkStreamingComponent) hdinsight320).isSpark14());
+        assertFalse(((SparkStreamingComponent) hdinsight320).doSupportDynamicMemoryAllocation());
+        assertTrue(((SparkStreamingComponent) hdinsight320).isExecutedThroughSparkJobServer());
+        assertFalse(((SparkStreamingComponent) hdinsight320).doSupportCheckpointing());
         assertFalse(hdinsight320 instanceof HCatalogComponent);
         assertFalse(hdinsight320 instanceof ImpalaComponent);
     }
@@ -1187,7 +1166,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) custom).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) custom).doSupportHCatalog());
         assertFalse(((PigComponent) custom).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) custom).doSupportTez());
         assertTrue(((PigComponent) custom).doSupportHBase());
         assertTrue(((HiveComponent) custom).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) custom).doSupportStandaloneMode());
@@ -1205,6 +1183,7 @@ public class HadoopComponentTest {
         assertFalse(((SparkStreamingComponent) custom).isSpark14());
         assertTrue(((SparkStreamingComponent) custom).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) custom).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) custom).doSupportCheckpointing());
         assertFalse(custom instanceof HCatalogComponent);
         assertFalse(custom instanceof ImpalaComponent);
     }

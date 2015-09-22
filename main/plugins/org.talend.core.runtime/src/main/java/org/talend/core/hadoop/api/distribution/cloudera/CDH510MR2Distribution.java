@@ -159,4 +159,9 @@ public class CDH510MR2Distribution extends AbstractDistribution implements HDFSC
     public boolean isExecutedThroughSparkJobServer() {
         return false;
     }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
+    }
 }
