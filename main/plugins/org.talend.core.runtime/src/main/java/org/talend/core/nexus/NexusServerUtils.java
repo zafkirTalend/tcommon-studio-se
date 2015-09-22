@@ -23,6 +23,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.commons.codec.binary.Base64;
 import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
@@ -36,8 +37,6 @@ import org.talend.core.service.IRemoteService;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
 import org.talend.utils.ssl.SSLUtils;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  * created by wchen on 2015-5-12 Detailled comment
@@ -145,7 +144,7 @@ public class NexusServerUtils {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             if (userName != null && !"".equals(userName)) {
                 urlConnection.setRequestProperty(
-                        "Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+                        "Authorization", "Basic " + Base64.encodeBase64((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
             }
             if (urlConnection instanceof HttpsURLConnection) {
                 String userDir = Platform.getInstallLocation().getURL().getPath();
@@ -313,7 +312,8 @@ public class NexusServerUtils {
         URL url = new URL(nexusUrl + restService);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         if (userName != null && !"".equals(userName)) {
-            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+            urlConnection.setRequestProperty(
+                    "Authorization", "Basic " + Base64.encodeBase64((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
         }
         if (urlConnection instanceof HttpsURLConnection) {
             String userDir = Platform.getInstallLocation().getURL().getPath();

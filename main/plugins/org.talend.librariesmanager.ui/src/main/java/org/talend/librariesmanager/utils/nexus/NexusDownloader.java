@@ -27,6 +27,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.commons.codec.binary.Base64;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -44,8 +45,6 @@ import org.talend.librariesmanager.maven.TalendLibsServerManager;
 import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
 import org.talend.utils.ssl.SSLUtils;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  * created by wchen on Apr 24, 2015 Detailled comment
@@ -158,7 +157,7 @@ public class NexusDownloader implements IDownloadHelper {
         URL url = new URL(path + relativePath);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         if (userName != null && !"".equals(userName)) {
-            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encode((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
+            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encodeBase64((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
         }
         if (urlConnection instanceof HttpsURLConnection) {
             String userDir = Platform.getInstallLocation().getURL().getPath();
