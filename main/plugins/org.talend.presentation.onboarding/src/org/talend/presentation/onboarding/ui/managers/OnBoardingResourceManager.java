@@ -21,10 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
+import org.talend.presentation.onboarding.handlers.OnBoardingExtentionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
 import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +46,23 @@ public class OnBoardingResourceManager {
     private Map<String, List<OnBoardingPresentationData>> onBoardingPresentationDataMap;
 
     private IOnBoardingJsonI18n onBoardingJsonI18n;
+
+    private static OnBoardingResourceManager defaultOnBoardingResourceManager;
+
+    public static OnBoardingResourceManager getDefaultResourceManager() {
+        if (defaultOnBoardingResourceManager == null) {
+            OnBoardingRegistedResource resource = OnBoardingExtentionHandler.getOnBoardingResourceLastRegisted();
+            if (resource == null) {
+                defaultOnBoardingResourceManager = null;
+            } else {
+                defaultOnBoardingResourceManager = new OnBoardingResourceManager();
+                IOnBoardingJsonI18n i18n = resource.getI18n();
+                defaultOnBoardingResourceManager.setOnBoardingJsonI18n(i18n);
+                defaultOnBoardingResourceManager.setJsonString(resource.getUrl());
+            }
+        }
+        return defaultOnBoardingResourceManager;
+    }
 
     private void convertData() {
         if (!(jsonString instanceof String || jsonString instanceof File || jsonString instanceof URL)) {

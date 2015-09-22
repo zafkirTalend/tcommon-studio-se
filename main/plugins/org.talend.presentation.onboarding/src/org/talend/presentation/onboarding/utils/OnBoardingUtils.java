@@ -25,6 +25,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.w3c.dom.Node;
@@ -81,7 +85,7 @@ public class OnBoardingUtils {
                     isContinue.value = true;
                     for (int i = 1; i < executeTimes - 1; i++) {
                         alphaBox.value += increment;
-                        shell.getDisplay().syncExec(new Runnable() {
+                        Display.getDefault().syncExec(new Runnable() {
 
                             @Override
                             public void run() {
@@ -102,7 +106,7 @@ public class OnBoardingUtils {
                             break;
                         }
                     }
-                    shell.getDisplay().syncExec(new Runnable() {
+                    Display.getDefault().syncExec(new Runnable() {
 
                         @Override
                         public void run() {
@@ -194,5 +198,21 @@ public class OnBoardingUtils {
             }
         });
         return isSupportBrowser.value;
+    }
+
+    public static String getCurrentSelectedPerspectiveId(IWorkbenchWindow wbWindow) {
+        String perspId = null;
+        if (wbWindow == null || !PlatformUI.isWorkbenchRunning()) {
+            return perspId;
+        }
+        IWorkbenchPage workbenchPage = wbWindow.getActivePage();
+        if (workbenchPage == null) {
+            return perspId;
+        }
+        IPerspectiveDescriptor perspDesc = workbenchPage.getPerspective();
+        if (perspDesc != null) {
+            perspId = perspDesc.getId();
+        }
+        return perspId;
     }
 }

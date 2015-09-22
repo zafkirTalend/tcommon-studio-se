@@ -20,20 +20,16 @@ import java.util.Map;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
-import org.talend.presentation.onboarding.handlers.OnBoardingExtentionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
-import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
-import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
 import org.talend.presentation.onboarding.ui.shells.HighlightShell;
 import org.talend.presentation.onboarding.ui.shells.OnBoardingShell;
+import org.talend.presentation.onboarding.utils.OnBoardingUtils;
 import org.talend.presentation.onboarding.utils.WidgetFinder;
 
 /**
@@ -58,19 +54,15 @@ public class OnBoardingManager {
 
     private IWorkbenchWindow workBenchWindow;
 
+    // the values are different between different perspectives
     public static OnBoardingManager getDefaultOnBoardingManager() {
-        OnBoardingRegistedResource resource = OnBoardingExtentionHandler.getOnBoardingResourceLastRegisted();
-        if (resource == null) {
-            return null;
-        } else {
-            OnBoardingManager obm = new OnBoardingManager();
-            IOnBoardingJsonI18n i18n = resource.getI18n();
-            OnBoardingResourceManager obrm = new OnBoardingResourceManager();
-            obrm.setOnBoardingJsonI18n(i18n);
-            obrm.setJsonString(resource.getUrl());
-            obm.setResourceManager(obrm);
-            return obm;
+        OnBoardingManager obm = null;
+        OnBoardingResourceManager defaultResourceManager = OnBoardingResourceManager.getDefaultResourceManager();
+        if (defaultResourceManager != null) {
+            obm = new OnBoardingManager();
+            obm.setResourceManager(defaultResourceManager);
         }
+        return obm;
     }
 
     public OnBoardingManager() {
@@ -180,19 +172,7 @@ public class OnBoardingManager {
     }
 
     private String getCurrentSelectedPerspectiveId() {
-        String perspId = null;
-        if (!PlatformUI.isWorkbenchRunning()) {
-            return perspId;
-        }
-        IWorkbenchPage workbenchPage = workBenchWindow.getActivePage();
-        if (workbenchPage == null) {
-            return perspId;
-        }
-        IPerspectiveDescriptor perspDesc = workbenchPage.getPerspective();
-        if (perspDesc != null) {
-            perspId = perspDesc.getId();
-        }
-        return perspId;
+        return OnBoardingUtils.getCurrentSelectedPerspectiveId(workBenchWindow);
     }
 
     public OnBoardingResourceManager getResourceManager() {

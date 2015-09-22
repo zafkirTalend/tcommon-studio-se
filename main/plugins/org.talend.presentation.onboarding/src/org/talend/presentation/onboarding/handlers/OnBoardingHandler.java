@@ -12,14 +12,20 @@
 // ============================================================================
 package org.talend.presentation.onboarding.handlers;
 
+import java.util.List;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.presentation.onboarding.i18n.Messages;
 import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
+import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.utils.OnBoardingUtils;
 
 /**
@@ -30,8 +36,27 @@ public class OnBoardingHandler extends AbstractHandler {
 
     @Override
     public boolean isEnabled() {
-        return OnBoardingUtils.isSupportBrowser() && OnBoardingExtentionHandler.hasOnBoardingResourceRegisted()
-                && super.isEnabled();
+        if (!OnBoardingUtils.isSupportBrowser()) {
+            return false;
+        }
+        OnBoardingResourceManager resourceManager = OnBoardingResourceManager.getDefaultResourceManager();
+        if (resourceManager == null) {
+            return false;
+        }
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench == null || !PlatformUI.isWorkbenchRunning()) {
+            return false;
+        }
+        IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+        if (workbenchWindow == null) {
+            return false;
+        }
+        List<OnBoardingPresentationData> presDatas = resourceManager.getOnBoardingPresentationDatas(OnBoardingUtils
+                .getCurrentSelectedPerspectiveId(workbenchWindow));
+        if (presDatas == null || presDatas.isEmpty()) {
+            return false;
+        }
+        return super.isEnabled();
     }
 
     @Override

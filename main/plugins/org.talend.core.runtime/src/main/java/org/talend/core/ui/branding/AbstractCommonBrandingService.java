@@ -52,14 +52,4 @@ public abstract class AbstractCommonBrandingService implements IBrandingService 
                 this.getFullProductName(), version);
         return contents;
     }
-
-    @Override
-    public Object getOnBoardingPresentationJsonDoc() {
-        return null;
-    }
-
-    @Override
-    public String getOnBoardingI18NMessage(String key) {
-        return key;
-    }
 }
