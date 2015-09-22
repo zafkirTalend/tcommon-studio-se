@@ -88,7 +88,12 @@ public enum EParameterFieldType {
     HMAP_PATH, // wchen added for TDM
     MATCH_RULE_IMEX_CONTROLLER, // sizhaoliu TDQ-7910
     TABLE_BY_ROW,
-    SAP_SCHEMA_TYPE, ;
+    SAP_SCHEMA_TYPE,
+
+    DATA_PREP_ID, // wchen added for TDI-33791
+    FETCH_SCHEMA // TDI-33791
+
+    ;
 
     public String getName() {
         return toString();
