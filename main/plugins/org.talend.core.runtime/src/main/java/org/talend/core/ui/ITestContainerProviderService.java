@@ -27,6 +27,7 @@ import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryEditorInput;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.model.RepositoryNode;
@@ -77,7 +78,7 @@ public interface ITestContainerProviderService extends IService {
 
     public String getInstanceContext(IProcess process, String instance);
 
-    public String getOriginalID(IRepositoryViewObject curNode);
+    public String getOriginalID(Object curNode);
 
     public List<IRepositoryViewObject> listExistingTestCases();
 
@@ -98,4 +99,7 @@ public interface ITestContainerProviderService extends IService {
     public List<IResource> getDataFiles(Item item);
 
     public boolean isSpark(IProcess process);
+
+    public IRepositoryEditorInput createTestCaseEditorInput(ProcessItem junitItem, boolean load, String originalJobID,
+            List<INode> testNodes, Boolean lastVersion, Boolean readonly) throws PersistenceException;
 }
