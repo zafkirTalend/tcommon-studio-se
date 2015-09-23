@@ -58,10 +58,6 @@ public class DistributionFactory {
 
     private final static String EMR240_HIVE_0_13_1 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
 
-    private final static String MICROSOFT_HD_INSIGHT_3_2 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
-
-    private final static String MAPR_500 = "MAPR500"; //$NON-NLS-1$
-
     /**
      *
      * Builds a @link{HadoopComponent} distribution.
