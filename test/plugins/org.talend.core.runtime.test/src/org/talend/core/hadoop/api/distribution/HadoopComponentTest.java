@@ -894,6 +894,7 @@ public class HadoopComponentTest {
         assertFalse(mapr500 instanceof SparkStreamingComponent);
         assertTrue(mapr500 instanceof HCatalogComponent);
         assertFalse(mapr500 instanceof ImpalaComponent);
+        assertTrue(((SparkStreamingComponent) mapr500).doSupportCheckpointing());
     }
 
     @Test
