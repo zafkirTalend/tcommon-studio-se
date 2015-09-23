@@ -548,7 +548,7 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) hdp230).doSupportHBase());
         assertTrue(((HiveComponent) hdp230).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp230).doSupportStandaloneMode());
-        assertTrue(((HiveComponent) hdp230).doSupportHive1());
+        assertFalse(((HiveComponent) hdp230).doSupportHive1());
         assertTrue(((HiveComponent) hdp230).doSupportHive2());
         assertTrue(((HiveComponent) hdp230).doSupportTezForHive());
         assertTrue(((HiveComponent) hdp230).doSupportHBaseForHive());
