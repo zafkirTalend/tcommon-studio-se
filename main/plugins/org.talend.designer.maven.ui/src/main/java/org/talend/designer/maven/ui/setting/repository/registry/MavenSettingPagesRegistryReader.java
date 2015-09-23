@@ -135,7 +135,7 @@ public class MavenSettingPagesRegistryReader extends RegistryReader {
                             String type = typeChild.getAttribute("type");
                             ERepositoryObjectType repoType = ERepositoryObjectType.valueOf(type);
                             if (repoType == null) {
-                                log.error("The type (" + type + ") is not valid in" + element.getContributor().getName());
+                                log.error("The type (" + type + ") is not valid in " + element.getContributor().getName());
                             }
                             if (repoType != null && !supportTypes.contains(repoType)) {
                                 supportTypes.add(repoType);

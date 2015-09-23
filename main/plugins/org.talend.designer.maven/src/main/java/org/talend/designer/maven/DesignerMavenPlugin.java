@@ -13,6 +13,7 @@ package org.talend.designer.maven;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.talend.core.runtime.projectsetting.ProjectPreferenceManager;
 
 public class DesignerMavenPlugin implements BundleActivator {
 
@@ -22,6 +23,8 @@ public class DesignerMavenPlugin implements BundleActivator {
     private static DesignerMavenPlugin plugin;
 
     private static BundleContext context;
+
+    private ProjectPreferenceManager projectPreferenceManager;
 
     public BundleContext getContext() {
         return context;
@@ -52,4 +55,10 @@ public class DesignerMavenPlugin implements BundleActivator {
         DesignerMavenPlugin.context = null;
     }
 
+    public ProjectPreferenceManager getProjectPreferenceManager() {
+        if (projectPreferenceManager == null) {
+            projectPreferenceManager = new ProjectPreferenceManager(PLUGIN_ID);
+        }
+        return projectPreferenceManager;
+    }
 }

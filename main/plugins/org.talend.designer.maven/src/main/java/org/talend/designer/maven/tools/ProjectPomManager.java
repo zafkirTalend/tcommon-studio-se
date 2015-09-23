@@ -73,13 +73,13 @@ public class ProjectPomManager {
     }
 
     public void update(IProgressMonitor monitor, IProcessor processor) throws Exception {
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
         projectPomFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
         if (!projectPomFile.exists()) {// delete by user manually?
             // create it or nothing to do?
             return;
-        }
-        if (monitor == null) {
-            monitor = new NullProgressMonitor();
         }
         Model projectModel = MODEL_MANAGER.readMavenModel(projectPomFile);
 
@@ -91,6 +91,27 @@ public class ProjectPomManager {
         updateDependencies(monitor, processor, projectModel);
 
         PomUtil.savePom(monitor, projectModel, projectPomFile);
+
+        projectPomFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
+    }
+
+    public void updateFromTemplate(IProgressMonitor monitor) throws Exception {
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
+        Model templateModel = MavenTemplateManager.getCodeProjectTemplateModel();
+
+        projectPomFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
+        if (projectPomFile.exists()) {
+            Model projectModel = MODEL_MANAGER.readMavenModel(projectPomFile);
+
+            // modules, add existed
+            templateModel.getModules().addAll(projectModel.getModules());
+            // dependencies
+            templateModel.getDependencies().addAll(projectModel.getDependencies());
+        }
+
+        PomUtil.savePom(monitor, templateModel, projectPomFile);
 
         projectPomFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
     }
