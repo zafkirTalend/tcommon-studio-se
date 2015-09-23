@@ -235,7 +235,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.HDP_2_0,
                   HiveConnVersionInfo.HDP_2_1,
                   HiveConnVersionInfo.HDP_2_2,
-                  HiveConnVersionInfo.HDP_2_3,
+                  // HiveConnVersionInfo.HDP_2_3,
                   HiveConnVersionInfo.APACHE_1_0_0,
                   HiveConnVersionInfo.Cloudera_CDH4,
                   HiveConnVersionInfo.Cloudera_CDH4_YARN,
@@ -250,7 +250,7 @@ public enum HiveConnVersionInfo {
                   HiveConnVersionInfo.MAPR3_1_0,
                   HiveConnVersionInfo.MAPR4_0_1,
                   HiveConnVersionInfo.MAPR4_1_0,
-                  HiveConnVersionInfo.MAPR5_0_0,
+                  // HiveConnVersionInfo.MAPR5_0_0,
                   HiveConnVersionInfo.APACHE_1_0_3_EMR,
                   HiveConnVersionInfo.APACHE_2_4_0_EMR,
                   HiveConnVersionInfo.PIVOTAL_HD_1_0_1,
@@ -315,7 +315,7 @@ public enum HiveConnVersionInfo {
 
     private static HiveConnVersionInfo[] hiveVersionsSupportingTez = new HiveConnVersionInfo[] { HiveConnVersionInfo.HDP_2_2,
             HiveConnVersionInfo.HDP_2_1, HiveConnVersionInfo.MAPR4_0_1, HiveConnVersionInfo.MAPR4_1_0,
-            HiveConnVersionInfo.DISTRO_VERSION_CUSTOM };
+            HiveConnVersionInfo.MAPR5_0_0, HiveConnVersionInfo.DISTRO_VERSION_CUSTOM };
 
     private HiveConnVersionInfo(int level, String key, String displayName, boolean supportSecurity,
             HiveConnVersionInfo... follows) {
@@ -374,9 +374,12 @@ public enum HiveConnVersionInfo {
         switch (hiveServerVersion) {
         case HIVE_SERVER_1:
             switch (this) {
+            // make them same with components
+            case HDP_2_3:
             case EMR_4_0_0:
             case Cloudera_CDH5_4:
             case MAPR4_1_0:
+            case MAPR5_0_0:
                 isSupport = false;
                 break;
             default:
