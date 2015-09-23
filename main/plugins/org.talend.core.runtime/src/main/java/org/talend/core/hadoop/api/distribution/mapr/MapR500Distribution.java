@@ -83,7 +83,7 @@ public class MapR500Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportEmbeddedMode() {
-        return true;
+        return false;
     }
 
     @Override

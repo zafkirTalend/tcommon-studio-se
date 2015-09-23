@@ -95,7 +95,7 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportEmbeddedMode() {
-        return true;
+        return false;
     }
 
     @Override

@@ -546,7 +546,7 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) hdp230).doSupportHCatalog());
         assertFalse(((PigComponent) hdp230).pigVersionPriorTo_0_12());
         assertTrue(((PigComponent) hdp230).doSupportHBase());
-        assertTrue(((HiveComponent) hdp230).doSupportEmbeddedMode());
+        assertFalse(((HiveComponent) hdp230).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp230).doSupportStandaloneMode());
         assertFalse(((HiveComponent) hdp230).doSupportHive1());
         assertTrue(((HiveComponent) hdp230).doSupportHive2());
@@ -878,7 +878,7 @@ public class HadoopComponentTest {
         assertTrue(((PigComponent) mapr500).doSupportHCatalog());
         assertFalse(((PigComponent) mapr500).pigVersionPriorTo_0_12());
         assertTrue(((PigComponent) mapr500).doSupportHBase());
-        assertTrue(((HiveComponent) mapr500).doSupportEmbeddedMode());
+        assertFalse(((HiveComponent) mapr500).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr500).doSupportStandaloneMode());
         assertFalse(((HiveComponent) mapr500).doSupportHive1());
         assertTrue(((HiveComponent) mapr500).doSupportHive2());
