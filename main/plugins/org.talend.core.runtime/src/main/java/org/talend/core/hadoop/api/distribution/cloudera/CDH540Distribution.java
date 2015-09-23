@@ -108,7 +108,7 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportHive1() {
-        return true;
+        return false;
     }
 
     @Override
