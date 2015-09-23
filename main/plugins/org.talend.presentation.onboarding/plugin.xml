@@ -18,7 +18,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.talend.presentation.onboarding.show.command"
-            name="Onboarding">
+            name="%Onboarding">
       </command>
    </extension>
    <extension
