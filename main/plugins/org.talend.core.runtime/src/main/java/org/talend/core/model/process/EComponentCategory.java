@@ -31,6 +31,7 @@ public enum EComponentCategory {
     VERSIONS(Messages.getString("EComponentCategory_version"), 9), //$NON-NLS-1$
     HEADERFOOTER(Messages.getString("EComponentCategory_headerFooter"), 9), //$NON-NLS-1$
     SVNHISTORY(Messages.getString("EComponentCategory_svnHistory"), 9), //$NON-NLS-1$
+    GITHISTORY(Messages.getString("EComponentCategory_gitHistory"), 9), //$NON-NLS-1$
     LOGS(Messages.getString("EComponentCategory_logs"), 6), //$NON-NLS-1$
     STATSANDLOGS(Messages.getString("EComponentCategory_statsAndLogs"), 7), //$NON-NLS-1$
     TECHNICAL(Messages.getString("EComponentCategory_technical"), 8), // for non displayed parameters //$NON-NLS-1$
