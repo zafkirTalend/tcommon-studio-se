@@ -35,6 +35,7 @@ import org.eclipse.update.core.SiteManager;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ConnectionBean;
@@ -448,6 +449,9 @@ public class RegisterManagement {
     }
 
     public void validateRegistration() {
+        if (!NetworkUtil.isNetworkValid()) {
+            return;
+        }
         IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                 IBrandingService.class);
         if (!brandingService.getBrandingConfiguration().isUseProductRegistration()) {
