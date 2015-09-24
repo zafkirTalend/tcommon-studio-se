@@ -320,14 +320,14 @@ public class HighlightShell {
                             if (!hlShell.isDisposed()) {
                                 refreshHighlightShell();
                             }
-                            onBoardingManager.onHighlightShellMoveCompleted();
+                            onBoardingManager.getUiManager().onHighlightShellMoveCompleted();
                         }
                     });
                 }
             });
             moveThread.start();
         } else {
-            onBoardingManager.onHighlightShellMoveCompleted();
+            onBoardingManager.getUiManager().onHighlightShellMoveCompleted();
         }
 
     }

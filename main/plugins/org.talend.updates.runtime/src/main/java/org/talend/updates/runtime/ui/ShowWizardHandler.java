@@ -11,6 +11,8 @@ import org.talend.updates.runtime.model.ExtraFeature;
 
 public class ShowWizardHandler extends AbstractHandler {
 
+    public static final Object showWizardLock = new Object();
+
     /*
      * (non-Javadoc)
      * 

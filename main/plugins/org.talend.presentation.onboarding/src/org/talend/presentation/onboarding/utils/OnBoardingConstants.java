@@ -42,5 +42,17 @@ public class OnBoardingConstants {
 
     public static final String HTML_TAG_LI = "LI"; //$NON-NLS-1$
 
+    public static final String HTML_DIV_TITLE_ID = "DIV_TITLE_ID"; //$NON-NLS-1$
+
+    public static final String HTML_DIV_CONTENT_ID = "DIV_CONTENT_ID"; //$NON-NLS-1$
+
+    public static final String HTML_BUTTON_SKIP = "BUTTON_SKIP"; //$NON-NLS-1$
+
+    public static final String HTML_BUTTON_BACK = "BUTTON_BACK"; //$NON-NLS-1$
+
+    public static final String HTML_BUTTON_NEXT = "BUTTON_NEXT"; //$NON-NLS-1$
+
+    public static final String HTML_CSS_CLASS_BUTTON_DISABLED = "introjs-disabled"; //$NON-NLS-1$
+
     public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = "NOT_SHOW_ONBOARDING_AT_STARTUP"; //$NON-NLS-1$
 }

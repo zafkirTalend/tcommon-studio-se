@@ -203,7 +203,7 @@
 <body onContextMenu="self.event.returnValue=false" onSelectStart="return false">
 	<div class="introjs-tooltip" style="display: block;">
 		<div class="introjs-tooltiptext">
-			<div class="introjs-tooltiptitle"><contentProvider id="STEP" />. &nbsp;<contentProvider id="TITLE" /></div>
+			<div class="introjs-tooltiptitle"><contentProvider id="TITLE" /></div>
 			<div class="introjs-tooltipcontent"><contentProvider id="CONTENT" /></div>
 		</div>
 		<div class="bottom-area">
@@ -211,9 +211,9 @@
 				<ul><contentProvider id="BULLETS" /></ul>
 			</div>
 			<div class="introjs-tooltipbuttons">
-				<a class="introjs-button introjs-skipbutton" href="javascript:void(0);" onClick="skip();"><internationalization id="onBoardingComposite.button.skip"/></a>
-				<a href="javascript:void(0);" class="introjs-button introjs-prevbutton" onClick="back();"><internationalization id="onBoardingComposite.button.back"/></a>
-				<a href="javascript:void(0);" class="introjs-button introjs-nextbutton" onClick="next();"><internationalization id="onBoardingComposite.button.next"/></a>
+				<a id="BUTTON_SKIP" class="introjs-button introjs-skipbutton" href="javascript:void(0);" onClick="skip();"><internationalization id="onBoardingComposite.button.skip"/></a>
+				<a id="BUTTON_BACK" href="javascript:void(0);" class="introjs-button introjs-prevbutton" onClick="back();"><internationalization id="onBoardingComposite.button.back"/></a>
+				<a id="BUTTON_NEXT" href="javascript:void(0);" class="introjs-button introjs-nextbutton" onClick="next();"><internationalization id="onBoardingComposite.button.next"/></a>
 			</div>
 		</div>
 	</div>

@@ -70,15 +70,19 @@ public class CheckExtraFeaturesToInstallJob extends Job {
             return Status.CANCEL_STATUS;
         }
         if (!uninstalledExtraFeatures.isEmpty()) {
-            Display.getDefault().asyncExec(new Runnable() {
+            synchronized (ShowWizardHandler.showWizardLock) {
+                // make sure this dialog won't be popup in some special cases
+                // just waiting for the lock to be released, then continue to execute.
+                Display.getDefault().asyncExec(new Runnable() {
 
-                @Override
-                public void run() {
-                    new ShowWizardHandler().showUpdateWizard(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-                            uninstalledExtraFeatures);
+                    @Override
+                    public void run() {
+                        new ShowWizardHandler().showUpdateWizard(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                                uninstalledExtraFeatures);
 
-                }
-            });
+                    }
+                });
+            }
         }// else not feature to install
         return Status.OK_STATUS;
     }
