@@ -18,8 +18,10 @@ import java.util.List;
 
 import org.eclipse.ui.internal.intro.impl.html.IIntroHTMLConstants;
 import org.eclipse.ui.internal.intro.impl.model.IntroContentProvider;
+import org.eclipse.ui.internal.intro.impl.model.loader.ContentProviderManager;
 import org.eclipse.ui.internal.intro.impl.model.loader.IntroContentParser;
 import org.eclipse.ui.intro.config.IIntroContentProviderSite;
+import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
 import org.talend.presentation.onboarding.i18n.Messages;
 import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
@@ -123,9 +125,11 @@ public class HtmlContentHelper {
             if (OnBoardingConstants.HTML_STEP.equals(id)) {
                 node.getParentNode().replaceChild(dom.createTextNode("" + (index + 1)), node); //$NON-NLS-1$
             } else if (OnBoardingConstants.HTML_TITLE.equals(id)) {
-                node.getParentNode().replaceChild(dom.createTextNode(docBean.getTitle()), node);
+                node.getParentNode().replaceChild(convertToNode(dom, docBean.getTitle(), OnBoardingConstants.HTML_DIV_TITLE_ID),
+                        node);
             } else if (OnBoardingConstants.HTML_CONTENT.equals(id)) {
-                node.getParentNode().replaceChild(dom.createTextNode(docBean.getContent()), node);
+                node.getParentNode().replaceChild(
+                        convertToNode(dom, docBean.getContent(), OnBoardingConstants.HTML_DIV_CONTENT_ID), node);
             } else if (OnBoardingConstants.HTML_BULLETS.equals(id)) {
                 Node parent = node.getParentNode();
                 parent.removeChild(node);
@@ -156,6 +160,62 @@ public class HtmlContentHelper {
                 node.getParentNode().replaceChild(dom.createTextNode(onBoardingManager.getManagerId()), node);
             }
 
+        }
+        return dom;
+    }
+
+    private Node convertToNode(Document dom, String content, String divId) {
+        Node newNode = null;
+
+        // avoid exception
+        String safeContent = "<div id='" + divId + "'>" + content + "</div>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        Document contentDom = OnBoardingUtils.convertStringToDocument(safeContent);
+
+        if (contentDom != null) {
+            NodeList children = contentDom.getChildNodes();
+            if (children != null && 0 < children.getLength()) {
+                newNode = dom.adoptNode(children.item(0).cloneNode(true));
+            }
+        }
+
+        return newNode;
+    }
+
+    private Document resolveDynamicContentFromJsonDoc(Document dom, IIntroContentProviderSite site) {
+        // get all content provider elements in DOM.
+        NodeList contentProviders = dom.getElementsByTagNameNS("*", //$NON-NLS-1$
+                IntroContentProvider.TAG_CONTENT_PROVIDER);
+
+        // get the array version of the nodelist to work around DOM api design.
+        // Node[] nodes = ModelUtil.getArray(contentProviders);
+        Node[] nodes = OnBoardingUtils.getArray(contentProviders);
+        for (Node node : nodes) {
+            Element contentProviderElement = (Element) node;
+            IntroContentProvider provider = new IntroContentProvider(contentProviderElement, OnBoardingUtils.getBundle());
+            // If we've already loaded the content provider for this element,
+            // retrieve it, otherwise load the class.
+            IIntroXHTMLContentProvider providerClass = (IIntroXHTMLContentProvider) ContentProviderManager.getInst()
+                    .getContentProvider(provider);
+            if (providerClass == null) {
+                // content provider never created before, create it.
+                providerClass = (IIntroXHTMLContentProvider) ContentProviderManager.getInst().createContentProvider(provider,
+                        site);
+            }
+
+            if (providerClass != null) {
+                // create a div with the same id as the contentProvider, pass it
+                // as the parent to create the specialized content, and then
+                // replace the contentProvider element with this div.
+                Element contentDiv = OnBoardingUtils.createDivElement(dom, provider.getId());
+                providerClass.createContent(provider.getId(), contentDiv);
+
+                contentProviderElement.getParentNode().replaceChild(contentDiv, contentProviderElement);
+            } else {
+                // we couldn't load the content provider, so add any alternate
+                // text content if there is any.
+                // INTRO: do it. 3.0 intro content style uses text element as
+                // alt text. We can load XHTML content here.
+            }
         }
         return dom;
     }

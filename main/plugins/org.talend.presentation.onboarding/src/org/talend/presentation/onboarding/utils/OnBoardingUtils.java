@@ -12,7 +12,11 @@
 // ============================================================================
 package org.talend.presentation.onboarding.utils;
 
+import java.io.StringReader;
 import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Priority;
 import org.eclipse.core.runtime.FileLocator;
@@ -29,10 +33,15 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.intro.impl.html.IIntroHTMLConstants;
 import org.osgi.framework.Bundle;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * created by cmeng on Sep 15, 2015 Detailled comment
@@ -214,5 +223,30 @@ public class OnBoardingUtils {
             perspId = perspDesc.getId();
         }
         return perspId;
+    }
+
+    public static Document convertStringToDocument(String htmlStr) {
+        Document newDoc = null;
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            if (htmlStr == null || htmlStr.trim().isEmpty()) {
+                newDoc = builder.newDocument();
+            } else {
+                InputSource inputSource = new InputSource(new StringReader(htmlStr));
+                newDoc = builder.parse(inputSource);
+            }
+        } catch (Throwable e) {
+            OnBoardingExceptionHandler.process(e);
+        }
+        return newDoc;
+    }
+
+    public static Element createDivElement(Document dom, String id) {
+        Attr attrId = dom.createAttribute(IIntroHTMLConstants.ATTRIBUTE_ID);
+        attrId.setValue(id);
+        Element contentDiv = dom.createElement(IIntroHTMLConstants.ELEMENT_DIV);
+        contentDiv.setAttributeNode(attrId);
+        return contentDiv;
     }
 }

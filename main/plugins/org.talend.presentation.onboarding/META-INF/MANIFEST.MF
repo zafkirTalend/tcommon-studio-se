@@ -4,20 +4,20 @@ Bundle-Name: Onboarding
 Bundle-SymbolicName: org.talend.presentation.onboarding;singleton:=true
 Bundle-Version: 6.1.0.qualifier
 Bundle-Localization: plugin
-Require-Bundle: org.apache.log4j;visibility:=reexport,
+Require-Bundle: org.apache.log4j,
  org.eclipse.core.runtime,
  org.eclipse.e4.core.di,
- org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.ui.css.core,
  org.eclipse.e4.ui.css.swt,
+ org.eclipse.e4.ui.model.workbench,
  org.eclipse.equinox.registry,
  org.eclipse.swt,
  org.eclipse.ui,
- org.eclipse.ui.intro,
  org.eclipse.ui.forms,
  org.eclipse.ui.ide,
- org.talend.libraries.jackson
+ org.eclipse.ui.intro,
+ org.talend.libraries.jackson,
+ org.w3c.css.sac
 Bundle-ActivationPolicy: lazy
-Import-Package: org.w3c.css.sac
 Export-Package: org.talend.presentation.onboarding.interfaces,
  org.talend.presentation.onboarding.ui.managers

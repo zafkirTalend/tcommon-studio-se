@@ -42,5 +42,9 @@ public class OnBoardingConstants {
 
     public static final String HTML_TAG_LI = "LI"; //$NON-NLS-1$
 
+    public static final String HTML_DIV_TITLE_ID = "DIV_TITLE_ID"; //$NON-NLS-1$
+
+    public static final String HTML_DIV_CONTENT_ID = "DIV_CONTENT_ID"; //$NON-NLS-1$
+
     public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = "NOT_SHOW_ONBOARDING_AT_STARTUP"; //$NON-NLS-1$
 }
