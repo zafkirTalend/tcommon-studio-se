@@ -25,6 +25,11 @@ public interface IProjectSettingPreferenceConstants {
     public static final String TEMPLATE_BAT = "template_bat_script";
 
     /*
+     * project
+     */
+    public static final String TEMPLATE_PROJECT_POM = "template_project_pom_maven_script";
+
+    /*
      * Standalone Job
      */
     public static final String TEMPLATE_STANDALONE_JOB_POM = "template_standalonejob_pom_maven_script";

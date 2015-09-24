@@ -86,11 +86,6 @@ public class CDH510MR2Distribution extends AbstractDistribution implements HDFSC
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }
@@ -163,5 +158,10 @@ public class CDH510MR2Distribution extends AbstractDistribution implements HDFSC
     @Override
     public boolean isExecutedThroughSparkJobServer() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
     }
 }

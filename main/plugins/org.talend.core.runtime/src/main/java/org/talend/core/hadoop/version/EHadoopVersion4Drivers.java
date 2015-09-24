@@ -90,6 +90,8 @@ public enum EHadoopVersion4Drivers {
 
     CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
+    MAPR500(EHadoopDistributions.MAPR, "MapR 5.0.0", "MAPR500", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
+
     MAPR410(EHadoopDistributions.MAPR, "MapR 4.1.0", "MAPR410", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
     MAPR401(EHadoopDistributions.MAPR, "MapR 4.0.1", "MAPR401", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
@@ -134,6 +136,11 @@ public enum EHadoopVersion4Drivers {
 
     MICROSOFT_HD_INSIGHT_3_1(EHadoopDistributions.MICROSOFT_HD_INSIGHT, "Microsoft HD Insight 3.1", //$NON-NLS-1$
                              "MICROSOFT_HD_INSIGHT_3_1", //$NON-NLS-1$
+                             false,
+                             false,
+                             new EMRVersion[] { EMRVersion.YARN }),
+    MICROSOFT_HD_INSIGHT_3_2(EHadoopDistributions.MICROSOFT_HD_INSIGHT, "Microsoft HD Insight 3.2", //$NON-NLS-1$
+                             "MICROSOFT_HD_INSIGHT_3_2", //$NON-NLS-1$
                              false,
                              false,
                              new EMRVersion[] { EMRVersion.YARN }),

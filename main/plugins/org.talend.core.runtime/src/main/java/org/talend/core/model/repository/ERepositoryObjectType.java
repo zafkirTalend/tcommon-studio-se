@@ -88,6 +88,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static final String PROD_MDM = ProductUtils.PROD_MDM;
 
+    public final static ERepositoryObjectType GIT_ROOT = new ERepositoryObjectType("repository.gitroot", "", "GIT_ROOT", true, 1,
+            new String[] { PROD_DI, PROD_CAMEL, PROD_DQ }, new String[] {}, false);
+
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
             new String[] { PROD_DI, PROD_CAMEL, PROD_DQ }, new String[] {}, false);
 

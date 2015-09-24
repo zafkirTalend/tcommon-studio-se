@@ -10,21 +10,16 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.hadoop.api.components;
+package org.talend.designer.maven.ui.setting;
+
+import org.talend.designer.maven.template.AbstractMavenTemplateManager;
 
 /**
- * Interface that exposes specific HBase methods.
- *
+ * DOC ggu class global comment. Detailled comment
  */
-public interface HBaseComponent extends HadoopComponent {
+public class MavenUiMavenTemplateManager extends AbstractMavenTemplateManager {
 
-    /**
-     * @return true if the distribution does support the new HBase API.
-     */
-    public boolean doSupportNewHBaseAPI();
-
-    /**
-     * @return true if the distribution does support MapR DB
-     */
-    public boolean doSupportMapRDB();
+    public MavenUiMavenTemplateManager() {
+        super();
+    }
 }

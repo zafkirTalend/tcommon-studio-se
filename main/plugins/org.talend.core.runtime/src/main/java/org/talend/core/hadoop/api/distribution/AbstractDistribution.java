@@ -91,4 +91,8 @@ public abstract class AbstractDistribution {
     public boolean isSpark14() {
         return getSparkVersion() == ESparkVersion.SPARK_1_4;
     }
+
+    public boolean doSupportMapRDB() {
+        return false;
+    }
 }

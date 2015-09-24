@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -12,23 +12,44 @@
 // ============================================================================
 package org.talend.core.hadoop.api.distribution.mapr;
 
+import org.talend.core.hadoop.api.ESparkVersion;
 import org.talend.core.hadoop.api.components.HBaseComponent;
+import org.talend.core.hadoop.api.components.HCatalogComponent;
 import org.talend.core.hadoop.api.components.HDFSComponent;
 import org.talend.core.hadoop.api.components.HiveComponent;
 import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
+import org.talend.core.hadoop.api.components.SparkBatchComponent;
+import org.talend.core.hadoop.api.components.SparkStreamingComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
 /**
- * created by rdubois on 11 août 2015 Detailled comment
+ * created by bchen on Sep 7, 2015 Detailled comment
  *
  */
-public class MapR212Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
-        SqoopComponent, PigComponent, HiveComponent {
+public class MapR500Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
+        SqoopComponent, PigComponent, HiveComponent, HCatalogComponent, SparkBatchComponent, SparkStreamingComponent {
 
-    public MapR212Distribution(EHadoopVersion4Drivers version) {
+    private final static String YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
+
+    public MapR500Distribution(EHadoopVersion4Drivers version) {
         this.version = version;
+    }
+
+    @Override
+    public boolean doSupportSequenceFileShortType() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportCrossPlatformSubmission() {
+        return true;
+    }
+
+    @Override
+    public String getYarnApplicationClasspath() {
+        return YARN_APPLICATION_CLASSPATH;
     }
 
     @Override
@@ -37,18 +58,8 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
     }
 
     @Override
-    public boolean doSupportSequenceFileShortType() {
-        return false;
-    }
-
-    @Override
-    public boolean doSupportCrossPlatformSubmission() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportNewHBaseAPI() {
-        return false;
+        return true;
     }
 
     @Override
@@ -58,12 +69,11 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportHCatalog() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean pigVersionPriorTo_0_12() {
-        // return false because this distribution doesn't support HCatalog.
         return false;
     }
 
@@ -74,7 +84,7 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportEmbeddedMode() {
-        return true;
+        return false;
     }
 
     @Override
@@ -84,12 +94,12 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportHive1() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean doSupportHive2() {
-        return false;
+        return true;
     }
 
     @Override
@@ -109,7 +119,7 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
 
     @Override
     public boolean doSupportORCFormat() {
-        return false;
+        return true;
     }
 
     @Override
@@ -123,8 +133,33 @@ public class MapR212Distribution extends AbstractMapRDistribution implements HDF
     }
 
     @Override
+    public ESparkVersion getSparkVersion() {
+        return ESparkVersion.SPARK_1_3;
+    }
+
+    @Override
+    public boolean doSupportDynamicMemoryAllocation() {
+        return false;
+    }
+
+    @Override
+    public boolean isExecutedThroughSparkJobServer() {
+        return false;
+    }
+
+    @Override
     public boolean doSupportStoreAsParquet() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportMapRDB() {
+        return true;
+    }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
     }
 
 }

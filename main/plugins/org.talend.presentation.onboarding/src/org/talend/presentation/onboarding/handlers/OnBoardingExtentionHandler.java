@@ -32,7 +32,7 @@ public class OnBoardingExtentionHandler {
 
     public static final String RESOURCE_EXTENTION_POINT_ID = "org.talend.presentation.onboarding.resource"; //$NON-NLS-1$
 
-    public static final String RESOURCE_EXTENTION_ATTR_URL_PATH = "filePath"; //$NON-NLS-1$
+    public static final String RESOURCE_EXTENTION_ATTR_FILE_PATH = "filePath"; //$NON-NLS-1$
 
     public static final String RESOURCE_EXTENTION_ATTR_I18N_CLASS = "i18nClass"; //$NON-NLS-1$
 
@@ -67,7 +67,7 @@ public class OnBoardingExtentionHandler {
         for (IConfigurationElement element : resourceElements) {
             try {
                 OnBoardingRegistedResource resource = new OnBoardingRegistedResource();
-                String urlPath = element.getAttribute(RESOURCE_EXTENTION_ATTR_URL_PATH);
+                String urlPath = element.getAttribute(RESOURCE_EXTENTION_ATTR_FILE_PATH);
                 Bundle bundle = Platform.getBundle(element.getContributor().getName());
                 URL url = OnBoardingUtils.getResourceLocalURL(bundle, urlPath);
                 if (url == null) {

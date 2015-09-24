@@ -30,6 +30,7 @@ import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.model.general.Project;
+import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.designer.maven.model.TalendMavenConstants;
@@ -199,7 +200,8 @@ public class MavenTemplateManager {
     public static Model getCodeProjectTemplateModel() {
         Model defaultModel = getDefaultCodeProjectTemplateModel();
         try {
-            InputStream stream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
+            InputStream stream = MavenTemplateManager.getTemplateStream(null,
+                    IProjectSettingPreferenceConstants.TEMPLATE_PROJECT_POM, DesignerMavenPlugin.PLUGIN_ID,
                     IProjectSettingTemplateConstants.PATH_GENERAL + '/'
                             + IProjectSettingTemplateConstants.PROJECT_TEMPLATE_FILE_NAME);
             if (stream != null) {

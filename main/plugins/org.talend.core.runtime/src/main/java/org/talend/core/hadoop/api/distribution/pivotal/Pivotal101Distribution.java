@@ -82,11 +82,6 @@ public class Pivotal101Distribution extends AbstractDistribution implements HDFS
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

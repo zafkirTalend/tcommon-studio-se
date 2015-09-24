@@ -82,11 +82,6 @@ public class CDH4MR2Distribution extends AbstractDistribution implements HDFSCom
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }

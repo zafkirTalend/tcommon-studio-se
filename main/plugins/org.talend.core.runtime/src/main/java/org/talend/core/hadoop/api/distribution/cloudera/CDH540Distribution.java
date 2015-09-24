@@ -87,11 +87,6 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }
@@ -113,7 +108,7 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportHive1() {
-        return true;
+        return false;
     }
 
     @Override
@@ -169,5 +164,10 @@ public class CDH540Distribution extends AbstractDistribution implements HDFSComp
     @Override
     public boolean isExecutedThroughSparkJobServer() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
     }
 }

@@ -181,10 +181,11 @@ public class HighlightShell {
                             return;
                         }
 
-                        Rectangle clientArea = parentShell.getClientArea();
-                        Rectangle mappedClientArea = parentShell.getDisplay().map(parentShell, null, clientArea);
-                        hlShell.setBounds(mappedClientArea);
-                        hlShell.setRegion(getNewRegion(clientArea, getCurrentWidgetBounds()));
+                        if (moveThread != null && !moveThread.isInterrupted()) {
+                            moveThread.interrupt();
+                        }
+
+                        refreshHighlightShell();
                     }
                 };
                 widget.addListener(SWT.Resize, widgetResizeListener);
@@ -238,7 +239,7 @@ public class HighlightShell {
                 || rightXBegin != (newWidgetBounds.x + newWidgetBounds.width)
                 || bottomYBegin != (newWidgetBounds.y + newWidgetBounds.height)) {
             final Rectangle newWidgetBoundsFinal = newWidgetBounds;
-            final Rectangle clientArea = hlShell.getClientArea();
+            final Rectangle clientArea = parentShell.getClientArea();
             moveThread = new Thread(new Runnable() {
 
                 @Override
@@ -280,9 +281,6 @@ public class HighlightShell {
                     final ObjectBox<Boolean> isContinue = new ObjectBox<Boolean>();
                     isContinue.value = true;
                     for (int i = 1; i < executeTimes - 1; i++) {
-                        if (Thread.currentThread().isInterrupted()) {
-                            break;
-                        }
                         leftX = getLimitValue(leftXLimit, leftX, leftXIncrement);
                         rightX = getLimitValue(rightXLimit, rightX, rightXIncrement);
                         topY = getLimitValue(topYLimit, topY, topYIncrement);
@@ -290,6 +288,9 @@ public class HighlightShell {
                         Rectangle highlightRect = new Rectangle(leftX, topY, rightX - leftX, bottomY - topY);
                         currentFocusedRectangle = highlightRect;
                         final Region region = getNewRegion(clientArea, currentFocusedRectangle);
+                        if (Thread.currentThread().isInterrupted()) {
+                            break;
+                        }
                         try {
                             Display.getDefault().syncExec(new Runnable() {
 
@@ -307,19 +308,17 @@ public class HighlightShell {
                             }
                             Thread.sleep(sleepTime);
                         } catch (Exception e) {
-                            OnBoardingExceptionHandler.process(e, Priority.WARN);
+                            OnBoardingExceptionHandler.process(e, Priority.INFO);
                             break;
                         }
                     }
 
-                    currentFocusedRectangle = newWidgetBoundsFinal;
-                    final Region region = getNewRegion(clientArea, currentFocusedRectangle);
                     Display.getDefault().syncExec(new Runnable() {
 
                         @Override
                         public void run() {
                             if (!hlShell.isDisposed()) {
-                                hlShell.setRegion(region);
+                                refreshHighlightShell();
                             }
                             onBoardingManager.onHighlightShellMoveCompleted();
                         }
@@ -379,6 +378,14 @@ public class HighlightShell {
 
     public Shell getHighlightShell() {
         return this.hlShell;
+    }
+
+    private void refreshHighlightShell() {
+        Rectangle clientArea = parentShell.getClientArea();
+        Rectangle mappedClientArea = parentShell.getDisplay().map(parentShell, null, clientArea);
+        hlShell.setBounds(mappedClientArea);
+        currentFocusedRectangle = getCurrentWidgetBounds();
+        hlShell.setRegion(getNewRegion(clientArea, currentFocusedRectangle));
     }
 
 }

@@ -32,79 +32,81 @@ import org.talend.core.hadoop.version.EHadoopDistributions;
 
 public class HadoopComponentTest {
 
-    private static final String EMPTY = ""; //$NON-NLS-1$
+    private static final String EMPTY                              = "";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
 
-    private static final String CLOUDERA = "CLOUDERA"; //$NON-NLS-1$
+    private static final String CLOUDERA                           = "CLOUDERA";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      //$NON-NLS-1$
 
-    private static final String HORTONWORKS = "HORTONWORKS"; //$NON-NLS-1$
+    private static final String HORTONWORKS                        = "HORTONWORKS";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   //$NON-NLS-1$
 
-    private static final String MAPR = "MAPR"; //$NON-NLS-1$
+    private static final String MAPR                               = "MAPR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //$NON-NLS-1$
 
-    private static final String AMAZON_EMR = "AMAZON_EMR"; //$NON-NLS-1$
+    private static final String AMAZON_EMR                         = "AMAZON_EMR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //$NON-NLS-1$
 
-    private static final String PIVOTAL_HD = "PIVOTAL_HD"; //$NON-NLS-1$
+    private static final String PIVOTAL_HD                         = "PIVOTAL_HD";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //$NON-NLS-1$
 
-    private static final String APACHE = "APACHE"; //$NON-NLS-1$
+    private static final String APACHE                             = "APACHE";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //$NON-NLS-1$
 
-    private static final String HDINSIGHT = "MICROSOFT_HD_INSIGHT"; //$NON-NLS-1$
+    private static final String HDINSIGHT                          = "MICROSOFT_HD_INSIGHT";                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //$NON-NLS-1$
 
-    private static final String CUSTOM = "CUSTOM"; //$NON-NLS-1$
+    private static final String CUSTOM                             = "CUSTOM";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //$NON-NLS-1$
 
-    private static final String CDH400MR1 = "Cloudera_CDH4"; //$NON-NLS-1$
+    private static final String CDH400MR1                          = "Cloudera_CDH4";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 //$NON-NLS-1$
 
-    private static final String CDH400MR2 = "Cloudera_CDH4_YARN"; //$NON-NLS-1$
+    private static final String CDH400MR2                          = "Cloudera_CDH4_YARN";                                                                                                                                                                                                                                                                                                                                                                                                                                                                            //$NON-NLS-1$
 
-    private static final String CDH500 = "Cloudera_CDH5"; //$NON-NLS-1$
+    private static final String CDH500                             = "Cloudera_CDH5";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 //$NON-NLS-1$
 
-    private static final String CDH510MR1 = "Cloudera_CDH5_1_MR1"; //$NON-NLS-1$
+    private static final String CDH510MR1                          = "Cloudera_CDH5_1_MR1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                           //$NON-NLS-1$
 
-    private static final String CDH510MR2 = "Cloudera_CDH5_1"; //$NON-NLS-1$
+    private static final String CDH510MR2                          = "Cloudera_CDH5_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //$NON-NLS-1$
 
-    private static final String CDH540 = "Cloudera_CDH5_4"; //$NON-NLS-1$
+    private static final String CDH540                             = "Cloudera_CDH5_4";                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //$NON-NLS-1$
 
-    private static final String HDP120 = "HDP_1_2"; //$NON-NLS-1$
+    private static final String HDP120                             = "HDP_1_2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String HDP130 = "HDP_1_3"; //$NON-NLS-1$
+    private static final String HDP130                             = "HDP_1_3";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String HDP200 = "HDP_2_0"; //$NON-NLS-1$
+    private static final String HDP200                             = "HDP_2_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String HDP210 = "HDP_2_1"; //$NON-NLS-1$
+    private static final String HDP210                             = "HDP_2_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String HDP220 = "HDP_2_2"; //$NON-NLS-1$
+    private static final String HDP220                             = "HDP_2_2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String HDP230 = "HDP_2_3"; //$NON-NLS-1$
+    private static final String HDP230                             = "HDP_2_3";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String APACHE100 = "APACHE_1_0_0"; //$NON-NLS-1$
+    private static final String APACHE100                          = "APACHE_1_0_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  //$NON-NLS-1$
 
-    private static final String MAPR200 = "MAPR2"; //$NON-NLS-1$
+    private static final String MAPR200                            = "MAPR2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         //$NON-NLS-1$
 
-    private static final String MAPR212 = "MAPR212"; //$NON-NLS-1$
+    private static final String MAPR212                            = "MAPR212";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String MAPR213 = "MAPR213"; //$NON-NLS-1$
+    private static final String MAPR213                            = "MAPR213";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String MAPR301 = "MAPR301"; //$NON-NLS-1$
+    private static final String MAPR301                            = "MAPR301";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String MAPR310 = "MAPR310"; //$NON-NLS-1$
+    private static final String MAPR310                            = "MAPR310";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String MAPR401 = "MAPR401"; //$NON-NLS-1$
+    private static final String MAPR401                            = "MAPR401";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String MAPR410 = "MAPR410"; //$NON-NLS-1$
+    private static final String MAPR410                            = "MAPR410";
 
-    private static final String EMRAPACHE103 = "APACHE_1_0_3_EMR"; //$NON-NLS-1$
+    private static final String MAPR500                            = "MAPR500";
 
-    private static final String EMRAPACHE240 = "APACHE_2_4_0_EMR"; //$NON-NLS-1$
+    private static final String EMRAPACHE103                       = "APACHE_1_0_3_EMR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
 
-    private static final String EMRAPACHE240_HIVE0131 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
+    private static final String EMRAPACHE240                       = "APACHE_2_4_0_EMR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
 
-    private static final String EMR400 = "EMR_4_0_0"; //$NON-NLS-1$
+    private static final String EMRAPACHE240_HIVE0131              = "APACHE_2_4_0_EMR_0_13_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
 
-    private static final String PIV101 = "PIVOTAL_HD_1_0_1"; //$NON-NLS-1$
+    private static final String EMR400                             = "EMR_4_0_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     //$NON-NLS-1$
 
-    private static final String PIV200 = "PIVOTAL_HD_2_0"; //$NON-NLS-1$
+    private static final String PIV101                             = "PIVOTAL_HD_1_0_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
 
-    private static final String HDINSIGHT310 = "MICROSOFT_HD_INSIGHT_3_1"; //$NON-NLS-1$
+    private static final String PIV200                             = "PIVOTAL_HD_2_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                //$NON-NLS-1$
 
-    private static final String HDINSIGHT320 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
+    private static final String HDINSIGHT310                       = "MICROSOFT_HD_INSIGHT_3_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                      //$NON-NLS-1$
+
+    private static final String HDINSIGHT320                       = "MICROSOFT_HD_INSIGHT_3_2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                      //$NON-NLS-1$
 
     private final static String DEFAULT_YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
 
@@ -128,7 +130,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) cdh400mr1).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) cdh400mr1).doSupportHCatalog());
         assertFalse(((PigComponent) cdh400mr1).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh400mr1).doSupportTez());
         assertTrue(((PigComponent) cdh400mr1).doSupportHBase());
         assertTrue(((HiveComponent) cdh400mr1).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh400mr1).doSupportStandaloneMode());
@@ -167,7 +168,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh400mr2).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) cdh400mr2).doSupportHCatalog());
         assertFalse(((PigComponent) cdh400mr2).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh400mr2).doSupportTez());
         assertTrue(((PigComponent) cdh400mr2).doSupportHBase());
         assertTrue(((HiveComponent) cdh400mr2).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh400mr2).doSupportStandaloneMode());
@@ -205,7 +205,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh500).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh500).doSupportHCatalog());
         assertFalse(((PigComponent) cdh500).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh500).doSupportTez());
         assertTrue(((PigComponent) cdh500).doSupportHBase());
         assertTrue(((HiveComponent) cdh500).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh500).doSupportStandaloneMode());
@@ -243,7 +242,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) cdh510mr1).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh510mr1).doSupportHCatalog());
         assertFalse(((PigComponent) cdh510mr1).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh510mr1).doSupportTez());
         assertTrue(((PigComponent) cdh510mr1).doSupportHBase());
         assertTrue(((HiveComponent) cdh510mr1).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh510mr1).doSupportStandaloneMode());
@@ -281,7 +279,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh510mr2).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh510mr2).doSupportHCatalog());
         assertFalse(((PigComponent) cdh510mr2).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh510mr2).doSupportTez());
         assertTrue(((PigComponent) cdh510mr2).doSupportHBase());
         assertTrue(((HiveComponent) cdh510mr2).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh510mr2).doSupportStandaloneMode());
@@ -299,6 +296,7 @@ public class HadoopComponentTest {
         assertFalse(((SparkStreamingComponent) cdh510mr2).isSpark14());
         assertFalse(((SparkStreamingComponent) cdh510mr2).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) cdh510mr2).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) cdh510mr2).doSupportCheckpointing());
         assertTrue(cdh510mr2 instanceof HCatalogComponent);
         assertTrue(cdh510mr2 instanceof ImpalaComponent);
     }
@@ -323,11 +321,10 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) cdh540).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) cdh540).doSupportHCatalog());
         assertFalse(((PigComponent) cdh540).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) cdh540).doSupportTez());
         assertTrue(((PigComponent) cdh540).doSupportHBase());
         assertTrue(((HiveComponent) cdh540).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) cdh540).doSupportStandaloneMode());
-        assertTrue(((HiveComponent) cdh540).doSupportHive1());
+        assertFalse(((HiveComponent) cdh540).doSupportHive1());
         assertTrue(((HiveComponent) cdh540).doSupportHive2());
         assertFalse(((HiveComponent) cdh540).doSupportTezForHive());
         assertTrue(((HiveComponent) cdh540).doSupportHBaseForHive());
@@ -341,6 +338,7 @@ public class HadoopComponentTest {
         assertFalse(((SparkStreamingComponent) cdh540).isSpark14());
         assertTrue(((SparkStreamingComponent) cdh540).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) cdh540).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) cdh540).doSupportCheckpointing());
         assertTrue(cdh540 instanceof HCatalogComponent);
         assertTrue(cdh540 instanceof ImpalaComponent);
     }
@@ -365,7 +363,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) hdp120).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp120).doSupportHCatalog());
         assertTrue(((PigComponent) hdp120).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp120).doSupportTez());
         assertTrue(((PigComponent) hdp120).doSupportHBase());
         assertTrue(((HiveComponent) hdp120).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp120).doSupportStandaloneMode());
@@ -403,7 +400,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) hdp130).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp130).doSupportHCatalog());
         assertTrue(((PigComponent) hdp130).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp130).doSupportTez());
         assertTrue(((PigComponent) hdp130).doSupportHBase());
         assertTrue(((HiveComponent) hdp130).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp130).doSupportStandaloneMode());
@@ -441,7 +437,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp200).doSupportHCatalog());
         assertFalse(((PigComponent) hdp200).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp200).doSupportTez());
         assertFalse(((PigComponent) hdp200).doSupportHBase());
         assertTrue(((HiveComponent) hdp200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp200).doSupportStandaloneMode());
@@ -478,7 +473,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp210).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp210).doSupportHCatalog());
         assertFalse(((PigComponent) hdp210).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdp210).doSupportTez());
         assertTrue(((PigComponent) hdp210).doSupportHBase());
         assertTrue(((HiveComponent) hdp210).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp210).doSupportStandaloneMode());
@@ -515,7 +509,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp220).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp220).doSupportHCatalog());
         assertFalse(((PigComponent) hdp220).pigVersionPriorTo_0_12());
-        assertTrue(((PigComponent) hdp220).doSupportTez());
         assertTrue(((PigComponent) hdp220).doSupportHBase());
         assertTrue(((HiveComponent) hdp220).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp220).doSupportStandaloneMode());
@@ -552,11 +545,10 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) hdp230).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) hdp230).doSupportHCatalog());
         assertFalse(((PigComponent) hdp230).pigVersionPriorTo_0_12());
-        assertTrue(((PigComponent) hdp230).doSupportTez());
         assertTrue(((PigComponent) hdp230).doSupportHBase());
-        assertTrue(((HiveComponent) hdp230).doSupportEmbeddedMode());
+        assertFalse(((HiveComponent) hdp230).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) hdp230).doSupportStandaloneMode());
-        assertTrue(((HiveComponent) hdp230).doSupportHive1());
+        assertFalse(((HiveComponent) hdp230).doSupportHive1());
         assertTrue(((HiveComponent) hdp230).doSupportHive2());
         assertTrue(((HiveComponent) hdp230).doSupportTezForHive());
         assertTrue(((HiveComponent) hdp230).doSupportHBaseForHive());
@@ -588,7 +580,6 @@ public class HadoopComponentTest {
         assertFalse(apache100 instanceof SqoopComponent);
         assertFalse(((PigComponent) apache100).doSupportHCatalog());
         assertFalse(((PigComponent) apache100).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) apache100).doSupportTez());
         assertTrue(((PigComponent) apache100).doSupportHBase());
         assertTrue(((HiveComponent) apache100).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) apache100).doSupportStandaloneMode());
@@ -625,7 +616,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr200).doSupportHCatalog());
         assertFalse(((PigComponent) mapr200).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr200).doSupportTez());
         assertTrue(((PigComponent) mapr200).doSupportHBase());
         assertTrue(((HiveComponent) mapr200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr200).doSupportStandaloneMode());
@@ -663,7 +653,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr212).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr212).doSupportHCatalog());
         assertFalse(((PigComponent) mapr212).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr212).doSupportTez());
         assertTrue(((PigComponent) mapr212).doSupportHBase());
         assertTrue(((HiveComponent) mapr212).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr212).doSupportStandaloneMode());
@@ -701,7 +690,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr213).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr213).doSupportHCatalog());
         assertFalse(((PigComponent) mapr213).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr213).doSupportTez());
         assertTrue(((PigComponent) mapr213).doSupportHBase());
         assertTrue(((HiveComponent) mapr213).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr213).doSupportStandaloneMode());
@@ -739,7 +727,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr301).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) mapr301).doSupportHCatalog());
         assertFalse(((PigComponent) mapr301).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr301).doSupportTez());
         assertTrue(((PigComponent) mapr301).doSupportHBase());
         assertTrue(((HiveComponent) mapr301).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr301).doSupportStandaloneMode());
@@ -777,7 +764,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr310).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) mapr310).doSupportHCatalog());
         assertTrue(((PigComponent) mapr310).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr310).doSupportTez());
         assertTrue(((PigComponent) mapr310).doSupportHBase());
         assertTrue(((HiveComponent) mapr310).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr310).doSupportStandaloneMode());
@@ -815,7 +801,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr401).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) mapr401).doSupportHCatalog());
         assertFalse(((PigComponent) mapr401).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr401).doSupportTez());
         assertTrue(((PigComponent) mapr401).doSupportHBase());
         assertTrue(((HiveComponent) mapr401).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr401).doSupportStandaloneMode());
@@ -853,11 +838,10 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) mapr410).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) mapr410).doSupportHCatalog());
         assertFalse(((PigComponent) mapr410).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) mapr410).doSupportTez());
         assertTrue(((PigComponent) mapr410).doSupportHBase());
         assertTrue(((HiveComponent) mapr410).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) mapr410).doSupportStandaloneMode());
-        assertTrue(((HiveComponent) mapr410).doSupportHive1());
+        assertFalse(((HiveComponent) mapr410).doSupportHive1());
         assertTrue(((HiveComponent) mapr410).doSupportHive2());
         assertTrue(((HiveComponent) mapr410).doSupportTezForHive());
         assertTrue(((HiveComponent) mapr410).doSupportHBaseForHive());
@@ -871,6 +855,46 @@ public class HadoopComponentTest {
         assertFalse(mapr410 instanceof SparkStreamingComponent);
         assertTrue(mapr410 instanceof HCatalogComponent);
         assertFalse(mapr410 instanceof ImpalaComponent);
+    }
+
+    @Test
+    public void testMAPR500() throws Exception {
+        HadoopComponent mapr500 = DistributionFactory.buildDistribution(MAPR, MAPR500);
+        assertNotNull(mapr500.getName());
+        assertEquals(EHadoopDistributions.MAPR, mapr500.getDistribution());
+        assertEquals(EHadoopVersion.HADOOP_2, mapr500.getHadoopVersion());
+        assertFalse(mapr500.doSupportKerberos());
+        assertFalse(mapr500.doSupportUseDatanodeHostname());
+        assertTrue(mapr500.doSupportGroup());
+        assertTrue(((HDFSComponent) mapr500).doSupportSequenceFileShortType());
+        assertFalse(((MRComponent) mapr500).isExecutedThroughWebHCat());
+        assertTrue(((MRComponent) mapr500).doSupportCrossPlatformSubmission());
+        assertFalse(((MRComponent) mapr500).doSupportImpersonation());
+        assertEquals(DEFAULT_YARN_APPLICATION_CLASSPATH, ((MRComponent) mapr500).getYarnApplicationClasspath());
+        assertTrue(((HBaseComponent) mapr500).doSupportNewHBaseAPI());
+        assertFalse(((SqoopComponent) mapr500).doJavaAPISupportStorePasswordInFile());
+        assertFalse(((SqoopComponent) mapr500).doJavaAPISqoopImportSupportDeleteTargetDir());
+        assertFalse(((SqoopComponent) mapr500).doJavaAPISqoopImportAllTablesSupportExcludeTable());
+        assertTrue(((PigComponent) mapr500).doSupportHCatalog());
+        assertFalse(((PigComponent) mapr500).pigVersionPriorTo_0_12());
+        assertTrue(((PigComponent) mapr500).doSupportHBase());
+        assertFalse(((HiveComponent) mapr500).doSupportEmbeddedMode());
+        assertTrue(((HiveComponent) mapr500).doSupportStandaloneMode());
+        assertFalse(((HiveComponent) mapr500).doSupportHive1());
+        assertTrue(((HiveComponent) mapr500).doSupportHive2());
+        assertFalse(((HiveComponent) mapr500).doSupportTezForHive());
+        assertTrue(((HiveComponent) mapr500).doSupportHBaseForHive());
+        assertFalse(((HiveComponent) mapr500).doSupportSSL());
+        assertTrue(((HiveComponent) mapr500).doSupportORCFormat());
+        assertTrue(((HiveComponent) mapr500).doSupportAvroFormat());
+        assertTrue(((HiveComponent) mapr500).doSupportParquetFormat());
+        assertFalse(((SparkBatchComponent) mapr500).isSpark14());
+        assertFalse(((SparkBatchComponent) mapr500).doSupportDynamicMemoryAllocation());
+        assertFalse(((SparkBatchComponent) mapr500).isExecutedThroughSparkJobServer());
+        assertFalse(mapr500 instanceof SparkStreamingComponent);
+        assertTrue(mapr500 instanceof HCatalogComponent);
+        assertFalse(mapr500 instanceof ImpalaComponent);
+        assertTrue(((SparkStreamingComponent) mapr500).doSupportCheckpointing());
     }
 
     @Test
@@ -891,7 +915,6 @@ public class HadoopComponentTest {
         assertFalse(emr103 instanceof SqoopComponent);
         assertFalse(((PigComponent) emr103).doSupportHCatalog());
         assertFalse(((PigComponent) emr103).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) emr103).doSupportTez());
         assertTrue(((PigComponent) emr103).doSupportHBase());
         assertTrue(((HiveComponent) emr103).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr103).doSupportStandaloneMode());
@@ -928,7 +951,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) emr240).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) emr240).doSupportHCatalog());
         assertFalse(((PigComponent) emr240).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) emr240).doSupportTez());
         assertTrue(((PigComponent) emr240).doSupportHBase());
         assertTrue(((HiveComponent) emr240).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr240).doSupportStandaloneMode());
@@ -995,7 +1017,6 @@ public class HadoopComponentTest {
         assertFalse(emr400 instanceof SqoopComponent);
         assertFalse(((PigComponent) emr400).doSupportHCatalog());
         assertFalse(((PigComponent) emr400).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) emr400).doSupportTez());
         assertFalse(((PigComponent) emr400).doSupportHBase());
         assertFalse(((HiveComponent) emr400).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) emr400).doSupportStandaloneMode());
@@ -1013,6 +1034,7 @@ public class HadoopComponentTest {
         assertTrue(((SparkStreamingComponent) emr400).isSpark14());
         assertTrue(((SparkStreamingComponent) emr400).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) emr400).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) emr400).doSupportCheckpointing());
         assertFalse(emr400 instanceof HCatalogComponent);
         assertFalse(emr400 instanceof ImpalaComponent);
     }
@@ -1037,7 +1059,6 @@ public class HadoopComponentTest {
         assertFalse(((SqoopComponent) piv101).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) piv101).doSupportHCatalog());
         assertFalse(((PigComponent) piv101).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) piv101).doSupportTez());
         assertTrue(((PigComponent) piv101).doSupportHBase());
         assertTrue(((HiveComponent) piv101).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) piv101).doSupportStandaloneMode());
@@ -1075,7 +1096,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) piv200).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertFalse(((PigComponent) piv200).doSupportHCatalog());
         assertFalse(((PigComponent) piv200).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) piv200).doSupportTez());
         assertFalse(((PigComponent) piv200).doSupportHBase());
         assertTrue(((HiveComponent) piv200).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) piv200).doSupportStandaloneMode());
@@ -1111,7 +1131,6 @@ public class HadoopComponentTest {
         assertFalse(hdinsight310 instanceof SqoopComponent);
         assertTrue(((PigComponent) hdinsight310).doSupportHCatalog());
         assertFalse(((PigComponent) hdinsight310).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdinsight310).doSupportTez());
         assertFalse(((PigComponent) hdinsight310).doSupportHBase());
         assertFalse(((HiveComponent) hdinsight310).doSupportEmbeddedMode());
         assertFalse(((HiveComponent) hdinsight310).doSupportStandaloneMode());
@@ -1147,7 +1166,6 @@ public class HadoopComponentTest {
         assertFalse(hdinsight320 instanceof SqoopComponent);
         assertTrue(((PigComponent) hdinsight320).doSupportHCatalog());
         assertFalse(((PigComponent) hdinsight320).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) hdinsight320).doSupportTez());
         assertFalse(((PigComponent) hdinsight320).doSupportHBase());
         assertFalse(((HiveComponent) hdinsight320).doSupportEmbeddedMode());
         assertFalse(((HiveComponent) hdinsight320).doSupportStandaloneMode());
@@ -1162,7 +1180,10 @@ public class HadoopComponentTest {
         assertFalse(((SparkBatchComponent) hdinsight320).isSpark14());
         assertFalse(((SparkBatchComponent) hdinsight320).doSupportDynamicMemoryAllocation());
         assertTrue(((SparkBatchComponent) hdinsight320).isExecutedThroughSparkJobServer());
-        assertFalse(hdinsight320 instanceof SparkStreamingComponent);
+        assertFalse(((SparkStreamingComponent) hdinsight320).isSpark14());
+        assertFalse(((SparkStreamingComponent) hdinsight320).doSupportDynamicMemoryAllocation());
+        assertTrue(((SparkStreamingComponent) hdinsight320).isExecutedThroughSparkJobServer());
+        assertFalse(((SparkStreamingComponent) hdinsight320).doSupportCheckpointing());
         assertFalse(hdinsight320 instanceof HCatalogComponent);
         assertFalse(hdinsight320 instanceof ImpalaComponent);
     }
@@ -1187,7 +1208,6 @@ public class HadoopComponentTest {
         assertTrue(((SqoopComponent) custom).doJavaAPISqoopImportAllTablesSupportExcludeTable());
         assertTrue(((PigComponent) custom).doSupportHCatalog());
         assertFalse(((PigComponent) custom).pigVersionPriorTo_0_12());
-        assertFalse(((PigComponent) custom).doSupportTez());
         assertTrue(((PigComponent) custom).doSupportHBase());
         assertTrue(((HiveComponent) custom).doSupportEmbeddedMode());
         assertTrue(((HiveComponent) custom).doSupportStandaloneMode());
@@ -1205,6 +1225,7 @@ public class HadoopComponentTest {
         assertFalse(((SparkStreamingComponent) custom).isSpark14());
         assertTrue(((SparkStreamingComponent) custom).doSupportDynamicMemoryAllocation());
         assertFalse(((SparkStreamingComponent) custom).isExecutedThroughSparkJobServer());
+        assertTrue(((SparkStreamingComponent) custom).doSupportCheckpointing());
         assertFalse(custom instanceof HCatalogComponent);
         assertFalse(custom instanceof ImpalaComponent);
     }

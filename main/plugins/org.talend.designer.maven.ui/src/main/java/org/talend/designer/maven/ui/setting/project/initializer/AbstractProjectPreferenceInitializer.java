@@ -68,8 +68,12 @@ public abstract class AbstractProjectPreferenceInitializer extends AbstractPrefe
     }
 
     protected void setDefault(IPreferenceStore preferenceStore, String key, String bundleTemplatePath) {
+        setDefault(preferenceStore, key, this.bundleName, bundleTemplatePath);
+    }
+
+    protected void setDefault(IPreferenceStore preferenceStore, String key, String bunlde, String bundleTemplatePath) {
         try {
-            AbstractMavenTemplateManager templateManager = MavenTemplateManager.getTemplateManagerMap().get(this.bundleName);
+            AbstractMavenTemplateManager templateManager = MavenTemplateManager.getTemplateManagerMap().get(bunlde);
             if (templateManager != null) {
                 InputStream stream = templateManager.readBundleStream(bundleTemplatePath);
                 String osgiPomContent = MavenTemplateManager.getContentFromInputStream(stream);

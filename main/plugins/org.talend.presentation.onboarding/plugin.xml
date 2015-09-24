@@ -18,7 +18,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.talend.presentation.onboarding.show.command"
-            name="Onboarding">
+            name="%Onboarding">
       </command>
    </extension>
    <extension
@@ -31,7 +31,7 @@
    <extension
          point="org.eclipse.ui.startup">
       <startup
-            class="org.talend.presentation.onboarding.handlers.OnBoaringStartup">
+            class="org.talend.presentation.onboarding.handlers.OnBoardingStartup">
       </startup>
    </extension>
 </plugin>

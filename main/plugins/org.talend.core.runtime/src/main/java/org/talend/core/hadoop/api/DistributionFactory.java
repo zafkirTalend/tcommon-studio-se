@@ -40,6 +40,7 @@ import org.talend.core.hadoop.api.distribution.mapr.MapR301Distribution;
 import org.talend.core.hadoop.api.distribution.mapr.MapR310Distribution;
 import org.talend.core.hadoop.api.distribution.mapr.MapR401Distribution;
 import org.talend.core.hadoop.api.distribution.mapr.MapR410Distribution;
+import org.talend.core.hadoop.api.distribution.mapr.MapR500Distribution;
 import org.talend.core.hadoop.api.distribution.pivotal.Pivotal101Distribution;
 import org.talend.core.hadoop.api.distribution.pivotal.Pivotal200Distribution;
 import org.talend.core.hadoop.version.EHadoopDistributions;
@@ -56,8 +57,6 @@ public class DistributionFactory {
     private final static String LEGACY_CDH51_SPARK = "Cloudera_CDH51"; //$NON-NLS-1$
 
     private final static String EMR240_HIVE_0_13_1 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
-
-    private final static String MICROSOFT_HD_INSIGHT_3_2 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
 
     /**
      *
@@ -133,6 +132,9 @@ public class DistributionFactory {
             if (distribution == EHadoopVersion4Drivers.MAPR410) {
                 return new MapR410Distribution(distribution);
             }
+            if (distribution == EHadoopVersion4Drivers.MAPR500) {
+                return new MapR500Distribution(distribution);
+            }
             if (distribution == EHadoopVersion4Drivers.APACHE_1_0_3_EMR) {
                 return new EMRApache103Distribution(distribution);
             }
@@ -151,16 +153,15 @@ public class DistributionFactory {
             if (distribution == EHadoopVersion4Drivers.MICROSOFT_HD_INSIGHT_3_1) {
                 return new HDInsight31Distribution(distribution);
             }
+            if (distribution == EHadoopVersion4Drivers.MICROSOFT_HD_INSIGHT_3_2) {
+                return new HDInsight32Distribution(distribution);
+            }
             if (distribution == EHadoopVersion4Drivers.EMR_4_0_0) {
                 return new EMR400Distribution(distribution);
             }
         } else {
             // The distribution can be null in case of the GUI has not implemented the distribution in
             // EHadoopVersion4Drivers. In this case, we create this temporary code waiting for them to implement it.
-
-            if (MICROSOFT_HD_INSIGHT_3_2.equals(pVersion)) {
-                return new HDInsight32Distribution();
-            }
 
             if (EMR240_HIVE_0_13_1.equals(pVersion)) {
                 return new EMRApache240_Hive_0_13_1_Distribution();

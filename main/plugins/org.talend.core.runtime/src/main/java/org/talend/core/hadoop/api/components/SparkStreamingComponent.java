@@ -17,5 +17,12 @@ package org.talend.core.hadoop.api.components;
  *
  */
 public interface SparkStreamingComponent extends SparkComponent {
-    // No specific method for Spark Streaming currently.
+
+    /**
+     * This method defines if a distribution supports the checkpointing in Spark Streaming
+     * 
+     * @return true if the distribution supports the checkpointing
+     */
+    public boolean doSupportCheckpointing();
+
 }

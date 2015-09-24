@@ -84,11 +84,6 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return true;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }
@@ -100,7 +95,7 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportEmbeddedMode() {
-        return true;
+        return false;
     }
 
     @Override
@@ -110,7 +105,7 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
 
     @Override
     public boolean doSupportHive1() {
-        return true;
+        return false;
     }
 
     @Override
@@ -168,4 +163,8 @@ public class HDP230Distribution extends AbstractDistribution implements HDFSComp
         return true;
     }
 
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
+    }
 }

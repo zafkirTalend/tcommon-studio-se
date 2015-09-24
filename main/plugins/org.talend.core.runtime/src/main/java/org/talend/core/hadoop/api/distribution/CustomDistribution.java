@@ -94,11 +94,6 @@ public class CustomDistribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return true;
     }
@@ -171,5 +166,10 @@ public class CustomDistribution extends AbstractDistribution implements HDFSComp
     @Override
     public boolean isExecutedThroughSparkJobServer() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
     }
 }

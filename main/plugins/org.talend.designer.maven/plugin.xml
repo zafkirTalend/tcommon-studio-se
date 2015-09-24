@@ -4,6 +4,9 @@
    <extension-point id="mavenSetting" name="MavenSetting" schema="schema/mavenSetting.exsd"/>
    <extension
          point="org.talend.designer.maven.mavenSetting">
+      <ProjectSettingManager
+            class="org.talend.designer.maven.setting.DefaultProjectSettingManagerProvider">
+      </ProjectSettingManager>
       <TemplateManager
             class="org.talend.designer.maven.setting.DefaultMavenTemplateManager">
       </TemplateManager>

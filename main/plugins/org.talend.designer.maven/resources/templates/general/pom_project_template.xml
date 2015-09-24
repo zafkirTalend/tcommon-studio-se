@@ -7,8 +7,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>pom_routines.xml</module>
-		<!-- jobs modules -->
+		<!-- jobs with some codes modules -->
 	</modules>
 
 	<name>@ProjectName@ Codes Master</name>

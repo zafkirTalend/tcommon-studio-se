@@ -67,11 +67,6 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
     }
 
     @Override
-    public boolean doSupportTez() {
-        return false;
-    }
-
-    @Override
     public boolean doSupportHBase() {
         return false;
     }
@@ -149,5 +144,10 @@ public class EMR400Distribution extends AbstractDistribution implements HDFSComp
     @Override
     public boolean isExecutedThroughSparkJobServer() {
         return false;
+    }
+
+    @Override
+    public boolean doSupportCheckpointing() {
+        return true;
     }
 }
