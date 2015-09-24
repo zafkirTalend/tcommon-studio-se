@@ -922,9 +922,9 @@ public class ProcessorUtilities {
                     }
                     IElementParameter indepPara = node.getElementParameter("USE_INDEPENDENT_PROCESS");
                     boolean isNeedLoadmodules = true;
-                    if (indepPara != null) {
-                        isNeedLoadmodules = !(boolean) indepPara.getValue();
-                    }
+                    // if (indepPara != null) {
+                    // isNeedLoadmodules = !(boolean) indepPara.getValue();
+                    // }
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                     // feature 19312
                     String jobIds = (String) processIdparam.getValue();
