@@ -43,6 +43,7 @@ import org.talend.core.model.utils.SQLPatternUtils;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.ui.IJobletProviderService;
+import org.talend.core.ui.ITestContainerCoreService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.utils.BitwiseOptionUtils;
 import org.talend.designer.core.IDesignerCoreService;
@@ -717,11 +718,14 @@ public final class ProcessUtils {
     }
 
     public static boolean isSpark(IProcess process) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                    .getDefault().getService(ITestContainerProviderService.class);
+        if (process instanceof IProcess2) {
+            return false;
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerCoreService.class)) {
+            ITestContainerCoreService testContainerService = (ITestContainerCoreService) GlobalServiceRegister.getDefault()
+                    .getService(ITestContainerCoreService.class);
             if (testContainerService != null) {
-                return testContainerService.isSpark(process);
+                return testContainerService.isSpark(((IProcess2) process).getProperty().getItem());
             }
         }
         return false;
