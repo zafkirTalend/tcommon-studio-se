@@ -39,8 +39,6 @@ import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 /**
@@ -167,17 +165,6 @@ public class OnBoardingUtils {
         return colorRegistry.get(symbol);
     }
 
-    /**
-     * Returns an array version of the passed NodeList. Used to work around DOM design issues.
-     */
-    public static Node[] getArray(NodeList nodeList) {
-        Node[] nodes = new Node[nodeList.getLength()];
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            nodes[i] = nodeList.item(i);
-        }
-        return nodes;
-    }
-
     public static boolean isSupportBrowser() {
         final ObjectBox<Boolean> isSupportBrowser = new ObjectBox<Boolean>();
         isSupportBrowser.value = true;
@@ -209,6 +196,12 @@ public class OnBoardingUtils {
         return isSupportBrowser.value;
     }
 
+    /**
+     * Should run this method in UI thread
+     * 
+     * @param wbWindow
+     * @return
+     */
     public static String getCurrentSelectedPerspectiveId(IWorkbenchWindow wbWindow) {
         String perspId = null;
         if (wbWindow == null || !PlatformUI.isWorkbenchRunning()) {
@@ -229,6 +222,10 @@ public class OnBoardingUtils {
         Document newDoc = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setValidating(false);
+            // if this is not set, Document.getElementsByTagNameNS() will fail.
+            factory.setNamespaceAware(true);
+            factory.setExpandEntityReferences(false);
             DocumentBuilder builder = factory.newDocumentBuilder();
             if (htmlStr == null || htmlStr.trim().isEmpty()) {
                 newDoc = builder.newDocument();

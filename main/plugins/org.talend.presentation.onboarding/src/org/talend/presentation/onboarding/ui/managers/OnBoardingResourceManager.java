@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.handlers.OnBoardingExtentionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
@@ -27,6 +30,7 @@ import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
+import org.talend.presentation.onboarding.utils.OnBoardingUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -138,11 +142,6 @@ public class OnBoardingResourceManager {
         return totalSize;
     }
 
-    public static void main(String args[]) {
-        OnBoardingResourceManager on = new OnBoardingResourceManager();
-        on.setJsonString("[{\"viewId\":\"org.talend.repository.cnf.view\",\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"forceShow\":true,\"cssIds\":\"#navigatorLayout || .MPart#org-talend-repository-cnf-view\",\"title\":\"This is a title 1\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"viewId\":\"org.talend.designer.core.ui.views.properties.ComponentSettingsView\",\"size\":\"600,400\",\"perspId\":\"org.talend.camel.perspective\",\"forceShow\":true,\"cssIds\":\"#bottomLayout\",\"title\":\"This is a title 2\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"}]");
-    }
-
     public Object getJsonString() {
         return this.jsonString;
     }
@@ -162,6 +161,19 @@ public class OnBoardingResourceManager {
 
     public void setOnBoardingDocs(List<OnBoardingDocBean> onBoardingDocs) {
         this.onBoardingDocs = onBoardingDocs;
+    }
+
+    public List<OnBoardingPresentationData> getPresentationDatasForCurrentPerspective() {
+        List<OnBoardingPresentationData> presentationDatas = new ArrayList<OnBoardingPresentationData>();
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench == null || !PlatformUI.isWorkbenchRunning()) {
+            return presentationDatas;
+        }
+        IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+        if (workbenchWindow == null) {
+            return presentationDatas;
+        }
+        return getOnBoardingPresentationDatas(OnBoardingUtils.getCurrentSelectedPerspectiveId(workbenchWindow));
     }
 
     public List<OnBoardingPresentationData> getOnBoardingPresentationDatas(String perspectiveId) {

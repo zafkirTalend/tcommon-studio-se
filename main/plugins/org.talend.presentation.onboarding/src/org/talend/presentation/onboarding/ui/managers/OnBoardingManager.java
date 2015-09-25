@@ -103,20 +103,6 @@ public class OnBoardingManager {
         return presentationDatas.get(currentSelectedIndex);
     }
 
-    public static void showDemo() {
-        OnBoardingManager obm = new OnBoardingManager();
-        OnBoardingResourceManager obrm = new OnBoardingResourceManager() {
-
-            @Override
-            protected String getI18NString(String key) {
-                return key;
-            }
-        };
-        obrm.setJsonString("[{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":null,\"title\":\"This is a title A\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":null,\"title\":\"This is a title B\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":\"#navigatorLayout || .MPart#org-talend-repository-cnf-view\",\"title\":\"This is a title 1\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":\"#bottomLayout\",\"title\":\"This is a title 2\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":\"#paletteLayout || .MPart#org-eclipse-gef-ui-palette_view\",\"title\":\"This is a title 3\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.camel.perspective\",\"cssIds\":\"#bottomLayout\",\"title\":\"This is a title 2\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"}]");
-        obm.setResourceManager(obrm);
-        obm.onBoarding(0);
-    }
-
     public void onBoarding(int index) {
         int size = this.getPresentationDatas().size();
         if (index < 0 || size <= index) {

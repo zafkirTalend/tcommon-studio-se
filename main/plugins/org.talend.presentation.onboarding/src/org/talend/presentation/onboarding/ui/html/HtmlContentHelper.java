@@ -20,9 +20,11 @@ import org.eclipse.ui.internal.intro.impl.html.IIntroHTMLConstants;
 import org.eclipse.ui.internal.intro.impl.model.IntroContentProvider;
 import org.eclipse.ui.internal.intro.impl.model.loader.ContentProviderManager;
 import org.eclipse.ui.internal.intro.impl.model.loader.IntroContentParser;
+import org.eclipse.ui.internal.intro.impl.model.util.ModelUtil;
 import org.eclipse.ui.intro.config.IIntroContentProviderSite;
 import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
 import org.talend.presentation.onboarding.i18n.Messages;
+import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
 import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
@@ -72,7 +74,7 @@ public class HtmlContentHelper {
         NodeList internationals = dom.getElementsByTagNameNS("*", //$NON-NLS-1$
                 OnBoardingConstants.KEY_INTERNATIONAL);
 
-        Node[] nodes = OnBoardingUtils.getArray(internationals);
+        Node[] nodes = ModelUtil.getArray(internationals);
         for (Node node : nodes) {
             Element internationalElement = (Element) node;
             internationalElement.getParentNode().replaceChild(
@@ -104,8 +106,7 @@ public class HtmlContentHelper {
         OnBoardingDocBean docBean = presData.getDocBean();
 
         // get the array version of the nodelist to work around DOM api design.
-        // Node[] nodes = ModelUtil.getArray(contentProviders);
-        Node[] nodes = OnBoardingUtils.getArray(contentProviders);
+        Node[] nodes = ModelUtil.getArray(contentProviders);
         for (Node node : nodes) {
             Element contentProviderElement = (Element) node;
             String id = contentProviderElement.getAttribute(IIntroHTMLConstants.ATTRIBUTE_ID);
@@ -125,11 +126,11 @@ public class HtmlContentHelper {
             if (OnBoardingConstants.HTML_STEP.equals(id)) {
                 node.getParentNode().replaceChild(dom.createTextNode("" + (index + 1)), node); //$NON-NLS-1$
             } else if (OnBoardingConstants.HTML_TITLE.equals(id)) {
-                node.getParentNode().replaceChild(convertToNode(dom, docBean.getTitle(), OnBoardingConstants.HTML_DIV_TITLE_ID),
-                        node);
+                node.getParentNode().replaceChild(
+                        convertToNode(dom, site, docBean.getTitle(), OnBoardingConstants.HTML_DIV_TITLE_ID), node);
             } else if (OnBoardingConstants.HTML_CONTENT.equals(id)) {
                 node.getParentNode().replaceChild(
-                        convertToNode(dom, docBean.getContent(), OnBoardingConstants.HTML_DIV_CONTENT_ID), node);
+                        convertToNode(dom, site, docBean.getContent(), OnBoardingConstants.HTML_DIV_CONTENT_ID), node);
             } else if (OnBoardingConstants.HTML_BULLETS.equals(id)) {
                 Node parent = node.getParentNode();
                 parent.removeChild(node);
@@ -161,17 +162,38 @@ public class HtmlContentHelper {
             }
 
         }
+
+        if (index <= 0) {
+            disableButton(dom, OnBoardingConstants.HTML_BUTTON_BACK);
+        }
+        // can't use <else if>, example: when there is only 1 page
+        if (presDatas.size() - 1 <= index) {
+            Element skipButton = ModelUtil.getElementById(dom, OnBoardingConstants.HTML_BUTTON_SKIP);
+            Node oldText = skipButton.getFirstChild();
+            skipButton.replaceChild(dom.createTextNode(Messages.getString("onBoardingComposite.button.skip.letMeTry")), oldText); //$NON-NLS-1$
+
+            disableButton(dom, OnBoardingConstants.HTML_BUTTON_NEXT);
+        }
         return dom;
     }
 
-    private Node convertToNode(Document dom, String content, String divId) {
+    private void disableButton(Document dom, String buttonId) {
+        // Element button = dom.getElementById(buttonId);
+        Element button = ModelUtil.getElementById(dom, buttonId);
+        String buttonCssClasses = button.getAttribute(IIntroHTMLConstants.ATTRIBUTE_CLASS);
+        buttonCssClasses = buttonCssClasses + " " + OnBoardingConstants.HTML_CSS_CLASS_BUTTON_DISABLED; //$NON-NLS-1$
+        button.setAttribute(IIntroHTMLConstants.ATTRIBUTE_CLASS, buttonCssClasses);
+    }
+
+    private Node convertToNode(Document dom, IIntroContentProviderSite site, String content, String divId) {
         Node newNode = null;
 
         // avoid exception
         String safeContent = "<div id='" + divId + "'>" + content + "</div>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Document contentDom = OnBoardingUtils.convertStringToDocument(safeContent);
-
         if (contentDom != null) {
+            resolveI18nFromJsonDoc(contentDom);
+            contentDom = resolveDynamicContentFromJsonDoc(contentDom, site);
             NodeList children = contentDom.getChildNodes();
             if (children != null && 0 < children.getLength()) {
                 newNode = dom.adoptNode(children.item(0).cloneNode(true));
@@ -187,8 +209,7 @@ public class HtmlContentHelper {
                 IntroContentProvider.TAG_CONTENT_PROVIDER);
 
         // get the array version of the nodelist to work around DOM api design.
-        // Node[] nodes = ModelUtil.getArray(contentProviders);
-        Node[] nodes = OnBoardingUtils.getArray(contentProviders);
+        Node[] nodes = ModelUtil.getArray(contentProviders);
         for (Node node : nodes) {
             Element contentProviderElement = (Element) node;
             IntroContentProvider provider = new IntroContentProvider(contentProviderElement, OnBoardingUtils.getBundle());
@@ -220,4 +241,21 @@ public class HtmlContentHelper {
         return dom;
     }
 
+    private void resolveI18nFromJsonDoc(Document dom) {
+        IOnBoardingJsonI18n i18n = onBoardingManager.getResourceManager().getOnBoardingJsonI18n();
+        if (i18n == null) {
+            return;
+        }
+
+        NodeList internationals = dom.getElementsByTagNameNS("*", //$NON-NLS-1$
+                OnBoardingConstants.KEY_INTERNATIONAL);
+
+        Node[] nodes = ModelUtil.getArray(internationals);
+        for (Node node : nodes) {
+            Element internationalElement = (Element) node;
+            internationalElement.getParentNode().replaceChild(
+                    dom.createTextNode(i18n.getI18NString(internationalElement.getAttribute(IIntroHTMLConstants.ATTRIBUTE_ID))),
+                    internationalElement);
+        }
+    }
 }
