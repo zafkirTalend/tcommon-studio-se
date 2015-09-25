@@ -103,6 +103,8 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE, getEditRule(), DisplayMode.EDIT,
                 ContextTableConstants.COLUMN_TYPE_PROPERTY);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE, getEditRule(), DisplayMode.EDIT,
+                ContextTableConstants.COLUMN_COMMENT_PROPERTY);
+        configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE, getEditRule(), DisplayMode.EDIT,
                 ContextTableConstants.COLUMN_CHECK_PROPERTY);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITABLE_RULE, getEditRule(), DisplayMode.EDIT,
                 ContextTableConstants.COLUMN_PROMPT_PROPERTY);
@@ -119,6 +121,9 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
                 ContextTableConstants.COLUMN_NAME_PROPERTY);
+
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
+                ContextTableConstants.COLUMN_COMMENT_PROPERTY);
 
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleDefault, DisplayMode.NORMAL,
                 ContextTableConstants.COLUMN_CHECK_PROPERTY);
@@ -138,6 +143,9 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
 
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
                 ContextTableConstants.COLUMN_NAME_PROPERTY);
+
+        configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
+                ContextTableConstants.COLUMN_COMMENT_PROPERTY);
 
         configRegistry.registerConfigAttribute(CellConfigAttributes.CELL_STYLE, cellStyleSelect, DisplayMode.SELECT,
                 ContextTableConstants.COLUMN_CHECK_PROPERTY);
@@ -188,6 +196,7 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
         registerColumnThreeCheckBoxEditor(configRegistry);
         registerColumnFourTextEditor(configRegistry);
         registerColumnFiveTextEditor(configRegistry);
+        registerColumnSixTextEditor(configRegistry);
     }
 
     private void registerColumnFirstTextEditor(IConfigRegistry configRegistry) {
@@ -305,6 +314,11 @@ public class ContextNatTableConfiguration extends AbstractRegistryConfiguration 
         ProxyDynamicCellEditor cutomCellEditor = new ProxyDynamicCellEditor(dataProvider, columnGroupModel, manager);
         configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, cutomCellEditor, DisplayMode.EDIT,
                 ContextTableConstants.COLUMN_CONTEXT_VALUE);
+    }
+    
+    private void registerColumnSixTextEditor(IConfigRegistry configRegistry) {
+        configRegistry.registerConfigAttribute(EditConfigAttributes.CELL_EDITOR, new TextCellEditor(true, true),
+                DisplayMode.NORMAL, ContextTableConstants.COLUMN_COMMENT_PROPERTY);
     }
 
     public class ContextCheckDisplayConverter extends DefaultBooleanDisplayConverter {

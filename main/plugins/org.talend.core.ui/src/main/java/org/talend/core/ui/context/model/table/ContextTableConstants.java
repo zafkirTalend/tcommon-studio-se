@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -20,6 +20,8 @@ public class ContextTableConstants {
     public static final String COLUMN_NAME_PROPERTY = "Name"; //$NON-NLS-1$
 
     public static final String COLUMN_TYPE_PROPERTY = "Type"; //$NON-NLS-1$
+
+    public static final String COLUMN_COMMENT_PROPERTY = "Comment"; //$NON-NLS-1$
 
     public static final String COLUMN_CHECK_PROPERTY = ""; //$NON-NLS-1$
 

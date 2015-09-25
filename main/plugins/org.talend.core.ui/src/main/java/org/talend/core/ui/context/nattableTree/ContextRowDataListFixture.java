@@ -47,11 +47,12 @@ public class ContextRowDataListFixture {
 
     public static String[] getPropertyNames(IContextModelManager manager) {
         List<IContext> contexts = getContexts(manager.getContextManager());
-        int columnCount = contexts.size() * 3 + 2;
+        int columnCount = contexts.size() * 3 + 3;
         String[] columnsName = new String[columnCount];
         int i = 0;
         columnsName[i++] = ContextTableConstants.COLUMN_NAME_PROPERTY;
         columnsName[i++] = ContextTableConstants.COLUMN_TYPE_PROPERTY;
+        columnsName[i++] = ContextTableConstants.COLUMN_COMMENT_PROPERTY;
         if (contexts.size() > 0) {
             for (IContext context : contexts) {
                 columnsName[i++] = ContextTableConstants.COLUMN_CONTEXT_VALUE;

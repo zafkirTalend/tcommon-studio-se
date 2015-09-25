@@ -170,6 +170,8 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                     } else {
                         return contextParaType;
                     }
+                } else if (currentColumnName.equals(ContextTableConstants.COLUMN_COMMENT_PROPERTY)) {
+                    return currentParam.getComment();
                 } else {
                     if (this.groupModel.isPartOfAGroup(columnIndex)) {
                         String columnGroupName = this.groupModel.getColumnGroupByIndex(columnIndex).getName();
@@ -260,6 +262,14 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
                     contextManager.setModified(true);
                 }
                 Command cmd = new SetContextNameCommand(manager, contextPara, newParaName, sourceId);
+                runCommand(cmd, manager);
+            } else if (currentColumnName.equals(ContextTableConstants.COLUMN_COMMENT_PROPERTY)) {
+                ContextTableTabParentModel parent = (ContextTableTabParentModel) dataElement;
+                IContextParameter contextPara = parent.getContextParameter();
+                if (contextPara.getComment() == ((String) newValue)) {
+                    return;
+                }
+                Command cmd = new setContextCommentCommand(manager, contextPara, (String)newValue);
                 runCommand(cmd, manager);
             }
         }
@@ -486,6 +496,84 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
         }
 
     }
+    
+    class setContextCommentCommand extends Command {
+
+
+        IContextParameter param;
+
+        IContextModelManager modelManager;
+
+        String newValue, oldValue;
+
+        public setContextCommentCommand(IContextModelManager modelManager, IContextParameter param, String newValue) {
+            super();
+            this.modelManager = modelManager;
+            this.param = param;
+            this.newValue = newValue;
+        }
+
+        @Override
+        public void execute() {
+            boolean modified = false;
+            if (modelManager.getContextManager() != null) {
+                for (IContext context : modelManager.getContextManager().getListContext()) {
+                    for (IContextParameter contextParameter : context.getContextParameterList()) {
+                        if (param.getName().equals(contextParameter.getName())) {
+                            oldValue = param.getComment();
+                            param.setComment(newValue);
+                            contextParameter.setComment(newValue);
+                            modified = true;
+                        }
+                    }
+                }
+            }
+            if (modified) {
+                updateRelation();
+            }
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.gef.commands.Command#undo()
+         */
+        @Override
+        public void undo() {
+            boolean modified = false;
+            if (modelManager.getContextManager() != null) {
+                for (IContext context : modelManager.getContextManager().getListContext()) {
+                    for (IContextParameter contextParameter : context.getContextParameterList()) {
+                        if (param.getName().equals(contextParameter.getName())) {
+                            param.setComment(oldValue);
+                            contextParameter.setComment(oldValue);
+                            modified = true;
+                        }
+                    }
+                }
+            }
+            if (modified) {
+                updateRelation();
+            }
+        }
+
+        private void updateRelation() {
+            // set updated flag.
+            if (param != null) {
+                IContextManager manager = modelManager.getContextManager();
+                if (manager != null && manager instanceof JobContextManager) {
+                    JobContextManager jobContextManager = (JobContextManager) manager;
+                    // not added new
+                    if (!modelManager.isRepositoryContext() || modelManager.isRepositoryContext()
+                            && jobContextManager.isOriginalParameter(param.getName())) {
+                        jobContextManager.setModified(true);
+                        manager.fireContextsChangedEvent();
+                    }
+                }
+            }
+        }
+    }
+    
 
     class SetContextNameCommand extends Command {
 

@@ -519,7 +519,8 @@ public class ContextTreeTable {
     }
 
     private void addContextColumnGroupsBehaviour(ColumnGroupHeaderLayer columnHeaderLayer, List<IContext> contexts) {
-        int i = 1;
+        // 0=Name,1=Type,2=Comment.
+        int i = 2;
         for (IContext context : contexts) {
             String evnContext = context.getName();
             columnHeaderLayer.addColumnsIndexesToGroup(evnContext, new int[] { ++i, ++i, ++i });
@@ -529,8 +530,10 @@ public class ContextTreeTable {
     private void registerColumnLabels(ColumnOverrideLabelAccumulator columnLabelAccumulator, List<IContext> contexts) {
         columnLabelAccumulator.registerColumnOverrides(0, new String[] { ContextTableConstants.COLUMN_NAME_PROPERTY });
         columnLabelAccumulator.registerColumnOverrides(1, new String[] { ContextTableConstants.COLUMN_TYPE_PROPERTY });
+        columnLabelAccumulator.registerColumnOverrides(2, new String[] { ContextTableConstants.COLUMN_COMMENT_PROPERTY });
         // the columns after "type" will caculated by the contexts
-        int j = 2;
+        // 0=Name,1=Type,2=Comment.
+        int j = 3;
         for (int i = 0; i < contexts.size(); i++) {
             columnLabelAccumulator.registerColumnOverrides(j++, new String[] { ContextTableConstants.COLUMN_CONTEXT_VALUE });
             columnLabelAccumulator.registerColumnOverrides(j++, new String[] { ContextTableConstants.COLUMN_CHECK_PROPERTY });
