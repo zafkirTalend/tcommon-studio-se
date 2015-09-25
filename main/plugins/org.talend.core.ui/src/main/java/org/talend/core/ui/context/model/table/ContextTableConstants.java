@@ -21,6 +21,8 @@ public class ContextTableConstants {
 
     public static final String COLUMN_TYPE_PROPERTY = "Type"; //$NON-NLS-1$
 
+    public static final String COLUMN_COMMENT_PROPERTY = "Comment"; //$NON-NLS-1$
+
     public static final String COLUMN_CHECK_PROPERTY = ""; //$NON-NLS-1$
 
     public static final String COLUMN_PROMPT_PROPERTY = "Prompt"; //$NON-NLS-1$
