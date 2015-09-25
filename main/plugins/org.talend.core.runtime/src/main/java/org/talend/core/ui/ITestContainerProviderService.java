@@ -98,8 +98,6 @@ public interface ITestContainerProviderService extends IService {
 
     public List<IResource> getDataFiles(Item item);
 
-    public boolean isSpark(IProcess process);
-
     public IRepositoryEditorInput createTestCaseEditorInput(ProcessItem junitItem, boolean load, String originalJobID,
             List<INode> testNodes, Boolean lastVersion, Boolean readonly) throws PersistenceException;
 }
