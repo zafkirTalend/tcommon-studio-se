@@ -23,7 +23,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.presentation.onboarding.i18n.Messages;
-import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
+import org.talend.presentation.onboarding.ui.managers.OnBoardingUIManager;
 import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.utils.OnBoardingUtils;
@@ -68,7 +68,7 @@ public class OnBoardingHandler extends AbstractHandler {
             return null;
         }
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().resetPerspective();
-        OnBoardingManager obManager = OnBoardingManager.getDefaultOnBoardingManager();
+        OnBoardingUIManager obManager = OnBoardingUIManager.getDefaultOnBoardingManager();
         if (obManager != null) {
             obManager.onBoarding(0);
         }

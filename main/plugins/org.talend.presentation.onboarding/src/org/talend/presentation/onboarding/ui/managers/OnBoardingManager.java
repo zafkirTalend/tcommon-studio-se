@@ -12,65 +12,54 @@
 // ============================================================================
 package org.talend.presentation.onboarding.ui.managers;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
-import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
+import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
-import org.talend.presentation.onboarding.ui.shells.HighlightShell;
-import org.talend.presentation.onboarding.ui.shells.OnBoardingShell;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
 import org.talend.presentation.onboarding.utils.OnBoardingUtils;
-import org.talend.presentation.onboarding.utils.WidgetFinder;
 
 /**
- * created by cmeng on Sep 11, 2015 Detailled comment
+ * created by cmeng on Sep 25, 2015 Detailled comment
  *
  */
 public class OnBoardingManager {
-
-    private OnBoardingResourceManager resourceManager;
-
-    private List<OnBoardingPresentationData> presentationDatas;
-
-    private int currentSelectedIndex = -1;
-
-    private HighlightShell highlightShell;
-
-    private OnBoardingShell onBoardingShell;
-
-    private String managerId = Integer.toHexString(hashCode());
 
     private static Map<String, OnBoardingManager> managers = new HashMap<String, OnBoardingManager>();
 
     private IWorkbenchWindow workBenchWindow;
 
-    // the values are different between different perspectives
-    public static OnBoardingManager getDefaultOnBoardingManager() {
-        OnBoardingManager obm = null;
-        OnBoardingResourceManager defaultResourceManager = OnBoardingResourceManager.getDefaultResourceManager();
-        if (defaultResourceManager != null) {
-            obm = new OnBoardingManager();
-            obm.setResourceManager(defaultResourceManager);
-        }
-        return obm;
-    }
+    private OnBoardingUIManager uiManager;
+
+    private OnBoardingResourceManager resourceManager;
+
+    private Shell parentShell;
+
+    private List<OnBoardingPresentationData> presentationDatas;
+
+    private String managerId = Integer.toHexString(hashCode());
+
+    private String docId = null;
+
+    private IOnBoardingJsonI18n i18n = null;
+
+    private int currentSelectedIndex = -1;
 
     public OnBoardingManager() {
         registOnBoardingManager();
-
         IWorkbench workBench = PlatformUI.getWorkbench();
         if (workBench == null) {
-            unRegistOnBoardingManager();
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbench")); //$NON-NLS-1$
         }
         workBenchWindow = workBench.getActiveWorkbenchWindow();
@@ -82,108 +71,12 @@ public class OnBoardingManager {
             }
         }
         if (workBenchWindow == null) {
-            unRegistOnBoardingManager();
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindow")); //$NON-NLS-1$
         }
-        final Shell parentShell = workBenchWindow.getShell();
+        parentShell = workBenchWindow.getShell();
         if (parentShell == null) {
-            unRegistOnBoardingManager();
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindowShell")); //$NON-NLS-1$
         }
-
-        highlightShell = new HighlightShell(parentShell, this);
-        onBoardingShell = new OnBoardingShell(highlightShell.getHighlightShell(), this);
-        highlightShell.open();
-    }
-
-    public OnBoardingPresentationData getCurrentSelectedPresentationData() {
-        if (currentSelectedIndex < 0 || presentationDatas == null || presentationDatas.size() <= currentSelectedIndex) {
-            return null;
-        }
-        return presentationDatas.get(currentSelectedIndex);
-    }
-
-    public void onBoarding(int index) {
-        int size = this.getPresentationDatas().size();
-        if (index < 0 || size <= index) {
-            return;
-        }
-        this.setCurrentSelectedPresentationDataIndex(index);
-        OnBoardingPresentationData presData = this.getCurrentSelectedPresentationData();
-        if (presData == null) {
-            return;
-        }
-        Widget widget = null;
-        OnBoardingDocBean docBean = presData.getDocBean();
-        String[] cssIds = docBean.getCssIds();
-        widget = getWidget(cssIds);
-
-        boolean isOpened = onBoardingShell.isOpened();
-        if (isOpened) {
-            onBoardingShell.setVisible(false);
-        }
-
-        onBoardingShell.setFocusedWidget(widget);
-        onBoardingShell.setPresentationData(presData);
-        onBoardingShell.refreshInUIThread();
-
-        highlightShell.focusOnWidgetInUIThread(widget);
-
-        // if (isOpened) {
-        // onBoardingShell.setVisible(true);
-        // }
-    }
-
-    public void onHighlightShellMoveCompleted() {
-        if (!onBoardingShell.getOnBoardingShell().isDisposed()) {
-            onBoardingShell.setVisible(true);
-        }
-    }
-
-    private Widget getWidget(String[] cssIds) {
-        Widget widget = null;
-        if (cssIds != null && 0 < cssIds.length) {
-            for (String cssId : cssIds) {
-                if (cssId == null) {
-                    continue;
-                }
-                Collection<Widget> widgets = WidgetFinder.findWidgetsByCSSInUIThread(cssId.trim());
-                if (widgets != null && !widgets.isEmpty()) {
-                    widget = widgets.iterator().next();
-                    break;
-                }
-            }
-        }
-        return widget;
-    }
-
-    private String getCurrentSelectedPerspectiveId() {
-        return OnBoardingUtils.getCurrentSelectedPerspectiveId(workBenchWindow);
-    }
-
-    public OnBoardingResourceManager getResourceManager() {
-        return this.resourceManager;
-    }
-
-    public void setResourceManager(OnBoardingResourceManager resourceManager) {
-        this.resourceManager = resourceManager;
-        this.presentationDatas = this.resourceManager.getOnBoardingPresentationDatas(getCurrentSelectedPerspectiveId());
-    }
-
-    public void close() {
-        unRegistOnBoardingManager();
-        Display.getDefault().syncExec(new Runnable() {
-
-            @Override
-            public void run() {
-                highlightShell.close();
-
-                if (onBoardingShell.getParentShell() != highlightShell.getHighlightShell()) {
-                    onBoardingShell.close();
-                }
-            }
-        });
-
     }
 
     public String getManagerId() {
@@ -197,12 +90,60 @@ public class OnBoardingManager {
         return managers.get(id);
     }
 
-    private void registOnBoardingManager() {
-        managers.put(managerId, this);
+    public void close() {
+        unRegistOnBoardingManager();
+        uiManager.close();
     }
 
-    private void unRegistOnBoardingManager() {
-        managers.remove(managerId);
+    public void onBoarding(int index) {
+        uiManager.onBoarding(index);
+    }
+
+    public void reloadResource() {
+        if (docId == null) {
+            return;
+        }
+        OnBoardingRegistedResource resource = resourceManager.getOnBoardingRegistedResource(docId);
+        if (resource == null) {
+            return;
+        }
+        presentationDatas = new ArrayList<OnBoardingPresentationData>();
+        i18n = resource.getI18n();
+        OnBoardingPerspectiveBean perspBean = resource.getJsonDoc().getPerspectiveBean(
+                OnBoardingUtils.getCurrentSelectedPerspectiveIdUIThread(workBenchWindow));
+        if (perspBean != null) {
+            List<OnBoardingPageBean> pages = perspBean.getPages();
+            if (pages != null) {
+                for (OnBoardingPageBean page : pages) {
+                    OnBoardingPresentationData presentationData = new OnBoardingPresentationData();
+                    presentationData.setPageBean(page);
+                    presentationDatas.add(presentationData);
+                }
+            }
+        }
+    }
+
+    public OnBoardingPresentationData getCurrentSelectedPresentationData() {
+        if (currentSelectedIndex < 0 || presentationDatas == null || presentationDatas.size() <= currentSelectedIndex) {
+            return null;
+        }
+        return presentationDatas.get(currentSelectedIndex);
+    }
+
+    public OnBoardingUIManager getUiManager() {
+        return this.uiManager;
+    }
+
+    public void setUiManager(OnBoardingUIManager uiManager) {
+        this.uiManager = uiManager;
+    }
+
+    public OnBoardingResourceManager getResourceManager() {
+        return this.resourceManager;
+    }
+
+    public void setResourceManager(OnBoardingResourceManager resourceManager) {
+        this.resourceManager = resourceManager;
     }
 
     public List<OnBoardingPresentationData> getPresentationDatas() {
@@ -215,6 +156,38 @@ public class OnBoardingManager {
 
     public int getCurrentSelectedPresentationDataIndex() {
         return currentSelectedIndex;
+    }
+
+    private void registOnBoardingManager() {
+        managers.put(managerId, this);
+    }
+
+    private void unRegistOnBoardingManager() {
+        managers.remove(managerId);
+    }
+
+    public String getDocId() {
+        return this.docId;
+    }
+
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
+    public IOnBoardingJsonI18n getI18n() {
+        return this.i18n;
+    }
+
+    public void setI18n(IOnBoardingJsonI18n i18n) {
+        this.i18n = i18n;
+    }
+
+    public Shell getParentShell() {
+        return this.parentShell;
+    }
+
+    public void setParentShell(Shell parentShell) {
+        this.parentShell = parentShell;
     }
 
 }

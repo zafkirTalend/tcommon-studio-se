@@ -196,6 +196,18 @@ public class OnBoardingUtils {
         return isSupportBrowser.value;
     }
 
+    public static String getCurrentSelectedPerspectiveIdUIThread(final IWorkbenchWindow wbWindow) {
+        final ObjectBox<String> perspId = new ObjectBox<String>();
+        Display.getDefault().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                perspId.value = getCurrentSelectedPerspectiveId(wbWindow);
+            }
+        });
+        return perspId.value;
+    }
+
     /**
      * Should run this method in UI thread
      * 

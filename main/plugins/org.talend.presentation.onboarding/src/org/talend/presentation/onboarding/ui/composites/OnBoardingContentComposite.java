@@ -13,6 +13,7 @@
 package org.talend.presentation.onboarding.ui.composites;
 
 import java.io.IOException;
+import java.net.URL;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -21,6 +22,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.listeners.BrowserDynamicPartLocationListener;
 import org.talend.presentation.onboarding.ui.html.HtmlContentHelper;
@@ -43,6 +45,8 @@ public class OnBoardingContentComposite extends Composite {
 
     private HtmlContentHelper contentHelper;
 
+    private URL htmlPath;
+
     public OnBoardingContentComposite(Composite parent, int style, OnBoardingManager obManager) {
         super(parent, style);
         this.onBoardingManager = obManager;
@@ -53,7 +57,21 @@ public class OnBoardingContentComposite extends Composite {
 
     public void refreshDocIfNeeded() {
         if (currentPresentationData != onBoardingManager.getCurrentSelectedPresentationData()) {
-            loadContentHtml();
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    final String content = getHtmlContent();
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            browser.setText(content);
+                        }
+                    });
+                }
+
+            }).start();
         }
     }
 
@@ -69,19 +87,27 @@ public class OnBoardingContentComposite extends Composite {
 
         browser = new Browser(contentControl, SWT.NONE);
         browser.addLocationListener(new BrowserDynamicPartLocationListener());
-        loadContentHtml();
+        loadBrowserHtmlContent();
 
         return contentControl;
     }
 
-    private void loadContentHtml() {
+    private String getHtmlContent() {
+        String content = null;
         currentPresentationData = onBoardingManager.getCurrentSelectedPresentationData();
+        if (htmlPath == null) {
+            htmlPath = OnBoardingUtils.getResourceLocalURL(OnBoardingConstants.ON_BOARDING_VIEW_HTML_PATH);
+        }
         try {
-            String content = contentHelper.getHtmlContent(OnBoardingUtils
-                    .getResourceLocalURL(OnBoardingConstants.ON_BOARDING_VIEW_HTML_PATH));
-            browser.setText(content);
+            content = contentHelper.getHtmlContent(htmlPath);
         } catch (IOException e1) {
             OnBoardingExceptionHandler.process(e1);
         }
+        return content;
+    }
+
+    private void loadBrowserHtmlContent() {
+        String content = getHtmlContent();
+        browser.setText(content);
     }
 }

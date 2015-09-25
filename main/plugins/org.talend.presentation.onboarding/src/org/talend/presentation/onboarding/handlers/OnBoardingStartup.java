@@ -5,7 +5,7 @@ import java.util.List;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.PlatformUI;
-import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
+import org.talend.presentation.onboarding.ui.managers.OnBoardingUIManager;
 import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.utils.OnBoardingConstants;
@@ -34,7 +34,7 @@ public class OnBoardingStartup implements IStartup {
                         List<OnBoardingPresentationData> presentationDatas = defaultResourceManager
                                 .getPresentationDatasForCurrentPerspective();
                         if (presentationDatas != null && !presentationDatas.isEmpty()) {
-                            OnBoardingManager obManager = OnBoardingManager.getDefaultOnBoardingManager();
+                            OnBoardingUIManager obManager = OnBoardingUIManager.getDefaultOnBoardingManager();
                             if (obManager != null) {
                                 obManager.onBoarding(0);
                             }

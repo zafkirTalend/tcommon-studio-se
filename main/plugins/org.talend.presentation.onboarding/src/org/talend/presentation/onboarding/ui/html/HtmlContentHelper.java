@@ -26,7 +26,7 @@ import org.eclipse.ui.intro.config.IIntroXHTMLContentProvider;
 import org.talend.presentation.onboarding.i18n.Messages;
 import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
 import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
-import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.utils.OnBoardingConstants;
 import org.talend.presentation.onboarding.utils.OnBoardingUtils;
@@ -103,7 +103,7 @@ public class HtmlContentHelper {
             onBoardingManager.setCurrentSelectedPresentationDataIndex(index);
             presData = onBoardingManager.getCurrentSelectedPresentationData();
         }
-        OnBoardingDocBean docBean = presData.getDocBean();
+        OnBoardingPageBean docBean = presData.getPageBean();
 
         // get the array version of the nodelist to work around DOM api design.
         Node[] nodes = ModelUtil.getArray(contentProviders);
@@ -242,7 +242,7 @@ public class HtmlContentHelper {
     }
 
     private void resolveI18nFromJsonDoc(Document dom) {
-        IOnBoardingJsonI18n i18n = onBoardingManager.getResourceManager().getOnBoardingJsonI18n();
+        IOnBoardingJsonI18n i18n = onBoardingManager.getI18n();
         if (i18n == null) {
             return;
         }
