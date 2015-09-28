@@ -15,6 +15,7 @@ package org.talend.core.model.process;
 import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
+import org.talend.commons.CommonsPlugin;
 import org.talend.core.model.properties.Item;
 import org.talend.core.runtime.CoreRuntimePlugin;
 
@@ -44,16 +45,17 @@ public class TalendProblem extends Problem {
         setDescription(markerErrorMessage);
         setStatus(status);
 
-        List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
-                .getOpenedProcess(getEditors());
-        for (IProcess2 process : openedProcessList) {
-            if (javaUnitName != null && javaUnitName.equals(process.getName())) {
-                BasicJobInfo jobInfo = new BasicJobInfo(process.getId(), null, process.getVersion());
-                jobInfo.setJobName(process.getName());
-                setJobInfo(jobInfo);
+        if (!CommonsPlugin.isHeadless()) {
+            List<IProcess2> openedProcessList = CoreRuntimePlugin.getInstance().getDesignerCoreService()
+                    .getOpenedProcess(getEditors());
+            for (IProcess2 process : openedProcessList) {
+                if (javaUnitName != null && javaUnitName.equals(process.getName())) {
+                    BasicJobInfo jobInfo = new BasicJobInfo(process.getId(), null, process.getVersion());
+                    jobInfo.setJobName(process.getName());
+                    setJobInfo(jobInfo);
+                }
             }
         }
-
         this.javaUnitName = javaUnitName;
         this.marker = marker;
         this.lineNumber = lineNumber;
@@ -108,7 +110,7 @@ public class TalendProblem extends Problem {
         return javaUnitName;
     }
 
-    private Integer getLineNumber() {
+    public Integer getLineNumber() {
         return lineNumber;
     }
 
