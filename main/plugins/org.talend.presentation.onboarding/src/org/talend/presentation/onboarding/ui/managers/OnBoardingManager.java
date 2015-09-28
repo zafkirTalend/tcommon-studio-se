@@ -17,23 +17,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.NotEnabledException;
+import org.eclipse.core.commands.NotHandledException;
+import org.eclipse.core.commands.ParameterizedCommand;
+import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.handlers.IHandlerService;
+import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
 import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingCommandBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingJsonDoc;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
+import org.talend.presentation.onboarding.utils.OnBoardingConstants;
 
 /**
  * created by cmeng on Sep 25, 2015 Detailled comment
  *
  */
 public class OnBoardingManager {
+
+    public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = OnBoardingConstants.PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP;
 
     private static Map<String, OnBoardingManager> managers = new HashMap<String, OnBoardingManager>();
 
@@ -54,6 +67,10 @@ public class OnBoardingManager {
     private String perspId = null;
 
     private IOnBoardingJsonI18n i18n = null;
+
+    private ICommandService commandService = null;
+
+    private IHandlerService handlerService = null;
 
     private int currentSelectedIndex = -1;
 
@@ -103,10 +120,59 @@ public class OnBoardingManager {
     public void close() {
         unRegistOnBoardingManager();
         uiManager.close();
+        afterClosed();
+    }
+
+    public void afterClosed() {
+        // nothing need to do.
     }
 
     public void onBoarding(int index) {
-        uiManager.onBoarding(index);
+        OnBoardingPresentationData presentationData = getCurrentSelectedPresentationData();
+        if (presentationData != null) {
+            OnBoardingCommandBean onNextCommand = presentationData.getPageBean().getOnNext();
+            executeCommand(onNextCommand);
+        }
+        int size = getPresentationDatas().size();
+        if (index < 0 || size <= index) {
+            return;
+        }
+        setCurrentSelectedPresentationDataIndex(index);
+        presentationData = getCurrentSelectedPresentationData();
+        if (presentationData != null) {
+            OnBoardingCommandBean onShowCommand = presentationData.getPageBean().getOnShow();
+            executeCommand(onShowCommand);
+        }
+        uiManager.refreshOnBoarding();
+    }
+
+    protected void executeCommand(OnBoardingCommandBean commandBean) {
+        String commandId = null;
+        if (commandBean == null || (commandId = commandBean.getCommandId()) == null || commandId.isEmpty()) {
+            return;
+        }
+        commandService = getCommandService();
+        handlerService = getHandlerService();
+        if (commandId != null && !commandId.isEmpty()) {
+            try {
+                Map<String, String> commandParameters = commandBean.getCommandParameters();
+                if (commandParameters != null && !commandParameters.isEmpty()) {
+                    executeParameterizedCommand(commandBean);
+                } else {
+                    handlerService.executeCommand(commandId, null);
+                }
+            } catch (Throwable e) {
+                OnBoardingExceptionHandler.process(e);
+            }
+        }
+    }
+
+    protected void executeParameterizedCommand(OnBoardingCommandBean commandBean) throws ExecutionException, NotDefinedException,
+            NotEnabledException, NotHandledException {
+        Command command = commandService.getCommand(commandBean.getCommandId());
+        ParameterizedCommand parameterizedCommand = ParameterizedCommand.generateCommand(command,
+                commandBean.getCommandParameters());
+        handlerService.executeCommand(parameterizedCommand, null);
     }
 
     public void reloadResource() {
@@ -209,6 +275,36 @@ public class OnBoardingManager {
 
     public void setPerspId(String perspId) {
         this.perspId = perspId;
+    }
+
+    public IWorkbenchWindow getWorkBenchWindow() {
+        return this.workBenchWindow;
+    }
+
+    public void setWorkBenchWindow(IWorkbenchWindow workBenchWindow) {
+        this.workBenchWindow = workBenchWindow;
+    }
+
+    public ICommandService getCommandService() {
+        if (commandService == null) {
+            commandService = (ICommandService) workBenchWindow.getService(ICommandService.class);
+        }
+        return this.commandService;
+    }
+
+    public void setCommandService(ICommandService commandService) {
+        this.commandService = commandService;
+    }
+
+    public IHandlerService getHandlerService() {
+        if (handlerService == null) {
+            handlerService = (IHandlerService) workBenchWindow.getService(IHandlerService.class);
+        }
+        return this.handlerService;
+    }
+
+    public void setHandlerService(IHandlerService handlerService) {
+        this.handlerService = handlerService;
     }
 
 }

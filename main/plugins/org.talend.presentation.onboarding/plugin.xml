@@ -3,18 +3,6 @@
 <plugin>
    <extension-point id="org.talend.presentation.onboarding.resource" name="onboarding presentation resource" schema="schema/org.talend.presentation.onboarding.resource.exsd"/>
    <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="menu:help?after=talend">
-         <command
-               commandId="org.talend.presentation.onboarding.show.command"
-               id="org.talend.presentation.onboarding.show.command"
-               style="push">
-         </command>
-      </menuContribution>
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <command
             id="org.talend.presentation.onboarding.show.command"
@@ -27,6 +15,18 @@
             class="org.talend.presentation.onboarding.handlers.OnBoardingHandler"
             commandId="org.talend.presentation.onboarding.show.command">
       </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:help?after=talend">
+         <command
+               commandId="org.talend.presentation.onboarding.show.command"
+               id="org.talend.presentation.onboarding.show.command"
+               style="push">
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.startup">

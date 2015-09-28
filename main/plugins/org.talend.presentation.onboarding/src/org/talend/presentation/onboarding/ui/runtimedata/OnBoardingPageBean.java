@@ -27,6 +27,10 @@ public class OnBoardingPageBean {
 
     private String cssIds;
 
+    private OnBoardingCommandBean onShow;
+
+    private OnBoardingCommandBean onNext;
+
     private Point size;
 
     private String title;
@@ -45,6 +49,22 @@ public class OnBoardingPageBean {
         if (this.cssIds != null) {
             this.cssIds = this.cssIds.trim();
         }
+    }
+
+    public OnBoardingCommandBean getOnShow() {
+        return this.onShow;
+    }
+
+    public void setOnShow(OnBoardingCommandBean onShow) {
+        this.onShow = onShow;
+    }
+
+    public OnBoardingCommandBean getOnNext() {
+        return this.onNext;
+    }
+
+    public void setOnNext(OnBoardingCommandBean onNext) {
+        this.onNext = onNext;
     }
 
     public Point getSize() {

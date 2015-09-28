@@ -27,7 +27,7 @@ import org.talend.presentation.onboarding.utils.spies.CssSpy;
 /**
  * created by cmeng on Sep 8, 2015 Detailled comment
  *
- * @see org.eclipse.e4.tools.css.spy.CssSypPart
+ * @see org.eclipse.e4.tools.css.spy.CssSpyPart
  */
 public class WidgetFinder {
 

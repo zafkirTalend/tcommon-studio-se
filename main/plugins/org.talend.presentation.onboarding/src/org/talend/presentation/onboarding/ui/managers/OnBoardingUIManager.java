@@ -47,16 +47,11 @@ public class OnBoardingUIManager {
         shells = new Shell[] { this.onBoardingManager.getParentShell() };
     }
 
-    public void onBoarding(int index) {
+    public void refreshOnBoarding() {
         if (!isOpened) {
             isOpened = true;
             highlightShell.open();
         }
-        int size = onBoardingManager.getPresentationDatas().size();
-        if (index < 0 || size <= index) {
-            return;
-        }
-        onBoardingManager.setCurrentSelectedPresentationDataIndex(index);
         OnBoardingPresentationData presData = onBoardingManager.getCurrentSelectedPresentationData();
         if (presData == null) {
             return;
