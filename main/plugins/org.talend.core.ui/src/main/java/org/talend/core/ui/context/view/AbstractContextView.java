@@ -292,10 +292,12 @@ public abstract class AbstractContextView extends ViewPart {
     }
 
     public void refresh(IWorkbenchPart editorPart) {
-        part = (EditorPart) editorPart;
-        refreshPart();
+        if (editorPart instanceof EditorPart) {
+            part = (EditorPart) editorPart;
+            refreshPart();
+        }
     }
-    
+
     private void refreshPart() {
         if (part != null) {
             boolean modified = updateContextFromRepository();
@@ -307,7 +309,7 @@ public abstract class AbstractContextView extends ViewPart {
         }
         contextComposite.setPart(part);
     }
-    
+
     /**
      * DOC xqliu Comment method "setCompositeReadonly".
      * 
