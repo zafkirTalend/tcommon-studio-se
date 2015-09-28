@@ -12,16 +12,12 @@
 // ============================================================================
 package org.talend.presentation.onboarding.ui.runtimedata;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * created by cmeng on Sep 25, 2015 Detailled comment
@@ -32,6 +28,8 @@ public class OnBoardingJsonDoc {
     private String id;
 
     private String description;
+
+    private String defaultPerspId;
 
     private List<OnBoardingPerspectiveBean> contents;
 
@@ -59,6 +57,25 @@ public class OnBoardingJsonDoc {
         }
     }
 
+    public String getDefaultPerspId() {
+        return this.defaultPerspId;
+    }
+
+    public void setDefaultPerspId(String defaultPerspId) {
+        this.defaultPerspId = defaultPerspId;
+        if (this.defaultPerspId != null) {
+            this.defaultPerspId = this.defaultPerspId.trim();
+        }
+    }
+
+    public Map<String, OnBoardingPerspectiveBean> getContentMap() {
+        return this.contentMap;
+    }
+
+    public void setContentMap(Map<String, OnBoardingPerspectiveBean> contentMap) {
+        this.contentMap = contentMap;
+    }
+
     public List<OnBoardingPerspectiveBean> getContents() {
         return this.contents;
     }
@@ -80,7 +97,7 @@ public class OnBoardingJsonDoc {
             }
             perspId = perspId.trim();
             if (contentMap.get(perspId) != null) {
-                OnBoardingExceptionHandler.warn(Messages.getString("OnBoardingJsonDoc.buildContentMap.perspIdExists")); //$NON-NLS-1$
+                OnBoardingExceptionHandler.warn(Messages.getString("OnBoardingJsonDoc.buildContentMap.perspIdExists", perspId)); //$NON-NLS-1$
             }
             contentMap.put(perspId, content);
         }
@@ -90,16 +107,4 @@ public class OnBoardingJsonDoc {
         return contentMap.get(perspId);
     }
 
-    public static void main(String args[]) {
-        TypeReference<OnBoardingJsonDoc> typeReference = new TypeReference<OnBoardingJsonDoc>() {
-            // no need to overwrite
-        };
-        try {
-            OnBoardingJsonDoc jsonDoc = new ObjectMapper().readValue(new File(
-                    "E:\\MengChao\\events\\on-boarding\\onboarding.json"), typeReference); //$NON-NLS-1$
-            System.out.println(jsonDoc);
-        } catch (Throwable e) {
-            OnBoardingExceptionHandler.process(e);
-        }
-    }
 }

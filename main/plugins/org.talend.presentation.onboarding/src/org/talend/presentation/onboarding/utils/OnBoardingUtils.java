@@ -14,6 +14,8 @@ package org.talend.presentation.onboarding.utils;
 
 import java.io.StringReader;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,12 +32,17 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.intro.impl.html.IIntroHTMLConstants;
 import org.osgi.framework.Bundle;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
+import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingJsonDoc;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -257,5 +264,72 @@ public class OnBoardingUtils {
         Element contentDiv = dom.createElement(IIntroHTMLConstants.ELEMENT_DIV);
         contentDiv.setAttributeNode(attrId);
         return contentDiv;
+    }
+
+    public static OnBoardingPerspectiveBean getDefaultPerspectiveBean(ObjectBox<String> jsonDocId) {
+        OnBoardingPerspectiveBean perspBean = null;
+        OnBoardingResourceManager resourceManager = OnBoardingResourceManager.getDefaultResourceManager();
+        if (resourceManager == null) {
+            return perspBean;
+        }
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench == null || !PlatformUI.isWorkbenchRunning()) {
+            return perspBean;
+        }
+        IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+        if (workbenchWindow == null) {
+            return perspBean;
+        }
+        String perspId = OnBoardingUtils.getCurrentSelectedPerspectiveId(workbenchWindow);
+        if (perspId == null || perspId.isEmpty()) {
+            return perspBean;
+        }
+        jsonDocId.value = PlatformUI.getPreferenceStore().getString(OnBoardingResourceManager.DEFAULT_DOC_ID);
+        if (jsonDocId.value == null || jsonDocId.value.isEmpty()) {
+            Collection<OnBoardingRegistedResource> onBoardingRegistedResources = resourceManager.getAllRegistedResources();
+            if (onBoardingRegistedResources != null && !onBoardingRegistedResources.isEmpty()) {
+                Iterator<OnBoardingRegistedResource> iter = onBoardingRegistedResources.iterator();
+                while (iter.hasNext()) {
+                    try {
+                        OnBoardingRegistedResource resource = iter.next();
+                        OnBoardingJsonDoc jsonDoc = resource.getJsonDoc();
+                        perspBean = jsonDoc.getPerspectiveBean(perspId);
+                        if (perspBean != null) {
+                            jsonDocId.value = jsonDoc.getId();
+                            break;
+                        }
+                    } catch (Throwable e) {
+                        OnBoardingExceptionHandler.process(e);
+                    }
+                }
+                if (perspBean == null) {
+                    try {
+                        OnBoardingJsonDoc jsonDoc = onBoardingRegistedResources.iterator().next().getJsonDoc();
+                        jsonDocId.value = jsonDoc.getId();
+                        perspId = jsonDoc.getDefaultPerspId();
+                        if (perspId != null) {
+                            perspBean = jsonDoc.getPerspectiveBean(perspId);
+                        }
+                    } catch (Throwable e) {
+                        OnBoardingExceptionHandler.process(e);
+                    }
+                }
+            }
+        } else {
+            OnBoardingRegistedResource registedResource = resourceManager.getOnBoardingRegistedResource(jsonDocId.value);
+            try {
+                OnBoardingJsonDoc jsonDoc = registedResource.getJsonDoc();
+                perspBean = jsonDoc.getPerspectiveBean(perspId);
+                if (perspBean == null) {
+                    perspId = jsonDoc.getDefaultPerspId();
+                    if (perspId != null) {
+                        perspBean = jsonDoc.getPerspectiveBean(perspId);
+                    }
+                }
+            } catch (Throwable e) {
+                OnBoardingExceptionHandler.process(e);
+            }
+        }
+        return perspBean;
     }
 }

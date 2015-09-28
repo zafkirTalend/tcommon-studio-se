@@ -19,13 +19,14 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
-import org.talend.presentation.onboarding.ui.managers.OnBoardingUIManager;
-import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
-import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
+import org.talend.presentation.onboarding.ui.managers.OnBoardingManager;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
+import org.talend.presentation.onboarding.utils.ObjectBox;
 import org.talend.presentation.onboarding.utils.OnBoardingUtils;
 
 /**
@@ -34,26 +35,27 @@ import org.talend.presentation.onboarding.utils.OnBoardingUtils;
  */
 public class OnBoardingHandler extends AbstractHandler {
 
+    private String jsonDocId = null;
+
+    private String perspId = null;
+
     @Override
     public boolean isEnabled() {
         if (!OnBoardingUtils.isSupportBrowser()) {
             return false;
         }
-        OnBoardingResourceManager resourceManager = OnBoardingResourceManager.getDefaultResourceManager();
-        if (resourceManager == null) {
+
+        ObjectBox<String> jsonDocIdBox = new ObjectBox<String>();
+        OnBoardingPerspectiveBean perspBean = OnBoardingUtils.getDefaultPerspectiveBean(jsonDocIdBox);
+        if (perspBean == null) {
             return false;
         }
-        IWorkbench workbench = PlatformUI.getWorkbench();
-        if (workbench == null || !PlatformUI.isWorkbenchRunning()) {
-            return false;
-        }
-        IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-        if (workbenchWindow == null) {
-            return false;
-        }
-        List<OnBoardingPresentationData> presDatas = resourceManager.getOnBoardingPresentationDatas(OnBoardingUtils
-                .getCurrentSelectedPerspectiveId(workbenchWindow));
-        if (presDatas == null || presDatas.isEmpty()) {
+
+        jsonDocId = jsonDocIdBox.value;
+        perspId = perspBean.getPerspId();
+
+        List<OnBoardingPageBean> pages = perspBean.getPages();
+        if (pages == null || pages.isEmpty()) {
             return false;
         }
         return super.isEnabled();
@@ -67,10 +69,21 @@ public class OnBoardingHandler extends AbstractHandler {
         if (!isAgree) {
             return null;
         }
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().resetPerspective();
-        OnBoardingUIManager obManager = OnBoardingUIManager.getDefaultOnBoardingManager();
-        if (obManager != null) {
-            obManager.onBoarding(0);
+        IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        String currentPerspectiveId = OnBoardingUtils.getCurrentSelectedPerspectiveId(workbenchWindow);
+        try {
+            if (!perspId.equals(currentPerspectiveId)) {
+                workbenchWindow.getWorkbench().showPerspective(perspId, workbenchWindow);
+                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().resetPerspective();
+            }
+            OnBoardingManager manager = new OnBoardingManager(workbenchWindow.getShell());
+            manager.createDefaultUIAndResourceManagers();
+            manager.setDocId(jsonDocId);
+            manager.setPerspId(perspId);
+            manager.reloadResource();
+            manager.onBoarding(0);
+        } catch (Throwable e) {
+            OnBoardingExceptionHandler.process(e);
         }
         return null;
     }

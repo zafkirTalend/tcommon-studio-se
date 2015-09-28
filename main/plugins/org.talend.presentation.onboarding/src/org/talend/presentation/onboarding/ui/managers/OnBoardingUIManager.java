@@ -15,6 +15,7 @@ package org.talend.presentation.onboarding.ui.managers;
 import java.util.Collection;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
@@ -34,15 +35,23 @@ public class OnBoardingUIManager {
 
     private OnBoardingManager onBoardingManager;
 
+    private Shell shells[];
+
+    private volatile boolean isOpened = false;
+
     public OnBoardingUIManager(OnBoardingManager onBoardingManager) {
         this.onBoardingManager = onBoardingManager;
         onBoardingManager.setUiManager(this);
         highlightShell = new HighlightShell(onBoardingManager.getParentShell(), onBoardingManager);
         onBoardingShell = new OnBoardingShell(highlightShell.getHighlightShell(), onBoardingManager);
-        highlightShell.open();
+        shells = new Shell[] { this.onBoardingManager.getParentShell() };
     }
 
     public void onBoarding(int index) {
+        if (!isOpened) {
+            isOpened = true;
+            highlightShell.open();
+        }
         int size = onBoardingManager.getPresentationDatas().size();
         if (index < 0 || size <= index) {
             return;
@@ -57,8 +66,8 @@ public class OnBoardingUIManager {
         String[] cssIds = docBean.getCssIds();
         widget = getWidget(cssIds);
 
-        boolean isOpened = onBoardingShell.isOpened();
-        if (isOpened) {
+        boolean isOnBoardingShellOpened = onBoardingShell.isOpened();
+        if (isOnBoardingShellOpened) {
             onBoardingShell.setVisible(false);
         }
 
@@ -86,7 +95,7 @@ public class OnBoardingUIManager {
                 if (cssId == null) {
                     continue;
                 }
-                Collection<Widget> widgets = WidgetFinder.findWidgetsByCSSInUIThread(cssId.trim());
+                Collection<Widget> widgets = WidgetFinder.findWidgetsByCSSInUIThread(cssId.trim(), shells);
                 if (widgets != null && !widgets.isEmpty()) {
                     widget = widgets.iterator().next();
                     break;
@@ -108,7 +117,16 @@ public class OnBoardingUIManager {
                 }
             }
         });
+        isOpened = false;
 
+    }
+
+    public Shell[] getShells() {
+        return this.shells;
+    }
+
+    public void setShells(Shell[] shells) {
+        this.shells = shells;
     }
 
 }

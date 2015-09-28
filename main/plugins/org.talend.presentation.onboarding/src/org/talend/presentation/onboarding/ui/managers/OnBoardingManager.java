@@ -21,14 +21,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
 import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingJsonDoc;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
-import org.talend.presentation.onboarding.utils.OnBoardingUtils;
 
 /**
  * created by cmeng on Sep 25, 2015 Detailled comment
@@ -52,31 +51,42 @@ public class OnBoardingManager {
 
     private String docId = null;
 
+    private String perspId = null;
+
     private IOnBoardingJsonI18n i18n = null;
 
     private int currentSelectedIndex = -1;
 
-    public OnBoardingManager() {
+    public OnBoardingManager(Shell _parentShell) {
         registOnBoardingManager();
         IWorkbench workBench = PlatformUI.getWorkbench();
         if (workBench == null) {
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbench")); //$NON-NLS-1$
         }
         workBenchWindow = workBench.getActiveWorkbenchWindow();
-        if (workBenchWindow == null) {
-            IWorkbenchWindow workbenchWindows[] = workBench.getWorkbenchWindows();
-            if (workbenchWindows != null && 0 < workbenchWindows.length) {
-                workBenchWindow = workbenchWindows[0];
-                OnBoardingExceptionHandler.log(Messages.getString("OnBoardingManager.workbenchWindow.notFound")); //$NON-NLS-1$
-            }
-        }
+        // if (workBenchWindow == null) {
+        // IWorkbenchWindow workbenchWindows[] = workBench.getWorkbenchWindows();
+        // if (workbenchWindows != null && 0 < workbenchWindows.length) {
+        // workBenchWindow = workbenchWindows[0];
+        //                OnBoardingExceptionHandler.log(Messages.getString("OnBoardingManager.workbenchWindow.notFound")); //$NON-NLS-1$
+        // }
+        // }
         if (workBenchWindow == null) {
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindow")); //$NON-NLS-1$
         }
-        parentShell = workBenchWindow.getShell();
-        if (parentShell == null) {
-            throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindowShell")); //$NON-NLS-1$
+        if (_parentShell == null) {
+            parentShell = workBenchWindow.getShell();
+            if (parentShell == null) {
+                throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindowShell")); //$NON-NLS-1$
+            }
+        } else {
+            parentShell = _parentShell;
         }
+    }
+
+    public void createDefaultUIAndResourceManagers() {
+        uiManager = new OnBoardingUIManager(this);
+        resourceManager = OnBoardingResourceManager.getDefaultResourceManager();
     }
 
     public String getManagerId() {
@@ -101,16 +111,19 @@ public class OnBoardingManager {
 
     public void reloadResource() {
         if (docId == null) {
-            return;
+            throw new RuntimeException(Messages.getString("OnBoardingManager.docId.null")); //$NON-NLS-1$
         }
         OnBoardingRegistedResource resource = resourceManager.getOnBoardingRegistedResource(docId);
         if (resource == null) {
-            return;
+            throw new RuntimeException(Messages.getString("OnBoardingManager.OnBoardingRegistedResource.notFound")); //$NON-NLS-1$
+        }
+        OnBoardingJsonDoc jsonDoc = resource.getJsonDoc();
+        if (perspId == null) {
+            perspId = jsonDoc.getDefaultPerspId();
         }
         presentationDatas = new ArrayList<OnBoardingPresentationData>();
         i18n = resource.getI18n();
-        OnBoardingPerspectiveBean perspBean = resource.getJsonDoc().getPerspectiveBean(
-                OnBoardingUtils.getCurrentSelectedPerspectiveIdUIThread(workBenchWindow));
+        OnBoardingPerspectiveBean perspBean = jsonDoc.getPerspectiveBean(perspId);
         if (perspBean != null) {
             List<OnBoardingPageBean> pages = perspBean.getPages();
             if (pages != null) {
@@ -188,6 +201,14 @@ public class OnBoardingManager {
 
     public void setParentShell(Shell parentShell) {
         this.parentShell = parentShell;
+    }
+
+    public String getPerspId() {
+        return this.perspId;
+    }
+
+    public void setPerspId(String perspId) {
+        this.perspId = perspId;
     }
 
 }

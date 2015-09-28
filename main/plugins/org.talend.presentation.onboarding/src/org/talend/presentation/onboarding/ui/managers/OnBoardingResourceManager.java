@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.presentation.onboarding.ui.managers;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResou
  *
  */
 public class OnBoardingResourceManager {
+
+    public static final String DEFAULT_DOC_ID = "org.talend.presentation.onboarding.docid.default"; //$NON-NLS-1$
 
     private Map<String, OnBoardingRegistedResource> registedResourceMap = new HashMap<String, OnBoardingRegistedResource>();
 
@@ -63,5 +66,9 @@ public class OnBoardingResourceManager {
             return null;
         }
         return registedResourceMap.get(docId);
+    }
+
+    public Collection<OnBoardingRegistedResource> getAllRegistedResources() {
+        return registedResourceMap.values();
     }
 }
