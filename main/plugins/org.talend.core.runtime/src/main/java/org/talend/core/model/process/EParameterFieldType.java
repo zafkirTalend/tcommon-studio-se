@@ -91,7 +91,9 @@ public enum EParameterFieldType {
     SAP_SCHEMA_TYPE,
 
     DATA_PREP_ID, // wchen added for TDI-33791
-    FETCH_SCHEMA // TDI-33791
+    FETCH_SCHEMA, // TDI-33791
+
+    BUTTON // ycbai added for generic wizard
 
     ;
 
