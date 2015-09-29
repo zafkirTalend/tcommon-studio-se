@@ -74,6 +74,8 @@ public class OnBoardingManager {
 
     private int currentSelectedIndex = -1;
 
+    private long executeTimes = 0;
+
     public OnBoardingManager(Shell _parentShell) {
         registOnBoardingManager();
         IWorkbench workBench = PlatformUI.getWorkbench();
@@ -124,10 +126,18 @@ public class OnBoardingManager {
     }
 
     public void afterClosed() {
-        // nothing need to do.
+        executeCommand(resourceManager.getOnBoardingRegistedResource(docId).getJsonDoc().getOnClose());
+    }
+
+    private void beforeOpen() {
+        executeCommand(resourceManager.getOnBoardingRegistedResource(docId).getJsonDoc().getOnOpen());
     }
 
     public void onBoarding(int index) {
+        if (executeTimes == 0) {
+            beforeOpen();
+        }
+        ++executeTimes;
         OnBoardingPresentationData presentationData = getCurrentSelectedPresentationData();
         if (presentationData != null) {
             OnBoardingCommandBean onNextCommand = presentationData.getPageBean().getOnNext();

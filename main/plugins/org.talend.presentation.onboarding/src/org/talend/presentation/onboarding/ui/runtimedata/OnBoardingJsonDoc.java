@@ -31,6 +31,10 @@ public class OnBoardingJsonDoc {
 
     private String defaultPerspId;
 
+    private OnBoardingCommandBean onOpen;
+
+    private OnBoardingCommandBean onClose;
+
     private List<OnBoardingPerspectiveBean> contents;
 
     private Map<String, OnBoardingPerspectiveBean> contentMap = new HashMap<String, OnBoardingPerspectiveBean>();
@@ -66,6 +70,22 @@ public class OnBoardingJsonDoc {
         if (this.defaultPerspId != null) {
             this.defaultPerspId = this.defaultPerspId.trim();
         }
+    }
+
+    public OnBoardingCommandBean getOnOpen() {
+        return this.onOpen;
+    }
+
+    public void setOnOpen(OnBoardingCommandBean onOpen) {
+        this.onOpen = onOpen;
+    }
+
+    public OnBoardingCommandBean getOnClose() {
+        return this.onClose;
+    }
+
+    public void setOnClose(OnBoardingCommandBean onClose) {
+        this.onClose = onClose;
     }
 
     public Map<String, OnBoardingPerspectiveBean> getContentMap() {
