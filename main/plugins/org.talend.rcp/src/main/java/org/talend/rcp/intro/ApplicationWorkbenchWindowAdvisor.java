@@ -404,13 +404,18 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     private void showStarting() {
         try {
             IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            String startingBrowserId = service.getStartingBrowserId();
+            if (startingBrowserId == null || startingBrowserId.isEmpty()) {
+                return;
+            }
+
             // the first time to call getHtmlContent, if throws any exception ,don't show StartingBrower
             StartingHelper.getHelper().getHtmlContent();
             IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow()
                     .getActivePage();
             if (activePage != null) {
                 if (activePage.getPerspective().getId().equals("org.talend.rcp.perspective")) { //$NON-NLS-1$
-                    startingBrowser = activePage.openEditor(new StartingEditorInput(service), service.getStartingBrowserId());
+                    startingBrowser = activePage.openEditor(new StartingEditorInput(service), startingBrowserId);
                 }
             }
         } catch (Exception e) {
