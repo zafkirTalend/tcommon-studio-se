@@ -33,12 +33,10 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.update.extension.EPriority;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.ui.view.RepositoryDropAdapter;
 import org.talend.repository.model.IRepositoryNode;
-import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
 import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
@@ -229,7 +227,7 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
     }
 
     protected Object[] getOverridedSortedChildren(Object parentElementOrTreePath) {
-        Object[] objects = (Object[]) super.getSortedChildren(parentElementOrTreePath);
+        Object[] objects = super.getSortedChildren(parentElementOrTreePath);
         List<RepositoryNode> nodes = new ArrayList<RepositoryNode>();
         for (Object object : objects) {
             if (object instanceof RepositoryNode) {
@@ -242,8 +240,11 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
             public int compare(RepositoryNode o1, RepositoryNode o2) {
                 ERepositoryObjectType type1 = o1.getContentType();
                 ERepositoryObjectType type2 = o2.getContentType();
-                if (type1 == null || type2 == null) { // null, will be front, seems only recycle bin will be null.
+                if (type1 == null) { // null, will be front, seems only recycle bin will be null.
                     return 1;
+                }
+                if (type2 == null) {
+                    return -1;
                 }
 
                 return type1.compareTo(type2);
