@@ -43,7 +43,7 @@ public class CssSpy {
      * @param css must be a css selector, Example: <b>#org-eclipse-ui-editorss>CTabFolder</b>
      * @return
      */
-    public static Collection<Widget> getWidgetsByCSS(String css) {
+    public static Collection<Widget> getWidgetsByCSS(String css, Shell shells[]) {
         Collection<Widget> results = new LinkedHashSet<Widget>();
         if (!PlatformUI.isWorkbenchRunning()) {
             return results;
@@ -56,7 +56,7 @@ public class CssSpy {
         if (display == null) {
             return results;
         }
-        Shell shells[] = display.getShells();
+        // Shell shells[] = display.getShells();
         if (shells == null || shells.length <= 0) {
             return results;
         }

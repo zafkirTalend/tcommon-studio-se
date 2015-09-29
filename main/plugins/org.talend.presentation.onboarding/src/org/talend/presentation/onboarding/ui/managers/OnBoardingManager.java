@@ -12,192 +12,100 @@
 // ============================================================================
 package org.talend.presentation.onboarding.ui.managers;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.NotEnabledException;
+import org.eclipse.core.commands.NotHandledException;
+import org.eclipse.core.commands.ParameterizedCommand;
+import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
 import org.talend.presentation.onboarding.i18n.Messages;
-import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingDocBean;
+import org.talend.presentation.onboarding.interfaces.IOnBoardingJsonI18n;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingCommandBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingJsonDoc;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
-import org.talend.presentation.onboarding.ui.shells.HighlightShell;
-import org.talend.presentation.onboarding.ui.shells.OnBoardingShell;
-import org.talend.presentation.onboarding.utils.OnBoardingUtils;
-import org.talend.presentation.onboarding.utils.WidgetFinder;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
+import org.talend.presentation.onboarding.utils.OnBoardingConstants;
 
 /**
- * created by cmeng on Sep 11, 2015 Detailled comment
+ * created by cmeng on Sep 25, 2015 Detailled comment
  *
  */
 public class OnBoardingManager {
 
-    private OnBoardingResourceManager resourceManager;
-
-    private List<OnBoardingPresentationData> presentationDatas;
-
-    private int currentSelectedIndex = -1;
-
-    private HighlightShell highlightShell;
-
-    private OnBoardingShell onBoardingShell;
-
-    private String managerId = Integer.toHexString(hashCode());
+    public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = OnBoardingConstants.PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP;
 
     private static Map<String, OnBoardingManager> managers = new HashMap<String, OnBoardingManager>();
 
     private IWorkbenchWindow workBenchWindow;
 
-    // the values are different between different perspectives
-    public static OnBoardingManager getDefaultOnBoardingManager() {
-        OnBoardingManager obm = null;
-        OnBoardingResourceManager defaultResourceManager = OnBoardingResourceManager.getDefaultResourceManager();
-        if (defaultResourceManager != null) {
-            obm = new OnBoardingManager();
-            obm.setResourceManager(defaultResourceManager);
-        }
-        return obm;
-    }
+    private OnBoardingUIManager uiManager;
 
-    public OnBoardingManager() {
+    private OnBoardingResourceManager resourceManager;
+
+    private Shell parentShell;
+
+    private List<OnBoardingPresentationData> presentationDatas;
+
+    private String managerId = Integer.toHexString(hashCode());
+
+    private String docId = null;
+
+    private String perspId = null;
+
+    private IOnBoardingJsonI18n i18n = null;
+
+    private ICommandService commandService = null;
+
+    private IHandlerService handlerService = null;
+
+    private int currentSelectedIndex = -1;
+
+    private long executeTimes = 0;
+
+    public OnBoardingManager(Shell _parentShell) {
         registOnBoardingManager();
-
         IWorkbench workBench = PlatformUI.getWorkbench();
         if (workBench == null) {
-            unRegistOnBoardingManager();
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbench")); //$NON-NLS-1$
         }
         workBenchWindow = workBench.getActiveWorkbenchWindow();
+        // if (workBenchWindow == null) {
+        // IWorkbenchWindow workbenchWindows[] = workBench.getWorkbenchWindows();
+        // if (workbenchWindows != null && 0 < workbenchWindows.length) {
+        // workBenchWindow = workbenchWindows[0];
+        //                OnBoardingExceptionHandler.log(Messages.getString("OnBoardingManager.workbenchWindow.notFound")); //$NON-NLS-1$
+        // }
+        // }
         if (workBenchWindow == null) {
-            IWorkbenchWindow workbenchWindows[] = workBench.getWorkbenchWindows();
-            if (workbenchWindows != null && 0 < workbenchWindows.length) {
-                workBenchWindow = workbenchWindows[0];
-                OnBoardingExceptionHandler.log(Messages.getString("OnBoardingManager.workbenchWindow.notFound")); //$NON-NLS-1$
-            }
-        }
-        if (workBenchWindow == null) {
-            unRegistOnBoardingManager();
             throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindow")); //$NON-NLS-1$
         }
-        final Shell parentShell = workBenchWindow.getShell();
-        if (parentShell == null) {
-            unRegistOnBoardingManager();
-            throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindowShell")); //$NON-NLS-1$
-        }
-
-        highlightShell = new HighlightShell(parentShell, this);
-        onBoardingShell = new OnBoardingShell(highlightShell.getHighlightShell(), this);
-        highlightShell.open();
-    }
-
-    public OnBoardingPresentationData getCurrentSelectedPresentationData() {
-        if (currentSelectedIndex < 0 || presentationDatas == null || presentationDatas.size() <= currentSelectedIndex) {
-            return null;
-        }
-        return presentationDatas.get(currentSelectedIndex);
-    }
-
-    public static void showDemo() {
-        OnBoardingManager obm = new OnBoardingManager();
-        OnBoardingResourceManager obrm = new OnBoardingResourceManager() {
-
-            @Override
-            protected String getI18NString(String key) {
-                return key;
+        if (_parentShell == null) {
+            parentShell = workBenchWindow.getShell();
+            if (parentShell == null) {
+                throw new RuntimeException(Messages.getString("OnBoardingManager.NPE.workbenchWindowShell")); //$NON-NLS-1$
             }
-        };
-        obrm.setJsonString("[{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":null,\"title\":\"This is a title A\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":null,\"title\":\"This is a title B\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":\"#navigatorLayout || .MPart#org-talend-repository-cnf-view\",\"title\":\"This is a title 1\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":\"#bottomLayout\",\"title\":\"This is a title 2\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.rcp.perspective\",\"cssIds\":\"#paletteLayout || .MPart#org-eclipse-gef-ui-palette_view\",\"title\":\"This is a title 3\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"},{\"size\":\"600,400\",\"perspId\":\"org.talend.camel.perspective\",\"cssIds\":\"#bottomLayout\",\"title\":\"This is a title 2\",\"content\":\"Write contents here: \\\\n abcdefg \\\\n 1234567\"}]");
-        obm.setResourceManager(obrm);
-        obm.onBoarding(0);
-    }
-
-    public void onBoarding(int index) {
-        int size = this.getPresentationDatas().size();
-        if (index < 0 || size <= index) {
-            return;
-        }
-        this.setCurrentSelectedPresentationDataIndex(index);
-        OnBoardingPresentationData presData = this.getCurrentSelectedPresentationData();
-        if (presData == null) {
-            return;
-        }
-        Widget widget = null;
-        OnBoardingDocBean docBean = presData.getDocBean();
-        String[] cssIds = docBean.getCssIds();
-        widget = getWidget(cssIds);
-
-        boolean isOpened = onBoardingShell.isOpened();
-        if (isOpened) {
-            onBoardingShell.setVisible(false);
-        }
-
-        onBoardingShell.setFocusedWidget(widget);
-        onBoardingShell.setPresentationData(presData);
-        onBoardingShell.refreshInUIThread();
-
-        highlightShell.focusOnWidgetInUIThread(widget);
-
-        // if (isOpened) {
-        // onBoardingShell.setVisible(true);
-        // }
-    }
-
-    public void onHighlightShellMoveCompleted() {
-        if (!onBoardingShell.getOnBoardingShell().isDisposed()) {
-            onBoardingShell.setVisible(true);
+        } else {
+            parentShell = _parentShell;
         }
     }
 
-    private Widget getWidget(String[] cssIds) {
-        Widget widget = null;
-        if (cssIds != null && 0 < cssIds.length) {
-            for (String cssId : cssIds) {
-                if (cssId == null) {
-                    continue;
-                }
-                Collection<Widget> widgets = WidgetFinder.findWidgetsByCSSInUIThread(cssId.trim());
-                if (widgets != null && !widgets.isEmpty()) {
-                    widget = widgets.iterator().next();
-                    break;
-                }
-            }
-        }
-        return widget;
-    }
-
-    private String getCurrentSelectedPerspectiveId() {
-        return OnBoardingUtils.getCurrentSelectedPerspectiveId(workBenchWindow);
-    }
-
-    public OnBoardingResourceManager getResourceManager() {
-        return this.resourceManager;
-    }
-
-    public void setResourceManager(OnBoardingResourceManager resourceManager) {
-        this.resourceManager = resourceManager;
-        this.presentationDatas = this.resourceManager.getOnBoardingPresentationDatas(getCurrentSelectedPerspectiveId());
-    }
-
-    public void close() {
-        unRegistOnBoardingManager();
-        Display.getDefault().syncExec(new Runnable() {
-
-            @Override
-            public void run() {
-                highlightShell.close();
-
-                if (onBoardingShell.getParentShell() != highlightShell.getHighlightShell()) {
-                    onBoardingShell.close();
-                }
-            }
-        });
-
+    public void createDefaultUIAndResourceManagers() {
+        uiManager = new OnBoardingUIManager(this);
+        resourceManager = OnBoardingResourceManager.getDefaultResourceManager();
     }
 
     public String getManagerId() {
@@ -211,12 +119,120 @@ public class OnBoardingManager {
         return managers.get(id);
     }
 
-    private void registOnBoardingManager() {
-        managers.put(managerId, this);
+    public void close() {
+        unRegistOnBoardingManager();
+        uiManager.close();
+        afterClosed();
     }
 
-    private void unRegistOnBoardingManager() {
-        managers.remove(managerId);
+    public void afterClosed() {
+        executeCommand(resourceManager.getOnBoardingRegistedResource(docId).getJsonDoc().getOnClose());
+    }
+
+    private void beforeOpen() {
+        executeCommand(resourceManager.getOnBoardingRegistedResource(docId).getJsonDoc().getOnOpen());
+    }
+
+    public void onBoarding(int index) {
+        if (executeTimes == 0) {
+            beforeOpen();
+        }
+        ++executeTimes;
+        OnBoardingPresentationData presentationData = getCurrentSelectedPresentationData();
+        if (presentationData != null) {
+            OnBoardingCommandBean onNextCommand = presentationData.getPageBean().getOnNext();
+            executeCommand(onNextCommand);
+        }
+        int size = getPresentationDatas().size();
+        if (index < 0 || size <= index) {
+            return;
+        }
+        setCurrentSelectedPresentationDataIndex(index);
+        presentationData = getCurrentSelectedPresentationData();
+        if (presentationData != null) {
+            OnBoardingCommandBean onShowCommand = presentationData.getPageBean().getOnShow();
+            executeCommand(onShowCommand);
+        }
+        uiManager.refreshOnBoarding();
+    }
+
+    protected void executeCommand(OnBoardingCommandBean commandBean) {
+        String commandId = null;
+        if (commandBean == null || (commandId = commandBean.getCommandId()) == null || commandId.isEmpty()) {
+            return;
+        }
+        commandService = getCommandService();
+        handlerService = getHandlerService();
+        if (commandId != null && !commandId.isEmpty()) {
+            try {
+                Map<String, String> commandParameters = commandBean.getCommandParameters();
+                if (commandParameters != null && !commandParameters.isEmpty()) {
+                    executeParameterizedCommand(commandBean);
+                } else {
+                    handlerService.executeCommand(commandId, null);
+                }
+            } catch (Throwable e) {
+                OnBoardingExceptionHandler.process(e);
+            }
+        }
+    }
+
+    protected void executeParameterizedCommand(OnBoardingCommandBean commandBean) throws ExecutionException, NotDefinedException,
+            NotEnabledException, NotHandledException {
+        Command command = commandService.getCommand(commandBean.getCommandId());
+        ParameterizedCommand parameterizedCommand = ParameterizedCommand.generateCommand(command,
+                commandBean.getCommandParameters());
+        handlerService.executeCommand(parameterizedCommand, null);
+    }
+
+    public void reloadResource() {
+        if (docId == null) {
+            throw new RuntimeException(Messages.getString("OnBoardingManager.docId.null")); //$NON-NLS-1$
+        }
+        OnBoardingRegistedResource resource = resourceManager.getOnBoardingRegistedResource(docId);
+        if (resource == null) {
+            throw new RuntimeException(Messages.getString("OnBoardingManager.OnBoardingRegistedResource.notFound")); //$NON-NLS-1$
+        }
+        OnBoardingJsonDoc jsonDoc = resource.getJsonDoc();
+        if (perspId == null) {
+            perspId = jsonDoc.getDefaultPerspId();
+        }
+        presentationDatas = new ArrayList<OnBoardingPresentationData>();
+        i18n = resource.getI18n();
+        OnBoardingPerspectiveBean perspBean = jsonDoc.getPerspectiveBean(perspId);
+        if (perspBean != null) {
+            List<OnBoardingPageBean> pages = perspBean.getPages();
+            if (pages != null) {
+                for (OnBoardingPageBean page : pages) {
+                    OnBoardingPresentationData presentationData = new OnBoardingPresentationData();
+                    presentationData.setPageBean(page);
+                    presentationDatas.add(presentationData);
+                }
+            }
+        }
+    }
+
+    public OnBoardingPresentationData getCurrentSelectedPresentationData() {
+        if (currentSelectedIndex < 0 || presentationDatas == null || presentationDatas.size() <= currentSelectedIndex) {
+            return null;
+        }
+        return presentationDatas.get(currentSelectedIndex);
+    }
+
+    public OnBoardingUIManager getUiManager() {
+        return this.uiManager;
+    }
+
+    public void setUiManager(OnBoardingUIManager uiManager) {
+        this.uiManager = uiManager;
+    }
+
+    public OnBoardingResourceManager getResourceManager() {
+        return this.resourceManager;
+    }
+
+    public void setResourceManager(OnBoardingResourceManager resourceManager) {
+        this.resourceManager = resourceManager;
     }
 
     public List<OnBoardingPresentationData> getPresentationDatas() {
@@ -229,6 +245,76 @@ public class OnBoardingManager {
 
     public int getCurrentSelectedPresentationDataIndex() {
         return currentSelectedIndex;
+    }
+
+    private void registOnBoardingManager() {
+        managers.put(managerId, this);
+    }
+
+    private void unRegistOnBoardingManager() {
+        managers.remove(managerId);
+    }
+
+    public String getDocId() {
+        return this.docId;
+    }
+
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
+    public IOnBoardingJsonI18n getI18n() {
+        return this.i18n;
+    }
+
+    public void setI18n(IOnBoardingJsonI18n i18n) {
+        this.i18n = i18n;
+    }
+
+    public Shell getParentShell() {
+        return this.parentShell;
+    }
+
+    public void setParentShell(Shell parentShell) {
+        this.parentShell = parentShell;
+    }
+
+    public String getPerspId() {
+        return this.perspId;
+    }
+
+    public void setPerspId(String perspId) {
+        this.perspId = perspId;
+    }
+
+    public IWorkbenchWindow getWorkBenchWindow() {
+        return this.workBenchWindow;
+    }
+
+    public void setWorkBenchWindow(IWorkbenchWindow workBenchWindow) {
+        this.workBenchWindow = workBenchWindow;
+    }
+
+    public ICommandService getCommandService() {
+        if (commandService == null) {
+            commandService = (ICommandService) workBenchWindow.getService(ICommandService.class);
+        }
+        return this.commandService;
+    }
+
+    public void setCommandService(ICommandService commandService) {
+        this.commandService = commandService;
+    }
+
+    public IHandlerService getHandlerService() {
+        if (handlerService == null) {
+            handlerService = (IHandlerService) workBenchWindow.getService(IHandlerService.class);
+        }
+        return this.handlerService;
+    }
+
+    public void setHandlerService(IHandlerService handlerService) {
+        this.handlerService = handlerService;
     }
 
 }

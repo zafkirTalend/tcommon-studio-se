@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -129,8 +131,15 @@ public class Problem {
             public void run() {
                 // workbench should be created,bug 22659
                 if (PlatformUI.isWorkbenchRunning()) {
-                    IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                            .getEditorReferences();
+                    IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+                    if (activeWorkbenchWindow == null) {
+                        return;
+                    }
+                    IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
+                    if (activePage == null) {
+                        return;
+                    }
+                    IEditorReference[] reference = activePage.getEditorReferences();
                     list.addAll(Arrays.asList(reference));
                 }
             }

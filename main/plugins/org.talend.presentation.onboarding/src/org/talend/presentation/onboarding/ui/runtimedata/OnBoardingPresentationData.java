@@ -35,7 +35,7 @@ public class OnBoardingPresentationData {
 
     private String pointerDirrection;
 
-    private OnBoardingDocBean docBean;
+    private OnBoardingPageBean pageBean;
 
     public Rectangle getContentArea() {
         return this.contentArea;
@@ -61,14 +61,14 @@ public class OnBoardingPresentationData {
         this.pointerDirrection = pointerDirrection;
     }
 
-    public OnBoardingDocBean getDocBean() {
-        return this.docBean;
+    public OnBoardingPageBean getPageBean() {
+        return this.pageBean;
     }
 
-    public void setDocBean(OnBoardingDocBean docBean) {
-        this.docBean = docBean;
-        if (this.docBean != null) {
-            Point size = this.docBean.getSize();
+    public void setPageBean(OnBoardingPageBean pageBean) {
+        this.pageBean = pageBean;
+        if (this.pageBean != null) {
+            Point size = this.pageBean.getSize();
             if (size != null) {
                 if (contentArea == null) {
                     contentArea = new Rectangle(0, 0, 0, 0);

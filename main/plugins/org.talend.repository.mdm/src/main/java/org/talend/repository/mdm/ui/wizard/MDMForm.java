@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
-import org.apache.axis.client.Stub;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -67,7 +66,7 @@ public class MDMForm extends AbstractForm {
 
     private MDMWizardPage page;
 
-    private Stub stub;
+    private Object stub;
 
     private boolean creation;
 
@@ -386,7 +385,7 @@ public class MDMForm extends AbstractForm {
         checkFieldsValue();
     }
 
-    public Stub getXtentisBindingStub() {
+    public Object getXtentisBindingStub() {
         return this.stub;
     }
 

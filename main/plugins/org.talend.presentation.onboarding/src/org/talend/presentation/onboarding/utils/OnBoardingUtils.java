@@ -12,7 +12,13 @@
 // ============================================================================
 package org.talend.presentation.onboarding.utils;
 
+import java.io.StringReader;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Priority;
 import org.eclipse.core.runtime.FileLocator;
@@ -26,13 +32,21 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.intro.impl.html.IIntroHTMLConstants;
 import org.osgi.framework.Bundle;
 import org.talend.presentation.onboarding.exceptions.OnBoardingExceptionHandler;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.talend.presentation.onboarding.ui.managers.OnBoardingResourceManager;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingJsonDoc;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPerspectiveBean;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingRegistedResource;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 /**
  * created by cmeng on Sep 15, 2015 Detailled comment
@@ -158,17 +172,6 @@ public class OnBoardingUtils {
         return colorRegistry.get(symbol);
     }
 
-    /**
-     * Returns an array version of the passed NodeList. Used to work around DOM design issues.
-     */
-    public static Node[] getArray(NodeList nodeList) {
-        Node[] nodes = new Node[nodeList.getLength()];
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            nodes[i] = nodeList.item(i);
-        }
-        return nodes;
-    }
-
     public static boolean isSupportBrowser() {
         final ObjectBox<Boolean> isSupportBrowser = new ObjectBox<Boolean>();
         isSupportBrowser.value = true;
@@ -200,6 +203,24 @@ public class OnBoardingUtils {
         return isSupportBrowser.value;
     }
 
+    public static String getCurrentSelectedPerspectiveIdUIThread(final IWorkbenchWindow wbWindow) {
+        final ObjectBox<String> perspId = new ObjectBox<String>();
+        Display.getDefault().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                perspId.value = getCurrentSelectedPerspectiveId(wbWindow);
+            }
+        });
+        return perspId.value;
+    }
+
+    /**
+     * Should run this method in UI thread
+     * 
+     * @param wbWindow
+     * @return
+     */
     public static String getCurrentSelectedPerspectiveId(IWorkbenchWindow wbWindow) {
         String perspId = null;
         if (wbWindow == null || !PlatformUI.isWorkbenchRunning()) {
@@ -214,5 +235,104 @@ public class OnBoardingUtils {
             perspId = perspDesc.getId();
         }
         return perspId;
+    }
+
+    public static Document convertStringToDocument(String htmlStr) {
+        Document newDoc = null;
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setValidating(false);
+            // if this is not set, Document.getElementsByTagNameNS() will fail.
+            factory.setNamespaceAware(true);
+            factory.setExpandEntityReferences(false);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            if (htmlStr == null || htmlStr.trim().isEmpty()) {
+                newDoc = builder.newDocument();
+            } else {
+                InputSource inputSource = new InputSource(new StringReader(htmlStr));
+                newDoc = builder.parse(inputSource);
+            }
+        } catch (Throwable e) {
+            OnBoardingExceptionHandler.process(e);
+        }
+        return newDoc;
+    }
+
+    public static Element createDivElement(Document dom, String id) {
+        Attr attrId = dom.createAttribute(IIntroHTMLConstants.ATTRIBUTE_ID);
+        attrId.setValue(id);
+        Element contentDiv = dom.createElement(IIntroHTMLConstants.ELEMENT_DIV);
+        contentDiv.setAttributeNode(attrId);
+        return contentDiv;
+    }
+
+    public static OnBoardingPerspectiveBean getDefaultPerspectiveBean(ObjectBox<String> jsonDocId) {
+        OnBoardingPerspectiveBean perspBean = null;
+        OnBoardingResourceManager resourceManager = OnBoardingResourceManager.getDefaultResourceManager();
+        if (resourceManager == null) {
+            return perspBean;
+        }
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench == null || !PlatformUI.isWorkbenchRunning()) {
+            return perspBean;
+        }
+        IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+        if (workbenchWindow == null) {
+            return perspBean;
+        }
+        String perspId = OnBoardingUtils.getCurrentSelectedPerspectiveId(workbenchWindow);
+        if (perspId == null || perspId.isEmpty()) {
+            return perspBean;
+        }
+        jsonDocId.value = PlatformUI.getPreferenceStore().getString(OnBoardingResourceManager.DEFAULT_DOC_ID);
+        if (jsonDocId.value == null || jsonDocId.value.isEmpty()) {
+            Collection<OnBoardingRegistedResource> onBoardingRegistedResources = resourceManager.getAllRegistedResources();
+            if (onBoardingRegistedResources != null && !onBoardingRegistedResources.isEmpty()) {
+                Iterator<OnBoardingRegistedResource> iter = onBoardingRegistedResources.iterator();
+                while (iter.hasNext()) {
+                    try {
+                        OnBoardingRegistedResource resource = iter.next();
+                        OnBoardingJsonDoc jsonDoc = resource.getJsonDoc();
+                        perspBean = jsonDoc.getPerspectiveBean(perspId);
+                        if (perspBean != null) {
+                            jsonDocId.value = jsonDoc.getId();
+                            break;
+                        }
+                    } catch (Throwable e) {
+                        OnBoardingExceptionHandler.process(e);
+                    }
+                }
+                if (perspBean == null) {
+                    try {
+                        OnBoardingJsonDoc jsonDoc = onBoardingRegistedResources.iterator().next().getJsonDoc();
+                        jsonDocId.value = jsonDoc.getId();
+                        perspId = jsonDoc.getDefaultPerspId();
+                        if (perspId != null) {
+                            perspBean = jsonDoc.getPerspectiveBean(perspId);
+                        }
+                    } catch (Throwable e) {
+                        OnBoardingExceptionHandler.process(e);
+                    }
+                }
+            }
+        } else {
+            OnBoardingRegistedResource registedResource = resourceManager.getOnBoardingRegistedResource(jsonDocId.value);
+            if (registedResource == null) {
+                return perspBean;
+            }
+            try {
+                OnBoardingJsonDoc jsonDoc = registedResource.getJsonDoc();
+                perspBean = jsonDoc.getPerspectiveBean(perspId);
+                if (perspBean == null) {
+                    perspId = jsonDoc.getDefaultPerspId();
+                    if (perspId != null) {
+                        perspBean = jsonDoc.getPerspectiveBean(perspId);
+                    }
+                }
+            } catch (Throwable e) {
+                OnBoardingExceptionHandler.process(e);
+            }
+        }
+        return perspBean;
     }
 }

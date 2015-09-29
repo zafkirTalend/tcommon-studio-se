@@ -27,7 +27,7 @@ import org.talend.presentation.onboarding.utils.spies.CssSpy;
 /**
  * created by cmeng on Sep 8, 2015 Detailled comment
  *
- * @see org.eclipse.e4.tools.css.spy.CssSypPart
+ * @see org.eclipse.e4.tools.css.spy.CssSpyPart
  */
 public class WidgetFinder {
 
@@ -64,7 +64,7 @@ public class WidgetFinder {
     }
 
     // TODO need to know whether they are on top/visible
-    public static Collection<Rectangle> getBounds(final String cssSelector) {
+    public static Collection<Rectangle> getBounds(final String cssSelector, final Shell shells[]) {
         final Collection<Rectangle> bounds = new LinkedHashSet<Rectangle>();
         if (cssSelector == null || cssSelector.isEmpty()) {
             return bounds;
@@ -73,7 +73,7 @@ public class WidgetFinder {
 
             @Override
             public void run() {
-                Collection<Widget> widgets = findWidgetByCSS(cssSelector);
+                Collection<Widget> widgets = findWidgetByCSS(cssSelector, shells);
                 if (widgets == null || widgets.isEmpty()) {
                     return;
                 }
@@ -88,20 +88,20 @@ public class WidgetFinder {
         return bounds;
     }
 
-    public static Collection<Widget> findWidgetsByCSSInUIThread(final String cssSelector) {
+    public static Collection<Widget> findWidgetsByCSSInUIThread(final String cssSelector, final Shell shells[]) {
         final ObjectBox<Collection<Widget>> resultBox = new ObjectBox<Collection<Widget>>();
         Display.getDefault().syncExec(new Runnable() {
 
             @Override
             public void run() {
-                resultBox.value = findWidgetByCSS(cssSelector);
+                resultBox.value = findWidgetByCSS(cssSelector, shells);
             }
         });
         return resultBox.value;
     }
 
-    private static Collection<Widget> findWidgetByCSS(String cssSelector) {
-        return CssSpy.getWidgetsByCSS(cssSelector);
+    private static Collection<Widget> findWidgetByCSS(String cssSelector, Shell shells[]) {
+        return CssSpy.getWidgetsByCSS(cssSelector, shells);
     }
 
 }
