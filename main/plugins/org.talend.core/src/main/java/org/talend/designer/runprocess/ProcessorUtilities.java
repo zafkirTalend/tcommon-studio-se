@@ -908,38 +908,33 @@ public class ProcessorUtilities {
         jobInfo.setProcessItem(null);
         if (!BitwiseOptionUtils.containOption(option, GENERATE_MAIN_ONLY)) {
             // handle subjob in joblet. see bug 004937: tRunJob in a Joblet
-            List<? extends INode> graphicalNodes = currentProcess.getGeneratingNodes();
-            for (INode node : graphicalNodes) {
+            for (INode node : currentProcess.getGeneratingNodes()) {
                 String componentName = node.getComponent().getName();
-                if ((node != null) && (componentName.equals("tRunJob") || componentName.equals("cTalendJob"))) { //$NON-NLS-1$
+                if ((node != null) && (componentName.equals("tRunJob") || componentName.equals("cTalendJob") //$NON-NLS-1$  //$NON-NLS-2$
+                    || "Routelets".equals(node.getComponent().getOriginalFamilyName()))) { //$NON-NLS-1$
                     // if the cTalendJob is configured by external Jar, then ignore it
-                    if ("cTalendJob".equals(componentName)) {
-                        IElementParameter fromExternal = node.getElementParameter("FROM_EXTERNAL_JAR");
-                        Object value = fromExternal.getValue();
-                        if (value != null && "true".equals(value.toString())) {
+                    if ("cTalendJob".equals(componentName)) { //$NON-NLS-1$
+                        IElementParameter fromExternal = node.getElementParameter("FROM_EXTERNAL_JAR"); //$NON-NLS-1$
+                        if (Boolean.parseBoolean((String) fromExternal.getValue())) {
                             continue;
                         }
                     }
-                    IElementParameter indepPara = node.getElementParameter("USE_INDEPENDENT_PROCESS");
+                    //IElementParameter indepPara = node.getElementParameter("USE_INDEPENDENT_PROCESS");
                     boolean isNeedLoadmodules = true;
                     // if (indepPara != null) {
                     // isNeedLoadmodules = !(boolean) indepPara.getValue();
                     // }
                     IElementParameter processIdparam = node.getElementParameter("PROCESS_TYPE_PROCESS"); //$NON-NLS-1$
                     // feature 19312
-                    String jobIds = (String) processIdparam.getValue();
-                    String[] jobsArr = jobIds.split(ProcessorUtilities.COMMA);
-                    for (String jobId : jobsArr) {
+                    final String jobIds = (String) processIdparam.getValue();
+                    for (String jobId : jobIds.split(ProcessorUtilities.COMMA)) {
                         if (StringUtils.isNotEmpty(jobId)) {
-
-                            ProcessItem processItem = null;
                             String context = (String) node.getElementParameter("PROCESS_TYPE_CONTEXT").getValue(); //$NON-NLS-1$
                             String version = (String) node.getElementParameter("PROCESS_TYPE_VERSION").getValue(); //$NON-NLS-1$
-                            JobInfo subJobInfo = null;
-                            subJobInfo = new JobInfo(jobId, context, version);
+                            final JobInfo subJobInfo = new JobInfo(jobId, context, version);
 
                             // get processitem from job
-                            processItem = ItemCacheManager.getProcessItem(jobId, version);
+                            final ProcessItem processItem = ItemCacheManager.getProcessItem(jobId, version);
 
                             if (processItem == null) {
                                 throw new ProcessorException(node.getUniqueName()
