@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.axis.client.Stub;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.Logger;
@@ -101,7 +100,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
             List<String> schemaFilter) {
         List<TdXmlSchema> xmlDocs = new ArrayList<TdXmlSchema>();
         try {
-            Stub stub = MetadataConnectionUtils.getXtentisBindingStub(mdmConn);
+            Object stub = MetadataConnectionUtils.getXtentisBindingStub(mdmConn);
             AbsMdmConnectionHelper connectionHelper = null;
             String regex = "";
             if (MDMVersions.MDM_S60.getKey().equals(mdmConn.getVersion())) {
@@ -111,7 +110,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
                 connectionHelper = new S56MdmConnectionHelper();
             }
             List<String> pks = connectionHelper.getPKs(stub, "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs",
-                    regex);
+                    regex, "getWsDataModelPKs");
             String techXSDFolderName = getTechXSDFolderName();
             for (String pk : pks) {
                 if (isCreateElement(schemaFilter, pk)) {
@@ -161,7 +160,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
      * @throws RemoteException
      * @throws CoreException
      */
-    private void adaptToCWMDocument(AbsMdmConnectionHelper connectionHelper, List<TdXmlSchema> xmlDocCollection, Stub stub,
+    private void adaptToCWMDocument(AbsMdmConnectionHelper connectionHelper, List<TdXmlSchema> xmlDocCollection, Object stub,
             String resName, String providerTechName, Connection dataProvider) throws RemoteException, CoreException {
         // MOD xqliu 2010-10-18 bug 16161
         String resXSD = null;
