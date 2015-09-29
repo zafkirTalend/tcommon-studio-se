@@ -317,6 +317,9 @@ public class OnBoardingUtils {
             }
         } else {
             OnBoardingRegistedResource registedResource = resourceManager.getOnBoardingRegistedResource(jsonDocId.value);
+            if (registedResource == null) {
+                return perspBean;
+            }
             try {
                 OnBoardingJsonDoc jsonDoc = registedResource.getJsonDoc();
                 perspBean = jsonDoc.getPerspectiveBean(perspId);

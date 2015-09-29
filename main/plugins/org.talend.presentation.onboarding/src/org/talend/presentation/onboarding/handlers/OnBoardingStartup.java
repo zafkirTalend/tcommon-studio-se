@@ -30,6 +30,9 @@ public class OnBoardingStartup implements IStartup {
                 public void run() {
                     ObjectBox<String> jsonDocBox = new ObjectBox<String>();
                     OnBoardingPerspectiveBean perspBean = OnBoardingUtils.getDefaultPerspectiveBean(jsonDocBox);
+                    if (perspBean == null) {
+                        return;
+                    }
                     IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
                     String curPerspId = OnBoardingUtils.getCurrentSelectedPerspectiveId(workbenchWindow);
                     String perspIdToShow = perspBean.getPerspId();
