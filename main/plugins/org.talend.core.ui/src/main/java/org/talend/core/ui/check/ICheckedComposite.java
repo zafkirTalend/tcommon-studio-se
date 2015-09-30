@@ -12,13 +12,22 @@
 // ============================================================================
 package org.talend.core.ui.check;
 
+
 /**
  * 
  * created by ycbai on 2015年9月30日 Detailled comment
  *
  */
-public interface ICheckListener {
+public interface ICheckedComposite {
 
-    public void checkPerformed(ICheckedComposite source);
+    public void setListener(ICheckListener listener);
+
+    public void updateStatus(int level, final String statusLabelText);
+
+    public boolean isStatusOnError();
+
+    public String getStatus();
+
+    public int getStatusLevel();
 
 }
