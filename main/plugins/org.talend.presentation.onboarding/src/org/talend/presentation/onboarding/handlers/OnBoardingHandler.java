@@ -74,8 +74,8 @@ public class OnBoardingHandler extends AbstractHandler {
         try {
             if (!perspId.equals(currentPerspectiveId)) {
                 workbenchWindow.getWorkbench().showPerspective(perspId, workbenchWindow);
-                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().resetPerspective();
             }
+            workbenchWindow.getActivePage().resetPerspective();
             OnBoardingManager manager = new OnBoardingManager(workbenchWindow.getShell());
             manager.createDefaultUIAndResourceManagers();
             manager.setDocId(jsonDocId);
