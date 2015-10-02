@@ -40,27 +40,17 @@ public class BrandingChecker {
                 IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                         IBrandingService.class);
                 final String fullProductName = brandingService.getFullProductName();
-                Display display = Display.getDefault();
-                if (display == null) {
-                    display = Display.getCurrent();
-                }
-                display.syncExec(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        IEclipsePreferences node = new InstanceScope().getNode(CoreRuntimePlugin.PLUGIN_ID);
-                        String oldBrandingName = node.get(LAST_STARTED_PRODUCT, "");
-                        if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
-                            isBrandingChanged = true;
-                            node.put(LAST_STARTED_PRODUCT, fullProductName);
-                            try {
-                                node.flush();
-                            } catch (BackingStoreException e) {
-                                ExceptionHandler.process(e);
-                            }
-                        }
+                IEclipsePreferences node = new InstanceScope().getNode(CoreRuntimePlugin.PLUGIN_ID);
+                String oldBrandingName = node.get(LAST_STARTED_PRODUCT, "");
+                if (oldBrandingName == null || oldBrandingName.equals("") || !oldBrandingName.equals(fullProductName)) { //$NON-NLS-1$
+                    isBrandingChanged = true;
+                    node.put(LAST_STARTED_PRODUCT, fullProductName);
+                    try {
+                        node.flush();
+                    } catch (BackingStoreException e) {
+                        ExceptionHandler.process(e);
                     }
-                });
+                }
             }
             initialized = true;
         }
