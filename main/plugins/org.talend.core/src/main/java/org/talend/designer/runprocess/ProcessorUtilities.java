@@ -914,8 +914,7 @@ public class ProcessorUtilities {
                     || "Routelets".equals(node.getComponent().getOriginalFamilyName()))) { //$NON-NLS-1$
                     // if the cTalendJob is configured by external Jar, then ignore it
                     if ("cTalendJob".equals(componentName)) { //$NON-NLS-1$
-                        IElementParameter fromExternal = node.getElementParameter("FROM_EXTERNAL_JAR"); //$NON-NLS-1$
-                        if (Boolean.parseBoolean((String) fromExternal.getValue())) {
+                        if ((Boolean) node.getElementParameter("FROM_EXTERNAL_JAR").getValue()) { //$NON-NLS-1$
                             continue;
                         }
                     }
