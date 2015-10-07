@@ -26,7 +26,6 @@ import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
-import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.RepositoryNode;
@@ -78,7 +77,7 @@ public class JavaResourcesHelper {
     public static String getJobFolderName(String jobName, String version) {
         String newJobName = escapeFileName(jobName).toLowerCase();
         if (version != null) {
-            newJobName += '_' + version.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ 
+            newJobName += '_' + version.replace('.', '_'); 
         }
         return newJobName;
     }
@@ -93,7 +92,7 @@ public class JavaResourcesHelper {
     }
 
     public static String escapeFileName(final String fileName) {
-        return fileName != null ? fileName.replace(" ", "_") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return fileName != null ? fileName.replace(' ', '_') : ""; //$NON-NLS-1$
     }
 
     /**
