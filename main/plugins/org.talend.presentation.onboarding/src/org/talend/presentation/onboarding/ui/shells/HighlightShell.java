@@ -185,7 +185,7 @@ public class HighlightShell {
                             moveThread.interrupt();
                         }
 
-                        refreshHighlightShell();
+                        onBoardingManager.getUiManager().refreshShellsBound();
                     }
                 };
                 widget.addListener(SWT.Resize, widgetResizeListener);
@@ -356,7 +356,7 @@ public class HighlightShell {
     }
 
     public void setVisible(boolean visible) {
-        OnBoardingUtils.setVisible(visible, hlShell, totalAnimateTime, sleepTime, initialAlpha, finalAlphaValue);
+        OnBoardingUtils.setVisible(visible, hlShell, totalAnimateTime, sleepTime, initialAlpha, finalAlphaValue, null);
     }
 
     private boolean isContinueExecute() {
@@ -380,7 +380,7 @@ public class HighlightShell {
         return this.hlShell;
     }
 
-    private void refreshHighlightShell() {
+    public void refreshHighlightShell() {
         Rectangle clientArea = parentShell.getClientArea();
         Rectangle mappedClientArea = parentShell.getDisplay().map(parentShell, null, clientArea);
         hlShell.setBounds(mappedClientArea);

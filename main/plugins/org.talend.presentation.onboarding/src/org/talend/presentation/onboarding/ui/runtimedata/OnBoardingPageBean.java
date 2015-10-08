@@ -31,6 +31,8 @@ public class OnBoardingPageBean {
 
     private OnBoardingCommandBean onNext;
 
+    private OnBoardingCommandBean onShowAnimationDone;
+
     private Point size;
 
     private String title;
@@ -65,6 +67,14 @@ public class OnBoardingPageBean {
 
     public void setOnNext(OnBoardingCommandBean onNext) {
         this.onNext = onNext;
+    }
+
+    public OnBoardingCommandBean getOnShowAnimationDone() {
+        return this.onShowAnimationDone;
+    }
+
+    public void setOnShowAnimationDone(OnBoardingCommandBean onShowAnimationDone) {
+        this.onShowAnimationDone = onShowAnimationDone;
     }
 
     public Point getSize() {

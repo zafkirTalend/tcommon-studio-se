@@ -17,6 +17,7 @@ import java.util.Collection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
+import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingCommandBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPageBean;
 import org.talend.presentation.onboarding.ui.runtimedata.OnBoardingPresentationData;
 import org.talend.presentation.onboarding.ui.shells.HighlightShell;
@@ -77,10 +78,21 @@ public class OnBoardingUIManager {
         // }
     }
 
+    public void refreshShellsBound() {
+        highlightShell.refreshHighlightShell();
+        onBoardingShell.refresh();
+    }
+
     public void onHighlightShellMoveCompleted() {
         if (!onBoardingShell.getOnBoardingShell().isDisposed()) {
             onBoardingShell.setVisible(true);
         }
+    }
+
+    public void onShowAnimationDone() {
+        OnBoardingPresentationData presData = onBoardingManager.getCurrentSelectedPresentationData();
+        OnBoardingCommandBean onShowAnimationDoneCmd = presData.getPageBean().getOnShowAnimationDone();
+        onBoardingManager.executeCommand(onShowAnimationDoneCmd);
     }
 
     private Widget getWidget(String[] cssIds) {
