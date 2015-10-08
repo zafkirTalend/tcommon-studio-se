@@ -293,12 +293,12 @@ public class JavaResourcesHelper {
             ExceptionHandler.process(e);
         }
         if (rvo != null) {
-            return getResouceClasspath(rvo.getProperty().getItem());
+            return getResouceClasspath(rvo.getProperty().getItem(), resourceVersion);
         }
         return ""; //$NON-NLS-1$
     }
 
-    public static String getResouceClasspath(Item item) {
+    public static String getResouceClasspath(Item item, String resourceVersion) {
         String resouceClasspath = item.getState().getPath();
         if (resouceClasspath != null && !resouceClasspath.isEmpty()) {
             resouceClasspath += '/';
@@ -306,10 +306,10 @@ public class JavaResourcesHelper {
             resouceClasspath = ""; //$NON-NLS-1$
         }
         String fileName = item.getProperty().getLabel();
-        if (!RelationshipItemBuilder.LATEST_VERSION.equals(item.getProperty().getVersion())) {
+        if (!RelationshipItemBuilder.LATEST_VERSION.equals(resourceVersion)) {
             final IPath path = new Path(fileName);
             final String fileExtension = path.getFileExtension();
-            fileName = path.removeFileExtension().toPortableString() + '_' + item.getProperty().getVersion();
+            fileName = path.removeFileExtension().toPortableString() + '_' + resourceVersion;
             if (fileExtension != null && !fileExtension.isEmpty()) {
                 fileName += '.' + fileExtension;
             }
