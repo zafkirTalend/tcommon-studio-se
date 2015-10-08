@@ -203,12 +203,6 @@ public class OnBoardingShell {
         if (focusedWidget == null || focusedWidget.isDisposed()) {
             contentArea.x = clientArea.x + ((clientArea.width - contentArea.width) / 2);
             contentArea.y = clientArea.y + ((clientArea.height - contentArea.height) / 2);
-            Rectangle emptyRectangle = new Rectangle(0, 0, 0, 0);
-            if (prevHighlightArea != null && prevHighlightArea.equals(emptyRectangle)) {
-                return;
-            } else {
-                prevHighlightArea = emptyRectangle;
-            }
             // not use it by default
             presentationData.setPointerDirrection(null);
         } else {
