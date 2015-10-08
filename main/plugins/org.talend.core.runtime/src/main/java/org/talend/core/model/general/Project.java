@@ -264,7 +264,7 @@ public class Project {
                 return false;
             }
         } else if (!this.project.equals(other.project)) {
-        	if(this.project.getTechnicalLabel().equals(project.getTechnicalLabel()))
+        	if(this.project.getTechnicalLabel().equals(other.project.getTechnicalLabel()))
         		return true;
             return false;
         }
