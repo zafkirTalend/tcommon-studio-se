@@ -44,7 +44,7 @@ public class ContextAutoResizeTextPainter extends TextPainter {
         if (cellStyle.getAttributeValue(CellStyleAttributes.FOREGROUND_COLOR).equals(GUIHelper.COLOR_RED)) {
             gc.setForeground(GUIHelper.COLOR_BLACK);
         } else if (changeBackgroundColor) {
-            gc.setForeground(GUIHelper.COLOR_GRAY);
+            gc.setForeground(GUIHelper.COLOR_WIDGET_DARK_SHADOW);
         }
     }
 
