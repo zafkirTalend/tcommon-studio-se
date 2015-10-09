@@ -446,8 +446,8 @@ public final class OtherConnectionContextUtils {
             paramName = prefixName + EParamName.TimeOut;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut(), JavaTypesManager.INTEGER);
 
-            paramName = prefixName + EParamName.QueryCondition;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
+            // paramName = prefixName + EParamName.QueryCondition;
+            // ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
 
             paramName = prefixName + EParamName.SFProxyHost;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getProxyHost());
@@ -490,8 +490,8 @@ public final class OtherConnectionContextUtils {
             paramName = prefixName + EParamName.TimeOut;
             ConnectionContextHelper.createParameters(varList, paramName, ssConn.getTimeOut(), JavaTypesManager.INTEGER);
 
-            paramName = prefixName + EParamName.QueryCondition;
-            ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
+            // paramName = prefixName + EParamName.QueryCondition;
+            // ConnectionContextHelper.createParameters(varList, paramName, ssConn.getQueryCondition());
         }
         return varList;
     }
