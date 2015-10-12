@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
+import org.talend.core.ui.advanced.composite.PatternFilter;
 
 /**
  * created by ycbai on 2015年10月8日 Detailled comment
@@ -58,7 +59,7 @@ public class ElementsSelectionComposite<T> extends Composite {
         if (multipleSelection) {
             styles = styles | SWT.MULTI;
         }
-        FilteredCheckboxTree filteredCheckboxTree = new FilteredCheckboxTree(this, styles);
+        FilteredCheckboxTree filteredCheckboxTree = new FilteredCheckboxTree(this, styles, new PatternFilter());
         viewer = filteredCheckboxTree.getViewer();
         viewer.setContentProvider(getContentProvider());
         viewer.setLabelProvider(getLabelProvider());

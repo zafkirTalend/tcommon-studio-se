@@ -12,13 +12,12 @@
 // ============================================================================
 package org.talend.core.ui.check;
 
-
 /**
  * 
- * created by ycbai on 2015年9月30日 Detailled comment
+ * created by ycbai on 2015年10月9日 Detailled comment
  *
  */
-public interface ICheckedComposite {
+public interface IChecker {
 
     public void setListener(ICheckListener listener);
 
