@@ -27,6 +27,7 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
 import org.eclipse.swt.accessibility.AccessibleEvent;
@@ -68,6 +69,8 @@ public class FilteredCheckboxTree extends Composite {
      * or if the controls have not yet been created.
      */
     protected Text filterText;
+
+    protected ModifyListener filterTextModifyListener;
 
     /**
      * The control representing the clear button for the filter text entry. This value may be <code>null</code> if no
@@ -199,7 +202,7 @@ public class FilteredCheckboxTree extends Composite {
         showFilterControls = PlatformUI.getPreferenceStore().getBoolean(IWorkbenchPreferenceConstants.SHOW_FILTERED_TEXTS);
         createControl(parent, treeStyle);
         createRefreshJob();
-        setInitialText(WorkbenchMessages.FilteredTree_FilterMessage);
+
         setFont(parent.getFont());
     }
 
@@ -284,7 +287,6 @@ public class FilteredCheckboxTree extends Composite {
         if (treeViewer instanceof NotifyingTreeViewer) {
             patternFilter.setUseCache(true);
         }
-        treeViewer.addFilter(patternFilter);
         return treeViewer.getControl();
     }
 
@@ -363,7 +365,6 @@ public class FilteredCheckboxTree extends Composite {
                     // }
                     // }
                     treeViewer.refresh(true);
-
                     if (text.length() > 0 && !initial) {
                         /*
                          * Expand elements one at a time. After each is expanded, check to see if the filter text has
@@ -453,6 +454,7 @@ public class FilteredCheckboxTree extends Composite {
      */
     protected void createFilterText(Composite parent) {
         filterText = doCreateFilterText(parent);
+        setInitialText(WorkbenchMessages.FilteredTree_FilterMessage);
         filterText.getAccessible().addAccessibleListener(new AccessibleAdapter() {
 
             /*
@@ -545,7 +547,7 @@ public class FilteredCheckboxTree extends Composite {
             }
         });
 
-        filterText.addModifyListener(new ModifyListener() {
+        filterTextModifyListener = new ModifyListener() {
 
             /*
              * (non-Javadoc)
@@ -556,7 +558,8 @@ public class FilteredCheckboxTree extends Composite {
             public void modifyText(ModifyEvent e) {
                 textChanged();
             }
-        });
+        };
+        filterText.addModifyListener(filterTextModifyListener);
 
         GridData gridData = new GridData(SWT.FILL, SWT.BEGINNING, true, false);
         // if the text widget supported cancel then it will have it's own
@@ -594,6 +597,19 @@ public class FilteredCheckboxTree extends Composite {
         calculateCheckedLeafNodes();
         // narrowingDown = previousFilterText==null || getFilterString().startsWith(previousFilterText);
         previousFilterText = getFilterString();
+
+        boolean hasPatternFilter = false;
+        for (ViewerFilter filter : treeViewer.getFilters()) {
+            if (filter == patternFilter) {
+                hasPatternFilter = true;
+            }
+        }
+        // add pattern filter to be the last filter
+        if (!hasPatternFilter) {
+            patternFilter.setOtherFilters(treeViewer.getFilters());
+            treeViewer.addFilter(patternFilter);
+        }
+
         // cancel currently running job first, to prevent unnecessary redraw
         refreshJob.cancel();
         refreshJob.schedule(200);
@@ -700,6 +716,7 @@ public class FilteredCheckboxTree extends Composite {
                 }
             };
 
+            // clearTextAction.setToolTipText(WorkbenchMessages.FilteredTree_ClearToolTip);
             clearTextAction.setToolTipText(WorkbenchMessages.FilteredTree_ClearToolTip);
             clearTextAction.setImageDescriptor(JFaceResources.getImageRegistry().getDescriptor(CLEAR_ICON));
             clearTextAction.setDisabledImageDescriptor(JFaceResources.getImageRegistry().getDescriptor(DCLEAR_ICON));
@@ -774,8 +791,13 @@ public class FilteredCheckboxTree extends Composite {
      */
     public void setInitialText(String text) {
         initialText = text;
+        if (filterTextModifyListener != null) {
+            filterText.removeModifyListener(filterTextModifyListener);
+        }
         setFilterText(initialText);
-        textChanged();
+        if (filterTextModifyListener != null) {
+            filterText.addModifyListener(filterTextModifyListener);
+        }
     }
 
     /**

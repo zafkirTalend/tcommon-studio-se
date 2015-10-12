@@ -28,6 +28,13 @@ import org.eclipse.ui.internal.misc.StringMatcher;
  */
 public class PatternFilter extends ViewerFilter {
 
+    private ViewerFilter[] otherFilters;
+
+    /**
+     * Cache of element filtered by other filters
+     */
+    private Map<Object, Object[]> filteredByOthersCache = new HashMap<Object, Object[]>();
+
     /*
      * Cache of filtered elements in the tree
      */
@@ -66,6 +73,10 @@ public class PatternFilter extends ViewerFilter {
         // needs to be addressed in 3.4
         // https://bugs.eclipse.org/bugs/show_bug.cgi?id=186404
         if (matcher == null && useEarlyReturnIfMatcherIsNull) {
+            return elements;
+        }
+
+        if (elements.length == 0) {
             return elements;
         }
 
@@ -240,7 +251,17 @@ public class PatternFilter extends ViewerFilter {
      * @return true if the given element has children that matches the filter text
      */
     protected boolean isParentMatch(Viewer viewer, Object element) {
-        Object[] children = ((ITreeContentProvider) ((AbstractTreeViewer) viewer).getContentProvider()).getChildren(element);
+        Object[] children = filteredByOthersCache.get(element);
+        if (children == null) {
+            // fix for TDI-31520 , no need to check child elements already filtered by others
+            children = ((ITreeContentProvider) ((AbstractTreeViewer) viewer).getContentProvider()).getChildren(element);
+            if (otherFilters != null) {
+                for (ViewerFilter filter : otherFilters) {
+                    children = filter.filter(viewer, element, children);
+                }
+            }
+            filteredByOthersCache.put(element, children);
+        }
 
         if ((children != null) && (children.length > 0)) {
             return isAnyVisible(viewer, element, children);
@@ -301,5 +322,14 @@ public class PatternFilter extends ViewerFilter {
      */
     void setUseCache(boolean useCache) {
         this.useCache = useCache;
+    }
+
+    /**
+     * Sets the otherFilters.
+     * 
+     * @param otherFilters the otherFilters to set
+     */
+    public void setOtherFilters(ViewerFilter[] otherFilters) {
+        this.otherFilters = otherFilters;
     }
 }
