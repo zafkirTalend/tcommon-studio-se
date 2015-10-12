@@ -15,6 +15,7 @@ package org.talend.metadata.managment.mdm;
 import java.io.File;
 import java.util.List;
 
+import org.apache.axis.client.Stub;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 
 /**
@@ -23,15 +24,13 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
  */
 public abstract class AbsMdmConnectionHelper {
 
-    public abstract Object checkConnection(String url, String universe, String userName, String password) throws Exception;
+    public abstract Stub checkConnection(String url, String universe, String userName, String password) throws Exception;
 
-    public abstract List<String> getPKs(Object stub, String getDataPKsMethod, String dataPKsClass, String pkRegex,
-            String getWsDataPKsMethod) throws Exception;
+    public abstract List<String> getPKs(Stub stub, String modelOrContainerMethod, String modelOrContainerClass, String pkRegex)
+            throws Exception;
 
     public abstract void initConcept(MDMConnection mdmConn, File file) throws Exception;
 
-    public abstract String getXsdSchema(Object stub, String resName) throws Exception;
-
-    public abstract void resetUniverseUser(Object stub, String userName);
+    public abstract String getXsdSchema(Stub stub, String resName) throws Exception;
 
 }

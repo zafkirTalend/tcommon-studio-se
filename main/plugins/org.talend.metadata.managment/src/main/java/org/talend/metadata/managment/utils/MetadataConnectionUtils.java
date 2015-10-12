@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.axis.client.Stub;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -787,7 +788,7 @@ public class MetadataConnectionUtils {
      * @throws ServiceException
      * @noreference This method is not intended to be referenced by clients.
      */
-    public static Object getXtentisBindingStub(IMetadataConnection metadataBean) throws Exception {
+    public static Stub getXtentisBindingStub(IMetadataConnection metadataBean) throws Exception {
 
         AbsMdmConnectionHelper connectionHelper = null;
         if (MDMVersions.MDM_S60.getKey().equals(metadataBean.getVersion())) {
@@ -813,7 +814,7 @@ public class MetadataConnectionUtils {
      * @return
      * @throws ServiceException
      */
-    public static Object getXtentisBindingStub(MDMConnection dataProvider) throws Exception {
+    public static Stub getXtentisBindingStub(MDMConnection dataProvider) throws Exception {
         AbsMdmConnectionHelper connectionHelper = null;
         if (MDMVersions.MDM_S60.getKey().equals(dataProvider.getVersion())) {
             connectionHelper = new S60MdmConnectionHelper();

@@ -34,7 +34,7 @@ import org.talend.core.utils.ReflectionUtils;
 public class S56MdmConnectionHelper extends AbsMdmConnectionHelper {
 
     @Override
-    public Object checkConnection(String url, String universe, String userName, String password) throws Exception {
+    public Stub checkConnection(String url, String universe, String userName, String password) throws Exception {
         Stub stub = null;
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S56.name(), this.getClass()
                 .getClassLoader());
@@ -74,13 +74,13 @@ public class S56MdmConnectionHelper extends AbsMdmConnectionHelper {
      * @return
      */
     @Override
-    public List<String> getPKs(Object stub, String getDataPKsMethod, String dataPKsClass, String pkRegex,
-            String getWsDataPKsMethod) throws Exception {
+    public List<String> getPKs(Stub stub, String modelOrContainerMethod, String modelOrContainerClass, String pkRegex)
+            throws Exception {
         List<String> dataModelStrs = new ArrayList<String>();
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S56.name(), this.getClass()
                 .getClassLoader());
-        Object modelPK = ReflectionUtils.newInstance(dataPKsClass, classLoader, new Object[] { pkRegex });
-        Object dataModels = ReflectionUtils.invokeMethod(stub, getDataPKsMethod, new Object[] { modelPK });
+        Object modelPK = ReflectionUtils.newInstance(modelOrContainerClass, classLoader, new Object[] { pkRegex });
+        Object dataModels = ReflectionUtils.invokeMethod(stub, modelOrContainerMethod, new Object[] { modelPK });
         if (dataModels instanceof Object[]) {
             Object[] dataModelArray = (Object[]) dataModels;
             for (Object dataModel : dataModelArray) {
@@ -160,7 +160,7 @@ public class S56MdmConnectionHelper extends AbsMdmConnectionHelper {
     }
 
     @Override
-    public String getXsdSchema(Object stub, String resName) throws Exception {
+    public String getXsdSchema(Stub stub, String resName) throws Exception {
         String xsdSchema = "";
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S56.name(), this.getClass()
                 .getClassLoader());
@@ -193,19 +193,6 @@ public class S56MdmConnectionHelper extends AbsMdmConnectionHelper {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.metadata.managment.mdm.AbsMdmConnectionHelper#resetStubUser(java.lang.Object, java.lang.String)
-     */
-    @Override
-    public void resetUniverseUser(Object stub, String universeUser) {
-        if (stub instanceof Stub) {
-            Stub stub2 = (Stub) stub;
-            stub2.setUsername(universeUser + stub2.getUsername());
         }
     }
 }

@@ -15,6 +15,7 @@ package org.talend.repository.mdm.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.axis.client.Stub;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.swt.SWT;
@@ -54,7 +55,9 @@ public class UniverseForm extends AbstractForm {
 
     private List<String> clusterList = new ArrayList<String>();
 
-    private Object stub;
+    private String username;
+
+    private Stub stub;
 
     private ConnectionItem connectionItem;
 
@@ -80,6 +83,7 @@ public class UniverseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.universePage = universePage;
         stub = ((MDMWizardPage) (universePage.getPreviousPage())).getXtentisBindingStub();
+        username = stub.getUsername();
         if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
             connectionHelper = new S60MdmConnectionHelper();
             pkRegex = "*";
@@ -149,17 +153,18 @@ public class UniverseForm extends AbstractForm {
                         checkFieldsValue();
                         return;
                     }
-                    if (universeValue != null && universeValue.trim().length() != 0) {
-                        connectionHelper.resetUniverseUser(stub, universeValue + "/");
+                    if (universeValue == null || universeValue.trim().length() == 0) {
+                        stub.setUsername(username);
+                    } else {
+                        stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
                     }
                     try {
                         //                        WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
                         List<String> models = connectionHelper.getPKs(stub,
-                                "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs", pkRegex, "getWsDataModelPKs");//$NON-NLS-1$
+                                "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs", pkRegex);//$NON-NLS-1$
                         //                        WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
-                        List<String> clusters = connectionHelper
-                                .getPKs(stub,
-                                        "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs", pkRegex, "getWsDataClusterPKs");//$NON-NLS-1$
+                        List<String> clusters = connectionHelper.getPKs(stub,
+                                "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs", pkRegex);//$NON-NLS-1$
                         refreshModelCombo(models);
                         refreshClusterCombo(clusters);
 
@@ -249,15 +254,17 @@ public class UniverseForm extends AbstractForm {
             }
         }
 
-        if (!isUniverseNull) {
-            connectionHelper.resetUniverseUser(stub, universeValue + "/");
+        if (isUniverseNull) {
+            stub.setUsername(username);
+        } else {
+            stub.setUsername(universeValue + "/" + username);//$NON-NLS-1$
         }
         try {
             List<String> models = connectionHelper.getPKs(stub,
-                    "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs", pkRegex, "getWsDataModelPKs");//$NON-NLS-1$
+                    "getDataModelPKs", "org.talend.mdm.webservice.WSRegexDataModelPKs", pkRegex);//$NON-NLS-1$
             //            WSDataModelPK[] models = stub.getDataModelPKs(new WSRegexDataModelPKs(""));//$NON-NLS-1$
             List<String> clusters = connectionHelper.getPKs(stub,
-                    "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs", pkRegex, "getWsDataClusterPKs");//$NON-NLS-1$
+                    "getDataClusterPKs", "org.talend.mdm.webservice.WSRegexDataClusterPKs", pkRegex);//$NON-NLS-1$
             //            WSDataClusterPK[] clusters = stub.getDataClusterPKs(new WSRegexDataClusterPKs(""));//$NON-NLS-1$
             refreshModelCombo(models);
             refreshClusterCombo(clusters);
@@ -355,7 +362,7 @@ public class UniverseForm extends AbstractForm {
         }
         try {
             List<String> universe = connectionHelper.getPKs(stub,
-                    "getUniversePKs", "org.talend.mdm.webservice.WSGetUniversePKs", pkRegex, null);//$NON-NLS-1$
+                    "getUniversePKs", "org.talend.mdm.webservice.WSGetUniversePKs", pkRegex);//$NON-NLS-1$
             if (universe != null) {
                 universList.addAll(universe);
             }

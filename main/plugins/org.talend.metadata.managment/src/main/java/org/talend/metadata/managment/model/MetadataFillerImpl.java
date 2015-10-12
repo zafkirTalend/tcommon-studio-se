@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.axis.client.Stub;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.core.IRepositoryContextService;
@@ -403,7 +404,7 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         if (EDataBaseType.MDM.getProductName().equalsIgnoreCase(metadataBean.getDbType())) {
             try {
-                Object stub = MetadataConnectionUtils.getXtentisBindingStub(metadataBean);
+                Stub stub = MetadataConnectionUtils.getXtentisBindingStub(metadataBean);
                 if (stub != null) {
                     rc.setOk(true);
                     rc.setMessage("OK"); //$NON-NLS-1$

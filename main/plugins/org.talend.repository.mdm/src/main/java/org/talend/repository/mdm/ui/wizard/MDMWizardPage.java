@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.mdm.ui.wizard;
 
+import org.apache.axis.client.Stub;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.properties.ConnectionItem;
@@ -80,7 +81,7 @@ public class MDMWizardPage extends WizardPage {
         }
     }
 
-    public Object getXtentisBindingStub() {
+    public Stub getXtentisBindingStub() {
         return mdmForm.getXtentisBindingStub();
     }
 

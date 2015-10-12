@@ -17,13 +17,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.ws.BindingProvider;
-
+import org.apache.axis.client.Stub;
 import org.talend.core.classloader.ClassLoaderFactory;
 import org.talend.core.classloader.DynamicClassLoader;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
@@ -43,8 +40,8 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public Object checkConnection(String url, String universe, String userName, String password) throws Exception {
-        BindingProvider stub = null;
+    public Stub checkConnection(String url, String universe, String userName, String password) throws Exception {
+        Stub stub = null;
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
                 .getClassLoader());
         stub = getStub(classLoader, url, universe, userName, password);
@@ -52,18 +49,23 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
         return stub;
     }
 
-    private BindingProvider getStub(DynamicClassLoader classLoader, String url, String universe, String userName, String password)
+    private Stub getStub(DynamicClassLoader classLoader, String url, String universe, String userName, String password)
             throws Exception {
-        BindingProvider stub = null;
-        Object serviceService = ReflectionUtils.newInstance("org.talend.mdm.webservice.TMDMService_Service", classLoader,
-                new Object[] { new URL(url) });
-        Object invokeMethod = ReflectionUtils.invokeMethod(serviceService, "getTMDMPort", new Object[0]);
-        if (invokeMethod instanceof BindingProvider) {
-            stub = (BindingProvider) invokeMethod;
-            Map<String, Object> requestContext = stub.getRequestContext();
-            requestContext.put(javax.xml.ws.BindingProvider.SESSION_MAINTAIN_PROPERTY, false);
-            requestContext.put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY, userName);
-            requestContext.put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY, password);
+        Stub stub = null;
+        Object serviceLocator = ReflectionUtils.newInstance("org.talend.mdm.webservice.TMDMService_ServiceLocator", classLoader,
+                new Object[0]);
+        ReflectionUtils.invokeMethod(serviceLocator, "setTMDMPortEndpointAddress", new Object[] { url });
+        Object invokeMethod = ReflectionUtils.invokeMethod(serviceLocator, "getTMDMPort", new Object[0]);
+        if (invokeMethod instanceof Stub) {
+            stub = (Stub) invokeMethod;
+            if (universe == null || universe.trim().length() == 0) {
+                stub.setUsername(userName);
+            }
+            // no need for 6.0
+            // else {
+            //                stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
+            // }
+            stub.setPassword(password);
             Object wsping = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSPing", classLoader, new Object[0]);
             ReflectionUtils.invokeMethod(stub, "ping", new Object[] { wsping });
         }
@@ -77,16 +79,15 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
      * java.lang.String, java.lang.String)
      */
     @Override
-    public List<String> getPKs(Object stub, String getDataPKsMethod, String dataPKsClass, String pkRegex,
-            String getWsDataPKsMethod) throws Exception {
+    public List<String> getPKs(Stub stub, String modelOrContainerMethod, String modelOrContainerClass, String pkRegex)
+            throws Exception {
         List<String> dataModelStrs = new ArrayList<String>();
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
                 .getClassLoader());
-        Object modelPK = ReflectionUtils.newInstance(dataPKsClass, classLoader, new Object[] { pkRegex });
-        Object dataModelsPKArray = ReflectionUtils.invokeMethod(stub, getDataPKsMethod, new Object[] { modelPK });
-        Object dataModels = ReflectionUtils.invokeMethod(dataModelsPKArray, getWsDataPKsMethod, new Object[0]);
-        if (dataModels instanceof List) {
-            List dataModelArray = (List) dataModels;
+        Object modelPK = ReflectionUtils.newInstance(modelOrContainerClass, classLoader, new Object[] { pkRegex });
+        Object dataModels = ReflectionUtils.invokeMethod(stub, modelOrContainerMethod, new Object[] { modelPK });
+        if (dataModels instanceof Object[]) {
+            Object[] dataModelArray = (Object[]) dataModels;
             for (Object dataModel : dataModelArray) {
                 Object pk = ReflectionUtils.invokeMethod(dataModel, "getPk", new Object[0]);
                 if (pk instanceof String) {
@@ -115,13 +116,23 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
                 .getClassLoader());
         String url = mdmConn.getServerUrl();
-        Object stub = getStub(classLoader, url, universe, userName, password);
+        Stub stub = getStub(classLoader, url, universe, userName, password);
         if (stub == null) {
             return;
         }
+        stub.setUsername(userName);
+        stub.setPassword(password);
 
         Object wsping = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSPing", classLoader, new Object[0]);
         ReflectionUtils.invokeMethod(stub, "ping", new Object[] { wsping });
+
+        if (universe != null && !"".equals(universe)) { //$NON-NLS-1$
+            stub.setUsername(universe + "/" + userName); //$NON-NLS-1$
+            stub.setPassword(password);
+        } else {
+            stub.setUsername(userName);
+            stub.setPassword(password);
+        }
 
         // find data model pk
         Object wsModelPKs = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSRegexDataModelPKs", classLoader,
@@ -130,10 +141,9 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
         if (dataModelPKs == null) {
             return;
         }
-        Object wsDataModelPKs = ReflectionUtils.invokeMethod(dataModelPKs, "getWsDataModelPKs", new Object[0]);
         Object findDataModelPK = null;
-        if (wsDataModelPKs instanceof List) {
-            List dataModelPKArray = (List) wsDataModelPKs;
+        if (dataModelPKs instanceof Object[]) {
+            Object[] dataModelPKArray = (Object[]) dataModelPKs;
             for (Object dataModelPK : dataModelPKArray) {
                 Object pk = ReflectionUtils.invokeMethod(dataModelPK, "getPk", new Object[0]);
                 if (datamodel != null && datamodel.equals(pk)) {
@@ -162,7 +172,7 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
     }
 
     @Override
-    public String getXsdSchema(Object stub, String resName) throws Exception {
+    public String getXsdSchema(Stub stub, String resName) throws Exception {
         String xsdSchema = "";
         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
                 .getClassLoader());
@@ -196,18 +206,6 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.metadata.managment.mdm.AbsMdmConnectionHelper#resetUniverseUser(java.lang.Object,
-     * java.lang.String)
-     */
-    @Override
-    public void resetUniverseUser(Object stub, String userName) {
-        // TODO Auto-generated method stub
-
     }
 
 }
