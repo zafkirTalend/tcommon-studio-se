@@ -16,6 +16,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -25,8 +28,10 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
-import org.talend.core.ui.branding.IBrandingService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.RepositoryNode;
@@ -78,7 +83,7 @@ public class JavaResourcesHelper {
     public static String getJobFolderName(String jobName, String version) {
         String newJobName = escapeFileName(jobName).toLowerCase();
         if (version != null) {
-            newJobName += '_' + version.replace(".", "_"); //$NON-NLS-1$ //$NON-NLS-2$ 
+            newJobName += '_' + version.replace('.', '_'); 
         }
         return newJobName;
     }
@@ -93,7 +98,7 @@ public class JavaResourcesHelper {
     }
 
     public static String escapeFileName(final String fileName) {
-        return fileName != null ? fileName.replace(" ", "_") : ""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return fileName != null ? fileName.replace(' ', '_') : ""; //$NON-NLS-1$
     }
 
     /**
@@ -275,4 +280,41 @@ public class JavaResourcesHelper {
     public static String getJobContextFileName(IContext c) {
         return getJobContextName(c) + JavaUtils.JAVA_CONTEXT_EXTENSION;
     }
+
+    public static String getResouceClasspath(String resourceId, String resourceVersion) {
+        IRepositoryViewObject rvo = null;
+        try {
+            if (RelationshipItemBuilder.LATEST_VERSION.equals(resourceVersion)) {
+                rvo = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getLastVersion(resourceId);
+            } else {
+                rvo = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getSpecificVersion(resourceId, resourceVersion, true);
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+        if (rvo != null) {
+            return getResouceClasspath(rvo.getProperty().getItem(), resourceVersion);
+        }
+        return ""; //$NON-NLS-1$
+    }
+
+    public static String getResouceClasspath(Item item, String resourceVersion) {
+        String resouceClasspath = item.getState().getPath();
+        if (resouceClasspath != null && !resouceClasspath.isEmpty()) {
+            resouceClasspath += '/';
+        } else {
+            resouceClasspath = ""; //$NON-NLS-1$
+        }
+        String fileName = item.getProperty().getLabel();
+        if (!RelationshipItemBuilder.LATEST_VERSION.equals(resourceVersion)) {
+            final IPath path = new Path(fileName);
+            final String fileExtension = path.getFileExtension();
+            fileName = path.removeFileExtension().toPortableString() + '_' + resourceVersion;
+            if (fileExtension != null && !fileExtension.isEmpty()) {
+                fileName += '.' + fileExtension;
+            }
+        }
+        return resouceClasspath + fileName;
+    }
+
 }

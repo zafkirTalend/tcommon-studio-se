@@ -16,6 +16,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.concurrent.Callable;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -78,7 +79,7 @@ public class OnBoardingUtils {
     }
 
     public static void setVisible(boolean visible, final Shell shell, final int totalAnimateTime, final int sleepTime,
-            final int initialAlpha, final int finalAlphaValue) {
+            final int initialAlpha, final int finalAlphaValue, final Callable onFinish) {
         final int executeTimes = totalAnimateTime / sleepTime;
         // seems have bugs maybe related to multithread, need to check it in some day, currently always set it enable
         // after finished the execution
@@ -131,6 +132,13 @@ public class OnBoardingUtils {
                             }
                         }
                     });
+                    if (onFinish != null) {
+                        try {
+                            onFinish.call();
+                        } catch (Exception e) {
+                            OnBoardingExceptionHandler.process(e);
+                        }
+                    }
                 }
             }).start();
         } else {
@@ -151,6 +159,13 @@ public class OnBoardingUtils {
             // shell.setEnabled(originalEnable);
             shell.setEnabled(true);
             shell.setVisible(visible);
+            if (onFinish != null) {
+                try {
+                    onFinish.call();
+                } catch (Exception e) {
+                    OnBoardingExceptionHandler.process(e);
+                }
+            }
         }
     }
 

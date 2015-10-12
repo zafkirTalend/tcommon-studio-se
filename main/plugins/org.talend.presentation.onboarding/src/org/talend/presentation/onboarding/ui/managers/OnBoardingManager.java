@@ -156,7 +156,7 @@ public class OnBoardingManager {
         uiManager.refreshOnBoarding();
     }
 
-    protected void executeCommand(OnBoardingCommandBean commandBean) {
+    public void executeCommand(OnBoardingCommandBean commandBean) {
         String commandId = null;
         if (commandBean == null || (commandId = commandBean.getCommandId()) == null || commandId.isEmpty()) {
             return;

@@ -552,7 +552,7 @@ public final class ElementParameterParser {
                 }
                 return processItem.getProperty().getVersion();
             }
-            if ("PROCESS_TYPE_CONTEXT".equals(param.getName())) { //$NON-NLS-1$
+            else if ("PROCESS_TYPE_CONTEXT".equals(param.getName())) { //$NON-NLS-1$
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -574,8 +574,7 @@ public final class ElementParameterParser {
                 }
                 return (String) value;
             }
-
-            if ("SELECTED_JOB_NAME".equals(param.getName())) {
+            else if ("SELECTED_JOB_NAME".equals(param.getName())) {
                 String jobId = (String) param.getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -584,7 +583,7 @@ public final class ElementParameterParser {
                 return processItem.getProperty().getLabel();
             }
             // hywang add for 6484
-            if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
+            else if ("SELECTED_FILE".equals(param.getRepositoryValue())) { //$NON-NLS-1$
                 IElementParameter propertyParam = param.getElement().getElementParameter("PROPERTY:REPOSITORY_PROPERTY_TYPE"); //$NON-NLS-1$
                 if (propertyParam != null && propertyParam.getValue() != null && !propertyParam.getValue().equals("")) { //$NON-NLS-1$
                     try {

@@ -23,11 +23,14 @@ import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Information;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryEditorInput;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.model.RepositoryNode;
@@ -45,6 +48,8 @@ public interface ITestContainerProviderService extends IService {
     public boolean isTestContainerProcess(IProcess process);
 
     public boolean isTestContainerItem(Item item);
+
+    public boolean hasTestCase(IRepositoryObject repoObj);
 
     public ProcessType getTestContainerProcess(Item item);
 
@@ -100,4 +105,6 @@ public interface ITestContainerProviderService extends IService {
 
     public IRepositoryEditorInput createTestCaseEditorInput(ProcessItem junitItem, boolean load, String originalJobID,
             List<INode> testNodes, Boolean lastVersion, Boolean readonly) throws PersistenceException;
+
+    public ProcessType loadSVNTestContainer(Item item, IProcess2 loadedProcess, Property loadProperty);
 }

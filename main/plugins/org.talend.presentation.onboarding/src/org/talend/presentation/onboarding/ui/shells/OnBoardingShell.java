@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.presentation.onboarding.ui.shells;
 
+import java.util.concurrent.Callable;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
@@ -57,6 +59,8 @@ public class OnBoardingShell {
     private OnBoardingContentComposite contentComposite;
 
     private OnBoardingManager onBoardingManager;
+
+    private Rectangle prevHighlightArea = null;
 
     private boolean isOpened = false;
 
@@ -160,7 +164,19 @@ public class OnBoardingShell {
     }
 
     public void setVisible(boolean visible) {
-        OnBoardingUtils.setVisible(visible, obShell, totalAnimateTime, sleepTime, initialAlpha, finalAlphaValue);
+        Callable<Boolean> onShowAnimationFinish = null;
+        if (visible) {
+            onShowAnimationFinish = new Callable<Boolean>() {
+
+                @Override
+                public Boolean call() throws Exception {
+                    onBoardingManager.getUiManager().onShowAnimationDone();
+                    return null;
+                }
+            };
+        }
+        OnBoardingUtils.setVisible(visible, obShell, totalAnimateTime, sleepTime, initialAlpha, finalAlphaValue,
+                onShowAnimationFinish);
     }
 
     public void refreshInUIThread() {
@@ -182,15 +198,23 @@ public class OnBoardingShell {
         Rectangle clientArea = parentShell.getClientArea();
 
         Rectangle contentArea = presentationData.getContentArea();
-        // not use it by default
-        presentationData.setPointerDirrection(null);
 
         Rectangle highlightArea = null;
         if (focusedWidget == null || focusedWidget.isDisposed()) {
             contentArea.x = clientArea.x + ((clientArea.width - contentArea.width) / 2);
             contentArea.y = clientArea.y + ((clientArea.height - contentArea.height) / 2);
+            prevHighlightArea = new Rectangle(0, 0, 0, 0);
+            // not use it by default
+            presentationData.setPointerDirrection(null);
         } else {
             highlightArea = WidgetFinder.getBounds(focusedWidget);
+            if (prevHighlightArea != null && prevHighlightArea.equals(highlightArea)) {
+                return;
+            } else {
+                prevHighlightArea = highlightArea;
+            }
+            // not use it by default
+            presentationData.setPointerDirrection(null);
 
             int topSpace = highlightArea.y - clientArea.y;
             int bottomSpace = (clientArea.y + clientArea.height) - (highlightArea.y + highlightArea.height);

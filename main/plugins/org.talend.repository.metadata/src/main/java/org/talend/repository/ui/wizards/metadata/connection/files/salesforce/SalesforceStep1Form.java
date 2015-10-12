@@ -799,7 +799,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 addContextParams(EParamName.WebServiceUrl, visible);
                 addContextParams(EParamName.UserName, visible);
                 addContextParams(EParamName.Password, visible);
-                addContextParams(EParamName.QueryCondition, visible);
+                // addContextParams(EParamName.QueryCondition, visible);
                 addContextParams(EParamName.SFProxyHost, visible);
                 addContextParams(EParamName.SFProxyPort, visible);
                 addContextParams(EParamName.SFProxyUsername, visible);
@@ -813,7 +813,7 @@ public class SalesforceStep1Form extends AbstractSalesforceStepForm {
                 addContextParams(EParamName.SalesforceVersion, visible);
                 addContextParams(EParamName.token, visible);
 
-                addContextParams(EParamName.QueryCondition, false);
+                // addContextParams(EParamName.QueryCondition, false);
                 addContextParams(EParamName.SFProxyHost, false);
                 addContextParams(EParamName.SFProxyPort, false);
                 addContextParams(EParamName.SFProxyUsername, false);
