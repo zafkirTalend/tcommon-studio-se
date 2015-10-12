@@ -19,6 +19,6 @@ package org.talend.core.ui.check;
  */
 public interface ICheckListener {
 
-    public void checkPerformed(ICheckedComposite source);
+    public void checkPerformed(IChecker source);
 
 }

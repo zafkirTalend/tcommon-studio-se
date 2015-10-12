@@ -93,7 +93,8 @@ public enum EParameterFieldType {
     DATA_PREP_ID, // wchen added for TDI-33791
     FETCH_SCHEMA, // TDI-33791
 
-    BUTTON // ycbai added for generic wizard
+    BUTTON, // ycbai added for generic wizard
+    NAME_SELECTION_AREA, // ycbai added for generic wizard
 
     ;
 

@@ -1,0 +1,138 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.ui.composite;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
+import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
+
+/**
+ * created by ycbai on 2015年10月8日 Detailled comment
+ *
+ */
+public class ElementsSelectionComposite<T> extends Composite {
+
+    private CheckboxTreeViewer viewer;
+
+    public ElementsSelectionComposite(Composite parent) {
+        this(parent, SWT.NONE);
+    }
+
+    public ElementsSelectionComposite(Composite parent, int style) {
+        super(parent, style);
+        GridLayout gridLayout = new GridLayout();
+        gridLayout.marginWidth = 0;
+        gridLayout.marginHeight = 0;
+        setLayout(gridLayout);
+        createControl();
+    }
+
+    private void createControl() {
+        FilteredCheckboxTree filteredCheckboxTree = new FilteredCheckboxTree(this, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL
+                | SWT.MULTI);
+        viewer = filteredCheckboxTree.getViewer();
+        viewer.setContentProvider(getContentProvider());
+        viewer.setLabelProvider(getLabelProvider());
+        viewer.addCheckStateListener(new ICheckStateListener() {
+
+            @Override
+            public void checkStateChanged(CheckStateChangedEvent event) {
+                doSelectionChanged();
+            }
+        });
+    }
+
+    protected void doSelectionChanged() {
+        // Do nothing by default.
+    }
+
+    protected IContentProvider getContentProvider() {
+        return new ITreeContentProvider() {
+
+            @Override
+            public Object[] getChildren(Object parentElement) {
+                return null;
+            }
+
+            @Override
+            public Object[] getElements(Object inputElement) {
+                if (inputElement instanceof List) {
+                    return ((List) inputElement).toArray();
+                }
+                return new Object[] { inputElement };
+            }
+
+            @Override
+            public boolean hasChildren(Object element) {
+                return false;
+            }
+
+            @Override
+            public Object getParent(Object element) {
+                return null;
+            }
+
+            @Override
+            public void dispose() {
+            }
+
+            @Override
+            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+            }
+
+        };
+    }
+
+    protected IBaseLabelProvider getLabelProvider() {
+        return new LabelProvider() {
+
+            @Override
+            public String getText(Object obj) {
+                return obj.toString();
+            }
+
+            @Override
+            public Image getImage(Object obj) {
+                return null;
+            }
+        };
+    }
+
+    public void setViewerData(List<T> nls) {
+        viewer.setInput(nls);
+    }
+
+    public List<T> getSelectedElements() {
+        List<T> nls = new ArrayList<>();
+        Object[] checkedElements = viewer.getCheckedElements();
+        for (Object obj : checkedElements) {
+            T nl = (T) obj;
+            nls.add(nl);
+        }
+        return nls;
+    }
+
+}
