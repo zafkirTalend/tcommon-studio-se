@@ -55,12 +55,8 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
     private BindingProvider getStub(DynamicClassLoader classLoader, String url, String universe, String userName, String password)
             throws Exception {
         BindingProvider stub = null;
-        String newUrl = url;
-        if (!newUrl.trim().endsWith("?wsdl")) {
-            newUrl = newUrl + "?wsdl";
-        }
         Object serviceService = ReflectionUtils.newInstance("org.talend.mdm.webservice.TMDMService_Service", classLoader,
-                new Object[] { new URL(newUrl) });
+                new Object[] { new URL(url) });
         Object invokeMethod = ReflectionUtils.invokeMethod(serviceService, "getTMDMPort", new Object[0]);
         if (invokeMethod instanceof BindingProvider) {
             stub = (BindingProvider) invokeMethod;
