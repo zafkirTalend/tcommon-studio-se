@@ -218,8 +218,8 @@ public class CreateMavenCodeProject extends CreateMavenBundleTemplatePom {
                     IPath defaultJREContainerPath = JavaRuntime.newDefaultJREContainerPath();
                     if (defaultJREContainerPath.isPrefixOf(entry.getPath())) {
                         // JavaRuntime.getDefaultJREContainerEntry(); //missing properties
-                        // newEntry = JavaCore.newContainerEntry(defaultJREContainerPath, entry.getAccessRules(),
-                        // entry.getExtraAttributes(), entry.isExported());
+                         newEntry = JavaCore.newContainerEntry(defaultJREContainerPath, entry.getAccessRules(),
+                         entry.getExtraAttributes(), entry.isExported());
                     }
                 }
                 if (newEntry != null) {
