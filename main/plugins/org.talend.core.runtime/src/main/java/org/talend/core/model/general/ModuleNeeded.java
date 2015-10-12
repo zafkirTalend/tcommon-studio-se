@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.ops4j.pax.url.mvn.MavenResolver;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -79,12 +80,15 @@ public class ModuleNeeded {
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
 
     static {
-        ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = CoreRuntimePlugin.getInstance().getBundle()
-                .getBundleContext().getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
-        if (mavenResolverService != null) {
-            mavenResolver = CoreRuntimePlugin.getInstance().getBundle().getBundleContext().getService(mavenResolverService);
-        } else {
-            throw new RuntimeException("Unable to acquire org.ops4j.pax.url.mvn.MavenResolver");
+        Bundle bundle = CoreRuntimePlugin.getInstance().getBundle();
+        if (bundle != null) {
+            ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = bundle.getBundleContext()
+                    .getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
+            if (mavenResolverService != null) {
+                mavenResolver = CoreRuntimePlugin.getInstance().getBundle().getBundleContext().getService(mavenResolverService);
+            } else {
+                throw new RuntimeException("Unable to acquire org.ops4j.pax.url.mvn.MavenResolver");
+            }
         }
     }
 
