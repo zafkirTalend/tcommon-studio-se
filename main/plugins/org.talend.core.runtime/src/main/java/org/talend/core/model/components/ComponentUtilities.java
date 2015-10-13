@@ -23,6 +23,7 @@ import org.talend.commons.CommonsPlugin;
 import org.talend.commons.model.components.IComponentConstants;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
+import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
@@ -219,5 +220,18 @@ public final class ComponentUtilities {
             }
         }
         return isVisible;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static List<ConnectionType> getNodeOutputConnections(NodeType node) {
+        ProcessType processType = getNodeProcessType(node);
+        String nodeUniqueName = getNodeUniqueName(node);
+        List<ConnectionType> connList = new ArrayList<ConnectionType>();
+        for (ConnectionType conn : (List<ConnectionType>) processType.getConnection()) {
+            if (conn.getSource().equals(nodeUniqueName)) {
+                connList.add(conn);
+            }
+        }
+        return connList;
     }
 }
