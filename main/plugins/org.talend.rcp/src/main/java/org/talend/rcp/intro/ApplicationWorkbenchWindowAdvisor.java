@@ -70,6 +70,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.utils.CheatSheetPerspectiveAdapter;
+import org.talend.commons.ui.utils.CheatSheetUtils;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
@@ -97,6 +98,7 @@ import org.talend.core.ui.preference.hidden.HidePreferencePagesManager;
 import org.talend.core.ui.preference.hidden.IHidePreferencePageValidator;
 import org.talend.core.ui.services.ISQLBuilderService;
 import org.talend.core.ui.token.TokenCollectorFactory;
+import org.talend.core.utils.ProductUtils;
 import org.talend.core.views.IComponentSettingsView;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.ui.editor.palette.TalendPaletteHelper;
@@ -398,6 +400,15 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
         perspProvider.restoreAlwaysVisiblePerspectives();
+        boolean isOnBoarding = !PlatformUI.getPreferenceStore().getBoolean(
+                ITalendCorePrefConstants.PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP);
+        IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (activePage != null) {
+            if (isOnBoarding && CheatSheetUtils.getInstance().isFirstTime()
+                    && activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID)) {
+                CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet();
+            }
+        }
 
     }
 
@@ -414,7 +425,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow()
                     .getActivePage();
             if (activePage != null) {
-                if (activePage.getPerspective().getId().equals("org.talend.rcp.perspective")) { //$NON-NLS-1$
+                if (activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DI_ID)) {
                     startingBrowser = activePage.openEditor(new StartingEditorInput(service), startingBrowserId);
                 }
             }
