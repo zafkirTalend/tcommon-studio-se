@@ -213,19 +213,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
         }
 
-        boolean notShowOnBoarding = PlatformUI.getPreferenceStore().getBoolean(
-                ITalendCorePrefConstants.PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP);
-        boolean supportBrowser = Boolean.parseBoolean(System.getProperty("USE_BROWSER")); //$NON-NLS-1$
-        if (!notShowOnBoarding && supportBrowser) {
-            // first time startup need to show on-boarding, only if studio support browser
-            PrefUtil.getAPIPreferenceStore().putValue(IWorkbenchPreferenceConstants.SHOW_INTRO, Boolean.FALSE.toString());
-        } else {
-            IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
-            boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
+        IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
+        boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
 
-            PrefUtil.getAPIPreferenceStore().putValue(IWorkbenchPreferenceConstants.SHOW_INTRO,
-                    new Boolean(alwaysWelcome).toString());
-        }
+        PrefUtil.getAPIPreferenceStore()
+                .putValue(IWorkbenchPreferenceConstants.SHOW_INTRO, new Boolean(alwaysWelcome).toString());
 
     }
 
