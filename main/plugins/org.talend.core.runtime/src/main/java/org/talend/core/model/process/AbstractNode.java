@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.talend.components.api.properties.ComponentProperties;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IMultipleComponentManager;
 import org.talend.core.model.components.IODataComponent;
@@ -36,6 +37,8 @@ public abstract class AbstractNode implements INode {
 
     private String componentName;
 
+    private ComponentProperties componentProperties;
+    
     List<? extends IElementParameter> elementParameters;
 
     private List<? extends IConnection> outgoingConnections = new ArrayList<IConnection>();
@@ -1248,4 +1251,14 @@ public abstract class AbstractNode implements INode {
     public void setForceReadOnly(boolean readOnly) {
 
     }
+
+    public void setComponentProperties(ComponentProperties props) {
+    	componentProperties = props;
+    }
+    
+    public ComponentProperties getComponentProperties() {
+    	return componentProperties;
+    }
+
+
 }
