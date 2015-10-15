@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.IService;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -37,6 +38,15 @@ public interface IGenericWizardService extends IService {
      * @return
      */
     public List<String> getGenericTypeNames();
+
+    /**
+     * 
+     * Estimate whether <code>repObjType</code> is a generic type or not.
+     * 
+     * @param repObjType
+     * @return
+     */
+    public boolean isGenericType(ERepositoryObjectType repObjType);
 
     /**
      * Get node image by node type name.
