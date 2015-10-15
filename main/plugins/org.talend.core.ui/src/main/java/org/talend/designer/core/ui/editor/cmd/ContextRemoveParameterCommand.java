@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2014 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -44,11 +44,13 @@ public class ContextRemoveParameterCommand extends Command {
     private Set<String> contextParamNames = new HashSet<String>();
 
     private Map<String, List<IContextParameter>> mapParams = new HashMap<String, List<IContextParameter>>();
-
+    
+    private boolean needRefresh;
+    
     public ContextRemoveParameterCommand(IContextManager contextManager, Set<String> contextParamNames) {
-        init(contextManager, contextParamNames);
+        init(contextManager, contextParamNames, true);
     }
-
+    
     /**
      * Added by Marvin Wang on Mar.5, 2012 for bug TDI 8574, should use contextParaName and paraSourceId to identify
      * which ContextParameter can be removed.
@@ -58,10 +60,23 @@ public class ContextRemoveParameterCommand extends Command {
      * @param paraSourceId
      */
     public ContextRemoveParameterCommand(IContextManager contextManager, Set<String> contextParamNames, String paraSourceId) {
-        init(contextManager, contextParamNames);
+        init(contextManager, contextParamNames, true);
         this.paraSourceId = paraSourceId;
     }
-
+    
+    public ContextRemoveParameterCommand(IContextManager contextManager, String contextParamName, String paraSourceId, boolean needRefresh) {
+        this(contextManager, contextParamName, needRefresh);
+        this.paraSourceId = paraSourceId;
+    }
+    
+    public ContextRemoveParameterCommand(IContextManager contextManager, String contextParamName, boolean needRefresh) {
+        Set<String> names = new HashSet<String>();
+        if (contextParamName != null) {
+            names.add(contextParamName);
+        }
+        init(contextManager, names, needRefresh);
+    }
+    
     /**
      * Added by Marvin Wang on Mar.5, 2012 for bug TDI 8574, should use contextParaName and paraSourceId to identify
      * which ContextParameter can be removed.
@@ -69,25 +84,36 @@ public class ContextRemoveParameterCommand extends Command {
      * @param contextManager
      * @param contextParamName
      * @param paraSourceId
+     * @deprecated
+     * replaced by <code>ContextRemoveParameterCommand(IContextManager contextManager, String contextParamName, String paraSourceId, boolean needRefresh)</code>.
      */
+    @Deprecated
     public ContextRemoveParameterCommand(IContextManager contextManager, String contextParamName, String paraSourceId) {
         this(contextManager, contextParamName);
         this.paraSourceId = paraSourceId;
     }
-
+    
+    /**
+     * @param contextManager
+     * @param contextParamName
+     * @deprecated
+     * replaced by <code>ContextRemoveParameterCommand(IContextManager contextManager, String contextParamName, boolean needRefresh)</code>.
+     */
+    @Deprecated
     public ContextRemoveParameterCommand(IContextManager contextManager, String contextParamName) {
         Set<String> names = new HashSet<String>();
         if (contextParamName != null) {
             names.add(contextParamName);
         }
-        init(contextManager, names);
+        init(contextManager, names, false);
     }
 
-    private void init(IContextManager contextManager, Set<String> contextParamNames) {
+    private void init(IContextManager contextManager, Set<String> contextParamNames, boolean needRefresh) {
         this.contextManager = contextManager;
         if (contextParamNames != null) {
             this.contextParamNames.addAll(contextParamNames);
         }
+        this.needRefresh = needRefresh;
         this.setLabel(Messages.getString("ContextRemoveParameterCommand.label")); //$NON-NLS-1$
         this.helper = new ContextManagerHelper(contextManager);
     }
@@ -166,7 +192,9 @@ public class ContextRemoveParameterCommand extends Command {
             }
         }
         contextManager.fireContextsChangedEvent();
-        this.helper.refreshContextView();
+        if (needRefresh) {
+            helper.refreshContextView();
+        }
     }
 
     @Override
@@ -185,6 +213,6 @@ public class ContextRemoveParameterCommand extends Command {
             }
         }
         contextManager.fireContextsChangedEvent();
-        this.helper.refreshContextView();
+        helper.refreshContextView();
     }
 }

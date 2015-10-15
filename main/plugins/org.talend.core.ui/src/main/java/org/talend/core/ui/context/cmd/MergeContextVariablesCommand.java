@@ -269,6 +269,7 @@ public class MergeContextVariablesCommand extends Command {
                         .execute();
             }
         }
+        helper.refreshContextView();
 
     }
 
