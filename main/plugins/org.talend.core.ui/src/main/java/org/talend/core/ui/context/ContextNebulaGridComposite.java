@@ -342,10 +342,10 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
                             ContextTableTabChildModel childModel = (ContextTableTabChildModel) object;
                             removeChildModelInGroupBySource(childModel);
                         }
-
-                        modelManager.refresh();
-                        setButtonEnableState();
                     }
+                    modelManager.refresh();
+                    setButtonEnableState();
+                    
                     if (!treeTable.getSelection().isEmpty()) {
                         treeTable.clearSelection();
                     }

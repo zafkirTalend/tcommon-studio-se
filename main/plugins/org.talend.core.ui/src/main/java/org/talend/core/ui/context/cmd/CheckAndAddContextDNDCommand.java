@@ -149,6 +149,7 @@ public class CheckAndAddContextDNDCommand extends Command {
                         .execute();
             }
         }
+        helper.refreshContextView();
 
     }
 
