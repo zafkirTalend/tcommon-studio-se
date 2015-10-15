@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific HDFS methods.
  *
  */
+@Deprecated
 public interface HDFSComponent extends HadoopComponent {
 
     /**

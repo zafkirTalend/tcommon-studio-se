@@ -21,6 +21,7 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * Base class that describes a Distribution.
  *
  */
+@Deprecated
 public abstract class AbstractDistribution {
 
     protected EHadoopVersion4Drivers version = null;

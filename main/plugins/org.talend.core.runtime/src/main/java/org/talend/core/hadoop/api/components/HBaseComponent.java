@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific HBase methods.
  *
  */
+@Deprecated
 public interface HBaseComponent extends HadoopComponent {
 
     /**

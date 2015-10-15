@@ -14,6 +14,7 @@ package org.talend.core.hadoop.api.distribution.mapr;
 
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 
+@Deprecated
 public abstract class AbstractMapRDistribution extends AbstractDistribution {
 
     @Override

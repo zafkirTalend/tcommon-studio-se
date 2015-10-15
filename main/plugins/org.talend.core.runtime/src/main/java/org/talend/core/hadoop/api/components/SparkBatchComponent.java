@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific Spark Batch methods.
  *
  */
+@Deprecated
 public interface SparkBatchComponent extends SparkComponent {
     // No specific method for Spark Batch currently.
 }

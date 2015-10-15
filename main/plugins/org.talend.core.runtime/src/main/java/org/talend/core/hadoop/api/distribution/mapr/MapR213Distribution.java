@@ -24,6 +24,8 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * created by rdubois on 11 août 2015 Detailled comment
  *
  */
+
+@Deprecated
 public class MapR213Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
         SqoopComponent, PigComponent, HiveComponent {
 

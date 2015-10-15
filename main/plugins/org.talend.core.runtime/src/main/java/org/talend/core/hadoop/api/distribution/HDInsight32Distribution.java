@@ -19,6 +19,7 @@ import org.talend.core.hadoop.api.components.SparkBatchComponent;
 import org.talend.core.hadoop.api.components.SparkStreamingComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
+@Deprecated
 public class HDInsight32Distribution extends AbstractDistribution implements MRComponent, PigComponent, HiveComponent,
         SparkBatchComponent, SparkStreamingComponent {
 

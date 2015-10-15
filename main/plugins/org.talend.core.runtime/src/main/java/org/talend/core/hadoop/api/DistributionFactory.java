@@ -52,6 +52,7 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * @link{EHadoopVersion4Drivers and @link{EHadoopDistributions}
  *
  */
+@Deprecated
 public class DistributionFactory {
 
     private final static String LEGACY_CDH51_SPARK = "Cloudera_CDH51"; //$NON-NLS-1$

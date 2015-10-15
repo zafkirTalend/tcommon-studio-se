@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific Sqoop methods.
  *
  */
+@Deprecated
 public interface SqoopComponent extends MRComponent {
 
     /**

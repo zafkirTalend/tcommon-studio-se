@@ -18,6 +18,7 @@ import org.talend.core.hadoop.api.ESparkVersion;
  * Interface that exposes specific Spark methods.
  *
  */
+@Deprecated
 public interface SparkComponent extends MRComponent {
 
     /**

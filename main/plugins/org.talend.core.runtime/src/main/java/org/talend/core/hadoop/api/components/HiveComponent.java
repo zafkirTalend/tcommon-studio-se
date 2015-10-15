@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific Hive methods.
  *
  */
+@Deprecated
 public interface HiveComponent extends MRComponent {
 
     /**

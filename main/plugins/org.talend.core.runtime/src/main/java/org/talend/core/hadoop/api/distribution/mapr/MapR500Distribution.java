@@ -28,6 +28,8 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * created by bchen on Sep 7, 2015 Detailled comment
  *
  */
+
+@Deprecated
 public class MapR500Distribution extends AbstractMapRDistribution implements HDFSComponent, MRComponent, HBaseComponent,
         SqoopComponent, PigComponent, HiveComponent, HCatalogComponent, SparkBatchComponent, SparkStreamingComponent {
 

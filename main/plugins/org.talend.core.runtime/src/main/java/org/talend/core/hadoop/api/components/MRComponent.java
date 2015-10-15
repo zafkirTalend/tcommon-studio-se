@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific Map/Reduce methods.
  *
  */
+@Deprecated
 public interface MRComponent extends HadoopComponent {
 
     /**

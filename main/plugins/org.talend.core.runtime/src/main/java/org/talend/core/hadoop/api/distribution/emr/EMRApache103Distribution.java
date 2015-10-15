@@ -20,6 +20,7 @@ import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.api.distribution.AbstractDistribution;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
+@Deprecated
 public class EMRApache103Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
         PigComponent, HiveComponent {
 

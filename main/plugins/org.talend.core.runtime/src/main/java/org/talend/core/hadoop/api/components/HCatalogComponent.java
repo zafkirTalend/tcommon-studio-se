@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific HCatalog methods.
  *
  */
+@Deprecated
 public interface HCatalogComponent extends HadoopComponent {
     // No specific method for HCatalog currently.
 }

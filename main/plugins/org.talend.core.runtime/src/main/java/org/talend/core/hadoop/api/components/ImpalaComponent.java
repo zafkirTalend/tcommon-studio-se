@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific Impala methods.
  *
  */
+@Deprecated
 public interface ImpalaComponent extends HadoopComponent {
     // No specific method for Impala currently.
 }

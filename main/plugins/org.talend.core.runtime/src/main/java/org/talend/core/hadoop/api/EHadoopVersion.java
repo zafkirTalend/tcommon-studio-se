@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.hadoop.api;
 
+@Deprecated
 public enum EHadoopVersion {
     HADOOP_1,
     HADOOP_2;

@@ -16,6 +16,7 @@ package org.talend.core.hadoop.api.components;
  * Interface that exposes specific Spark Streaming methods.
  *
  */
+@Deprecated
 public interface SparkStreamingComponent extends SparkComponent {
 
     /**

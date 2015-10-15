@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.hadoop.api;
 
+@Deprecated
 public enum ESparkVersion {
     SPARK_1_3,
     SPARK_1_4,

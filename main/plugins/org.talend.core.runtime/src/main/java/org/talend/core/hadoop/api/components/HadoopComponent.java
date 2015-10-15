@@ -20,6 +20,7 @@ import org.talend.core.hadoop.version.EHadoopDistributions;
  * Base interface that exposes generic methods for all Hadoop components (eg. HDFS, M/R, Pig).
  *
  */
+@Deprecated
 public interface HadoopComponent {
 
     /**

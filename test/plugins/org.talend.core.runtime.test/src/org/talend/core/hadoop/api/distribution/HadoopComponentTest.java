@@ -30,83 +30,84 @@ import org.talend.core.hadoop.api.components.SparkStreamingComponent;
 import org.talend.core.hadoop.api.components.SqoopComponent;
 import org.talend.core.hadoop.version.EHadoopDistributions;
 
+@Deprecated
 public class HadoopComponentTest {
 
-    private static final String EMPTY                              = "";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
+    private static final String EMPTY = ""; //$NON-NLS-1$
 
-    private static final String CLOUDERA                           = "CLOUDERA";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      //$NON-NLS-1$
+    private static final String CLOUDERA = "CLOUDERA"; //$NON-NLS-1$
 
-    private static final String HORTONWORKS                        = "HORTONWORKS";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   //$NON-NLS-1$
+    private static final String HORTONWORKS = "HORTONWORKS"; //$NON-NLS-1$
 
-    private static final String MAPR                               = "MAPR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //$NON-NLS-1$
+    private static final String MAPR = "MAPR"; //$NON-NLS-1$
 
-    private static final String AMAZON_EMR                         = "AMAZON_EMR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //$NON-NLS-1$
+    private static final String AMAZON_EMR = "AMAZON_EMR"; //$NON-NLS-1$
 
-    private static final String PIVOTAL_HD                         = "PIVOTAL_HD";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //$NON-NLS-1$
+    private static final String PIVOTAL_HD = "PIVOTAL_HD"; //$NON-NLS-1$
 
-    private static final String APACHE                             = "APACHE";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //$NON-NLS-1$
+    private static final String APACHE = "APACHE"; //$NON-NLS-1$
 
-    private static final String HDINSIGHT                          = "MICROSOFT_HD_INSIGHT";                                                                                                                                                                                                                                                                                                                                                                                                                                                                          //$NON-NLS-1$
+    private static final String HDINSIGHT = "MICROSOFT_HD_INSIGHT"; //$NON-NLS-1$
 
-    private static final String CUSTOM                             = "CUSTOM";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //$NON-NLS-1$
+    private static final String CUSTOM = "CUSTOM"; //$NON-NLS-1$
 
-    private static final String CDH400MR1                          = "Cloudera_CDH4";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 //$NON-NLS-1$
+    private static final String CDH400MR1 = "Cloudera_CDH4"; //$NON-NLS-1$
 
-    private static final String CDH400MR2                          = "Cloudera_CDH4_YARN";                                                                                                                                                                                                                                                                                                                                                                                                                                                                            //$NON-NLS-1$
+    private static final String CDH400MR2 = "Cloudera_CDH4_YARN"; //$NON-NLS-1$
 
-    private static final String CDH500                             = "Cloudera_CDH5";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 //$NON-NLS-1$
+    private static final String CDH500 = "Cloudera_CDH5"; //$NON-NLS-1$
 
-    private static final String CDH510MR1                          = "Cloudera_CDH5_1_MR1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                           //$NON-NLS-1$
+    private static final String CDH510MR1 = "Cloudera_CDH5_1_MR1"; //$NON-NLS-1$
 
-    private static final String CDH510MR2                          = "Cloudera_CDH5_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //$NON-NLS-1$
+    private static final String CDH510MR2 = "Cloudera_CDH5_1"; //$NON-NLS-1$
 
-    private static final String CDH540                             = "Cloudera_CDH5_4";                                                                                                                                                                                                                                                                                                                                                                                                                                                                               //$NON-NLS-1$
+    private static final String CDH540 = "Cloudera_CDH5_4"; //$NON-NLS-1$
 
-    private static final String HDP120                             = "HDP_1_2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String HDP120 = "HDP_1_2"; //$NON-NLS-1$
 
-    private static final String HDP130                             = "HDP_1_3";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String HDP130 = "HDP_1_3"; //$NON-NLS-1$
 
-    private static final String HDP200                             = "HDP_2_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String HDP200 = "HDP_2_0"; //$NON-NLS-1$
 
-    private static final String HDP210                             = "HDP_2_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String HDP210 = "HDP_2_1"; //$NON-NLS-1$
 
-    private static final String HDP220                             = "HDP_2_2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String HDP220 = "HDP_2_2"; //$NON-NLS-1$
 
-    private static final String HDP230                             = "HDP_2_3";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String HDP230 = "HDP_2_3"; //$NON-NLS-1$
 
-    private static final String APACHE100                          = "APACHE_1_0_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  //$NON-NLS-1$
+    private static final String APACHE100 = "APACHE_1_0_0"; //$NON-NLS-1$
 
-    private static final String MAPR200                            = "MAPR2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         //$NON-NLS-1$
+    private static final String MAPR200 = "MAPR2"; //$NON-NLS-1$
 
-    private static final String MAPR212                            = "MAPR212";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String MAPR212 = "MAPR212"; //$NON-NLS-1$
 
-    private static final String MAPR213                            = "MAPR213";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String MAPR213 = "MAPR213"; //$NON-NLS-1$
 
-    private static final String MAPR301                            = "MAPR301";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String MAPR301 = "MAPR301"; //$NON-NLS-1$
 
-    private static final String MAPR310                            = "MAPR310";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String MAPR310 = "MAPR310"; //$NON-NLS-1$
 
-    private static final String MAPR401                            = "MAPR401";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String MAPR401 = "MAPR401"; //$NON-NLS-1$
 
-    private static final String MAPR410                            = "MAPR410";
+    private static final String MAPR410 = "MAPR410";
 
-    private static final String MAPR500                            = "MAPR500";
+    private static final String MAPR500 = "MAPR500";
 
-    private static final String EMRAPACHE103                       = "APACHE_1_0_3_EMR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
+    private static final String EMRAPACHE103 = "APACHE_1_0_3_EMR"; //$NON-NLS-1$
 
-    private static final String EMRAPACHE240                       = "APACHE_2_4_0_EMR";                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
+    private static final String EMRAPACHE240 = "APACHE_2_4_0_EMR"; //$NON-NLS-1$
 
-    private static final String EMRAPACHE240_HIVE0131              = "APACHE_2_4_0_EMR_0_13_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                       //$NON-NLS-1$
+    private static final String EMRAPACHE240_HIVE0131 = "APACHE_2_4_0_EMR_0_13_1"; //$NON-NLS-1$
 
-    private static final String EMR400                             = "EMR_4_0_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     //$NON-NLS-1$
+    private static final String EMR400 = "EMR_4_0_0"; //$NON-NLS-1$
 
-    private static final String PIV101                             = "PIVOTAL_HD_1_0_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                              //$NON-NLS-1$
+    private static final String PIV101 = "PIVOTAL_HD_1_0_1"; //$NON-NLS-1$
 
-    private static final String PIV200                             = "PIVOTAL_HD_2_0";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                //$NON-NLS-1$
+    private static final String PIV200 = "PIVOTAL_HD_2_0"; //$NON-NLS-1$
 
-    private static final String HDINSIGHT310                       = "MICROSOFT_HD_INSIGHT_3_1";                                                                                                                                                                                                                                                                                                                                                                                                                                                                      //$NON-NLS-1$
+    private static final String HDINSIGHT310 = "MICROSOFT_HD_INSIGHT_3_1"; //$NON-NLS-1$
 
-    private static final String HDINSIGHT320                       = "MICROSOFT_HD_INSIGHT_3_2";                                                                                                                                                                                                                                                                                                                                                                                                                                                                      //$NON-NLS-1$
+    private static final String HDINSIGHT320 = "MICROSOFT_HD_INSIGHT_3_2"; //$NON-NLS-1$
 
     private final static String DEFAULT_YARN_APPLICATION_CLASSPATH = "$HADOOP_CONF_DIR,$HADOOP_COMMON_HOME/*,$HADOOP_COMMON_HOME/lib/*,$HADOOP_HDFS_HOME/*,$HADOOP_HDFS_HOME/lib/*,$HADOOP_MAPRED_HOME/*,$HADOOP_MAPRED_HOME/lib/*,$YARN_HOME/*,$YARN_HOME/lib/*,$HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*,$HADOOP_COMMON_HOME/share/hadoop/common/*,$HADOOP_COMMON_HOME/share/hadoop/common/lib/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/*,$HADOOP_HDFS_HOME/share/hadoop/hdfs/lib/*,$HADOOP_YARN_HOME/share/hadoop/yarn/*,$HADOOP_YARN_HOME/share/hadoop/yarn/lib/*"; //$NON-NLS-1$
 

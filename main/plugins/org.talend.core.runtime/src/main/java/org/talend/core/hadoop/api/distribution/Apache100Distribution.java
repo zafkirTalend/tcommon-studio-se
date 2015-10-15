@@ -19,6 +19,7 @@ import org.talend.core.hadoop.api.components.MRComponent;
 import org.talend.core.hadoop.api.components.PigComponent;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 
+@Deprecated
 public class Apache100Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, HBaseComponent,
         PigComponent, HiveComponent {
 

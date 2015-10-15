@@ -26,6 +26,7 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * created by rdubois on 11 août 2015 Detailled comment
  *
  */
+@Deprecated
 public class EMR400Distribution extends AbstractDistribution implements HDFSComponent, MRComponent, PigComponent, HiveComponent,
         SparkBatchComponent, SparkStreamingComponent {
 
