@@ -11,8 +11,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/hamcrest-all-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/powermock-mockito-1.4.12-full.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/cglib-nodep-2.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javassist-3.15.0-GA.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mockito-all-1.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/javassist-3.19.0-GA.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>

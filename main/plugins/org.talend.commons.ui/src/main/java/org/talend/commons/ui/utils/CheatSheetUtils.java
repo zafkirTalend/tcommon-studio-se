@@ -13,13 +13,22 @@
 package org.talend.commons.ui.utils;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.cheatsheets.CheatSheetPlugin;
 import org.eclipse.ui.internal.cheatsheets.ICheatSheetResource;
+import org.eclipse.ui.internal.cheatsheets.Messages;
 import org.eclipse.ui.internal.cheatsheets.views.CheatSheetView;
 import org.eclipse.ui.internal.util.PrefUtil;
 
@@ -32,11 +41,15 @@ public class CheatSheetUtils {
 
     private static CheatSheetUtils instance;
 
+    private IPartListener2 partListener2 = null;
+
     /**
      * this flag means the first time when studio start. only when this value is true, when close the welcome page, we
      * will display and maximum display cheatsheet view, else do nothing.
      */
     private boolean isFirstTime = !PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName());
+
+    private boolean maxCheatSheetHasSHow = false;
 
     /**
      * Sets the isFirstTime.
@@ -58,6 +71,8 @@ public class CheatSheetUtils {
 
     public static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
 
+    public static final String DQ_CHEATSHEET_START_ID = "org.talend.datacleansing.core.ui.dqcheatsheet";//$NON-NLS-1$
+
     private static Logger log = Logger.getLogger(CheatSheetUtils.class);
 
     public static CheatSheetUtils getInstance() {
@@ -77,22 +92,60 @@ public class CheatSheetUtils {
         IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
         activePage.setEditorAreaVisible(true);
         // activePage.resetPerspective();
+        IViewPart cheatSheetView = null;
+        IViewReference cheatSheetref = null;
         for (IViewReference ref : activePage.getViewReferences()) {
-            if (view.equals(ref.getView(false))) {
-                activePage.setPartState(ref, IWorkbenchPage.STATE_MAXIMIZED);
-                activePage.bringToTop(ref.getView(false));
-            }
-            else {
+            cheatSheetView = ref.getView(false);
+            if (!view.equals(cheatSheetView)) {
                 activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
+            } else {
+                cheatSheetref = ref;
             }
         }
         for (IEditorReference ref : activePage.getEditorReferences()) {
             activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
         }
-        
+        if (cheatSheetref != null && cheatSheetView != null) {
+            activePage.setPartState(cheatSheetref, IWorkbenchPage.STATE_MAXIMIZED);
+            activePage.bringToTop(cheatSheetView);
+        }
+        setMaxCheatSheetHasSHow(true);
         PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
         setFirstTime(!PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName()));
+        partListener2 = new PartListener2Adapter() {
+
+            @Override
+            public void partHidden(IWorkbenchPartReference partRef) {
+                restoreOtherViewAndEditor(partRef.getPart(false));
+
+            }
+        };
+        activePage.addPartListener(partListener2);
         // TDQ-7407~
+    }
+
+    /**
+     * DOC talend Comment method "restoreOtherViewAndEditor".
+     * 
+     * @param part
+     */
+    protected void restoreOtherViewAndEditor(IWorkbenchPart part) {
+        if (CheatSheetUtils.getInstance().isMaxCheatSheetHasSHow()
+                && part instanceof org.eclipse.ui.internal.cheatsheets.views.CheatSheetView) {
+            IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+            for (IViewReference ref : activePage.getViewReferences()) {
+                if (part != ref.getView(false)) {
+                    activePage.setPartState(ref, IWorkbenchPage.STATE_RESTORED);
+                }
+            }
+            for (IEditorReference ref : activePage.getEditorReferences()) {
+                activePage.setPartState(ref, IWorkbenchPage.STATE_RESTORED);
+            }
+            CheatSheetUtils.getInstance().setMaxCheatSheetHasSHow(false);
+            if (partListener2 != null) {
+                activePage.removePartListener(partListener2);
+            }
+        }
     }
 
     /**
@@ -114,7 +167,23 @@ public class CheatSheetUtils {
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         IWorkbenchPage page = window.getActivePage();
-        return (CheatSheetView) page.findView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
+        CheatSheetView view = (CheatSheetView) page.findView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
+
+        IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (view == null && activePage != null && activePage.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
+            try {
+                view = (CheatSheetView) page.showView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
+                view.setInput(DQ_CHEATSHEET_START_ID);
+                page.activate(view);
+            } catch (PartInitException pie) {
+                String message = Messages.LAUNCH_SHEET_ERROR;
+                IStatus status = new Status(IStatus.ERROR, ICheatSheetResource.CHEAT_SHEET_PLUGIN_ID, IStatus.OK, message, pie);
+                CheatSheetPlugin.getPlugin().getLog().log(status);
+                org.eclipse.jface.dialogs.ErrorDialog.openError(window.getShell(), Messages.CHEAT_SHEET_ERROR_OPENING, null,
+                        pie.getStatus());
+            }
+        }
+        return view;
     }
 
     /**
@@ -129,4 +198,23 @@ public class CheatSheetUtils {
             log.warn(t, t);
         }
     }
+
+    /**
+     * Getter for maxCheatSheetHasSHow.
+     * 
+     * @return the maxCheatSheetHasSHow
+     */
+    public boolean isMaxCheatSheetHasSHow() {
+        return this.maxCheatSheetHasSHow;
+    }
+
+    /**
+     * Sets the maxCheatSheetHasSHow.
+     * 
+     * @param maxCheatSheetHasSHow the maxCheatSheetHasSHow to set
+     */
+    public void setMaxCheatSheetHasSHow(boolean maxCheatSheetHasSHow) {
+        this.maxCheatSheetHasSHow = maxCheatSheetHasSHow;
+    }
+
 }

@@ -31,8 +31,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
 
     //public static final String DQ_CHEATSHEET_START_ID = "org.talend.dataprofiler.core.talenddataprofiler";//$NON-NLS-1$
 
-    public static final String DQ_CHEATSHEET_START_ID = "org.talend.datacleansing.core.ui.dqcheatsheet";//$NON-NLS-1$
-
     protected String cheetSheetID;
 
     public HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
@@ -44,7 +42,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
     public CheatSheetPerspectiveAdapter() {
         CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet();
         if (cheetSheet != null) {
-            cheetSheet.setInput(CheatSheetPerspectiveAdapter.DQ_CHEATSHEET_START_ID);
+            cheetSheet.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
         }
     }
 
@@ -106,10 +104,10 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                     if (null != cheetSheetID) {
                         view.setInput(cheetSheetID);
                     } else {
-                        view.setInput(DQ_CHEATSHEET_START_ID);
+                        view.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
                     }
                     if (CheatSheetUtils.getInstance().isFirstTime()) {
-                    	CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);
+                        CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);
                     }
                 }
                 if (null != activePart) {
