@@ -31,21 +31,21 @@ import org.talend.core.model.properties.Item;
  */
 public class ObjectElementParameter implements IElementParameter {
 
-    private String   name;
+    private String name;
 
-    private Object   value;
+    private Object value;
 
     private String[] listItemsDisplayCodeName;
 
-    private boolean  contextMode;
+    private boolean contextMode;
 
-    private RGB      color;
+    private RGB color;
 
-    private RGB      backgroundColor;
+    private RGB backgroundColor;
 
-    private boolean  raw;
+    private boolean raw;
 
-    private boolean  enable = true;
+    private boolean enable = true;
 
     /**
      * Constructs a new TextElementParameter.
@@ -1026,4 +1026,24 @@ public class ObjectElementParameter implements IElementParameter {
         this.enable = enable;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#isSerialized()
+     */
+    @Override
+    public boolean isSerialized() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IElementParameter#setSerialized(boolean)
+     */
+    @Override
+    public void setSerialized(boolean isSerialized) {
+        // TODO Auto-generated method stub
+    }
 }

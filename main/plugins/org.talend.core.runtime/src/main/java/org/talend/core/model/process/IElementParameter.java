@@ -228,4 +228,8 @@ public interface IElementParameter {
     public void setLog4JEnabled(boolean enable);
 
     public boolean isLog4JEnabled();
+
+    public boolean isSerialized();
+
+    public void setSerialized(boolean isSerialized);
 }

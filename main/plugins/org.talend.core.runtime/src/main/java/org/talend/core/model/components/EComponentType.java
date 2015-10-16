@@ -23,6 +23,7 @@ public enum EComponentType {
     JOB_METTER,
     JOB_STATS,
     EMF,
+    GENERIC,
     JOB_CONTEXT_LOAD,
     JOBLET,
     JOBLET_INPUT_OUTPUT,
