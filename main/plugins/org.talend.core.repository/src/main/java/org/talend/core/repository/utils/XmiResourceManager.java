@@ -543,11 +543,18 @@ public class XmiResourceManager {
                 }
                 if (object instanceof ReferenceFileItem) {
                     ReferenceFileItem fi = (ReferenceFileItem) object;
-                    ByteArray ba = fi.getContent();
-                    if (ba != null) {
-                        Resource fiResource = ba.eResource();
-                        if (fiResource != null) {
-                            resources.add(fiResource);
+                    try {
+                        ByteArray ba = fi.getContent();
+                        if (ba != null) {
+                            Resource fiResource = ba.eResource();
+                            if (fiResource != null) {
+                                resources.add(fiResource);
+                            }
+                        }
+                    } catch (Exception e) {
+                        final Resource referenceFileResource = getReferenceFileResource(property.getItem().eResource(), fi, true);
+                        if (referenceFileResource != null) {
+                            resources.add(referenceFileResource);
                         }
                     }
                 }
