@@ -399,10 +399,14 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         for (ContextItem item : contextItemList) {
             ContextType type = getDefaultContextType(item);
             if (type != null) {
-                for (Object paramObj : type.getContextParameter()) {
-                    ContextParameterType paramType = (ContextParameterType) paramObj;
+                List<?> paramList = type.getContextParameter();
+                for (int i = 0; i < paramList.size(); i++) {
+                    ContextParameterType paramType = (ContextParameterType) paramList.get(i);
                     if (helper.existParameterForJob(paramType)) {
                         treeViewer.setChecked(paramType, true);
+                    }
+                    // only check parent state once at then end of the loop to avoid Cartesian product.
+                    if (i == paramList.size() - 1) {
                         updateParentCheckedState(paramType);
                     }
                 }
