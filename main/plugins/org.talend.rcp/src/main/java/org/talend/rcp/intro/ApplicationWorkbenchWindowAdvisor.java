@@ -390,15 +390,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
         perspProvider.restoreAlwaysVisiblePerspectives();
-        boolean isOnBoarding = !PlatformUI.getPreferenceStore().getBoolean(
-                ITalendCorePrefConstants.PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP);
-        IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (activePage != null) {
-            if (isOnBoarding && CheatSheetUtils.getInstance().isFirstTime()
-                    && activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID)) {
-                CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet();
-            }
-        }
 
     }
 
