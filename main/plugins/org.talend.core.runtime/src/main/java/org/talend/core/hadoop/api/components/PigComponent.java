@@ -34,4 +34,9 @@ public interface PigComponent extends MRComponent {
      */
     public boolean pigVersionPriorTo_0_12();
 
+    /**
+     * @return true if the distribution supports TEZ for Pig.
+     */
+    public boolean doSupportTezForPig();
+
 }

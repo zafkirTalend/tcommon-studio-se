@@ -95,4 +95,8 @@ public abstract class AbstractDistribution {
     public boolean doSupportMapRDB() {
         return false;
     }
+
+    public boolean doSupportTezForPig() {
+        return false;
+    }
 }
