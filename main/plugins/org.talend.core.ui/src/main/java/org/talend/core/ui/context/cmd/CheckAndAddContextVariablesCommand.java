@@ -125,6 +125,7 @@ public class CheckAndAddContextVariablesCommand extends Command {
                         .execute();
             }
         }
+        helper.refreshContextView();
 
     }
 

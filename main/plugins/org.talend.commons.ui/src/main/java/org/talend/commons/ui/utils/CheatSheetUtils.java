@@ -98,6 +98,8 @@ public class CheatSheetUtils {
             cheatSheetView = ref.getView(false);
             if (!view.equals(cheatSheetView)) {
                 activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
+            } else if (cheatSheetView instanceof org.eclipse.ui.internal.ViewIntroAdapterPart) {
+                // do nothing
             } else {
                 cheatSheetref = ref;
             }
