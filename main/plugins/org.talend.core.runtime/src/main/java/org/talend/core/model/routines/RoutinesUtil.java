@@ -16,8 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.SystemException;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -26,6 +32,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
@@ -281,5 +289,68 @@ public final class RoutinesUtil {
             itemInfors.addAll(createOldJobRoutineDependencies(false));
         }
         return itemInfors;
+    }
+
+    public static List<RoutineItem> getCompileErrorCodeItems(ERepositoryObjectType type) throws SystemException, CoreException {
+        List<RoutineItem> errorItems = new ArrayList<RoutineItem>(10);
+        if (type == null) {
+            return errorItems;
+        }
+        ICodeGeneratorService codegenService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+            codegenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
+        }
+        if (codegenService == null) {
+            return errorItems;
+        }
+        final ITalendSynchronizer synchronizer = codegenService.createRoutineSynchronizer();
+
+        final IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        List<IRepositoryViewObject> routinesObjects = factory.getAll(ProjectManager.getInstance().getCurrentProject(), type);
+        collectErrorCodesItems(errorItems, synchronizer, routinesObjects);
+        // for ref-projects
+        for (Project project : ProjectManager.getInstance().getAllReferencedProjects()) {
+            routinesObjects = factory.getAll(project, type);
+            collectErrorCodesItems(errorItems, synchronizer, routinesObjects);
+        }
+        return errorItems;
+    }
+
+    public static void collectErrorCodesItems(List<RoutineItem> errorItems, ITalendSynchronizer synchronizer,
+            List<IRepositoryViewObject> routinesObjects) throws SystemException, CoreException {
+        if (routinesObjects == null || errorItems == null) {
+            return;
+        }
+        if (synchronizer == null && GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
+            ICodeGeneratorService codegenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                    ICodeGeneratorService.class);
+            synchronizer = codegenService.createRoutineSynchronizer();
+        }
+        if (synchronizer == null) {
+            return;
+        }
+
+        for (IRepositoryViewObject obj : routinesObjects) {
+            Property property = obj.getProperty();
+            if (property == null) {
+                continue;
+            }
+            boolean foundError = false;
+            Item item = property.getItem();
+            IFile file = synchronizer.getFile(item);
+            IMarker[] markers = file.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_ONE);
+            for (IMarker marker : markers) {
+                Integer severity = (Integer) marker.getAttribute(IMarker.SEVERITY);
+                if (severity != null && IMarker.SEVERITY_ERROR == severity.intValue()) {
+                    foundError = true;
+                    break;
+                }
+            }
+            if (foundError) {
+                if (item instanceof RoutineItem) {
+                    errorItems.add((RoutineItem) item);
+                }
+            }
+        }
     }
 }
