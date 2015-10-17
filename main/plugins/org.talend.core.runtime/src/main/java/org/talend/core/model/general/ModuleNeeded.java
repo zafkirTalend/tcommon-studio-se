@@ -99,10 +99,10 @@ public class ModuleNeeded {
      *
      */
     public enum ELibraryInstallStatus {
-        UNKNOWN,
-        INSTALLED,
-        UNUSED,
-        NOT_INSTALLED;
+                                       UNKNOWN,
+                                       INSTALLED,
+                                       UNUSED,
+                                       NOT_INSTALLED;
     }
 
     /**
@@ -126,6 +126,21 @@ public class ModuleNeeded {
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL,
             String requiredIf, String mavenUrl) {
         this(context, moduleName, informationMsg, required, installURL, requiredIf, mavenUrl, ELibraryInstallStatus.UNKNOWN);
+    }
+
+    /**
+     * creates ModuleNeeded from its maven uri. the modeule name is the artifact_ID + "." + artifact_type
+     * 
+     * @param context
+     * @param informationMsg
+     * @param required
+     * @param mvnUri
+     */
+    public ModuleNeeded(String context, String informationMsg, boolean required, String mvnUri) {
+        this(context, null, informationMsg, required, null, null, mvnUri, ELibraryInstallStatus.UNKNOWN);
+        MavenArtifact mavenArtifact = MavenUrlHelper.parseMvnUrl(mvnUri);
+        setModuleName(mavenArtifact.getArtifactId() + "." + mavenArtifact.getType());
+
     }
 
     public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL,
@@ -239,8 +254,8 @@ public class ModuleNeeded {
     public ELibraryInstallStatus getStatus() {
         if (status == ELibraryInstallStatus.UNKNOWN) {// compute the status of the lib.
             // first use the Library manager service
-            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-                    ILibraryManagerService.class);
+            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                    .getService(ILibraryManagerService.class);
             Set<String> existLibraries = libManagerService.list();
             if (existLibraries.contains(getModuleName())) {
                 status = ELibraryInstallStatus.INSTALLED;
@@ -498,5 +513,4 @@ public class ModuleNeeded {
     public void setMavenUri(String mavenUri) {
         this.mavenUri = mavenUri;
     }
-
 }
