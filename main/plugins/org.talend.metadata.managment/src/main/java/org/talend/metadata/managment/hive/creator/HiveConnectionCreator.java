@@ -114,8 +114,8 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
         String hiveServer = HiveServerVersionUtils.extractKey(indexofHiveServer);
         connection.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, hiveServer);
         int hiveServerIndex = HiveConnUtils.getIndexOfHiveServer(hiveServer == null ? null : hiveServer);
-        String[] hiveModeNames = HiveConnUtils.getHiveModeNames(distributionIndex, hiveVersionIndex, hiveServerIndex);
-        String hiveMode = hiveModeNames[0];
+        String[] hiveModeKeys = HiveConnUtils.getHiveModeKeys(distributionIndex, hiveVersionIndex, hiveServerIndex);
+        String hiveMode = hiveModeKeys[0];
         connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode);
         int hiveModeIndex = HiveConnUtils.getIndexOfHiveMode(distribution == null ? null : distribution,
                 hiveVersion == null ? null : hiveVersion, hiveMode == null ? null : hiveMode, hiveServer == null ? null
