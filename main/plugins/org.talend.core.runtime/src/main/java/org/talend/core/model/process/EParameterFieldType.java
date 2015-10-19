@@ -89,7 +89,7 @@ public enum EParameterFieldType {
     MATCH_RULE_IMEX_CONTROLLER, // sizhaoliu TDQ-7910
     TABLE_BY_ROW,
     SAP_SCHEMA_TYPE,
-
+    HADOOP_DISTRIBUTION,
     DATA_PREP_ID, // wchen added for TDI-33791
     FETCH_SCHEMA // TDI-33791
 
