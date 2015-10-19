@@ -862,8 +862,10 @@ public class DeleteAction extends AContextualAction {
                                 for (IProcess2 tempPro : openedProcesses) {
                                     if (process.getId().equals(tempPro.getId())) {
                                         isOpenedProcess = true;
-                                        openedContextParameterList = tempPro.getContextManager().getListContext().get(0)
-                                                .getContextParameterList();
+                                        List<IContext> contextList = tempPro.getContextManager().getListContext();
+                                        if(contextList != null && !contextList.isEmpty()) {
+                                            openedContextParameterList = contextList.get(0).getContextParameterList();
+                                        }
                                         break;
                                     }
                                 }
@@ -876,20 +878,23 @@ public class DeleteAction extends AContextualAction {
                             // loading file. That is why it can not use the method to get IProcess directly without
                             // checking if "process" is opened.
                             if (!isOpenedProcess) {
-                                if (item2 instanceof ProcessItem) {
-                                    // contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager().getListContext();
-                                    Object obj = ((ProcessItem) item2).getProcess().getContext().get(0);
-                                    if (obj instanceof ContextType) {
-                                        closedContextParameterList = ((ContextType) obj).getContextParameter();
-                                    }
-                                } else if (item2 instanceof JobletProcessItem) {
-                                    // contextList = service.getProcessFromJobletProcessItem((JobletProcessItem)item2).getContextManager().getListContext();
-                                    Object obj = ((JobletProcessItem) item2).getJobletProcess().getContext().get(0);
-                                    if (obj instanceof ContextType) {
-                                        closedContextParameterList = ((ContextType) obj).getContextParameter();
-                                    }
-                                } else if (item2 instanceof ConnectionItem) {
+                                if (item2 instanceof ConnectionItem) {
                                     contextID = ((ConnectionItem) item2).getConnection().getContextId();
+                                } else {
+                                    List<?> contextList = null;
+                                    if (item2 instanceof ProcessItem) {
+                                        // contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager().getListContext();
+                                        contextList = ((ProcessItem) item2).getProcess().getContext();
+                                    } else if (item2 instanceof JobletProcessItem) {
+                                        // contextList = service.getProcessFromJobletProcessItem((JobletProcessItem)item2).getContextManager().getListContext();
+                                        contextList = ((JobletProcessItem) item2).getJobletProcess().getContext();
+                                    }
+                                    if (contextList != null && !contextList.isEmpty()) {
+                                        Object obj = contextList.get(0);
+                                        if (obj instanceof ContextType) {
+                                            closedContextParameterList = ((ContextType) obj).getContextParameter();
+                                        }
+                                    }
                                 }
                             }
                             
