@@ -49,6 +49,7 @@ public abstract class AbstractCreateAction extends AContextualAction {
         super();
     }
 
+    @Override
     public void init(final TreeViewer viewer, final IStructuredSelection selection) {
         setEnabled(false);
         Object o = selection.getFirstElement();
@@ -99,7 +100,7 @@ public abstract class AbstractCreateAction extends AContextualAction {
 
     protected void collectSiblingNames(final RepositoryNode node) {
         List<String> names = doCollectChildNames(node.getParent());
-        names.remove((String) node.getProperties(EProperties.LABEL));
+        names.remove(node.getProperties(EProperties.LABEL));
         existingNames = names.toArray(new String[names.size()]);
     }
 
@@ -108,6 +109,7 @@ public abstract class AbstractCreateAction extends AContextualAction {
      * 
      * @see org.talend.repository.ui.actions.AContextualAction#updateNodeToLastVersion()
      */
+    @Override
     @Deprecated
     protected void updateNodeToLastVersion() {
         if (repositoryNode == null || repositoryNode.getObject() == null
@@ -117,22 +119,12 @@ public abstract class AbstractCreateAction extends AContextualAction {
 
         Property property = repositoryNode.getObject().getProperty();
         Property updatedProperty = null;
-        if (getNeededVersion() == null) {
-            try {
-                updatedProperty = ProxyRepositoryFactory
-                        .getInstance()
-                        .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())),
-                                property.getId()).getProperty();
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        } else {
-            try {
-                updatedProperty = ProxyRepositoryFactory.getInstance().getUptodateProperty(
-                        new Project(ProjectManager.getInstance().getProject(property.getItem())), property);
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
+        try {
+            updatedProperty = ProxyRepositoryFactory.getInstance()
+                    .getLastVersion(new Project(ProjectManager.getInstance().getProject(property.getItem())), property.getId())
+                    .getProperty();
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
         }
 
         // update the property of the node repository object
