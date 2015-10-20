@@ -170,9 +170,7 @@ public class CheatSheetUtils {
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         IWorkbenchPage page = window.getActivePage();
         CheatSheetView view = (CheatSheetView) page.findView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
-
-        IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (view == null && activePage != null && activePage.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
+        if (view == null && page != null && page.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
             try {
                 view = (CheatSheetView) page.showView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
                 view.setInput(DQ_CHEATSHEET_START_ID);
