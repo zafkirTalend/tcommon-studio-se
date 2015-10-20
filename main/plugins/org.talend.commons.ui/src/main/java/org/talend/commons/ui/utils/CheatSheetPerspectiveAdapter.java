@@ -40,10 +40,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      * 
      */
     public CheatSheetPerspectiveAdapter() {
-        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet();
-        if (cheetSheet != null) {
-            cheetSheet.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
-        }
     }
 
     /*
