@@ -178,7 +178,12 @@ public class HadoopClassLoaderFactory2 {
             return ClassLoaderFactory.getCustomClassLoader(index, (Set<String>) customJars);
         }
 
-        return ClassLoaderFactory.getCustomClassLoader(index, String.valueOf(customJars));
+        String jarString = null;
+        if (customJars != null) {
+            // in case: jarString = "null"
+            jarString = String.valueOf(customJars);
+        }
+        return ClassLoaderFactory.getCustomClassLoader(index, jarString);
     }
 
     private static DynamicClassLoader addExtraJars(String relatedClusterId, EHadoopCategory category, DynamicClassLoader loader,
