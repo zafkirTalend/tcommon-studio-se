@@ -20,7 +20,6 @@ import java.util.Properties;
 
 import org.eclipse.ui.internal.intro.impl.util.Log;
 import org.eclipse.ui.internal.intro.impl.util.StringUtil;
-import org.talend.commons.utils.system.EnvironmentUtils;
 
 /**
  * DOC talend class global comment. Detailled comment
@@ -163,11 +162,10 @@ public class DynamicURLParser {
         }
         // now extract the key/value pairs from the query.
         String[] params;
-        if (EnvironmentUtils.isWindowsSystem()) {
-            params = StringUtil.split(query, "&"); //$NON-NLS-1$
-        } else {
-            params = StringUtil.split(query, "&amp;"); //$NON-NLS-1$
+        if (query.indexOf("&amp;") != -1) {
+            query = query.replaceAll("&amp;", "&");
         }
+        params = StringUtil.split(query, "&"); //$NON-NLS-1$
         for (String param : params) {
             // for every parameter, ie: key=value pair, create a property
             // entry. we know we have the key as the first string in the array,
