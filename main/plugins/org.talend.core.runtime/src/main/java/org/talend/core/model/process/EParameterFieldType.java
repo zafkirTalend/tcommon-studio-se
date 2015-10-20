@@ -90,6 +90,7 @@ public enum EParameterFieldType {
     TABLE_BY_ROW,
     SAP_SCHEMA_TYPE,
     HADOOP_DISTRIBUTION,
+    HADOOP_LIBRARIES,
     DATA_PREP_ID, // wchen added for TDI-33791
     FETCH_SCHEMA // TDI-33791
 
