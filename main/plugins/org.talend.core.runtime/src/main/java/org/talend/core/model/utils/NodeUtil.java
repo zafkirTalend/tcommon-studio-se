@@ -791,27 +791,22 @@ public class NodeUtil {
     }
 
     /**
-     * @author jyhu
-     * @aim Get graphica node from generating node.
+     * @author pbailly
+     * @aim Get graphical node from generating node.
      * @param node: Generated node
-     * @return graphica node.
+     * @return If the component is a virtual node, return the graphical node, otherwise return initial node.
      */
     public static INode getVirtualNode(INode node) {
-        INode virtualNode = node;
         if (node.isVirtualGenerateNode()) {
             String uniqueName = node.getUniqueName();
-            List<? extends INode> nodeList = node.getProcess().getGraphicalNodes();
-            for (INode graphicnode : nodeList) {
-                if (graphicnode.isGeneratedAsVirtualComponent()) {
-                    String nodeUniqueName = graphicnode.getUniqueName();
-                    if (uniqueName.indexOf(nodeUniqueName + "_") == 0) {
-                        virtualNode = graphicnode;
-                        break;
-                    }
+            for (INode graphicalNode : node.getProcess().getGraphicalNodes()) {
+                if ((graphicalNode.isGeneratedAsVirtualComponent())
+                        && (uniqueName.startsWith(graphicalNode.getUniqueName() + "_"))) { //$NON-NLS-1$
+                    return graphicalNode;
                 }
             }
         }
-        return virtualNode;
+        return node;
     }
 
     public static void fillConnectionsForStat(List<String> connsName, INode currentNode) {

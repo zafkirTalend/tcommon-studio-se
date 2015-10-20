@@ -163,11 +163,10 @@ public class DynamicURLParser {
         }
         // now extract the key/value pairs from the query.
         String[] params;
-        if (System.getProperty("os.name").startsWith("Windows")) { //$NON-NLS-1$//$NON-NLS-2$
-            params = StringUtil.split(query, "&"); //$NON-NLS-1$
-        } else {
-            params = StringUtil.split(query, "&amp;"); //$NON-NLS-1$
+        if (query.indexOf("&amp;") != -1) {
+            query = query.replaceAll("&amp;", "&");
         }
+        params = StringUtil.split(query, "&"); //$NON-NLS-1$
         for (String param : params) {
             // for every parameter, ie: key=value pair, create a property
             // entry. we know we have the key as the first string in the array,

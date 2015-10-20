@@ -449,6 +449,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType PROCESS_ROUTE = ERepositoryObjectType.valueOf("ROUTE"); //$NON-NLS-1$
 
+    public final static ERepositoryObjectType PROCESS_ROUTELET = ERepositoryObjectType.valueOf("ROUTELET"); //$NON-NLS-1$
+
     /**
      * <b>Attention!!!</b><br/>
      * 1. This enum is <b>always null</b> since it is never configure the extention point
@@ -1275,6 +1277,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         }
         if (ERepositoryObjectType.PROCESS_ROUTE != null) {
             allTypes.add(ERepositoryObjectType.PROCESS_ROUTE);
+        }
+        if (ERepositoryObjectType.PROCESS_ROUTELET != null) {
+            allTypes.add(ERepositoryObjectType.PROCESS_ROUTELET);
         }
 
         return allTypes;
