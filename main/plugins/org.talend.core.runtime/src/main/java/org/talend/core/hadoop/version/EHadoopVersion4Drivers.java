@@ -76,25 +76,25 @@ public enum EHadoopVersion4Drivers {
                         false,
                         new EMRVersion[] { EMRVersion.MR1 }),
 
-    CLOUDERA_CDH5(EHadoopDistributions.CLOUDERA, "Cloudera CDH5", //$NON-NLS-1$
+    CLOUDERA_CDH5(EHadoopDistributions.CLOUDERA, "Cloudera CDH5.0(YARN mode)", //$NON-NLS-1$
                   "Cloudera_CDH5", //$NON-NLS-1$
                   true,
                   false,
                   new EMRVersion[] { EMRVersion.YARN }),
 
-    CLOUDERA_CDH4_YARN(EHadoopDistributions.CLOUDERA, "Cloudera CDH4 YARN", //$NON-NLS-1$
+    CLOUDERA_CDH4_YARN(EHadoopDistributions.CLOUDERA, "Cloudera CDH4.3+(YARN mode)", //$NON-NLS-1$
                        "Cloudera_CDH4_YARN", //$NON-NLS-1$
                        true,
                        false,
                        new EMRVersion[] { EMRVersion.YARN }),
 
-    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
+    CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4.X(MR1 mode)", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR500(EHadoopDistributions.MAPR, "MapR 5.0.0", "MAPR500", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
+    MAPR500(EHadoopDistributions.MAPR, "MapR 5.0.0(YARN mode)", "MAPR500", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR410(EHadoopDistributions.MAPR, "MapR 4.1.0", "MAPR410", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
+    MAPR410(EHadoopDistributions.MAPR, "MapR 4.1.0(YARN mode)", "MAPR410", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR401(EHadoopDistributions.MAPR, "MapR 4.0.1", "MAPR401", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
+    MAPR401(EHadoopDistributions.MAPR, "MapR 4.0.1(YARN mode)", "MAPR401", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
     MAPR310(EHadoopDistributions.MAPR, "MapR 3.1.0", "MAPR310", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 

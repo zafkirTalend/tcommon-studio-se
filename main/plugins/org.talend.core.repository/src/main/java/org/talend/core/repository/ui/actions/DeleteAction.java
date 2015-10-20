@@ -99,6 +99,8 @@ import org.talend.cwm.helper.SubItemHelper;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.expressionbuilder.ExpressionPersistance;
@@ -846,7 +848,8 @@ public class DeleteAction extends AContextualAction {
                             if (item == item2) {
                                 continue;
                             }
-                            List<IContext> contextList = null;
+                            List<IContextParameter> openedContextParameterList = null;
+                            List<ContextParameterType> closedContextParameterList = null;
                             String contextID = null;
                             // if (!isOpenedItem(item2, deleteActionCache.getOpenProcessMap())) {
                             // The following logic is added by Marvin Wang on Sep. 14, 2012 for bug TDI-21878.
@@ -859,7 +862,10 @@ public class DeleteAction extends AContextualAction {
                                 for (IProcess2 tempPro : openedProcesses) {
                                     if (process.getId().equals(tempPro.getId())) {
                                         isOpenedProcess = true;
-                                        contextList = tempPro.getContextManager().getListContext();
+                                        List<IContext> contextList = tempPro.getContextManager().getListContext();
+                                        if(contextList != null && !contextList.isEmpty()) {
+                                            openedContextParameterList = contextList.get(0).getContextParameterList();
+                                        }
                                         break;
                                     }
                                 }
@@ -872,42 +878,60 @@ public class DeleteAction extends AContextualAction {
                             // loading file. That is why it can not use the method to get IProcess directly without
                             // checking if "process" is opened.
                             if (!isOpenedProcess) {
-                                if (item2 instanceof ProcessItem) {
-                                    contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager()
-                                            .getListContext();
+                                if (item2 instanceof ConnectionItem) {
+                                    contextID = ((ConnectionItem) item2).getConnection().getContextId();
+                                } else {
+                                    List<?> contextList = null;
+                                    if (item2 instanceof ProcessItem) {
+                                        // contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager().getListContext();
+                                        contextList = ((ProcessItem) item2).getProcess().getContext();
+                                    } else if (item2 instanceof JobletProcessItem) {
+                                        // contextList = service.getProcessFromJobletProcessItem((JobletProcessItem)item2).getContextManager().getListContext();
+                                        contextList = ((JobletProcessItem) item2).getJobletProcess().getContext();
+                                    }
+                                    if (contextList != null && !contextList.isEmpty()) {
+                                        Object obj = contextList.get(0);
+                                        if (obj instanceof ContextType) {
+                                            closedContextParameterList = ((ContextType) obj).getContextParameter();
+                                        }
+                                    }
                                 }
-
                             }
-                            if (item2 instanceof JobletProcessItem) {
-                                contextList = service.getProcessFromJobletProcessItem((JobletProcessItem) item2)
-                                        .getContextManager().getListContext();
-                            } else if (item2 instanceof ConnectionItem) {
-                                contextID = ((ConnectionItem) item2).getConnection().getContextId();
+                            
+                            List<?> contextParameterList = null;
+                            if (openedContextParameterList != null) {
+                                contextParameterList = openedContextParameterList;
+                            } else if (closedContextParameterList != null) {
+                                contextParameterList = closedContextParameterList;
                             }
-                            if (contextList != null) {
+                            if (contextParameterList != null && contextParameterList.size() > 0) {
                                 // Added by Marvin Wang on Sep.14, 2012 for bug TDI-21878. It just needs to check the
                                 // first IContext, normally it is named "default". In order to add the different version
                                 // jobs to ContextReferenceBean, below uses
                                 // "RepositoryReferenceBeanUtils.hasReferenceBean" to filter the repeat object.
-                                List<IContextParameter> contextParams = contextList.get(0).getContextParameterList();
-                                if (contextParams != null && contextParams.size() > 0) {
-                                    for (IContextParameter contextParameter : contextParams) {
-                                        if (contextParameter.isBuiltIn()) {
-                                            continue;
-                                        }
-                                        String contextId = item.getProperty().getId();
-                                        String sourceId = contextParameter.getSource();
-                                        if (contextId != null && contextId.equals(sourceId)) {
-                                            String processName = process.getLabel();
-                                            String processVersion = process.getVersion();
-                                            if (!RepositoryReferenceBeanUtils.hasReferenceBean(list, processName, processVersion)) {
-                                                String path = item2.getState().getPath();
-                                                String type = process.getRepositoryObjectType().getType();
-                                                ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type,
-                                                        property2.getVersion(), path, refP.getLabel());
-                                                bean.setJobFlag(isJob, isDelete);
-                                                list.add(bean);
-                                            }
+                                
+                                // List<IContextParameter> contextParams = contextList.get(0).getContextParameterList();
+                                for (int i = 0; i < contextParameterList.size(); i++) {
+                                    String sourceId = null;
+                                    Object objContextParameter = contextParameterList.get(i);
+                                    if (objContextParameter instanceof IContextParameter) {
+                                        IContextParameter contextParameter = (IContextParameter) objContextParameter;
+                                        sourceId = contextParameter.getSource();
+                                    } else if (objContextParameter instanceof ContextParameterType) {
+                                        ContextParameterType contextParameter = (ContextParameterType) objContextParameter;
+                                        sourceId = contextParameter.getRepositoryContextId();
+                                    }
+                                    String contextId = item.getProperty().getId();
+                                    if (contextId != null && contextId.equals(sourceId)) {
+                                        String processName = process.getLabel();
+                                        String processVersion = process.getVersion();
+                                        if (!RepositoryReferenceBeanUtils.hasReferenceBean(list, processName, processVersion)) {
+                                            String path = item2.getState().getPath();
+                                            String type = process.getRepositoryObjectType().getType();
+                                            ContextReferenceBean bean = new ContextReferenceBean(property2.getLabel(), type,
+                                                    property2.getVersion(), path, refP.getLabel());
+                                            bean.setJobFlag(isJob, isDelete);
+                                            list.add(bean);
                                         }
                                     }
                                 }

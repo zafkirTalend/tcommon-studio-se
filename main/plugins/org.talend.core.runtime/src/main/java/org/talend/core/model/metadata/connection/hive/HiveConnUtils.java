@@ -262,6 +262,32 @@ public class HiveConnUtils {
         }
     }
 
+    protected static List<String> getHiveModeKeyList(int distributionIndex, int versionIndex, int hiveServerIndex) {
+        List<HiveConnVersionInfo> hiveModeObjs = getHiveModes(distributionIndex, versionIndex, hiveServerIndex);
+        // ADD msjian TDQ-6407 2012-11-26: for top, not support hive embeded mode,hide this menu
+        // if (PluginChecker.isOnlyTopLoaded() && hiveModeObjs.size() > 1) {
+        // hiveModeObjs.remove(0);
+        // }
+        // TDQ-6407~
+        if (hiveModeObjs != null && hiveModeObjs.size() > 0) {
+            List<String> hiveModeKeyList = new ArrayList<String>();
+            for (HiveConnVersionInfo bean : hiveModeObjs) {
+                hiveModeKeyList.add(bean.getKey());
+            }
+            return hiveModeKeyList;
+        }
+        return null;
+    }
+
+    public static String[] getHiveModeKeys(int distributionIndex, int versionIndex, int hiveServerIndex) {
+        List<String> hiveModeKeyList = getHiveModeKeyList(distributionIndex, versionIndex, hiveServerIndex);
+        if (hiveModeKeyList != null && hiveModeKeyList.size() > 0) {
+            return hiveModeKeyList.toArray(new String[hiveModeKeyList.size()]);
+        } else {
+            return new String[0];
+        }
+    }
+
     public static int getIndexOfDistribution(String distributionKey) {
         int level = 0;
         List<HiveConnVersionInfo> distributions = getObjectsByLevel(level);
