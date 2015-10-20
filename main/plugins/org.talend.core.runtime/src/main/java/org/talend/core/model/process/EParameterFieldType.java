@@ -95,6 +95,7 @@ public enum EParameterFieldType {
 
     BUTTON, // ycbai added for generic wizard
     NAME_SELECTION_AREA, // ycbai added for generic wizard
+    NAME_SELECTION_REFERENCE, // ycbai added for generic wizard
 
     ;
 
