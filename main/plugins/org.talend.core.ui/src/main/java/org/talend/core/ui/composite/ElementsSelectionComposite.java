@@ -35,14 +35,17 @@ import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
  */
 public class ElementsSelectionComposite<T> extends Composite {
 
+    private boolean multipleSelection = true;
+
     private CheckboxTreeViewer viewer;
 
     public ElementsSelectionComposite(Composite parent) {
-        this(parent, SWT.NONE);
+        this(parent, true);
     }
 
-    public ElementsSelectionComposite(Composite parent, int style) {
-        super(parent, style);
+    public ElementsSelectionComposite(Composite parent, boolean multipleSelection) {
+        super(parent, SWT.NONE);
+        this.multipleSelection = multipleSelection;
         GridLayout gridLayout = new GridLayout();
         gridLayout.marginWidth = 0;
         gridLayout.marginHeight = 0;
@@ -51,8 +54,11 @@ public class ElementsSelectionComposite<T> extends Composite {
     }
 
     private void createControl() {
-        FilteredCheckboxTree filteredCheckboxTree = new FilteredCheckboxTree(this, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL
-                | SWT.MULTI);
+        int styles = SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL;
+        if (multipleSelection) {
+            styles = styles | SWT.MULTI;
+        }
+        FilteredCheckboxTree filteredCheckboxTree = new FilteredCheckboxTree(this, styles);
         viewer = filteredCheckboxTree.getViewer();
         viewer.setContentProvider(getContentProvider());
         viewer.setLabelProvider(getLabelProvider());
