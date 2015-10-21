@@ -34,7 +34,6 @@ import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.i18n.Messages;
@@ -70,7 +69,7 @@ public class MDMForm extends AbstractForm {
 
     private boolean creation;
 
-    private static final String SERVER_RUL_S56 = "http://localhost:8180/talend/TalendPort";
+    private static final String SERVER_RUL_S56 = "http://localhost:8180/talendmdm/services/soap";
 
     private static final String SERVER_RUL_S60 = "http://localhost:8180/talendmdm/services/soap";
 
@@ -255,11 +254,8 @@ public class MDMForm extends AbstractForm {
         // stub.setPassword(mdmPasswordText.getText());
         // stub.ping(new WSPing());
         AbsMdmConnectionHelper helper = null;
-        if (MDMVersions.MDM_S60.getDispalyName().equals(versionComb.getText())) {
-            helper = new S60MdmConnectionHelper();
-        } else {
-            helper = new S56MdmConnectionHelper();
-        }
+        helper = new S60MdmConnectionHelper();
+
         try {
             stub = helper.checkConnection(server, null, username, pass);
         } catch (Exception e) {

@@ -47,7 +47,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.database.DriverShim;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.IDriverService;
-import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -59,7 +58,6 @@ import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.model.DBConnectionFillerImpl;
 import org.talend.metadata.managment.model.MetadataFillFactory;
@@ -790,11 +788,7 @@ public class MetadataConnectionUtils {
     public static Object getXtentisBindingStub(IMetadataConnection metadataBean) throws Exception {
 
         AbsMdmConnectionHelper connectionHelper = null;
-        if (MDMVersions.MDM_S60.getKey().equals(metadataBean.getVersion())) {
-            connectionHelper = new S60MdmConnectionHelper();
-        } else {
-            connectionHelper = new S56MdmConnectionHelper();
-        }
+        connectionHelper = new S60MdmConnectionHelper();
         return connectionHelper.checkConnection(metadataBean.getUrl(), metadataBean.getUniverse(), metadataBean.getUsername(),
                 metadataBean.getPassword());
 
@@ -815,11 +809,7 @@ public class MetadataConnectionUtils {
      */
     public static Object getXtentisBindingStub(MDMConnection dataProvider) throws Exception {
         AbsMdmConnectionHelper connectionHelper = null;
-        if (MDMVersions.MDM_S60.getKey().equals(dataProvider.getVersion())) {
-            connectionHelper = new S60MdmConnectionHelper();
-        } else {
-            connectionHelper = new S56MdmConnectionHelper();
-        }
+        connectionHelper = new S60MdmConnectionHelper();
         return connectionHelper.checkConnection(dataProvider.getPathname(), ConnectionHelper.getUniverse(dataProvider),
                 dataProvider.getUsername(), dataProvider.getValue(dataProvider.getPassword(), false));
 

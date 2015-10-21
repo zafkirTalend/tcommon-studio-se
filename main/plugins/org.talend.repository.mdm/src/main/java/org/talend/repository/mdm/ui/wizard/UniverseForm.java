@@ -27,10 +27,8 @@ import org.eclipse.swt.widgets.Group;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
-import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.ui.wizard.AbstractForm;
 import org.talend.repository.mdm.i18n.Messages;
@@ -80,12 +78,8 @@ public class UniverseForm extends AbstractForm {
         this.connectionItem = connectionItem;
         this.universePage = universePage;
         stub = ((MDMWizardPage) (universePage.getPreviousPage())).getXtentisBindingStub();
-        if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
-            connectionHelper = new S60MdmConnectionHelper();
-            pkRegex = "*";
-        } else {
-            connectionHelper = new S56MdmConnectionHelper();
-        }
+        connectionHelper = new S60MdmConnectionHelper();
+        pkRegex = "*";
         initUniverse();
         setupForm(true);
     }
@@ -116,10 +110,10 @@ public class UniverseForm extends AbstractForm {
 
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
         mdmParameterGroup.setLayoutData(gridData);
-        if (!MDMVersions.MDM_S60.getKey().equals(getConnection().getVersion()) && universList != null) {
-            universeCombo = new LabelledCombo(mdmParameterGroup,
-                    Messages.getString("UniverseForm_version"), "", universList, true); //$NON-NLS-1$ //$NON-NLS-2$
-        }
+        // if (!MDMVersions.MDM_S60.getKey().equals(getConnection().getVersion()) && universList != null) {
+        // universeCombo = new LabelledCombo(mdmParameterGroup,
+        //                    Messages.getString("UniverseForm_version"), "", universList, true); //$NON-NLS-1$ //$NON-NLS-2$
+        // }
         modelText = new LabelledCombo(mdmParameterGroup, Messages.getString("UniverseForm_data_model1"), "", modelList, true); //$NON-NLS-1$ //$NON-NLS-2$
         clusterText = new LabelledCombo(mdmParameterGroup,
                 Messages.getString("UniverseForm_data_container"), "", clusterList, true); //$NON-NLS-1$ //$NON-NLS-2$
@@ -346,35 +340,7 @@ public class UniverseForm extends AbstractForm {
     }
 
     protected void initUniverse() {
-        if (MDMVersions.MDM_S60.getKey().equals(getConnection().getVersion())) {
-            return;
-        }
-        universList.add(0, "[HEAD]");//$NON-NLS-1$
-        if (stub == null) {
-            return;
-        }
-        try {
-            List<String> universe = connectionHelper.getPKs(stub,
-                    "getUniversePKs", "org.talend.mdm.webservice.WSGetUniversePKs", pkRegex, null);//$NON-NLS-1$
-            if (universe != null) {
-                universList.addAll(universe);
-            }
 
-            // WSUniversePK[] universe = null;
-            // try {
-            //                universe = stub.getUniversePKs(new WSGetUniversePKs(""));//$NON-NLS-1$
-            // } catch (Exception e) {
-            // universe = null;
-            // universList = null;
-            // }
-            // if (universe != null) {
-            // for (WSUniversePK element : universe) {
-            // universList.add(element.getPk());
-            // }
-            // }
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-        }
     }
 
     /*
@@ -386,12 +352,8 @@ public class UniverseForm extends AbstractForm {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible && connectionHelper == null) {
-            if (MDMVersions.MDM_S60.getKey().equals(connectionItem.getConnection().getVersion())) {
-                connectionHelper = new S60MdmConnectionHelper();
-                pkRegex = "*";
-            } else {
-                connectionHelper = new S56MdmConnectionHelper();
-            }
+            connectionHelper = new S60MdmConnectionHelper();
+            pkRegex = "*";
         }
     }
 

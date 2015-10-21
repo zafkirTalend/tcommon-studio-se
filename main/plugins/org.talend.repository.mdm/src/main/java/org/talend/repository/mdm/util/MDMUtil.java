@@ -32,9 +32,7 @@ import org.eclipse.xsd.impl.XSDSchemaImpl;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.designerproperties.MDMVersions;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
-import org.talend.metadata.managment.mdm.S56MdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -107,11 +105,7 @@ public class MDMUtil {
 
     public static void initConcepts(MDMConnection mdmConn) throws Exception {
         AbsMdmConnectionHelper connectionHelper = null;
-        if (MDMVersions.MDM_S60.getKey().equals(mdmConn.getVersion())) {
-            connectionHelper = new S60MdmConnectionHelper();
-        } else {
-            connectionHelper = new S56MdmConnectionHelper();
-        }
+        connectionHelper = new S60MdmConnectionHelper();
         connectionHelper.initConcept(mdmConn, getTempTemplateXSDFile());
         // IPath temp = new Path(System.getProperty("user.dir")).append("temp");
         // xsdFilePath = temp.toOSString() + "\\template.xsd";
