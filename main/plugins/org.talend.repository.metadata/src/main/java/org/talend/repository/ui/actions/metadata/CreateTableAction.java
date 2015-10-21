@@ -39,6 +39,7 @@ import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
 import org.talend.repository.model.RepositoryConstants;
@@ -106,6 +107,10 @@ public class CreateTableAction extends AbstractCreateTableAction {
         init(node);
 
         ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+        if (ERepositoryObjectType.METADATA_SALESFORCE_MODULE.equals(nodeType)) {
+            node = (RepositoryNode) getSaleforceSchemaNode(node);
+            nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+        }
 
         if (ERepositoryObjectType.METADATA_CON_TABLE.equals(nodeType)
                 || ERepositoryObjectType.METADATA_CON_COLUMN.equals(nodeType)) {
@@ -151,7 +156,8 @@ public class CreateTableAction extends AbstractCreateTableAction {
             createWSDLSchemaWizard(node, false);
         } else if (ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA.equals(nodeType)) {
             createSalesforceSchemaWizard(node, false);
-        } else if (ERepositoryObjectType.METADATA_SAPCONNECTIONS.equals(nodeType)) {
+        } else if (ERepositoryObjectType.METADATA_SAPCONNECTIONS != null
+                && ERepositoryObjectType.METADATA_SAPCONNECTIONS.equals(nodeType)) {
             createSAPSchemaWizard(node, false);
         } else {
             createExtenseNodeSchemaWizard(nodeType, node, false);
@@ -266,5 +272,12 @@ public class CreateTableAction extends AbstractCreateTableAction {
                 // }
             }
         }
+    }
+
+    private IRepositoryNode getSaleforceSchemaNode(RepositoryNode node) {
+        if (node.getChildren() != null && !node.getChildren().isEmpty()) {
+            return node.getChildren().get(0);
+        }
+        return node;
     }
 }
