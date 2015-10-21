@@ -24,6 +24,7 @@ import org.talend.repository.items.importexport.wizard.models.FolderImportNode;
 import org.talend.repository.items.importexport.wizard.models.ImportNode;
 import org.talend.repository.items.importexport.wizard.models.ItemImportNode;
 import org.talend.repository.items.importexport.wizard.models.ProjectImportNode;
+import org.talend.repository.items.importexport.wizard.models.StandardJobImportNode;
 import org.talend.repository.items.importexport.wizard.models.TypeImportNode;
 
 /**
@@ -58,6 +59,12 @@ public class ImportItemsViewerLabelProvider extends LabelProvider {
                 } else {
                     return getImage(repObjectType);
                 }
+            } else if (element instanceof StandardJobImportNode) {
+                ERepositoryObjectType repObjectType = ((StandardJobImportNode) element).getType();
+                if (repObjectType == ERepositoryObjectType.PROCESS) {
+                    return ImageProvider.getImage(ECoreImage.PROCESS_STANDARD_GENERIC_CATEGORY_OPEN_ICON);
+                }
+                return getImage(repObjectType);
             } else if (element instanceof FolderImportNode) {
                 return CoreImageProvider.getImage(ERepositoryObjectType.FOLDER);
             }
