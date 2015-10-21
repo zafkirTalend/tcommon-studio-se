@@ -244,12 +244,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         } catch (CoreException e1) {
             CommonExceptionHandler.process(e1);
         }
-
-        if (!JavaHomeUtil.isJDKSetup()) {
-            MessageDialog.openWarning(DisplayUtils.getDefaultShell(),
-                    Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
-                    Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
-        }
+        
+        // for TDI-33924, JRE is supported ,no need to use JDK.
+        // if (!JavaHomeUtil.isJDKSetup()) {
+        // MessageDialog.openWarning(DisplayUtils.getDefaultShell(),
+        //                    Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
+        //                    Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
+        // }
 
         createActions();
         registerActions();
