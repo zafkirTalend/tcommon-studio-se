@@ -15,9 +15,18 @@ package org.talend.core.repository.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.swt.custom.CCombo;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.properties.Item;
@@ -30,6 +39,7 @@ import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.IProcessConvertToAllTypeService;
 import org.talend.designer.core.convert.ProcessConvertManager;
 import org.talend.designer.core.convert.ProcessConverterType;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
@@ -50,17 +60,20 @@ public class ConvertJobsUtil {
     public static final String SPARK_FRAMEWORK = HadoopConstants.FRAMEWORK_SPARK;
 
     public static enum JobType {
-        STANDARD("Standard", "_STANDARD_"), //$NON-NLS-1$ //$NON-NLS-2$
-        BIGDATASTREAMING("Big Data Streaming", "_BIG_DATA_STREAMING_"), //$NON-NLS-1$ //$NON-NLS-2$
-        BIGDATABATCH("Big Data Batch", "_BIG_DATA_BATCH_"); //$NON-NLS-1$ //$NON-NLS-2$
+        STANDARD("Standard", "_STANDARD_", ERepositoryObjectType.PROCESS), //$NON-NLS-1$ //$NON-NLS-2$
+        BIGDATASTREAMING("Big Data Streaming", "_BIG_DATA_STREAMING_", ERepositoryObjectType.PROCESS_STORM), //$NON-NLS-1$ //$NON-NLS-2$
+        BIGDATABATCH("Big Data Batch", "_BIG_DATA_BATCH_", ERepositoryObjectType.PROCESS_MR); //$NON-NLS-1$ //$NON-NLS-2$
 
         private String displayName;
 
         private String fileName;
 
-        JobType(String displayName, String fileName) {
+        private ERepositoryObjectType repositoryObjectType;
+
+        JobType(String displayName, String fileName, ERepositoryObjectType repositoryObjectType) {
             this.displayName = displayName;
             this.fileName = fileName;
+            this.repositoryObjectType = repositoryObjectType;
         }
 
         public String getDisplayName() {
@@ -69,6 +82,10 @@ public class ConvertJobsUtil {
 
         public String getFileName() {
             return this.fileName;
+        }
+
+        public ERepositoryObjectType getERepositoryObjectType() {
+            return this.repositoryObjectType;
         }
 
         public static String[] getJobTypeToDispaly() {
@@ -91,6 +108,23 @@ public class ConvertJobsUtil {
             }
             return dispalyNames;
         }
+
+        public static JobType getJobTypeByDisplayName(String displayName) {
+            if (displayName == null) {
+                return null;
+            }
+            JobType jobTypes[] = JobType.values();
+            if (jobTypes == null) {
+                return null;
+            }
+            for (JobType jobType : jobTypes) {
+                if (jobType.getDisplayName().equals(displayName)) {
+                    return jobType;
+                }
+            }
+            return null;
+        }
+
     }
 
     public static enum JobStreamingFramework {
@@ -255,6 +289,16 @@ public class ConvertJobsUtil {
         }
     }
 
+    public static boolean isNeedConvert(String oldJobTypeValue, String oldFrameworkValue, String newJobTypeValue,
+            String newFrameworkValue) {
+        JobType oldJobType = JobType.getJobTypeByDisplayName(oldJobTypeValue);
+        JobType newJobType = JobType.getJobTypeByDisplayName(newJobTypeValue);
+        ERepositoryObjectType oldRepType = (oldJobType == null ? null : oldJobType.getERepositoryObjectType());
+        ERepositoryObjectType newRepType = (newJobType == null ? null : newJobType.getERepositoryObjectType());
+        return ProcessConvertManager.getInstance().CheckConvertProcess(oldRepType, oldFrameworkValue, newRepType,
+                newFrameworkValue);
+    }
+
     public static Item createOperation(final String newJobName, final String jobTypeValue, final String frameworkValue,
             final IRepositoryViewObject sourceObject) {
         IProcessConvertService converter = null;
@@ -290,6 +334,55 @@ public class ConvertJobsUtil {
             }
         }
         return null;
+    }
+
+    public static boolean convert(String newJobName, String jobTypeValue, String frameworkValue,
+            final IRepositoryViewObject sourceObject) {
+        final Item newItem = ConvertJobsUtil.createOperation(newJobName, jobTypeValue, frameworkValue, sourceObject);
+        if (newItem == null) {
+            return false;
+        }
+
+        boolean isNewItemCreated = true;
+        Property repositoryProperty = sourceObject.getProperty();
+        if (repositoryProperty != null) {
+            isNewItemCreated = (repositoryProperty.getItem() != newItem);
+        }
+
+        if (isNewItemCreated) {
+            // delete the old item
+            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                @Override
+                public void run(final IProgressMonitor monitor) throws CoreException {
+                    IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+                    try {
+                        proxyRepositoryFactory.unlock(sourceObject);
+                        proxyRepositoryFactory.deleteObjectPhysical(sourceObject);
+                        proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                    } catch (PersistenceException e1) {
+                        CommonExceptionHandler.process(e1);
+                    } catch (LoginException e) {
+                        CommonExceptionHandler.process(e);
+                    }
+                }
+            };
+            // unlockObject();
+            // alreadyEditedByUser = true; // to avoid 2 calls of unlock
+
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            try {
+                ISchedulingRule schedulingRule = workspace.getRoot();
+                // the update the project files need to be done in the workspace runnable to avoid all notification
+                // of changes before the end of the modifications.
+                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+                return true;
+            } catch (CoreException e) {
+                MessageBoxExceptionHandler.process(e.getCause());
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
