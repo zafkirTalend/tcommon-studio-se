@@ -89,13 +89,6 @@
       </libraryNeeded>
       <libraryNeeded
             context="plugin:org.talend.libraries.mdm"
-            mvn_uri="mvn:org.talend.libraries/xmlschema-core-2.2.1/6.0.0"
-            name="xmlschema-core-2.2.1.jar"
-            required="true"
-            uripath="platform:/plugin/org.talend.libraries.apache.xml/lib/xmlschema-core-2.2.1.jar">
-      </libraryNeeded>
-      <libraryNeeded
-            context="plugin:org.talend.libraries.mdm"
             mvn_uri="mvn:org.talend.libraries/neethi-3.0.3/6.0.0"
             name="neethi-3.0.3.jar"
             required="true"
