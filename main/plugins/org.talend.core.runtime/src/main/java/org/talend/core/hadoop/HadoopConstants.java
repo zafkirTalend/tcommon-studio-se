@@ -19,6 +19,8 @@ package org.talend.core.hadoop;
 @SuppressWarnings("nls")
 public class HadoopConstants {
 
+    public static final String SPARK_LOCAL_MODE = "SPARK_LOCAL_MODE";
+
     public static final String SPARK_MODE = "SPARK_MODE";
 
     public static final String SPARK_MODE_CLUSTER = "CLUSTER";
