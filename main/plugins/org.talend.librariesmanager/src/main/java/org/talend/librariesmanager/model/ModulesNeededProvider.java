@@ -35,10 +35,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
-import org.ops4j.pax.url.mvn.MavenResolver;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
@@ -46,6 +42,7 @@ import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProv
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.PluginChecker;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -70,7 +67,6 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
@@ -296,9 +292,26 @@ public class ModulesNeededProvider {
     }
 
     public static void collectModuleNeeded(String context, IMPORTType importType, List<ModuleNeeded> importNeedsList) {
-        boolean foundModule = createModuleNeededForComponentFromExtension(context, importType, importNeedsList);
+        List<ModuleNeeded> importModuleFromExtension = ExtensionModuleManager.getInstance().getModuleNeededForComponent(context,
+                importType);
+        // filter modules configured in extension but jar do not exsit in the UrlPath
+        ILibraryManagerService libManagerService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
+            final Iterator<ModuleNeeded> iterator = importModuleFromExtension.iterator();
+            while (iterator.hasNext()) {
+                final ModuleNeeded next = iterator.next();
+                if (next.getModuleLocaion() != null && !libManagerService.checkJarInstalledFromPlatform(next.getModuleLocaion())) {
+                    iterator.remove();
+                }
+            }
+        }
+        boolean foundModule = importModuleFromExtension.size() > 0;
         if (!foundModule) { // If cannot find the jar from extension point then do it like before.
             createModuleNeededForComponent(context, importType, importNeedsList);
+        } else {
+            importNeedsList.addAll(importModuleFromExtension);
         }
     }
 
@@ -692,7 +705,7 @@ public class ModulesNeededProvider {
 
         for (ModuleNeeded module : allPluginsRequiredModules) {
             if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED) {
-                allUninstalledModules.add(module);                
+                allUninstalledModules.add(module);
             }
             if (subMonitor.isCanceled()) {
                 return Collections.EMPTY_LIST;
