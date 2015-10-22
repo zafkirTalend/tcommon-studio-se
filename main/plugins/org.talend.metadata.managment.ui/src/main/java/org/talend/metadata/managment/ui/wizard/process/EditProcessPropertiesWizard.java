@@ -12,32 +12,21 @@
 // ============================================================================
 package org.talend.metadata.managment.ui.wizard.process;
 
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
-import org.talend.commons.exception.LoginException;
-import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.ConvertJobsUtil;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.core.convert.ProcessConvertManager;
 import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.metadata.managment.ui.i18n.Messages;
 import org.talend.metadata.managment.ui.wizard.PropertiesWizard;
-import org.talend.repository.ProjectManager;
-import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * Created by Marvin Wang on Feb 18, 2013.
@@ -80,8 +69,16 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
         if (object != null && object.getProperty() != null && object.getProperty().getItem() != null
                 && object.getProperty().getItem() instanceof ProcessItem && PluginChecker.isTIS()
                 && mainPage.jobTypeCCombo != null) {
+            Item item = object.getProperty().getItem();
+            Object frameworkObj = ConvertJobsUtil.getFramework(item);
+            String sourceFramework = null;
+            if (frameworkObj != null) {
+                sourceFramework = frameworkObj.toString();
+            }
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(object.getProperty().getItem());
-            if (sourceJobType != null && sourceJobType.equals(mainPage.jobTypeCCombo.getText())) {
+            boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(sourceJobType, sourceFramework,
+                    mainPage.jobTypeCCombo.getText(), mainPage.framework.getText());
+            if (sourceJobType != null && !isNeedConvert) {
                 return super.performFinish();
             }
             boolean hasTestCase = false;
@@ -97,40 +94,10 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
                             "Warning: You will lost all the testcases when you do converting, do you want to continue?")) {
                 return super.performFinish();
             }
-            final IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             // Convert
-            ConvertJobsUtil.createOperation(object.getLabel(), mainPage.jobTypeCCombo.getText(), mainPage.framework.getText(),
+            return ConvertJobsUtil.convert(object.getLabel(), mainPage.jobTypeCCombo.getText(), mainPage.framework.getText(),
                     object);
 
-            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
-
-                @Override
-                public void run(final IProgressMonitor monitor) throws CoreException {
-                    try {
-                        proxyRepositoryFactory.unlock(object);
-                        proxyRepositoryFactory.deleteObjectPhysical(object);
-                        proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
-                    } catch (PersistenceException e1) {
-                        e1.printStackTrace();
-                    } catch (LoginException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            // unlockObject();
-            // alreadyEditedByUser = true; // to avoid 2 calls of unlock
-
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            try {
-                ISchedulingRule schedulingRule = workspace.getRoot();
-                // the update the project files need to be done in the workspace runnable to avoid all notification
-                // of changes before the end of the modifications.
-                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
-                return true;
-            } catch (CoreException e) {
-                MessageBoxExceptionHandler.process(e.getCause());
-                return false;
-            }
         } else {
             return super.performFinish();
         }

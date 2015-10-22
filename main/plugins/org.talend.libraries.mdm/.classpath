@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/mdm_webservice.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-core-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-bindings-soap-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-databinding-jaxb-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-frontend-jaxws-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-frontend-simple-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-transports-http-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-ws-security-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cxf-rt-wsdl-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb-core-2.2.11.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jaxb-impl-2.2.11.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/neethi-3.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/stax2-api-3.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/woodstox-core-asl-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xmlschema-core-2.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mdm_webservice_tomcat.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>

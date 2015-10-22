@@ -150,6 +150,7 @@ public class EditProcessPropertiesWizardPage extends PropertiesWizardPage {
             jobTypeCCombo.setEditable(false);
             jobTypeCCombo.setItems(JobType.getJobTypeToDispaly());
             jobTypeCCombo.setText(JobType.STANDARD.getDisplayName());
+            jobTypeCCombo.setEnabled(!readOnly);
 
             // Framework
             Label label = new Label(typeGroup, SWT.NONE);

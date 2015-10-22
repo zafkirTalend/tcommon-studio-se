@@ -45,14 +45,12 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
     @Override
     public Object checkConnection(String url, String universe, String userName, String password) throws Exception {
         BindingProvider stub = null;
-        DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
-                .getClassLoader());
-        stub = getStub(classLoader, url, universe, userName, password);
+        stub = getStub(this.getClass().getClassLoader(), url, universe, userName, password);
 
         return stub;
     }
 
-    private BindingProvider getStub(DynamicClassLoader classLoader, String url, String universe, String userName, String password)
+    private BindingProvider getStub(ClassLoader classLoader, String url, String universe, String userName, String password)
             throws Exception {
         BindingProvider stub = null;
         String newUrl = url;
@@ -84,9 +82,7 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
     public List<String> getPKs(Object stub, String getDataPKsMethod, String dataPKsClass, String pkRegex,
             String getWsDataPKsMethod) throws Exception {
         List<String> dataModelStrs = new ArrayList<String>();
-        DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
-                .getClassLoader());
-        Object modelPK = ReflectionUtils.newInstance(dataPKsClass, classLoader, new Object[] { pkRegex });
+        Object modelPK = ReflectionUtils.newInstance(dataPKsClass, this.getClass().getClassLoader(), new Object[] { pkRegex });
         Object dataModelsPKArray = ReflectionUtils.invokeMethod(stub, getDataPKsMethod, new Object[] { modelPK });
         Object dataModels = ReflectionUtils.invokeMethod(dataModelsPKArray, getWsDataPKsMethod, new Object[0]);
         if (dataModels instanceof List) {
@@ -116,20 +112,19 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
         String password = mdmConn.getValue(mdmConn.getPassword(), false);
         String universe = mdmConn.getUniverse();
         String datamodel = mdmConn.getDatamodel();
-        DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(MDMVersions.MDM_S60.name(), this.getClass()
-                .getClassLoader());
         String url = mdmConn.getServerUrl();
-        Object stub = getStub(classLoader, url, universe, userName, password);
+        Object stub = getStub(this.getClass().getClassLoader(), url, universe, userName, password);
         if (stub == null) {
             return;
         }
 
-        Object wsping = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSPing", classLoader, new Object[0]);
+        Object wsping = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSPing", this.getClass().getClassLoader(),
+                new Object[0]);
         ReflectionUtils.invokeMethod(stub, "ping", new Object[] { wsping });
 
         // find data model pk
-        Object wsModelPKs = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSRegexDataModelPKs", classLoader,
-                new Object[] { "" });
+        Object wsModelPKs = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSRegexDataModelPKs", this.getClass()
+                .getClassLoader(), new Object[] { "" });
         Object dataModelPKs = ReflectionUtils.invokeMethod(stub, "getDataModelPKs", new Object[] { wsModelPKs });
         if (dataModelPKs == null) {
             return;
@@ -152,8 +147,8 @@ public class S60MdmConnectionHelper extends AbsMdmConnectionHelper {
         }
 
         // find data model
-        Object wsDataModel = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSGetDataModel", classLoader,
-                new Object[] { findDataModelPK });
+        Object wsDataModel = ReflectionUtils.newInstance("org.talend.mdm.webservice.WSGetDataModel", this.getClass()
+                .getClassLoader(), new Object[] { findDataModelPK });
         Object dataModel = ReflectionUtils.invokeMethod(stub, "getDataModel", new Object[] { wsDataModel });
         if (dataModel == null) {
             return;

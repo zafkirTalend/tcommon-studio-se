@@ -46,6 +46,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -77,6 +78,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.dialog.DuplicateDialog;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.repository.utils.ConvertJobsUtil;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.designer.codegen.ICodeGeneratorService;
@@ -109,6 +111,8 @@ public class DuplicateAction extends AContextualAction {
     private String frameworkNewValue = null;
 
     boolean isAllowDuplicateTest = true;
+
+    private Item newCreatedItem;
 
     public DuplicateAction() {
         super();
@@ -258,13 +262,26 @@ public class DuplicateAction extends AContextualAction {
             if (frameworkNewValue != null && !frameworkNewValue.equals(sourceFramework)) {
                 isAllowDuplicateTest = false;
             }
-            // if not change job type , we no need convert job
-            String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(item);
-            if (jobTypeValue != null && !jobTypeValue.equals(sourceJobType)) {
-                isAllowDuplicateTest = false;
-                ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkNewValue, sourceNode.getObject());
-            } else {
-                createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
+            newCreatedItem = null;
+            createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
+            if (newCreatedItem != null) {
+                // normally only for jobs, means will ignore hadoop cluster items
+                String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(newCreatedItem);
+                boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(sourceJobType, sourceFramework, jobTypeValue,
+                        frameworkNewValue);
+                if (jobTypeValue != null && isNeedConvert) {
+                    isAllowDuplicateTest = false;
+                    try {
+                        IRepositoryViewObject repositoryViewObject = CoreRuntimePlugin
+                                .getInstance()
+                                .getProxyRepositoryFactory()
+                                .getLastVersion(ProjectManager.getInstance().getCurrentProject(),
+                                        newCreatedItem.getProperty().getId());
+                        ConvertJobsUtil.convert(jobNewName, jobTypeValue, frameworkNewValue, repositoryViewObject);
+                    } catch (Exception e) {
+                        CommonExceptionHandler.process(e);
+                    }
+                }
             }
         } else {
             InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title.v2"), //$NON-NLS-1$
@@ -582,6 +599,7 @@ public class DuplicateAction extends AContextualAction {
             final TreeSelection selectionInClipboard) {
 
         Object currentSource = selectionInClipboard.toArray()[0];
+        newCreatedItem = null;
         try {
             final IPath path = RepositoryNodeUtilities.getPath(target);
 
@@ -670,6 +688,7 @@ public class DuplicateAction extends AContextualAction {
 
                                         });
                                         Item newItem = (Item) newItems.get(newItems.size() - 1);
+                                        newCreatedItem = newItem;
                                         copyDataServiceRelateJob(newItem);
                                         duplicateTestCases(newItem, copyObjectAction);
                                     }
@@ -727,6 +746,7 @@ public class DuplicateAction extends AContextualAction {
                     }
 
                     final Item newItem = factory.copy(item, path, newName);
+                    newCreatedItem = newItem;
                     // update framework if change it when duplicating
                     ConvertJobsUtil.updateFramework(newItem, frameworkNewValue);
 

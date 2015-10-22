@@ -128,4 +128,48 @@ public class ProcessConvertManager {
         }
         return checkConvertProcess;
     }
+
+    public boolean CheckConvertProcess(ERepositoryObjectType oldType, String oldFrameworkValue, ERepositoryObjectType newType,
+            String newFrameworkValue) {
+        List<ERepositoryObjectType> processes = getSupportedProcessType();
+        if (!processes.contains(oldType) || !processes.contains(newType)) {
+            return false;
+        }
+        if (oldType != newType) {
+            return true;
+        }
+
+        String oldFramework = oldFrameworkValue;
+        if (oldFramework == null) {
+            oldFramework = ""; //$NON-NLS-1$
+        }
+        String newFramework = newFrameworkValue;
+        if (newFramework == null) {
+            newFramework = ""; //$NON-NLS-1$
+        }
+
+        if (oldType == ERepositoryObjectType.PROCESS_MR) {
+            if (!oldFramework.equals(newFramework)) {
+                return true;
+            }
+        } else if (oldType == ERepositoryObjectType.PROCESS_STORM) {
+            // currently needn't convert
+        }
+
+        return false;
+    }
+
+    private List<ERepositoryObjectType> getSupportedProcessType() {
+        List<ERepositoryObjectType> processes = new ArrayList<ERepositoryObjectType>();
+        if (ERepositoryObjectType.PROCESS != null) {
+            processes.add(ERepositoryObjectType.PROCESS);
+        }
+        if (ERepositoryObjectType.PROCESS_MR != null) {
+            processes.add(ERepositoryObjectType.PROCESS_MR);
+        }
+        if (ERepositoryObjectType.PROCESS_STORM != null) {
+            processes.add(ERepositoryObjectType.PROCESS_STORM);
+        }
+        return processes;
+    }
 }

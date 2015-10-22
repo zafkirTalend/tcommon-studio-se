@@ -43,6 +43,7 @@ public class ImportNodesBuilder {
     private List<ItemImportNode> allImportItemNode = new ArrayList<ItemImportNode>();
 
     private static IHadoopClusterService hadoopClusterService = null;
+
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
@@ -108,18 +109,29 @@ public class ImportNodesBuilder {
 
             // set for type
             ImportNode typeImportNode = findAndCreateParentTypeNode(projectImportNode, itemType);
-            ImportNode parentImportNode = typeImportNode; // by default, in under type node.
-            if (parentImportNode == null) {
-                parentImportNode = projectImportNode;
+            if (ERepositoryObjectType.PROCESS.equals(itemType) && ERepositoryObjectType.findParentType(itemType) == null) {
+                // handle the standard job and create a standard node floder
+                // set for type
+                StandardJobImportNode standJobImportNode = new StandardJobImportNode(itemType);
+                typeImportNode.addChild(standJobImportNode);
+                ImportNode parentImportNode = standJobImportNode; // by default, in under type node.
+                ItemImportNode itemNode = new ItemImportNode(itemRecord);
+                standJobImportNode.addChild(itemNode);
+                allImportItemNode.add(itemNode);//
+            } else {
+                // set for type
+                ImportNode parentImportNode = typeImportNode; // by default, in under type node.
+                if (parentImportNode == null) {
+                    parentImportNode = projectImportNode;
+                }
+                String path = item.getState().getPath();
+                if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
+                    parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
+                }
+                ItemImportNode itemNode = new ItemImportNode(itemRecord);
+                parentImportNode.addChild(itemNode);
+                allImportItemNode.add(itemNode);
             }
-            //
-            String path = item.getState().getPath();
-            if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
-                parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
-            }
-            ItemImportNode itemNode = new ItemImportNode(itemRecord);
-            parentImportNode.addChild(itemNode);
-            allImportItemNode.add(itemNode);
         }
     }
 
