@@ -243,11 +243,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             CommonExceptionHandler.process(e1);
         }
 
-        if (!JavaHomeUtil.isJDKSetup()) {
-            MessageDialog.openWarning(DisplayUtils.getDefaultShell(),
-                    Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
-                    Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
-        }
+        // if (!JavaHomeUtil.isJDKSetup()) {
+        // MessageDialog.openWarning(DisplayUtils.getDefaultShell(),
+        //                    Messages.getString("ApplicationWorkbenchWindowAdvisor.wrongJavaSetup"), //$NON-NLS-1$
+        //                    Messages.getString("ApplicationWorkbenchWindowAdvisor.jdkRequired")); //$NON-NLS-1$
+        // }
 
         createActions();
         registerActions();
