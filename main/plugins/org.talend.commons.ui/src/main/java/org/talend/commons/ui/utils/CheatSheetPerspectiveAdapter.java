@@ -29,8 +29,6 @@ import org.eclipse.ui.internal.util.PrefUtil;
  */
 public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
 
-    //public static final String DQ_CHEATSHEET_START_ID = "org.talend.dataprofiler.core.talenddataprofiler";//$NON-NLS-1$
-
     protected String cheetSheetID;
 
     public HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
@@ -99,8 +97,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                 if (null != view) {
                     if (null != cheetSheetID) {
                         view.setInput(cheetSheetID);
-                    } else {
-                        view.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
                     }
                     if (CheatSheetUtils.getInstance().isFirstTime()) {
                         CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);

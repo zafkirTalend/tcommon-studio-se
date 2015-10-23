@@ -71,8 +71,6 @@ public class CheatSheetUtils {
 
     public static final String DQ_PERSPECTIVE_ID = "org.talend.dataprofiler.DataProfilingPerspective";//$NON-NLS-1$
 
-    public static final String DQ_CHEATSHEET_START_ID = "org.talend.datacleansing.core.ui.dqcheatsheet";//$NON-NLS-1$
-
     private static Logger log = Logger.getLogger(CheatSheetUtils.class);
 
     public static CheatSheetUtils getInstance() {
@@ -115,6 +113,12 @@ public class CheatSheetUtils {
         PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
         setFirstTime(!PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getSimpleName()));
         partListener2 = new PartListener2Adapter() {
+
+            @Override
+            public void partDeactivated(IWorkbenchPartReference partRef) {
+                super.partDeactivated(partRef);
+                restoreOtherViewAndEditor(partRef.getPart(false));
+            }
 
             @Override
             public void partHidden(IWorkbenchPartReference partRef) {
@@ -173,7 +177,6 @@ public class CheatSheetUtils {
         if (view == null && page != null && page.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
             try {
                 view = (CheatSheetView) page.showView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
-                view.setInput(DQ_CHEATSHEET_START_ID);
                 page.activate(view);
             } catch (PartInitException pie) {
                 String message = Messages.LAUNCH_SHEET_ERROR;

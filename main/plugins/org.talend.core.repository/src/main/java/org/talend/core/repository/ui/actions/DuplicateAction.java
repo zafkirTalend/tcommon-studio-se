@@ -50,6 +50,7 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
@@ -108,7 +109,7 @@ public class DuplicateAction extends AContextualAction {
 
     protected IProcessConvertService converter;// Just for the page which would like to convert self to another process.
 
-    private String frameworkNewValue = null;
+    // private String frameworkNewValue = null;
 
     boolean isAllowDuplicateTest = true;
 
@@ -251,7 +252,7 @@ public class DuplicateAction extends AContextualAction {
             }
             String jobNewName = jobNewNameDialog.getValue();
             String jobTypeValue = jobNewNameDialog.getJobTypeValue();
-            frameworkNewValue = jobNewNameDialog.getFrameworkValue();
+            String frameworkNewValue = jobNewNameDialog.getFrameworkValue();
             isAllowDuplicateTest = true;
 
             String sourceFramework = "";
@@ -281,6 +282,35 @@ public class DuplicateAction extends AContextualAction {
                     } catch (Exception e) {
                         CommonExceptionHandler.process(e);
                     }
+                } else {
+                    ConvertJobsUtil.updateFramework(newCreatedItem, frameworkNewValue);
+                }
+
+                // save the modifications
+                IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                    @Override
+                    public void run(final IProgressMonitor monitor) throws CoreException {
+                        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance()
+                                .getProxyRepositoryFactory();
+                        try {
+                            proxyRepositoryFactory.save(ProjectManager.getInstance().getCurrentProject(), newCreatedItem);
+                        } catch (PersistenceException e1) {
+                            CommonExceptionHandler.process(e1);
+                        }
+                    }
+                };
+                // unlockObject();
+                // alreadyEditedByUser = true; // to avoid 2 calls of unlock
+
+                IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                try {
+                    ISchedulingRule schedulingRule = workspace.getRoot();
+                    // the update the project files need to be done in the workspace runnable to avoid all notification
+                    // of changes before the end of the modifications.
+                    workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+                } catch (CoreException e) {
+                    MessageBoxExceptionHandler.process(e.getCause());
                 }
             }
         } else {
@@ -644,7 +674,7 @@ public class DuplicateAction extends AContextualAction {
                                         Item copy;
                                         copy = factory.copy(selectedItem, path, newJobName);
                                         // update framework if change it when duplicating
-                                        ConvertJobsUtil.updateFramework(copy, frameworkNewValue);
+                                        // ConvertJobsUtil.updateFramework(copy, frameworkNewValue);
 
                                         newItems.add(copy);
                                         if (isfirst) {
@@ -748,7 +778,7 @@ public class DuplicateAction extends AContextualAction {
                     final Item newItem = factory.copy(item, path, newName);
                     newCreatedItem = newItem;
                     // update framework if change it when duplicating
-                    ConvertJobsUtil.updateFramework(newItem, frameworkNewValue);
+                    // ConvertJobsUtil.updateFramework(newItem, frameworkNewValue);
 
                     // qli modified to fix the bug 5400 and 6185.
                     if (newItem instanceof RoutineItem) {

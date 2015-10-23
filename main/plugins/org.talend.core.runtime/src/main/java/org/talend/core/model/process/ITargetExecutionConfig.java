@@ -39,4 +39,8 @@ public interface ITargetExecutionConfig extends IServerConfiguration {
 	public int getRemotePort();
 
 	public void setRemotePort(int remotePort);
+	
+	public String getRunAsUser();
+	
+	public void setRunAsUser(String runAsUser);
 }
