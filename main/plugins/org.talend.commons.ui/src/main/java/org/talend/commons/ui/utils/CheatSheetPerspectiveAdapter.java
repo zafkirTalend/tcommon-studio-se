@@ -48,7 +48,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      */
     @Override
     public void perspectivePreDeactivate(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet();
+        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet("org.talend.datacleansing.core.ui.dqcheatsheet");
         if (null != cheetSheet) {
             cheetSheetID = cheetSheet.getCheatSheetID();
             // Always hide cheatsheet first on switching perspective
@@ -95,9 +95,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                 // Therefore DQ_CHEATSHEET_START_ID will be used to fill CheatSheetView.
                 IWorkbenchPart activePart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
                 if (null != view) {
-                    if (null != cheetSheetID) {
-                        view.setInput(cheetSheetID);
-                    }
+                    view.setInput("org.talend.datacleansing.core.ui.dqcheatsheet");
                     if (CheatSheetUtils.getInstance().isFirstTime()) {
                         CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);
                     }
