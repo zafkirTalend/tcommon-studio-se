@@ -36,19 +36,25 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
@@ -419,6 +425,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
     @Override
     protected void afterCreate(IProgressMonitor monitor) throws Exception {
+        setPomForHDLight(monitor);
+        
         generateAssemblyFile(monitor);
 
         // generate routines
@@ -429,6 +437,50 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
     }
 
+
+    private void setPomForHDLight(IProgressMonitor monitor) {
+        // if need to judge spark.
+        /*String processType = processor.getProcess().getComponentsType();
+        if (ComponentCategory.CATEGORY_4_SPARK.getName().equals(processType)
+                || ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName().equals(processType)) {
+        }*/
+        IProcessor processor = getJobProcessor();
+        IElementParameter param = processor.getProcess().getElementParameter("DISTRIBUTION"); //$NON-NLS-1$
+        if (param != null) {
+            String distribution = (String) param.getValue();
+            if ("MICROSOFT_HD_INSIGHT".equals(distribution)) { //$NON-NLS-1$
+                try {
+                    Model model = MODEL_MANAGER.readMavenModel(getPomFile());
+                    List<Plugin> plugins = new ArrayList<Plugin>(model.getBuild().getPlugins());
+                    out: for (Plugin plugin : plugins) {
+                        if (plugin.getArtifactId().equals("maven-jar-plugin")) { //$NON-NLS-1$
+                            List<PluginExecution> pluginExecutions = plugin.getExecutions();
+                            for (PluginExecution pluginExecution : pluginExecutions) {
+                                if (pluginExecution.getId().equals("default-jar")) { //$NON-NLS-1$
+                                    Object object = pluginExecution.getConfiguration();
+                                    if (object instanceof Xpp3Dom) {
+                                        Xpp3Dom configNode = (Xpp3Dom) object;
+                                        Xpp3Dom includesNode = configNode.getChild("includes"); //$NON-NLS-1$
+                                        Xpp3Dom includeNode = new Xpp3Dom("include"); //$NON-NLS-1$
+                                        includeNode.setValue("${talend.job.path}/contexts/*.properties"); //$NON-NLS-1$
+                                        includesNode.addChild(includeNode);
+
+                                        model.getBuild().setPlugins(plugins);
+                                        PomUtil.savePom(monitor, model, getPomFile());
+                                        break out;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        
+        
+    }
 
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
         IFile assemblyFile = this.getAssemblyFile();
