@@ -136,8 +136,7 @@ public class CheatSheetUtils {
      * @param part
      */
     protected void restoreOtherViewAndEditor(IWorkbenchPart part) {
-        if (CheatSheetUtils.getInstance().isMaxCheatSheetHasSHow()
-                && part instanceof org.eclipse.ui.internal.cheatsheets.views.CheatSheetView) {
+        if (part instanceof org.eclipse.ui.internal.cheatsheets.views.CheatSheetView) {
             IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
             for (IViewReference ref : activePage.getViewReferences()) {
                 if (part != ref.getView(false)) {
@@ -157,8 +156,8 @@ public class CheatSheetUtils {
     /**
      * find And maximum Display CheatSheet.
      */
-    public void findAndmaxDisplayCheatSheet() {
-        CheatSheetView findCheetSheet = findCheetSheet();
+    public void findAndmaxDisplayCheatSheet(String cheatSheetID) {
+        CheatSheetView findCheetSheet = findCheetSheet(cheatSheetID);
         if (findCheetSheet != null) {
             maxDisplayCheatSheetView(findCheetSheet);
         }
@@ -169,7 +168,7 @@ public class CheatSheetUtils {
      * 
      * @return CheatSheetView
      */
-    public CheatSheetView findCheetSheet() {
+    public CheatSheetView findCheetSheet(String cheatSheetID) {
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         IWorkbenchPage page = window.getActivePage();
@@ -177,6 +176,7 @@ public class CheatSheetUtils {
         if (view == null && page != null && page.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
             try {
                 view = (CheatSheetView) page.showView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
+                view.setInput(cheatSheetID);
                 page.activate(view);
             } catch (PartInitException pie) {
                 String message = Messages.LAUNCH_SHEET_ERROR;
@@ -206,7 +206,7 @@ public class CheatSheetUtils {
      * Getter for maxCheatSheetHasSHow.
      * 
      * @return the maxCheatSheetHasSHow
-     */
+     * */
     public boolean isMaxCheatSheetHasSHow() {
         return this.maxCheatSheetHasSHow;
     }
