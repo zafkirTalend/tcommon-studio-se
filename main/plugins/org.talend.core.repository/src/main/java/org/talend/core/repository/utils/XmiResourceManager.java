@@ -299,7 +299,7 @@ public class XmiResourceManager {
 
     private URI getReferenceFileURI(URI itemResourceURI, ReferenceFileItem refFile) {
         if (refFile.getName() != null) {
-            // only do the following when the name of reference file is null
+            // only do the following when the name of reference file is not null
             ByteArray contentByteArray = refFile.getContent();
             URI referenceFileURI = null;
             if (contentByteArray != null) {
