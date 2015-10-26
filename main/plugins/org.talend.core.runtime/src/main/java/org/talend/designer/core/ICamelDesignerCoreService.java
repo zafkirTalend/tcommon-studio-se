@@ -13,7 +13,6 @@
 package org.talend.designer.core;
 
 import org.dom4j.Element;
-import org.eclipse.ui.IEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
@@ -39,8 +38,6 @@ public interface ICamelDesignerCoreService extends IService {
     public boolean isInstanceofCamel(Item item);
 
     public boolean isInstanceofCamelBeans(Item item);
-
-    public boolean isCamelMulitPageEditor(IEditorPart editor);
 
 	/**
 	 * Synchronized Route resource
