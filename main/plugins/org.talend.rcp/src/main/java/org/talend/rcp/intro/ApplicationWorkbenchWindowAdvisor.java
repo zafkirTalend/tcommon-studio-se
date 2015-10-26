@@ -34,7 +34,6 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
@@ -68,7 +67,6 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.commons.ui.utils.CheatSheetPerspectiveAdapter;
 import org.talend.commons.ui.utils.CheatSheetUtils;
 import org.talend.commons.utils.VersionUtils;
@@ -390,7 +388,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
         perspProvider.restoreAlwaysVisiblePerspectives();
-
+        IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (activePage != null) {
+            if (CheatSheetUtils.getInstance().isFirstTime()
+                    && activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID)) {
+                CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet("org.talend.datacleansing.core.ui.dqcheatsheet"); //$NON-NLS-1$
+            }
+        }
     }
 
     private void showStarting() {
