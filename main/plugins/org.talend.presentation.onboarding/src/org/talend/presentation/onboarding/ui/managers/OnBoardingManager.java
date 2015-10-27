@@ -120,6 +120,10 @@ public class OnBoardingManager {
     }
 
     public void close() {
+        if (!isRegisted()) {
+            // already closed or not opened yet
+            return;
+        }
         unRegistOnBoardingManager();
         uiManager.close();
         afterClosed();
@@ -253,6 +257,10 @@ public class OnBoardingManager {
 
     private void unRegistOnBoardingManager() {
         managers.remove(managerId);
+    }
+
+    private boolean isRegisted() {
+        return (managers.get(managerId) != null);
     }
 
     public String getDocId() {
