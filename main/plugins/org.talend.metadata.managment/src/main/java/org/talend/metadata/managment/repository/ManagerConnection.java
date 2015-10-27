@@ -281,7 +281,7 @@ public class ManagerConnection {
 
     public static boolean isSchemaFromSidOrDatabase(EDatabaseTypeName inType) {
         if (EDatabaseTypeName.TERADATA.equals(inType) || EDatabaseTypeName.IMPALA.equals(inType)
-                || EDatabaseTypeName.AS400.equals(inType)) {
+                || EDatabaseTypeName.AS400.equals(inType) || EDatabaseTypeName.EXASOL.equals(inType)) {
             return true;
         } else {
             return false;
