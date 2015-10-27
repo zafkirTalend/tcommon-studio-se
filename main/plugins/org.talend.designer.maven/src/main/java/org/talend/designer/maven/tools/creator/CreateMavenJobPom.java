@@ -43,18 +43,15 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
@@ -377,6 +374,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
     }
 
+    @Override
     protected boolean validChildrenJob(JobInfo jobInfo) {
         // for job, ignore test container for children.
         return jobInfo != null && !jobInfo.isTestContainer();
@@ -426,9 +424,10 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
     }
 
+    @Override
     protected void afterCreate(IProgressMonitor monitor) throws Exception {
         setPomForHDLight(monitor);
-        
+
         generateAssemblyFile(monitor);
 
         // generate routines
@@ -441,10 +440,11 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
     private void setPomForHDLight(IProgressMonitor monitor) {
         // if need to judge spark.
-        /*String processType = processor.getProcess().getComponentsType();
-        if (ComponentCategory.CATEGORY_4_SPARK.getName().equals(processType)
-                || ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName().equals(processType)) {
-        }*/
+        /*
+         * String processType = processor.getProcess().getComponentsType(); if
+         * (ComponentCategory.CATEGORY_4_SPARK.getName().equals(processType) ||
+         * ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName().equals(processType)) { }
+         */
         IProcessor processor = getJobProcessor();
         IElementParameter param = processor.getProcess().getElementParameter("DISTRIBUTION"); //$NON-NLS-1$
         if (param != null) {
@@ -479,8 +479,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 }
             }
         }
-        
-        
+
     }
 
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
@@ -584,7 +583,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                             child.getJobVersion());
                 }
                 // children poms
-                childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName()));
+                childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName(), child.getJobVersion()));
 
                 if (!child.isTestContainer()) { // for test, it have add the in assembly, so no need.
                     // conext resources
