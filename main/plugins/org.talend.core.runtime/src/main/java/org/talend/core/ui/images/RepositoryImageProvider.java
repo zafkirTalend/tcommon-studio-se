@@ -140,7 +140,7 @@ public class RepositoryImageProvider {
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_CORRELATION
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_FUNCTIONAL_DEPENDENCY
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_OVERVIEW
-                || type == ERepositoryObjectType.SYSTEM_INDICATORS_PATTERN_FINDER
+                || type == ERepositoryObjectType.SYSTEM_INDICATORS_PATTERN_FREQUNCEY_STATISTICS
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_PATTERN_MATCHING
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_ROW_COMPARISON
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_SIMPLE_STATISTICS
