@@ -30,6 +30,7 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -355,6 +356,9 @@ public final class RepositoryComponentManager {
 
         for (IComponent component : components) {
             if (component.isTechnical()) {
+                continue;
+            }
+            if (EComponentType.GENERIC.equals(component.getComponentType())) {
                 continue;
             }
             for (RepositoryComponentDndFilterSetting dndFilter : getDndFilterSettings()) {
