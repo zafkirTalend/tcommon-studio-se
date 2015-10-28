@@ -311,8 +311,8 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
         IEclipsePreferences runProcessPreferences = InstanceScope.INSTANCE.getNode(DesignerMavenPlugin.PLUGIN_ID);
         boolean isAlreadySetEclipsePreferences = runProcessPreferences.getBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, false);
         // if already setted them, then can't modify them anymore since user can customize them.
-        IEclipsePreferences eclipsePreferences = InstanceScope.INSTANCE.getNode(JavaCore.PLUGIN_ID);
         if (!isAlreadySetEclipsePreferences) {
+            IEclipsePreferences eclipsePreferences = InstanceScope.INSTANCE.getNode(JavaCore.PLUGIN_ID);
             runProcessPreferences.putBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, true);
             if (compilerCompliance != null) {
                 // set compliance settings to Eclipse
