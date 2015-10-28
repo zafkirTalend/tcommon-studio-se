@@ -297,11 +297,12 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
      */
     private static void clearProjectIndenpendComplianceSettings(IJavaProject javaProject) {
 
-        // clear compliance settings from project
         Map<String, String> projectComplianceOptions = javaProject.getOptions(false);
         if (projectComplianceOptions == null || projectComplianceOptions.isEmpty()) {
             return;
         }
+        String compilerCompliance = javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, false);
+        // clear compliance settings from project
         Set<String> keySet = projectComplianceOptions.keySet();
         for (String key : keySet) {
             javaProject.setOption(key, null);
@@ -313,7 +314,6 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
         IEclipsePreferences eclipsePreferences = InstanceScope.INSTANCE.getNode(JavaCore.PLUGIN_ID);
         if (!isAlreadySetEclipsePreferences) {
             runProcessPreferences.putBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, true);
-            String compilerCompliance = javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, false);
             if (compilerCompliance != null) {
                 // set compliance settings to Eclipse
                 Map<String, String> complianceOptions = new HashMap<String, String>();
