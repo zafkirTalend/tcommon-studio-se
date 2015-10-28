@@ -389,7 +389,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         ContextInjectionFactory.inject(perspProvider, activeContext);
         perspProvider.restoreAlwaysVisiblePerspectives();
         IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (activePage != null) {
+        if (activePage != null && !(activePage.getActivePart() instanceof org.eclipse.ui.internal.ViewIntroAdapterPart)) {
             if (CheatSheetUtils.getInstance().isFirstTime()
                     && activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID)) {
                 CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet("org.talend.datacleansing.core.ui.dqcheatsheet"); //$NON-NLS-1$
