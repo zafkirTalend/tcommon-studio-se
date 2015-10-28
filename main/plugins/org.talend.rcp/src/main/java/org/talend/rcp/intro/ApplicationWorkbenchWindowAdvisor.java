@@ -390,13 +390,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
         perspProvider.restoreAlwaysVisiblePerspectives();
-        boolean isOnBoarding = !PlatformUI.getPreferenceStore().getBoolean(
-                ITalendCorePrefConstants.PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP);
         IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (activePage != null) {
-            if (isOnBoarding && CheatSheetUtils.getInstance().isFirstTime()
+        if (activePage != null && !(activePage.getActivePart() instanceof org.eclipse.ui.internal.ViewIntroAdapterPart)) {
+            if (CheatSheetUtils.getInstance().isFirstTime()
                     && activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID)) {
-                CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet("org.talend.datacleansing.core.ui.dqcheatsheet");
+                CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet("org.talend.datacleansing.core.ui.dqcheatsheet"); //$NON-NLS-1$
             }
         }
 

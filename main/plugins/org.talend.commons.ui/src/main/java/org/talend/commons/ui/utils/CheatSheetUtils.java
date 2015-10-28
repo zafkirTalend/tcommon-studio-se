@@ -91,23 +91,12 @@ public class CheatSheetUtils {
         activePage.setEditorAreaVisible(true);
         // activePage.resetPerspective();
         IViewPart cheatSheetView = null;
-        IViewReference cheatSheetref = null;
         for (IViewReference ref : activePage.getViewReferences()) {
             cheatSheetView = ref.getView(false);
-            if (!view.equals(cheatSheetView)) {
-                activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
-            } else if (cheatSheetView instanceof org.eclipse.ui.internal.ViewIntroAdapterPart) {
-                // do nothing
-            } else {
-                cheatSheetref = ref;
+            if (view.equals(cheatSheetView)) {
+                activePage.setPartState(ref, IWorkbenchPage.STATE_MAXIMIZED);
+                activePage.bringToTop(cheatSheetView);
             }
-        }
-        for (IEditorReference ref : activePage.getEditorReferences()) {
-            activePage.setPartState(ref, IWorkbenchPage.STATE_MINIMIZED);
-        }
-        if (cheatSheetref != null && cheatSheetView != null) {
-            activePage.setPartState(cheatSheetref, IWorkbenchPage.STATE_MAXIMIZED);
-            activePage.bringToTop(cheatSheetView);
         }
         setMaxCheatSheetHasSHow(true);
         PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getSimpleName(), true);
@@ -123,8 +112,8 @@ public class CheatSheetUtils {
             @Override
             public void partHidden(IWorkbenchPartReference partRef) {
                 restoreOtherViewAndEditor(partRef.getPart(false));
-
             }
+
         };
         activePage.addPartListener(partListener2);
         // TDQ-7407~
