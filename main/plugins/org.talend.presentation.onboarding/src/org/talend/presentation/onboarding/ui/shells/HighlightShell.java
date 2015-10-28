@@ -16,6 +16,8 @@ import org.apache.log4j.Priority;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
@@ -97,6 +99,7 @@ public class HighlightShell {
             public void controlResized(ControlEvent e) {
                 if (hlShell.isDisposed()) {
                     removeListeners();
+                    return;
                 }
                 if (currentFocusedWidget == null || currentFocusedWidget.isDisposed()) {
                     Rectangle clientArea = parentShell.getClientArea();
@@ -110,6 +113,7 @@ public class HighlightShell {
             public void controlMoved(ControlEvent e) {
                 if (hlShell.isDisposed()) {
                     removeListeners();
+                    return;
                 }
                 Rectangle clientArea = parentShell.getDisplay().map(parentShell, null, parentShell.getClientArea());
                 hlShell.setLocation(clientArea.x, clientArea.y);
@@ -123,11 +127,20 @@ public class HighlightShell {
             public void mouseDown(MouseEvent e) {
                 if (hlShell.isDisposed()) {
                     removeListeners();
+                    return;
                 }
                 // left click
                 if (e.button == 1) {
                     onBoardingManager.close();
                 }
+            }
+        });
+
+        hlShell.addDisposeListener(new DisposeListener() {
+
+            @Override
+            public void widgetDisposed(DisposeEvent e) {
+                onBoardingManager.close();
             }
         });
     }
@@ -370,6 +383,9 @@ public class HighlightShell {
     }
 
     public void close() {
+        if (hlShell.isDisposed()) {
+            return;
+        }
         hlShell.setEnabled(false);
         setVisible(false);
         removeListeners();

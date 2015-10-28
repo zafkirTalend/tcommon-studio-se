@@ -283,7 +283,7 @@ public class JobInfo {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((contextName == null) ? 0 : contextName.hashCode());
+        // result = prime * result + ((contextName == null) ? 0 : contextName.hashCode());
         result = prime * result + ((jobId == null) ? 0 : jobId.hashCode());
         result = prime * result + ((jobVersion == null) ? 0 : jobVersion.hashCode());
         return result;
@@ -292,13 +292,13 @@ public class JobInfo {
     @Override
     public boolean equals(Object obj) {
         final JobInfo other = (JobInfo) obj;
-        if (contextName == null) {
-            if (other.contextName != null) {
-                return false;
-            }
-        } else if (!contextName.equals(other.contextName)) {
-            return false;
-        }
+        // if (contextName == null) {
+        // if (other.contextName != null) {
+        // return false;
+        // }
+        // } else if (!contextName.equals(other.contextName)) {
+        // return false;
+        // }
         if (jobId == null) {
             if (other.jobId != null) {
                 return false;

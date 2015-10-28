@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Priority;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -45,6 +46,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.emf.EmfHelper;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -295,6 +297,27 @@ public class XmiResourceManager {
 
     private URI getReferenceFileURI(URI itemResourceURI, ReferenceFileItem refFile) {
         if (refFile.getName() != null) {
+            // only do the following when the name of reference file is not null
+            ByteArray contentByteArray = refFile.getContent();
+            URI referenceFileURI = null;
+            if (contentByteArray != null) {
+                Resource eResource = contentByteArray.eResource();
+                if (eResource != null) {
+                    referenceFileURI = eResource.getURI();
+                }
+            }
+            if (referenceFileURI != null) {
+                // means refFile already links to an existing file, then try to get the file name and do strcat
+                String fileName = referenceFileURI.segment(referenceFileURI.segmentCount() - 1);
+                if (fileName != null && fileName.startsWith(refFile.getName())) {
+                    return itemResourceURI.trimSegments(1).appendSegment(fileName);
+                } else {
+                    CommonExceptionHandler.process(new Exception(
+                            "refFile name [" + refFile.getName() + "] is different with resource file name[" + fileName + "]"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                            Priority.INFO);
+                }
+            }
+
             return itemResourceURI.trimSegments(1).appendSegment(refFile.getName() + "." + refFile.getExtension()); //$NON-NLS-1$
         } else {
             return itemResourceURI.trimFileExtension().appendFileExtension(refFile.getExtension());

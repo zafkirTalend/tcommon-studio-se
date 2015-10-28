@@ -803,40 +803,9 @@ public class DeleteAction extends AContextualAction {
                         }
                         deleteActionCache.setProcessList(allJobVersions);
                         objList.addAll(allJobVersions);
-
-                        List<IRepositoryViewObject> connectionc = factory
-                                .getAll(refP, ERepositoryObjectType.METADATA_CONNECTIONS);
-                        objList.addAll(connectionc);
-                        List<IRepositoryViewObject> edifact = factory.getAll(refP, ERepositoryObjectType.METADATA_EDIFACT);
-                        objList.addAll(edifact);
-                        List<IRepositoryViewObject> brms = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_BRMS);
-                        objList.addAll(brms);
-                        List<IRepositoryViewObject> delis = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_DELIMITED);
-                        objList.addAll(delis);
-                        List<IRepositoryViewObject> ebcdic = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_EBCDIC);
-                        objList.addAll(ebcdic);
-                        List<IRepositoryViewObject> excel = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_EXCEL);
-                        objList.addAll(excel);
-                        List<IRepositoryViewObject> ftp = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_FTP);
-                        objList.addAll(ftp);
-                        List<IRepositoryViewObject> hl7 = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_HL7);
-                        objList.addAll(hl7);
-                        List<IRepositoryViewObject> ldif = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_LDIF);
-                        objList.addAll(ldif);
-                        List<IRepositoryViewObject> positional = factory.getAll(refP,
-                                ERepositoryObjectType.METADATA_FILE_POSITIONAL);
-                        objList.addAll(positional);
-                        List<IRepositoryViewObject> regexp = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_REGEXP);
-                        objList.addAll(regexp);
-                        List<IRepositoryViewObject> xmls = factory.getAll(refP, ERepositoryObjectType.METADATA_FILE_XML);
-                        objList.addAll(xmls);
-                        List<IRepositoryViewObject> mdms = factory.getAll(refP, ERepositoryObjectType.METADATA_MDMCONNECTION);
-                        objList.addAll(mdms);
-                        List<IRepositoryViewObject> wsdl = factory.getAll(refP, ERepositoryObjectType.METADATA_WSDL_SCHEMA);
-                        objList.addAll(wsdl);
-                        List<IRepositoryViewObject> saleForces = factory.getAll(refP,
-                                ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA);
-                        objList.addAll(saleForces);
+                        
+                        List<IRepositoryViewObject> metaDatas = factory.getAll(refP, ERepositoryObjectType.METADATA);
+                        objList.addAll(metaDatas);
 
                         for (IRepositoryViewObject process : objList) {
                             Property property2 = process.getProperty();

@@ -8,12 +8,16 @@
 			<dbType type="NUMBER" defaultLength="20" defaultPrecision="10" ignoreLen="false" ignorePre="false"/>
 			<dbType type="INT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="INTEGER" ignoreLen="true" ignorePre="true"/>
+			<dbType type="DECIMAL" ignoreLen="true" ignorePre="true"/>
 			<dbType type="LONG" ignoreLen="true" ignorePre="true"/>
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BINARY_FLOAT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BINARY_DOUBLE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMESTAMP WITH LOCAL TIME ZONE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">
@@ -21,6 +25,7 @@
 				<talendType type="id_List">
 				</talendType>
 				<talendType type="id_Boolean">
+				<dbType type="BOOLEAN" default="true"/>
 				</talendType>
 				<talendType type="id_Byte">						
 				</talendType>
@@ -32,6 +37,8 @@
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true"/>
+					<dbType type="TIMESTAMP" default="true"/>
+					<dbType type="TIMESTAMP WITH LOCAL TIME ZONE" default="true"/>
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="NUMBER"/>
@@ -47,6 +54,7 @@
 				<talendType type="id_Integer">
 					<dbType type="INT" default="true"/>
 					<dbType type="INTEGER"/>
+					<dbType type="DECIMAL"/>
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="NUMBER" default="true"/>
@@ -65,6 +73,9 @@
 				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
+				<dbType type="BOOLEAN">
+                    <talendType type="id_Boolean" default="true" />
+                </dbType>
 				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
 					<talendType type="id_Character" />
@@ -81,6 +92,9 @@
 				<dbType type="INTEGER">
 					<talendType type="id_Integer" default="true" />
 				</dbType>
+				<dbType type="DECIMAL">
+                    <talendType type="id_Integer" default="true" />
+                </dbType>
 				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true" />
 				</dbType>
@@ -95,7 +109,13 @@
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />				
-				</dbType>																																
+				</dbType>
+				<dbType type="TIMESTAMP">
+                    <talendType type="id_Date" default="true" />                
+                </dbType>		
+                <dbType type="TIMESTAMP WITH LOCAL TIME ZONE">
+                    <talendType type="id_Date" default="true" />                
+                </dbType>   																													
 			</dbToTalendTypes>
 		</language>
 	</dbms>

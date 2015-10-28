@@ -17,6 +17,8 @@ import java.util.concurrent.Callable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -121,6 +123,14 @@ public class OnBoardingShell {
             }
         };
         parentShell.addControlListener(controlListenerForParent);
+
+        obShell.addDisposeListener(new DisposeListener() {
+
+            @Override
+            public void widgetDisposed(DisposeEvent e) {
+                onBoardingManager.close();
+            }
+        });
     }
 
     private void removeListeners() {
@@ -158,6 +168,9 @@ public class OnBoardingShell {
     }
 
     public void close() {
+        if (obShell.isDisposed()) {
+            return;
+        }
         removeListeners();
         obShell.close();
         isOpened = false;

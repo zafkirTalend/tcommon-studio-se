@@ -108,6 +108,14 @@ public class PomUtil {
         return pomFileName;
     }
 
+    public static String getPomFileName(String name, String version) {
+        String pomFileName = TalendMavenConstants.POM_FILE_NAME;
+        if (name != null && name.length() > 0) {
+            pomFileName = TalendMavenConstants.POM_NAME + '_' + name + "_" + version + TalendMavenConstants.XML_EXT;
+        }
+        return pomFileName;
+    }
+
     /**
      * get the assembly name, if name is null, return default one "assembly.xml", else will be "assembly_<name>.xml"
      */
