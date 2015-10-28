@@ -296,7 +296,8 @@ public class ModulesNeededProvider {
                 importType);
         // filter modules configured in extension but jar do not exsit in the UrlPath
         ILibraryManagerService libManagerService = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+        if (importType.getMODULEGROUP() == null
+                && GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
             libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerService.class);
             final Iterator<ModuleNeeded> iterator = importModuleFromExtension.iterator();
