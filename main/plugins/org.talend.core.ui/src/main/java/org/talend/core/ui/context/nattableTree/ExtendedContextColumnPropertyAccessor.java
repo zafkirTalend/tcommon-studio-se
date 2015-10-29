@@ -525,6 +525,9 @@ public class ExtendedContextColumnPropertyAccessor<R> implements IColumnProperty
 
         @Override
         public void execute() {
+            if(newValue == null) {
+                newValue = "";
+            }
             boolean modified = false;
             if (modelManager.getContextManager() != null) {
                 for (IContext context : modelManager.getContextManager().getListContext()) {
