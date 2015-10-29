@@ -207,12 +207,12 @@ public enum ECoreImage implements IImage {
     TDQ_ANALYSIS_ICON("/icons1/tdq/chart_bar.png"), //$NON-NLS-1$
     TDQ_RULE_ICON("/icons1/tdq/dqrule_red.png"), //$NON-NLS-1$
     TDQ_MATCH_RULE_ICON("/icons1/tdq/match_rule.png"), //$NON-NLS-1$
-    TDQ_INDICATOR_ICON("/icons1/tdq/IndicatorDefinition.gif"), //$NON-NLS-1$
+    TDQ_INDICATOR_ICON("/icons1/tdq/IndicatorDefinition.png"), //$NON-NLS-1$
     TDQ_PATTERN_ICON("/icons1/tdq/pattern.png"), //$NON-NLS-1$
-    TDQ_JRAXML_ICON("/icons1/tdq/xmldoc.gif"), //$NON-NLS-1$
-    TDQ_SOURCE_FILE_ICON("/icons1/tdq/editor.gif"), //$NON-NLS-1$
+    TDQ_JRAXML_ICON("/icons1/tdq/jrxml.png"), //$NON-NLS-1$
+    TDQ_SOURCE_FILE_ICON("/icons1/tdq/editor.png"), //$NON-NLS-1$
     TDQ_REPORT_ICON("/icons1/tdq/report.png"), //$NON-NLS-1$
-    TDQ_EXCHANGE_ICON("/icons1/tdq/ecosystem_view.gif"), //$NON-NLS-1$
+    TDQ_EXCHANGE_ICON("/icons1/tdq/ecosystem_view.png"), //$NON-NLS-1$
     TDQ_LIBRARIES_ICON("/icons1/tdq/libraries.png"), //$NON-NLS-1$
     TDQ_DATA_PROFILING_ICON("/icons1/tdq/server_chart.png"); //$NON-NLS-1$
 

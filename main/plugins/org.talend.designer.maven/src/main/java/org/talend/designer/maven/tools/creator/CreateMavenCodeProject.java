@@ -14,6 +14,10 @@ package org.talend.designer.maven.tools.creator;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.project.MavenProject;
@@ -27,6 +31,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -36,8 +42,10 @@ import org.eclipse.m2e.core.embedder.IMaven;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.eclipse.m2e.core.project.IProjectConfigurationManager;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
+import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.designer.maven.model.MavenSystemFolders;
 import org.talend.designer.maven.model.ProjectSystemFolder;
 import org.talend.designer.maven.model.TalendMavenConstants;
@@ -49,6 +57,8 @@ import org.talend.designer.maven.utils.PomUtil;
  *
  */
 public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
+
+    public static final String IS_ALREADY_SET_ECLIPSE_COMPLIANCE = "IS_ALREADY_SET_ECLIPSE_COMPLIANCE"; //$NON-NLS-1$
 
     private IProject project;
 
@@ -123,6 +133,11 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
         }
         convertJavaProjectToPom(monitor, p);
         changeClasspath(monitor, p);
+
+        IJavaProject javaProject = JavaCore.create(p);
+        clearProjectIndenpendComplianceSettings(javaProject);
+        // unregist listeners, release resources
+        javaProject.close();
     }
 
     @Override
@@ -218,8 +233,8 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
                     IPath defaultJREContainerPath = JavaRuntime.newDefaultJREContainerPath();
                     if (defaultJREContainerPath.isPrefixOf(entry.getPath())) {
                         // JavaRuntime.getDefaultJREContainerEntry(); //missing properties
-                         newEntry = JavaCore.newContainerEntry(defaultJREContainerPath, entry.getAccessRules(),
-                         entry.getExtraAttributes(), entry.isExported());
+                        newEntry = JavaCore.newContainerEntry(defaultJREContainerPath, entry.getAccessRules(),
+                                entry.getExtraAttributes(), entry.isExported());
                     }
                 }
                 if (newEntry != null) {
@@ -274,4 +289,50 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
             }
         }
     }
+
+    /**
+     * Clear compliance settings from project, and set them into Eclipse compliance settings
+     * 
+     * @param javaProject
+     */
+    private static void clearProjectIndenpendComplianceSettings(IJavaProject javaProject) {
+
+        Map<String, String> projectComplianceOptions = javaProject.getOptions(false);
+        if (projectComplianceOptions == null || projectComplianceOptions.isEmpty()) {
+            return;
+        }
+        String compilerCompliance = javaProject.getOption(JavaCore.COMPILER_COMPLIANCE, false);
+        // clear compliance settings from project
+        Set<String> keySet = projectComplianceOptions.keySet();
+        for (String key : keySet) {
+            javaProject.setOption(key, null);
+        }
+
+        IEclipsePreferences pluginPreferences = InstanceScope.INSTANCE.getNode(DesignerMavenPlugin.PLUGIN_ID);
+        boolean isAlreadySetEclipsePreferences = pluginPreferences.getBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, false);
+        // if already setted them, then can't modify them anymore since user can customize them.
+        if (!isAlreadySetEclipsePreferences) {
+            pluginPreferences.putBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, true);
+            if (compilerCompliance != null) {
+                IEclipsePreferences eclipsePreferences = InstanceScope.INSTANCE.getNode(JavaCore.PLUGIN_ID);
+                // set compliance settings to Eclipse
+                Map<String, String> complianceOptions = new HashMap<String, String>();
+                JavaCore.setComplianceOptions(compilerCompliance, complianceOptions);
+                if (!complianceOptions.isEmpty()) {
+                    Set<Entry<String, String>> entrySet = complianceOptions.entrySet();
+                    for (Entry<String, String> entry : entrySet) {
+                        eclipsePreferences.put(entry.getKey(), entry.getValue());
+                    }
+                }
+                try {
+                    // save changes
+                    eclipsePreferences.flush();
+                    pluginPreferences.flush();
+                } catch (BackingStoreException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+    }
+
 }

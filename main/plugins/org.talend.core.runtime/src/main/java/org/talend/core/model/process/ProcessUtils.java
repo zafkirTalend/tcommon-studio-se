@@ -707,14 +707,30 @@ public final class ProcessUtils {
     }
 
     public static int getAssertAmount(IProcess process) {
-        List<INode> nodes = new ArrayList<INode>();
-        for (INode node : process.getGraphicalNodes()) {
-            // tAssert will be sued on DI job, tCollectAndCheck will be used on Spark job
-            if (node.getComponent().getName().equals("tAssert") || node.getComponent().getName().equals("tCollectAndCheck")) {
-                nodes.add(node);
+        int count = 0;
+        if (process instanceof IProcess2) {
+            Item item = ((IProcess2) process).getProperty().getItem();
+            if (item instanceof ProcessItem) {
+                for (Object obj : ((ProcessItem) item).getProcess().getNode()) {
+                    if (obj instanceof NodeType) {
+                        // tAssert will be sued on DI job, tCollectAndCheck will be used on Spark job
+                        if (((NodeType) obj).getComponentName().equals("tAssert")
+                                || ((NodeType) obj).getComponentName().equals("tCollectAndCheck")) {
+                            count++;
+                        }
+                    }
+                }
+                return count;
+            }
+        } else {
+            for (INode node : process.getGraphicalNodes()) {
+                // tAssert will be sued on DI job, tCollectAndCheck will be used on Spark job
+                if (node.getComponent().getName().equals("tAssert") || node.getComponent().getName().equals("tCollectAndCheck")) {
+                    count++;
+                }
             }
         }
-        return nodes.size();
+        return count;
     }
 
     public static boolean isSpark(IProcess process) {
