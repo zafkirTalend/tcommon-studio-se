@@ -187,7 +187,6 @@ public class OracleExtractManager extends ExtractManager {
             List<String> columnLabels = new ArrayList<String>();
             try {
                 while (columns.next()) {
-                    long numPrecRadix = 0;
                     String columnName = columns.getString(GetColumn.COLUMN_NAME.name());
                     TdColumn column = ColumnHelper.createTdColumn(columnName);
 
@@ -208,22 +207,14 @@ public class OracleExtractManager extends ExtractManager {
                     // dataType = columns.getInt(GetColumn.DATA_TYPE.name());
                     typeName = columns.getString(GetColumn.DATA_TYPE.name());
                     // }
-                    try {
-                        int column_size = columns.getInt("DATA_LENGTH");
-                        column.setLength(column_size);
-                        numPrecRadix = columns.getLong("DATA_PRECISION");
-                        column.setPrecision(numPrecRadix);
-                    } catch (Exception e1) {
-                        log.warn(e1, e1);
-                    }
+                    setLengthAndPrecision(column, columns, typeName);
 
                     DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(table);
                     String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
                     if (dbmsId != null) {
                         MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
-                                extractMeta.getIntMetaDataInfo(columns, "DATA_LENGTH"), extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                        "DATA_PRECISION")); //$NON-NLS-1$
+                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName, (int) column.getLength(),
+                                (int) column.getPrecision());
                         column.setTalendType(talendType);
                         String defaultSelectedDbType = MetadataTalendType.getMappingTypeRetriever(dbConnection.getDbmsId())
                                 .getDefaultSelectedDbType(talendType);
@@ -244,6 +235,44 @@ public class OracleExtractManager extends ExtractManager {
             }
         }
 
+    }
+
+    private void setLengthAndPrecision(TdColumn column, ResultSet columns, String typeName) {
+        /**
+         * NOTE: The concepts of precision and scale in oracle are different with them in Talend Studio<br>
+         * Please see: http://docs.oracle.com/cd/B28359_01/server.111/b28318/datatype.htm#i16209
+         */
+        int column_size = 0;
+        long numPrecRadix = 0;
+        try {
+            if ("NUMBER".equalsIgnoreCase(typeName)) { //$NON-NLS-1$                            
+                boolean isGetFailed = false;
+                Object precision = columns.getObject("DATA_PRECISION");
+                Object scale = columns.getObject("DATA_SCALE");
+                if ((precision == null || precision.toString().isEmpty()) && (scale == null || scale.toString().isEmpty())) {
+                    isGetFailed = true;
+                }
+                if (isGetFailed) {
+                    // such as user dosen't set precision and scale for number
+                    column_size = columns.getInt("DATA_LENGTH");
+                    numPrecRadix = 0;
+                } else {
+                    column_size = columns.getInt("DATA_PRECISION");
+                    numPrecRadix = columns.getLong("DATA_SCALE");
+                }
+            } else {
+                // keep like before
+                column_size = columns.getInt("DATA_LENGTH");
+                numPrecRadix = columns.getLong("DATA_PRECISION");
+            }
+
+            column.setLength(column_size);
+            column.setPrecision(numPrecRadix);
+        } catch (Exception e1) {
+            column.setLength(0);
+            column.setPrecision(0);
+            log.warn(e1, e1);
+        }
     }
 
     @Override
