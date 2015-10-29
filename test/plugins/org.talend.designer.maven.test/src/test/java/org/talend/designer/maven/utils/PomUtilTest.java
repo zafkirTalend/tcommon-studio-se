@@ -43,15 +43,45 @@ public class PomUtilTest {
     }
 
     @Test
+    public void testGetPomFileNameVersion() {
+        String pomFileName = PomUtil.getPomFileName(null, null);
+        Assert.assertEquals("pom.xml", pomFileName);
+
+        pomFileName = PomUtil.getPomFileName("", null);
+        Assert.assertEquals("pom.xml", pomFileName);
+
+        pomFileName = PomUtil.getPomFileName(" ", "  ");
+        Assert.assertEquals("pom.xml", pomFileName);
+
+        pomFileName = PomUtil.getPomFileName("ABC", null);
+        Assert.assertEquals("pom_ABC.xml", pomFileName);
+
+        pomFileName = PomUtil.getPomFileName("ABC", " ");
+        Assert.assertEquals("pom_ABC.xml", pomFileName);
+
+        pomFileName = PomUtil.getPomFileName("ABC", "1.0");
+        Assert.assertEquals("pom_ABC_1.0.xml", pomFileName);
+    }
+
+    @Test
     public void testGetAssemblyFileName() {
-        String assemblyFileName = PomUtil.getAssemblyFileName(null);
+        String assemblyFileName = PomUtil.getAssemblyFileName(null, null);
         Assert.assertEquals("assembly.xml", assemblyFileName);
 
-        assemblyFileName = PomUtil.getAssemblyFileName("");
+        assemblyFileName = PomUtil.getAssemblyFileName("", null);
         Assert.assertEquals("assembly.xml", assemblyFileName);
 
-        assemblyFileName = PomUtil.getAssemblyFileName("ABC");
+        assemblyFileName = PomUtil.getAssemblyFileName(" ", null);
+        Assert.assertEquals("assembly.xml", assemblyFileName);
+
+        assemblyFileName = PomUtil.getAssemblyFileName("ABC", null);
         Assert.assertEquals("assembly_ABC.xml", assemblyFileName);
+
+        assemblyFileName = PomUtil.getAssemblyFileName("ABC", "    ");
+        Assert.assertEquals("assembly_ABC.xml", assemblyFileName);
+
+        assemblyFileName = PomUtil.getAssemblyFileName("ABC", "1.0");
+        Assert.assertEquals("assembly_ABC_1.0.xml", assemblyFileName);
     }
 
     @Test

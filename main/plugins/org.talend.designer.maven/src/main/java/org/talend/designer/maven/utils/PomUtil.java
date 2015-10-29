@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
@@ -90,32 +91,42 @@ public class PomUtil {
     }
 
     /**
+     * main for the codes pom without version.
      * 
      * get the pom name, if name is null, return default one "pom.xml", else will be "pom_<name>.xml"
      */
     public static String getPomFileName(String name) {
-        String pomFileName = TalendMavenConstants.POM_FILE_NAME;
-        if (name != null && name.length() > 0) {
-            pomFileName = TalendMavenConstants.POM_NAME + '_' + name + TalendMavenConstants.XML_EXT;
-        }
-        return pomFileName;
+        return getPomFileName(name, null);
     }
 
+    /**
+     * 
+     * get the pom name, if name is null, return default one "pom.xml", else will be "pom_<name>_<version>.xml"
+     */
     public static String getPomFileName(String name, String version) {
         String pomFileName = TalendMavenConstants.POM_FILE_NAME;
-        if (name != null && name.length() > 0) {
-            pomFileName = TalendMavenConstants.POM_NAME + '_' + name + "_" + version + TalendMavenConstants.XML_EXT;
+        if (StringUtils.isNotBlank(name)) {
+            pomFileName = TalendMavenConstants.POM_NAME + '_' + name.trim();
+            if (StringUtils.isNotBlank(version)) {
+                pomFileName += '_' + version.trim();
+            }
+            pomFileName += TalendMavenConstants.XML_EXT;
         }
         return pomFileName;
     }
 
     /**
-     * get the assembly name, if name is null, return default one "assembly.xml", else will be "assembly_<name>.xml"
+     * get the assembly name, if name is null, return default one "assembly.xml", else will be
+     * "assembly_<name>_<version>.xml"
      */
-    public static String getAssemblyFileName(String name) {
+    public static String getAssemblyFileName(String name, String version) {
         String assemblyFileName = TalendMavenConstants.ASSEMBLY_FILE_NAME;
-        if (name != null && name.length() > 0) {
-            assemblyFileName = TalendMavenConstants.ASSEMBLY_NAME + '_' + name + TalendMavenConstants.XML_EXT;
+        if (StringUtils.isNotBlank(name)) {
+            assemblyFileName = TalendMavenConstants.ASSEMBLY_NAME + '_' + name.trim();
+            if (StringUtils.isNotBlank(version)) {
+                assemblyFileName += '_' + version.trim();
+            }
+            assemblyFileName += TalendMavenConstants.XML_EXT;
         }
         return assemblyFileName;
     }
