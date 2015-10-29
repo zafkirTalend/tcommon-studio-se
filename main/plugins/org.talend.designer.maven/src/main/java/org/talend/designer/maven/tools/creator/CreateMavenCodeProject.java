@@ -308,13 +308,13 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
             javaProject.setOption(key, null);
         }
 
-        IEclipsePreferences runProcessPreferences = InstanceScope.INSTANCE.getNode(DesignerMavenPlugin.PLUGIN_ID);
-        boolean isAlreadySetEclipsePreferences = runProcessPreferences.getBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, false);
+        IEclipsePreferences pluginPreferences = InstanceScope.INSTANCE.getNode(DesignerMavenPlugin.PLUGIN_ID);
+        boolean isAlreadySetEclipsePreferences = pluginPreferences.getBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, false);
         // if already setted them, then can't modify them anymore since user can customize them.
         if (!isAlreadySetEclipsePreferences) {
-            IEclipsePreferences eclipsePreferences = InstanceScope.INSTANCE.getNode(JavaCore.PLUGIN_ID);
-            runProcessPreferences.putBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, true);
+            pluginPreferences.putBoolean(IS_ALREADY_SET_ECLIPSE_COMPLIANCE, true);
             if (compilerCompliance != null) {
+                IEclipsePreferences eclipsePreferences = InstanceScope.INSTANCE.getNode(JavaCore.PLUGIN_ID);
                 // set compliance settings to Eclipse
                 Map<String, String> complianceOptions = new HashMap<String, String>();
                 JavaCore.setComplianceOptions(compilerCompliance, complianceOptions);
@@ -327,7 +327,7 @@ public class CreateMavenCodeProject extends AbstractMavenGeneralTemplatePom {
                 try {
                     // save changes
                     eclipsePreferences.flush();
-                    runProcessPreferences.flush();
+                    pluginPreferences.flush();
                 } catch (BackingStoreException e) {
                     ExceptionHandler.process(e);
                 }
