@@ -108,7 +108,6 @@ import org.talend.repository.ui.wizards.metadata.table.files.FileLdifTableWizard
 import org.talend.repository.ui.wizards.metadata.table.files.FilePositionalTableWizard;
 import org.talend.repository.ui.wizards.metadata.table.files.FileRegexpTableWizard;
 import org.talend.repository.ui.wizards.metadata.table.files.FileXmlTableWizard;
-
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
@@ -1149,7 +1148,10 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                 if (node.getParent().isBin() && node.getParent().getObject() == null) {
                     item = (ConnectionItem) node.getObject().getProperty().getItem();
                 } else {
-                    item = (ConnectionItem) node.getParent().getObject().getProperty().getItem();
+                    IRepositoryViewObject repObj = node.getParent().getObject();
+                    if (repObj != null) {
+                        item = (ConnectionItem) repObj.getProperty().getItem();
+                    }
                 }
                 if (item != null) {
                     Connection connection = item.getConnection();
