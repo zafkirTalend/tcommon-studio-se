@@ -64,4 +64,6 @@ public interface IMRProcessService extends IService {
             String originalJobID, List<INode> testNodes, Boolean lastVersion, Boolean readonly);
 
     public IImage getMRWizardIcon(String framework);
+
+    public IProcess2 createBigdataProcess(Item item);
 }
