@@ -74,6 +74,8 @@ public final class UpdatesConstants {
 
     public static final String SCHEMA = "SCHEMA"; //$NON-NLS-1$
 
+    public static final String SCHEMA_FLOW = "SCHEMA_FLOW"; //$NON-NLS-1$
+
     public static final String INPUT_SCHEMA = "INPUT_SCHEMA"; //$NON-NLS-1$
 
     public static final String SCHEMA_TARGET = "SCHEMA_TARGET";//$NON-NLS-1$
