@@ -6,34 +6,4 @@
 	<!-- localRepository | The path to the local repository maven will use to 
 		store artifacts. | | Default: ${user.home}/.m2/repository -->
 	<localRepository>${user.home}/.m2/repository</localRepository>
-
-	<profiles>
-		<profile>
-			<id>provider-repository</id>
-			<activation>
-				<file>
-					<exists>/path/to/repository</exists>
-				</file>
-			</activation>
-			<properties>
-				<default.repository.path>/path/to/repository</default.repository.path>
-			</properties>
-			<repositories>
-				<repository>
-					<id>provider-maven-repo</id>
-					<name>Maven repository</name>
-					<url>file://${default.repository.path}</url>
-					<layout>default</layout>
-				</repository>
-			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<id>provider-maven-plugins-repo</id>
-					<name>Maven plugins repository</name>
-					<url>file://${default.repository.path}</url>
-					<layout>default</layout>
-				</pluginRepository>
-			</pluginRepositories>
-		</profile>
-	</profiles>
 </settings>
