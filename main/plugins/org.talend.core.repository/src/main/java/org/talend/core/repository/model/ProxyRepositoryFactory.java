@@ -115,9 +115,11 @@ import org.talend.core.repository.recyclebin.RecycleBinManager;
 import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.service.ICoreUIService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.documentation.ERepositoryActionName;
@@ -1841,6 +1843,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
+                    
+                    // for commandline to clear routines,pigudf,beans.
+                    if(CommonsPlugin.isHeadless()) {
+                        deleteAllRoutinesAndBeans();
+                    }
                     try {
                         coreService.syncAllRoutines();
                         // PTODO need refactor later, this is not good, I think
@@ -2178,4 +2185,27 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             String folderName, int options) throws PersistenceException {
         return repositoryFactoryFromProvider.getObjectFromFolder(project, type, folderName, options);
     }
+    
+    private void deleteAllRoutinesAndBeans() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
+            IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
+                    IRunProcessService.class);
+            ITalendProcessJavaProject project = runProcessService.getTalendProcessJavaProject();
+            IFolder src = project.getSrcFolder();
+            try {
+                IResource[] childrenResources = src.members();
+                for (IResource child : childrenResources) {
+                    Object folderName = child.getName();
+                    if ("routines".equals(folderName) //$NON-NLS-1$
+                            || "pigudf".equals(folderName) //$NON-NLS-1$
+                            || "beans".equals(folderName)) { //$NON-NLS-1$
+                        child.delete(true, null);
+                    }
+                }
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
 }
