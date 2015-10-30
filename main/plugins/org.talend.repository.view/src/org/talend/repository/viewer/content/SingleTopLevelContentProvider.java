@@ -190,9 +190,9 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
             return boolean1;
         } else {
             if (element instanceof RepositoryNode) {
-                RepositoryNode repositoryNode = (RepositoryNode) element;
+                final RepositoryNode repositoryNode = (RepositoryNode) element;
                 if (repositoryNode.isInitialized()) {
-                    return repositoryNode.getChildren().size() > 0;
+                    return repositoryNode.hasChildren();
                 } else {
                     return getChildren(element).length > 0;
                 }
