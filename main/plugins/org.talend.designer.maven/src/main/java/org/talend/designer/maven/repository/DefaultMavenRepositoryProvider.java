@@ -35,17 +35,19 @@ public final class DefaultMavenRepositoryProvider {
         return configPath.append(PATH_REPO);
     }
 
-    public static void sync() {
-        try {
-            File mavenRepoInConfig = getMavenRepoPath().toFile();
-            if (mavenRepoInConfig.exists()) {
-                return;// if existed the folder, don't do sync
-            }
+    public static void sync(File dest) {
+        if (dest == null) {
+            return;
+        }
+        if (dest.exists() && dest.isFile()) {
+            return;
+        }
+        dest.mkdirs();
 
-            mavenRepoInConfig.mkdirs();
-            if (!mavenRepoInConfig.canWrite()) { // try to check the write rights.
-                return;
-            }
+        if (!dest.exists() || !dest.canWrite()) { // can't create the parent folder
+            return;
+        }
+        try {
 
             URL mavenRepoUrl = FileLocator.find(DesignerMavenPlugin.getPlugin().getContext().getBundle(), new Path(
                     "/resources/repository/maven_repository.zip"), null); //$NON-NLS-1$
@@ -57,7 +59,7 @@ public final class DefaultMavenRepositoryProvider {
             if (!zipFile.exists()) {
                 return;
             }
-            FilesUtils.unzip(zipFile.getAbsolutePath(), mavenRepoInConfig.getParentFile().getAbsolutePath());
+            FilesUtils.unzip(zipFile.getAbsolutePath(), dest.getAbsolutePath());
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }

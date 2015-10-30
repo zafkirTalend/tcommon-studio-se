@@ -66,5 +66,17 @@
             priority="highest">
       </loginTask>
    </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <projecttask
+            beforeLogon="true"
+            breaks="6.0.1"
+            class="org.talend.designer.maven.ui.setting.migration.ConfigMavenRepositoryRemoveMigrationTask"
+            description="Remove old Maven repository from configuration folder"
+            id="org.talend.designer.maven.ui.ConfigMavenRepositoryRemove"
+            name="RemoveConfigMavenRepository"
+            version="6.0.2">
+      </projecttask>
+   </extension>
 
 </plugin>
