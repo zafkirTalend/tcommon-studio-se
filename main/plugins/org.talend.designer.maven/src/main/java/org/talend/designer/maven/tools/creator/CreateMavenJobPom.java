@@ -372,6 +372,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
     }
 
+    @Override
     protected boolean validChildrenJob(JobInfo jobInfo) {
         // for job, ignore test container for children.
         return jobInfo != null && !jobInfo.isTestContainer();
@@ -416,6 +417,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         }
     }
 
+    @Override
     protected void afterCreate(IProgressMonitor monitor) throws Exception {
         generateAssemblyFile(monitor);
 
@@ -426,6 +428,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         pomSync.syncTemplates(true);
 
     }
+
 
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
         IFile assemblyFile = this.getAssemblyFile();
@@ -528,7 +531,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                             child.getJobVersion());
                 }
                 // children poms
-                childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName()));
+                childrenPomsIncludes.add(PomUtil.getPomFileName(child.getJobName(), child.getJobVersion()));
 
                 if (!child.isTestContainer()) { // for test, it have add the in assembly, so no need.
                     // conext resources
