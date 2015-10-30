@@ -123,9 +123,9 @@ public class ProjectPomManager {
 
         if (processor != null) {
             for (JobInfo childJob : processor.getBuildChildrenJobs()) {
-                modulesList.add(PomUtil.getPomFileName(childJob.getJobName()));
+                modulesList.add(PomUtil.getPomFileName(childJob.getJobName(), childJob.getJobVersion()));
             }
-            modulesList.add(PomUtil.getPomFileName(processor.getProperty().getLabel()));
+            modulesList.add(PomUtil.getPomFileName(processor.getProperty().getLabel(), processor.getProperty().getVersion()));
         }
         // check the modules
         List<String> modules = projectModel.getModules();
