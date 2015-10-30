@@ -70,6 +70,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
+import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
@@ -647,6 +648,13 @@ public class ExtractManager {
                 columns.beforeFirst();
             }
 
+            EDatabaseTypeName eDatabaseType = EDatabaseTypeName.getTypeFromDisplayName(databaseType);
+            boolean isOracleProduct = false;
+            if (eDatabaseType != null) {
+                isOracleProduct = "ORACLE".equalsIgnoreCase(eDatabaseType.getProduct()); //$NON-NLS-1$
+            }
+            boolean isUseAllSynonyms = extractMeta.isUseAllSynonyms();
+
             IRepositoryService repositoryService = CoreRuntimePlugin.getInstance().getRepositoryService();
             while (columns.next()) {
                 Boolean b = false;
@@ -690,7 +698,7 @@ public class ExtractManager {
                     }
 
                     String typeName = "TYPE_NAME"; //$NON-NLS-1$
-                    if (extractMeta.isUseAllSynonyms()) {
+                    if (isUseAllSynonyms) {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
                     String dbType = extractMeta.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
@@ -700,13 +708,22 @@ public class ExtractManager {
                     dbType = ManagementTextUtils.filterSpecialChar(dbType);
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
-                    Integer columnSize;
-                    // if (isMYSQL) {
-                    // columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
-                    // } else {
-                    columnSize = extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE");
-                    // }
-                    metadataColumn.setLength(columnSize);
+                    Integer columnSize = new Integer(0);
+                    Integer intMetaDataInfo = new Integer(0);
+
+                    if (isOracleProduct && isUseAllSynonyms) {
+                        setLengthAndPrecision(metadataColumn, columns, dbType);
+                        columnSize = (int) metadataColumn.getLength();
+                        intMetaDataInfo = (int) metadataColumn.getPrecision();
+                    } else {
+                        // if (isMYSQL) {
+                        // columnSize = ExtractMetaDataUtils.getMysqlIntMetaDataInfo(resultMetadata, columnIndex);
+                        // } else {
+                        columnSize = extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE");
+                        // }
+                        metadataColumn.setLength(columnSize);
+                        intMetaDataInfo = extractMeta.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
+                    }
                     // Convert dbmsType to TalendType
 
                     String talendType = null;
@@ -715,7 +732,6 @@ public class ExtractManager {
                     if (metadataConnection.getMapping() != null) {
                         mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection.getMapping());
                     }
-                    Integer intMetaDataInfo = extractMeta.getIntMetaDataInfo(columns, "DECIMAL_DIGITS");
                     talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, columnSize, intMetaDataInfo);
                     talendType = ManagementTextUtils.filterSpecialChar(talendType);
                     if (talendType == null) {
@@ -730,24 +746,35 @@ public class ExtractManager {
 
                     metadataColumn.setTalendType(talendType);
                     // move for bug TDI-24016
-                    String stringMetaDataInfo = extractMeta.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
+                    String stringMetaDataInfo = ""; //$NON-NLS-1$
                     // for bug 13078
 
-                    boolean isNullable = extractMeta.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$ 
-                    metadataColumn.setNullable(isNullable);
-
-                    // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
-                    String commentInfo = extractMeta.getStringMetaDataInfo(columns, ExtractManager.REMARKS, null);
-                    if (commentInfo != null && commentInfo.length() > 0) {
-                        commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
+                    String commentInfo = ""; //$NON-NLS-1$
+                    if (isOracleProduct && isUseAllSynonyms) {
+                        metadataColumn.setNullable("Y".equals(columns.getString(GetColumn.NULLABLE.name()))); //$NON-NLS-1$
+                        // keep same with OracleExtractManager
+                        String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
+                        metadataColumn.setSourceType(defaultSelectedDbType);
+                    } else {
+                        metadataColumn.setNullable(extractMeta.getBooleanMetaDataInfo(columns, "IS_NULLABLE")); //$NON-NLS-1$
+                        stringMetaDataInfo = extractMeta.getStringMetaDataInfo(columns, "COLUMN_DEF", dbMetaData); //$NON-NLS-1$
+                        // gcui:see bug 6450, if in the commentInfo have some invalid character then will remove it.
+                        commentInfo = extractMeta.getStringMetaDataInfo(columns, ExtractManager.REMARKS, null);
+                        if (commentInfo != null && commentInfo.length() > 0) {
+                            commentInfo = ManagementTextUtils.filterSpecialChar(commentInfo);
+                        }
                     }
+
                     // gcui:if not oracle database use "REMARKS" select comments
                     metadataColumn.setComment(commentInfo);
-                    // jdbc-odbc driver won't apply methods for access
-                    addColumnAttributes(metadataConnection, columns, metadataColumn, label, label2, dbType, columnSize,
-                            intMetaDataInfo, commentInfo);
-
-                    checkPrecision(metadataColumn, tableName, dbType, intMetaDataInfo);
+                    if (isOracleProduct && isUseAllSynonyms) {
+                        metadataColumn.setName(label2);
+                    } else {
+                        // jdbc-odbc driver won't apply methods for access
+                        addColumnAttributes(metadataConnection, columns, metadataColumn, label, label2, dbType, columnSize,
+                                intMetaDataInfo, commentInfo);
+                        checkPrecision(metadataColumn, tableName, dbType, intMetaDataInfo);
+                    }
 
                     // cantoine : patch to fix 0x0 pb cause by Bad Schema
                     // description
@@ -790,6 +817,44 @@ public class ExtractManager {
         }
 
         return metadataColumns;
+    }
+
+    protected void setLengthAndPrecision(TdColumn column, ResultSet columns, String typeName) {
+        /**
+         * NOTE: The concepts of precision and scale in oracle are different with them in Talend Studio<br>
+         * Please see: http://docs.oracle.com/cd/B28359_01/server.111/b28318/datatype.htm#i16209
+         */
+        int column_size = 0;
+        long numPrecRadix = 0;
+        try {
+            if ("NUMBER".equalsIgnoreCase(typeName)) { //$NON-NLS-1$                            
+                boolean isGetFailed = false;
+                Object precision = columns.getObject("DATA_PRECISION");
+                Object scale = columns.getObject("DATA_SCALE");
+                if ((precision == null || precision.toString().isEmpty()) && (scale == null || scale.toString().isEmpty())) {
+                    isGetFailed = true;
+                }
+                if (isGetFailed) {
+                    // such as user dosen't set precision and scale for number
+                    column_size = columns.getInt("DATA_LENGTH");
+                    numPrecRadix = 0;
+                } else {
+                    column_size = columns.getInt("DATA_PRECISION");
+                    numPrecRadix = columns.getLong("DATA_SCALE");
+                }
+            } else {
+                // keep like before
+                column_size = columns.getInt("DATA_LENGTH");
+                numPrecRadix = columns.getLong("DATA_PRECISION");
+            }
+
+            column.setLength(column_size);
+            column.setPrecision(numPrecRadix);
+        } catch (Exception e1) {
+            column.setLength(0);
+            column.setPrecision(0);
+            log.warn(e1, e1);
+        }
     }
 
     private String handleDBtype(String type) {
