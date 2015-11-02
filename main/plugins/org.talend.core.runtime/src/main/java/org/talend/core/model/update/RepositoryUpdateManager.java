@@ -1683,13 +1683,13 @@ public abstract class RepositoryUpdateManager {
         } else if (isDeleteOrReselect) {
             return updateDeleteOrReselectSchema(connItem, connItem, deletedOrReselectTablesMap, true, false);
         } else {
-            return checkConnectionItem(connItem, connItem, true, false);
+            return updateConnection(connItem, connItem, true, false);
         }
         // return false;
 
     }
 
-    private static boolean checkConnectionItem(Object table, ConnectionItem connItem, boolean show, boolean onlySimpleShow) {
+    private static boolean updateConnection(Object table, ConnectionItem connItem, boolean show, boolean onlySimpleShow) {
         List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo((connItem).getProperty().getId(),
                 ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, relations) {
