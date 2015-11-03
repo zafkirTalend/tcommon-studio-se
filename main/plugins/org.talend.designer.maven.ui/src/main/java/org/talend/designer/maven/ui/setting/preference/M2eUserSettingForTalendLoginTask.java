@@ -102,7 +102,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         if (monitor.isCanceled()) {
             return;
         }
-        final boolean isFirstSet = prefSetting.getBoolean(MAVEN_SETTING_HAVE_SET, false);
+        final boolean isSet = prefSetting.getBoolean(MAVEN_SETTING_HAVE_SET, false);
         final boolean isLocalRepository = isLocalRepository();
 
         final Path configPath = new Path(Platform.getConfigurationLocation().getURL().getPath());
@@ -111,7 +111,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         final String studioUserSettingsPath = studioUserSettingsFile.getAbsolutePath();
 
         try {
-            checkMavenUserSetting(monitor, studioUserSettingsFile, isFirstSet, isLocalRepository);
+            checkMavenUserSetting(monitor, studioUserSettingsFile, isSet, isLocalRepository);
 
             final IMaven maven = MavenPlugin.getMaven();
             maven.reloadSettings();
@@ -147,7 +147,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                 if (studioUserSettingsFile.exists()) {// try to use studio one directly.
                     MavenPlugin.getMavenConfiguration().setUserSettingsFile(studioUserSettingsPath);
                 } else { // if not existed, try to force creating studio user setting and use it.
-                    checkMavenUserSetting(monitor, studioUserSettingsFile, isFirstSet, true);
+                    checkMavenUserSetting(monitor, studioUserSettingsFile, isSet, true);
                 }
                 maven.reloadSettings(); // reload again
                 // get new value
@@ -177,9 +177,14 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             // update the proxies
             updateProxiesPreference(monitor, maven, settings);
 
-            // first time for non-studio settings or non-existed
+            // add one marker to check to sync or not.
             File repoFolder = new File(maven.getLocalRepositoryPath());
-            if (!isLocalRepository && !isFirstSet || !repoFolder.exists()) {
+            File markerFile = new File(repoFolder, ".syncMarker"); //$NON-NLS-1$
+            if (!markerFile.exists()) {
+                if (!repoFolder.exists()) {
+                    repoFolder.mkdirs();
+                }
+                markerFile.createNewFile();
                 DefaultMavenRepositoryProvider.sync(repoFolder.getParentFile());
             }
         } catch (Exception e) {
@@ -197,13 +202,13 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         return (IProxyService) proxyTracker.getService();
     }
 
-    private void checkMavenUserSetting(IProgressMonitor monitor, File studioUserSettingsFile, boolean isFirstSet, boolean force) {
+    private void checkMavenUserSetting(IProgressMonitor monitor, File studioUserSettingsFile, boolean isSet, boolean force) {
         if (monitor.isCanceled()) {
             return;
         }
         try {
 
-            if (!isFirstSet || force) {// first time to set or force
+            if (!isSet || force) {// first time to set or force
                 if (!studioUserSettingsFile.exists()) {
                     InputStream inputStream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
                             IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/'
@@ -221,7 +226,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                     if (!path.equals(MavenPlugin.getMavenConfiguration().getUserSettingsFile())) {
                         MavenPlugin.getMavenConfiguration().setUserSettingsFile(path);
                     }
-                    if (!isFirstSet) {
+                    if (!isSet) {
                         prefSetting.putBoolean(MAVEN_SETTING_HAVE_SET, true);
                         prefSetting.flush();
                     }
@@ -250,7 +255,6 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             File studioDefaultRepoFolder = m2RepoPath.toFile();
             if (!studioDefaultRepoFolder.exists()) {
                 studioDefaultRepoFolder.mkdirs();
-                DefaultMavenRepositoryProvider.sync(studioDefaultRepoFolder.getParentFile());
             }
 
         }
