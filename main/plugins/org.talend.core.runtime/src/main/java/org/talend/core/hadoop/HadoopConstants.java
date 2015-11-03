@@ -40,4 +40,13 @@ public class HadoopConstants {
     public static final String JOBTYPEBDSTREAMING = "Big Data Streaming";
 
     public static final String JOBTYPEBDBATCH = "Big Data Batch";
+
+    public static final String SPARKSTREAMING_TYPE = "SPARKSTREAMING";
+
+    public static final String MAPREDUCE_TYPE = "MR";
+
+    public static final String SPARK_TYPE = "SPARK";
+
+    public static final String STORM_TYPE = "STORM";
+
 }
