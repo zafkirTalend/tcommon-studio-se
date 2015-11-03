@@ -169,7 +169,7 @@ public class DeleteAction extends AContextualAction {
 
             @Override
             public void run(IProgressMonitor monitor) {
-                monitor.beginTask("Delete Running", IProgressMonitor.UNKNOWN); //$NON-NLS-1$
+                monitor.beginTask("Delete Running", IProgressMonitor.UNKNOWN);
                 Object[] selections = ((IStructuredSelection) selection).toArray();
                 List<RepositoryNode> selectNodes = new ArrayList<RepositoryNode>();
                 for (Object obj : selections) {
