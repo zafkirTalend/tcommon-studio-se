@@ -1315,98 +1315,59 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             }
         }
 
+        Connection connection = null;
         if (type == ERepositoryObjectType.METADATA_CONNECTIONS && isAvaliableInTOS) {
-            createTables(node, repositoryObject, dbMetadataConnection, validationRules);
+            connection = dbMetadataConnection;
+        } else if (type == ERepositoryObjectType.METADATA_SAPCONNECTIONS) {
+            connection = (SAPConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_DELIMITED) {
+            connection = (DelimitedFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_POSITIONAL) {
+            connection = (PositionalFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_REGEXP) {
+            connection = (RegexpFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
+            connection = (XmlFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_EXCEL) {
+            connection = (FileExcelConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_LDIF) {
+            connection = (LdifFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_LDAP_SCHEMA) {
+            connection = (LDAPSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_GENERIC_SCHEMA) {
+            connection = (GenericSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_WSDL_SCHEMA) {
+            connection = (WSDLSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA) {
+            connection = (SalesforceSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_EBCDIC) {
+            connection = (EbcdicConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_HL7) {
+            connection = (HL7Connection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_FTP) {
+            connection = (FTPConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_FILE_BRMS) {
+            connection = (BRMSConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_MDMCONNECTION) {
+            connection = (MDMConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+        } else if (type == ERepositoryObjectType.METADATA_EDIFACT) {
+            connection = (EDIFACTConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
+                .getConnection();
         }
-        if (type == ERepositoryObjectType.METADATA_SAPCONNECTIONS) {
-            SAPConnection metadataConnection = (SAPConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_DELIMITED) {
-            DelimitedFileConnection metadataConnection = (DelimitedFileConnection) ((ConnectionItem) repositoryObject
-                    .getProperty().getItem()).getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_POSITIONAL) {
-            PositionalFileConnection metadataConnection = (PositionalFileConnection) ((ConnectionItem) repositoryObject
-                    .getProperty().getItem()).getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_REGEXP) {
-            RegexpFileConnection metadataConnection = (RegexpFileConnection) ((ConnectionItem) repositoryObject.getProperty()
-                    .getItem()).getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_XML) {
-            XmlFileConnection metadataConnection = (XmlFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
+        if (null != connection) {
+            createTables(node, repositoryObject, connection, validationRules);
         }
 
-        if (type == ERepositoryObjectType.METADATA_FILE_EXCEL) {
-            FileExcelConnection metadataConnection = (FileExcelConnection) ((ConnectionItem) repositoryObject.getProperty()
-                    .getItem()).getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-
-        if (type == ERepositoryObjectType.METADATA_FILE_LDIF) {
-            LdifFileConnection metadataConnection = (LdifFileConnection) ((ConnectionItem) repositoryObject.getProperty()
-                    .getItem()).getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-
-        if (type == ERepositoryObjectType.METADATA_LDAP_SCHEMA) {
-            LDAPSchemaConnection metadataConnection = (LDAPSchemaConnection) ((ConnectionItem) repositoryObject.getProperty()
-                    .getItem()).getConnection();
-            createTables(node, repositoryObject, metadataConnection, validationRules);
-        }
-
-        if (type == ERepositoryObjectType.METADATA_GENERIC_SCHEMA) {
-            GenericSchemaConnection genericSchemaConnection = (GenericSchemaConnection) ((ConnectionItem) repositoryObject
-                    .getProperty().getItem()).getConnection();
-            createTables(node, repositoryObject, genericSchemaConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_WSDL_SCHEMA) {
-            WSDLSchemaConnection genericSchemaConnection = (WSDLSchemaConnection) ((ConnectionItem) repositoryObject
-                    .getProperty().getItem()).getConnection();
-            createTables(node, repositoryObject, genericSchemaConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA) {
-            SalesforceSchemaConnection genericSchemaConnection = (SalesforceSchemaConnection) ((ConnectionItem) repositoryObject
-                    .getProperty().getItem()).getConnection();
-            createTables(node, repositoryObject, genericSchemaConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_EBCDIC) {
-            EbcdicConnection ebcdicConnection = (EbcdicConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, ebcdicConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_HL7) {
-            HL7Connection hl7Connection = (HL7Connection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, hl7Connection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_FTP) {
-            FTPConnection ftpConnection = (FTPConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, ftpConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_FILE_BRMS) {
-            BRMSConnection brmsConnection = (BRMSConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, brmsConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_MDMCONNECTION) {
-            MDMConnection mdmConnection = (MDMConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, mdmConnection, validationRules);
-        }
-        if (type == ERepositoryObjectType.METADATA_EDIFACT) {
-            EDIFACTConnection edifactConnection = (EDIFACTConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                    .getConnection();
-            createTables(node, repositoryObject, edifactConnection, validationRules);
-        }
         for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
             handler.addNode(type, recBinNode, repositoryObject, node);
         }
@@ -1592,12 +1553,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             // if (allTables.isEmpty() && dbconn.getDatabaseType().equals(EDatabaseTypeName.SAS.getDisplayName())) {
             // allTables = ConnectionHelper.getTables(dbconn);
             // }
-            Iterator metadataTables = allTables.iterator();
 
             // Iterator metadataTables = ConnectionHelper.getTables(metadataConnection).iterator();
-            while (metadataTables.hasNext()) {
-                org.talend.core.model.metadata.builder.connection.MetadataTable metadataTable = (org.talend.core.model.metadata.builder.connection.MetadataTable) metadataTables
-                        .next();
+            for (MetadataTable metadataTable : allTables) {
 
                 // bug 17768
                 if (SubItemHelper.isDeleted(metadataTable)) {
@@ -1639,12 +1597,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             // createTables(recBinNode, node, repObj, metadataConnection.getTables());
 
             // 4.Queries:
-            boolean isImpala = false;
-            if (metadataConnection instanceof DatabaseConnection) {
-                if (EDatabaseTypeName.IMPALA.getDisplayName().equals(((DatabaseConnection) metadataConnection).getDatabaseType())) {
-                    isImpala = true;
-                }
-            }
+            boolean isImpala = EDatabaseTypeName.IMPALA.getDisplayName().equals(dbconn.getDatabaseType());
             if (!ConnectionUtils.isHiveConnection(dbconn.getURL()) || isImpala) {
                 RepositoryNode queriesNode = new StableRepositoryNode(node,
                         Messages.getString("ProjectRepositoryNode.queries"), ECoreImage.FOLDER_CLOSE_ICON); //$NON-NLS-1$

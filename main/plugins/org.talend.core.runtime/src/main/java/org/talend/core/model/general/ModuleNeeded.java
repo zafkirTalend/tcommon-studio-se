@@ -370,6 +370,7 @@ public class ModuleNeeded {
         }
 
         hashCode *= new Boolean(this.isRequired()).hashCode();
+        hashCode *= new Boolean(this.isMrRequired()).hashCode();
         return hashCode;
     }
 
@@ -439,6 +440,10 @@ public class ModuleNeeded {
         }
 
         if (other.isRequired() != this.isRequired()) {
+            return false;
+        }
+
+        if (other.isMrRequired() != this.isMrRequired()) {
             return false;
         }
         return true;

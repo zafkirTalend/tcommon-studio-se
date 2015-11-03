@@ -70,6 +70,10 @@ public abstract class RepositoryWorkUnit<T> {
         this.name = name;
     }
 
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public Project getProject() {
         return project;
     }
@@ -187,4 +191,5 @@ public abstract class RepositoryWorkUnit<T> {
     public void setRefreshRepository(boolean refreshRepository) {
         this.refreshRepository = refreshRepository;
     }
+    
 }

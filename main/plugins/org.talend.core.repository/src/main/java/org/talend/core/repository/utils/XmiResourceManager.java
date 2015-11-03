@@ -131,7 +131,9 @@ public class XmiResourceManager {
     public boolean hasTalendProjectFile(IProject project) {
         URI uri = getProjectResourceUri(project);
         try {
-            project.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
+            if (!project.isSynchronized(IResource.DEPTH_ONE)) {
+                project.refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
+            }
         } catch (CoreException e) {
             ExceptionHandler.process(e);
         }

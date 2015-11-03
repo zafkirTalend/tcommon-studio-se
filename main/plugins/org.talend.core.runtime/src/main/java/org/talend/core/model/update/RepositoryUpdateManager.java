@@ -1682,28 +1682,9 @@ public abstract class RepositoryUpdateManager {
             return updateSchema(connItem, connItem, schemaRenamedMap, true, false);
         } else if (isDeleteOrReselect) {
             return updateDeleteOrReselectSchema(connItem, connItem, deletedOrReselectTablesMap, true, false);
-        } else {
-            return checkConnectionItem(connItem, connItem, true, false);
         }
-        // return false;
+        return false;
 
-    }
-
-    private static boolean checkConnectionItem(Object table, ConnectionItem connItem, boolean show, boolean onlySimpleShow) {
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo((connItem).getProperty().getId(),
-                ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
-        RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, relations) {
-
-            @Override
-            public Set<EUpdateItemType> getTypes() {
-                Set<EUpdateItemType> types = new HashSet<EUpdateItemType>();
-                types.add(EUpdateItemType.NODE_SCHEMA);
-                return types;
-            }
-
-        };
-        final boolean doWork = repositoryUpdateManager.doWork(show, onlySimpleShow);
-        return doWork;
     }
 
     protected static boolean isAddColumn(IMetadataTable tableFromMetadata, IMetadataTable tableFromProcess) {
