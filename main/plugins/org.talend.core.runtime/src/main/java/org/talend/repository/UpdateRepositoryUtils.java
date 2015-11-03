@@ -31,10 +31,12 @@ import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.SAPConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.UpdateRepositoryHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -311,6 +313,31 @@ public final class UpdateRepositoryUtils {
                             tables.add(((SAPFunctionUnit) functions.get(i)).getMetadataTable());
                         }
                         return tables;
+                    }
+                }
+                // Generic
+                IGenericWizardService wizardService = null;
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+                    wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(
+                            IGenericWizardService.class);
+                }
+                if (wizardService != null) {
+                    Property property = ((ConnectionItem) item).getProperty();
+                    if (property != null && property.getId() != null) {
+                        try {
+                            IRepositoryViewObject repObject = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory()
+                                    .getLastVersion(ProjectManager.getInstance().getCurrentProject(), property.getId());
+                            if (repObject != null && wizardService.isGenericType(repObject.getRepositoryObjectType())) {
+                                List<MetadataTable> metadataTables = wizardService.getMetadataTables(connection);
+                                EList<MetadataTable> tables = new BasicEList<MetadataTable>();
+                                if (metadataTables != null) {
+                                    tables.addAll(metadataTables);
+                                    return tables;
+                                }
+                            }
+                        } catch (PersistenceException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 final Set<MetadataTable> tableset = ConnectionHelper.getTables(connection);

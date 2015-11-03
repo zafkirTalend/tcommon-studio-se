@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
 import org.talend.core.IService;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -64,4 +66,12 @@ public interface IGenericWizardService extends IService {
      */
     public Image getWiardImage(String typeName);
 
+    /**
+     *
+     * Get metadata tables from connection
+     * 
+     * @param connection
+     * @return
+     */
+    public List<MetadataTable> getMetadataTables(Connection connection);
 }
