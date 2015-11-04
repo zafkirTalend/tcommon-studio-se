@@ -284,34 +284,35 @@ public class DuplicateAction extends AContextualAction {
                     }
                 } else {
                     ConvertJobsUtil.updateFramework(newCreatedItem, frameworkNewValue);
-                }
+                    // save the modifications
+                    IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
-                // save the modifications
-                IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
-
-                    @Override
-                    public void run(final IProgressMonitor monitor) throws CoreException {
-                        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance()
-                                .getProxyRepositoryFactory();
-                        try {
-                            proxyRepositoryFactory.save(ProjectManager.getInstance().getCurrentProject(), newCreatedItem);
-                        } catch (PersistenceException e1) {
-                            CommonExceptionHandler.process(e1);
+                        @Override
+                        public void run(final IProgressMonitor monitor) throws CoreException {
+                            IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance()
+                                    .getProxyRepositoryFactory();
+                            try {
+                                proxyRepositoryFactory.save(ProjectManager.getInstance().getCurrentProject(), newCreatedItem);
+                            } catch (PersistenceException e1) {
+                                CommonExceptionHandler.process(e1);
+                            }
                         }
-                    }
-                };
-                // unlockObject();
-                // alreadyEditedByUser = true; // to avoid 2 calls of unlock
+                    };
+                    // unlockObject();
+                    // alreadyEditedByUser = true; // to avoid 2 calls of unlock
 
-                IWorkspace workspace = ResourcesPlugin.getWorkspace();
-                try {
-                    ISchedulingRule schedulingRule = workspace.getRoot();
-                    // the update the project files need to be done in the workspace runnable to avoid all notification
-                    // of changes before the end of the modifications.
-                    workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
-                } catch (CoreException e) {
-                    MessageBoxExceptionHandler.process(e.getCause());
+                    IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                    try {
+                        ISchedulingRule schedulingRule = workspace.getRoot();
+                        // the update the project files need to be done in the workspace runnable to avoid all
+                        // notification
+                        // of changes before the end of the modifications.
+                        workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+                    } catch (CoreException e) {
+                        MessageBoxExceptionHandler.process(e.getCause());
+                    }
                 }
+
             }
         } else {
             InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title.v2"), //$NON-NLS-1$
