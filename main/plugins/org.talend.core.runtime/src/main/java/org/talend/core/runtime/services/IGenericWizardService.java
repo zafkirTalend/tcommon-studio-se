@@ -15,9 +15,12 @@ package org.talend.core.runtime.services;
 import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 import org.talend.core.IService;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.process.EComponentCategory;
+import org.talend.core.model.process.Element;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -74,4 +77,15 @@ public interface IGenericWizardService extends IService {
      * @return
      */
     public List<MetadataTable> getMetadataTables(Connection connection);
+
+    /**
+     * Get the dynamic composite
+     *
+     * @param composite
+     * @param sectionCategory
+     * @param isCompactView
+     * @return
+     */
+    public Composite creatDynamicComposite(Composite composite, Element element, EComponentCategory sectionCategory,
+            boolean isCompactView);
 }
