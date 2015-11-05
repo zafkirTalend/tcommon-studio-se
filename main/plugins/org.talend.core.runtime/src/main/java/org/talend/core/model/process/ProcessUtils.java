@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -48,6 +49,7 @@ import org.talend.core.utils.BitwiseOptionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -60,6 +62,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 @SuppressWarnings("unchecked")
 public final class ProcessUtils {
+    
+    private static boolean isHD;
 
     private static List<IProcess> fakeProcesses = new ArrayList<IProcess>();
 
@@ -814,4 +818,26 @@ public final class ProcessUtils {
         }
         return defaultValue;
     }
+    
+    public static boolean isHDInsight() {
+        return isHD;
+    }
+    
+    public static void setHDInsight(boolean isHD) {
+        ProcessUtils.isHD = isHD;
+    }
+    
+    public static boolean isDistributionExist(ProcessItem processItem) {
+        EList<ElementParameterType> parameters = processItem.getProcess().getParameters().getElementParameter();
+        for (ElementParameterType pt : parameters) {
+            if (pt.getName().equals("DISTRIBUTION")) { //$NON-NLS-1$
+                 String value = pt.getValue();
+                 if("MICROSOFT_HD_INSIGHT".equals(value)){ //$NON-NLS-1$
+                     return true;
+                 }
+            }
+        }
+        return false;
+    }
+    
 }

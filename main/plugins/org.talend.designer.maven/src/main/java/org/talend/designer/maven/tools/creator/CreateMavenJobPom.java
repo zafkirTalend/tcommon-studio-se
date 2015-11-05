@@ -439,47 +439,35 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
 
     private void setPomForHDLight(IProgressMonitor monitor) {
-        // if need to judge spark.
-        /*String processType = processor.getProcess().getComponentsType();
-        if (ComponentCategory.CATEGORY_4_SPARK.getName().equals(processType)
-                || ComponentCategory.CATEGORY_4_SPARKSTREAMING.getName().equals(processType)) {
-        }*/
-        IProcessor processor = getJobProcessor();
-        IElementParameter param = processor.getProcess().getElementParameter("DISTRIBUTION"); //$NON-NLS-1$
-        if (param != null) {
-            String distribution = (String) param.getValue();
-            if ("MICROSOFT_HD_INSIGHT".equals(distribution)) { //$NON-NLS-1$
-                try {
-                    Model model = MODEL_MANAGER.readMavenModel(getPomFile());
-                    List<Plugin> plugins = new ArrayList<Plugin>(model.getBuild().getPlugins());
-                    out: for (Plugin plugin : plugins) {
-                        if (plugin.getArtifactId().equals("maven-jar-plugin")) { //$NON-NLS-1$
-                            List<PluginExecution> pluginExecutions = plugin.getExecutions();
-                            for (PluginExecution pluginExecution : pluginExecutions) {
-                                if (pluginExecution.getId().equals("default-jar")) { //$NON-NLS-1$
-                                    Object object = pluginExecution.getConfiguration();
-                                    if (object instanceof Xpp3Dom) {
-                                        Xpp3Dom configNode = (Xpp3Dom) object;
-                                        Xpp3Dom includesNode = configNode.getChild("includes"); //$NON-NLS-1$
-                                        Xpp3Dom includeNode = new Xpp3Dom("include"); //$NON-NLS-1$
-                                        includeNode.setValue("${talend.job.path}/contexts/*.properties"); //$NON-NLS-1$
-                                        includesNode.addChild(includeNode);
-
-                                        model.getBuild().setPlugins(plugins);
-                                        PomUtil.savePom(monitor, model, getPomFile());
-                                        break out;
-                                    }
+        if(ProcessUtils.isHDInsight()) {
+            try {
+                Model model = MODEL_MANAGER.readMavenModel(getPomFile());
+                List<Plugin> plugins = new ArrayList<Plugin>(model.getBuild().getPlugins());
+                out: for (Plugin plugin : plugins) {
+                    if (plugin.getArtifactId().equals("maven-jar-plugin")) { //$NON-NLS-1$
+                        List<PluginExecution> pluginExecutions = plugin.getExecutions();
+                        for (PluginExecution pluginExecution : pluginExecutions) {
+                            if (pluginExecution.getId().equals("default-jar")) { //$NON-NLS-1$
+                                Object object = pluginExecution.getConfiguration();
+                                if (object instanceof Xpp3Dom) {
+                                    Xpp3Dom configNode = (Xpp3Dom) object;
+                                    Xpp3Dom includesNode = configNode.getChild("includes"); //$NON-NLS-1$
+                                    Xpp3Dom includeNode = new Xpp3Dom("include"); //$NON-NLS-1$
+                                    includeNode.setValue("${talend.job.path}/contexts/*.properties"); //$NON-NLS-1$
+                                    includesNode.addChild(includeNode);
+                                    
+                                    model.getBuild().setPlugins(plugins);
+                                    PomUtil.savePom(monitor, model, getPomFile());
+                                    break out;
                                 }
                             }
                         }
                     }
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
                 }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
             }
         }
-        
-        
     }
 
     protected void generateAssemblyFile(IProgressMonitor monitor) throws Exception {
