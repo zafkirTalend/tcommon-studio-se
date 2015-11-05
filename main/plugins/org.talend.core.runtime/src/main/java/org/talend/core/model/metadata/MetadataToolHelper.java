@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -67,6 +68,7 @@ import org.talend.core.model.routines.IRoutinesService;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
@@ -726,6 +728,15 @@ public final class MetadataToolHelper {
                 }
             }
             Set tables = ConnectionHelper.getTables(connection);
+            IGenericWizardService wizardService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+                wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault()
+                        .getService(IGenericWizardService.class);
+            }
+            if (wizardService != null) {
+                List<MetadataTable> metadataTables = wizardService.getMetadataTables(connection);
+                tables = new HashSet<>(metadataTables);
+            }
             for (Object tableObj : tables) {
                 MetadataTable table = (MetadataTable) tableObj;
                 if (table.getLabel().equals(tableName)) {
