@@ -3,29 +3,12 @@
 	<dbms product="Exasol" id="Exasol_id" label="Mapping Exasol"
 		default="true">
 		<dbTypes>
-			<dbType type="VARCHAR" default="true" defaultLength="200" ignoreLen="false" ignorePre="true"/>
-			<dbType type="CHAR" defaultLength="20" ignoreLen="false" ignorePre="true"/>
-			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" ignoreLen="false" ignorePre="false"/>
-			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TINYINT" ignoreLen="true" ignorePre="true"/>
-			<dbType type="INTEGER" ignoreLen="true" ignorePre="true"/>
-<<<<<<< master
-			<dbType type="DECIMAL" ignoreLen="true" ignorePre="true"/>
-			<dbType type="LONG" ignoreLen="true" ignorePre="true"/>
-=======
 			<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
->>>>>>> 78e08be fix the problems in TDI-34429: EXASol meta data problems Wizard shows catalog instead of schemas No columns will be retrieved Mapping of database types are wrong or missing
-			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>
-			<dbType type="BINARY_FLOAT" ignoreLen="true" ignorePre="true"/>
-			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BINARY_DOUBLE" ignoreLen="true" ignorePre="true"/>
-			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
-<<<<<<< master
-			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
-			<dbType type="TIMESTAMP WITH LOCAL TIME ZONE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="BINARY_FLOAT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true"/>
-=======
-<<<<<<< HEAD
+			<dbType type="CHAR" defaultLength="20" ignoreLen="false" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" ignoreLen="false" ignorePre="false"/>
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>
@@ -35,11 +18,9 @@
 			<dbType type="INTERVAL YEAR TO MONTH" ignoreLen="true" ignorePre="true"/>
 			<dbType type="LONG VARCHAR" default="true" defaultLength="2000000" ignoreLen="false" ignorePre="true"/>
 			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true"/>
-=======
->>>>>>> parent of 74a4e72... type list fixed
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
-			<dbType type="GEOMETRY" ignoreLen="true" ignorePre="true"/>
->>>>>>> 78e08be fix the problems in TDI-34429: EXASol meta data problems Wizard shows catalog instead of schemas No columns will be retrieved Mapping of database types are wrong or missing
+			<dbType type="TINYINT" ignoreLen="true" ignorePre="true"/>
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignoreLen="false" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">
@@ -47,11 +28,7 @@
 				<talendType type="id_List">
 				</talendType>
 				<talendType type="id_Boolean">
-<<<<<<< master
-				<dbType type="BOOLEAN" default="true"/>
-=======
 					<dbType type="BOOLEAN" default="true"/>
->>>>>>> 78e08be fix the problems in TDI-34429: EXASol meta data problems Wizard shows catalog instead of schemas No columns will be retrieved Mapping of database types are wrong or missing
 				</talendType>
 				<talendType type="id_Byte">			
 					<dbType type="SMALLINT" default="true"/>
@@ -64,12 +41,7 @@
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true"/>
-<<<<<<< master
-					<dbType type="TIMESTAMP" default="true"/>
-					<dbType type="TIMESTAMP WITH LOCAL TIME ZONE" default="true"/>
-=======
 					<dbType type="TIMESTAMP"/>
->>>>>>> 78e08be fix the problems in TDI-34429: EXASol meta data problems Wizard shows catalog instead of schemas No columns will be retrieved Mapping of database types are wrong or missing
 				</talendType>
 				<talendType type="id_BigDecimal">
 					<dbType type="DECIMAL"/>
@@ -83,12 +55,7 @@
 					<dbType type="BINARY_FLOAT"/>
 				</talendType>
 				<talendType type="id_Integer">
-<<<<<<< master
-					<dbType type="INT" default="true"/>
-					<dbType type="INTEGER"/>
-=======
 					<dbType type="INTEGER" default="true"/>
->>>>>>> 78e08be fix the problems in TDI-34429: EXASol meta data problems Wizard shows catalog instead of schemas No columns will be retrieved Mapping of database types are wrong or missing
 					<dbType type="DECIMAL"/>
 				</talendType>
 				<talendType type="id_Long">
@@ -115,9 +82,9 @@
 				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
-				<dbType type="BOOLEAN">
-                    <talendType type="id_Boolean" default="true" />
-                </dbType>
+				<dbType type="GEOMETRY">
+					<talendType type="id_String" default="true" />				
+				</dbType>																																
 				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
 					<talendType type="id_Character" />
@@ -125,6 +92,12 @@
 				<dbType type="LONG VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
+				<dbType type="INTERVAL DAY TO SECOND">
+					<talendType type="id_String" default="true" />				
+				</dbType>																																
+				<dbType type="INTERVAL YEAR TO MONTH">
+					<talendType type="id_String" default="true" />				
+				</dbType>																																
 				<dbType type="DECIMAL">
 					<talendType type="id_BigDecimal" default="true" />
 					<talendType type="id_Long"/>
@@ -137,12 +110,12 @@
 				<dbType type="SMALLINT">
 					<talendType type="id_Short" default="true" />
 				</dbType>
+				<dbType type="BIGINT">
+					<talendType type="id_Long" default="true" />
+				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="id_Integer" default="true" />
 				</dbType>
-				<dbType type="DECIMAL">
-                    <talendType type="id_Integer" default="true" />
-                </dbType>
 				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true" />
 				</dbType>
@@ -157,15 +130,6 @@
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />				
-<<<<<<< master
-				</dbType>
-				<dbType type="TIMESTAMP">
-                    <talendType type="id_Date" default="true" />                
-                </dbType>		
-                <dbType type="TIMESTAMP WITH LOCAL TIME ZONE">
-                    <talendType type="id_Date" default="true" />                
-                </dbType>   																													
-=======
 				</dbType>																																
 				<dbType type="TIMESTAMP">
 					<talendType type="id_Date" default="true" />				
@@ -173,19 +137,9 @@
 				<dbType type="TIMESTAMP WITH LOCAL TIME ZONE">
 					<talendType type="id_Date" default="true" />				
 				</dbType>																																
-				<dbType type="GEOMETRY">
-					<talendType type="id_String" default="true" />				
-				</dbType>																																
-				<dbType type="INTERVAL DAY TO SECOND">
-					<talendType type="id_String" default="true" />				
-				</dbType>																																
-				<dbType type="INTERVAL YEAR TO MONTH">
-					<talendType type="id_String" default="true" />				
-				</dbType>																																
 				<dbType type="BOOLEAN">
 					<talendType type="id_Boolean" default="true" />				
 				</dbType>																																
->>>>>>> 78e08be fix the problems in TDI-34429: EXASol meta data problems Wizard shows catalog instead of schemas No columns will be retrieved Mapping of database types are wrong or missing
 			</dbToTalendTypes>
 		</language>
 	</dbms>
