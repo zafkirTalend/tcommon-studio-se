@@ -575,7 +575,7 @@ public class DeleteAction extends AContextualAction {
     private boolean deleteRepositoryNode(IRepositoryNode repositoryNode, IProxyRepositoryFactory factory)
             throws PersistenceException, BusinessException {
         if (repositoryNode.getType() == ENodeType.SIMPLE_FOLDER) {
-            IPath path = RepositoryNodeUtilities.getPath((RepositoryNode) repositoryNode);
+            IPath path = RepositoryNodeUtilities.getPath(repositoryNode);
             ERepositoryObjectType objectType = (ERepositoryObjectType) repositoryNode.getProperties(EProperties.CONTENT_TYPE);
             List<IRepositoryNode> repositoryList = repositoryNode.getChildren();
             PersistenceException pex = null;
@@ -803,7 +803,7 @@ public class DeleteAction extends AContextualAction {
                         }
                         deleteActionCache.setProcessList(allJobVersions);
                         objList.addAll(allJobVersions);
-                        
+
                         List<IRepositoryViewObject> metaDatas = factory.getAll(refP, ERepositoryObjectType.METADATA);
                         objList.addAll(metaDatas);
 
@@ -832,7 +832,7 @@ public class DeleteAction extends AContextualAction {
                                     if (process.getId().equals(tempPro.getId())) {
                                         isOpenedProcess = true;
                                         List<IContext> contextList = tempPro.getContextManager().getListContext();
-                                        if(contextList != null && !contextList.isEmpty()) {
+                                        if (contextList != null && !contextList.isEmpty()) {
                                             openedContextParameterList = contextList.get(0).getContextParameterList();
                                         }
                                         break;
@@ -852,10 +852,12 @@ public class DeleteAction extends AContextualAction {
                                 } else {
                                     List<?> contextList = null;
                                     if (item2 instanceof ProcessItem) {
-                                        // contextList = service.getProcessFromProcessItem((ProcessItem) item2).getContextManager().getListContext();
+                                        // contextList = service.getProcessFromProcessItem((ProcessItem)
+                                        // item2).getContextManager().getListContext();
                                         contextList = ((ProcessItem) item2).getProcess().getContext();
                                     } else if (item2 instanceof JobletProcessItem) {
-                                        // contextList = service.getProcessFromJobletProcessItem((JobletProcessItem)item2).getContextManager().getListContext();
+                                        // contextList =
+                                        // service.getProcessFromJobletProcessItem((JobletProcessItem)item2).getContextManager().getListContext();
                                         contextList = ((JobletProcessItem) item2).getJobletProcess().getContext();
                                     }
                                     if (contextList != null && !contextList.isEmpty()) {
@@ -866,7 +868,7 @@ public class DeleteAction extends AContextualAction {
                                     }
                                 }
                             }
-                            
+
                             List<?> contextParameterList = null;
                             if (openedContextParameterList != null) {
                                 contextParameterList = openedContextParameterList;
@@ -878,7 +880,7 @@ public class DeleteAction extends AContextualAction {
                                 // first IContext, normally it is named "default". In order to add the different version
                                 // jobs to ContextReferenceBean, below uses
                                 // "RepositoryReferenceBeanUtils.hasReferenceBean" to filter the repeat object.
-                                
+
                                 // List<IContextParameter> contextParams = contextList.get(0).getContextParameterList();
                                 for (int i = 0; i < contextParameterList.size(); i++) {
                                     String sourceId = null;
@@ -1109,6 +1111,22 @@ public class DeleteAction extends AContextualAction {
         return list;
     }
 
+    private boolean isTestCasesLocked(RepositoryNode node) {
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        for (IRepositoryNode child : node.getChildren()) {
+            IRepositoryViewObject nodeObject = child.getObject();
+            if (nodeObject != null && nodeObject.getProperty() != null && nodeObject.getProperty().getItem() != null) {
+                if (!factory.getRepositoryContext().isEditableAsReadOnly()) {
+                    if (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
+                            || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * ftang Comment method "isForbbidNode".
      * 
@@ -1134,17 +1152,26 @@ public class DeleteAction extends AContextualAction {
                 locked = true;
             }
         }
+
+        boolean isTestCaseLocked = isTestCasesLocked(node);
         // Avoid to delete node which is locked.
-        if ((locked || RepositoryManager.isOpenedItemInEditor(nodeObject)) && !(DELETE_FOREVER_TITLE.equals(getText()))) {
+        if ((locked || isTestCaseLocked || RepositoryManager.isOpenedItemInEditor(nodeObject))
+                && !(DELETE_FOREVER_TITLE.equals(getText()))) {
 
             final String title = Messages.getString("DeleteAction.error.title"); //$NON-NLS-1$
             String nodeName = ERepositoryObjectType.getDeleteFolderName(nodeObject.getRepositoryObjectType());
-            final String message = Messages.getString("DeleteAction.error.lockedOrOpenedObject.newMessage", nodeName);//$NON-NLS-1$
+            String message = "";
+            if (locked) {
+                message = Messages.getString("DeleteAction.error.lockedOrOpenedObject.newMessage", nodeName);//$NON-NLS-1$
+            } else if (isTestCaseLocked) {
+                message = Messages.getString("DeleteAction.error.testCaseLockedOrOpenedObject.newMessage", nodeName);//$NON-NLS-1$
+            }
+            final String lockMessage = message;
             Display.getDefault().syncExec(new Runnable() {
 
                 @Override
                 public void run() {
-                    MessageDialog dialog = new MessageDialog(new Shell(), title, null, message, MessageDialog.ERROR,
+                    MessageDialog dialog = new MessageDialog(new Shell(), title, null, lockMessage, MessageDialog.ERROR,
                             new String[] { IDialogConstants.OK_LABEL }, 0);
                     dialog.open();
                 }
