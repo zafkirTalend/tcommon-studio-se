@@ -370,7 +370,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 } else {
                     MessageBox box = new MessageBox(currentShell, SWT.ICON_WARNING | SWT.OK | SWT.CANCEL);
                     box.setText(Messages.getString("ProxyRepositoryFactory.JobNameErroe")); //$NON-NLS-1$
-                    box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + name + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob") + Messages.getString("ProxyRepositoryFactory.ReplaceJobHazardDescription")); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$//$NON-NLS-5$
+                    box.setMessage(Messages.getString("ProxyRepositoryFactory.Label") + " " + name + " " + Messages.getString("ProxyRepositoryFactory.ReplaceJob")); //$NON-NLS-1$ //$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 
                     if (box.open() == SWT.OK) {
                         deleteObjectPhysical(duplicateNameObject);
@@ -1843,9 +1843,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
                     currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.synch.repo.items"), 1); //$NON-NLS-1$
-                    
+
                     // for commandline to clear routines,pigudf,beans.
-                    if(CommonsPlugin.isHeadless()) {
+                    if (CommonsPlugin.isHeadless()) {
                         deleteAllRoutinesAndBeans();
                     }
                     try {
@@ -2185,7 +2185,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             String folderName, int options) throws PersistenceException {
         return repositoryFactoryFromProvider.getObjectFromFolder(project, type, folderName, options);
     }
-    
+
     private void deleteAllRoutinesAndBeans() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
             IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
