@@ -84,7 +84,6 @@ import org.talend.metadata.managment.ui.wizard.metadata.xml.utils.TreeUtil;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.metadata.ui.wizards.form.AbstractXmlFileStepForm;
-
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
 
@@ -130,6 +129,8 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
     private String tempXmlXsdPath;
 
     private boolean isModifing = true;
+
+    private boolean isInputModel = true;
 
     public XmlFileOutputStep1Form(boolean creation, Composite parent, ConnectionItem connectionItem, String[] existingNames) {
         super(parent, connectionItem, existingNames);
@@ -234,6 +235,14 @@ public class XmlFileOutputStep1Form extends AbstractXmlFileStepForm {
         String[] extensions = new String[] { "*.xml;*.xsd", "*.*", "*" };
         xmlXsdFilePath = new LabelledFileField(compositeOutput, "XML or XSD File", extensions);
         xmlXsdFilePath.setText("");
+
+        if (creation) {
+            useFileButton.setSelection(!isInputModel);
+            noFileButton.setSelection(isInputModel);
+        } else {
+            noFileButton.setSelection(!isInputModel);
+            useFileButton.setSelection(isInputModel);
+        }
 
         EMetadataEncoding[] values = EMetadataEncoding.values();
         String[] encodingData = new String[values.length];

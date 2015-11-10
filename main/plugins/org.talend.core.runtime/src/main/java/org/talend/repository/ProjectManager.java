@@ -470,9 +470,9 @@ public final class ProjectManager {
         String branchSelectionFromProject = ProjectManager.getInstance().getMainProjectBranch(project);
         if (branchSelectionFromProject != null) {
             branchSelection = branchSelectionFromProject;
-        } else {
-            ProjectManager.getInstance().setMainProjectBranch(project, NAME_TRUNK);
-        }
+        } /*
+           * else { ProjectManager.getInstance().setMainProjectBranch(project, NAME_TRUNK); }
+           */
 
         if (!branchSelection.contains(NAME_TAGS) && !branchSelection.contains(NAME_BRANCHES)
                 && !branchSelection.contains(NAME_TRUNK)) {
