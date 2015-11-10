@@ -118,7 +118,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:teradata://<host>/<sid>,<property>")), //$NON-NLS-1$ //feature 0013719,hywang
 
     EXASOL(new DbConnStr(EDatabaseTypeName.EXASOL, // TDI-34429, jlolling
-            "jdbc:exa:<host>:<port>;schema=<sid>;<property>", "8563", "encryption=0;clientname=Talend")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            "jdbc:exa:<host>:<port>;schema=<sid>;<property>", "8563", "encryption=0")), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     AS400(new DbConnStr(EDatabaseTypeName.AS400, //
             "jdbc:as400://<host>/<sid>;<property>", //$NON-NLS-1$
