@@ -16,9 +16,11 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryNodeProviderRegistryReader;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.images.CoreImageProvider;
 import org.talend.repository.items.importexport.wizard.models.FolderImportNode;
 import org.talend.repository.items.importexport.wizard.models.ImportNode;
@@ -71,7 +73,17 @@ public class ImportItemsViewerLabelProvider extends LabelProvider {
         } else if (element instanceof ERepositoryObjectType) {
             ERepositoryObjectType itemType = (ERepositoryObjectType) element;
             if (itemType != null) {
-                Image image = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
+                Image image = null;
+                IGenericWizardService wizardService = null;
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+                    wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(
+                            IGenericWizardService.class);
+                }
+                if (wizardService != null && wizardService.isGenericType(itemType)) {
+                    image = wizardService.getNodeImage(itemType.getType());
+                } else {
+                    image = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
+                }
                 if (image == null) {
                     image = CoreImageProvider.getImage(itemType);
                 }
