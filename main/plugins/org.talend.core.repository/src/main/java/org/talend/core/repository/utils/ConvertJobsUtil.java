@@ -27,6 +27,7 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.properties.Item;
@@ -35,6 +36,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.IProcessConvertToAllTypeService;
 import org.talend.designer.core.convert.ProcessConvertManager;
@@ -297,6 +299,18 @@ public class ConvertJobsUtil {
         ERepositoryObjectType newRepType = (newJobType == null ? null : newJobType.getERepositoryObjectType());
         return ProcessConvertManager.getInstance().CheckConvertProcess(oldRepType, oldFrameworkValue, newRepType,
                 newFrameworkValue);
+    }
+
+    public static boolean hasTestCase(Property property) {
+        boolean hasTestCase = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                hasTestCase = testContainerService.hasTestCase(property);
+            }
+        }
+        return hasTestCase;
     }
 
     public static Item createOperation(final String newJobName, final String jobTypeValue, final String frameworkValue,

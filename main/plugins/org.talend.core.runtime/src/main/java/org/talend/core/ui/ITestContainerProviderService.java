@@ -30,7 +30,6 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryEditorInput;
-import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.model.RepositoryNode;
@@ -49,7 +48,7 @@ public interface ITestContainerProviderService extends IService {
 
     public boolean isTestContainerItem(Item item);
 
-    public boolean hasTestCase(IRepositoryObject repoObj);
+    public boolean hasTestCase(Property property);
 
     public ProcessType getTestContainerProcess(Item item);
 

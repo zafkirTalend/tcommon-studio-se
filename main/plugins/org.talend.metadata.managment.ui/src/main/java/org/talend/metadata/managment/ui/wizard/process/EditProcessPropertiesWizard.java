@@ -16,13 +16,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.utils.ConvertJobsUtil;
-import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.core.convert.ProcessConvertManager;
 import org.talend.designer.core.convert.ProcessConverterType;
 import org.talend.metadata.managment.ui.i18n.Messages;
@@ -81,14 +79,7 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
             if (sourceJobType != null && !isNeedConvert) {
                 return super.performFinish();
             }
-            boolean hasTestCase = false;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                        .getDefault().getService(ITestContainerProviderService.class);
-                if (testContainerService != null) {
-                    hasTestCase = testContainerService.hasTestCase(object);
-                }
-            }
+            boolean hasTestCase = ConvertJobsUtil.hasTestCase(object.getProperty());
             if (hasTestCase
                     && !MessageDialogWithToggle.openConfirm(null, "Warning",
                             "Warning: You will lost all the testcases when you do converting, do you want to continue?")) {
