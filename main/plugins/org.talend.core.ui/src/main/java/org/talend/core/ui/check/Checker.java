@@ -35,7 +35,9 @@ public class Checker implements IChecker {
     @Override
     public void updateStatus(int level, final String statusLabelText) {
         this.statusLevel = level;
-        this.status = statusLabelText;
+        if (statusLabelText != null) {
+            this.status = statusLabelText;
+        }
         if (listener != null) {
             listener.checkPerformed(this);
         }
