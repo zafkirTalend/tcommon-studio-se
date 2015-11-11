@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
  */
 public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
 
-	private static final Logger logger = Logger.getLogger(EXASOLDatabaseMetaData.class);
+    private static final Logger logger = Logger.getLogger(EXASOLDatabaseMetaData.class);
 
     private static final String[] TABLE_META = { "TABLE_TYPE", "TABLE_NAME", "TABLE_SCHEM", "REMARKS" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
@@ -41,19 +41,21 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
     public EXASOLDatabaseMetaData(Connection connection) throws SQLException {
         super(connection);
     }
-    
-	@Override
-	public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
-		return super.getSchemas(null, schemaPattern);
-	}
 
-	@Override
-	public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) throws SQLException {
-		// avoid using the catalog because the catalog will retrieved in a wrong way, we get here the user and not the database
-		return super.getColumns(null, schemaPattern, tableNamePattern, columnNamePattern);
-	}
+    @Override
+    public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
+        return super.getSchemas(null, schemaPattern);
+    }
 
-	/*
+    @Override
+    public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)
+            throws SQLException {
+        // avoid using the catalog because the catalog will retrieved in a wrong way, we get here the user and not the
+        // database
+        return super.getColumns(null, schemaPattern, tableNamePattern, columnNamePattern);
+    }
+
+    /*
      * (non-Javadoc)
      * 
      * @see org.talend.fakejdbc.FakeDatabaseMetaData#getTables(java.lang.String, java.lang.String, java.lang.String,
@@ -61,24 +63,30 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
      */
     @Override
     public ResultSet getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) throws SQLException {
-    	ResultSet tables = super.getTables(null, schemaPattern, tableNamePattern, types);
+        ResultSet tables = super.getTables(null, schemaPattern, tableNamePattern, types);
         List<String[]> list = getTableList(tables);
         if (list.isEmpty()) {
-        	// get the tables and views in the same way from the metadata API
-        	StringBuilder sql = new StringBuilder();
-        	sql.append("select\n");
-        	sql.append(" a.TABLE_SCHEMA as TABLE_SCHEM,\n");
-        	sql.append(" a.TABLE_NAME,\n");
-        	sql.append(" 'TABLE' as TABLE_TYPE,\n");
-        	sql.append(" TABLE_COMMENT as REMARKS\n");
-        	sql.append("from SYS.EXA_ALL_TABLES a\n");
-        	sql.append("union all\n");
-        	sql.append("select \n");
-        	sql.append(" a.VIEW_SCHEMA as TABLE_SCHEM,\n");
-        	sql.append(" a.VIEW_NAME as TABLE_NAME,\n");
-        	sql.append(" 'VIEW' as TABLE_TYPE,\n");
-        	sql.append(" VIEW_COMMENT as REMARKS\n");
-        	sql.append("from SYS.EXA_ALL_VIEWS a");
+            // get the tables and views in the same way from the metadata API
+            StringBuilder sql = new StringBuilder();
+            sql.append("select\n");
+            sql.append(" a.TABLE_SCHEMA as TABLE_SCHEM,\n");
+            sql.append(" a.TABLE_NAME,\n");
+            sql.append(" 'TABLE' as TABLE_TYPE,\n");
+            sql.append(" TABLE_COMMENT as REMARKS\n");
+            sql.append("from SYS.EXA_ALL_TABLES a\n");
+            if (schemaPattern != null && !"".equals(schemaPattern)) {
+                sql.append("where a.TABLE_SCHEMA = '" + schemaPattern + "'\n");
+            }
+            sql.append("union all\n");
+            sql.append("select \n");
+            sql.append(" a.VIEW_SCHEMA as TABLE_SCHEM,\n");
+            sql.append(" a.VIEW_NAME as TABLE_NAME,\n");
+            sql.append(" 'VIEW' as TABLE_TYPE,\n");
+            sql.append(" VIEW_COMMENT as REMARKS\n");
+            sql.append("from SYS.EXA_ALL_VIEWS a");
+            if (schemaPattern != null && !"".equals(schemaPattern)) {
+                sql.append("\nwhere a.VIEW_SCHEMA = '" + schemaPattern + "'");
+            }
             ResultSet rs = null;
             PreparedStatement stmt = null;
             try {
@@ -90,14 +98,14 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
                 list = getTableList(rs);
             } finally {
                 try {
-                	if (rs != null) {
+                    if (rs != null) {
                         rs.close();
-                	}
-                	if (stmt != null) {
-                    	stmt.close();
-                	}
+                    }
+                    if (stmt != null) {
+                        stmt.close();
+                    }
                 } catch (Exception e) {
-                	// Intentionally left blank
+                    // Intentionally left blank
                 }
             }
         }
@@ -128,7 +136,7 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
         try {
             valueOfString = resultSet.getString(nameOfString);
         } catch (SQLException e) {
-        	logger.warn(e.getMessage(), e);
+            logger.warn(e.getMessage(), e);
         }
         return valueOfString;
     }
