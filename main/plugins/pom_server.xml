@@ -18,6 +18,7 @@
 
     <modules>
         <module>org.talend.utils/pom_server.xml</module>
+        <module>org.talend.commons.runtime/pom_server.xml</module>
     </modules>
 
 	<distributionManagement>
