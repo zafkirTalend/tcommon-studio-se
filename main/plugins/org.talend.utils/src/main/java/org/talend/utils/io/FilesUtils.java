@@ -51,7 +51,7 @@ public final class FilesUtils {
 
     private static final int BUFFER_SIZE = 64 * 1024;
 
-    public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn" }; //$NON-NLS-1$  //$NON-NLS-2$
+    public static final String SVN_FOLDER_NAMES[] = new String[] { ".svn", "_svn", ".gitkeep" }; //$NON-NLS-1$  //$NON-NLS-2$
 
     public static boolean isSVNFolder(String name) {
         if (name != null) {
