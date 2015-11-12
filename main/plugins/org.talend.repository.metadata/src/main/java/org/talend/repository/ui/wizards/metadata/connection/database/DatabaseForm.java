@@ -4412,9 +4412,12 @@ public class DatabaseForm extends AbstractForm {
                 } else {
                     template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
                 }
-                s = DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection()
-                        .getPort(), getConnection().getSID(), template);
-
+                if (!isEmbeddedMode()) {
+                    s = DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection()
+                            .getPort(), getConnection().getSID(), template);
+                } else {
+                    s = template;
+                }
             } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
                 String template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
                 s = DatabaseConnStrUtil.getImpalaString(getConnection(), getConnection().getServerName(), getConnection()
@@ -5657,6 +5660,24 @@ public class DatabaseForm extends AbstractForm {
      * {@link #doUpdateConnection()} to update connection. Added by Marvin Wang on Aug. 3, 2012.
      */
     protected void doHiveModeModify() {
+        boolean isEmbeddedMode = isEmbeddedMode();
+        getConnection().setURL(getStringConnection());
+        if (isEmbeddedMode) {
+            urlConnectionStringText.setText(DbConnStrForHive.URL_HIVE_2_TEMPLATE);
+            // handleEmbeddedMode();
+            handleUIWhenEmbeddedModeSelected();
+        } else {
+            // handleStandaloneMode();
+            handleUIWhenStandaloneModeSelected();
+        }
+        fillDefaultsWhenHiveModeChanged(isEmbeddedMode);
+        // }
+        // TDQ-6407~
+
+        doUpdateConnection();
+    }
+
+    protected boolean isEmbeddedMode() {
         int distributionIndex = distributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
@@ -5669,19 +5690,7 @@ public class DatabaseForm extends AbstractForm {
         // } else {
         boolean isEmbeddedMode = HiveConnUtils
                 .isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
-        getConnection().setURL(getStringConnection());
-        if (isEmbeddedMode) {
-            // handleEmbeddedMode();
-            handleUIWhenEmbeddedModeSelected();
-        } else {
-            // handleStandaloneMode();
-            handleUIWhenStandaloneModeSelected();
-        }
-        fillDefaultsWhenHiveModeChanged(isEmbeddedMode);
-        // }
-        // TDQ-6407~
-
-        doUpdateConnection();
+        return isEmbeddedMode;
     }
 
     /**
