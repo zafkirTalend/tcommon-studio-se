@@ -138,7 +138,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         // PerspectiveReviewUtil.checkPerspectiveDisplayItems();
 
         CommonsPlugin.setWorkbenchCreated(true);
-        Job myJob = new Job("SVN update and commit on startup") {
+        Job myJob = new Job("Remote project update and commit on startup") {
 
             @Override
             protected IStatus run(IProgressMonitor monitor) {
@@ -152,6 +152,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
                 rwu.setAvoidUnloadResources(true);
                 rwu.setUnloadResourcesAfterRun(true);
                 rwu.setFilesModifiedOutsideOfRWU(true);
+                rwu.setForceTransaction(true);
                 ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
                 return org.eclipse.core.runtime.Status.OK_STATUS;
             }

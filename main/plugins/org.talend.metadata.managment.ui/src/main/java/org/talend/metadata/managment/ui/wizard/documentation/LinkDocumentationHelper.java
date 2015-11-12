@@ -65,7 +65,10 @@ public final class LinkDocumentationHelper {
         IProject fsProject;
         try {
             fsProject = ResourceUtils.getProject(project);
-            IFolder tmpFolder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
+            IFolder tmpFolder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, false);
+            if (!tmpFolder.exists()) {
+                ResourceUtils.createFolder(tmpFolder);
+            }
             return tmpFolder.getFile(id + extension);
 
         } catch (PersistenceException e) {
