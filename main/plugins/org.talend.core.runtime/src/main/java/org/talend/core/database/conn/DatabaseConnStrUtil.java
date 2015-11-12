@@ -212,6 +212,27 @@ public class DatabaseConnStrUtil {
         return url;
     }
 
+    public static String getHiveURLStringForStandardalone(String template, DatabaseConnection dbConn, String server, String port,
+            String sidOrDatabase) {
+        boolean useKrb = Boolean.valueOf(dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
+        String hivePrincipal = null;
+        if (useKrb) {
+            hivePrincipal = StringUtils.trimToNull(dbConn.getParameters()
+                    .get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA));
+        }
+        String url = null;
+        if (template.startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
+            url = getHive2StandaloneURLString(false, server, port, sidOrDatabase, hivePrincipal);
+        } else if (template.startsWith(DbConnStrForHive.URL_HIVE_1_TEMPLATE)) {
+            url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
+        }
+        if (url == null) {
+            // set a default
+            url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
+        }
+        return url;
+    }
+
     private static String getHive1EmbeddedURLString() {
         return EDatabaseConnTemplate.HIVE.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_EMBEDDED);
     }

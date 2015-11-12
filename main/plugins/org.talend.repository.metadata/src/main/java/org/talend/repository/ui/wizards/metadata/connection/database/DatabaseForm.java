@@ -4413,8 +4413,8 @@ public class DatabaseForm extends AbstractForm {
                     template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
                 }
                 if (!isEmbeddedMode()) {
-                    s = DatabaseConnStrUtil.getHiveURLString(getConnection(), getConnection().getServerName(), getConnection()
-                            .getPort(), getConnection().getSID(), template);
+                    s = DatabaseConnStrUtil.getHiveURLStringForStandardalone(template, getConnection(), getConnection()
+                            .getServerName(), getConnection().getPort(), getConnection().getSID());
                 } else {
                     s = template;
                 }
