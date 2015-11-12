@@ -21,6 +21,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.Element;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
 
@@ -52,6 +53,8 @@ public interface IGenericWizardService extends IService {
      * @return
      */
     public boolean isGenericType(ERepositoryObjectType repObjType);
+
+    public boolean isGenericItem(Item item);
 
     /**
      * Get node image by node type name.
