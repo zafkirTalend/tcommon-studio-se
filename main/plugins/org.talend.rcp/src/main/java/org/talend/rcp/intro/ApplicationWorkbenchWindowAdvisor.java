@@ -68,7 +68,6 @@ import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.utils.CheatSheetPerspectiveAdapter;
-import org.talend.commons.ui.utils.CheatSheetUtils;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
@@ -281,15 +280,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
         }
         ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), needRemovedPrefs, false);
-        // MOD mzhao feature 9207. 2009-09-21 ,Add part listener.
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    ITDQRepositoryService.class);
-            if (tdqRepositoryService != null) {
-                tdqRepositoryService.addPartListener();
-                tdqRepositoryService.addSoftwareSystemUpdateListener();
-            }
-        }
 
         showStarting();
         // feature 18752
@@ -389,12 +379,22 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
-        perspProvider.restoreAlwaysVisiblePerspectives();
         IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (activePage != null && !(activePage.getActivePart() instanceof org.eclipse.ui.internal.ViewIntroAdapterPart)) {
-            if (CheatSheetUtils.getInstance().isFirstTime()
-                    && activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID)) {
-                CheatSheetUtils.getInstance().findAndmaxDisplayCheatSheet("org.talend.datacleansing.core.ui.dqcheatsheet"); //$NON-NLS-1$
+        // MOD zshen TDQ-10745 when welcome page is open and current Perspective is DQ will not done
+        // restoreAlwaysVisiblePerspectives action because of this method will do switch Perspectives action
+        // And switch Perspectives action will cause cheat sheet view maximum display
+        if (activePage != null
+                && !(activePage.getActivePart() instanceof org.eclipse.ui.internal.ViewIntroAdapterPart && activePage
+                        .getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID))) {
+            perspProvider.restoreAlwaysVisiblePerspectives();
+        }
+        // MOD mzhao feature 9207. 2009-09-21 ,Add part listener.
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepositoryService != null) {
+                tdqRepositoryService.addPartListener();
+                tdqRepositoryService.addSoftwareSystemUpdateListener();
             }
         }
 
