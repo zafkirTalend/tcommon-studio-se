@@ -93,7 +93,10 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
     private static IFile initFile(Item item) throws PersistenceException {
         Project project = ProjectManager.getInstance().getCurrentProject();
         IProject fsProject = ResourceModelHelper.getProject(project);
-        IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
+        IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, false);
+        if (!folder.exists()) {
+            ResourceUtils.createFolder(folder);
+        }
         String prefix = "tmp" + ERepositoryObjectType.getItemType(item).name(); //$NON-NLS-1$
         return ResourceUtils.getFile(folder, prefix + item.getProperty().getId(), false);
     }

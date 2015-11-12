@@ -1488,10 +1488,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
         long start = System.currentTimeMillis();
         IProject fsProject = ResourceUtils.getProject(project);
-        IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, true);
-        int nbResourcesDeleted = ResourceUtils.emptyFolder(folder);
-        long elapsedTime = System.currentTimeMillis() - start;
-        log.trace(Messages.getString("ProxyRepositoryFactory.log.tempFolderEmptied", nbResourcesDeleted, elapsedTime)); //$NON-NLS-1$
+        IFolder folder = ResourceUtils.getFolder(fsProject, RepositoryConstants.TEMP_DIRECTORY, false);
+        if (folder.exists()) {
+            int nbResourcesDeleted = ResourceUtils.emptyFolder(folder);
+            long elapsedTime = System.currentTimeMillis() - start;
+            log.trace(Messages.getString("ProxyRepositoryFactory.log.tempFolderEmptied", nbResourcesDeleted, elapsedTime)); //$NON-NLS-1$
+        }
     }
 
     /*

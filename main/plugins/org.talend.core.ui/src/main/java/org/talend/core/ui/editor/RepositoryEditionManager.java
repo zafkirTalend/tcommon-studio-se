@@ -87,7 +87,10 @@ public class RepositoryEditionManager {
         IFolder iFolder = null;
         try {
             iProject = ResourceModelHelper.getProject(project);
-            iFolder = ResourceUtils.getFolder(iProject, RepositoryConstants.TEMP_DIRECTORY, true);
+            iFolder = ResourceUtils.getFolder(iProject, RepositoryConstants.TEMP_DIRECTORY, false);
+            if (!iFolder.exists()) {
+                ResourceUtils.createFolder(iFolder);
+            }
         } catch (PersistenceException e) {
             // e.printStackTrace();
             ExceptionHandler.process(e);
