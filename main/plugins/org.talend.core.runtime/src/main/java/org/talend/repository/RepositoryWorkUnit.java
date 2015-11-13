@@ -41,6 +41,8 @@ public abstract class RepositoryWorkUnit<T> {
 
     private boolean filesModifiedOutsideOfRWU;
 
+    private boolean avoidUpdateLocks;
+
     private boolean refreshRepository = true; // added for TDI-27085
 
     /**
@@ -190,6 +192,24 @@ public abstract class RepositoryWorkUnit<T> {
 
     public void setRefreshRepository(boolean refreshRepository) {
         this.refreshRepository = refreshRepository;
+    }
+
+    
+    /**
+     * Getter for avoidUpdateLocks.
+     * @return the avoidUpdateLocks
+     */
+    public boolean isAvoidUpdateLocks() {
+        return this.avoidUpdateLocks;
+    }
+
+    
+    /**
+     * Sets the avoidUpdateLocks.
+     * @param avoidUpdateLocks the avoidUpdateLocks to set
+     */
+    public void setAvoidUpdateLocks(boolean avoidUpdateLocks) {
+        this.avoidUpdateLocks = avoidUpdateLocks;
     }
     
 }
