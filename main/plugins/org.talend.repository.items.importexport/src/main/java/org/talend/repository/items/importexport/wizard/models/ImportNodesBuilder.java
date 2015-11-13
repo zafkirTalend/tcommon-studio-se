@@ -38,6 +38,8 @@ public class ImportNodesBuilder {
      */
     private Map<String, ProjectImportNode> projectNodesMap = new HashMap<String, ProjectImportNode>();
 
+    private Map<String, StandardJobImportNode> jobNodesMap = new HashMap<String, StandardJobImportNode>();
+
     private List<ImportItem> allImportItemRecords = new ArrayList<ImportItem>();
 
     private List<ItemImportNode> allImportItemNode = new ArrayList<ItemImportNode>();
@@ -75,6 +77,7 @@ public class ImportNodesBuilder {
         this.allImportItemNode.clear();
         this.allImportItemRecords.clear();
         this.projectNodesMap.clear();
+        this.jobNodesMap.clear();
     }
 
     public void addItems(List<ImportItem> items) {
@@ -112,11 +115,16 @@ public class ImportNodesBuilder {
             if (ERepositoryObjectType.PROCESS.equals(itemType) && ERepositoryObjectType.findParentType(itemType) == null) {
                 // handle the standard job and create a standard node floder
                 // set for type
-                StandardJobImportNode standJobImportNode = new StandardJobImportNode(itemType);
-                typeImportNode.addChild(standJobImportNode);
+                StandardJobImportNode standJobImportNode = this.jobNodesMap.get(itemType.getLabel());
+                if (standJobImportNode == null) {
+                    standJobImportNode = new StandardJobImportNode(itemType);
+                    this.jobNodesMap.put(itemType.getLabel(), standJobImportNode);
+                    typeImportNode.addChild(standJobImportNode);
+                }
+
                 ImportNode parentImportNode = standJobImportNode; // by default, in under type node.
                 ItemImportNode itemNode = new ItemImportNode(itemRecord);
-                standJobImportNode.addChild(itemNode);
+                parentImportNode.addChild(itemNode);
                 allImportItemNode.add(itemNode);//
             } else {
                 // set for type
