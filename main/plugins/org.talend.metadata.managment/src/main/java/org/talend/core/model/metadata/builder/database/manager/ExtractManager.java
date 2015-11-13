@@ -100,13 +100,6 @@ public class ExtractManager {
 
     protected static final String DERBY_SHUTDOWN = "jdbc:derby:;shutdown=true"; //$NON-NLS-1$
 
-    protected static ICoreService coreService = null;
-    static {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-            coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-        }
-    }
-
     private static Logger log = Logger.getLogger(ExtractManager.class);
 
     private EDatabaseTypeName dbType;
@@ -132,6 +125,19 @@ public class ExtractManager {
 
     public Map<String, String> getTableCommentsMap() {
         return tableCommentsMap;
+    }
+
+    protected ICoreService getCoreService() {
+        ICoreService coreService = null;
+        try {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            }
+        } catch (Throwable e) {
+            ExceptionHandler.process(e);
+        }
+        return coreService;
+
     }
 
     /**
@@ -674,6 +680,7 @@ public class ExtractManager {
                             sub2 = sub.substring(1);
                         }
                     }
+                    final ICoreService coreService = getCoreService();
                     if (coreService != null
                             && (coreService.isKeyword(label) || coreService.isKeyword(sub) || coreService.isKeyword(sub2))) {
                         label = "_" + label; //$NON-NLS-1$
@@ -861,6 +868,7 @@ public class ExtractManager {
         if (type.startsWith("TIMESTAMP(") && type.endsWith(")")) { //$NON-NLS-1$ //$NON-NLS-2$
             type = "TIMESTAMP"; //$NON-NLS-1$
         }
+        final ICoreService coreService = getCoreService();
         if (coreService != null) {
             return coreService.validateValueForDBType(type);
         }
