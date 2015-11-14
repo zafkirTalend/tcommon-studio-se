@@ -934,7 +934,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 Event lockEvent = new Event(Constant.REPOSITORY_ITEM_EVENT_PREFIX
                         + (lock ? Constant.ITEM_LOCK_EVENT_SUFFIX : Constant.ITEM_UNLOCK_EVENT_SUFFIX), properties);
 
-                eventAdmin.postEvent(lockEvent);
+                eventAdmin.sendEvent(lockEvent);
             }
         }// else no bundle for this, should never happend.
     }
