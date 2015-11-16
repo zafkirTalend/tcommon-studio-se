@@ -99,10 +99,14 @@ public class JSONArray {
         for (;;) {
             if (x.nextClean() == ',') {
                 x.back();
-                this.myArrayList.add(null);
+                synchronized (myArrayList) {
+                    this.myArrayList.add(null);
+                }
             } else {
                 x.back();
-                this.myArrayList.add(x.nextValue());
+                synchronized (myArrayList) {
+                    this.myArrayList.add(x.nextValue());
+                }
             }
             c = x.nextClean();
             switch (c) {
@@ -154,8 +158,10 @@ public class JSONArray {
     public JSONArray(Collection collection, boolean includeSuperClass) {
         this.myArrayList = new ArrayList();
         if (collection != null) {
-            for (Iterator iter = collection.iterator(); iter.hasNext();) {
-                this.myArrayList.add(new JSONObject(iter.next(), includeSuperClass));
+            synchronized (myArrayList) {
+                for (Iterator iter = collection.iterator(); iter.hasNext();) {
+                    this.myArrayList.add(new JSONObject(iter.next(), includeSuperClass));
+                }
             }
         }
     }
@@ -589,7 +595,9 @@ public class JSONArray {
      * @return this.
      */
     public JSONArray put(Object value) {
-        this.myArrayList.add(value);
+        synchronized (myArrayList) {
+            this.myArrayList.add(value);
+        }
         return this;
     }
 
@@ -699,6 +707,12 @@ public class JSONArray {
             put(value);
         }
         return this;
+    }
+
+    public void remove(Object value) {
+        synchronized (myArrayList) {
+            this.myArrayList.remove(value);
+        }
     }
 
     /**

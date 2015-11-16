@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -193,6 +194,7 @@ public class OracleExtractManager extends ExtractManager {
                     String label = column.getLabel();
                     label = ManagementTextUtils.filterSpecialChar(label);
                     String label2 = label;
+                    final ICoreService coreService = getCoreService();
                     if (coreService != null && coreService.isKeyword(label)) {
                         label = "_" + label; //$NON-NLS-1$
                     }

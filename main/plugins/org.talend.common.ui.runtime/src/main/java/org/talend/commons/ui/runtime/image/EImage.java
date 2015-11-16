@@ -75,6 +75,10 @@ public enum EImage implements IImage {
     TAGS_ICON("/icons/tags.gif"), //$NON-NLS-1$
     BRANCH_FOLDER_ICON("/icons/newfolder.gif"), //$NON-NLS-1$
 
+    ARROWBRANCH_ICON("/icons/arrow_branch.png"),
+    ARROWDIVIDE_ICON("/icons/arrow_divide.png"),
+    ARROWRIGHT_ICON("/icons/arrow_right.png"),
+
     PARALLEL_EXECUTION("/icons/parallelize.png"), //$NON-NLS-1$
     WINDOW("/icons/window.png"), //$NON-NLS-1$
 
