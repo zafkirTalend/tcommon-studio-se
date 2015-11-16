@@ -64,7 +64,11 @@ public class ParameterFactory {
         String type = getType(string);
         Parameter p = createParameter(type);
         if (p != null) {
-            string = string.replaceFirst(type, "").trim(); //$NON-NLS-1$
+            if (string.indexOf(type) != -1) {
+                String startString = string.substring(0, string.indexOf(type));
+                String endString = string.substring(string.indexOf(type) + type.length(), string.length());
+                string = (startString + endString).trim();
+            }
             if (string.endsWith(":")) { //$NON-NLS-1$
                 string = string.substring(0, string.length() - 1);
             }
@@ -84,7 +88,6 @@ public class ParameterFactory {
 
             p.setName(string.trim());
         }
-
         return p;
     }
 
