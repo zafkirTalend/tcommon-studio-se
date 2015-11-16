@@ -56,6 +56,8 @@ public interface IGenericWizardService extends IService {
 
     public boolean isGenericItem(Item item);
 
+    public boolean isGenericConnection(Connection connection);
+
     /**
      * Get node image by node type name.
      * 

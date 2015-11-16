@@ -727,15 +727,17 @@ public final class MetadataToolHelper {
                     return getMetadataTableFromSAPFunction((SAPConnection) connection, metaRepositoryId);
                 }
             }
-            Set tables = ConnectionHelper.getTables(connection);
+            Set<MetadataTable> tables = null;
             IGenericWizardService wizardService = null;
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
                 wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault()
                         .getService(IGenericWizardService.class);
             }
-            if (wizardService != null) {
+            if (wizardService != null && wizardService.isGenericConnection(connection)) {
                 List<MetadataTable> metadataTables = wizardService.getMetadataTables(connection);
                 tables = new HashSet<>(metadataTables);
+            } else {
+                tables = ConnectionHelper.getTables(connection);
             }
             for (Object tableObj : tables) {
                 MetadataTable table = (MetadataTable) tableObj;
