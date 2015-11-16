@@ -202,14 +202,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         }
         helper.preWindowOpen(configurer);
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    ITDQRepositoryService.class);
-            if (tdqRepositoryService != null) {
-                tdqRepositoryService.initProxyRepository();
-            }
-        }
-
         IPreferenceStore preferenceStore = CorePlugin.getDefault().getPreferenceStore();
         boolean alwaysWelcome = preferenceStore.getBoolean(ITalendCorePrefConstants.ALWAYS_WELCOME);
 

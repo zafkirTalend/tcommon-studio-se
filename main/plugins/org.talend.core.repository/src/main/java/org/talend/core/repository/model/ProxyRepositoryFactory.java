@@ -1894,6 +1894,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                         throw new OperationCanceledException(""); //$NON-NLS-1$
                     }
                 }
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+                    ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                            ITDQRepositoryService.class);
+                    if (tdqRepositoryService != null) {
+                        tdqRepositoryService.initProxyRepository();
+                    }
+                }
+
                 fullLogonFinished = true;
                 this.repositoryFactoryFromProvider.afterLogon();
             } finally {
