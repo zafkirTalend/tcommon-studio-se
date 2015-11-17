@@ -63,7 +63,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public final class ImportExportHandlersManager {
+public class ImportExportHandlersManager {
 
     private final ImportExportHandlersRegistryReader registryReader;
 
@@ -90,7 +90,7 @@ public final class ImportExportHandlersManager {
         return resImportHandlers;
     }
 
-    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
+    protected IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
         for (IImportItemsHandler handler : getImportHandlers()) {
             handler.setEnableProductChecking(enableProductChecking);
             if (handler.valid(resManager, path)) {
