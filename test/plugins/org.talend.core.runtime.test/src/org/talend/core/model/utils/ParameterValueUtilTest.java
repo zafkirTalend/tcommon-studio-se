@@ -1010,7 +1010,7 @@ public class ParameterValueUtilTest {
             Assert.assertTrue(false); // never to be here. so strange, it's not same as the
                                       // testTDI30227_OldDecryption4NewValue1
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             // Assert.assertTrue(false); // But why will throw error, and don't like the
             // testTDI30227_OldDecryption4NewValue1
         }
