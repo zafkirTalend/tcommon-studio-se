@@ -90,30 +90,25 @@ public class TalendLibsServerManager {
         return manager;
     }
 
-    public void updateMavenResolver(Dictionary<String, String> props) {
+    public void updateMavenResolver(Dictionary<String, String> props, boolean setupRemoteRepository) {
         if (props == null) {
             props = new Hashtable<String, String>();
         }
         final BundleContext context = DesignerMavenPlugin.getPlugin().getContext();
         ServiceReference<ManagedService> managedServiceRef = context.getServiceReference(ManagedService.class);
         if (managedServiceRef != null) {
-            String repositories = "";
-            NexusServerBean customServer = getCustomNexusServer();
-            if (customServer != null) {
-                // custom nexus server should use snapshot repository
-                repositories = customServer.getRepositoryUrl() + NexusConstants.SNAPSHOTS + ",";
+            if (setupRemoteRepository) {
+                String repositories = "";
+                NexusServerBean customServer = getCustomNexusServer();
+                if (customServer != null) {
+                    // custom nexus server should use snapshot repository
+                    repositories = customServer.getRepositoryUrl() + NexusConstants.SNAPSHOTS + ",";
+                }
+                final NexusServerBean officailServer = getLibrariesNexusServer();
+                repositories = repositories + officailServer.getRepositoryUrl();
+                props.put(ServiceConstants.PID + '.' + ServiceConstants.PROPERTY_REPOSITORIES, repositories);
             }
-            final NexusServerBean officailServer = getLibrariesNexusServer();
-            repositories = repositories + officailServer.getRepositoryUrl();
-
             ManagedService managedService = context.getService(managedServiceRef);
-            props.put(ServiceConstants.PID + '.' + ServiceConstants.PROPERTY_REPOSITORIES, repositories);
-
-            // // get the setting file same as M2E preference in M2eUserSettingForTalendLoginTask.
-            // String settingsFile = MavenPlugin.getMavenConfiguration().getUserSettingsFile();
-            // if (settingsFile != null && new File(settingsFile).exists()) {
-            // props.put(ServiceConstants.PID + '.' + ServiceConstants.PROPERTY_SETTINGS_FILE, settingsFile);
-            // }
 
             try {
                 managedService.updated(props);
@@ -122,14 +117,6 @@ public class TalendLibsServerManager {
             }
         } else {
             throw new RuntimeException("Failed to load the service :" + ManagedService.class.getCanonicalName()); //$NON-NLS-1$
-        }
-
-        ServiceReference<org.ops4j.pax.url.mvn.MavenResolver> mavenResolverService = context
-                .getServiceReference(org.ops4j.pax.url.mvn.MavenResolver.class);
-        if (mavenResolverService != null) {
-            mavenResolver = context.getService(mavenResolverService);
-        } else {
-            throw new RuntimeException("Unable to acquire org.ops4j.pax.url.mvn.MavenResolver");
         }
 
     }
