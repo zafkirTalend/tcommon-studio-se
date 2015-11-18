@@ -90,7 +90,7 @@ public class ImportExportHandlersManager {
         return resImportHandlers;
     }
 
-    protected IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
+    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
         for (IImportItemsHandler handler : getImportHandlers()) {
             handler.setEnableProductChecking(enableProductChecking);
             if (handler.valid(resManager, path)) {
@@ -160,7 +160,7 @@ public class ImportExportHandlersManager {
             // check the special resources first.
             List<IPath> doneList = new ArrayList<IPath>();
 
-            ImportHandlerHelper importHandlerHelper = new ImportHandlerHelper();
+            ImportHandlerHelper importHandlerHelper = createImportHandlerHelper();
 
             for (IPath path : resourcesPathsList) {
                 if (monitor.isCanceled()) {
@@ -227,6 +227,11 @@ public class ImportExportHandlersManager {
             TimeMeasure.measureActive = false;
         }
 
+    }
+
+    protected ImportHandlerHelper createImportHandlerHelper() {
+        // TODO Auto-generated method stub
+        return new ImportHandlerHelper();
     }
 
     public void importItemRecords(final IProgressMonitor progressMonitor, final ResourcesManager resManager,
