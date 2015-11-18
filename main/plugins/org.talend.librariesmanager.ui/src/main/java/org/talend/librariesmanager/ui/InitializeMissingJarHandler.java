@@ -23,6 +23,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.ui.gmf.util.DisplayUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ILibrariesService;
@@ -167,9 +168,9 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
             Display.getDefault().syncExec(new Runnable() {
 
                 @Override
-                public void run() {
+                public void run() {                    
                     ExternalModulesInstallDialogWithProgress dialog = new ExternalModulesInstallDialogWithProgress(
-                            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                            DisplayUtils.getDefaultShell(),
                             Messages.getString("ExternalModulesInstallDialog_Title_Missing_jars_for_plugin"), //$NON-NLS-1$
                             Messages.getString("ExternalModulesInstallDialog_description_jars_to_be_installed_in"), SWT.APPLICATION_MODAL); //$NON-NLS-1$
                     dialog.showDialog(true, requiredJars.toArray(new String[requiredJars.size()]));
