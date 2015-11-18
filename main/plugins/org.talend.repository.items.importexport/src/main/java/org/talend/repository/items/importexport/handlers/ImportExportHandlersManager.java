@@ -90,7 +90,7 @@ public class ImportExportHandlersManager {
         return resImportHandlers;
     }
 
-    protected IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
+    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, boolean enableProductChecking) {
         for (IImportItemsHandler handler : getImportHandlers()) {
             handler.setEnableProductChecking(enableProductChecking);
             if (handler.valid(resManager, path)) {
