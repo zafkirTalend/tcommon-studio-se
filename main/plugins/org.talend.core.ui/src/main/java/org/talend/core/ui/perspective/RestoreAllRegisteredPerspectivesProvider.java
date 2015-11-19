@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -29,7 +28,6 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
-import org.eclipse.e4.ui.model.application.ui.menu.MTrimContribution;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.ElementMatcher;
@@ -39,6 +37,7 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveFactory;
 import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.PerspectiveExtensionReader;
 import org.eclipse.ui.internal.PerspectiveTagger;
 import org.eclipse.ui.internal.WorkbenchPage;
@@ -47,6 +46,7 @@ import org.eclipse.ui.internal.menus.MenuHelper;
 import org.eclipse.ui.internal.registry.PerspectiveDescriptor;
 import org.eclipse.ui.internal.registry.UIExtensionTracker;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
 
 /**
@@ -182,6 +182,12 @@ public class RestoreAllRegisteredPerspectivesProvider {
                     IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(
                             IBrandingService.class);
                     String defaultPerspectiveId = service.getBrandingConfiguration().getInitialWindowPerspectiveId();
+
+                    IPerspectiveDescriptor pd = PlatformUI.getWorkbench().getPerspectiveRegistry()
+                            .findPerspectiveWithId(defaultPerspectiveId);
+                    if (pd == null) {
+                        defaultPerspectiveId = IBrandingConfiguration.PERSPECTIVE_DI_ID;
+                    }
                     // this is not the fastest way but this is to try the find API
                     List<MPerspective> matchPerspectives = fModelService.findElements(mPerspStack, MPerspective.class,
                             EModelService.IN_ANY_PERSPECTIVE, new ElementMatcher(defaultPerspectiveId, null, (String) null));
