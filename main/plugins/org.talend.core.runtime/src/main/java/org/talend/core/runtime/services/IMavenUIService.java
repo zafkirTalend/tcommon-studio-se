@@ -29,4 +29,7 @@ public interface IMavenUIService extends IService {
     void checkUserSettings(IProgressMonitor monitor);
 
     void updateMavenResolver(boolean setupRemoteRepository);
+
+    void addMavenConfigurationChangeListener();
+
 }

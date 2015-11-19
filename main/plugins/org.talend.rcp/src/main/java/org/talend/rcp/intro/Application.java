@@ -98,6 +98,7 @@ public class Application implements IApplication {
                 if (mavenUIService != null) {
                     mavenUIService.checkUserSettings(new NullProgressMonitor());
                     mavenUIService.updateMavenResolver(false);
+                    mavenUIService.addMavenConfigurationChangeListener();
                 }
             }
 
