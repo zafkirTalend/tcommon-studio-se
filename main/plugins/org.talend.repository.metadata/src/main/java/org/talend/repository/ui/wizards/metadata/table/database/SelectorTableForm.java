@@ -115,7 +115,6 @@ import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.repository.metadata.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.utils.sql.ConnectionUtils;
-
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
@@ -2063,13 +2062,8 @@ public class SelectorTableForm extends AbstractForm {
                     }
                 }
                 if (ownedElement != null) {
-                    for (ModelElement m : ownedElement) {
-                        if (m instanceof MetadataTable) {
-                            String label = ((MetadataTable) m).getName();
-                            if (label.equals(tableNode.getValue())) {
-                                return true;
-                            }
-                        }
+                    if (isContainModelElement(ownedElement, tableNode.getValue())) {
+                        return true;
                     }
                 } else {
                     for (Object obj : ConnectionHelper.getTables(getConnection())) {
@@ -2082,9 +2076,36 @@ public class SelectorTableForm extends AbstractForm {
                         }
                     }
                 }
+                if (ETableTypes.TABLETYPE_SYNONYM.getName().equals(tableNode.getItemType())) {
+                    // synonym table may also be in schema MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS if user
+                    // checked "All synonyms" when retrieving schema last time, so need to check too.
+                    Schema s = (Schema) ConnectionHelper.getPackage(MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS,
+                            getConnection(), Schema.class);
+                    if (s != null) {
+                        ownedElement = s.getOwnedElement();
+                        if (isContainModelElement(ownedElement, tableNode.getValue())) {
+                            return true;
+                        }
+                    }
+                }
             }
         } else if (useProvider()) {
             return provider.isMetadataExsit(tableNode, getConnection());
+        }
+        return false;
+    }
+
+    private boolean isContainModelElement(EList<ModelElement> ownedElement, String tableName) {
+        if (ownedElement == null) {
+            return false;
+        }
+        for (ModelElement m : ownedElement) {
+            if (m instanceof MetadataTable) {
+                String label = ((MetadataTable) m).getName();
+                if (label.equals(tableName)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
