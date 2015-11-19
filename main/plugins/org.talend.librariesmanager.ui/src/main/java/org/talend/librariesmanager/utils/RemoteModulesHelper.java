@@ -282,7 +282,12 @@ public class RemoteModulesHelper {
     protected void setContext(ModuleToInstall m, String mvnUri, Map<String, List<ModuleNeeded>> contextMap) {
         if (contextMap != null) {
             List<ModuleNeeded> nm = contextMap.get(mvnUri);
-            m.setContext(getContext(nm));
+            final String context = getContext(nm);
+            if (context == null || "".equals(context)) {
+                m.setContext("Current Operation");//$NON-NLS-1$
+            } else {
+                m.setContext(context);
+            }
             m.setRequired(isRequired(nm));
         } else {
             m.setContext("Current Operation");//$NON-NLS-1$
@@ -399,7 +404,9 @@ public class RemoteModulesHelper {
             if (context.length() != 0) {
                 context.append(SEPARATOR_DISPLAY);
             }
-            context.append(module.getContext());
+            if (module.getContext() != null) {
+                context.append(module.getContext());
+            }
         }
         return context.toString();
 
@@ -506,7 +513,7 @@ public class RemoteModulesHelper {
             moduleToInstall = cache.get(mvnUri);
             if (moduleToInstall != null) {
                 List<ModuleNeeded> moduleContext = contextMap.get(mvnUri);
-                moduleToInstall.setContext(getContext(moduleContext));
+                setContext(moduleToInstall, mvnUri, contextMap);
                 if (moduleContext != null && moduleContext.size() > 0) {
                     for (ModuleNeeded needed : moduleContext) {
                         if (moduleToInstall.getName().equals(needed.getModuleName())) {
