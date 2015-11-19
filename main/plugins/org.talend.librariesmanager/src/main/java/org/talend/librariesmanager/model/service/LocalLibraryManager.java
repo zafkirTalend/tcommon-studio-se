@@ -344,7 +344,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     if (!searchResults.isEmpty()) {
                         for (MavenArtifact result : searchResults) {
                             if (jarNeeded.equals(result.getArtifactId() + "." + result.getType())) {
-                                jarFile = manager.getMavenResolver().resolve(snapshotMvnUri);
+                                jarFile = manager.getMavenResolver().resolve(uri);
                                 break;
                             }
                         }
