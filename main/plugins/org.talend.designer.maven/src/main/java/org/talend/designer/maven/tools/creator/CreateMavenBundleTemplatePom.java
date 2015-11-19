@@ -12,22 +12,18 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.PluginChecker;
 import org.talend.designer.maven.template.MavenTemplateManager;
 
@@ -183,49 +179,7 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
     }
 
     protected void checkCreatingFile(IProgressMonitor monitor, IFile currentFile) throws Exception {
-        currentFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
-
-        List<IFile> existedSameFiles = getExistedFiles(currentFile);
-
-        // existed current one and not overwrite.
-        if (existedSameFiles.contains(currentFile) && !isOverwrite()) {
-            throw new IOException("Can't overwrite the file: " + currentFile);
-        }
-        // delete all
-        for (IFile file : existedSameFiles) {
-            File f = file.getLocation().toFile();
-            if (f.exists()) {
-                f.delete();
-            }
-        }
-
-        currentFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
-    }
-
-    protected List<IFile> getExistedFiles(IFile file) {
-        List<IFile> existedFiles = new ArrayList<IFile>();
-        if (isIgnoreFileNameCase()) {
-            final String currentFileName = file.getName();
-            File parentFile = file.getLocation().toFile().getParentFile();
-            if (parentFile.exists()) {
-                File[] listFiles = parentFile.listFiles(new FilenameFilter() {
-
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.equalsIgnoreCase(currentFileName);
-                    }
-                });
-                if (listFiles != null) {
-                    for (File f : listFiles) {
-                        IFile sameFile = file.getParent().getFile(new Path(f.getName()));
-                        existedFiles.add(sameFile);
-                    }
-                }
-            }
-        } else if (file.exists()) { // only add current file
-            existedFiles.add(file);
-        }
-        return existedFiles;
+        FilesUtils.removeExistedResources(monitor, currentFile, ignoreFileNameCase, overwrite);
     }
 
     protected void afterCreate(IProgressMonitor monitor) throws Exception {

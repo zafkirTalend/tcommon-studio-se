@@ -187,6 +187,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                 markerFile.createNewFile();
                 DefaultMavenRepositoryProvider.sync(repoFolder.getParentFile());
             }
+
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }

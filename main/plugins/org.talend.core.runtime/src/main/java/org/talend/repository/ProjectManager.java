@@ -475,7 +475,7 @@ public final class ProjectManager {
            */
 
         if (!branchSelection.contains(NAME_TAGS) && !branchSelection.contains(NAME_BRANCHES)
-                && !branchSelection.contains(NAME_TRUNK)) {
+                && !branchSelection.contains(NAME_TRUNK) && !branchSelection.contains("master")) { //$NON-NLS-1$
             branchSelection = NAME_BRANCHES + branchSelection;
         }
         return branchSelection;

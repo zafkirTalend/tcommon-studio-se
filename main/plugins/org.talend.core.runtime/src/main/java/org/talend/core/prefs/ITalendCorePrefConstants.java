@@ -159,6 +159,8 @@ public interface ITalendCorePrefConstants {
 
     public static final String SVN_UPDATE_INFO_AUTO_CHECK_TIME_INTERVAL = "PerformancePreferencePage.svn_update_info_auto_check_time_interval"; //$NON-NLS-1$
 
+    public static final String AUTO_REFRESH_LOCKS = "PerformancePreferencePage.auto_refresh_locks"; //$NON-NLS-1$
+
     /**
      * <b>!!! NOTE !!!:</b><br/>
      * This prefrence <b>must</b> be stored in <b>PlatformUI prefrence</b>, since it will be used in login dialog while

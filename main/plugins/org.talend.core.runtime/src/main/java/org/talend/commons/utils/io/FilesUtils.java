@@ -47,6 +47,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -55,6 +56,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.i18n.internal.Messages;
@@ -1153,4 +1155,57 @@ public class FilesUtils {
 
         return in;
     }
+
+    protected static List<IResource> getExistedResources(IResource file, boolean ignoreFileNameCase) {
+        List<IResource> existedFiles = new ArrayList<IResource>();
+        if (ignoreFileNameCase) {
+            final String currentFileName = file.getName();
+            File parentFile = file.getLocation().toFile().getParentFile();
+            if (parentFile.exists()) {
+                File[] listFiles = parentFile.listFiles(new FilenameFilter() {
+
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.equalsIgnoreCase(currentFileName);
+                    }
+                });
+                if (listFiles != null) {
+                    for (File f : listFiles) {
+                        IFile sameFile = file.getParent().getFile(new Path(f.getName()));
+                        existedFiles.add(sameFile);
+                    }
+                }
+            }
+        } else if (file.exists()) { // only add current file
+            existedFiles.add(file);
+        }
+        return existedFiles;
+    }
+
+    public static void removeExistedResources(IProgressMonitor monitor, IResource currentResources, boolean ignoreFileNameCase,
+            boolean overwrite) throws Exception {
+        final IContainer parent = currentResources.getParent();
+        parent.refreshLocal(IResource.DEPTH_ONE, monitor);
+
+        List<IResource> existedSameFiles = getExistedResources(currentResources, ignoreFileNameCase);
+
+        // existed current one and not overwrite.
+        if (existedSameFiles.contains(currentResources) && !overwrite) {
+            throw new IOException("Can't overwrite the file: " + currentResources);
+        }
+        // delete all
+        for (IResource resource : existedSameFiles) {
+            File f = resource.getLocation().toFile();
+            if (f.exists()) {
+                if (f.isDirectory()) {
+                    org.talend.utils.io.FilesUtils.deleteFolder(f, true);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+
+        parent.refreshLocal(IResource.DEPTH_ONE, monitor);
+    }
+
 }

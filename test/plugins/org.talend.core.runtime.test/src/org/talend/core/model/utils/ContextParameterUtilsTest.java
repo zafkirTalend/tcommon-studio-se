@@ -58,13 +58,13 @@ public class ContextParameterUtilsTest {
         Assert.assertTrue(ContextParameterUtils.isContainContextParam("\"abc\"+\"123\"+context.var1"));
         Assert.assertTrue(ContextParameterUtils.isContainContextParam("\"abc\"+\"123\n\"+context.var1"));
         Assert.assertTrue(ContextParameterUtils.isContainContextParam("\"abc\"+\"123\n\t\0\"+context.var1"));
+        Assert.assertTrue(ContextParameterUtils.isContainContextParam("context.__"));
 
         // ????
         Assert.assertFalse(ContextParameterUtils.isContainContextParam("context."));
         Assert.assertFalse(ContextParameterUtils.isContainContextParam("context.123"));
         Assert.assertFalse(ContextParameterUtils.isContainContextParam("context.$%%"));
         Assert.assertFalse(ContextParameterUtils.isContainContextParam("context.\t"));
-        Assert.assertFalse(ContextParameterUtils.isContainContextParam("context.__"));
         Assert.assertFalse(ContextParameterUtils.isContainContextParam("context.++"));
     }
 
@@ -90,7 +90,7 @@ public class ContextParameterUtilsTest {
 
         Assert.assertNull(ContextParameterUtils.getVariableFromCode("context.123"));
         Assert.assertNull(ContextParameterUtils.getVariableFromCode("context.+++"));
-        Assert.assertNull(ContextParameterUtils.getVariableFromCode("context.___"));
+        Assert.assertEquals("___",ContextParameterUtils.getVariableFromCode("context.___"));
         Assert.assertNull(ContextParameterUtils.getVariableFromCode("context.\n"));
         Assert.assertNull(ContextParameterUtils.getVariableFromCode("context.\0"));
     }

@@ -50,6 +50,8 @@ public class ResumeUtil {
     // <pid, SimpleCsvWriter>.
     private static Map<String, SimpleCsvWriter> sharedWriterMap = new HashMap<String, SimpleCsvWriter>();
 
+    private static Object lock = new Object();
+    
     // step1: init the log file name
     public ResumeUtil(String logFileName, boolean createNewFile, String root_pid) {
         if (logFileName == null || logFileName.equals("null")) {
@@ -60,48 +62,50 @@ public class ResumeUtil {
         if (this.root_pid == null) {
             this.root_pid = root_pid;
         }
-
-        SimpleCsvWriter sharedWriter = sharedWriterMap.get(root_pid);
-
+        
         this.logFileName = logFileName;
-        File file = new File(logFileName);
-        try {
-            if (sharedWriter == null) {
-                this.csvWriter = new SimpleCsvWriter(new FileWriter(logFileName, createNewFile));
 
-                // shared
-                sharedWriterMap.put(this.root_pid, this.csvWriter);
-
-                // output the header part
-                if (file.length() == 0) {
-                    if (genDynamicPart) {
-                        csvWriter.write("eventDate");// eventDate--------------->???
-                        csvWriter.write("pid");// pid
-                        csvWriter.write("root_pid");// root_pid
-                        csvWriter.write("father_pid");// father_pid
+        synchronized (lock) {
+            SimpleCsvWriter sharedWriter = sharedWriterMap.get(root_pid);
+            File file = new File(logFileName);
+            try {
+                if (sharedWriter == null) {
+                    this.csvWriter = new SimpleCsvWriter(new FileWriter(logFileName, createNewFile));
+    
+                    // shared
+                    sharedWriterMap.put(this.root_pid, this.csvWriter);
+    
+                    // output the header part
+                    if (file.length() == 0) {
+                        if (genDynamicPart) {
+                            csvWriter.write("eventDate");// eventDate--------------->???
+                            csvWriter.write("pid");// pid
+                            csvWriter.write("root_pid");// root_pid
+                            csvWriter.write("father_pid");// father_pid
+                        }
+                        csvWriter.write("type");// type---------------->???
+                        csvWriter.write("partName");// partName
+                        csvWriter.write("parentPart");// parentPart
+                        if (genDynamicPart) {
+                            csvWriter.write("project");// project
+                        }
+                        csvWriter.write("jobName");// jobName
+                        csvWriter.write("jobContext");// jobContext
+                        csvWriter.write("jobVersion");// jobVersion
+                        csvWriter.write("threadId");// threadId
+                        csvWriter.write("logPriority");// logPriority
+                        csvWriter.write("errorCode");// errorCode
+                        csvWriter.write("message");// message
+                        csvWriter.write("stackTrace");// stackTrace
+                        csvWriter.endRecord();
+                        csvWriter.flush();
                     }
-                    csvWriter.write("type");// type---------------->???
-                    csvWriter.write("partName");// partName
-                    csvWriter.write("parentPart");// parentPart
-                    if (genDynamicPart) {
-                        csvWriter.write("project");// project
-                    }
-                    csvWriter.write("jobName");// jobName
-                    csvWriter.write("jobContext");// jobContext
-                    csvWriter.write("jobVersion");// jobVersion
-                    csvWriter.write("threadId");// threadId
-                    csvWriter.write("logPriority");// logPriority
-                    csvWriter.write("errorCode");// errorCode
-                    csvWriter.write("message");// message
-                    csvWriter.write("stackTrace");// stackTrace
-                    csvWriter.endRecord();
-                    csvWriter.flush();
+                } else {
+                    csvWriter = sharedWriter;
                 }
-            } else {
-                csvWriter = sharedWriter;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -132,31 +136,32 @@ public class ResumeUtil {
         JobLogItem item = new JobLogItem(eventDate, type, partName, parentPart, threadId, logPriority, errorCode, message,
                 stackTrace, dynamicData);
         try {
-            if (genDynamicPart) {
-                csvWriter.write(item.eventDate);// eventDate--------------->???
-                csvWriter.write(commonInfo.pid);// pid
-                csvWriter.write(commonInfo.root_pid);// root_pid
-                csvWriter.write(commonInfo.father_pid);// father_pid
+            synchronized (csvWriter) {
+                if (genDynamicPart) {
+                    csvWriter.write(item.eventDate);// eventDate--------------->???
+                    csvWriter.write(commonInfo.pid);// pid
+                    csvWriter.write(commonInfo.root_pid);// root_pid
+                    csvWriter.write(commonInfo.father_pid);// father_pid
+                }
+                csvWriter.write(item.type);// type---------------->???
+                csvWriter.write(item.partName);// partName
+    
+                csvWriter.write(item.parentPart);// parentPart
+                if (genDynamicPart) {
+                    csvWriter.write(commonInfo.project);// project
+                }
+                csvWriter.write(commonInfo.jobName);// jobName
+                csvWriter.write(commonInfo.jobContext);// jobContext
+                csvWriter.write(commonInfo.jobVersion);// jobVersion
+                csvWriter.write(null);// threadId
+                csvWriter.write(item.logPriority);// logPriority
+                csvWriter.write(item.errorCode);// errorCode
+                csvWriter.write(item.message);// message
+                csvWriter.write(item.stackTrace);// stackTrace
+                csvWriter.write(item.dynamicData);// dynamicData--->it is the 17th field. @see:feature:11296
+                csvWriter.endRecord();
+                csvWriter.flush();
             }
-            csvWriter.write(item.type);// type---------------->???
-            csvWriter.write(item.partName);// partName
-
-            csvWriter.write(item.parentPart);// parentPart
-            if (genDynamicPart) {
-                csvWriter.write(commonInfo.project);// project
-            }
-            csvWriter.write(commonInfo.jobName);// jobName
-            csvWriter.write(commonInfo.jobContext);// jobContext
-            csvWriter.write(commonInfo.jobVersion);// jobVersion
-            csvWriter.write(null);// threadId
-            csvWriter.write(item.logPriority);// logPriority
-            csvWriter.write(item.errorCode);// errorCode
-            csvWriter.write(item.message);// message
-            csvWriter.write(item.stackTrace);// stackTrace
-            csvWriter.write(item.dynamicData);// dynamicData--->it is the 17th field. @see:feature:11296
-            csvWriter.endRecord();
-            csvWriter.flush();
-
             // for test the order
             // System.out.print(item.partName + ",");// partName
             // System.out.print(item.parentPart + ",");// parentPart
