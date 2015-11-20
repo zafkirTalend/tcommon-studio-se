@@ -116,6 +116,7 @@ import org.talend.core.repository.utils.RepositoryPathProvider;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.runtime.services.IMavenUIService;
 import org.talend.core.service.ICoreUIService;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
@@ -1798,6 +1799,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
                 // Check project compatibility
                 checkProjectCompatibility(project);
+
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMavenUIService.class)) {
+                    IMavenUIService mavenUIService = (IMavenUIService) GlobalServiceRegister.getDefault().getService(
+                            IMavenUIService.class);
+                    if (mavenUIService != null) {
+                        mavenUIService.updateMavenResolver(true);
+                    }
+                }
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
                 currentMonitor.beginTask("Execute before logon migrations tasks", 1); //$NON-NLS-1$

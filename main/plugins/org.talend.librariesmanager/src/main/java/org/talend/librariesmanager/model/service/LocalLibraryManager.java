@@ -490,7 +490,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                 ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                         ILibraryManagerUIService.class);
-                libUiService.installModules(modulesNeeded);
+                libUiService.installModules(jarNotFound);
                 modulesNeeded = new HashSet<ModuleNeeded>(jarNotFound);
                 jarNotFound.clear();
                 allIsOK = true;

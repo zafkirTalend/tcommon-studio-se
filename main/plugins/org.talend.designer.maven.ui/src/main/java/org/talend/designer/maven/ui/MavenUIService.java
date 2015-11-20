@@ -12,10 +12,15 @@
 // ============================================================================
 package org.talend.designer.maven.ui;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceNode;
+import org.eclipse.m2e.core.MavenPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.runtime.services.IMavenUIService;
+import org.talend.designer.maven.talendlib.TalendLibsServerManager;
 import org.talend.designer.maven.ui.setting.preference.M2eUserSettingForTalendLoginTask;
 import org.talend.designer.maven.ui.setting.repository.RepositoryMavenSettingManager;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -46,5 +51,20 @@ public class MavenUIService implements IMavenUIService {
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.runtime.services.IMavenUIService#getUserSettings()
+     */
+    @Override
+    public void updateMavenResolver(boolean setupRemoteRepository) {
+        String studioUserSettingsFile = MavenPlugin.getMavenConfiguration().getUserSettingsFile();
+        // apply the user settings to MavenResolver
+        Dictionary<String, String> props = new Hashtable<String, String>();
+        // get the setting file same as M2E preference in M2eUserSettingForTalendLoginTask.
+        props.put("org.ops4j.pax.url.mvn.settings", studioUserSettingsFile);
+        TalendLibsServerManager.getInstance().updateMavenResolver(props, setupRemoteRepository);
     }
 }

@@ -27,4 +27,6 @@ public interface IMavenUIService extends IService {
     void addCustomMavenSettingChildren(IPreferenceNode parent);
 
     void checkUserSettings(IProgressMonitor monitor);
+
+    void updateMavenResolver(boolean setupRemoteRepository);
 }
