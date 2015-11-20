@@ -352,8 +352,7 @@ public class NexusServerUtils {
 
             });
         }
-        urlConnection.setConnectTimeout(4000);
-        urlConnection.setReadTimeout(4000);
+        urlConnection.setConnectTimeout(10000);
         return urlConnection;
     }
 
