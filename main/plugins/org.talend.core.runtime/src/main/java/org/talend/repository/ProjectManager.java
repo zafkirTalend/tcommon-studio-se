@@ -567,6 +567,10 @@ public final class ProjectManager {
     public void clearAll() {
         getAllReferencedProjects().clear();
         mapProjectUrlToBranchUrl.clear();
+        clearFolderCache();
+    }
+
+    public void clearFolderCache() {
         foldersMap.clear();
     }
 }

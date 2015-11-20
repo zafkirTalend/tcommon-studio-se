@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -68,6 +69,10 @@ public class RecycleBinManager {
         return new ArrayList<String>(project.getEmfProject().getDeletedFolders());
     }
 
+    public void clearCache() {
+        projectRecyclebins.clear();
+    }
+
     public void clearIndex(Project project) {
         loadRecycleBin(project);
         projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems().clear();
@@ -77,20 +82,27 @@ public class RecycleBinManager {
     public List<IRepositoryViewObject> getDeletedObjects(Project project) {
         loadRecycleBin(project);
         List<IRepositoryViewObject> deletedObjects = new ArrayList<IRepositoryViewObject>();
-        for (TalendItem deletedItem : projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems()) {
+        final EList<TalendItem> deletedItems = projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems();
+        List<TalendItem> notDeletedItems = new ArrayList<TalendItem>();
+        for (TalendItem deletedItem : deletedItems) {
             try {
                 IRepositoryViewObject object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId(),
                         deletedItem.getPath(), ERepositoryObjectType.getType(deletedItem.getType()));
                 if (object == null) {
                     object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId());
                 }
-                if (object != null) {
+                if (object != null && object.isDeleted()) {
                     deletedObjects.add(object);
+                } else {
+                    // need remove it.
+                    notDeletedItems.add(deletedItem);
                 }
             } catch (PersistenceException e) {
                 ExceptionHandler.process(e);
             }
         }
+        // clean
+        deletedItems.removeAll(notDeletedItems);
         return deletedObjects;
     }
 
