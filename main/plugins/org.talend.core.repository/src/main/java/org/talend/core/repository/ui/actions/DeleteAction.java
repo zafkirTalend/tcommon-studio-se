@@ -575,7 +575,7 @@ public class DeleteAction extends AContextualAction {
     private boolean deleteRepositoryNode(IRepositoryNode repositoryNode, IProxyRepositoryFactory factory)
             throws PersistenceException, BusinessException {
         if (repositoryNode.getType() == ENodeType.SIMPLE_FOLDER) {
-            IPath path = RepositoryNodeUtilities.getPath(repositoryNode);
+            IPath path = RepositoryNodeUtilities.getPath((RepositoryNode) repositoryNode);
             ERepositoryObjectType objectType = (ERepositoryObjectType) repositoryNode.getProperties(EProperties.CONTENT_TYPE);
             List<IRepositoryNode> repositoryList = repositoryNode.getChildren();
             PersistenceException pex = null;
