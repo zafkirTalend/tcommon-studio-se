@@ -174,8 +174,8 @@ public class NexusDownloader implements IDownloadHelper {
 
             });
         }
-        urlConnection.setConnectTimeout(4000);
-        urlConnection.setReadTimeout(4000);
+        urlConnection.setConnectTimeout(10000);
+        urlConnection.setReadTimeout(10000);
         return urlConnection;
     }
 
