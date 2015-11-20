@@ -90,7 +90,7 @@ public enum EHadoopVersion4Drivers {
 
     CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4.X(MR1 mode)", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR500(EHadoopDistributions.MAPR, "MapR 5.0.0(YARN mode)", "MAPR500", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
+    MAPR500(EHadoopDistributions.MAPR, "MapR 5.0.0(YARN mode)", "MAPR500", true, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
     MAPR410(EHadoopDistributions.MAPR, "MapR 4.1.0(YARN mode)", "MAPR410", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
