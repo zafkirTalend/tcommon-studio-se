@@ -158,7 +158,9 @@ public class ArtifactsDeployer {
             int responseCode = statusLine.getStatusCode();
             EntityUtils.consume(entity);
             if (responseCode > 399) {
-                if (responseCode == 401) {
+                if (responseCode == 500) {
+                    // ignor this error , if .pom already exist on server and deploy again will get this error
+                } else if (responseCode == 401) {
                     throw new BusinessException("Authrity failed");
                 } else {
                     throw new BusinessException("Deploy failed: " + responseCode + ' ' + statusLine.getReasonPhrase());
