@@ -1633,7 +1633,12 @@ public class SelectorTableForm extends AbstractForm {
 
             if (checkConnectionIsDone) {
                 treeItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
-                treeItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
+                //metadataColumns.size() won't be 0 unless SQL execution failed.
+                if (metadataColumns.size() > 0) {
+                    treeItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
+                } else {
+                    treeItem.setText(3, Messages.getString("SelectorTableForm.Failed")); //$NON-NLS-1$
+                }
                 countSuccess++;
                 tableColumnNums.put(treeItem.getText(0), metadataColumns.size());
             } else {
