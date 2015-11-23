@@ -14,6 +14,7 @@ package org.talend.librariesmanager.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,10 +36,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
-import org.ops4j.pax.url.mvn.MavenResolver;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
@@ -49,6 +46,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerUIService;
 import org.talend.core.PluginChecker;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.component_cache.ComponentCachePackage;
 import org.talend.core.model.component_cache.ComponentInfo;
@@ -70,7 +68,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.runtime.maven.MavenConstants;
+import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.RoutinesParameterType;
@@ -507,6 +505,9 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> collectModuleNeeded(List<IRepositoryViewObject> routineItems, Set<String> routineIdOrNames,
             boolean system) {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        if (org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
+            return importNeedsList;
+        }
         if (!routineItems.isEmpty()) {
             for (IRepositoryViewObject object : routineItems) {
                 if (routineIdOrNames.contains(object.getLabel()) && system || routineIdOrNames.contains(object.getId())
@@ -525,11 +526,31 @@ public class ModulesNeededProvider {
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerUIService.class)) {
                 ILibraryManagerUIService libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                         ILibraryManagerUIService.class);
+                Set<String> routinesName = new HashSet<>();
+                for (IRoutinesProvider routineProvider : libUiService.getRoutinesProviders(ECodeLanguage.JAVA)) {
+                    for (URL url : routineProvider.getSystemRoutines()) {
+                        String[] fragments = url.toString().split("/"); //$NON-NLS-1$
+                        String label = fragments[fragments.length - 1];
+                        String[] tmp = label.split("\\."); //$NON-NLS-1$
+                        String routineName = tmp[0];
+                        routinesName.add(routineName);
+                    }
+                    for (URL url : routineProvider.getTalendRoutines()) {
+                        String[] fragments = url.toString().split("/"); //$NON-NLS-1$
+                        String label = fragments[fragments.length - 1];
+                        String[] tmp = label.split("\\."); //$NON-NLS-1$
+                        String routineName = tmp[0];
+                        routinesName.add(routineName);
+                    }
+                }
                 Map<String, List<LibraryInfo>> routineAndJars = libUiService.getRoutineAndJars();
                 Iterator<Map.Entry<String, List<LibraryInfo>>> iter = routineAndJars.entrySet().iterator();
                 while (iter.hasNext()) {
                     Map.Entry<String, List<LibraryInfo>> entry = iter.next();
                     String routineName = entry.getKey();
+                    if (!routinesName.contains(routineName)) {
+                        continue;
+                    }
                     List<LibraryInfo> needJars = entry.getValue();
                     for (LibraryInfo jar : needJars) {
                         ModuleNeeded toAdd = new ModuleNeeded("Routine " + routineName, jar.getLibName(), //$NON-NLS-1$
