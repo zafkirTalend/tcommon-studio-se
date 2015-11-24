@@ -711,7 +711,9 @@ public class ModulesNeededProvider {
             String context = current.getAttribute("context"); //$NON-NLS-1$
             if (context != null && context.startsWith(PLUGINS_CONTEXT_KEYWORD)) {
                 ModuleNeeded module = createModuleNeededInstance(current);
-                allPluginsRequiredModules.add(module);
+                if (module.isRequired()) {
+                    allPluginsRequiredModules.add(module);
+                }
             }
         }
         return allPluginsRequiredModules;

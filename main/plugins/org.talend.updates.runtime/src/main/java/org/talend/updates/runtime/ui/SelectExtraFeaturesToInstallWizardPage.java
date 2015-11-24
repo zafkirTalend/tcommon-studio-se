@@ -28,6 +28,7 @@ import org.eclipse.jface.databinding.wizard.WizardPageSupport;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -40,6 +41,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.talend.updates.runtime.i18n.Messages;
 import org.talend.updates.runtime.model.ExtraFeature;
+import org.talend.updates.runtime.model.TalendWebServiceUpdateExtraFeature;
 
 /**
  * created by sgandon on 25 févr. 2013 Detailled comment
@@ -124,6 +126,21 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
                     @Override
                     public int category(Object element) {
                         return element.getClass().hashCode();
+                    }
+
+                    /*
+                     * (non-Javadoc)
+                     * 
+                     * @see org.eclipse.jface.viewers.ViewerComparator#compare(org.eclipse.jface.viewers.Viewer,
+                     * java.lang.Object, java.lang.Object)
+                     */
+                    @Override
+                    public int compare(Viewer viewer, Object e1, Object e2) {
+                        if ((e2 instanceof TalendWebServiceUpdateExtraFeature)
+                                && !((TalendWebServiceUpdateExtraFeature) e2).mustBeInstalled()) {
+                            return -1;
+                        }
+                        return super.compare(viewer, e1, e2);
                     }
                 });
         table = checkboxTableViewer.getTable();
