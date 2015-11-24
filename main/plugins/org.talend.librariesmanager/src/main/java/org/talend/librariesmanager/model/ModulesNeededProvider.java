@@ -524,6 +524,9 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> collectModuleNeeded(List<IRepositoryViewObject> routineItems, Set<String> routineIdOrNames,
             boolean system) {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        if (org.talend.commons.utils.platform.PluginChecker.isOnlyTopLoaded()) {
+            return importNeedsList;
+        }
         if (!routineItems.isEmpty()) {
             for (IRepositoryViewObject object : routineItems) {
                 if (routineIdOrNames.contains(object.getLabel()) && system || routineIdOrNames.contains(object.getId())
