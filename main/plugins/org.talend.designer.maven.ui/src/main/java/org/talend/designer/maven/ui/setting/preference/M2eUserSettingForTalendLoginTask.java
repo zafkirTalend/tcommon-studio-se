@@ -143,7 +143,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             }
 
             // if can't access m2 repository, and for studio setting or set default only.
-            if (!enableAccessM2Repository(monitor, maven) && (isStudioUserSetting || defaultUserSetting)) {
+            if (!enableAccessM2Repository(monitor, maven.getLocalRepositoryPath()) && (isStudioUserSetting || defaultUserSetting)) {
                 if (studioUserSettingsFile.exists()) {// try to use studio one directly.
                     MavenPlugin.getMavenConfiguration().setUserSettingsFile(studioUserSettingsPath);
                 } else { // if not existed, try to force creating studio user setting and use it.
@@ -203,13 +203,14 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         return (IProxyService) proxyTracker.getService();
     }
 
-    private void checkMavenUserSetting(IProgressMonitor monitor, File studioUserSettingsFile, boolean isSet, boolean force) {
+    private void checkMavenUserSetting(IProgressMonitor monitor, File studioUserSettingsFile, boolean isSet,
+            boolean isLocalRepository) {
         if (monitor.isCanceled()) {
             return;
         }
         try {
 
-            if (!isSet || force) {// first time to set or force
+            if (!isSet || isLocalRepository) {// first time to set or force
                 if (!studioUserSettingsFile.exists()) {
                     InputStream inputStream = MavenTemplateManager.getBundleTemplateStream(DesignerMavenPlugin.PLUGIN_ID,
                             IProjectSettingTemplateConstants.PATH_RESOURCES_TEMPLATES + '/'
@@ -247,9 +248,9 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             return false;
         }
         // default one
-        String localRepoPath = "${user.home}/.m2/repository"; //$NON-NLS-1$
+        String localRepoPath = System.getProperty("user.home") + "/.m2/repository"; //$NON-NLS-1$
         // if local, always use config one
-        if (isLocalRepository() || !enableAccessM2Repository(monitor, maven)) {
+        if (isLocalRepository() || !enableAccessM2Repository(monitor, localRepoPath)) {
             // need change the repo setting
             IPath m2RepoPath = configPath.append(".m2/repository"); //$NON-NLS-1$
             localRepoPath = m2RepoPath.toString();
@@ -277,8 +278,8 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         return false;
     }
 
-    private boolean enableAccessM2Repository(IProgressMonitor monitor, IMaven maven) {
-        File oldRepoFolder = new File(maven.getLocalRepositoryPath());
+    private boolean enableAccessM2Repository(IProgressMonitor monitor, String localRepository) {
+        File oldRepoFolder = new File(localRepository);
         try {
             if (!oldRepoFolder.exists()) { // TUP-3301
                 oldRepoFolder.mkdirs(); // try to create the root folder first.
