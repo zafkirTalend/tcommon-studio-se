@@ -95,6 +95,7 @@ import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.provider.AbstractMetadataExtractorViewProvider;
+import org.talend.core.sqlbuilder.util.TextUtil;
 import org.talend.core.ui.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.CatalogHelper;
@@ -933,6 +934,7 @@ public class SelectorTableForm extends AbstractForm {
                     if (s.getName() != null && !s.getName().equals(MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS)) {
                         boolean canAdd = true;
                         if (specifiedSchema != null) {
+                            specifiedSchema = TextUtil.removeQuots(specifiedSchema);
                             if (ManagerConnection.isSchemaCaseSensitive(dbType)) {
                                 if (!s.getName().equals(specifiedSchema)) {
                                     canAdd = false;
@@ -1633,7 +1635,7 @@ public class SelectorTableForm extends AbstractForm {
 
             if (checkConnectionIsDone) {
                 treeItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
-                //metadataColumns.size() won't be 0 unless SQL execution failed.
+                // metadataColumns.size() won't be 0 unless SQL execution failed.
                 if (metadataColumns.size() > 0) {
                     treeItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
                 } else {
