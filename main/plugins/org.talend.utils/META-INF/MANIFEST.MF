@@ -35,3 +35,4 @@ Require-Bundle: org.apache.commons.lang,
  bcprov
 Eclipse-BuddyPolicy: registered
 Eclipse-RegisterBuddy: org.apache.log4j, org.talend.testutils
+Import-Package: org.talend.daikon.security;version="0.2.0"
