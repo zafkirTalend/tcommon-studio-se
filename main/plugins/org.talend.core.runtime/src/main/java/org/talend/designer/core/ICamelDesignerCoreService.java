@@ -29,7 +29,9 @@ import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**
- * DOC guanglong.du class global comment. Detailled comment
+ * DOC guanglong.du class global comment. Detailled comment<br/>
+ * <b>!!!NOTE!!!</b> ICamelDesignerCoreService should also be usable for commandline, should not add UI related codes;
+ * for UI related codes, please add them into ICamelDesignerCoreUIService
  */
 public interface ICamelDesignerCoreService extends IService {
 
@@ -40,9 +42,9 @@ public interface ICamelDesignerCoreService extends IService {
     public boolean isInstanceofCamelRoutes(Item item);
 
     public ERepositoryObjectType getRoutes();
-    
+
     public ERepositoryObjectType getRouteDocType();
-    
+
     public ERepositoryObjectType getRouteDocsType();
 
     public ProcessType getCamelProcessType(Item item);
@@ -57,23 +59,23 @@ public interface ICamelDesignerCoreService extends IService {
 
     public boolean isCamelMulitPageEditor(IEditorPart editor);
 
-	/**
-	 * Synchronized Route resource
-	 * 
-	 * @param item
-	 */
-	public List<IPath> synchronizeRouteResource(Item item);
-	
-	public String getDeleteFolderName(ERepositoryObjectType type);
-	
-	public boolean isRouteBuilderNode(INode node);
+    /**
+     * Synchronized Route resource
+     * 
+     * @param item
+     */
+    public List<IPath> synchronizeRouteResource(Item item);
 
-	public boolean canCreateNodeOnLink(IConnection connection, INode node);
-	
-	public EConnectionType getTargetConnectionType(INode node);
+    public String getDeleteFolderName(ERepositoryObjectType type);
 
-	public void appendRouteInfo2Doc(Item item, Element jobElement);
+    public boolean isRouteBuilderNode(INode node);
 
-	public FileItem newRouteDocumentationItem();
+    public boolean canCreateNodeOnLink(IConnection connection, INode node);
+
+    public EConnectionType getTargetConnectionType(INode node);
+
+    public void appendRouteInfo2Doc(Item item, Element jobElement);
+
+    public FileItem newRouteDocumentationItem();
 
 }
