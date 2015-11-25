@@ -268,7 +268,7 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             maven.reloadSettings();
             // should same as MavenSettingsPreferencePage.updateSettings update index?
             try {
-                MavenPlugin.getIndexManager().getWorkspaceIndex().updateIndex(true, monitor);
+                MavenPlugin.getIndexManager().getWorkspaceIndex().updateIndex(false, monitor);
             } catch (Exception e) {
                 ExceptionHandler.process(e);
             }
