@@ -30,9 +30,11 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.emf.EmfHelper;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.model.recyclebin.RecycleBin;
@@ -91,8 +93,18 @@ public class RecycleBinManager {
                 if (object == null) {
                     object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId());
                 }
-                if (object != null && object.isDeleted()) {
-                    deletedObjects.add(object);
+                if (object != null) {
+                    Item item = object.getProperty().getItem();
+                    boolean hasSubItem = false;
+                    if (item instanceof ConnectionItem) {
+                        hasSubItem = ProjectRepositoryNode.getInstance().hasDeletedSubItem((ConnectionItem) item);
+                    }
+                    if (object.isDeleted() || hasSubItem) {
+                        deletedObjects.add(object);
+                    } else {
+                        // need remove it.
+                        notDeletedItems.add(deletedItem);
+                    }
                 } else {
                     // need remove it.
                     notDeletedItems.add(deletedItem);
