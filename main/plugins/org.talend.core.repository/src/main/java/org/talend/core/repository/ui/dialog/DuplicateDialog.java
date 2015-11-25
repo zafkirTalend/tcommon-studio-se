@@ -97,6 +97,9 @@ public class DuplicateDialog extends CustomInputDialog {
             } else if (sourceNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS_STORM) {
                 jobTypeValue = JobType.BIGDATASTREAMING.getDisplayName();
                 jobTypeCombo.setText(jobTypeValue);
+            } else if (sourceNode.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.PROCESS_ROUTE) {
+                jobTypeCombo.setVisible(false);
+                frameworkCombo.setVisible(false);
             }
             // framework
             Property property = sourceNode.getObject().getProperty();
