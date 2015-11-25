@@ -260,7 +260,11 @@ public class ModuleNeeded {
     }
 
     public ELibraryInstallStatus getStatus() {
-        if (status == ELibraryInstallStatus.UNKNOWN) {// compute the status of the lib.
+        final ELibraryInstallStatus eLibraryInstallStatus = ModuleStatusProvider.getStatusMap().get(getMavenUri(true));
+        if (eLibraryInstallStatus != null) {
+            return eLibraryInstallStatus;
+        } else {
+            // compute the status of the lib.
             // first use the Library manager service
             ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
                     ILibraryManagerService.class);
@@ -276,6 +280,7 @@ public class ModuleNeeded {
                     status = ELibraryInstallStatus.NOT_INSTALLED;
                 }
             }
+            ModuleStatusProvider.getStatusMap().put(getMavenUri(true), status);
         }
         return this.status;
     }

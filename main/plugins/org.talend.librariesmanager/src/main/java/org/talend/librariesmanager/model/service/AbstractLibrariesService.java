@@ -37,6 +37,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.ModuleStatusProvider;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.INode;
@@ -243,6 +244,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     @Override
     public void resetModulesNeeded() {
         ModulesNeededProvider.reset();
+        ModuleStatusProvider.reset();
         checkLibraries();
     }
 
