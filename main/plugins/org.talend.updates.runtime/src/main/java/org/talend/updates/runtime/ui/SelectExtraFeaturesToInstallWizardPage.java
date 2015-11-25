@@ -138,7 +138,7 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
                         if ((e2 instanceof ExtraFeature) && !((ExtraFeature) e2).mustBeInstalled()) {
                             return -1;
                         }
-                        return super.compare(viewer, e1, e2);
+                        return 1;
                     }
                 });
         table = checkboxTableViewer.getTable();
