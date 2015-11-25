@@ -13,7 +13,6 @@
 package org.talend.designer.core;
 
 import org.dom4j.Element;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
@@ -22,10 +21,11 @@ import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryEditorInput;
 
 /**
- * DOC guanglong.du class global comment. Detailled comment
+ * DOC guanglong.du class global comment. Detailled comment<br/>
+ * <b>!!!NOTE!!!</b> ICamelDesignerCoreService should also be usable for commandline, should not add UI related codes;
+ * for UI related codes, please add them into ICamelDesignerCoreUIService
  */
 public interface ICamelDesignerCoreService extends IService {
 
@@ -60,8 +60,4 @@ public interface ICamelDesignerCoreService extends IService {
 
     public FileItem newRouteDocumentationItem();
 
-    public IRepositoryEditorInput getRouteEditorInput(ProcessItem processItem, boolean load, Boolean lastVersion)
-            throws PersistenceException;
-
-    public String getRouteEditorId(ProcessItem processItem);
 }
