@@ -903,16 +903,18 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
     @Override
-    public void lock(Item item) throws PersistenceException, LoginException {
-        // getStatus(item)
-        if (getStatus(item).isPotentiallyEditable()) {
-            boolean locked = this.repositoryFactoryFromProvider.lock(item);
+    public boolean  lock(Item item) throws PersistenceException, LoginException {
+        boolean locked = false;
+        // even if item is already locked, force to call the method to ensure the item is still locked
+        if (getStatus(item).isPotentiallyEditable() || getStatus(item).equals(ERepositoryStatus.LOCK_BY_USER)) {
+            locked = this.repositoryFactoryFromProvider.lock(item);
             if (locked) {
                 notifyLock(item, true);
             }
             String str[] = new String[] { item.toString(), getRepositoryContext().getUser().toString() };
             log.debug(Messages.getString("ProxyRepositoryFactory.log.lock", str)); //$NON-NLS-1$
         }
+        return locked;
     }
 
     /**

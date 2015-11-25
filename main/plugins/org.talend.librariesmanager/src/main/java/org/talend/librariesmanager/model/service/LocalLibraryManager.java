@@ -314,8 +314,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
     private boolean retrieve(String jarNeeded, String snapshotMvnUri, String pathToStore, boolean showDialog) {
         String sourcePath = null, targetPath = pathToStore;
         File jarFile = null;
-        // retreive form custom nexus server automatically
+        boolean needResetModule = false;
         try {
+            jarFile = getJarFile(jarNeeded);
+            // retreive form custom nexus server automatically
             TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
             final NexusServerBean customNexusServer = manager.getCustomNexusServer();
             if (customNexusServer != null) {
@@ -342,13 +344,18 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             customNexusServer.getRepositoryId(), artifact.getGroupId(), artifact.getArtifactId(),
                             artifact.getVersion());
                     if (!searchResults.isEmpty()) {
+                        File resolvedFile = null;
                         for (MavenArtifact result : searchResults) {
                             if (jarNeeded.equals(result.getArtifactId() + "." + result.getType())) {
-                                jarFile = manager.getMavenResolver().resolve(snapshotMvnUri);
+                                resolvedFile = manager.getMavenResolver().resolve(uri);
                                 break;
                             }
                         }
-                        if (jarFile != null) {
+                        if (jarFile == null && resolvedFile != null) {
+                            needResetModule = true;
+                        }
+                        if (resolvedFile != null) {
+                            jarFile = resolvedFile;
                             // update installed path
                             mavenJarInstalled.put(uri, jarFile.getAbsolutePath());
                         }
@@ -363,7 +370,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
             CommonExceptionHandler.process(e);
         }
         try {
-            jarFile = getJarFile(jarNeeded);
             if (jarFile == null) {
                 if (showDialog && !CommonsPlugin.isHeadless()) {
                     // popup dialog if needed to download the jar.
@@ -384,6 +390,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                 ILibrariesService.class);
                         librariesService.resetModulesNeeded();
                     }
+                }
+            } else if (needResetModule) {
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
+                    ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
+                            ILibrariesService.class);
+                    librariesService.resetModulesNeeded();
                 }
             }
             if (jarFile == null) {
