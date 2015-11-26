@@ -58,6 +58,12 @@ public enum EHadoopVersion4Drivers {
                     false,
                     new EMRVersion[] { EMRVersion.YARN }),
 
+    CLOUDERA_CDH5_5(EHadoopDistributions.CLOUDERA, "Cloudera CDH5.5(YARN mode)", //$NON-NLS-1$
+                    "Cloudera_CDH5_5", //$NON-NLS-1$
+                    true,
+                    false,
+                    new EMRVersion[] { EMRVersion.YARN }),
+
     CLOUDERA_CDH5_4(EHadoopDistributions.CLOUDERA, "Cloudera CDH5.4(YARN mode)", //$NON-NLS-1$
                     "Cloudera_CDH5_4", //$NON-NLS-1$
                     true,
