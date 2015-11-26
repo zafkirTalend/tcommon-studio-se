@@ -74,6 +74,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Embed-Dependency>daikon;inline=true</Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>
