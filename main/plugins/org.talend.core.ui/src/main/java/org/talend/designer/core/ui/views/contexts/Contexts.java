@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -61,13 +62,18 @@ public class Contexts {
     public static void switchToCurContextsView(String perspectiveId, String viewId) {
         Set<String> perspIDs = new HashSet<String>();
         perspIDs.add(perspectiveId);
-        AbstractContextView cxtView = getView(perspIDs, viewId);
-
+        final AbstractContextView cxtView = getView(perspIDs, viewId);
         if (cxtView == null) {
             return;
         }
-        updateTitle(cxtView);
-        refreshView(cxtView);
+        Display.getDefault().asyncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                updateTitle(cxtView);
+                refreshView(cxtView);
+            }
+        });
     }
 
     public static void refreshContextsView() {
