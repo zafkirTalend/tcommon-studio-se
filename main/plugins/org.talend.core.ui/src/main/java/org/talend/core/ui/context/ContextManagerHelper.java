@@ -123,16 +123,17 @@ public final class ContextManagerHelper {
         } catch (PersistenceException e) {
             throw new RuntimeException(e);
         }
-        if (itemList != null) {
-            List<ContextItem> toRemove = new ArrayList<ContextItem>();
-
-            for (ContextItem contextItem : itemList) {
-                if (factory.getStatus(contextItem) == ERepositoryStatus.DELETED) {
-                    toRemove.add(contextItem);
-                }
-            }
-            itemList.removeAll(toRemove);
-        }
+        // already did in AbstractRepositoryFactory.getContextItem()
+        // if (itemList != null) {
+        // List<ContextItem> toRemove = new ArrayList<ContextItem>();
+        //
+        // for (ContextItem contextItem : itemList) {
+        // if (factory.getStatus(contextItem) == ERepositoryStatus.DELETED) {
+        // toRemove.add(contextItem);
+        // }
+        // }
+        // itemList.removeAll(toRemove);
+        // }
         return itemList;
     }
 
@@ -230,21 +231,27 @@ public final class ContextManagerHelper {
         return false;
     }
 
-    /**
-     * get parent objecte of the object
-     */
     public Object getParentContextItem(Object obj) {
+        return getParentContextItem(obj, null);
+    }
+    
+    /**
+     * get parent object of the object
+     */
+    public Object getParentContextItem(Object obj, List<ContextItem> allContextItems) {
         if (!isValid(obj)) {
             return null;
         }
         if (obj instanceof ContextItem) {
             return null;
         }
-        Set<ContextItem> itemSet = getContextItems();
-        if (itemSet != null) {
+        if(allContextItems == null){
+            allContextItems = new ArrayList<ContextItem>(getContextItems());
+        }
+        if (allContextItems != null) {
             // for SelectRepositoryContextDialog
             if (obj instanceof ContextParameterType) {
-                for (ContextItem contextItem : itemSet) {
+                for (ContextItem contextItem : allContextItems) {
                     for (Object objType : contextItem.getContext()) {
                         ContextType type = (ContextType) objType;
                         if (type.getName().equals(contextItem.getDefaultContext())) {
@@ -259,7 +266,7 @@ public final class ContextManagerHelper {
             }
             // for SelectRepositoryContextGroupDialog
             if (obj instanceof ContextType) {
-                for (ContextItem contextItem : itemSet) {
+                for (ContextItem contextItem : allContextItems) {
                     if (contextItem.getContext().contains(obj)) {
                         return contextItem;
                     }
@@ -272,18 +279,20 @@ public final class ContextManagerHelper {
     /*
      * get sibling objecte of the object(include self).
      */
-    public Set getSiblingContextObject(Object obj) {
+    public Set getSiblingContextObject(Object obj, List<ContextItem> allContextItems) {
         if (!isValid(obj)) {
             return null;
         }
-        Set<ContextItem> itemSet = getContextItems();
-        if (itemSet != null) {
+        if (allContextItems == null) {
+            allContextItems = new ArrayList<ContextItem>(getContextItems());
+        } 
+        if (allContextItems != null) {
             if (obj instanceof ContextItem) {
-                return itemSet;
+                return new HashSet(allContextItems);
             }
             // for SelectRepositoryContextDialog
             if (obj instanceof ContextParameterType) {
-                for (ContextItem contextItem : getContextItems()) {
+                for (ContextItem contextItem : allContextItems) {
                     for (Object objType : contextItem.getContext()) {
                         ContextType type = (ContextType) objType;
                         if (type.getName().equals(contextItem.getDefaultContext())) {
@@ -297,7 +306,7 @@ public final class ContextManagerHelper {
             }
             // for SelectRepositoryContextGroupDialog
             if (obj instanceof ContextType) {
-                for (ContextItem contextItem : getContextItems()) {
+                for (ContextItem contextItem : allContextItems) {
                     if (contextItem.getContext().contains(obj)) {
                         return new HashSet(contextItem.getContext());
                     }
@@ -306,6 +315,10 @@ public final class ContextManagerHelper {
             }
         }
         return null;
+    }
+    
+    public Set getSiblingContextObject(Object obj) {
+        return getSiblingContextObject(obj, null);
     }
 
     /*
@@ -342,15 +355,18 @@ public final class ContextManagerHelper {
      * 
      * check that the obj is existed in job context.
      */
-    public boolean existParameterForJob(Object obj) {
+    public boolean existParameterForJob(Object obj, List<ContextItem> allContextItems) {
         if (!isValid(obj)) {
             return false;
+        }
+        if(allContextItems == null) {
+            allContextItems = new ArrayList<ContextItem>(getContextItems());
         }
         if (obj instanceof ContextItem) {
             Set<String> paramSet = this.itemNameToParametersMap.get(((ContextItem) obj).getProperty().getId());
             return paramSet != null && !paramSet.isEmpty();
         } else if (obj instanceof ContextParameterType) {
-            ContextItem contextItem = (ContextItem) getParentContextItem(obj);
+            ContextItem contextItem = (ContextItem) getParentContextItem(obj, allContextItems);
             if (contextItem != null) {
                 Set<String> paramSet = this.itemNameToParametersMap.get(contextItem.getProperty().getId());
                 return paramSet != null && paramSet.contains(((ContextParameterType) obj).getName());
@@ -358,7 +374,11 @@ public final class ContextManagerHelper {
         }
         return false;
     }
-
+    
+    public boolean existParameterForJob(Object obj) {
+        return existParameterForJob(obj, null);
+    }
+    
     /**
      * 
      * ggu Comment method "convertFormat".

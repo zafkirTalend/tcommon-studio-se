@@ -344,8 +344,8 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             parent = obj; // self
             siblings = new HashSet(helper.getContextParameterType((ContextItem) obj)); // child
         } else if (obj instanceof ContextParameterType) {
-            parent = helper.getParentContextItem(obj);
-            siblings = helper.getSiblingContextObject(obj);
+            parent = helper.getParentContextItem(obj, contextItemList);
+            siblings = helper.getSiblingContextObject(obj, contextItemList);
         }
         if (parent == null || siblings == null) {
             return;
@@ -389,8 +389,8 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             if (type != null) {
                 List<?> paramList = type.getContextParameter();
                 for (int i = 0; i < paramList.size(); i++) {
-                    ContextParameterType paramType = (ContextParameterType) paramList.get(i);
-                    if (helper.existParameterForJob(paramType)) {
+                    final ContextParameterType paramType = (ContextParameterType) paramList.get(i);
+                    if (helper.existParameterForJob(paramType, contextItemList)) {
                         treeViewer.setChecked(paramType, true);
                     }
                     // only check parent state once at then end of the loop to avoid Cartesian product.
@@ -400,7 +400,6 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
                 }
             }
         }
-
     }
 
     private ContextParameterType hasSelectedParam(ContextParameterType paramType) {
