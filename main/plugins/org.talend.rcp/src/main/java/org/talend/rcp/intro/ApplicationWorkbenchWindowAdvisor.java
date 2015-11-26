@@ -45,6 +45,7 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -460,6 +461,21 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         // MOD yyi 2011-05-17 19088: add perspective change listener for cheatsheet view of tdq
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(new CheatSheetPerspectiveAdapter());
+        
+        PlatformUI.getWorkbench().addWorkbenchListener(new IWorkbenchListener() {
+            
+            @Override
+            public boolean preShutdown(IWorkbench workbench, boolean forced) {
+                TokenCollectorFactory.getFactory().process();
+                return true;
+            }
+            
+            @Override
+            public void postShutdown(IWorkbench workbench) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
     }
 
     /**
@@ -563,8 +579,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
             }
         }
-        // tmp for data collector
-        TokenCollectorFactory.getFactory().process();
 
         return true;
     }
