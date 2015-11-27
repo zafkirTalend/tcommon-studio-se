@@ -142,6 +142,8 @@ public enum EImage implements IImage {
 
     HIGHTLIGHT_ICON("/icons/hightLight.png"), //$NON-NLS-1$
 
+    OPEN_DATA_PREP("/icons/favicon.png"),
+
     CHESS_GRAY("/icons/gray.gif"); //$NON-NLS-1$
 
     private String path;
