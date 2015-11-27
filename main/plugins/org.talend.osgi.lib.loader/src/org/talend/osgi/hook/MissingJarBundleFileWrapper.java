@@ -228,11 +228,19 @@ public class MissingJarBundleFileWrapper extends BundleFileWrapper {
                             try {
                                 jarFile = mavenResolver.resolve(mvnUri.toASCIIString());
                                 return jarFile;
-                            } catch (IOException e) {// failed to find local artifact
-                                MissingJarServices
-                                        .getLogService()
-                                        .log(LogService.LOG_DEBUG,
-                                                "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e); //$NON-NLS-2$
+                            } catch (IOException e) {// failed to find local artifact, try snapshot
+                                try {
+                                    // add snapshot to uri
+                                    URI snapMvnUri = URIUtil.addSnapshotToUri(mvnUri);
+                                    jarFile = mavenResolver.resolve(snapMvnUri.toASCIIString());
+                                    return jarFile;
+                                } catch (IOException e1) {// failed to find SNAPSHOT artifact
+
+                                    MissingJarServices
+                                            .getLogService()
+                                            .log(LogService.LOG_DEBUG,
+                                                    "Could not resolve the maven URI (" + mvnUri + ") for path :" + generation.getRevision().getSymbolicName() + "/" + path, e1); //$NON-NLS-2$
+                                }
                             }
                         }// else no maven URI found so try old style lib/java folder
                         if (jarFile.exists()) {
