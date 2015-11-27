@@ -105,6 +105,9 @@ public enum HiveConnVersionInfo {
     APACHE_1_0_0(1, EHadoopVersion4Drivers.APACHE_1_0_0.getVersionValue(), EHadoopVersion4Drivers.APACHE_1_0_0
             .getVersionDisplay(), false, HiveConnVersionInfo.APACHE),
 
+    APACHE_0_20_203(1, EHadoopVersion4Drivers.APACHE_0_20_203.getVersionValue(), EHadoopVersion4Drivers.APACHE_0_20_203
+            .getVersionDisplay(), false, HiveConnVersionInfo.APACHE),
+
     Cloudera_CDH5_5(1, EHadoopVersion4Drivers.CLOUDERA_CDH5_5.getVersionValue(), EHadoopVersion4Drivers.CLOUDERA_CDH5_5
             .getVersionDisplay(), true, false, true, true, HiveConnVersionInfo.CLOUDERA),
 
@@ -195,6 +198,13 @@ public enum HiveConnVersionInfo {
           false,
           HiveConnVersionInfo.MAPR),
 
+    MAPR1(
+          1,
+          EHadoopVersion4Drivers.MAPR1.getVersionValue(),
+          EHadoopVersion4Drivers.MAPR1.getVersionDisplay(),
+          false,
+          HiveConnVersionInfo.MAPR),
+
     EMR_4_0_0(1, EHadoopVersion4Drivers.EMR_4_0_0.getVersionValue(), "EMR 4.0.0 (Hive 1.0.0)", //$NON-NLS-1$
               true,
               false,
@@ -259,6 +269,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.HDP_2_1,
                     HiveConnVersionInfo.HDP_2_2,
                     HiveConnVersionInfo.HDP_2_3,
+                    HiveConnVersionInfo.APACHE_0_20_203,
                     HiveConnVersionInfo.APACHE_1_0_0,
                     HiveConnVersionInfo.Cloudera_CDH4,
                     HiveConnVersionInfo.Cloudera_CDH4_YARN,
@@ -267,6 +278,7 @@ public enum HiveConnVersionInfo {
                     HiveConnVersionInfo.Cloudera_CDH5_1_MR1,
                     HiveConnVersionInfo.Cloudera_CDH5_4,
                     HiveConnVersionInfo.Cloudera_CDH5_5,
+                    HiveConnVersionInfo.MAPR1,
                     HiveConnVersionInfo.MAPR2,
                     HiveConnVersionInfo.MAPR2_1_2,
                     HiveConnVersionInfo.MAPR2_1_3,

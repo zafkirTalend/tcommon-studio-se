@@ -52,6 +52,12 @@ public enum EHadoopVersion4Drivers {
 
     APACHE_1_0_0(EHadoopDistributions.APACHE, "Apache 1.0.0", "APACHE_1_0_0", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
+    APACHE_0_20_204(EHadoopDistributions.APACHE, "Apache 0.20.204", "APACHE_0_20_204", false, false), //$NON-NLS-1$ //$NON-NLS-2$
+
+    APACHE_0_20_203(EHadoopDistributions.APACHE, "Apache 0.20.203", "APACHE_0_20_203", false, false), //$NON-NLS-1$ //$NON-NLS-2$
+
+    APACHE_0_20_2(EHadoopDistributions.APACHE, "Apache 0.20.2", "APACHE_0_20_2", false, true), //$NON-NLS-1$ //$NON-NLS-2$
+
     CLOUDERA_CDH5_5(EHadoopDistributions.CLOUDERA, "Cloudera CDH5.5(YARN mode)", //$NON-NLS-1$
                     "Cloudera_CDH5_5", //$NON-NLS-1$
                     true,
@@ -105,6 +111,8 @@ public enum EHadoopVersion4Drivers {
     MAPR212(EHadoopDistributions.MAPR, "MapR 2.1.2", "MAPR212", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
     MAPR2(EHadoopDistributions.MAPR, "MapR 2.0.0", "MAPR2", false, true), //$NON-NLS-1$ //$NON-NLS-2$
+
+    MAPR1(EHadoopDistributions.MAPR, "MapR 1.2.0", "MAPR1", false, true), //$NON-NLS-1$ //$NON-NLS-2$
 
     EMR_4_0_0(EHadoopDistributions.AMAZON_EMR, "EMR 4.0.0 (Apache 2.6.0)", //$NON-NLS-1$
               "EMR_4_0_0", //$NON-NLS-1$
