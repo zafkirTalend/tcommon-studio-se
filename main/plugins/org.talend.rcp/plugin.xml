@@ -224,6 +224,15 @@
                   name="hidePerspective">
             </activity>
             <activity
+                  id="org.talend.rcp.branding.activity.hideMenuForTOS"
+                  name="hideMenuForTOS">
+               <enabledWhen>
+                  <test
+                        property="org.talend.rcp.booleanTOSTester.isTOS">
+                  </test>
+               </enabledWhen>
+            </activity>
+            <activity
                   id="org.talend.rcp.branding.activity.hideViewsPostWindowOpen"
                   name="hideViewsPostWindowOpen">
                <enabledWhen>
@@ -324,6 +333,10 @@
                   activityId="org.talend.rcp.branding.activity.hidePerspective"
                   pattern=".*/org.eclipse.team.ui.TeamSynchronizingPerspective">
             </activityPatternBinding>
+            <activityPatternBinding
+                  activityId="org.talend.rcp.branding.activity.hideMenuForTOS"
+                  pattern=".*/org.eclipse.equinox.p2.ui.sdk.install">
+            </activityPatternBinding>
      </extension>
 <extension
       point="org.eclipse.core.expressions.propertyTesters">
@@ -332,6 +345,13 @@
          id="org.talend.rcp.languageUseJavaTest"
          namespace="org.talend.rcp.languageUseJavaTest"
          properties="isUseJava"
+         type="java.lang.Object">
+   </propertyTester>
+   <propertyTester
+         class="org.talend.rcp.test.BooleanTOSTester"
+         id="org.talend.rcp.booleanTOSTester"
+         namespace="org.talend.rcp.booleanTOSTester"
+         properties="isTOS"
          type="java.lang.Object">
    </propertyTester>
 </extension>

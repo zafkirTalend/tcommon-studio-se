@@ -17,6 +17,7 @@
     </properties>
 
     <modules>
+        <module>org.talend.utils/pom_minimal.xml</module>
         <module>org.talend.utils/pom_server.xml</module>
         <module>org.talend.commons.runtime/pom_server.xml</module>
     </modules>

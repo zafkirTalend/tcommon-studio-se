@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.talend</groupId>
-    <artifactId>org.talend.utils</artifactId>
+    <artifactId>org.talend.utils.minimal</artifactId>
     <packaging>bundle</packaging>
     <parent>
         <groupId>org.talend</groupId>
@@ -64,6 +64,10 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <excludes>
+                        <exclude>org/talend/utils/security/*.*</exclude>
+                        <exclude>org/talend/utils/sql/*.*</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
