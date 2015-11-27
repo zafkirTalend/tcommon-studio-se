@@ -162,8 +162,15 @@ public enum EConnectionType implements IConnectionCategory, IDraw2dGraphics {
                    new Integer(LINE_SOLID),
                    new RGB(230, 100, 0)),
 
-    STARTS(21, "STARTS", EConnectionCategory.OTHER, CONDITION | DEPENDENCY | UNIQUE_NAME, "Starts", Messages
-            .getString("EConnectionType.startsMenu"), new Integer(LINE_SOLID), new RGB(0, 0, 150)),
+    STARTS(21, "STARTS", EConnectionCategory.OTHER, CONDITION | DEPENDENCY | UNIQUE_NAME, "Starts", Messages//$NON-NLS-1$ //$NON-NLS-2$
+            .getString("EConnectionType.startsMenu"), new Integer(LINE_SOLID), new RGB(0, 0, 150)), //$NON-NLS-1$ 
+
+    REJECT(0, "REJECT", //$NON-NLS-1$
+           EConnectionCategory.MAIN,
+           MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME,
+           "Reject", Messages.getString("EConnectionType.RejectMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+           new Integer(LINE_SOLID),
+           new RGB(230, 100, 0)),
 
     TABLE_REF(22, "TABLE_REF", //$NON-NLS-1$
               // EConnectionCategory.OTHER,
