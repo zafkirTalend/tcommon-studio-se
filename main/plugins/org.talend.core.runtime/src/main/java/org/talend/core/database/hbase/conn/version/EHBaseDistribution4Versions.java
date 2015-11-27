@@ -39,11 +39,6 @@ public enum EHBaseDistribution4Versions {
     HDP_1_2(EHBaseDistributions.HORTONWORKS, EHadoopVersion4Drivers.HDP_1_2.getVersionDisplay(), EHadoopVersion4Drivers.HDP_1_2
             .getVersionValue()),
 
-    APACHE_0_20_203(
-                    EHBaseDistributions.APACHE,
-                    EHadoopVersion4Drivers.APACHE_0_20_203.getVersionDisplay(),
-                    EHadoopVersion4Drivers.APACHE_0_20_203.getVersionValue()),
-
     APACHE_2_4_0_EMR(
                      EHBaseDistributions.AMAZON_EMR,
                      EHadoopVersion4Drivers.APACHE_2_4_0_EMR.getVersionDisplay(),
