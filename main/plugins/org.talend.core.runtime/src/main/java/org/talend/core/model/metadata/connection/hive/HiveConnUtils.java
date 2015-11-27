@@ -210,12 +210,13 @@ public class HiveConnUtils {
         List<HiveConnVersionInfo> supportedModes = new ArrayList<HiveConnVersionInfo>();
         HiveConnVersionInfo hiveVersionObj = getHiveVersionObj(distributionIndex, versionIndex);
         if (hiveVersionObj != null) {
+            boolean supportEmbedded = isSupportEmbedded(hiveVersionObj);
             boolean supportStandalone = isSupportStandalone(hiveVersionObj, hiveServerIndex);
             List<HiveConnVersionInfo> modes = getFollowersOfObject(hiveVersionObj);
             if (modes != null && modes.size() > 0) {
                 for (HiveConnVersionInfo mode : modes) {
-                    if (HiveConnVersionInfo.MODE_EMBEDDED.equals(mode) || HiveConnVersionInfo.MODE_STANDALONE.equals(mode)
-                            && supportStandalone) {
+                    if (HiveConnVersionInfo.MODE_EMBEDDED.equals(mode) && supportEmbedded
+                            || HiveConnVersionInfo.MODE_STANDALONE.equals(mode) && supportStandalone) {
                         supportedModes.add(mode);
                     }
                 }
@@ -223,6 +224,10 @@ public class HiveConnUtils {
         }
 
         return supportedModes;
+    }
+
+    private static boolean isSupportEmbedded(HiveConnVersionInfo hiveVersionObj) {
+        return !(HiveConnVersionInfo.APACHE_0_20_203.equals(hiveVersionObj) || HiveConnVersionInfo.MAPR1.equals(hiveVersionObj));
     }
 
     private static boolean isSupportStandalone(HiveConnVersionInfo hiveVersionObj, int hiveServerIndex) {
