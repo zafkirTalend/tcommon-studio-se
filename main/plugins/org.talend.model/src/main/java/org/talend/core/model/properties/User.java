@@ -664,6 +664,10 @@ public interface User extends EObject {
      * @generated
      */
     void setAuthenticationInfo(String value);
+    
+    String getGitAuthenticationInfo();
+    
+    void setGitAuthenticationInfo(String value);
 
     /**
      * Returns the value of the '<em><b>Ldap Login</b></em>' attribute.

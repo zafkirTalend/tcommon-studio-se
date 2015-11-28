@@ -62,6 +62,7 @@ public abstract class ShareLibrareisHelper {
                     ISVNProviderServiceInCoreRuntime service = (ISVNProviderServiceInCoreRuntime) GlobalServiceRegister
                             .getDefault().getService(ISVNProviderServiceInCoreRuntime.class);
                     if (service != null && service.isSvnLibSetupOnTAC()) {
+                        service.syncLibs(monitor);
                         setJobName(job, Messages.getString("ShareLibsJob.message", TYPE_SVN));
                         int shareLimit = 5;
                         // share to svn lib
