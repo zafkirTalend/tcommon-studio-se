@@ -335,6 +335,9 @@ public final class ConnectionContextHelper {
             if (param instanceof EHadoopParamName) {
                 varList.add(((EHadoopParamName) param).name());
             }
+            if (param instanceof GenericConnParamName) {
+                varList.add(((GenericConnParamName) param).getName());
+            }
         }
     }
 
