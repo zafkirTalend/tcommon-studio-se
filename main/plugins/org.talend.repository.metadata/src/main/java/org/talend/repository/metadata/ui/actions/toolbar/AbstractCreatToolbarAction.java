@@ -50,6 +50,7 @@ import org.talend.repository.metadata.ui.actions.metadata.CreateFileRegexpAction
 import org.talend.repository.metadata.ui.actions.metadata.CreateFileXmlAction;
 import org.talend.repository.metadata.ui.actions.metadata.CreateGenericSchemaAction;
 import org.talend.repository.metadata.ui.actions.metadata.CreateLDAPSchemaAction;
+import org.talend.repository.metadata.ui.actions.metadata.CreateSalesforceSchemaAction;
 import org.talend.repository.metadata.ui.actions.metadata.CreateWSDLSchemaAction;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryService;
@@ -285,6 +286,15 @@ public abstract class AbstractCreatToolbarAction implements IWorkbenchWindowPull
                 createLDAPSchemaAction.setWorkbenchPart(repositoryView);
                 addToMenu(menu, createLDAPSchemaAction, -1);
             }
+        }
+
+        if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA)) {
+            final CreateSalesforceSchemaAction createSalesforceModulesAction = new CreateSalesforceSchemaAction(true);
+            createSalesforceModulesAction.setWorkbenchPart(repositoryView);
+            addToMenu(menu, createSalesforceModulesAction, -1);
+            // final CreateSalesforceModulesAction createSalesforceModulesAction = new CreateSalesforceModulesAction();
+            // createSalesforceModulesAction.setWorkbenchPart(repositoryView);
+            // addToMenu(menu, createSalesforceModulesAction, -1);
         }
 
         if (repositoryView.containsRepositoryType(ERepositoryObjectType.METADATA_GENERIC_SCHEMA)) {

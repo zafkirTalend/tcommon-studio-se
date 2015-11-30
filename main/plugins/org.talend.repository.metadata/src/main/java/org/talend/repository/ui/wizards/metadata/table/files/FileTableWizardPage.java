@@ -38,11 +38,14 @@ import org.talend.repository.ui.wizards.metadata.connection.files.excel.ExcelFil
 import org.talend.repository.ui.wizards.metadata.connection.files.ldif.LdifFileStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.positional.FileStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.regexp.RegexpFileStep3Form;
+import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceModuleParseAPI;
+import org.talend.repository.ui.wizards.metadata.connection.files.salesforce.SalesforceStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileOutputStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileStep3Form;
 import org.talend.repository.ui.wizards.metadata.connection.genericshema.GenericSchemaStep2Form;
 import org.talend.repository.ui.wizards.metadata.connection.ldap.LDAPSchemaStep4Form;
 import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaStep2Form;
+
 import orgomg.cwm.objectmodel.core.Package;
 
 /**
@@ -79,12 +82,10 @@ public class FileTableWizardPage extends WizardPage {
      * 
      * @see IDialogPage#createControl(Composite)
      */
-    @Override
     public void createControl(final Composite parent) {
 
         final AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
-            @Override
             public void checkPerformed(final AbstractForm source) {
                 if (source.isStatusOnError()) {
                     FileTableWizardPage.this.setPageComplete(false);
@@ -140,7 +141,6 @@ public class FileTableWizardPage extends WizardPage {
                 return regexpFileStep3Form;
             }
 
-            @Override
             public Object caseXmlFileConnection(final XmlFileConnection object) {
                 XmlFileConnection xmlFileConnection = (XmlFileConnection) connectionItem.getConnection();
                 boolean isInputModel = xmlFileConnection.isInputModel();
@@ -196,7 +196,11 @@ public class FileTableWizardPage extends WizardPage {
 
             @Override
             public Object caseSalesforceSchemaConnection(final SalesforceSchemaConnection object) {
-                return null;
+                SalesforceStep3Form salesforceStep3From = new SalesforceStep3Form(parent, connectionItem, metadataTable,
+                        TableHelper.getTableNames(object, metadataTable.getLabel()), new SalesforceModuleParseAPI());
+                salesforceStep3From.setReadOnly(!isRepositoryObjectEditable);
+                salesforceStep3From.setListener(listener);
+                return salesforceStep3From;
             }
 
             /*
