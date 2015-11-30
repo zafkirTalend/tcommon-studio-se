@@ -23,7 +23,7 @@ import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.service.IMRProcessService;
 import org.talend.core.service.IStormProcessService;
@@ -45,13 +45,11 @@ public abstract class CustomExternalActions extends SelectionAction {
 
     public static final String EXTENSION_ID = "org.talend.core.component_custom_action"; //$NON-NLS-1$
 
-    protected static IWorkbenchPart part = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-
     /**
      * DOC qzhang AbstractContextMenuProvider constructor comment.
      */
     public CustomExternalActions() {
-        super(part);
+        super(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor());
     }
 
     /**
@@ -67,7 +65,6 @@ public abstract class CustomExternalActions extends SelectionAction {
      * @return
      */
     public static List<SelectionAction> getInstances(IWorkbenchPart part) {
-        CustomExternalActions.part = part;
         List<SelectionAction> actions = new ArrayList<SelectionAction>();
         IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
         IConfigurationElement[] configurationElementsFor = extensionRegistry.getConfigurationElementsFor(EXTENSION_ID);
