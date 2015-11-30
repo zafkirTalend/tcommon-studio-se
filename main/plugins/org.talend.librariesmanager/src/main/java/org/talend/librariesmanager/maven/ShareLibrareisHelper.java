@@ -115,6 +115,7 @@ public abstract class ShareLibrareisHelper {
                         // share to custom nexus
                         int searchLimit = 50;
                         setJobName(job, Messages.getString("ShareLibsJob.message", TYPE_NEXUS));
+                        final List<MavenArtifact> searchResults = new ArrayList<MavenArtifact>();
                         TalendLibsServerManager instance = TalendLibsServerManager.getInstance();
                         NexusServerBean customServer = instance.getCustomNexusServer();
                         if (customServer != null) {
@@ -145,8 +146,15 @@ public abstract class ShareLibrareisHelper {
                                     }
                                     jarsToCheck += artifactId;
                                     index++;
-                                    if (index < limit) {
+                                    if (index < limit && index < filesToShare.size()) {
                                         jarsToCheck += ",";
+                                    }
+                                    if (index == limit || index == filesToShare.size()) {
+                                        searchResults.clear();
+                                        searchResults.addAll(instance.search(customServer.getServer(),
+                                                customServer.getUserName(), customServer.getPassword(),
+                                                customServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, jarsToCheck,
+                                                null));
                                     }
                                 }
                                 shareIndex++;
@@ -154,14 +162,10 @@ public abstract class ShareLibrareisHelper {
                                     limit += searchLimit;
                                 }
 
-                                final List<MavenArtifact> searchResults = instance.search(customServer.getServer(),
-                                        customServer.getUserName(), customServer.getPassword(), customServer.getRepositoryId(),
-                                        MavenConstants.DEFAULT_LIB_GROUP_ID, jarsToCheck, null);
                                 ModuleNeeded next = iterator.next();
                                 File file = filesToShare.get(next);
                                 String pomPath = file.getParent();
                                 String name = file.getName();
-                                mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", name));
                                 MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(next.getMavenUriSnapshot());
                                 if (artifact == null) {
                                     continue;
@@ -183,6 +187,7 @@ public abstract class ShareLibrareisHelper {
                                 if (eixst) {
                                     continue;
                                 }
+                                mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", name));
                                 int indexOf = name.lastIndexOf(".");
                                 if (indexOf != -1) {
                                     pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
