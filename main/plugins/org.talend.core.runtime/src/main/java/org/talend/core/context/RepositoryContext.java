@@ -73,9 +73,17 @@ public class RepositoryContext {
                 && user.getAuthenticationInfo() == null) {
             oldAuthentification = this.user.getAuthenticationInfo();
         }
+        String oldGitAuthentification = null;
+        if (this.user != null && user != null && StringUtils.equals(this.user.getLogin(), user.getLogin())
+                && user.getGitAuthenticationInfo() == null) {
+            oldGitAuthentification = this.user.getGitAuthenticationInfo();
+        }
         this.user = user;
         if (oldAuthentification != null) {
             this.user.setAuthenticationInfo(oldAuthentification);
+        }
+        if (oldGitAuthentification != null) {
+            this.user.setGitAuthenticationInfo(oldGitAuthentification);
         }
     }
 

@@ -14,6 +14,8 @@ package org.talend.core;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+
 /**
  * DOC zwzhao class global comment. Detailled comment
  */
@@ -29,10 +31,7 @@ public interface ISVNProviderServiceInCoreRuntime extends IService {
 
     public void createFolderAndLinkToSvn(String filePath);
 
-    public void synToSvn(String filePath);
-
-    public void synProjectLib(String filePath);
-
     public boolean update();
 
+    public void syncLibs(IProgressMonitor monitor);
 }
