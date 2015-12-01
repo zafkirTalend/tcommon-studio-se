@@ -11,6 +11,7 @@
         </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.libraries.jdbc.mysql"
+              id="mariadb-java-client-1.1.7.jar"
               language="java"
               message="Needed for Mysql jdbc plugin"
               mvn_uri="mvn:org.talend.libraries/mariadb-java-client-1.1.7/6.0.0"
