@@ -163,6 +163,23 @@ public enum EDatabaseVersion4Drivers {
             "httpcore-4.2.5.jar", "httpclient-4.2.5.jar", "commons-logging-1.1.3.jar", "slf4j-api-1.7.5.jar",
             "slf4j-log4j12-1.7.5.jar", "log4j-1.2.17.jar", "guava-11.0.2.jar" })),
 
+    IMPALA_CDH5_5(new DbVersion4Drivers(EDatabaseTypeName.IMPALA, "Cloudera 5.5", "Cloudera_CDH5_5", new String[] {
+            "antlr-runtime-3.4.jar", "commons-httpclient-3.0.1.jar", "curator-client-2.6.0.jar", "curator-framework-2.6.0.jar",
+            "datanucleus-api-jdo-3.2.6.jar", "datanucleus-core-3.2.10.jar", "datanucleus-rdbms-3.2.9.jar", "derby-10.11.1.1.jar",
+            "hive-exec-1.1.0-cdh5.5.0.jar", "hive-jdbc-1.1.0-cdh5.5.0.jar", "hive-metastore-1.1.0-cdh5.5.0.jar",
+            "hive-service-1.1.0-cdh5.5.0.jar", "httpclient-4.2.5.jar", "httpcore-4.2.5.jar", "jdo-api-3.0.1.jar",
+            "libfb303-0.9.2.jar", "libthrift-0.9.2.jar", "zookeeper-3.4.5-cdh5.5.0.jar", "hadoop-common-2.6.0-cdh5.5.0.jar",
+            "hadoop-hdfs-2.6.0-cdh5.5.0.jar", "hadoop-auth-2.6.0-cdh5.5.0.jar", "commons-configuration-1.6.jar",
+            "commons-lang-2.6.jar", "commons-logging-1.2.jar", "commons-cli-1.2.jar", "commons-collections-3.2.1.jar",
+            "avro-1.7.6-cdh5.5.0.jar", "guava-12.0.1.jar", "protobuf-java-2.5.0.jar", "slf4j-api-1.7.5.jar",
+            "slf4j-log4j12-1.7.5.jar", "log4j-1.2.17.jar", "jersey-core-1.9.jar", "htrace-core4-4.0.1-incubating.jar",
+            "servlet-api-2.5.jar", "hadoop-mapreduce-client-common-2.6.0-cdh5.5.0.jar",
+            "hadoop-mapreduce-client-core-2.6.0-cdh5.5.0.jar", "hadoop-mapreduce-client-jobclient-2.6.0-cdh5.5.0.jar",
+            "hadoop-yarn-api-2.6.0-cdh5.5.0.jar", "hadoop-yarn-client-2.6.0-cdh5.5.0.jar",
+            "hadoop-yarn-common-2.6.0-cdh5.5.0.jar", "hadoop-yarn-server-web-proxy-2.6.0-cdh5.5.0.jar", "commons-io-2.4.jar",
+            "commons-codec-1.9.jar", "htrace-core-3.2.0-incubating.jar", "jackson-mapper-asl-1.8.8.jar",
+            "jackson-core-asl-1.8.8.jar", "jackson-jaxrs-1.8.8.jar", "jackson-xc-1.8.8.jar", "jersey-client-1.9.jar" })),
+
     REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")), //$NON-NLS-1$
 
     AMAZON_AURORA(new DbVersion4Drivers(EDatabaseTypeName.AMAZON_AURORA, "mysql-connector-java-5.1.30-bin.jar")); //$NON-NLS-1$
