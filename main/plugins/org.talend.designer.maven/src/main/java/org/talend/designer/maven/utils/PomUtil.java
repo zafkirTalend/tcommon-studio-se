@@ -202,7 +202,7 @@ public class PomUtil {
     }
 
     public static Dependency createDependency(String groupId, String artifactId, String version, String type) {
-        return createDependency(groupId, artifactId, version, type);
+        return createDependency(groupId, artifactId, version, type, null);
     }
 
     public static Dependency createModuleDependency(String str) {
