@@ -1313,7 +1313,7 @@ public final class MetadataToolHelper {
 
     }
 
-    private static IMetadataTable convert(MetadataTable old) {
+    public static IMetadataTable convert(MetadataTable old) {
         ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
         IMetadataTable result = new org.talend.core.model.metadata.MetadataTable();
         result.setComment(old.getComment());
