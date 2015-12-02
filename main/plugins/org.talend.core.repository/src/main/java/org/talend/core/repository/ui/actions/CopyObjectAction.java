@@ -155,8 +155,18 @@ public class CopyObjectAction {
         // for bug 0005454: Copy paste with keyboard in the repository view doesn't work.
         if (targetNode.getType() == ENodeType.REPOSITORY_ELEMENT || targetNode.getType() == ENodeType.SIMPLE_FOLDER
                 || targetNode.getType() == ENodeType.SYSTEM_FOLDER) {
-            return ((ERepositoryObjectType) targetNode.getProperties(EProperties.CONTENT_TYPE)) == objectToCopy
-                    .getRepositoryObjectType();
+            ERepositoryObjectType targetType = ((ERepositoryObjectType) targetNode.getProperties(EProperties.CONTENT_TYPE));
+            ERepositoryObjectType sourceType = objectToCopy.getRepositoryObjectType();
+            if (sourceType.equals(ERepositoryObjectType.PROCESS_STORM)) {
+                return targetType.equals(ERepositoryObjectType.PROCESS) || targetType.equals(ERepositoryObjectType.PROCESS_STORM)
+                        || targetType.equals(ERepositoryObjectType.PROCESS_MR);
+            }
+            if (sourceType.equals(ERepositoryObjectType.PROCESS_MR)) {
+                return targetType.equals(ERepositoryObjectType.PROCESS_STORM)
+                        || targetType.equals(ERepositoryObjectType.PROCESS_MR);
+            }
+
+            return targetType.equals(sourceType);
         }
         return false;
     }
