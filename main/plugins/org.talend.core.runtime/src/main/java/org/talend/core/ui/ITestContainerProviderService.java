@@ -105,7 +105,7 @@ public interface ITestContainerProviderService extends IService {
     public IRepositoryEditorInput createTestCaseEditorInput(ProcessItem junitItem, boolean load, String originalJobID,
             List<INode> testNodes, Boolean lastVersion, Boolean readonly) throws PersistenceException;
 
-    public ProcessType loadSVNTestContainer(Item item, IProcess2 loadedProcess, Property loadProperty);
+    public ProcessType loadRemoteTestContainer(Item item, IProcess2 loadedProcess, Property loadProperty);
 
     public ERepositoryObjectType getTestCaseObjectType();
 }
