@@ -410,8 +410,10 @@
             context="plugin:org.talend.metadata.managment"
             language="java"
             message="Needed for plugin org.talend.metadata.managment"
-            name="wsdl4j-1.5.1.jar" mvn_uri="mvn:org.talend.libraries/wsdl4j-1.5.1/6.0.0"
-            required="false">
+            mvn_uri="mvn:org.talend.libraries/wsdl4j-1.5.1/6.0.0"
+            name="wsdl4j-1.5.1.jar"
+            required="false"
+            uripath="platform:/plugin/org.talend.libraries.apache/lib/wsdl4j-1.5.1.jar">
       </libraryNeeded>
             <libraryNeeded
             context="Hive wizard"
