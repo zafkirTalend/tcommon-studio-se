@@ -105,6 +105,8 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         final boolean isSet = prefSetting.getBoolean(MAVEN_SETTING_HAVE_SET, false);
         final boolean isLocalRepository = isLocalRepository();
 
+        boolean forceUpdate = !isSet && !isLocalRepository;
+
         final Path configPath = new Path(Platform.getConfigurationLocation().getURL().getPath());
         final File studioUserSettingsFile = configPath.append(
                 IProjectSettingTemplateConstants.MAVEN_USER_SETTING_TEMPLATE_FILE_NAME).toFile();
@@ -167,7 +169,8 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
                 if (updateProfileSettings(monitor, maven, settings, configPath, studioUserSettingsFile)) {
                     modified = true;
                 }
-                if (modified) { // save changes
+
+                if (modified || forceUpdate) { // save changes
                     maven.writeSettings(settings, new FileOutputStream(studioUserSettingsFile));
                     // after update reload
                     maven.reloadSettings();
