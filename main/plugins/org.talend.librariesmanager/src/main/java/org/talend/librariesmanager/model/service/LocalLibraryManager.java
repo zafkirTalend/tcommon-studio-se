@@ -316,7 +316,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         File jarFile = null;
         boolean needResetModule = false;
         try {
-            jarFile = getJarFile(jarNeeded);
+            jarFile = getJarFile(snapshotMvnUri);
+            if (jarFile == null) {
+                jarFile = getJarFile(jarNeeded);
+            }
             // retreive form custom nexus server automatically
             TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
             final NexusServerBean customNexusServer = manager.getCustomNexusServer();

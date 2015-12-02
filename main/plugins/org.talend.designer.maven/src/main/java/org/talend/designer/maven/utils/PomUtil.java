@@ -187,7 +187,7 @@ public class PomUtil {
      * 
      * @return
      */
-    public static Dependency createDependency(String groupId, String artifactId, String version, String type) {
+    public static Dependency createDependency(String groupId, String artifactId, String version, String type, String classifier) {
         if (artifactId == null) {
             return null;
         }
@@ -196,8 +196,13 @@ public class PomUtil {
         dependency.setArtifactId(artifactId);
         dependency.setVersion(version == null ? MavenConstants.DEFAULT_LIB_VERSION : version);
         dependency.setType(type == null ? TalendMavenConstants.PACKAGING_JAR : type);
+        dependency.setClassifier(classifier);
 
         return dependency;
+    }
+
+    public static Dependency createDependency(String groupId, String artifactId, String version, String type) {
+        return createDependency(groupId, artifactId, version, type);
     }
 
     public static Dependency createModuleDependency(String str) {
@@ -211,7 +216,8 @@ public class PomUtil {
 
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mvnUrl);
         if (artifact != null) {
-            return createDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
+            return createDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), artifact.getType(),
+                    artifact.getClassifier());
         }
         return null;
     }
