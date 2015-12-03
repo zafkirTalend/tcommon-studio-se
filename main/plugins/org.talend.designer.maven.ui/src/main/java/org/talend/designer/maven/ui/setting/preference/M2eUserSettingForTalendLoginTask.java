@@ -250,14 +250,14 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         if (monitor.isCanceled()) {
             return false;
         }
+        final String m2Repo = ".m2/repository"; //$NON-NLS-1$
         // default one
-        String localRepoPath = System.getProperty("user.home") + "/.m2/repository"; //$NON-NLS-1$
+        IPath localRepoPath = new Path(System.getProperty("user.home")).append(m2Repo); //$NON-NLS-1$
         // if local, always use config one
-        if (isLocalRepository() || !enableAccessM2Repository(monitor, localRepoPath)) {
+        if (isLocalRepository() || !enableAccessM2Repository(monitor, localRepoPath.toString())) {
             // need change the repo setting
-            IPath m2RepoPath = configPath.append(".m2/repository"); //$NON-NLS-1$
-            localRepoPath = m2RepoPath.toString();
-            File studioDefaultRepoFolder = m2RepoPath.toFile();
+            localRepoPath = configPath.append(m2Repo);
+            File studioDefaultRepoFolder = localRepoPath.toFile();
             if (!studioDefaultRepoFolder.exists()) {
                 studioDefaultRepoFolder.mkdirs();
             }
@@ -265,9 +265,9 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
         }
         // make sure the setting file can be changed.
         if (userSettingsFile.exists() && userSettingsFile.canRead() && userSettingsFile.canWrite()
-                && !localRepoPath.equals(settings.getLocalRepository())) {
+                && !localRepoPath.toString().equals(settings.getLocalRepository())) {
             // modify the setting file for "localRepository"
-            settings.setLocalRepository(localRepoPath);
+            settings.setLocalRepository(localRepoPath.toString());
             maven.reloadSettings();
             // should same as MavenSettingsPreferencePage.updateSettings update index?
             try {
