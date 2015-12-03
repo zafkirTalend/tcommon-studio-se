@@ -210,7 +210,7 @@ public abstract class SingleTopLevelContentProvider implements ITreeContentProvi
     public void dispose() {
         // to help garbage collection
         topLevelNodes.clear();
-        topLevelNodes = null;
+        // topLevelNodes = null;
 
     }
 
