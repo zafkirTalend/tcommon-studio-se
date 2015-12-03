@@ -765,9 +765,19 @@ public class ModulesNeededProvider {
 
     public static List<ModuleNeeded> filterOutRequiredModulesForBundle(List<ModuleNeeded> moduleList) {
         List<ModuleNeeded> pluginRequiredModules = new ArrayList<ModuleNeeded>();
+        List<String> requiredModuleNames = new ArrayList<String>();
         for (ModuleNeeded module : moduleList) {
             String context = module.getContext();
-            if (context == null || !context.startsWith(PLUGINS_CONTEXT_KEYWORD)) {
+            if (context != null && !context.startsWith(PLUGINS_CONTEXT_KEYWORD) && module.isRequired()) {
+                requiredModuleNames.add(module.getModuleName());
+            }
+        }
+        for (ModuleNeeded module : moduleList) {
+            if (requiredModuleNames.contains(module.getModuleName())) {
+                continue;
+            }
+            String context = module.getContext();
+            if (context == null || !context.startsWith(PLUGINS_CONTEXT_KEYWORD) || !module.isRequired()) {
                 pluginRequiredModules.add(module);
             }// else ignor
         }
