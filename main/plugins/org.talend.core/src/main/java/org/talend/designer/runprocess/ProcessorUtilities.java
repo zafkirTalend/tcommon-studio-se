@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
@@ -91,6 +92,8 @@ import org.talend.repository.model.IRepositoryService;
  * 
  */
 public class ProcessorUtilities {
+
+    private static Logger log = Logger.getLogger(ProcessorUtilities.class);
 
     public static final int GENERATE_MAIN_ONLY = TalendProcessOptionConstants.GENERATE_MAIN_ONLY;
 
@@ -1571,12 +1574,19 @@ public class ProcessorUtilities {
                 && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
                     .getDefault().getService(ITestContainerProviderService.class);
-            List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
-            for (ProcessItem testItem : testsItems) {
-                JobInfo jobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
-                jobInfo.setTestContainer(true);
-                jobInfos.add(jobInfo);
-                jobInfo.setFatherJobInfo(parentJobInfo);
+            if (testContainerService != null) {
+                List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
+                for (ProcessItem testItem : testsItems) {
+                    ProcessType testProcess = testContainerService.getTestContainerProcess(testItem);
+                    if (testProcess == null) {
+                        log.warn(Messages.getString("ProcessorUtilities.nullProcess")); //$NON-NLS-1$
+                        continue;
+                    }
+                    JobInfo jobInfo = new JobInfo(testItem, testProcess.getDefaultContext());
+                    jobInfo.setTestContainer(true);
+                    jobInfos.add(jobInfo);
+                    jobInfo.setFatherJobInfo(parentJobInfo);
+                }
             }
         }
         return jobInfos;
@@ -1650,7 +1660,7 @@ public class ProcessorUtilities {
             if (jobInfo.getJobId().equals(processId)) {
                 if (contextName != null && !contextName.equals("") && !jobInfo.getContextName().equals(contextName)) {
                     continue;
-                }   
+                }
                 if (version != null && !version.equals(jobInfo.getJobVersion())) {
                     continue;
                 }
