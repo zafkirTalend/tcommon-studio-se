@@ -23,6 +23,8 @@
 		</layout>
 	</appender>
 
+    <logger name="org.ops4j.pax.url.mvn.internal.config.MavenRepositoryURL" additivity="true"> <level value="error" /> </logger>
+    <logger name="org.ops4j.pax.url.mvn.internal.AetherBasedResolver" additivity="true"> <level value="error" /> </logger>
 	<logger name="org.hibernate" additivity="true"> <level value="error" /> </logger>
 	<logger name="com.mchange" additivity="true"> <level value="warn" /> </logger>
 	<logger name="net.sf.ehcache" additivity="true"> <level value="warn" /> </logger>
