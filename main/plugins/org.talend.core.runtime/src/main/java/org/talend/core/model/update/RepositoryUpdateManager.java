@@ -144,7 +144,7 @@ public abstract class RepositoryUpdateManager {
 
     private boolean isDetectAndUpdate = false;
 
-    private static boolean isAddColumn = false;
+    protected static boolean isAddColumn = false;
 
     static {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRepositoryService.class)) {
@@ -1687,7 +1687,7 @@ public abstract class RepositoryUpdateManager {
 
     }
 
-    private static boolean isAddColumn(IMetadataTable tableFromMetadata, IMetadataTable tableFromProcess) {
+    protected static boolean isAddColumn(IMetadataTable tableFromMetadata, IMetadataTable tableFromProcess) {
         boolean isHaveAddColumn = false;
         for (IMetadataColumn columnFromMetadata : tableFromMetadata.getListColumns(true)) {
             boolean flag = false;
@@ -1973,7 +1973,7 @@ public abstract class RepositoryUpdateManager {
         return updateSchema(metadataTable, connItem, null, show, onlySimpleShow);
     }
 
-    private static boolean updateSchema(final Object table, ConnectionItem connItem, Map<String, String> schemaRenamedMap,
+    protected static boolean updateSchema(final Object table, ConnectionItem connItem, Map<String, String> schemaRenamedMap,
             boolean show, boolean onlySimpleShow) {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();

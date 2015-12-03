@@ -92,7 +92,12 @@ public enum EParameterFieldType {
     HADOOP_DISTRIBUTION,
     HADOOP_LIBRARIES,
     DATA_PREP_ID, // wchen added for TDI-33791
-    FETCH_SCHEMA // TDI-33791
+    FETCH_SCHEMA, // TDI-33791
+
+    BUTTON, // ycbai added for generic wizard
+    NAME_SELECTION_AREA, // ycbai added for generic wizard
+    NAME_SELECTION_REFERENCE, // ycbai added for generic wizard
+    COMPONENT_REFERENCE, // ycbai added for generic wizard
 
     ;
 

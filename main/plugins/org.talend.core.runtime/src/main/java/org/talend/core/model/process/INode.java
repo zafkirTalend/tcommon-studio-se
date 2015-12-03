@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.talend.components.api.properties.ComponentProperties;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.general.ModuleNeeded;
@@ -300,4 +301,8 @@ public interface INode extends IElement {
     public List<ModuleNeeded> getModulesNeeded();
 
     public boolean isSubtreeStart();
+    
+    public void setComponentProperties(ComponentProperties props);
+    
+    public ComponentProperties getComponentProperties();
 }

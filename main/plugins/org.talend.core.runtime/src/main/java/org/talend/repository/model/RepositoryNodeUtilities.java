@@ -44,6 +44,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -627,6 +628,13 @@ public class RepositoryNodeUtilities {
     private static RepositoryNode getSchemeFromConnection(RepositoryNode connection, String tableName,
             ERepositoryObjectType repType) {
         ERepositoryObjectType type = connection.getObject().getRepositoryObjectType();
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null && wizardService.isGenericType(type)) {
+            return getGenericSchemaNode(connection, tableName);
+        }
         if (repType == ERepositoryObjectType.METADATA_CON_QUERY) {
             for (IRepositoryNode node : connection.getChildren()) {
                 if (Messages.getString("RepositoryContentProvider.repositoryLabel.Queries").equals(node.getLabel())) { //$NON-NLS-1$
@@ -660,6 +668,22 @@ public class RepositoryNodeUtilities {
 
         }
         return null;
+    }
+
+    private static RepositoryNode getGenericSchemaNode(RepositoryNode parentNode, String tableName) {
+        RepositoryNode node = null;
+        Object type = parentNode.getProperties(EProperties.CONTENT_TYPE);
+        Object label = parentNode.getProperties(EProperties.LABEL);
+        if (ERepositoryObjectType.METADATA_CON_TABLE.equals(type) && tableName.equals(label)) {
+            node = parentNode;
+        }
+        for (IRepositoryNode child : parentNode.getChildren()) {
+            RepositoryNode sNode = getGenericSchemaNode((RepositoryNode) child, tableName);
+            if (sNode != null) {
+                node = sNode;
+            }
+        }
+        return node;
     }
 
     /**

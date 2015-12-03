@@ -109,7 +109,8 @@ Require-Bundle: org.eclipse.jdt.core,
  org.talend.libraries.csv,
  org.talend.commons.runtime;visibility:=reexport,
  org.talend.commons.ui,
- org.ops4j.pax.url.mvn
+ org.ops4j.pax.url.mvn,
+ org.talend.components.api
 Bundle-Activator: org.talend.core.runtime.CoreRuntimePlugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

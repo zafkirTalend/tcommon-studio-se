@@ -10,23 +10,15 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.components;
+package org.talend.core.ui.check;
 
 /**
- * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
- * 
+ * created by ycbai on 2015年9月30日 Detailled comment
+ *
  */
-public enum EComponentType {
-    JOB_LOGS,
-    JOB_METTER,
-    JOB_STATS,
-    EMF,
-    GENERIC,
-    JOB_CONTEXT_LOAD,
-    JOBLET,
-    JOBLET_INPUT_OUTPUT,
-    JOBLET_TRIGGER,
-    DUMMY
+public interface ICheckListener {
+
+    public void checkPerformed(IChecker source);
+
 }

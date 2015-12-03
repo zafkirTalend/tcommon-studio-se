@@ -16,6 +16,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,33 +41,18 @@ import org.talend.core.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.metadata.MetadataManager;
-import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
-import org.talend.core.model.metadata.builder.connection.EDIFACTConnection;
-import org.talend.core.model.metadata.builder.connection.EbcdicConnection;
-import org.talend.core.model.metadata.builder.connection.FTPConnection;
-import org.talend.core.model.metadata.builder.connection.FileExcelConnection;
-import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
-import org.talend.core.model.metadata.builder.connection.HL7Connection;
-import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
-import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
-import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
-import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 import org.talend.core.model.metadata.builder.connection.SAPFunctionUnit;
 import org.talend.core.model.metadata.builder.connection.SAPIDocUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceModuleUnit;
 import org.talend.core.model.metadata.builder.connection.SalesforceSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.ValidationRulesConnection;
-import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
-import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
 import org.talend.core.model.properties.ConnectionItem;
@@ -101,6 +87,7 @@ import org.talend.core.repository.model.repositoryObject.SAPFunctionRepositoryOb
 import org.talend.core.repository.model.repositoryObject.SAPIDocRepositoryObject;
 import org.talend.core.repository.model.repositoryObject.SalesforceModuleRepositoryObject;
 import org.talend.core.repository.recyclebin.RecycleBinManager;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.ui.branding.IBrandingService;
@@ -146,6 +133,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     private Map<Object, List<Project>> nodeAndProject;
 
     private Map<String, RepositoryNode> repositoryNodeMap = new HashMap<String, RepositoryNode>();
+
+    private Map<String, RepositoryNode> genericNodesMap = new HashMap<>();
 
     private String currentPerspective; // set the current perspective
 
@@ -269,6 +258,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         // *init the repository node from extension
         initExtensionRepositoryNodes(curParentNode);
+        // init the repository nodes from component service
+        initNodesFromComponentSerivice(metadataNode);
         // delete the hidden nodes
         deleteHiddenNodes(nodes);
 
@@ -384,6 +375,22 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         } else {
             for (IRepositoryNode n : nodes) {
                 removeNode(n, node);
+            }
+        }
+    }
+
+    private void initNodesFromComponentSerivice(RepositoryNode curParentNode) {
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null) {
+            List<RepositoryNode> nodes = wizardService.createNodesFromComponentService(curParentNode);
+            for (RepositoryNode repNode : nodes) {
+                ERepositoryObjectType repType = (ERepositoryObjectType) repNode.getProperties(EProperties.CONTENT_TYPE);
+                if (repType != null) {
+                    genericNodesMap.put(repType.getType(), repNode);
+                }
             }
         }
     }
@@ -921,7 +928,19 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 }
             }
 
-            for (MetadataTable table : ConnectionHelper.getTables(connection)) {
+            Set<MetadataTable> tables = null;
+            IGenericWizardService wizardService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+                wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault()
+                        .getService(IGenericWizardService.class);
+            }
+            if (wizardService != null && wizardService.isGenericItem(item)) {
+                List<MetadataTable> metadataTables = wizardService.getMetadataTables(connection);
+                tables = new HashSet<>(metadataTables);
+            } else {
+                tables = ConnectionHelper.getTables(connection);
+            }
+            for (MetadataTable table : tables) {
                 if (SubItemHelper.isDeleted(table)) {
                     RepositoryNode tableNode = createMetatableNode(currentParentNode,
                             new RepositoryViewObject(item.getProperty()), table, ERepositoryObjectType.METADATA_CON_TABLE);
@@ -1298,50 +1317,39 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         if (type == ERepositoryObjectType.METADATA_CONNECTIONS && isAvaliableInTOS) {
             connection = dbMetadataConnection;
         } else if (type == ERepositoryObjectType.METADATA_SAPCONNECTIONS) {
-            connection = (SAPConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_DELIMITED) {
-            connection = (DelimitedFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_POSITIONAL) {
-            connection = (PositionalFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_REGEXP) {
-            connection = (RegexpFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_XML) {
-            connection = (XmlFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_EXCEL) {
-            connection = (FileExcelConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_LDIF) {
-            connection = (LdifFileConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_LDAP_SCHEMA) {
-            connection = (LDAPSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_GENERIC_SCHEMA) {
-            connection = (GenericSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_WSDL_SCHEMA) {
-            connection = (WSDLSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_SALESFORCE_SCHEMA) {
-            connection = (SalesforceSchemaConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_EBCDIC) {
-            connection = (EbcdicConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_HL7) {
-            connection = (HL7Connection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_FTP) {
-            connection = (FTPConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_FILE_BRMS) {
-            connection = (BRMSConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_MDMCONNECTION) {
-            connection = (MDMConnection) ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         } else if (type == ERepositoryObjectType.METADATA_EDIFACT) {
-            connection = (EDIFACTConnection) ((ConnectionItem) repositoryObject.getProperty().getItem())
-                .getConnection();
+            connection = ((ConnectionItem) repositoryObject.getProperty().getItem()).getConnection();
         }
         if (null != connection) {
             createTables(node, repositoryObject, connection, validationRules);
@@ -1839,6 +1847,11 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             }
         }
         return rootTypeNode;
+    }
+
+    @Override
+    public Map<String, RepositoryNode> getGenericTopNodesMap() {
+        return genericNodesMap;
     }
 
     @Override

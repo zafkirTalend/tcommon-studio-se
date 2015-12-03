@@ -13,12 +13,14 @@
 package org.talend.core.repository.model.repositoryObject;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.MetadataSchemaType;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
@@ -34,12 +36,12 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.ISubRepositoryObject;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.cwm.relational.TdTable;
 import org.talend.repository.model.IRepositoryNode;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 
@@ -173,7 +175,13 @@ public class MetadataTableRepositoryObject extends MetadataTable implements ISub
 
         Set tables = null;
 
-        if (table.eContainer() instanceof SAPFunctionUnit) {
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null && wizardService.isGenericItem(item)) {
+            tables = new HashSet<>(wizardService.getMetadataTables(connection));
+        } else if (table.eContainer() instanceof SAPFunctionUnit) {
             SAPFunctionUnit funUnit = (SAPFunctionUnit) table.eContainer();
             tables = ConnectionHelper.getTables(connection, funUnit);
         } else {
