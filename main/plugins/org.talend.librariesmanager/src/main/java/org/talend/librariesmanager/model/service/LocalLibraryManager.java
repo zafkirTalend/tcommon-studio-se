@@ -754,6 +754,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public String getJarPath(String jarName) {
+        if (jarName == null) {
+            return null;
+        }
         String libPath = null;
         try {
             // maven
