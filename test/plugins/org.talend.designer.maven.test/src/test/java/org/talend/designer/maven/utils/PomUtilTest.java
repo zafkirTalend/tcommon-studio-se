@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
 
@@ -93,7 +94,7 @@ public class PomUtilTest {
         Assert.assertNotNull(moduleDependency);
         Assert.assertEquals("org.talend.libraries", moduleDependency.getGroupId());
         Assert.assertEquals("test", moduleDependency.getArtifactId());
-        Assert.assertEquals("1.0.0", moduleDependency.getVersion());
+        Assert.assertEquals(MavenConstants.DEFAULT_LIB_VERSION, moduleDependency.getVersion());
         Assert.assertEquals("jar", moduleDependency.getType());
 
         moduleDependency = PomUtil.createDependency("org.talend.job", "test", "0.1", "zip");
@@ -102,6 +103,25 @@ public class PomUtilTest {
         Assert.assertEquals("test", moduleDependency.getArtifactId());
         Assert.assertEquals("0.1", moduleDependency.getVersion());
         Assert.assertEquals("zip", moduleDependency.getType());
+    }
+
+    @Test
+    public void testCreateModuleDependencyWithClassifier() {
+        Dependency moduleDependency = PomUtil.createDependency("org.talend.job", "test", "0.1", "zip");
+        Assert.assertNotNull(moduleDependency);
+        Assert.assertEquals("org.talend.job", moduleDependency.getGroupId());
+        Assert.assertEquals("test", moduleDependency.getArtifactId());
+        Assert.assertEquals("0.1", moduleDependency.getVersion());
+        Assert.assertEquals("zip", moduleDependency.getType());
+        Assert.assertNull(moduleDependency.getClassifier());
+
+        moduleDependency = PomUtil.createDependency("org.talend.job", "test", "0.1", "zip", "src");
+        Assert.assertNotNull(moduleDependency);
+        Assert.assertEquals("org.talend.job", moduleDependency.getGroupId());
+        Assert.assertEquals("test", moduleDependency.getArtifactId());
+        Assert.assertEquals("0.1", moduleDependency.getVersion());
+        Assert.assertEquals("zip", moduleDependency.getType());
+        Assert.assertEquals("src", moduleDependency.getClassifier());
     }
 
     @Test
