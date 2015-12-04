@@ -1578,6 +1578,9 @@ public class ProcessorUtilities {
                 List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
                 for (ProcessItem testItem : testsItems) {
                     ProcessType testProcess = testContainerService.getTestContainerProcess(testItem);
+                    if (testItem.getProcess() == null) {
+                        testItem.setProcess(testProcess);
+                    }
                     if (testProcess == null) {
                         log.warn(Messages.getString("ProcessorUtilities.nullProcess")); //$NON-NLS-1$
                         continue;
