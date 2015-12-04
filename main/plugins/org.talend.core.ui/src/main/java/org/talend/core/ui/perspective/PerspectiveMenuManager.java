@@ -89,6 +89,9 @@ public class PerspectiveMenuManager extends MenuManager {
 
             IWorkbench workbench = PlatformUI.getWorkbench();
             IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
+            if (page == null) {
+                return;
+            }
             String activePersp = page.getPerspective().getId();
 
             for (String perspId : perspectiveIds) {
