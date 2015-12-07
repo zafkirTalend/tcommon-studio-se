@@ -19,6 +19,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.inject.Inject;
+
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPage;
@@ -38,6 +48,60 @@ import org.talend.repository.navigator.RepoViewCommonViewer;
  */
 @SuppressWarnings("restriction")
 public class RepositoryNodeFilterHelper {
+
+    static class SelectPerspectivesProvider {
+
+        @Inject
+        private EModelService fModelService;
+
+        @Inject
+        private MWindow fWindow;
+
+        @Inject
+        private MApplication fApp;
+
+        private MPerspectiveStack fPerspectiveStack;
+
+        /**
+         * copied from RestoreAllRegisteredPerspectivesProvider
+         */
+        MPerspectiveStack getMPerspectiveStack() {
+            if (fPerspectiveStack != null) {
+                return fPerspectiveStack;
+            }
+            MUIElement baseElement = fWindow;
+            if (fWindow == null) {
+                baseElement = fApp;
+            }
+            if (baseElement != null) {
+                if (fPerspectiveStack == null) {
+                    List<MPerspectiveStack> perspStackList = fModelService.findElements(baseElement, null,
+                            MPerspectiveStack.class, null);
+                    if (perspStackList.size() > 0) {// there must be only one perspectiveStack.
+                        fPerspectiveStack = perspStackList.get(0);
+                        return fPerspectiveStack;
+                    }
+                }
+                if (fWindow != null) {
+                    for (MWindowElement child : fWindow.getChildren()) {
+                        if (child instanceof MPerspectiveStack) {
+                            fPerspectiveStack = (MPerspectiveStack) child;
+                            return fPerspectiveStack;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public String getCurrentPerspectiveId() {
+            final MPerspectiveStack stack = getMPerspectiveStack();
+            if (stack != null) {
+                return stack.getSelectedElement().getElementId();
+            }
+            return null;
+        }
+    }
 
     public static final String ITEM_SEPARATOR = "--";
 
@@ -68,15 +132,17 @@ public class RepositoryNodeFilterHelper {
         }
 
         if (activedPerspectiveFilter) {
-            String perspectiveId = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getPerspective().getId();
-            PerspectiveFilterHelper helper = new PerspectiveFilterHelper();
-            helper.setTreeViewer(commonViewer);
-            helper.setNavigatorContentService(contentService);
-            helper.setActionProviderId(PerspectiveFilterActionProvider.ID);
-            String[] pvExtensions = helper.getExtensionIdsToActivate(perspectiveId);
+            String perspectiveId = getPerspectiveId();
+            if (perspectiveId != null) {
+                PerspectiveFilterHelper helper = new PerspectiveFilterHelper();
+                helper.setTreeViewer(commonViewer);
+                helper.setNavigatorContentService(contentService);
+                helper.setActionProviderId(PerspectiveFilterActionProvider.ID);
+                String[] pvExtensions = helper.getExtensionIdsToActivate(perspectiveId);
 
-            if (pvExtensions != null && pvExtensions.length > 0) {
-                visibleIDsForPecpective = Arrays.asList(pvExtensions);
+                if (pvExtensions != null && pvExtensions.length > 0) {
+                    visibleIDsForPecpective = Arrays.asList(pvExtensions);
+                }
             }
             visibleIdsForActiveFilter.retainAll(visibleIDsForPecpective);
         }
@@ -131,7 +197,14 @@ public class RepositoryNodeFilterHelper {
                 return perspectiveId;
             }
         }
-        return null;
+
+        SelectPerspectivesProvider provider = new SelectPerspectivesProvider();
+        IEclipseContext activeContext = ((IEclipseContext) PlatformUI.getWorkbench().getService(IEclipseContext.class))
+                .getActiveLeaf();
+        if (activeContext != null) {
+            ContextInjectionFactory.inject(provider, activeContext); // inject
+        }
+        return provider.getCurrentPerspectiveId();
     }
 
     public static IPreferenceStore getPreferenceStore() {
