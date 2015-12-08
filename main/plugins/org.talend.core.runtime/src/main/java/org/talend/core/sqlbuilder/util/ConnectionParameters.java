@@ -18,11 +18,8 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
@@ -31,7 +28,6 @@ import org.talend.core.model.process.IElement;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.repository.model.RepositoryNode;
@@ -589,10 +585,7 @@ public class ConnectionParameters {
     }
 
     public static boolean isJavaProject() {
-        RepositoryContext repositoryContext = (RepositoryContext) CoreRuntimePlugin.getInstance().getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
-        return (codeLanguage == ECodeLanguage.JAVA);
+        return true;
     }
 
     public IMetadataTable getMetadataTable() {
