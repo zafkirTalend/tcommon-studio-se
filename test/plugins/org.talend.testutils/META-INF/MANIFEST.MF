@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mockito
 Bundle-SymbolicName: org.talend.testutils
-Bundle-Version: 6.1.2.qualifier
+Bundle-Version: 6.2.0.qualifier
 Bundle-ClassPath: .,
  lib/xpp3.jar,
  lib/xstream-1.4.2.jar,
