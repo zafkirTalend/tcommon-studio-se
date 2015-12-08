@@ -25,6 +25,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
@@ -97,7 +98,10 @@ public class RepositoryNodeFilterHelper {
         public String getCurrentPerspectiveId() {
             final MPerspectiveStack stack = getMPerspectiveStack();
             if (stack != null) {
-                return stack.getSelectedElement().getElementId();
+                MPerspective persp = stack.getSelectedElement();
+                if (persp != null) {
+                    return persp.getElementId();
+                }
             }
             return null;
         }
@@ -193,8 +197,11 @@ public class RepositoryNodeFilterHelper {
         if (activeWorkbenchWindow != null) {
             IWorkbenchPage activePage = activeWorkbenchWindow.getActivePage();
             if (activePage != null) {
-                String perspectiveId = activePage.getPerspective().getId();
-                return perspectiveId;
+                IPerspectiveDescriptor perspective = activePage.getPerspective();
+                if (perspective != null) {
+                    String perspectiveId = perspective.getId();
+                    return perspectiveId;
+                }
             }
         }
 
