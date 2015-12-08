@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Button;
@@ -121,6 +122,11 @@ public class UpdateStudioWizard extends Wizard {
 
                         @Override
                         public void run() {
+                            IPreferenceStore store = PlatformUI.getPreferenceStore();
+                            // reset the last type of project set.
+                            // this will force from the Application class to reset all the perspectives
+                            store.putValue("last_started_project_type", "NO_TYPE");
+
                             boolean isOkToRestart = MessageDialog.openQuestion(getShell(),
                                     Messages.getString("UpdateStudioWizard.install.sucessfull"), finalMessage); //$NON-NLS-1$
                             if (isOkToRestart) {
