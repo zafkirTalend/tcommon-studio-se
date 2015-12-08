@@ -63,6 +63,8 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
 
     private List<IRepositoryWorkUnitListener> listeners = new ArrayList<IRepositoryWorkUnitListener>();
 
+    private String storage;
+
     @Override
     public List<DynamicButtonBean> getButtons() {
         return buttons;
@@ -313,5 +315,15 @@ public abstract class AbstractRepositoryFactory implements IRepositoryFactory {
     @Override
     public void updateLockStatus() throws PersistenceException {
         // nothing to do, by default
+    }
+
+    @Override
+    public String getStorage() {
+        return this.storage;
+    }
+
+    @Override
+    public void setStorage(String storage) {
+        this.storage = storage;
     }
 }
