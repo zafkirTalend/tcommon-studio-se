@@ -14,9 +14,6 @@ package org.talend.rcp.intro;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -32,7 +29,6 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.system.EclipseCommandLine;
@@ -158,12 +154,6 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
                 rwu.setFilesModifiedOutsideOfRWU(true);
                 rwu.setForceTransaction(true);
                 ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
-                try {
-                    ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-                } catch (CoreException e) {
-                    // TODO Auto-generated catch block
-                    ExceptionHandler.process(e);
-                }
                 return org.eclipse.core.runtime.Status.OK_STATUS;
             }
         };
