@@ -68,7 +68,8 @@ public class MavenUIService implements IMavenUIService {
         // apply the user settings to MavenResolver
         Dictionary<String, String> props = new Hashtable<String, String>();
         if (studioUserSettingsFile != null && !"".equals(studioUserSettingsFile)) {
-            props.put("org.ops4j.pax.url.mvn.settings", studioUserSettingsFile);
+            // props.put("org.ops4j.pax.url.mvn.settings", studioUserSettingsFile);
+            props.put("org.ops4j.pax.url.mvn.localRepository", MavenPlugin.getMaven().getLocalRepositoryPath());
         }
         TalendLibsServerManager.getInstance().updateMavenResolver(props, setupRemoteRepository);
     }
