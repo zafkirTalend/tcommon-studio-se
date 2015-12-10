@@ -362,14 +362,14 @@ public class ConvertJobsUtil {
         if (repositoryProperty != null) {
             isNewItemCreated = (repositoryProperty.getItem() != newItem);
         }
-
+        final IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         if (isNewItemCreated) {
             // delete the old item
             IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
                 @Override
                 public void run(final IProgressMonitor monitor) throws CoreException {
-                    IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+
                     try {
                         proxyRepositoryFactory.unlock(sourceObject);
                         proxyRepositoryFactory.deleteObjectPhysical(sourceObject);
@@ -394,6 +394,28 @@ public class ConvertJobsUtil {
             } catch (CoreException e) {
                 MessageBoxExceptionHandler.process(e.getCause());
                 return false;
+            }
+        } else if (sourceObject.getProperty() != null) {
+
+            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                @Override
+                public void run(final IProgressMonitor monitor) throws CoreException {
+                    try {
+                        proxyRepositoryFactory.save(ProjectManager.getInstance().getCurrentProject(), sourceObject.getProperty()
+                                .getItem(), false);
+                    } catch (PersistenceException e1) {
+                        CommonExceptionHandler.process(e1);
+                    }
+                }
+            };
+
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            try {
+                ISchedulingRule schedulingRule = workspace.getRoot();
+                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+            } catch (CoreException e1) {
+                MessageBoxExceptionHandler.process(e1.getCause());
             }
         }
         return true;
