@@ -933,11 +933,15 @@ public class LocalLibraryManager implements ILibraryManagerService {
         List<ModuleNeeded> modules = new ArrayList<ModuleNeeded>();
         Set<String> duplicateLocationJar = new HashSet<String>();
         Set<String> duplicateMavenUri = new HashSet<String>();
-
-        IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
-
-        for (IComponent component : service.getComponentsFactory().getComponents()) {
-            modules.addAll(component.getModulesNeeded());
+        // TDQ-11125 TOP doesn't have IComponentsService.avoid NPE.
+        IComponentsService service = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IComponentsService.class)) {
+            service = (IComponentsService) GlobalServiceRegister.getDefault().getService(IComponentsService.class);
+        }
+        if (service != null) {
+            for (IComponent component : service.getComponentsFactory().getComponents()) {
+                modules.addAll(component.getModulesNeeded());
+            }
         }
         deployIndex(modules, libsWithoutUri, libsToRelativePath, duplicateLocationJar, libsToMavenUri, duplicateMavenUri,
                 monitorWrap);
@@ -957,7 +961,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
         deploy(platfromUriFromExtensions, monitorWrap);
         deployMavenIndex(mavenUriFromExtensions, monitorWrap);
 
-        deployLibForComponentProviders(service, libsWithoutUri, libsToRelativePath);
+        if (service != null) {
+            deployLibForComponentProviders(service, libsWithoutUri, libsToRelativePath);
+        }
         deploy(libsToRelativePath, monitorWrap);
 
     }
