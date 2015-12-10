@@ -270,6 +270,7 @@ public class DuplicateAction extends AContextualAction {
                 String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(newCreatedItem);
                 boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(sourceJobType, sourceFramework, jobTypeValue,
                         frameworkNewValue);
+                boolean isNewItemCreated = false;
                 if (jobTypeValue != null && isNeedConvert) {
                     isAllowDuplicateTest = false;
                     try {
@@ -278,12 +279,15 @@ public class DuplicateAction extends AContextualAction {
                                 .getProxyRepositoryFactory()
                                 .getLastVersion(ProjectManager.getInstance().getCurrentProject(),
                                         newCreatedItem.getProperty().getId());
-                        ConvertJobsUtil.convert(jobNewName, jobTypeValue, frameworkNewValue, repositoryViewObject);
+                        isNewItemCreated = ConvertJobsUtil.convert(jobNewName, jobTypeValue, frameworkNewValue,
+                                repositoryViewObject);
                     } catch (Exception e) {
                         CommonExceptionHandler.process(e);
                     }
                 } else {
                     ConvertJobsUtil.updateFramework(newCreatedItem, frameworkNewValue);
+                }
+                if (!isNewItemCreated) {
                     // save the modifications
                     IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
@@ -312,7 +316,6 @@ public class DuplicateAction extends AContextualAction {
                         MessageBoxExceptionHandler.process(e.getCause());
                     }
                 }
-
             }
         } else {
             InputDialog jobNewNameDialog = new InputDialog(null, Messages.getString("DuplicateAction.input.title.v2"), //$NON-NLS-1$

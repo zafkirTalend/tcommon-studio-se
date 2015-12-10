@@ -26,7 +26,6 @@ import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
@@ -351,7 +350,7 @@ public class ConvertJobsUtil {
     }
 
     public static boolean convert(String newJobName, String jobTypeValue, String frameworkValue,
-            final IRepositoryViewObject sourceObject) {
+            final IRepositoryViewObject sourceObject) throws CoreException {
         final Item newItem = ConvertJobsUtil.createOperation(newJobName, jobTypeValue, frameworkValue, sourceObject);
         if (newItem == null) {
             return false;
@@ -383,18 +382,11 @@ public class ConvertJobsUtil {
             };
             // unlockObject();
             // alreadyEditedByUser = true; // to avoid 2 calls of unlock
-
             IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            try {
-                ISchedulingRule schedulingRule = workspace.getRoot();
-                // the update the project files need to be done in the workspace runnable to avoid all notification
-                // of changes before the end of the modifications.
-                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
-                return true;
-            } catch (CoreException e) {
-                MessageBoxExceptionHandler.process(e.getCause());
-                return false;
-            }
+            ISchedulingRule schedulingRule = workspace.getRoot();
+            // the update the project files need to be done in the workspace runnable to avoid all notification
+            // of changes before the end of the modifications.
+            workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
         } else if (sourceObject.getProperty() != null) {
 
             IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
@@ -411,14 +403,10 @@ public class ConvertJobsUtil {
             };
 
             IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            try {
-                ISchedulingRule schedulingRule = workspace.getRoot();
-                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
-            } catch (CoreException e1) {
-                MessageBoxExceptionHandler.process(e1.getCause());
-            }
+            ISchedulingRule schedulingRule = workspace.getRoot();
+            workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
         }
-        return true;
+        return isNewItemCreated;
     }
 
     /**

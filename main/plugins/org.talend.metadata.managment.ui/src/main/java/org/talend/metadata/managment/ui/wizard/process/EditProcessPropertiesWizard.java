@@ -14,6 +14,7 @@ package org.talend.metadata.managment.ui.wizard.process;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.PluginChecker;
@@ -86,8 +87,15 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
                 return super.performFinish();
             }
             // Convert
-            return ConvertJobsUtil.convert(object.getLabel(), mainPage.jobTypeCCombo.getText(), mainPage.framework.getText(),
-                    object);
+            boolean convert = true;
+            try {
+                ConvertJobsUtil
+                        .convert(object.getLabel(), mainPage.jobTypeCCombo.getText(), mainPage.framework.getText(), object);
+            } catch (Exception e) {
+                MessageBoxExceptionHandler.process(e.getCause());
+                convert = false;
+            }
+            return convert;
 
         } else {
             return super.performFinish();
