@@ -172,4 +172,9 @@ public interface ITalendCorePrefConstants {
      * PlatformUI.getPreference().getBoolean("NOT_SHOW_ONBOARDING_AT_STARTUP")
      */
     public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = "NOT_SHOW_ONBOARDING_AT_STARTUP"; //$NON-NLS-1$
+
+    /**
+     * TAC connection timeout (seconds)
+     */
+    public static final String PERFORMANCE_TAC_CONNECTION_TIMEOUT = "PERFORMANCE_TAC_CONNECTION_TIMEOUT"; //$NON-NLS-1$
 }
