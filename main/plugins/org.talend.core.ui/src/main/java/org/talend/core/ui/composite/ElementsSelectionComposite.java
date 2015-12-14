@@ -25,6 +25,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
@@ -70,6 +71,8 @@ public class ElementsSelectionComposite<T> extends Composite {
                 doSelectionChanged();
             }
         });
+        GridData treeGridData = (GridData) filteredCheckboxTree.getLayoutData();
+        treeGridData.heightHint = 270;
     }
 
     protected void doSelectionChanged() {
