@@ -46,7 +46,7 @@
 					<dbType type="TIMESTAMP WITH LOCAL TIME ZONE"/>
 				</talendType>
 				<talendType type="id_BigDecimal">
-					<dbType type="DECIMAL"/>
+					<dbType type="DECIMAL" default="true"/>
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DOUBLE PRECISION" default="true"/>
