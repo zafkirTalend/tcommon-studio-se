@@ -166,5 +166,8 @@ public interface ITalendCorePrefConstants {
      */
     public static final String LOGON_DIALOG_ALWAYS_ASK_ME_AT_STARTUP = "logonDialog.alwaysAskMeAtStartUp"; //$NON-NLS-1$
 
-	
+    /**
+     * TAC connection timeout (seconds)
+     */
+    public static final String PERFORMANCE_TAC_CONNECTION_TIMEOUT = "PERFORMANCE_TAC_CONNECTION_TIMEOUT"; //$NON-NLS-1$
 }
