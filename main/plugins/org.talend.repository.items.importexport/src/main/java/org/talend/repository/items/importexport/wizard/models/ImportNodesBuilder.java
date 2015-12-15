@@ -120,6 +120,7 @@ public class ImportNodesBuilder {
 
             // set for type
             ImportNode typeImportNode = findAndCreateParentTypeNode(projectImportNode, itemType);
+
             if (ERepositoryObjectType.PROCESS.equals(itemType) && ERepositoryObjectType.findParentType(itemType) == null) {
                 // handle the standard job and create a standard node floder
                 // set for type
@@ -129,8 +130,11 @@ public class ImportNodesBuilder {
                     this.jobNodesMap.put(itemType.getLabel(), standJobImportNode);
                     typeImportNode.addChild(standJobImportNode);
                 }
-
                 ImportNode parentImportNode = standJobImportNode; // by default, in under type node.
+                String path = item.getState().getPath();
+                if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
+                    parentImportNode = findAndCreateFolderNode(standJobImportNode, new Path(path));
+                }
                 ItemImportNode itemNode = new ItemImportNode(itemRecord);
                 parentImportNode.addChild(itemNode);
                 allImportItemNode.add(itemNode);//
