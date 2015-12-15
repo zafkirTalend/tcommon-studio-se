@@ -27,6 +27,7 @@ import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
@@ -35,6 +36,7 @@ import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.ui.ICDCProviderService;
+import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.core.convert.ProcessConvertManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -108,12 +110,20 @@ public class PasteAction extends AContextualAction {
                         CommonExceptionHandler.process(e);
                     }
                 }
-
             }
 
             ERepositoryObjectType contentType = target.getContentType();
             if (contentType == null) {
                 contentType = target.getObjectType();
+            }
+            if (contentType != null && contentType == ERepositoryObjectType.JOBLET) {
+                if (PluginChecker.isJobLetPluginLoaded()) {
+                    IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister.getDefault()
+                            .getService(IJobletProviderService.class);
+                    if (jobletService != null) {
+                        jobletService.loadComponentsFromProviders();
+                    }
+                }
             }
         }
     }
