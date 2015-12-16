@@ -148,12 +148,10 @@ public class ProcessConvertManager {
             newFramework = ""; //$NON-NLS-1$
         }
 
-        if (oldType == ERepositoryObjectType.PROCESS_MR) {
+        if (oldType == ERepositoryObjectType.PROCESS_MR || oldType == ERepositoryObjectType.PROCESS_STORM) {
             if (!oldFramework.equals(newFramework)) {
                 return true;
             }
-        } else if (oldType == ERepositoryObjectType.PROCESS_STORM) {
-            // currently needn't convert
         }
 
         return false;
