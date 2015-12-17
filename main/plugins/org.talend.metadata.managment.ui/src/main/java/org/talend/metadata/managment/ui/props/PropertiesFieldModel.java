@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**
@@ -42,5 +44,16 @@ public class PropertiesFieldModel extends ExtendedTableModel<Map<String, Object>
 
     public Map<String, Object> createHadoopPropertiesType() {
         return new HashMap<String, Object>();
+    }
+
+    @Override
+    public void addAll(final Integer index, List<Map<String, Object>> beans, boolean fireBefore, boolean fireAfter) {
+        super.addAll(index, beans, fireBefore, fireAfter);
+        TableViewer tableViewer = getTableViewer();
+        if (tableViewer != null) {
+            Table table = tableViewer.getTable();
+            table.pack();
+            table.layout();
+        }
     }
 }
