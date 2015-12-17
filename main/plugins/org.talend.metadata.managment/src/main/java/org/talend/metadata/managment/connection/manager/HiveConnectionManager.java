@@ -25,8 +25,6 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import metadata.managment.i18n.Messages;
-
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -54,6 +52,8 @@ import org.talend.metadata.managment.hive.handler.HDP130Handler;
 import org.talend.metadata.managment.hive.handler.HDP200YarnHandler;
 import org.talend.metadata.managment.hive.handler.HiveConnectionHandler;
 import org.talend.metadata.managment.hive.handler.Mapr212Handler;
+
+import metadata.managment.i18n.Messages;
 
 /**
  * Created by Marvin Wang on Mar 13, 2013.
@@ -87,8 +87,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws IllegalAccessException
      * @throws SQLException
      */
-    public Connection createConnection(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, SQLException {
+    public Connection createConnection(IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Connection conn = null;
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
@@ -108,8 +108,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public Driver getDriver(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException {
+    public Driver getDriver(IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
         String connURL = metadataConn.getUrl();
         Driver driver = null;
@@ -127,8 +127,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return driver;
     }
 
-    private Connection createHiveStandloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, SQLException {
+    private Connection createHiveStandloneConnection(IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         Connection hiveStandaloneConn = null;
         String connURL = metadataConn.getUrl();
         if (connURL != null) {
@@ -162,8 +162,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return hiveStandaloneConn;
     }
 
-    private Connection createHive2StandaloneConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, SQLException {
+    private Connection createHive2StandaloneConnection(final IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 
         FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
 
@@ -204,8 +204,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
         Connection conn = null;
         try {
-            int timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
-            conn = futureTask.get(timeout, TimeUnit.SECONDS);
+            conn = futureTask.get(getDBConnectionTimeout(), TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             threadGroup.interrupt();
             addBackgroundJob(futureTask, newThread);
@@ -217,8 +216,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return conn;
     }
 
-    private Connection createHive1StandaloneConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, SQLException {
+    private Connection createHive1StandaloneConnection(final IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
 
         FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
 
@@ -258,8 +257,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
         Connection conn = null;
         try {
-            int timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
-            conn = futureTask.get(timeout, TimeUnit.SECONDS);
+            conn = futureTask.get(getDBConnectionTimeout(), TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             threadGroup.interrupt();
             addBackgroundJob(futureTask, newThread);
@@ -302,8 +300,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         backgroundJob.schedule();
     }
 
-    private Connection createHiveEmbeddedConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException {
+    private Connection createHiveEmbeddedConnection(IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         String connURL = metadataConn.getUrl();
         String username = metadataConn.getUsername();
         String password = metadataConn.getPassword();
@@ -367,8 +365,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws IllegalAccessException
      * @throws SQLException
      */
-    public void checkConnection(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, SQLException {
+    public void checkConnection(IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         setHadoopProperties(metadataConn);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
@@ -394,8 +392,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         Object connectionObj = metadataConn.getCurrentConnection();
         if (connectionObj instanceof DatabaseConnection) {
             DatabaseConnection currentConnection = (DatabaseConnection) connectionObj;
-            String currentHadoopProperties = currentConnection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
+            String currentHadoopProperties = currentConnection.getParameters()
+                    .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
             List<Map<String, Object>> hadoopProperties = HadoopRepositoryUtil.getHadoopPropertiesFullList(currentConnection,
                     currentHadoopProperties, false);
             for (Map<String, Object> propMap : hadoopProperties) {
@@ -461,8 +459,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws IllegalAccessException
      * @throws SQLException
      */
-    public DatabaseMetaData extractDatabaseMetaData(IMetadataConnection metadataConn) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, SQLException {
+    public DatabaseMetaData extractDatabaseMetaData(IMetadataConnection metadataConn)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
             return extractHiveStandaloneDatabaseMetaData(metadataConn);
@@ -538,4 +536,13 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return handler;
     }
 
+    private int getDBConnectionTimeout() {
+        int timeout = 15;
+        try {
+            timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
+        } catch (Exception e) {
+            // can't get timeout in some cases, for example: can't get designerCoreService when running jobs
+        }
+        return timeout;
+    }
 }
