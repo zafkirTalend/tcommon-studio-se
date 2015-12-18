@@ -26,6 +26,7 @@ import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
@@ -107,7 +108,14 @@ public class ImportNodesBuilder {
             if (item != null && hadoopClusterService != null && hadoopClusterService.isHadoopSubItem(item)) {
                 return;
             }
-
+            boolean isTestContainer = false;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                        .getDefault().getService(ITestContainerProviderService.class);
+                if (testContainerService != null) {
+                    isTestContainer = testContainerService.isTestContainerItem(item);
+                }
+            }
             final ERepositoryObjectType itemType = itemRecord.getRepositoryType();
 
             // set for type
@@ -133,6 +141,10 @@ public class ImportNodesBuilder {
                     parentImportNode = projectImportNode;
                 }
                 String path = item.getState().getPath();
+                if (isTestContainer && path != null && path.contains("/")) {
+                    int index = path.indexOf("/");
+                    path = path.substring(0, index);
+                }
                 if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
                     parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
                 }
