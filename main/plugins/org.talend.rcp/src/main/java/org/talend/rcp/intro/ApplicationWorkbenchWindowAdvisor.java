@@ -29,7 +29,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
@@ -370,7 +369,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             // "org.eclipse.ui.activities" extension
             // Hack to remove the Navigate menu -which can't be removed by "org.eclipse.ui.activities
             if ("org.eclipse.ui.run".equals(menuItem.getId()) || "navigate".equals(menuItem.getId())) { //$NON-NLS-1$//$NON-NLS-2$
-                menuManager.remove(menuItem);
+                menuItem.setVisible(false);
             }
         }
 
@@ -379,7 +378,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         RestoreAllRegisteredPerspectivesProvider perspProvider = new RestoreAllRegisteredPerspectivesProvider();
         IWorkbench workbench = PlatformUI.getWorkbench();
         IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
-        
+
         ContextInjectionFactory.inject(perspProvider, activeContext);
         IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
         //MOD zshen TDQ-10745 when welcome page is open and current Perspective is DQ will not done restoreAlwaysVisiblePerspectives action because of this method will do switch Perspectives action
@@ -460,19 +459,19 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         // MOD yyi 2011-05-17 19088: add perspective change listener for cheatsheet view of tdq
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().addPerspectiveListener(new CheatSheetPerspectiveAdapter());
-        
+
         PlatformUI.getWorkbench().addWorkbenchListener(new IWorkbenchListener() {
-            
+
             @Override
             public boolean preShutdown(IWorkbench workbench, boolean forced) {
                 TokenCollectorFactory.getFactory().process();
                 return true;
             }
-            
+
             @Override
             public void postShutdown(IWorkbench workbench) {
                 // TODO Auto-generated method stub
-                
+
             }
         });
     }
