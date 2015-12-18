@@ -1,6 +1,7 @@
 package org.talend.core.model.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -25,4 +26,5 @@ public interface IRepositoryTypeProcessor {
 
     public List<ERepositoryObjectType> getShowRootTypes();
 
+    public void setAttributes(Map<String, Object> attributes);
 }
