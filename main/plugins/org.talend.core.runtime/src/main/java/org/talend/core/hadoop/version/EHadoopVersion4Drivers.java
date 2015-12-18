@@ -237,6 +237,7 @@ public enum EHadoopVersion4Drivers {
         switch (this) {
         case EMR_4_0_0:
         case CLOUDERA_CDH5_4:
+        case MAPR410:
         case CUSTOM:
             isSupport = true;
             break;
