@@ -19,6 +19,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.internal.navigator.NavigatorContentService;
 import org.eclipse.ui.internal.navigator.NavigatorDecoratingLabelProvider;
@@ -26,6 +27,9 @@ import org.eclipse.ui.navigator.CommonViewerSorter;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.navigator.INavigatorPipelineService;
 import org.eclipse.ui.navigator.PipelinedViewerUpdate;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ui.ITestContainerProviderService;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
 /**
@@ -42,6 +46,7 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
         init();
     }
 
+    @Override
     public INavigatorContentService getNavigatorContentService() {
         return this.contentService;
     }
@@ -58,6 +63,7 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
         }
     }
 
+    @Override
     public void setSorter(ViewerSorter sorter) {
         if (sorter != null && sorter instanceof CommonViewerSorter) {
             ((CommonViewerSorter) sorter).setContentService(contentService);
@@ -66,6 +72,7 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
         super.setSorter(sorter);
     }
 
+    @Override
     public void refresh(Object element, boolean updateLabels) {
 
         if (element != getInput()) {
@@ -94,6 +101,7 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
      * 
      * @see org.eclipse.jface.viewers.Viewer#setSelection(org.eclipse.jface.viewers.ISelection, boolean)
      */
+    @Override
     public void setSelection(ISelection selection, boolean reveal) {
 
         if (selection instanceof IStructuredSelection) {
@@ -118,6 +126,7 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
         doUpdateItem(item, item.getData(), true);
     }
 
+    @Override
     public void refresh(Object element) {
         refresh(element, true);
     }
@@ -127,6 +136,7 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
      * 
      * @see org.eclipse.jface.viewers.StructuredViewer#update(java.lang.Object, java.lang.String[])
      */
+    @Override
     public void update(Object element, String[] properties) {
         if (element != getInput()) {
             INavigatorPipelineService pipeDream = contentService.getPipelineService();
@@ -146,5 +156,36 @@ public class CheckboxRepoCommonViewer extends CheckboxRepositoryTreeViewer imple
         } else {
             super.update(element, properties);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.dialogs.ContainerCheckedTreeViewer#doCheckStateChanged(java.lang.Object)
+     */
+    @Override
+    protected void doCheckStateChanged(Object element) {
+        boolean isTestCase = false;
+        if (element instanceof IRepositoryNode) {
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                        .getDefault().getService(ITestContainerProviderService.class);
+                if (testContainerService != null) {
+                    if (((IRepositoryNode) element).getObjectType() != null
+                            && testContainerService.isTestContainerType(((IRepositoryNode) element).getObjectType())) {
+                        isTestCase = true;
+                    }
+                }
+            }
+        }
+        Widget item = findItem(element);
+        if (item instanceof TreeItem) {
+            if (!((TreeItem) item).getChecked() && isTestCase) {
+                TreeItem treeItem = (TreeItem) item;
+                treeItem.setGrayed(false);
+                return;
+            }
+        }
+        super.doCheckStateChanged(element);
     }
 }
