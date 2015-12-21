@@ -107,4 +107,6 @@ public interface ITestContainerProviderService extends IService {
     public boolean hasTestCase(IRepositoryObject repoObj);
 
     public ProcessType loadSVNTestContainer(Item item, IProcess2 loadedProcess, Property loadProperty);
+
+    public ERepositoryObjectType getTestCaseObjectType();
 }
