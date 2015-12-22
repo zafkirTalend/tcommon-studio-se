@@ -217,7 +217,14 @@ public class ContextCellModifier extends AbstractContextCellModifier {
                 // String newType = getRealType(ContextParameterJavaTypeManager.getJavaTypesLabels()[(Integer) value]);
                 // contextPara.setType((String) newType);
             } else if (ContextConstant.COMMENT_COLUMN_NAME.equals(property)) {
-                contextPara.setComment((String) value);
+            	String name = contextPara.getName();
+            	for (IContext context : getContextManager().getListContext()) {
+                    for (IContextParameter contextParameter : context.getContextParameterList()) {
+                    	if (name.equals(contextParameter.getName())) {
+                            contextParameter.setComment((String) value);
+                        }
+                    }
+                }
             }
             List<Object> updateObjs = new ArrayList<Object>();
             updateObjs.add(object);
