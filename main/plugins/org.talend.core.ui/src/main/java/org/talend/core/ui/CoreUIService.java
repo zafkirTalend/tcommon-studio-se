@@ -39,7 +39,7 @@ public class CoreUIService implements ICoreUIService {
      */
     @Override
     public void updatePalette() {
-        ComponentPaletteUtilities.updatePalette();
+        ComponentPaletteUtilities.updatePalette(false);
     }
 
     @Override
@@ -85,8 +85,8 @@ public class CoreUIService implements ICoreUIService {
     public void syncAllRules() {
         if (PluginChecker.isRulesPluginLoaded()
                 && GlobalServiceRegister.getDefault().isServiceRegistered(IRulesProviderService.class)) {
-            IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault().getService(
-                    IRulesProviderService.class);
+            IRulesProviderService rulesService = (IRulesProviderService) GlobalServiceRegister.getDefault()
+                    .getService(IRulesProviderService.class);
             if (rulesService != null) {
                 rulesService.syncAllRules();
             }
