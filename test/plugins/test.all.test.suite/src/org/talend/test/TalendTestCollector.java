@@ -13,6 +13,9 @@
 
 package org.talend.test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import org.apache.log4j.Logger;
 
 import test.common.BundleTestCollector;
@@ -103,11 +106,24 @@ public class TalendTestCollector {
                 System.getProperty(TEST_PACKAGE_PREFIX_SP, DEFAULT_PACKAGE_PREFIX),
                 System.getProperty(TEST_CLASS_FILTER_SP, DEFAULT_CLASS_FILTER),
                 Boolean.parseBoolean(System.getProperty(ONLY_USE_FRAGMENT_SP, "true")));
-        StringBuffer classListMessage = new StringBuffer(allCollectedTestClasses.length + " Test classes will be tested : ");
+
+        // sort the tests classes
+        Arrays.sort(allCollectedTestClasses, new Comparator<Class<?>>() {
+
+            @Override
+            public int compare(Class<?> c1, Class<?> c2) {
+                return c1.getName().compareTo(c2.getName());
+            }
+        });
+
+        // log in console
+        StringBuffer classListMessage = new StringBuffer('\n' + allCollectedTestClasses.length
+                + " Test classes will be tested : \n");
         for (Class<?> clazz : allCollectedTestClasses) {
             classListMessage.append(clazz.getName()).append('\n');
         }
         System.out.println(classListMessage.toString());
+
         return allCollectedTestClasses; //$NON-NLS-1$
     }
 
