@@ -148,8 +148,10 @@ public interface ITalendCorePrefConstants {
     public static final String OOZIE_SCHEDULER_HADOOP_KEYTAB_PATH = "oozie_scheduler_hadoop_keytab_path"; //$NON-NLS-1$
 
     public static final String OOZIE_SCHEDULER_HADOOP_PROPERTIES = "oozie_scheduler_hadoop_properties"; //$NON-NLS-1$
-    
-    public static final String OOZIE_SCHEDULER_PROPERTY_TYPE = "oozie_scheduler_property_type";
+
+    public static final String OOZIE_SCHEDULER_PROPERTY_TYPE = "oozie_scheduler_property_type"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_RELATIVE_HADOOP_CLUSTER_ID = "oozie_scheduler_relative_hadoop_cluster_id"; //$NON-NLS-1$
 
     public static final String CoreUIPlugin_ID = "org.talend.core.ui"; //$NON-NLS-1$
 
