@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.utils.Hex;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
@@ -226,8 +227,9 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
 
-    public String getLastSVNBranch() {
-        String string = store.getString(LAST_USED_SVN_BRANCH);
+    public String getLastSVNBranch(String projectUrl, String projectName) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName).getBytes());
+        String string = store.getString(hexKey);
         // just unified for null
         if (string != null && "".equals(string.trim())) { //$NON-NLS-1$
             return null;
@@ -235,8 +237,12 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         return string;
     }
 
-    public void setLastSVNBranch(String branch) {
-        store.setValue(LAST_USED_SVN_BRANCH, branch);
+    public void setLastSVNBranch(String projectUrl, String projectName, String branch) {
+        if (branch != null && branch.startsWith("/")) { //$NON-NLS-1$
+            branch = branch.substring(1, branch.length());
+        }
+        String hexKey = Hex.encodeHexString((projectUrl + projectName).getBytes());
+        store.setValue(hexKey, branch);
         save();
     }
 

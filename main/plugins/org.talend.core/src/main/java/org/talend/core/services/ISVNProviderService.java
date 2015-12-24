@@ -34,4 +34,5 @@ public interface ISVNProviderService extends IService {
 
     public void svnEclipseHandlerDelete(IProject eclipseProject, Project currentProject, String filePath);
 
+    public String getProjectUrl(Project project);
 }
