@@ -111,6 +111,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
             String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
             String repositoryId = IRepositoryView.VIEW_ID;
             String testContaierID = ITestContainerView.ID;
+            String tOozieViewID = "org.talend.oozie.scheduler.views.OozieSchedulerView";
 
             String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
             //        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
@@ -150,6 +151,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
             bottomLayout.addView(runProcessViewId);
             bottomLayout.addView(testContaierID);
+            bottomLayout.addView(tOozieViewID);
             // bottomLayout.addView(problemsViewId);
             // bottomLayout.addView(modulesViewId);
             // bottomLayout.addView(ecosystemViewId);
