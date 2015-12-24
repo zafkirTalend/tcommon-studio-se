@@ -22,7 +22,11 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.osgi.framework.Bundle;
+import org.osgi.service.prefs.BackingStoreException;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -31,6 +35,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.routines.IRoutinesProvider;
 import org.talend.core.utils.TalendCacheUtils;
 import org.talend.designer.codegen.PigTemplate;
+import org.talend.designer.maven.DesignerMavenPlugin;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
@@ -192,6 +197,23 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
         if (TalendCacheUtils.cleanComponentCache()) {
             repositoryBundleService.clearCache();
+        }
+        // fix for TDI-34878
+        IEclipsePreferences prefSetting = ConfigurationScope.INSTANCE.getNode(DesignerMavenPlugin.PLUGIN_ID);
+        final String lastRepType = prefSetting.get("Maven_Setting_Type", null);
+        String configSetting = System.getProperty("maven.repository", "local"); //$NON-NLS-1$
+        final boolean isLocalRepository = !"global".equalsIgnoreCase(configSetting); //$NON-NLS-1$
+        String currentRepType = isLocalRepository ? "local" : "global";
+        if (!currentRepType.equals(lastRepType)) {
+            repositoryBundleService.clearCache();
+        }
+        if (lastRepType == null || !currentRepType.equals(lastRepType)) {
+            try {
+                prefSetting.put("Maven_Setting_Type", currentRepType);
+                prefSetting.flush();
+            } catch (BackingStoreException e) {
+                ExceptionHandler.process(e);
+            }
         }
         // Add a new system file, if exists, means all components libs are already setup, so no need to do again.
         // if clean the component cache, it will automatically recheck all libs still.
