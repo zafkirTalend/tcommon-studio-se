@@ -65,20 +65,20 @@ public class ProjectPreferenceManagerTest {
     @Test
     public void testCurrentProject() {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        testExist(new ProjectPreferenceManager(getTestQualifier(currentProject.getTechnicalLabel())));
+        testExist(new ProjectPreferenceManager('A' + getTestQualifier(currentProject.getTechnicalLabel())));
     }
 
     @Test
     public void testCurrentProject2() {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        testExist(new ProjectPreferenceManager(currentProject, getTestQualifier(currentProject.getTechnicalLabel())));
+        testExist(new ProjectPreferenceManager(currentProject, 'B' + getTestQualifier(currentProject.getTechnicalLabel())));
     }
 
     @Test
     public void testCurrentProject3() throws PersistenceException {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         IProject project = ResourceUtils.getProject(currentProject);
-        testExist(new ProjectPreferenceManager(project, getTestQualifier(currentProject.getTechnicalLabel())));
+        testExist(new ProjectPreferenceManager(project, 'C' + getTestQualifier(currentProject.getTechnicalLabel())));
     }
 
     private void testExist(ProjectPreferenceManager manager) {
@@ -88,7 +88,8 @@ public class ProjectPreferenceManagerTest {
         Assert.assertTrue(manager.exist());
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void testStringValue() {
         String testQualifier = getTestQualifier("TEST");
         ProjectPreferenceManager projectPrefManager = new ProjectPreferenceManager(testQualifier);
@@ -107,7 +108,8 @@ public class ProjectPreferenceManagerTest {
 
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void testIntValue() {
         String testQualifier = getTestQualifier("TEST");
         ProjectPreferenceManager projectPrefManager = new ProjectPreferenceManager(testQualifier);

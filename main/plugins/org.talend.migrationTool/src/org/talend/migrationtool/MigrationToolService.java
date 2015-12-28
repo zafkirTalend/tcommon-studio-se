@@ -81,8 +81,6 @@ import org.talend.utils.ProductVersion;
  */
 public class MigrationToolService implements IMigrationToolService {
 
-    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-
     private static Logger log = Logger.getLogger(MigrationToolService.class);
 
     private static final String RELATION_TASK = "org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask"; //$NON-NLS-1$ 
@@ -97,6 +95,13 @@ public class MigrationToolService implements IMigrationToolService {
 
     public MigrationToolService() {
         doneThisSession = new ArrayList<IProjectMigrationTask>();
+    }
+
+    private ICoreService getCoreService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            return (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        }
+        return null;
     }
 
     @Override
@@ -605,7 +610,10 @@ public class MigrationToolService implements IMigrationToolService {
         // PreferenceManipulator prefManipulator = new
         // PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
-
+        final ICoreService coreService = getCoreService();
+        if (coreService == null) {
+            return;
+        }
         // List<String> done = prefManipulator.readWorkspaceTasksDone();
         List<String> done = coreService.readWorkspaceTasksDone();
 
@@ -651,6 +659,10 @@ public class MigrationToolService implements IMigrationToolService {
      * @see org.talend.core.model.migration.IMigrationToolService#initNewWorkspaceTasks()
      */
     public void initNewWorkspaceTasks() {
+        final ICoreService coreService = getCoreService();
+        if (coreService == null) {
+            return;
+        }
         List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
         // PreferenceManipulator prefManipulator = new
         // PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
