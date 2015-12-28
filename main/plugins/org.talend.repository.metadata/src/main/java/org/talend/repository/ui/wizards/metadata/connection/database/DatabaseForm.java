@@ -1747,9 +1747,7 @@ public class DatabaseForm extends AbstractForm {
 
         hbaseDistributionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.distribution"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.distribution.tooltip"), //$NON-NLS-1$
-                EHBaseDistributions.getAllDistributionDisplayNames()
-                        .toArray(new String[0]),
-                1, true);
+                EHBaseDistributions.getAllDistributionDisplayNames().toArray(new String[0]), 1, true);
         hbaseVersionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
         hbaseVersionCombo.setHideWidgets(true);
@@ -1771,9 +1769,7 @@ public class DatabaseForm extends AbstractForm {
 
         impalaDistributionCombo = new LabelledCombo(impalaSettingGroup, Messages.getString("DatabaseForm.impala.distribution"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.impala.distribution.tooltip"), //$NON-NLS-1$
-                EImpalaDistributions.getAllDistributionDisplayNames()
-                        .toArray(new String[0]),
-                1, true);
+                EImpalaDistributions.getAllDistributionDisplayNames().toArray(new String[0]), 1, true);
         impalaVersionCombo = new LabelledCombo(impalaSettingGroup, Messages.getString("DatabaseForm.impala.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.impala.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
         impalaVersionCombo.setHideWidgets(true);
@@ -2110,8 +2106,7 @@ public class DatabaseForm extends AbstractForm {
      */
     private void createHiveServerVersionField(Composite parent) {
         hiveServerVersionCombo = new LabelledCombo(parent, Messages.getString("DatabaseForm.hiveServer.version"), //$NON-NLS-1$
-                Messages
-                        .getString("DatabaseForm.hiveServer.version.tips"), //$NON-NLS-1$
+                Messages.getString("DatabaseForm.hiveServer.version.tips"), //$NON-NLS-1$
                 HiveServerVersionUtils.extractArrayDisplayNames(), 2, true);
 
         hiveServerVersionCombo.setHideWidgets(true);
@@ -3288,6 +3283,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().getParameters().clear();
+                resetControls();
                 urlConnectionStringText.setEditable(false);
                 authenticationGrpForImpala.setVisible(false);
                 authenticationGrpForImpala.getParent().layout();
@@ -3566,6 +3562,10 @@ public class DatabaseForm extends AbstractForm {
         if (canLinkToHadoopCluster()) {
             addHadoopClusterLinkListeners();
         }
+    }
+
+    private void resetControls() {
+        hideControl(authenticationGrpForHBase, true);
     }
 
     private void clearFiledsForDiffDbTypes() {
