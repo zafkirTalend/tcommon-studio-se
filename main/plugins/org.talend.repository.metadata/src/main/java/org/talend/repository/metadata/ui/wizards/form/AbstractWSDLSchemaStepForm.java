@@ -50,8 +50,8 @@ public abstract class AbstractWSDLSchemaStepForm extends AbstractForm {
 
     protected WSDLSchemaConnection getOriginalValueConnection() {
         if (isContextMode() && getContextModeManager() != null) {
-            return (WSDLSchemaConnection) OtherConnectionContextUtils.cloneOriginalValueWSDLSchemaConnection(getConnection(),
-                    getContextModeManager().getSelectedContextType());
+            return OtherConnectionContextUtils.cloneOriginalValueWSDLSchemaConnection(getConnection(), getContextModeManager()
+                    .getSelectedContextType());
         }
         return getConnection();
 
@@ -69,8 +69,8 @@ public abstract class AbstractWSDLSchemaStepForm extends AbstractForm {
             addContextParams(EParamName.ProxyUser, visible);
             addContextParams(EParamName.ProxyPassword, visible);
         }
-        addContextParams(EParamName.EndpointURI, visible);
-        addContextParams(EParamName.Encoding, visible);
+        // addContextParams(EParamName.EndpointURI, visible);
+        // addContextParams(EParamName.Encoding, visible);
     }
 
     public WizardPage getWizardPage() {

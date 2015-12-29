@@ -34,4 +34,6 @@ public interface IWebServiceTos extends IService {
 
     public LabelledFileField getWSDLLabel(Boolean b);
 
+    public void refreshUI(String url);
+
 }
