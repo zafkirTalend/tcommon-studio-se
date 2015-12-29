@@ -12,7 +12,8 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.imports;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,8 +34,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
@@ -75,6 +78,12 @@ public class ImportBasicHandlerTest {
     Project originalProject;
 
     Project sampleProject;
+
+    @BeforeClass
+    @AfterClass
+    public static void cleanup() {
+        ImportCacheHelper.getInstance().beforePopulateItems(); // clearAll
+    }
 
     @Before
     public void beforeTest() throws PersistenceException, CoreException {
