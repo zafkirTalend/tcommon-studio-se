@@ -36,8 +36,6 @@ public class GenericTestsJUnit4Suite extends Suite {
 
     public static final String PROP_REPORT_PATH = "talend.junit.report.path";
 
-    public static final String PROP_ENABLE_TIMESTAMP = "talend.junit.report.timestamp";
-
     public static final String PROP_PREFIX = "talend.junit.report.prefix";
 
     protected final static String CR = "\n";
@@ -64,20 +62,7 @@ public class GenericTestsJUnit4Suite extends Suite {
 
     private FileWriter testLogWriter;
 
-    private String prefixTimeStamp;
-
     private String prefixLog;
-
-    private String getPrefixTimestamp() {
-        if (prefixTimeStamp == null) {
-            prefixTimeStamp = "";
-            if (Boolean.parseBoolean(System.getProperty(PROP_ENABLE_TIMESTAMP))) {
-                prefixTimeStamp += System.currentTimeMillis();
-                prefixTimeStamp += '-';
-            }
-        }
-        return prefixTimeStamp;
-    }
 
     private String getPrefixLog() {
         if (prefixLog == null) {
@@ -101,7 +86,7 @@ public class GenericTestsJUnit4Suite extends Suite {
     }
 
     private String getLogFileName(String baseName) {
-        return getPrefixLog() + getPrefixTimestamp() + baseName;
+        return getPrefixLog() + baseName;
     }
 
     private FileWriter getFileWriter() {
