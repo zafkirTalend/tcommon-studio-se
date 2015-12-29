@@ -546,7 +546,8 @@ public class DeleteAction extends AContextualAction {
         // Add this 'if' by qiongli 2011-1-19,handle DQItem
         if (objectType.isDQItemType()) {
 
-            while (((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
+            while (curItem.getParent() instanceof FolderItem
+                    && ((FolderItem) curItem.getParent()).getType().getValue() != FolderType.SYSTEM_FOLDER) {
                 if ("".equals(fullPath)) { //$NON-NLS-1$
                     fullPath = ((FolderItem) curItem.getParent()).getProperty().getLabel() + fullPath;
                 } else {

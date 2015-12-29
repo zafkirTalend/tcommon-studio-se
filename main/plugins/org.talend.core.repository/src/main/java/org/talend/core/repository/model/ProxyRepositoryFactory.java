@@ -76,7 +76,6 @@ import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.exception.TalendInternalPersistenceException;
-import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
@@ -903,7 +902,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      * @see org.talend.repository.model.IProxyRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
     @Override
-    public boolean  lock(Item item) throws PersistenceException, LoginException {
+    public boolean lock(Item item) throws PersistenceException, LoginException {
         boolean locked = false;
         // even if item is already locked, force to call the method to ensure the item is still locked
         if (getStatus(item).isPotentiallyEditable() || getStatus(item).equals(ERepositoryStatus.LOCK_BY_USER)) {
@@ -1791,7 +1790,6 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 SubMonitor currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
 
                 currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.logonInProgress"), 1); //$NON-NLS-1$
-                LanguageManager.reset();
                 getRepositoryContext().setProject(project);
 
                 currentMonitor = subMonitor.newChild(1, SubMonitor.SUPPRESS_NONE);
