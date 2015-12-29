@@ -24,7 +24,10 @@ import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.service.IWebServiceTos;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 import org.talend.repository.metadata.ui.wizards.form.AbstractWSDLSchemaStepForm;
 
 /**
@@ -185,9 +188,19 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
 
     @Override
     protected void exportAsContext() {
+        String originalUrl = getConnection().getWSDL();
         super.exportAsContext();
         if (getContextModeManager() != null) {
             getContextModeManager().setDefaultContextType(getConnection());
+        }
+        String URLValue = null;
+        if (connection.isContextMode()) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection);
+            URLValue = ContextParameterUtils.getOriginalValue(contextType, getConnection().getWSDL());
+        }
+        if (URLValue != null && !URLValue.equals(originalUrl)) {
+            webService.refreshUI(URLValue);
+            checkFieldsValue();
         }
     }
 }
