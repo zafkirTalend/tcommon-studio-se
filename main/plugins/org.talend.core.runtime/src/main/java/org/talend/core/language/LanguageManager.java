@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.core.language;
 
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ICoreService;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -22,14 +20,6 @@ import org.talend.core.ICoreService;
  * 
  */
 public class LanguageManager {
-
-    private static ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-
-    private static ECodeLanguage currentLanguage;
-
-    public static void reset() {
-        currentLanguage = null;
-    }
 
     public static ECodeLanguage getCurrentLanguage() {
         return ECodeLanguage.JAVA;
