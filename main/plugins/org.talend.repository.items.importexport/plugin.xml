@@ -2,4 +2,11 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="handler" name="Import Export Handler" schema="schema/handler.exsd"/>
+   <extension
+         point="org.talend.core.runtime.service">
+      <Service
+            class="org.talend.repository.items.importexport.services.ImportExportServices"
+            serviceId="IImportExportServices">
+      </Service>
+   </extension>
 </plugin>

@@ -83,13 +83,59 @@ public class ImportNodesBuilder {
 
     public void addItems(List<ImportItem> items) {
         if (items != null) {
-            for (ImportItem ir : items) {
-                addItem(ir);
+            Map<ImportItem, List<ImportItem>> itemMap = getTestCaseItemMap(items);
+            for (ImportItem ir : itemMap.keySet()) {
+                List<ImportItem> children = itemMap.get(ir);
+                addItem(ir, children);
             }
         }
     }
 
+    private Map<ImportItem, List<ImportItem>> getTestCaseItemMap(List<ImportItem> items) {
+        Map<ImportItem, List<ImportItem>> map = new HashMap<ImportItem, List<ImportItem>>();
+        ITestContainerProviderService testContainerService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            testContainerService = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(
+                    ITestContainerProviderService.class);
+        }
+        if (items != null && testContainerService != null) {
+            for (ImportItem ir : items) {
+                Item item = ir.getItem();
+                if (item == null) {
+                    continue;
+                }
+                boolean isTestContainer = testContainerService.isTestContainerItem(item);
+                if (!isTestContainer) {
+                    List<ImportItem> children = new ArrayList<ImportItem>();
+                    for (ImportItem child : items) {
+                        Item childItem = child.getItem();
+                        if (childItem == null) {
+                            continue;
+                        }
+                        isTestContainer = testContainerService.isTestContainerItem(childItem);
+                        if (isTestContainer) {
+                            String path = childItem.getState().getPath();
+                            if (path != null && path.contains("/")) {
+                                int index = path.indexOf("/");
+                                path = path.substring(index + 1);
+                                if (path.equals(item.getProperty().getId())) {
+                                    children.add(child);
+                                }
+                            }
+                        }
+                    }
+                    map.put(ir, children);
+                }
+            }
+        }
+        return map;
+    }
+
     public void addItem(ImportItem itemRecord) {
+        addItem(itemRecord, null);
+    }
+
+    public void addItem(ImportItem itemRecord, List<ImportItem> children) {
         if (itemRecord != null) {
             this.allImportItemRecords.add(itemRecord);
 
@@ -107,14 +153,6 @@ public class ImportNodesBuilder {
             final Item item = itemRecord.getItem();
             if (item != null && hadoopClusterService != null && hadoopClusterService.isHadoopSubItem(item)) {
                 return;
-            }
-            boolean isTestContainer = false;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
-                        .getDefault().getService(ITestContainerProviderService.class);
-                if (testContainerService != null) {
-                    isTestContainer = testContainerService.isTestContainerItem(item);
-                }
             }
             final ERepositoryObjectType itemType = itemRecord.getRepositoryType();
 
@@ -138,6 +176,12 @@ public class ImportNodesBuilder {
                 ItemImportNode itemNode = new ItemImportNode(itemRecord);
                 parentImportNode.addChild(itemNode);
                 allImportItemNode.add(itemNode);//
+                if (children != null) {
+                    for (ImportItem childRecord : children) {
+                        ItemImportNode childNode = new ItemImportNode(childRecord);
+                        itemNode.addChild(childNode);
+                    }
+                }
             } else {
                 // set for type
                 ImportNode parentImportNode = typeImportNode; // by default, in under type node.
@@ -145,16 +189,18 @@ public class ImportNodesBuilder {
                     parentImportNode = projectImportNode;
                 }
                 String path = item.getState().getPath();
-                if (isTestContainer && path != null && path.contains("/")) {
-                    int index = path.indexOf("/");
-                    path = path.substring(0, index);
-                }
                 if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
                     parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
                 }
                 ItemImportNode itemNode = new ItemImportNode(itemRecord);
                 parentImportNode.addChild(itemNode);
                 allImportItemNode.add(itemNode);
+                if (children != null) {
+                    for (ImportItem childRecord : children) {
+                        ItemImportNode childNode = new ItemImportNode(childRecord);
+                        itemNode.addChild(childNode);
+                    }
+                }
             }
         }
     }

@@ -50,11 +50,16 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.progress.WorkbenchJob;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.properties.Item;
+import org.talend.core.ui.IImportExportServices;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.ui.i18n.Messages;
 
 /**
@@ -957,6 +962,41 @@ public class FilteredCheckboxTree extends Composite {
         public void setHasChildren(Object elementOrTreePath, boolean hasChildren) {
             getPatternFilter().clearCaches();
             super.setHasChildren(elementOrTreePath, hasChildren);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.dialogs.ContainerCheckedTreeViewer#doCheckStateChanged(java.lang.Object)
+         */
+        @Override
+        protected void doCheckStateChanged(Object element) {
+            boolean isTestCase = false;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IImportExportServices.class)) {
+                IImportExportServices importService = (IImportExportServices) GlobalServiceRegister.getDefault().getService(
+                        IImportExportServices.class);
+                if (importService != null) {
+                    Item item = importService.getItem(element);
+                    if (item != null
+                            && GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                        ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                                .getDefault().getService(ITestContainerProviderService.class);
+                        if (testContainerService != null) {
+                            isTestCase = testContainerService.isTestContainerItem(item);
+                        }
+                    }
+                }
+            }
+
+            Widget item = findItem(element);
+            if (item instanceof TreeItem) {
+                if (!((TreeItem) item).getChecked() && isTestCase) {
+                    TreeItem treeItem = (TreeItem) item;
+                    treeItem.setGrayed(false);
+                    return;
+                }
+            }
+            super.doCheckStateChanged(element);
         }
 
     }
