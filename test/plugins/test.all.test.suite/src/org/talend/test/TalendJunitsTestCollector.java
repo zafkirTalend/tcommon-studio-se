@@ -18,26 +18,34 @@ import test.common.BundleTestCollector;
  * DOC nrousseau class global comment. Detailled comment
  */
 public class TalendJunitsTestCollector extends TalendTestCollector {
+	private Class<?>[] testsToExecute;
 
-    @Override
-    public Class<?>[] getTests() {
-        Class<?>[] testsToExecute = super.getTests();
-        BundleTestCollector testCollector = new BundleTestCollector();
-        Class<?>[] allCollectedTestClasses = testCollector.collectTestsClasses(null, "org.talend.designer.codegen.test", "",
-                "org.talend.designer.codegen.junit", "JUnitStudioStartup", false);
+	@Override
+	public Class<?>[] getTests() {
+		if (testsToExecute == null) {
+			testsToExecute = super.getTests();
+			BundleTestCollector testCollector = new BundleTestCollector();
+			Class<?>[] allCollectedTestClasses = testCollector
+					.collectTestsClasses(null,
+							"org.talend.designer.codegen.test", "",
+							"org.talend.designer.codegen.junit",
+							"JUnitStudioStartup", false);
 
-        // add a loop, but in all case there should be only one test executed here.
+			// add a loop, but in all case there should be only one test
+			// executed here.
 
-        for (Class<?> clazz : allCollectedTestClasses) {
-            System.out.println("## To execute first:" + clazz.getName() + "\n");
-            Class<?>[] tempArray = new Class<?>[testsToExecute.length + 1];
-            tempArray[0] = clazz;
-            for (int i = 0; i < testsToExecute.length; i++) {
-                tempArray[i + 1] = testsToExecute[i];
-            }
-            testsToExecute = tempArray;
-        }
-        return testsToExecute;
-    }
+			for (Class<?> clazz : allCollectedTestClasses) {
+				System.out.println("## To execute first:" + clazz.getName()
+						+ "\n");
+				Class<?>[] tempArray = new Class<?>[testsToExecute.length + 1];
+				tempArray[0] = clazz;
+				for (int i = 0; i < testsToExecute.length; i++) {
+					tempArray[i + 1] = testsToExecute[i];
+				}
+				testsToExecute = tempArray;
+			}
+		}
+		return testsToExecute;
+	}
 
 }

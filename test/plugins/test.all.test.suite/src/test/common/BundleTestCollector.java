@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IBundleGroupProvider;
 import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * This class allows you harvest unit tests from resolved bundles based on filters you supply. It can harvest tests from
@@ -125,7 +126,7 @@ public class BundleTestCollector {
      * @return list of test classes that match the roots and filter passed in
      */
     public void collectJUnit3Tests(TestSuite suite, String bundleRoot, String packageRoot, String testClassFilter) {
-        Bundle currentBundle = Platform.getBundle("test.all.test.suite"); //$NON-NLS-1$
+        Bundle currentBundle = FrameworkUtil.getBundle(this.getClass());
         // no check for null is done cause this should create an exception if
         // someone change the name of this bundle
         for (Bundle bundle : currentBundle.getBundleContext().getBundles()) {
@@ -155,7 +156,7 @@ public class BundleTestCollector {
     public Class<?>[] collectTestsClasses(String bundlePrefix, String bundleSuffix, String packagePrefixs,
             String testClassFilter, boolean useFragmentOnly) {
         List<Class<?>> allTestClasses = new ArrayList<Class<?>>();
-        Bundle currentBundle = Platform.getBundle("test.all.test.suite"); //$NON-NLS-1$
+        Bundle currentBundle = FrameworkUtil.getBundle(this.getClass());
         // no check for null is done cause this should create an exception if
         // someone change the name of this bundle
         collectClassesFromBundles(bundlePrefix, bundleSuffix, packagePrefixs, testClassFilter, useFragmentOnly, allTestClasses,
