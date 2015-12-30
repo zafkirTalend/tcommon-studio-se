@@ -146,6 +146,7 @@ public final class ImportCacheHelper {
 
         restoreFolder.clear();
         importedItemRecords.clear();
+        importErrors.clear();
     }
 
     public synchronized void beforeImportItems() {
