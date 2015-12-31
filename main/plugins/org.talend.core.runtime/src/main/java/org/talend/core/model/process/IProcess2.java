@@ -134,4 +134,5 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
 
     public void setNeedLoadmodules(boolean isNeedLoadmodules);
 
+    public void refreshProcess();
 }
