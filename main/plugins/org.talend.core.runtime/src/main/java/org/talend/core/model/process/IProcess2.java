@@ -134,4 +134,5 @@ public interface IProcess2 extends IRepositoryObject, IProcess {
     String getSpringContent();
     // END TESB-7887
 
+    public void refreshProcess();
 }
