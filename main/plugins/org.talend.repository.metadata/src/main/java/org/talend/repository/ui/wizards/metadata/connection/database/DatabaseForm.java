@@ -892,8 +892,8 @@ public class DatabaseForm extends AbstractForm {
      */
     @Override
     protected void addHelpInfoFields() {
-        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault()
-                .getService(IBrandingService.class);
+        IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                IBrandingService.class);
         if (!brandingService.isPoweredbyTalend()) {
             return;
         }
@@ -1130,7 +1130,8 @@ public class DatabaseForm extends AbstractForm {
         principalForHBaseTxt = new LabelledText(keyTabCompoisteForHBase,
                 Messages.getString("DatabaseForm.hiveEmbedded.principal"), 1); //$NON-NLS-1$
         String[] extensions = { "*.*" }; //$NON-NLS-1$
-        keytabForHBaseTxt = new LabelledFileField(keyTabCompoisteForHBase, Messages.getString("DatabaseForm.hiveEmbedded.keytab"), //$NON-NLS-1$
+        keytabForHBaseTxt = new LabelledFileField(keyTabCompoisteForHBase,
+                Messages.getString("DatabaseForm.hiveEmbedded.keytab"), //$NON-NLS-1$
                 extensions);
 
         addListenerHBaseAuthentication();
@@ -1652,8 +1653,8 @@ public class DatabaseForm extends AbstractForm {
     private List<Map<String, Object>> getHadoopClusterProperties() {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopClusterService.class);
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
         }
         if (hadoopClusterService != null) {
             return HadoopRepositoryUtil.getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(getConnection()));
@@ -1913,8 +1914,8 @@ public class DatabaseForm extends AbstractForm {
     private void updateHCRelatedParameters(String hcId) {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopClusterService.class);
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
         }
         if (hadoopClusterService != null) {
             if (hcId == null) {
@@ -1934,8 +1935,8 @@ public class DatabaseForm extends AbstractForm {
     private void clearHadoopRelatedParameters() {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopClusterService.class);
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
         }
         if (hadoopClusterService != null) {
             hadoopClusterService.removeHadoopDbParameters(getConnection());
@@ -2018,10 +2019,10 @@ public class DatabaseForm extends AbstractForm {
         String useKeytabString = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB);
         String keytabPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
         String keytab = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
-        String masterPrincipal = connection.getParameters()
-                .get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
-        String regionServerPrincipal = connection.getParameters()
-                .get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
+        String masterPrincipal = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+        String regionServerPrincipal = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
         boolean useKrb = Boolean.valueOf(useKrbString);
         boolean useKeytab = Boolean.valueOf(useKeytabString);
         useKerberosForHBase.setSelection(useKrb);
@@ -2420,8 +2421,8 @@ public class DatabaseForm extends AbstractForm {
 
         group1.setVisible(!isTOPStandaloneMode());
         if (metadataconnection != null) {
-            IDBMetadataProviderObject providerObj = ExtractMetaDataFromDataBase
-                    .getProviderObjectByDbType(metadataconnection.getDbType());
+            IDBMetadataProviderObject providerObj = ExtractMetaDataFromDataBase.getProviderObjectByDbType(metadataconnection
+                    .getDbType());
             if (providerObj != null && !providerObj.isSupportJDBC()) {
                 group1.setVisible(false);
             }
@@ -2632,10 +2633,10 @@ public class DatabaseForm extends AbstractForm {
                     isGeneralJDBC() ? generalJdbcUrlText.getText() : urlConnectionStringText.getText(), serverText.getText(),
                     isGeneralJDBC() ? generalJdbcUserText.getText() : usernameText.getText(),
                     isGeneralJDBC() ? generalJdbcPasswordText.getText() : passwordText.getText(), sidOrDatabaseText.getText(),
-                    portText.getText(), fileField.getText(), datasourceText.getText(),
-                    isGeneralJDBC() ? jDBCschemaText.getText() : schemaText.getText(), additionParamText.getText(),
-                    generalJdbcClassNameText.getText(), generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null,
-                    metadataconnection.getOtherParameters());
+                    portText.getText(), fileField.getText(), datasourceText.getText(), isGeneralJDBC() ? jDBCschemaText.getText()
+                            : schemaText.getText(), additionParamText.getText(), generalJdbcClassNameText.getText(),
+                    generalJdbcDriverjarText.getText(), enableDbVersion() ? versionStr : null, metadataconnection
+                            .getOtherParameters());
 
             managerConnection.setDbRootPath(directoryField.getText());
 
@@ -2884,8 +2885,8 @@ public class DatabaseForm extends AbstractForm {
                         }
                         databaseSettingIsValide = false;
                         checkButton.setEnabled(true);
-                        String[] s = DatabaseConnStrUtil.analyseURL(getConnection().getDatabaseType(),
-                                getConnection().getDbVersionString(), urlConnectionStringText.getText());
+                        String[] s = DatabaseConnStrUtil.analyseURL(getConnection().getDatabaseType(), getConnection()
+                                .getDbVersionString(), urlConnectionStringText.getText());
                         // if the ConnectionString write manually don't
                         // correspond width selectedIndex of combo DbType
                         // we search if another regex corresponding at this
@@ -2986,8 +2987,8 @@ public class DatabaseForm extends AbstractForm {
                 StringBuffer retProposedSchema = new StringBuffer();
                 checkConnection(retProposedSchema);
                 if (0 < retProposedSchema.length()) {
-                    if (ManagerConnection.isSchemaFromSidOrDatabase(
-                            EDatabaseTypeName.getTypeFromDbType(dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex())))) {
+                    if (ManagerConnection.isSchemaFromSidOrDatabase(EDatabaseTypeName.getTypeFromDbType(dbTypeCombo
+                            .getItem(dbTypeCombo.getSelectionIndex())))) {
                         if (sidOrDatabaseText != null) {
                             sidOrDatabaseText.setText(retProposedSchema.toString());
                         }
@@ -3475,8 +3476,8 @@ public class DatabaseForm extends AbstractForm {
                         dbTypeCombo.forceFocus();
                     } else {
                         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
-                        EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers
-                                .indexOfByVersionDisplay(getConnection().getDbVersionString());
+                        EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(getConnection()
+                                .getDbVersionString());
                         if (template != null
                                 && template.getUrlTemplate(version).contains(EDatabaseConnVar.FILENAME.getVariable())) {
                             setPropertiesFormEditable(true);
@@ -3779,8 +3780,8 @@ public class DatabaseForm extends AbstractForm {
                 if (isContextMode()) {
                     return;
                 }
-                String originalDistributionName = getConnection().getParameters()
-                        .get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
+                String originalDistributionName = getConnection().getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
                 String newDistributionDisplayName = hbaseDistributionCombo.getText();
                 EHBaseDistributions newDistribution = EHBaseDistributions
                         .getDistributionByDisplayName(newDistributionDisplayName);
@@ -3835,8 +3836,8 @@ public class DatabaseForm extends AbstractForm {
                 if (isContextMode()) {
                     return;
                 }
-                String originalDistributionName = getConnection().getParameters()
-                        .get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
+                String originalDistributionName = getConnection().getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
                 String newDistributionDisplayName = impalaDistributionCombo.getText();
                 EImpalaDistributions newDistribution = EImpalaDistributions
                         .getDistributionByDisplayName(newDistributionDisplayName);
@@ -4251,8 +4252,8 @@ public class DatabaseForm extends AbstractForm {
         if (connectionItem != null && connectionItem.getConnection() != null) {
             Connection connection = connectionItem.getConnection();
             if (connection instanceof DatabaseConnection) {
-                result = EDatabaseTypeName.GENERAL_JDBC == EDatabaseTypeName
-                        .getTypeFromDbType(((DatabaseConnection) connection).getDatabaseType());
+                result = EDatabaseTypeName.GENERAL_JDBC == EDatabaseTypeName.getTypeFromDbType(((DatabaseConnection) connection)
+                        .getDatabaseType());
             }
         }
         return result;
@@ -4420,15 +4421,15 @@ public class DatabaseForm extends AbstractForm {
                     template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
                 }
                 if (!isEmbeddedMode()) {
-                    s = DatabaseConnStrUtil.getHiveURLStringForStandardalone(template, getConnection(),
-                            getConnection().getServerName(), getConnection().getPort(), getConnection().getSID());
+                    s = DatabaseConnStrUtil.getHiveURLStringForStandardalone(template, getConnection(), getConnection()
+                            .getServerName(), getConnection().getPort(), getConnection().getSID());
                 } else {
                     s = template;
                 }
             } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
                 String template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
-                s = DatabaseConnStrUtil.getImpalaString(getConnection(), getConnection().getServerName(),
-                        getConnection().getPort(), getConnection().getSID(), template);
+                s = DatabaseConnStrUtil.getImpalaString(getConnection(), getConnection().getServerName(), getConnection()
+                        .getPort(), getConnection().getSID(), template);
                 getConnection().setUiSchema(getConnection().getSID());
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
@@ -4450,21 +4451,23 @@ public class DatabaseForm extends AbstractForm {
             checkButton.setEnabled(true);
         } else {
             EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
-            EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers
-                    .indexOfByVersionDisplay(getConnection().getDbVersionString());
+            EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(getConnection()
+                    .getDbVersionString());
             checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0) && template != null
                     && (getStringConnection() != template.getUrlTemplate(version)));
             /* hbase has no url so need,using port or server instead */
             if (template != null && template.getDbType() != null && template.getDbType().equals(EDatabaseTypeName.HBASE)) {
-                checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0) && template != null
-                        && ((serverText.getText() != template.getUrlTemplate(version)
-                                || portText.getText() != template.getDefaultPort())));
+                checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0)
+                        && template != null
+                        && ((serverText.getText() != template.getUrlTemplate(version) || portText.getText() != template
+                                .getDefaultPort())));
             }
             // impala has no url so need,using port or server instead
             if (template != null && template.getDbType() != null && template.getDbType().equals(EDatabaseTypeName.IMPALA)) {
-                checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0) && template != null
-                        && ((serverText.getText() != template.getUrlTemplate(version)
-                                || portText.getText() != template.getDefaultPort())));
+                checkButton.setEnabled((dbTypeCombo.getSelectionIndex() >= 0)
+                        && template != null
+                        && ((serverText.getText() != template.getUrlTemplate(version) || portText.getText() != template
+                                .getDefaultPort())));
             }
             if (isGeneralJDBC()) {
                 checkButton.setEnabled(true);
@@ -4537,11 +4540,13 @@ public class DatabaseForm extends AbstractForm {
         boolean isHbase = visible && asHbaseVersionEnable();
         boolean isImpala = visible && ImpalaVersionEnable();
 
-        dbVersionCombo.setEnabled(!isReadOnly() && (isOracle || isAS400 || isMySQL || isVertica || isSAS || isImpala
-                || EDatabaseConnTemplate.PSQL.getDBTypeName().equals(dbTypeCombo.getText())
-                || EDatabaseConnTemplate.PLUSPSQL.getDBTypeName().equals(dbTypeCombo.getText())
-                || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(dbTypeCombo.getText())
-                || EDatabaseConnTemplate.MSSQL05_08.getDBDisplayName().equals(dbTypeCombo.getText())));
+        dbVersionCombo
+                .setEnabled(!isReadOnly()
+                        && (isOracle || isAS400 || isMySQL || isVertica || isSAS || isImpala
+                                || EDatabaseConnTemplate.PSQL.getDBTypeName().equals(dbTypeCombo.getText())
+                                || EDatabaseConnTemplate.PLUSPSQL.getDBTypeName().equals(dbTypeCombo.getText())
+                                || EDatabaseConnTemplate.ACCESS.getDBTypeName().equals(dbTypeCombo.getText()) || EDatabaseConnTemplate.MSSQL05_08
+                                .getDBDisplayName().equals(dbTypeCombo.getText())));
         usernameText.setEditable(visible);
         passwordText.setEditable(visible);
         serverText.setEditable(false);
@@ -4937,10 +4942,10 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.HiveDriveClass, hasAuthentication());
             addContextParams(EDBParamName.HiveUserName, hasAuthentication());
             addContextParams(EDBParamName.HivePassword, hasAuthentication());
-            addContextParams(EDBParamName.HiveKeyTabPrincipal,
-                    isCurrentDbSupportAuthentication() && useKerberos.getSelection() && useKeyTab.getSelection());
-            addContextParams(EDBParamName.HiveKeyTab,
-                    isCurrentDbSupportAuthentication() && useKerberos.getSelection() && useKeyTab.getSelection());
+            addContextParams(EDBParamName.HiveKeyTabPrincipal, isCurrentDbSupportAuthentication() && useKerberos.getSelection()
+                    && useKeyTab.getSelection());
+            addContextParams(EDBParamName.HiveKeyTab, isCurrentDbSupportAuthentication() && useKerberos.getSelection()
+                    && useKeyTab.getSelection());
         }
     }
 
@@ -4992,8 +4997,9 @@ public class DatabaseForm extends AbstractForm {
             return false;
         }
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
-        return template != null && (template == EDatabaseConnTemplate.ORACLEFORSID || template == EDatabaseConnTemplate.ORACLESN
-                || template == EDatabaseConnTemplate.ORACLE_OCI || template == EDatabaseConnTemplate.ORACLE_CUSTOM);
+        return template != null
+                && (template == EDatabaseConnTemplate.ORACLEFORSID || template == EDatabaseConnTemplate.ORACLESN
+                        || template == EDatabaseConnTemplate.ORACLE_OCI || template == EDatabaseConnTemplate.ORACLE_CUSTOM);
     }
 
     private boolean ImpalaVersionEnable() {
@@ -5280,13 +5286,12 @@ public class DatabaseForm extends AbstractForm {
 
         if (distributionObj != null) {
 
-            currIndexofDistribution = HiveConnUtils
-                    .getIndexOfDistribution(distributionObj == null ? null : ((String) distributionObj));
+            currIndexofDistribution = HiveConnUtils.getIndexOfDistribution(distributionObj == null ? null
+                    : ((String) distributionObj));
             updateHiveDistributionAndMakeSelection(currIndexofDistribution);
 
-            currIndexofHiveVersion = HiveConnUtils.getIndexOfHiveVersion(
-                    distributionObj == null ? null : ((String) distributionObj),
-                    hiveVersion == null ? null : ((String) hiveVersion));
+            currIndexofHiveVersion = HiveConnUtils.getIndexOfHiveVersion(distributionObj == null ? null
+                    : ((String) distributionObj), hiveVersion == null ? null : ((String) hiveVersion));
             updateHiveVersionAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion);
 
             currIndexofHiveMode = HiveConnUtils.getIndexOfHiveMode(distributionObj == null ? null : ((String) distributionObj),
@@ -5318,14 +5323,14 @@ public class DatabaseForm extends AbstractForm {
 
             // EDatabaseTypeName.HIVE.getDisplayName()
             String metastoreConnURLStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL);
-            String metastoreConnUserNameStr = connection.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME);
-            String metastoreConnPasswordStr = connection.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD);
-            String metastoreConnDriverJarStr = connection.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
-            String metastoreConnDriverNameStr = connection.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
+            String metastoreConnUserNameStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_USERNAME);
+            String metastoreConnPasswordStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_PASSWORD);
+            String metastoreConnDriverJarStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR);
+            String metastoreConnDriverNameStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_NAME);
 
             nameNodeURLTxt.setText(nameNodeURLstr == null ? "" : nameNodeURLstr); //$NON-NLS-1$
             jobTrackerURLTxt.setText(jobTrackerURLStr == null ? "" : jobTrackerURLStr); //$NON-NLS-1$
@@ -5691,8 +5696,8 @@ public class DatabaseForm extends AbstractForm {
         // getConnection().setURL(getStringConnection());
         // handleUIWhenStandaloneModeSelected();
         // } else {
-        boolean isEmbeddedMode = HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex,
-                hiveServerIndex);
+        boolean isEmbeddedMode = HiveConnUtils
+                .isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
         return isEmbeddedMode;
     }
 
@@ -5745,8 +5750,8 @@ public class DatabaseForm extends AbstractForm {
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
             boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
-            String defaultNN = HadoopDefaultConfsManager.getInstance()
-                    .getDefaultConfValue((String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.NAMENODE_URI.getName()));
+            String defaultNN = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                    (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.NAMENODE_URI.getName()));
             String nameNodeURLstr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             String jobTrackerURLStr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             String hiveKerberosPrin = getConnection().getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
@@ -5760,8 +5765,8 @@ public class DatabaseForm extends AbstractForm {
                 defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
                         (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.RESOURCE_MANAGER.getName()));
             } else {
-                defaultJTORRM = HadoopDefaultConfsManager.getInstance()
-                        .getDefaultConfValue((String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.JOBTRACKER.getName()));
+                defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                        (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.JOBTRACKER.getName()));
             }
             if (StringUtils.isNotEmpty(jobTrackerURLStr)) {
                 jobTrackerURLTxt.setText(jobTrackerURLStr);
@@ -5797,8 +5802,9 @@ public class DatabaseForm extends AbstractForm {
             if (EHBaseDistributions.AMAZON_EMR.getName().equals(distribution)) {
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
-            String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue((String[]) ArrayUtils
-                    .add(ArrayUtils.add(versionPrefix, EHadoopCategory.HBASE.getName()), EHadoopProperties.PORT.getName()));
+            String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
+                    (String[]) ArrayUtils.add(ArrayUtils.add(versionPrefix, EHadoopCategory.HBASE.getName()),
+                            EHadoopProperties.PORT.getName()));
             if (defaultPort != null && !isContextMode()) {
                 getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
@@ -5825,10 +5831,9 @@ public class DatabaseForm extends AbstractForm {
         if (hiveVersionObj == null) {
             return;
         }
-        if (hiveVersionObj.isSupportYARN() && !hiveVersionObj.isSupportMR1()) {
+        if (hiveVersionObj.isSupportYARN() && !hiveVersionObj.isSupportMR1()
+                && HiveConnVersionInfo.DISTRO_CUSTOM != hiveVersionObj) {
             getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.TRUE));
-        } else {
-            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.FALSE));
         }
         updateJobtrackerContent();
     }
@@ -5875,8 +5880,8 @@ public class DatabaseForm extends AbstractForm {
      */
     protected void doMetastoreConnURLModify() {
         if (!isContextMode()) {
-            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL,
-                    metastoreConnURLTxt.getText());
+            getConnection().getParameters()
+                    .put(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_URL, metastoreConnURLTxt.getText());
         }
     }
 
@@ -5929,8 +5934,10 @@ public class DatabaseForm extends AbstractForm {
         int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
         if (!isContextMode()) {
             modifyFieldValue();
-            getConnection().getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, HiveServerVersionUtils.extractKey(
-                    getRealHiveServerIndex(distributionIndex, currSelectedIndex, hiveServerVersionCombo.getSelectionIndex())));
+            getConnection().getParameters().put(
+                    ConnParameterKeys.HIVE_SERVER_VERSION,
+                    HiveServerVersionUtils.extractKey(getRealHiveServerIndex(distributionIndex, currSelectedIndex,
+                            hiveServerVersionCombo.getSelectionIndex())));
         }
         updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
     }
@@ -5968,8 +5975,8 @@ public class DatabaseForm extends AbstractForm {
         if (isSupportHiveServer2) {
             DatabaseConnection conn = getConnection();
 
-            String hiveServerDisplayNames[] = HiveServerVersionUtils
-                    .extractAvailableArrayDisplayNames(HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex));
+            String hiveServerDisplayNames[] = HiveServerVersionUtils.extractAvailableArrayDisplayNames(HiveConnUtils
+                    .getHiveVersionObj(distributionIndex, hiveVersionIndex));
             hiveServerVersionCombo.getCombo().setItems(hiveServerDisplayNames);
 
             String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
@@ -5977,8 +5984,8 @@ public class DatabaseForm extends AbstractForm {
             int hiveServerIndex = 0;
             if (hiveServerDisplayNames != null && hiveServerKey != null) {
                 for (hiveServerIndex = 0; hiveServerIndex < hiveServerDisplayNames.length; hiveServerIndex++) {
-                    if (hiveServerKey.equals(HiveServerVersionUtils.extractKey(
-                            HiveConnUtils.getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[hiveServerIndex])))) {
+                    if (hiveServerKey.equals(HiveServerVersionUtils.extractKey(HiveConnUtils
+                            .getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[hiveServerIndex])))) {
                         break;
                     }
                 }
@@ -5996,8 +6003,8 @@ public class DatabaseForm extends AbstractForm {
 
     private int getRealHiveServerIndex(int distributionIndex, int hiveVersionIndex, int relatedHiveServerIndex) {
         int realIndex = relatedHiveServerIndex;
-        String hiveServerDisplayNames[] = HiveServerVersionUtils
-                .extractAvailableArrayDisplayNames(HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex));
+        String hiveServerDisplayNames[] = HiveServerVersionUtils.extractAvailableArrayDisplayNames(HiveConnUtils
+                .getHiveVersionObj(distributionIndex, hiveVersionIndex));
         if (hiveServerDisplayNames != null && 0 <= relatedHiveServerIndex
                 && relatedHiveServerIndex < hiveServerDisplayNames.length) {
             realIndex = HiveConnUtils.getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[relatedHiveServerIndex]);
@@ -6161,10 +6168,9 @@ public class DatabaseForm extends AbstractForm {
     }
 
     /**
-     * Invokes this method to handle the status of other widgets, for hive the following widgets need to handle:
-     * <li>The text widget of userName, variable is <code>usernameText</code>.</li>
-     * <li>The text widget of password, variable is <code>passwordText</code>.</li>
-     * <li>The text widget of database, variable is <code>sidOrDatabaseText</code>.</li>
+     * Invokes this method to handle the status of other widgets, for hive the following widgets need to handle: <li>The
+     * text widget of userName, variable is <code>usernameText</code>.</li> <li>The text widget of password, variable is
+     * <code>passwordText</code>.</li> <li>The text widget of database, variable is <code>sidOrDatabaseText</code>.</li>
      * <li>The text widget of schema, variable is <code>schemaText</code>.</li> All these will be hidden when the
      * current db type is <code>Hive</code> and the current hive mode is <code>STANDALONE</code>. Otherwise, all will be
      * visible when the current db type is <code>Hive</code> and the current hive mode is <code>EMBEDDED</code>. Added
@@ -6392,8 +6398,8 @@ public class DatabaseForm extends AbstractForm {
     private boolean canLinkToHadoopCluster() {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopClusterService.class);
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
         }
 
         return hadoopClusterService != null;
@@ -6406,8 +6412,8 @@ public class DatabaseForm extends AbstractForm {
         }
         String selecteModulePath = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
-            ILibraryManagerService librairesService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                    .getService(ILibraryManagerService.class);
+            ILibraryManagerService librairesService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
             if (librairesService != null) {
                 selecteModulePath = librairesService.getJarPath(selecteModule);
             }
