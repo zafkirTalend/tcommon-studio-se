@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.runtime.i18n.Messages;
 import org.talend.commons.ui.runtime.swt.proposal.TextCellEditorContentAdapterExtended;
 import org.talend.commons.ui.runtime.swt.proposal.TextContentAdapterExtended;
+import org.talend.commons.ui.swt.preferences.HotKeyUtil;
 
 /**
  * Utilities for proposals. <br/>
@@ -79,7 +80,7 @@ public final class ProposalUtils {
             IControlContentAdapter controlContentAdapter, IContentProposalProvider proposalProvider) {
         ContentProposalAdapterExtended contentProposalAdapter = null;
         try {
-            KeyStroke keyStroke = KeyStroke.getInstance("Ctrl+Space"); //$NON-NLS-1$
+            KeyStroke keyStroke = HotKeyUtil.getHotKey(HotKeyUtil.contentAssist);
 
             contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter, proposalProvider,
                     keyStroke, null);
