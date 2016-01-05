@@ -77,13 +77,10 @@ public class MissingJarServices {
      */
     public static MavenResolver getMavenResolver() {
         if (mavenResolver == null) {
-            ServiceReference<MavenResolver> jarMissObsServRef = OsgiLoaderActivator.getBundleContext()
+            ServiceReference<MavenResolver> mavenServRef = OsgiLoaderActivator.getBundleContext()
                     .getServiceReference(MavenResolver.class);
-            if (jarMissObsServRef != null) {
-                mavenResolver = OsgiLoaderActivator.getBundleContext().getService(jarMissObsServRef);
-            } else {// No resolver found so log it
-                getLogService().log(LogService.LOG_ERROR, "Talend Missing jar OSGI loader could not find a Maven Resolver",
-                        new RuntimeException());
+            if (mavenServRef != null) {
+                mavenResolver = OsgiLoaderActivator.getBundleContext().getService(mavenServRef);
             }
         }
         return mavenResolver;
