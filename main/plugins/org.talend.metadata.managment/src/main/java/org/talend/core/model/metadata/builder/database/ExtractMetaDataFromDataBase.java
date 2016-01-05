@@ -34,14 +34,11 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
@@ -56,6 +53,7 @@ import org.talend.core.model.metadata.builder.database.manager.dbs.IBMDB2Extract
 import org.talend.core.model.metadata.builder.database.manager.dbs.OracleExtractManager;
 import org.talend.core.repository.model.connection.ConnectionStatus;
 import org.talend.core.repository.model.provider.IDBMetadataProvider;
+import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.sqlbuilder.util.TextUtil;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
@@ -215,11 +213,16 @@ public class ExtractMetaDataFromDataBase {
      * @param IMetadataConnection iMetadataConnection
      * @param String tableLabel
      * @return Collection of MetadataColumn Object of a Table
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      * @deprecated
      */
     @Deprecated
     public static synchronized List<TdColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
-            String tableLabel, boolean... dontCreateClose) {
+            String tableLabel, boolean... dontCreateClose) throws SQLException, ClassNotFoundException, InstantiationException,
+            IllegalAccessException {
         ExtractManager extractManager = ExtractManagerFactory.createByDisplayName(iMetadataConnection.getDbType());
         if (extractManager != null) {
             List<TdColumn> columns = extractManager.returnMetadataColumnsFormTable(iMetadataConnection, tableLabel,
@@ -400,24 +403,10 @@ public class ExtractMetaDataFromDataBase {
             rs.close();
         }
         if (retPropsedSchema != null && 0 < proposeSchema.length()) {
-            final StringBuffer userSelectResult = new StringBuffer();
-            Display.getDefault().syncExec(new Runnable() {
-
-                @Override
-                public void run() {
-                    String title = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.title"); //$NON-NLS-1$
-                    String proposeMessage = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.message", new Object[] { //$NON-NLS-1$
-                            schema, proposeSchema });
-                    MessageDialog messageDialog = new MessageDialog(new Shell(), title, null, proposeMessage,
-                            MessageDialog.CONFIRM, new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0);
-                    if (messageDialog.open() == 0) {
-                        retPropsedSchema.append(proposeSchema);
-                        userSelectResult.append("true"); //$NON-NLS-1$
-                    }
-                }
-            });
-            if (0 < userSelectResult.length()) {
-                return true;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
+                IMetadataManagmentUiService mmUIService = (IMetadataManagmentUiService) GlobalServiceRegister.getDefault()
+                        .getService(IMetadataManagmentUiService.class);
+                return mmUIService.guessSchemaIfNotFound(schema, retPropsedSchema, proposeSchema);
             }
         }
         return false;

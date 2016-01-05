@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -94,7 +95,6 @@ import org.talend.salesforce.SforceManagementImpl;
 import org.talend.salesforce.SforceSessionConnection;
 import org.talend.salesforce.oauth.OAuthClient;
 import org.talend.salesforce.oauth.Token;
-
 import orgomg.cwm.objectmodel.core.CoreFactory;
 
 import com.salesforce.soap.partner.DescribeGlobalSObjectResult;
@@ -746,69 +746,75 @@ public class SelectorModulesForm extends AbstractSalesforceStepForm {
             new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("DatabaseTableForm.connectionFailure"), //$NON-NLS-1$
                     managerConnection.getMessageException());
         } else {
+            try {
+                if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString)
+                        .equals(ETableTypes.TABLETYPE_TABLE.getName())) {
+                    dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
+                        ETableTypes.TABLETYPE_VIEW.getName())) {
+                    dbtable = RelationalFactory.eINSTANCE.createTdView();
+                } else {
+                    dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                }
+                dbtable.getTaggedValue().add(CoreFactory.eINSTANCE.createTaggedValue());
+                List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+                metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection,
+                        tableItem.getText(0));
 
-            if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(ETableTypes.TABLETYPE_TABLE.getName())) {
-                dbtable = RelationalFactory.eINSTANCE.createTdTable();
-            } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
-                    ETableTypes.TABLETYPE_VIEW.getName())) {
-                dbtable = RelationalFactory.eINSTANCE.createTdView();
-            } else {
-                dbtable = RelationalFactory.eINSTANCE.createTdTable();
-            }
-            dbtable.getTaggedValue().add(CoreFactory.eINSTANCE.createTaggedValue());
-            List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-            metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(iMetadataConnection,
-                    tableItem.getText(0));
+                tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
+                tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
+                synchronized (countSuccess) {
+                    countSuccess++;
+                }
 
-            tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
-            tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
-            synchronized (countSuccess) {
-                countSuccess++;
-            }
+                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                // dbtable = ConnectionFactory.eINSTANCE.createMetadataTable();
 
-            // dbtable = ConnectionFactory.eINSTANCE.createMetadataTable();
+                initExistingNames();
+                String labelName = IndiceHelper.getIndexedLabel(tableString, existingNames);
 
-            initExistingNames();
-            String labelName = IndiceHelper.getIndexedLabel(tableString, existingNames);
+                if (forTemplate) {
+                    labelName = MetadataToolHelper.validateValue(labelName);
+                }
+                dbtable.setLabel(labelName);
+                dbtable.setSourceName(tableItem.getText(0));
+                dbtable.setId(factory.getNextId());
+                dbtable.setTableType(ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString));
 
-            if (forTemplate) {
-                labelName = MetadataToolHelper.validateValue(labelName);
-            }
-            dbtable.setLabel(labelName);
-            dbtable.setSourceName(tableItem.getText(0));
-            dbtable.setId(factory.getNextId());
-            dbtable.setTableType(ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString));
+                List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
+                Iterator iterate = metadataColumns.iterator();
 
-            List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
-            Iterator iterate = metadataColumns.iterator();
+                while (iterate.hasNext()) {
+                    MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
 
-            while (iterate.hasNext()) {
-                MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-
-                // Check the label and add it to the table
-                metadataColumnsValid.add(metadataColumn);
-                dbtable.getColumns().add(metadataColumn);
-            }
-            if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
-                // Catalog c = (Catalog) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(),
-                // Catalog.class);
-                // if (c != null) {
-                // PackageHelper.addMetadataTable(dbtable, c);
-                // } else {
-                // Schema s = (Schema) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(),
-                // Schema.class);
-                // if (s != null) {
-                // PackageHelper.addMetadataTable(dbtable, s);
+                    // Check the label and add it to the table
+                    metadataColumnsValid.add(metadataColumn);
+                    dbtable.getColumns().add(metadataColumn);
+                }
+                if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
+                    // Catalog c = (Catalog) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(),
+                    // Catalog.class);
+                    // if (c != null) {
+                    // PackageHelper.addMetadataTable(dbtable, c);
+                    // } else {
+                    // Schema s = (Schema) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(),
+                    // Schema.class);
+                    // if (s != null) {
+                    // PackageHelper.addMetadataTable(dbtable, s);
+                    // }
+                    // }
+                    // getConnection().getTables().add(metadataTable); hywang
+                }
+                // if (!getConnection().getTables().contains(metadataTable) && !limitTemplateTable(metadataTable)) {
+                // getConnection().getTables().add(metadataTable);
                 // }
-                // }
-                // getConnection().getTables().add(metadataTable); hywang
-            }
-            // if (!getConnection().getTables().contains(metadataTable) && !limitTemplateTable(metadataTable)) {
-            // getConnection().getTables().add(metadataTable);
-            // }
 
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+                new ErrorDialogWidthDetailArea(getShell(), PID, "Error encountered when retrieving schema. ", //$NON-NLS-1$
+                        ExceptionUtils.getFullStackTrace(e));
+            }
         }
     }
 

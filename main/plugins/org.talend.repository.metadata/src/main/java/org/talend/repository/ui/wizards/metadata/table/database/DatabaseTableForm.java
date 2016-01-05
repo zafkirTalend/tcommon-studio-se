@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -315,7 +316,7 @@ public class DatabaseTableForm extends AbstractForm {
                                 MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0,
                                 Messages.getString("DatabaseTableForm.doNotShowMessage"), //$NON-NLS-1$
                                 false);
-                        dialog.setPrefKey(preKey); //$NON-NLS-1$
+                        dialog.setPrefKey(preKey);
                         dialog.setPrefStore(preferenceStore);
                         dialog.open();
                         preferenceStore.setValue(preKey, dialog.getToggleState());
@@ -1147,7 +1148,16 @@ public class DatabaseTableForm extends AbstractForm {
                 if (useProvider()) {
                     metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
                 } else {
-                    metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection, tableString);
+                    try {
+                        metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection,
+                                tableString);
+                    } catch (Exception e) {
+                        ExceptionHandler.process(e);
+                        new ErrorDialogWidthDetailArea(getShell(), PID, "Error encountered when retrieving schema. ", //$NON-NLS-1$
+                                ExceptionUtils.getFullStackTrace(e));
+                        return;
+
+                    }
                 }
 
                 tableEditorView.getMetadataEditor().removeAll();

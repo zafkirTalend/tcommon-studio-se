@@ -13,9 +13,12 @@
 package org.talend.metadata.managment.ui;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.service.IMetadataManagmentUiService;
@@ -60,6 +63,37 @@ public class MetadataManagmentUiService implements IMetadataManagmentUiService {
         ContextWizard contextWizard = new ContextWizard(PlatformUI.getWorkbench(), false, repositoryNode, false);
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), contextWizard);
         dlg.open();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.service.IMetadataManagmentUiService#guessSchemaIfNotFound()
+     */
+    @Override
+    public boolean guessSchemaIfNotFound(final String schema, final StringBuffer retPropsedSchema,
+            final StringBuffer proposeSchema) {
+        final StringBuffer userSelectResult = new StringBuffer();
+        Display.getDefault().syncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                String title = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.title"); //$NON-NLS-1$
+                String proposeMessage = Messages.getString("CheckConnection.CheckSchema.ProposeSchema.message", new Object[] { //$NON-NLS-1$
+                        schema, proposeSchema });
+                MessageDialog messageDialog = new MessageDialog(new Shell(), title, null, proposeMessage, MessageDialog.CONFIRM,
+                        new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0);
+                if (messageDialog.open() == 0) {
+                    retPropsedSchema.append(proposeSchema);
+                    userSelectResult.append("true"); //$NON-NLS-1$
+                }
+            }
+        });
+        if (0 < userSelectResult.length()) {
+            return true;
+        }
+        return false;
+
     }
 
 }

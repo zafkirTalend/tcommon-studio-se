@@ -33,6 +33,7 @@ import java.util.Set;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
@@ -1218,66 +1219,74 @@ public class SelectorTableForm extends AbstractForm {
             new ErrorDialogWidthDetailArea(getShell(), PID, Messages.getString("DatabaseTableForm.connectionFailure"), //$NON-NLS-1$
                     managerConnection.getMessageException());
         } else {
-
-            if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(ETableTypes.TABLETYPE_TABLE.getName())) {
-                dbtable = RelationalFactory.eINSTANCE.createTdTable();
-            } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
-                    ETableTypes.TABLETYPE_VIEW.getName())) {
-                dbtable = RelationalFactory.eINSTANCE.createTdView();
-            } else {
-                dbtable = RelationalFactory.eINSTANCE.createTdTable();
-            }
-            dbtable.getTaggedValue().add(CoreFactory.eINSTANCE.createTaggedValue());
-            List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
-            metadataColumns = ExtractMetaDataFromDataBase
-                    .returnMetadataColumnsFormTable(metadataconnection, tableItem.getText(0));
-
-            tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
-            tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
-            refreshColumnData((TableNode) tableItem.getData(), tableItem);
-            countSuccess++;
-
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-
-            // dbtable = ConnectionFactory.eINSTANCE.createMetadataTable();
-
-            initExistingNames();
-            String labelName = IndiceHelper.getIndexedLabel(tableString, existingNames);
-
-            if (forTemplate) {
-                labelName = MetadataToolHelper.validateValue(labelName);
-            }
-            dbtable.setLabel(labelName);
-            dbtable.setSourceName(tableItem.getText(0));
-            dbtable.setId(factory.getNextId());
-            dbtable.setTableType(ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString));
-
-            List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
-            Iterator iterate = metadataColumns.iterator();
-
-            while (iterate.hasNext()) {
-                MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-
-                // Check the label and add it to the table
-                metadataColumnsValid.add(metadataColumn);
-                dbtable.getColumns().add(metadataColumn);
-            }
-            if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
-                Catalog c = (Catalog) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(), Catalog.class);
-                if (c != null) {
-                    PackageHelper.addMetadataTable(dbtable, c);
+            try {
+                if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString)
+                        .equals(ETableTypes.TABLETYPE_TABLE.getName())) {
+                    dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
+                        ETableTypes.TABLETYPE_VIEW.getName())) {
+                    dbtable = RelationalFactory.eINSTANCE.createTdView();
                 } else {
-                    Schema s = (Schema) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(), Schema.class);
-                    if (s != null) {
-                        PackageHelper.addMetadataTable(dbtable, s);
-                    }
+                    dbtable = RelationalFactory.eINSTANCE.createTdTable();
                 }
-                // getConnection().getTables().add(metadataTable); hywang
-            }
-            // if (!getConnection().getTables().contains(metadataTable) && !limitTemplateTable(metadataTable)) {
-            // getConnection().getTables().add(metadataTable);
-            // }
+                dbtable.getTaggedValue().add(CoreFactory.eINSTANCE.createTaggedValue());
+                List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
+                metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection,
+                        tableItem.getText(0));
 
+                tableItem.setText(2, "" + metadataColumns.size()); //$NON-NLS-1$
+                tableItem.setText(3, Messages.getString("SelectorTableForm.Success")); //$NON-NLS-1$
+                refreshColumnData((TableNode) tableItem.getData(), tableItem);
+                countSuccess++;
+
+                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
+                // dbtable = ConnectionFactory.eINSTANCE.createMetadataTable();
+
+                initExistingNames();
+                String labelName = IndiceHelper.getIndexedLabel(tableString, existingNames);
+
+                if (forTemplate) {
+                    labelName = MetadataToolHelper.validateValue(labelName);
+                }
+                dbtable.setLabel(labelName);
+                dbtable.setSourceName(tableItem.getText(0));
+                dbtable.setId(factory.getNextId());
+                dbtable.setTableType(ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString));
+
+                List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
+                Iterator iterate = metadataColumns.iterator();
+
+                while (iterate.hasNext()) {
+                    MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
+
+                    // Check the label and add it to the table
+                    metadataColumnsValid.add(metadataColumn);
+                    dbtable.getColumns().add(metadataColumn);
+                }
+                if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
+                    Catalog c = (Catalog) ConnectionHelper.getPackage((getConnection().getSID()), getConnection(), Catalog.class);
+                    if (c != null) {
+                        PackageHelper.addMetadataTable(dbtable, c);
+                    } else {
+                        Schema s = (Schema) ConnectionHelper
+                                .getPackage((getConnection().getSID()), getConnection(), Schema.class);
+                        if (s != null) {
+                            PackageHelper.addMetadataTable(dbtable, s);
+                        }
+                    }
+                    // getConnection().getTables().add(metadataTable); hywang
+                }
+                // if (!getConnection().getTables().contains(metadataTable) && !limitTemplateTable(metadataTable)) {
+                // getConnection().getTables().add(metadataTable);
+                // }
+
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+                new ErrorDialogWidthDetailArea(getShell(), PID, "Error encountered when retrieving schema. ", //$NON-NLS-1$
+                        ExceptionUtils.getFullStackTrace(e));
+
+            }
         }
     }
 
@@ -1464,140 +1473,145 @@ public class SelectorTableForm extends AbstractForm {
                 // Connection conn = ExtractMetaDataUtils.getSqlConnection(iMetadataConnection);
                 // DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(conn,
                 // iMetadataConnection.getDbType());
-                NamedColumnSet table = tableNode.getTable();
-                if (table == null) {
-                    table = tableNode.getView();
-                }
-
-                if (isCanceled()) {
-                    return;
-                }
-                IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-                // only for oracle use all synonyms
-                boolean useAllSynonyms = ExtractMetaDataUtils.getInstance().isUseAllSynonyms();
-                // Added a locker by Marvin Wang on May 15, 2012 for bug TDI-21058.
-                synchronized (locker) {
-                    if (useAllSynonyms || isAccess) {
-                        metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection,
-                                tableString, true);
-                        if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
-                                ETableTypes.TABLETYPE_TABLE.getName())) {
-                            dbtable = RelationalFactory.eINSTANCE.createTdTable();
-                        } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
-                                ETableTypes.TABLETYPE_VIEW.getName())) {
-                            dbtable = RelationalFactory.eINSTANCE.createTdView();
-                        } else {
-                            dbtable = RelationalFactory.eINSTANCE.createTdTable();
-                        }
-
-                        Iterator<String> it = ExtractMetaDataFromDataBase.tableCommentsMap.keySet().iterator();
-                        while (it.hasNext()) {
-                            String key = it.next().toString();
-                            if (key.equals(tableString)) {
-                                String comment = ExtractMetaDataFromDataBase.tableCommentsMap.get(key);
-                                dbtable.setComment(comment);
-                                TableHelper.setComment(comment, dbtable);
-                                break;
-                            }
-                        }
-                        String lableName = IndiceHelper.getIndexedLabel(tableString, existingNames);
-                        lableName = MetadataToolHelper.validateValue(lableName);
-                        dbtable.setLabel(lableName);
-                    } else {
-                        String comment = null;
-                        String type = null;
-                        if (table instanceof TdTable) {
-                            comment = ((TdTable) table).getComment();
-                            type = ((TdTable) table).getTableType();
-                            dbtable = RelationalFactory.eINSTANCE.createTdTable();
-                        } else if (table instanceof TdView) {
-                            comment = ((TdView) table).getComment();
-                            type = ((TdView) table).getTableType();
-                            dbtable = RelationalFactory.eINSTANCE.createTdView();
-                        } else {
-                            comment = ((TdTable) table).getComment();
-                            type = ((TdTable) table).getTableType();
-                            dbtable = RelationalFactory.eINSTANCE.createTdTable();
-                        }
-                        dbtable.setComment(comment);
-                        TableHelper.setComment(comment, dbtable);
-                        dbtable.getTaggedValue().addAll(table.getTaggedValue());
-                        dbtable.setTableType(type);
-                        String lableName = MetadataToolHelper.validateTableName(table.getName());
-                        dbtable.setLabel(lableName);
-
-                        if (useProvider()) {
-                            metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
-                        } else {
-                            metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
-                        }
+                try {
+                    NamedColumnSet table = tableNode.getTable();
+                    if (table == null) {
+                        table = tableNode.getView();
                     }
-                    initExistingNames();
 
-                    dbtable.setSourceName(tableString);
-                    dbtable.setId(factory.getNextId());
-                    dbtable.setTableType(tableNode.getItemType());
-
-                    List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
-                    Iterator iterate = metadataColumns.iterator();
-                    while (iterate.hasNext()) {
-                        MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
-                        if (metadataColumn.getTalendType() != null) {
-                            if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
-                                    || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
-                                if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
-                                    metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
-                                }
-                            }
-                        }
-                        // Check the label and add it to the table
-                        metadataColumnsValid.add(metadataColumn);
-                        dbtable.getColumns().add(metadataColumn);
+                    if (isCanceled()) {
+                        return;
                     }
-                    if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
-                        String catalog = "";
-                        String schema = "";
+                    IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                    // only for oracle use all synonyms
+                    boolean useAllSynonyms = ExtractMetaDataUtils.getInstance().isUseAllSynonyms();
+                    // Added a locker by Marvin Wang on May 15, 2012 for bug TDI-21058.
+                    synchronized (locker) {
                         if (useAllSynonyms || isAccess) {
-
-                            // if use_all_synonyms and oracle,just create a fake schema to store all the synonyms.see
-                            // bug
-                            // TDI-18353
-                            if (!isAccess) {
-                                schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
-                                boolean findFakeSynonymsSchema = isSynonymsSchemaExsist(schema);
-                                if (!findFakeSynonymsSchema) {
-                                    Schema SynonymsFakeSchema = SchemaHelper.createSchema(schema);
-                                    ConnectionHelper.addSchema(SynonymsFakeSchema, temConnection);
-                                }
-
-                            } else { // TDI-19114:access db should be connection's label,do not need get again.
-                                schema = metadataconnection.getLabel();
+                            metadataColumns = ExtractMetaDataFromDataBase.returnMetadataColumnsFormTable(metadataconnection,
+                                    tableString, true);
+                            if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
+                                    ETableTypes.TABLETYPE_TABLE.getName())) {
+                                dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                            } else if (ExtractMetaDataFromDataBase.getTableTypeByTableName(tableString).equals(
+                                    ETableTypes.TABLETYPE_VIEW.getName())) {
+                                dbtable = RelationalFactory.eINSTANCE.createTdView();
+                            } else {
+                                dbtable = RelationalFactory.eINSTANCE.createTdTable();
                             }
-                        } else {
-                            TableNode parent = tableNode.getParent();
-                            if (parent.getType() == TableNode.CATALOG) {
-                                catalog = parent.getValue();
-                            } else if (parent.getType() == TableNode.SCHEMA) {
-                                schema = parent.getValue();
-                                TableNode catalogNode = parent.getParent();
-                                if (catalogNode != null) {
-                                    catalog = catalogNode.getValue();
+
+                            Iterator<String> it = ExtractMetaDataFromDataBase.tableCommentsMap.keySet().iterator();
+                            while (it.hasNext()) {
+                                String key = it.next().toString();
+                                if (key.equals(tableString)) {
+                                    String comment = ExtractMetaDataFromDataBase.tableCommentsMap.get(key);
+                                    dbtable.setComment(comment);
+                                    TableHelper.setComment(comment, dbtable);
+                                    break;
                                 }
+                            }
+                            String lableName = IndiceHelper.getIndexedLabel(tableString, existingNames);
+                            lableName = MetadataToolHelper.validateValue(lableName);
+                            dbtable.setLabel(lableName);
+                        } else {
+                            String comment = null;
+                            String type = null;
+                            if (table instanceof TdTable) {
+                                comment = ((TdTable) table).getComment();
+                                type = ((TdTable) table).getTableType();
+                                dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                            } else if (table instanceof TdView) {
+                                comment = ((TdView) table).getComment();
+                                type = ((TdView) table).getTableType();
+                                dbtable = RelationalFactory.eINSTANCE.createTdView();
+                            } else {
+                                comment = ((TdTable) table).getComment();
+                                type = ((TdTable) table).getTableType();
+                                dbtable = RelationalFactory.eINSTANCE.createTdTable();
+                            }
+                            dbtable.setComment(comment);
+                            TableHelper.setComment(comment, dbtable);
+                            dbtable.getTaggedValue().addAll(table.getTaggedValue());
+                            dbtable.setTableType(type);
+                            String lableName = MetadataToolHelper.validateTableName(table.getName());
+                            dbtable.setLabel(lableName);
+
+                            if (useProvider()) {
+                                metadataColumns = provider.returnMetadataColumnsFromTable(tableString, metadataconnection);
+                            } else {
+                                metadataColumns = ExtractMetaDataFromDataBase.returnColumns(metadataconnection, tableNode, true);
                             }
                         }
-                        try {
-                            ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
-                                    metadataconnection);
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (InstantiationException e) {
-                            e.printStackTrace();
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                        initExistingNames();
+
+                        dbtable.setSourceName(tableString);
+                        dbtable.setId(factory.getNextId());
+                        dbtable.setTableType(tableNode.getItemType());
+
+                        List<MetadataColumn> metadataColumnsValid = new ArrayList<MetadataColumn>();
+                        Iterator iterate = metadataColumns.iterator();
+                        while (iterate.hasNext()) {
+                            MetadataColumn metadataColumn = (MetadataColumn) iterate.next();
+                            if (metadataColumn.getTalendType() != null) {
+                                if (metadataColumn.getTalendType().equals(JavaTypesManager.DATE.getId())
+                                        || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
+                                    if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
+                                        metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                                    }
+                                }
+                            }
+                            // Check the label and add it to the table
+                            metadataColumnsValid.add(metadataColumn);
+                            dbtable.getColumns().add(metadataColumn);
+                        }
+                        if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
+                            String catalog = "";
+                            String schema = "";
+                            if (useAllSynonyms || isAccess) {
+
+                                // if use_all_synonyms and oracle,just create a fake schema to store all the
+                                // synonyms.see
+                                // bug
+                                // TDI-18353
+                                if (!isAccess) {
+                                    schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
+                                    boolean findFakeSynonymsSchema = isSynonymsSchemaExsist(schema);
+                                    if (!findFakeSynonymsSchema) {
+                                        Schema SynonymsFakeSchema = SchemaHelper.createSchema(schema);
+                                        ConnectionHelper.addSchema(SynonymsFakeSchema, temConnection);
+                                    }
+
+                                } else { // TDI-19114:access db should be connection's label,do not need get again.
+                                    schema = metadataconnection.getLabel();
+                                }
+                            } else {
+                                TableNode parent = tableNode.getParent();
+                                if (parent.getType() == TableNode.CATALOG) {
+                                    catalog = parent.getValue();
+                                } else if (parent.getType() == TableNode.SCHEMA) {
+                                    schema = parent.getValue();
+                                    TableNode catalogNode = parent.getParent();
+                                    if (catalogNode != null) {
+                                        catalog = catalogNode.getValue();
+                                    }
+                                }
+                            }
+                            try {
+                                ProjectNodeHelper.addTableForTemCatalogOrSchema(catalog, schema, getConnection(), dbtable,
+                                        metadataconnection);
+                            } catch (ClassNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (InstantiationException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                 }
             }
 

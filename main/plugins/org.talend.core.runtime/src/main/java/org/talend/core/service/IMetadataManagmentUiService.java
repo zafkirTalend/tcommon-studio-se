@@ -30,4 +30,7 @@ public interface IMetadataManagmentUiService extends IService {
     public String getOriginalValue(ContextType contextType, final String value);
 
     public void openRepositoryContextWizard(RepositoryNode repositoryNode);
+
+    public boolean guessSchemaIfNotFound(final String schema, final StringBuffer retPropsedSchema,
+            final StringBuffer proposeSchema);
 }

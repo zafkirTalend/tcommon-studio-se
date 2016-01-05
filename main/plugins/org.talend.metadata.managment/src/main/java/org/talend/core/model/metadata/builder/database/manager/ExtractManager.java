@@ -32,10 +32,7 @@ import metadata.managment.i18n.Messages;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -477,11 +474,16 @@ public class ExtractManager {
      * @param tableLabel
      * @param dontCreateClose
      * @return
+     * @throws SQLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
      * @deprecated because still use it
      */
     @Deprecated
     public synchronized List<TdColumn> returnMetadataColumnsFormTable(IMetadataConnection metadataConnection, String tableLabel,
-            boolean... dontCreateClose) {
+            boolean... dontCreateClose) throws SQLException, ClassNotFoundException, InstantiationException,
+            IllegalAccessException {
 
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
 
@@ -526,9 +528,6 @@ public class ExtractManager {
                     tableLabel);
             metadataColumns = extractColumns(dbMetaData, metadataConnection, dbType, cataAndShema.get(0), cataAndShema.get(1),
                     tableLabel);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
         } finally {
             if (needCreateAndClose && extractMeta.getConn() != null) {
                 ConnectionUtils.closeConnection(extractMeta.getConn());
@@ -627,7 +626,7 @@ public class ExtractManager {
     }
 
     protected List<TdColumn> extractColumns(DatabaseMetaData dbMetaData, IMetadataConnection metadataConnection,
-            String databaseType, String catalogName, String schemaName, String tableName) {
+            String databaseType, String catalogName, String schemaName, String tableName) throws SQLException {
         MappingTypeRetriever mappingTypeRetriever = null;
         columnIndex = 0;
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
@@ -803,13 +802,6 @@ public class ExtractManager {
             // there will do one query to retrieve all comments on the table.
             checkComments(metadataConnection, tableName, metadataColumns);
 
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
-            Status status = new Status(IStatus.ERROR, "org.talend.metadata.managment", 0,
-                    "Error encountered when retrieving schema.", e);
-            ErrorDialog errorDialog = new ErrorDialog(null, "Error", null, status, IStatus.ERROR);
-            errorDialog.open();
-            throw new RuntimeException(e);
         } finally {
             try {
                 if (columns != null) {
