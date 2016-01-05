@@ -631,7 +631,7 @@ public class LDAPSchemaStep3Form extends AbstractLDAPSchemaStepForm implements I
         newCon.version = 3;
         newCon.useGSSAPI = false;
         newCon.userDN = talendLDAPConnection.getBindPrincipal();
-        String bindPassword = connection.getValue(talendLDAPConnection.getBindPassword(), false);
+        String bindPassword = talendLDAPConnection.getValue(talendLDAPConnection.getBindPassword(), false);
         if (bindPassword != null) {
             newCon.pwd = bindPassword.toCharArray();
         }
