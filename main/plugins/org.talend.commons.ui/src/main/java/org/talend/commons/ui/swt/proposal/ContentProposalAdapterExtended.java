@@ -181,12 +181,12 @@ public class ContentProposalAdapterExtended {
                     // System.out.println("1");
                     return;
                 }
-                //                
+                //
                 if (e.type == SWT.FocusOut && e.widget == proposalTable && hasFocus() && !hasJustAccepted) {
                     // System.out.println(2);
                     return;
                 }
-                //                
+                //
                 if (e.type == SWT.Deactivate && hasFocus() && !hasJustAccepted) {
                     // System.out.println(3);
                     return;
@@ -999,9 +999,9 @@ public class ContentProposalAdapterExtended {
                 showProposalDescription(p.getDescription());
             }
             final Object[] listenerArray = proposalListeners.getListeners();
-            for (int i = 0; i < listenerArray.length; i++) {
-                if (listenerArray[i] instanceof IContentProposalExtendedListener) {
-                    ((IContentProposalExtendedListener) listenerArray[i]).proposalOpened();
+            for (Object element : listenerArray) {
+                if (element instanceof IContentProposalExtendedListener) {
+                    ((IContentProposalExtendedListener) element).proposalOpened();
                 }
             }
             return value;
@@ -1026,9 +1026,9 @@ public class ContentProposalAdapterExtended {
             }
             boolean isClosed = super.close();
             final Object[] listenerArray = proposalListeners.getListeners();
-            for (int i = 0; i < listenerArray.length; i++) {
-                if (listenerArray[i] instanceof IContentProposalExtendedListener) {
-                    ((IContentProposalExtendedListener) listenerArray[i]).proposalClosed();
+            for (Object element : listenerArray) {
+                if (element instanceof IContentProposalExtendedListener) {
+                    ((IContentProposalExtendedListener) element).proposalClosed();
                 }
             }
             return isClosed;
@@ -1177,14 +1177,14 @@ public class ContentProposalAdapterExtended {
                 currentFilter = filterString.substring(indexStartFilter);
                 // System.out.println("currentFilter="+currentFilter);
 
-                for (int i = 0; i < proposals.length; i++) {
-                    String string = getString(proposals[i]);
+                for (IContentProposal proposal : proposals) {
+                    String string = getString(proposal);
                     if (string.length() >= currentFilter.length()) {
 
                         boolean beginAdded = false;
                         if ((filterStyle == FILTER_CUMULATIVE || filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS)
                                 && string.substring(0, currentFilter.length()).equalsIgnoreCase(currentFilter)) {
-                            listBegin.add(proposals[i]);
+                            listBegin.add(proposal);
                             results++;
                             beginAdded = true;
                         }
@@ -1198,7 +1198,7 @@ public class ContentProposalAdapterExtended {
                                 ExceptionHandler.process(e);
                             }
                             if (matcher.matches(string, pattern)) {
-                                listOthers.add(proposals[i]);
+                                listOthers.add(proposal);
                                 results++;
                             }
                         }
@@ -1207,8 +1207,8 @@ public class ContentProposalAdapterExtended {
             }
             ArrayList list = new ArrayList();
             if (results == 0) {
-                for (int i = 0; i < proposals.length; i++) {
-                    list.add(proposals[i]);
+                for (IContentProposal proposal : proposals) {
+                    list.add(proposal);
                 }
                 filterText = EMPTY;
             } else {
@@ -1409,9 +1409,9 @@ public class ContentProposalAdapterExtended {
      * then proposals will be activated automatically when any of the auto activation characters are typed.
      * @param autoActivationCharacters An array of characters that trigger auto-activation of content proposal. If
      * specified, these characters will trigger auto-activation of the proposal popup, regardless of whether an explicit
-     * invocation keyStroke was specified. If this parameter is <code>null</code>, then only a specified keyStroke
-     * will invoke content proposal. If this parameter is <code>null</code> and the keyStroke parameter is
-     * <code>null</code>, then all alphanumeric characters will auto-activate content proposal.
+     * invocation keyStroke was specified. If this parameter is <code>null</code>, then only a specified keyStroke will
+     * invoke content proposal. If this parameter is <code>null</code> and the keyStroke parameter is <code>null</code>,
+     * then all alphanumeric characters will auto-activate content proposal.
      */
     public ContentProposalAdapterExtended(Control control, IControlContentAdapter controlContentAdapter,
             IContentProposalProvider proposalProvider, KeyStroke keyStroke, char[] autoActivationCharacters) {
@@ -1493,9 +1493,9 @@ public class ContentProposalAdapterExtended {
      * 
      * @return An array of characters that trigger auto-activation of content proposal. If specified, these characters
      * will trigger auto-activation of the proposal popup, regardless of whether an explicit invocation keyStroke was
-     * specified. If this parameter is <code>null</code>, then only a specified keyStroke will invoke content
-     * proposal. If this value is <code>null</code> and the keyStroke value is <code>null</code>, then all
-     * alphanumeric characters will auto-activate content proposal.
+     * specified. If this parameter is <code>null</code>, then only a specified keyStroke will invoke content proposal.
+     * If this value is <code>null</code> and the keyStroke value is <code>null</code>, then all alphanumeric characters
+     * will auto-activate content proposal.
      */
     public char[] getAutoActivationCharacters() {
         if (autoActivateString == null) {
@@ -1509,9 +1509,9 @@ public class ContentProposalAdapterExtended {
      * 
      * @param autoActivationCharacters An array of characters that trigger auto-activation of content proposal. If
      * specified, these characters will trigger auto-activation of the proposal popup, regardless of whether an explicit
-     * invocation keyStroke was specified. If this parameter is <code>null</code>, then only a specified keyStroke
-     * will invoke content proposal. If this parameter is <code>null</code> and the keyStroke value is
-     * <code>null</code>, then all alphanumeric characters will auto-activate content proposal.
+     * invocation keyStroke was specified. If this parameter is <code>null</code>, then only a specified keyStroke will
+     * invoke content proposal. If this parameter is <code>null</code> and the keyStroke value is <code>null</code>,
+     * then all alphanumeric characters will auto-activate content proposal.
      * 
      */
     public void setAutoActivationCharacters(char[] autoActivationCharacters) {
@@ -1542,8 +1542,8 @@ public class ContentProposalAdapterExtended {
      * Get the integer style that indicates how an accepted proposal affects the control's content.
      * 
      * @return a constant indicating how an accepted proposal should affect the control's content. Should be one of
-     * <code>PROPOSAL_INSERT</code>, <code>PROPOSAL_REPLACE</code>, or <code>PROPOSAL_IGNORE</code>. (Default
-     * is <code>PROPOSAL_INSERT</code>).
+     * <code>PROPOSAL_INSERT</code>, <code>PROPOSAL_REPLACE</code>, or <code>PROPOSAL_IGNORE</code>. (Default is
+     * <code>PROPOSAL_INSERT</code>).
      */
     public int getProposalAcceptanceStyle() {
         return proposalAcceptanceStyle;
@@ -1641,8 +1641,8 @@ public class ContentProposalAdapterExtended {
     /**
      * Set the boolean flag that determines whether the adapter is enabled.
      * 
-     * @param enabled <code>true</code> if the adapter is enabled and responding to user input, <code>false</code>
-     * if it is ignoring user input.
+     * @param enabled <code>true</code> if the adapter is enabled and responding to user input, <code>false</code> if it
+     * is ignoring user input.
      * 
      */
     public void setEnabled(boolean enabled) {
@@ -1658,8 +1658,7 @@ public class ContentProposalAdapterExtended {
 
     /**
      * Add the specified listener to the list of content proposal listeners that are notified when content proposals are
-     * chosen.
-     * </p>
+     * chosen. </p>
      * 
      * @param listener the IContentProposalListener to be added as a listener. Must not be <code>null</code>. If an
      * attempt is made to register an instance which is already registered with this instance, this method has no
@@ -1741,8 +1740,10 @@ public class ContentProposalAdapterExtended {
                                     ||
                                     // ...or there are modifiers, in which case the
                                     // keycode and state must match
-                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke.getModifierKeys() & e.stateMask) == triggerKeyStroke
-                                            .getModifierKeys()))) {
+                                    (((triggerKeyStroke.getNaturalKey() == e.keyCode)
+                                            || (Character.toLowerCase(triggerKeyStroke.getNaturalKey()) == e.keyCode) || (Character
+                                            .toUpperCase(triggerKeyStroke.getNaturalKey()) == e.keyCode)) && ((triggerKeyStroke
+                                            .getModifierKeys() & e.stateMask) == triggerKeyStroke.getModifierKeys()))) {
                                 // We never propagate the keystroke for an explicit
                                 // keystroke invocation of the popup
                                 e.doit = false;
@@ -1885,9 +1886,9 @@ public class ContentProposalAdapterExtended {
     private void proposalAccepted(IContentProposal proposal) {
         // In all cases, notify listeners of an accepted proposal.
         final Object[] listenerArray = proposalListeners.getListeners();
-        for (int i = 0; i < listenerArray.length; i++) {
-            if (listenerArray[i] instanceof IContentProposalExtendedListener) {
-                ((IContentProposalExtendedListener) listenerArray[i]).proposalBeforeModifyControl(proposal);
+        for (Object element : listenerArray) {
+            if (element instanceof IContentProposalExtendedListener) {
+                ((IContentProposalExtendedListener) element).proposalBeforeModifyControl(proposal);
             }
         }
         if (controlContentAdapter instanceof IControlContentAdapterExtended) {
@@ -1911,8 +1912,8 @@ public class ContentProposalAdapterExtended {
         }
 
         // In all cases, notify listeners of an accepted proposal.
-        for (int i = 0; i < listenerArray.length; i++) {
-            ((IContentProposalListener) listenerArray[i]).proposalAccepted(proposal);
+        for (Object element : listenerArray) {
+            ((IContentProposalListener) element).proposalAccepted(proposal);
         }
     }
 
