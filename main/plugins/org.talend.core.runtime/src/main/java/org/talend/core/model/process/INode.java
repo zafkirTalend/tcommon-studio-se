@@ -298,11 +298,13 @@ public interface INode extends IElement {
 
     public INode getJobletNode();
 
+    public INode getJunitNode();
+
     public List<ModuleNeeded> getModulesNeeded();
 
     public boolean isSubtreeStart();
-    
+
     public void setComponentProperties(ComponentProperties props);
-    
+
     public ComponentProperties getComponentProperties();
 }
