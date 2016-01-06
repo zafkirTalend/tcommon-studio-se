@@ -38,7 +38,7 @@ public abstract class AbstractNode implements INode {
     private String componentName;
 
     private ComponentProperties componentProperties;
-    
+
     List<? extends IElementParameter> elementParameters;
 
     private List<? extends IConnection> outgoingConnections = new ArrayList<IConnection>();
@@ -1048,6 +1048,11 @@ public abstract class AbstractNode implements INode {
     }
 
     @Override
+    public INode getJunitNode() {
+        return null;
+    }
+
+    @Override
     public List<ModuleNeeded> getModulesNeeded() {
         if (modulesNeeded.isEmpty() && component != null && component.getModulesNeeded() != null) {
             // if the list is empty, initialize from the original component
@@ -1252,13 +1257,14 @@ public abstract class AbstractNode implements INode {
 
     }
 
+    @Override
     public void setComponentProperties(ComponentProperties props) {
-    	componentProperties = props;
-    }
-    
-    public ComponentProperties getComponentProperties() {
-    	return componentProperties;
+        componentProperties = props;
     }
 
+    @Override
+    public ComponentProperties getComponentProperties() {
+        return componentProperties;
+    }
 
 }
