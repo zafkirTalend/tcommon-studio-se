@@ -23,14 +23,18 @@ public abstract class AbstractTokenCollector implements ITokenCollector {
 
     protected static final TokenKey PROPERTIES = new TokenKey("properties"); //$NON-NLS-1$
 
+    public static final int TOP_USED_COMPONENTS_MAX = 20;
+
     public AbstractTokenCollector() {
         //
     }
 
+    @Override
     public void priorCollect() throws Exception {
         // default, nothing to do
     }
 
+    @Override
     public JSONObject collect() throws Exception {
         JSONObject result = new JSONObject();
 

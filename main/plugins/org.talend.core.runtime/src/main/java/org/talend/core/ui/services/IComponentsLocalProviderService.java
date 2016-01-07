@@ -49,4 +49,6 @@ public interface IComponentsLocalProviderService extends IService {
 
     public boolean validateComponent(String componentFolder, ECodeLanguage language);
 
+    public void clearComponentIconImages();
+
 }
