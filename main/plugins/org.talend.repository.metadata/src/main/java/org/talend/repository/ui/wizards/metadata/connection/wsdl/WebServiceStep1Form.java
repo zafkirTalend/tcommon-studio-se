@@ -198,7 +198,7 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection);
             URLValue = ContextParameterUtils.getOriginalValue(contextType, getConnection().getWSDL());
         }
-        if (URLValue != null && !URLValue.equals(originalUrl)) {
+        if (URLValue != null && (!URLValue.equals(originalUrl)||!webService.getCurrentFunction())) {
             webService.refreshUI(URLValue);
             checkFieldsValue();
         }
