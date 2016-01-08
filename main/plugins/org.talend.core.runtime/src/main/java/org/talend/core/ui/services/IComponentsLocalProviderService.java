@@ -13,7 +13,6 @@
 package org.talend.core.ui.services;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.talend.core.IService;
 import org.talend.core.language.ECodeLanguage;
 
@@ -44,8 +43,6 @@ public interface IComponentsLocalProviderService extends IService {
     public IPreferenceStore getPreferenceStore();
 
     public void setPreferenceStoreValue(String key, Object value);
-
-    public AbstractUIPlugin getPlugin();
 
     public boolean validateComponent(String componentFolder, ECodeLanguage language);
 
