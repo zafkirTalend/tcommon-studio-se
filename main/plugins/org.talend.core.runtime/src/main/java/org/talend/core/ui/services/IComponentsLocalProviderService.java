@@ -48,4 +48,8 @@ public interface IComponentsLocalProviderService extends IService {
 
     public void clearComponentIconImages();
 
+    public void showJetEmitterGenerationCancelMessage();
+
+    public void synchronizeDesignerUIAfterRefreshTemplates();
+
 }
