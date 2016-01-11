@@ -1045,6 +1045,11 @@ public abstract class AbstractNode implements INode {
     }
 
     @Override
+    public INode getJunitNode() {
+        return null;
+    }
+
+    @Override
     public List<ModuleNeeded> getModulesNeeded() {
         if (modulesNeeded.isEmpty() && component != null && component.getModulesNeeded() != null) {
             // if the list is empty, initialize from the original component
