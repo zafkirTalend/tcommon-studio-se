@@ -14,6 +14,7 @@ package org.talend.core.runtime.process;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.designer.runprocess.IProcessor;
 
 /**
  * created by ycbai on 2015年5月13日 Detailled comment
@@ -21,7 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
  */
 public interface IBuildJobHandler {
 
-    public void generateJobFiles(IProgressMonitor monitor) throws Exception;
+    public IProcessor generateJobFiles(IProgressMonitor monitor) throws Exception;
 
     public void generateTestReports(IProgressMonitor monitor) throws Exception;
 
