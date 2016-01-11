@@ -10,14 +10,14 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.repository;
+package org.talend.core.model.components;
 
 import java.util.List;
 
 import org.talend.commons.exception.IllegalPluginConfigurationException;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.core.model.process.IExternalNode;
-import org.talend.core.model.repository.extension.ExtensionPointFactory;
 
 /**
  * Provides, using extension points, implementation of many factories.
@@ -33,7 +33,8 @@ public class ExternalNodesFactory {
     public static IExternalNode getInstance(final String extensionId) {
         List<IExternalNode> listComponents;
         try {
-            listComponents = ExtensionImplementationProvider.getInstance(ExtensionPointFactory.EXTERNAL_COMPONENT, extensionId);
+            listComponents = ExtensionImplementationProvider.getInstance(new ExtensionPointLimiterImpl(
+                    "org.talend.core.external_component", "ExternalComponent", 1, 1), extensionId);
         } catch (IllegalPluginConfigurationException e) {
             throw new RuntimeException("plugin:" + extensionId + " not found", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
