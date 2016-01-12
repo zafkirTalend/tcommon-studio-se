@@ -23,6 +23,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -62,6 +63,8 @@ public abstract class RepositoryWizard extends Wizard {
 
     protected boolean creation;
 
+    protected INode node;
+
     private boolean repositoryObjectEditable = true;
 
     private boolean forceReadOnly;
@@ -100,9 +103,11 @@ public abstract class RepositoryWizard extends Wizard {
      * 
      * @param IRepositoryObject
      */
+    @Override
     public boolean performCancel() {
-        if (repositoryObject != null && repositoryObject.getProperty().eResource() != null)
+        if (repositoryObject != null && repositoryObject.getProperty().eResource() != null) {
             repositoryObject.getProperty().eResource().unload();
+        }
         closeLockStrategy();
         return true;
     }
@@ -234,6 +239,14 @@ public abstract class RepositoryWizard extends Wizard {
 
     public boolean isCreation() {
         return this.creation;
+    }
+
+    public INode getNode() {
+        return this.node;
+    }
+
+    public void setNode(INode node) {
+        this.node = node;
     }
 
 }

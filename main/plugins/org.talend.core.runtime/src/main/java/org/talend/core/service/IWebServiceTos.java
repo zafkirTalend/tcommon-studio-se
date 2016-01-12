@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.core.IService;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.ui.AbstractWebService;
 
@@ -25,6 +26,8 @@ import org.talend.core.ui.AbstractWebService;
 public interface IWebServiceTos extends IService {
 
     public AbstractWebService getWebServiceUI(Composite uiParent, ConnectionItem connectionItem);
+
+    public AbstractWebService getWebServiceUI(Composite uiParent, ConnectionItem connectionItem, INode node);
 
     public Boolean getCurrentFunction();
 
