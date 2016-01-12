@@ -12,8 +12,13 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -24,11 +29,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TypedListener;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
+import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.dialogs.ShowViewDialog;
 import org.eclipse.ui.statushandlers.StatusManager;
@@ -68,6 +75,7 @@ public class ShowViewAction extends Action {
 
         final ShowViewDialog dialog = new ShowViewDialog(window, WorkbenchPlugin.getDefault().getViewRegistry()) {
 
+            @Override
             protected Control createDialogArea(Composite parent) {
                 Control control = super.createDialogArea(parent);
                 // TODO
@@ -75,8 +83,7 @@ public class ShowViewAction extends Action {
                 // 2) get keyUp/KeyDown listener.
                 // 3) remove listener.
                 Control[] com = ((Composite) control).getChildren();
-                for (int i = 0; i < com.length; i++) {
-                    Control control2 = com[i];
+                for (Control control2 : com) {
                     if (control2 instanceof Label) {
                         ((Label) control2).setText("");
                     }
@@ -84,19 +91,19 @@ public class ShowViewAction extends Action {
                         Tree tree = ((FilteredTree) control2).getViewer().getTree();
                         Listener[] listenerDown = tree.getListeners(SWT.KeyDown);
                         Listener[] listeberUp = tree.getListeners(SWT.KeyUp);
-                        for (int j = 0; j < listenerDown.length; j++) {
-                            if (listenerDown[j] instanceof TypedListener) {
-                                if (((TypedListener) listenerDown[j]).getEventListener() instanceof KeyListener) {
-                                    KeyListener keyLis = (KeyListener) ((TypedListener) listenerDown[j]).getEventListener();
+                        for (Listener element : listenerDown) {
+                            if (element instanceof TypedListener) {
+                                if (((TypedListener) element).getEventListener() instanceof KeyListener) {
+                                    KeyListener keyLis = (KeyListener) ((TypedListener) element).getEventListener();
                                     tree.removeKeyListener(keyLis);
                                 }
                             }
 
                         }
-                        for (int k = 0; k < listeberUp.length; k++) {
-                            if (listeberUp[k] instanceof TypedListener) {
-                                if (((TypedListener) listeberUp[k]).getEventListener() instanceof KeyListener) {
-                                    KeyListener keyLis = (KeyListener) ((TypedListener) listeberUp[k]).getEventListener();
+                        for (Listener element : listeberUp) {
+                            if (element instanceof TypedListener) {
+                                if (((TypedListener) element).getEventListener() instanceof KeyListener) {
+                                    KeyListener keyLis = (KeyListener) ((TypedListener) element).getEventListener();
                                     tree.removeKeyListener(keyLis);
                                 }
                             }
@@ -113,11 +120,13 @@ public class ShowViewAction extends Action {
         if (dialog.getReturnCode() == Window.CANCEL) {
             return;
         }
-
         final IViewDescriptor[] descriptors = dialog.getSelection();
-        for (int i = 0; i < descriptors.length; ++i) {
+        for (IViewDescriptor descriptor : descriptors) {
             try {
-                page.showView(descriptors[i].getId());
+                IViewPart viewPart = page.showView(descriptor.getId());
+                if (openViewInBottom(viewPart, page)) {
+                    page.activate(viewPart);
+                }
             } catch (PartInitException e) {
                 //                StatusUtil.handleStatus(e.getStatus(), WorkbenchMessages.ShowView_errorTitle + ": " + e.getMessage(), //$NON-NLS-1$
                 // StatusManager.SHOW);
@@ -128,5 +137,48 @@ public class ShowViewAction extends Action {
                                 istatus.getException()), StatusManager.SHOW);
             }
         }
+    }
+
+    private boolean openViewInBottom(IViewPart viewPart, IWorkbenchPage workbenchPage) {
+        if (!(workbenchPage instanceof WorkbenchPage)) {
+            return false;
+        }
+        MPart part = ((WorkbenchPage) workbenchPage).findPart(viewPart);
+        if (part == null || part.getCurSharedRef() == null) {
+            return false;
+        }
+        String folderID = "bottomLayout";//$NON-NLS-1$
+        MElementContainer parent = part.getCurSharedRef().getParent();
+        if (parent == null || parent.getElementId().equals(folderID)) {
+            return false;
+        }
+        List<MElementContainer> elementList = getMUIElement(folderID, ((WorkbenchPage) workbenchPage).getCurrentPerspective());
+        if (elementList.isEmpty()) {
+            return false;
+        }
+        parent.getChildren().remove(part.getCurSharedRef());
+        elementList.get(0).getChildren().add(part.getCurSharedRef());
+        return true;
+    }
+
+    private List<MElementContainer> getMUIElement(String id, MElementContainer parent) {
+        List<MElementContainer> elementList = new ArrayList<MElementContainer>();
+        if (parent == null) {
+            return elementList;
+        }
+        for (Object object : parent.getChildren()) {
+            if (!(object instanceof MElementContainer)) {
+                continue;
+            }
+            MElementContainer element = (MElementContainer) object;
+            if (element.getElementId() != null && element.getElementId().equals(id)) {
+                elementList.add(element);
+                return elementList;
+            }
+            if (!element.getChildren().isEmpty()) {
+                elementList.addAll(getMUIElement(id, element));
+            }
+        }
+        return elementList;
     }
 }
