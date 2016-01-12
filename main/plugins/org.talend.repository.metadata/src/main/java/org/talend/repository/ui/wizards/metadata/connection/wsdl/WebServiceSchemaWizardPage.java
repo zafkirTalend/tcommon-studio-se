@@ -17,7 +17,6 @@ import java.util.Set;
 
 import org.eclipse.swt.widgets.Composite;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.GenericPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -58,6 +57,7 @@ public class WebServiceSchemaWizardPage extends WSDLSchemaWizardPage {
      * 
      * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
      */
+    @Override
     public void createControl(Composite parent) {
         // TODO Auto-generated method stub
         currentComposite = null;
@@ -69,7 +69,7 @@ public class WebServiceSchemaWizardPage extends WSDLSchemaWizardPage {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             inPutMetadataTable.setLabel("Input");
             inPutMetadataTable.setId(factory.getNextId());
-            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), (Connection) connection,
+            GenericPackage g = (GenericPackage) ConnectionHelper.getPackage(connection.getName(), connection,
                     GenericPackage.class);
             if (g != null) { // hywang
                 g.getOwnedElement().add(inPutMetadataTable);
@@ -84,14 +84,14 @@ public class WebServiceSchemaWizardPage extends WSDLSchemaWizardPage {
 
         switch (step) {
         case 2:
-            currentComposite = new WebServiceStep1Form(parent, connectionItem, null, new String[] {}, contextModeManager);
+            currentComposite = new WebServiceStep1Form(parent, connectionItem, null, new String[] {}, contextModeManager, this);
             break;
         case 3:
             MetadataTable metadataTable2 = null;
             Set<MetadataTable> tables = ConnectionHelper.getTables(connection);
             Iterator<MetadataTable> it = tables.iterator();
             while (it.hasNext()) {
-                MetadataTable table = (MetadataTable) it.next();
+                MetadataTable table = it.next();
                 if (table.getLabel().equals("Output")) {
                     metadataTable2 = table;
                 }
@@ -104,6 +104,7 @@ public class WebServiceSchemaWizardPage extends WSDLSchemaWizardPage {
         currentComposite.setReadOnly(!isRepositoryObjectEditable);
         AbstractForm.ICheckListener listener = new AbstractForm.ICheckListener() {
 
+            @Override
             public void checkPerformed(final AbstractForm source) {
 
                 if (source.isStatusOnError()) {
@@ -117,6 +118,6 @@ public class WebServiceSchemaWizardPage extends WSDLSchemaWizardPage {
             }
         };
         currentComposite.setListener(listener);
-        setControl((Composite) currentComposite);
+        setControl(currentComposite);
     }
 }

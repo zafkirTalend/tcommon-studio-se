@@ -16,8 +16,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
-import net.sourceforge.jtds.jdbc.JtdsConnection;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ISelection;
@@ -65,6 +63,8 @@ import org.talend.repository.ui.wizards.metadata.connection.files.xml.XmlFileWiz
 import org.talend.repository.ui.wizards.metadata.connection.genericshema.GenericSchemaWizard;
 import org.talend.repository.ui.wizards.metadata.connection.ldap.LDAPSchemaWizard;
 import org.talend.repository.ui.wizards.metadata.connection.wsdl.WSDLSchemaWizard;
+
+import net.sourceforge.jtds.jdbc.JtdsConnection;
 
 /**
  * DOC hwang class global comment. Detailled comment
@@ -227,6 +227,7 @@ public class MetadataService implements IMetadataService {
             if (relatedWizard != null) {
                 ConnectionItem connItem = null;
                 if (node != null && relatedWizard instanceof RepositoryWizard) {// creation && node != null
+                    ((RepositoryWizard) relatedWizard).setNode(node);
                     connItem = ((RepositoryWizard) relatedWizard).getConnectionItem();
                     if (connItem != null) {
                         changed = ComponentToRepositoryProperty.setValue(connItem, node);
