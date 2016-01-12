@@ -81,7 +81,7 @@ public class MissingJarServices {
                     .getServiceReference(MavenResolver.class);
             if (mavenServRef != null) {
                 mavenResolver = OsgiLoaderActivator.getBundleContext().getService(mavenServRef);
-            }
+            } // else { //after opened workbench, the maven resolver will be registered and use it. so no need catch.
         }
         return mavenResolver;
     }
