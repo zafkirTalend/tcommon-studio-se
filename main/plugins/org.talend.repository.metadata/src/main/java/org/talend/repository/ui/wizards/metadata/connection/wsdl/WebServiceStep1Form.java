@@ -13,6 +13,7 @@
 package org.talend.repository.ui.wizards.metadata.connection.wsdl;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -23,11 +24,13 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.service.IWebServiceTos;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
+import org.talend.metadata.managment.ui.wizard.RepositoryWizard;
 import org.talend.repository.metadata.ui.wizards.form.AbstractWSDLSchemaStepForm;
 
 /**
@@ -41,6 +44,13 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
 
     private IMetadataContextModeManager contextModeManager;
 
+    private WSDLSchemaWizardPage wizardPage;
+
+    public WebServiceStep1Form(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable,
+            String[] existingNames, IMetadataContextModeManager contextModeManager) {
+        this(parent, connectionItem, metadataTable, existingNames, contextModeManager, null);
+    }
+
     /**
      * DOC Administrator WebServiceStep1Form constructor comment.
      * 
@@ -50,8 +60,9 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
      * @param existingNames
      */
     public WebServiceStep1Form(Composite parent, ConnectionItem connectionItem, MetadataTable metadataTable,
-            String[] existingNames, IMetadataContextModeManager contextModeManager) {
+            String[] existingNames, IMetadataContextModeManager contextModeManager, WSDLSchemaWizardPage wpage) {
         super(parent, connectionItem, metadataTable, existingNames);
+        this.wizardPage = wpage;
         this.connectionItem = connectionItem;
         this.contextModeManager = contextModeManager;
         // List<? extends IElementParameter> parameters = ComponentsFactoryProvider.getInstance().get("tWebService")
@@ -107,7 +118,18 @@ public class WebServiceStep1Form extends AbstractWSDLSchemaStepForm {
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IWebServiceTos.class)) {
             webService = (IWebServiceTos) GlobalServiceRegister.getDefault().getService(IWebServiceTos.class);
-            webService.getWebServiceUI(panel, connectionItem);
+            INode node = null;
+            if (wizardPage != null) {
+                IWizard wizard = wizardPage.getWizard();
+                if (wizard instanceof RepositoryWizard) {
+                    node = ((RepositoryWizard) wizard).getNode();
+                }
+            }
+            if (node != null) {
+                webService.getWebServiceUI(panel, connectionItem, node);
+            } else {
+                webService.getWebServiceUI(panel, connectionItem);
+            }
             webService.getTable().addSelectionListener(new SelectionAdapter() {
 
                 @Override
