@@ -150,10 +150,10 @@ public abstract class ShareLibrareisHelper {
                                     }
                                     if (index == limit || index == filesToShare.size()) {
                                         searchResults.clear();
+                                        // only talend offical nexus support search by multiple groupid seperated by ;
                                         searchResults.addAll(instance.search(customServer.getServer(),
                                                 customServer.getUserName(), customServer.getPassword(),
-                                                customServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, jarsToCheck,
-                                                null));
+                                                customServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, null, null));
                                     }
                                 }
                                 shareIndex++;
