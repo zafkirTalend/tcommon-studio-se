@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.ui.model.application.ui.MElementContainer;
+import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.Window;
@@ -123,8 +124,10 @@ public class ShowViewAction extends Action {
         final IViewDescriptor[] descriptors = dialog.getSelection();
         for (IViewDescriptor descriptor : descriptors) {
             try {
+                List<MUIElement> elementList = getMUIElement(descriptor.getId(), ((WorkbenchPage) page).getCurrentPerspective());
                 IViewPart viewPart = page.showView(descriptor.getId());
-                if (openViewInBottom(viewPart, page)) {
+                if (elementList.isEmpty()) {
+                    openViewInBottom(viewPart, page);
                     page.activate(viewPart);
                 }
             } catch (PartInitException e) {
@@ -152,33 +155,39 @@ public class ShowViewAction extends Action {
         if (parent == null || parent.getElementId().equals(folderID)) {
             return false;
         }
-        List<MElementContainer> elementList = getMUIElement(folderID, ((WorkbenchPage) workbenchPage).getCurrentPerspective());
+        List<MUIElement> elementList = getMUIElement(folderID, ((WorkbenchPage) workbenchPage).getCurrentPerspective());
         if (elementList.isEmpty()) {
             return false;
         }
-        parent.getChildren().remove(part.getCurSharedRef());
-        elementList.get(0).getChildren().add(part.getCurSharedRef());
+        MUIElement muiElement = elementList.get(0);
+        if (muiElement instanceof MElementContainer) {
+            parent.getChildren().remove(part.getCurSharedRef());
+            ((MElementContainer) elementList.get(0)).getChildren().add(part.getCurSharedRef());
+        }
         return true;
     }
 
-    private List<MElementContainer> getMUIElement(String id, MElementContainer parent) {
-        List<MElementContainer> elementList = new ArrayList<MElementContainer>();
+    private List<MUIElement> getMUIElement(String id, MUIElement parent) {
+        List<MUIElement> elementList = new ArrayList<MUIElement>();
         if (parent == null) {
             return elementList;
         }
-        for (Object object : parent.getChildren()) {
-            if (!(object instanceof MElementContainer)) {
-                continue;
-            }
-            MElementContainer element = (MElementContainer) object;
-            if (element.getElementId() != null && element.getElementId().equals(id)) {
-                elementList.add(element);
-                return elementList;
-            }
-            if (!element.getChildren().isEmpty()) {
-                elementList.addAll(getMUIElement(id, element));
+        if (parent instanceof MElementContainer) {
+            for (Object object : ((MElementContainer) parent).getChildren()) {
+                if (!(object instanceof MUIElement)) {
+                    continue;
+                }
+                MUIElement element = (MUIElement) object;
+                if (element.getElementId() != null && element.getElementId().equals(id)) {
+                    elementList.add(element);
+                    return elementList;
+                }
+                if ((element instanceof MElementContainer) && !((MElementContainer) element).getChildren().isEmpty()) {
+                    elementList.addAll(getMUIElement(id, element));
+                }
             }
         }
+
         return elementList;
     }
 }
