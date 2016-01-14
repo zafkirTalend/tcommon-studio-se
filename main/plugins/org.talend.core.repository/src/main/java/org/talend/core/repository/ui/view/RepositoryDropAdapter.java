@@ -42,13 +42,14 @@ import org.eclipse.ui.navigator.CommonDropAdapter;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.part.PluginDropAdapter;
 import org.osgi.framework.FrameworkUtil;
-import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.business.BusinessType;
+import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
@@ -66,6 +67,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.ITransformService;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.convert.ProcessConvertManager;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -107,12 +109,33 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
      * @param targetNode that is <b>Standard Jobs</b> or <b>Map/Reduce Jobs</b>.
      */
     protected void doMapReduceConversion(IStructuredSelection sourceSelections, RepositoryNode targetNode) {
+        final IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         List<?> selectedRepNodes = sourceSelections.toList();
         if (selectedRepNodes != null && selectedRepNodes.size() > 0) {
             for (Object selectedRepNode : selectedRepNodes) {
                 if (selectedRepNode instanceof RepositoryNode) {
-                    RepositoryNode sourceNode = (RepositoryNode) selectedRepNode;
-                    String jobNewName = null;
+                    final RepositoryNode sourceNode = (RepositoryNode) selectedRepNode;
+                    final IRepositoryViewObject repositoryObject = sourceNode.getObject();
+                    // if locked status, can not convert it
+                    boolean isLock = MoveObjectAction.getInstance().isLock(sourceNode);
+                    if (isLock) {
+                        String errorMsg = null;
+                        if (sourceNode.getObjectType().getType()
+                                .equalsIgnoreCase(Messages.getString("RepositoryDropAdapter_folder"))) { //$NON-NLS-1$
+                            errorMsg = Messages.getString("RepositoryDropAdapter_errorMsg"); //$NON-NLS-1$
+                        }
+                        if (ProxyRepositoryFactory.getInstance().getStatus(repositoryObject) == ERepositoryStatus.LOCK_BY_USER) {
+                            errorMsg = Messages.getString("RepositoryDropAdapter_lockedByYou"); //$NON-NLS-1$
+                        }
+                        if (ProxyRepositoryFactory.getInstance().getStatus(repositoryObject) == ERepositoryStatus.LOCK_BY_OTHER) {
+                            errorMsg = Messages.getString("RepositoryDropAdapter_lockedByOthers"); //$NON-NLS-1$
+                        }
+                        MessageDialog.openInformation(getViewer().getControl().getShell(),
+                                Messages.getString("RepositoryDropAdapter_moveTitle"), //$NON-NLS-1$
+                                errorMsg);
+                        continue;
+                    }
+
                     String jobTypeValue = null;
                     String frameworkNewValue = null;
                     if (targetNode.getContentType() == ERepositoryObjectType.PROCESS) {
@@ -124,12 +147,62 @@ public class RepositoryDropAdapter extends PluginDropAdapter {
                         jobTypeValue = ConvertJobsUtil.JobType.BIGDATABATCH.getDisplayName();
                         frameworkNewValue = ConvertJobsUtil.JobBatchFramework.MAPREDUCEFRAMEWORK.getDisplayName();
                     }
-                    try {
-                        jobNewName = ConvertJobsUtil.getDuplicateName(sourceNode, sourceNode.getObject().getLabel());
-                    } catch (BusinessException e) {
-                        jobNewName = sourceNode.getObject().getLabel();
-                    }
-                    ConvertJobsUtil.createOperation(jobNewName, jobTypeValue, frameworkNewValue, sourceNode.getObject());
+                    final Item newItem = ConvertJobsUtil.createOperation(sourceNode.getObject().getLabel(), jobTypeValue,
+                            frameworkNewValue, sourceNode.getObject());
+                    //
+                    RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit("Drop job") { //$NON-NLS-1$
+
+                        @Override
+                        public void run() throws PersistenceException {
+                            IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+
+                                @Override
+                                public void run(final IProgressMonitor monitor) throws CoreException {
+                                    try {
+                                        if (repositoryObject instanceof IProcess2) {
+                                            boolean locked = proxyRepositoryFactory.getStatus(repositoryObject) == ERepositoryStatus.LOCK_BY_USER;
+                                            if (locked) {
+                                                proxyRepositoryFactory.unlock(repositoryObject);
+                                            }
+                                        }
+                                        boolean isNewItemCreated = true;
+                                        Property repositoryProperty = repositoryObject.getProperty();
+                                        if (repositoryProperty != null) {
+                                            isNewItemCreated = (repositoryProperty.getItem() != newItem);
+                                        }
+                                        if (isNewItemCreated) {
+                                            // new Item created
+                                            proxyRepositoryFactory.deleteObjectPhysical(repositoryObject);
+                                            proxyRepositoryFactory.saveProject(ProjectManager.getInstance().getCurrentProject());
+                                        } else if (repositoryObject.getProperty() != null) {
+                                            proxyRepositoryFactory.save(ProjectManager.getInstance().getCurrentProject(),
+                                                    repositoryObject.getProperty().getItem(), false);
+                                        }
+                                    } catch (PersistenceException e1) {
+                                        e1.printStackTrace();
+                                    } catch (LoginException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            };
+                            // unlockObject();
+                            // alreadyEditedByUser = true; // to avoid 2 calls of unlock
+                            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+                            try {
+                                ISchedulingRule schedulingRule = workspace.getRoot();
+                                // the update the project files need to be done in the workspace runnable to
+                                // avoid all
+                                // notification
+                                // of changes before the end of the modifications.
+                                workspace.run(runnable, schedulingRule, IWorkspace.AVOID_UPDATE, null);
+                            } catch (CoreException e1) {
+                                MessageBoxExceptionHandler.process(e1.getCause());
+                            }
+                        }
+                    };
+                    repositoryWorkUnit.setAvoidSvnUpdate(true);
+                    repositoryWorkUnit.setAvoidUnloadResources(true);
+                    ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
                 }
             }
         }
