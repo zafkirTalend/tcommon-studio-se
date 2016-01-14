@@ -608,13 +608,14 @@ public class RepositoryToComponentProperty {
      */
     private static Object getWSDLValue(WSDLSchemaConnection connection, String value) {
         if ("ENDPOINT".equals(value)) { //$NON-NLS-1$
-            if (!connection.isIsInputModel()) {
-                return TalendQuoteUtils.addQuotesIfNotExist(connection.getWSDL());
-            }
+            // if (!connection.isIsInputModel()) {
+            // return TalendQuoteUtils.addQuotesIfNotExist(connection.getWSDL());
+            // }
             if (isContextMode(connection, connection.getWSDL())) {
                 return connection.getWSDL();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getWSDL());
+                // return TalendQuoteUtils.addQuotes(connection.getWSDL());
+                return TalendQuoteUtils.addQuotesIfNotExist(connection.getWSDL());
             }
         } else if ("NEED_AUTH".equals(value)) { //$NON-NLS-1$
             return new Boolean(connection.isNeedAuth());
