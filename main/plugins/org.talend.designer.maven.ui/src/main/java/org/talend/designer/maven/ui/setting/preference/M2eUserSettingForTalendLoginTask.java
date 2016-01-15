@@ -139,7 +139,8 @@ public class M2eUserSettingForTalendLoginTask extends AbstractLoginTask {
             }
 
             // if can't access m2 repository, and for studio setting or set default only.
-            if (!enableAccessM2Repository(monitor, maven.getLocalRepositoryPath()) && (isStudioUserSetting || defaultUserSetting)) {
+            if (!isLocalRepository() && !enableAccessM2Repository(monitor, maven.getLocalRepositoryPath())
+                    && (isStudioUserSetting || defaultUserSetting)) {
                 if (studioUserSettingsFile.exists()) {// try to use studio one directly.
                     MavenPlugin.getMavenConfiguration().setUserSettingsFile(studioUserSettingsPath);
                 } else { // if not existed, try to force creating studio user setting and use it.
