@@ -124,9 +124,15 @@ public class ShowViewAction extends Action {
         final IViewDescriptor[] descriptors = dialog.getSelection();
         for (IViewDescriptor descriptor : descriptors) {
             try {
-                List<MUIElement> elementList = getMUIElement(descriptor.getId(), ((WorkbenchPage) page).getCurrentPerspective());
+                boolean viewExist = true;
+                if (page instanceof WorkbenchPage) {
+                    List<MUIElement> elementList = getMUIElement(descriptor.getId(), ((WorkbenchPage) page).getWindowModel());
+                    if (elementList.isEmpty()) {
+                        viewExist = false;
+                    }
+                }
                 IViewPart viewPart = page.showView(descriptor.getId());
-                if (elementList.isEmpty()) {
+                if (!viewExist) {
                     openViewInBottom(viewPart, page);
                     page.activate(viewPart);
                 }
