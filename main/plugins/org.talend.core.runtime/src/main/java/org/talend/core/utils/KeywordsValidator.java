@@ -51,8 +51,9 @@ public class KeywordsValidator {
     public static boolean isKeyword(ECodeLanguage lang, String word) {
         Set<String> words = getKeywords(lang);
         // added by nma, for AIX commandline NPE, 7950.
-        if (words == null)
+        if (words == null) {
             return false;
+        }
         if (word == null) {
             return false;
         }
@@ -60,6 +61,10 @@ public class KeywordsValidator {
             return true;
         }
         if (word.equalsIgnoreCase("org")) { //$NON-NLS-1$
+            return true;
+        }
+
+        if (word.equalsIgnoreCase("log")) { //$NON-NLS-1$
             return true;
         }
         return words.contains(word);
