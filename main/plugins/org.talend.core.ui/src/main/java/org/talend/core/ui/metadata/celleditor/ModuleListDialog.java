@@ -15,11 +15,12 @@ package org.talend.core.ui.metadata.celleditor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -49,11 +50,10 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.formtools.LabelledFileField;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ILibrariesService;
-import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.ui.i18n.Messages;
-import org.talend.librariesmanager.model.ModulesNeededProvider;
 
 /**
  * created by hwang on Dec 24, 2014 Detailled comment copied from ModuleListCellEditor/ModuleListDialog
@@ -369,13 +369,21 @@ public class ModuleListDialog extends Dialog {
             this.moduleNameArray = param.getListItemsDisplayName();
             return;
         }
-        List<ModuleNeeded> moduleNeededList = ModulesNeededProvider.getModulesNeeded();
-        Set<String> moduleNameList = new TreeSet<String>();
-        for (ModuleNeeded module : moduleNeededList) {
-            String moduleName = module.getModuleName();
-            moduleNameList.add(moduleName);
-        }
-        this.moduleNameArray = moduleNameList.toArray(new String[0]);
+
+        ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                ILibraryManagerService.class);
+        final Set<String> existingJars = libManager.list(new NullProgressMonitor());
+        List<String> jarList = new ArrayList<String>();
+        jarList.addAll(existingJars);
+        jarList.sort(new Comparator<String>() {
+
+            @Override
+            public int compare(String o1, String o2) {
+
+                return o1.compareTo(o2);
+            }
+        });
+        this.moduleNameArray = jarList.toArray(new String[0]);
         if (this.moduleNameArray == null) {
             this.moduleNameArray = new String[0];
         }
