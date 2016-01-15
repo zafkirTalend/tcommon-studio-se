@@ -35,4 +35,9 @@ public class ComponentRuntimeContainerBase implements ComponentRuntimeContainer 
 		throw new RuntimeException("This must be subclassed");
 	}
 
+	@Override
+	public String getCurrentComponentName() {
+		throw new RuntimeException("This must be subclassed");
+	}
+
 }
