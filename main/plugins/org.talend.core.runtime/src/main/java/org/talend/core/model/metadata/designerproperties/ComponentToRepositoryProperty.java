@@ -26,7 +26,9 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.BRMSConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -40,6 +42,7 @@ import org.talend.core.model.metadata.builder.connection.HL7Connection;
 import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
@@ -55,6 +58,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.IExternalNode;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
@@ -64,6 +68,7 @@ import org.talend.core.model.utils.IDragAndDropServiceHandler;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.PackageHelper;
 
 /**
  * DOC wzhang class global comment. Detailled comment
@@ -932,7 +937,7 @@ public class ComponentToRepositoryProperty {
                 connection.setPassword(connection.getValue(value, true));
             }
         }
-        if ("UES_PROXY".equals(param.getRepositoryValue())) { //$NON-NLS-1$
+        if ("USE_PROXY".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             String value = getParameterValue(connection, node, param);
             if (value != null) {
                 connection.setUseProxy(Boolean.valueOf(value));
@@ -974,6 +979,12 @@ public class ComponentToRepositoryProperty {
                 connection.setTimeOut(Integer.valueOf(value));
             }
         }
+        if ("PORT_NAME".equals(param.getRepositoryValue())) { //$NON-NLS-1$
+            String value = getParameterValue(connection, node, param);
+            if (value != null) {
+                connection.setPortName(value);
+            }
+        }
         if ("WSDL_PARAMS".equals(param.getRepositoryValue())) { //$NON-NLS-1$
             Object value = param.getValue();
             if (value != null && value instanceof ArrayList) {
@@ -987,6 +998,30 @@ public class ComponentToRepositoryProperty {
                     }
                 }
                 connection.setParameters(result);
+            }
+        }
+        if ("SERVICE_CONFIGURATION".equals(param.getRepositoryValue())) { //$NON-NLS-1$
+            IExternalNode enode = node.getExternalNode();
+            if (enode != null) {
+                List<IMetadataTable> imetalist = enode.getMetadataList();
+                if (imetalist != null && !imetalist.isEmpty()) {
+                    EList<orgomg.cwm.objectmodel.core.Package> packageList = connection.getDataPackage();
+                    if (packageList != null && !packageList.isEmpty()) {
+                        List<MetadataTable> metalist = new ArrayList<MetadataTable>(imetalist.size());
+                        for (IMetadataTable imetatable : imetalist) {
+                            MetadataTable metatable = ConvertionHelper.convert(imetatable);
+                            if ("FLOW".equals(imetatable.getAttachedConnector())) { //$NON-NLS-1$
+                                metatable.setLabel("Input"); //$NON-NLS-1$
+                            } else if ("OUTPUT".equals(imetatable.getAttachedConnector())) { //$NON-NLS-1$
+                                metatable.setLabel("Output"); //$NON-NLS-1$
+                            }
+                            metalist.add(metatable);
+                        }
+                        orgomg.cwm.objectmodel.core.Package pkg = packageList.get(0);
+                        pkg.getOwnedElement().clear();
+                        PackageHelper.addMetadataTable(metalist, packageList.get(0));
+                    }
+                }
             }
         }
     }

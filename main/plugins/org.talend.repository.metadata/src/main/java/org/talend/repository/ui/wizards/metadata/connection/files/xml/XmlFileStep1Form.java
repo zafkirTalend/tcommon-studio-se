@@ -528,7 +528,9 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
                             connectionItem.getConnection(), connectionItem.getConnection().getContextName());
                     text = TalendQuoteUtils.removeQuotes(ConnectionContextHelper.getOriginalValue(contextType, text));
                 }
-                if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals(text)) {
+                // no use to popoup for context mode because wizard is readonly
+                if (getConnection().getXmlFilePath() != null && !getConnection().getXmlFilePath().equals(text)
+                        && !isContextMode()) {
                     getConnection().getLoop().clear();
                     xsdPathChanged = true;
                 } else {

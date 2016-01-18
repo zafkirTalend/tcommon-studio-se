@@ -60,7 +60,7 @@ public class MissingJarServices {
                     .getServiceReference(JarMissingObservable.class);
             if (jarMissObsServRef != null) {
                 jarMissingObservable = OsgiLoaderActivator.getBundleContext().getService(jarMissObsServRef);
-            } else {// should not happend caus the serive is regitstered by this bundle activator.
+            } else {// should not happend caus the serive is registered by this bundle activator.
                 throw new RuntimeException("Failed to load the service :" + JarMissingObservable.class.getCanonicalName()); //$NON-NLS-1$
             }
         }
@@ -80,7 +80,7 @@ public class MissingJarServices {
                     MavenResolver.class);
             if (jarMissObsServRef != null) {
                 mavenResolver = OsgiLoaderActivator.getBundleContext().getService(jarMissObsServRef);
-            }
+            } // else { //after opened workbench, the maven resolver will be registered and use it. so no need catch.
         }
         return mavenResolver;
     }

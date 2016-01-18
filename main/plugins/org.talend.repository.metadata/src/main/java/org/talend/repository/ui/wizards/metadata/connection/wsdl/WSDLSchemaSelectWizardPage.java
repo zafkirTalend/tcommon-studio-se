@@ -15,6 +15,7 @@ package org.talend.repository.ui.wizards.metadata.connection.wsdl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -26,6 +27,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.talend.core.model.metadata.IMetadataContextModeManager;
 import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IWebServiceTos;
@@ -71,6 +74,7 @@ public class WSDLSchemaSelectWizardPage extends WSDLSchemaWizardPage {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
     public void createControl(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
@@ -90,6 +94,27 @@ public class WSDLSchemaSelectWizardPage extends WSDLSchemaWizardPage {
         // simpleButton.setSelection(true);
         advanceButton = new Button(composite, SWT.RADIO);
         advanceButton.setText("Advanced WebService");
+
+        IWizard wizard = getWizard();
+        boolean lockSelectButton = false;
+        if (wizard instanceof WSDLSchemaWizard) {
+            INode node = ((WSDLSchemaWizard) wizard).getNode();
+            if (node != null) {
+                IElementParameter elementParameter = node.getElementParameter("PROPERTY"); //$NON-NLS-1$
+                if (elementParameter != null) {
+                    if ("WSDL".equals(elementParameter.getRepositoryValue())) { //$NON-NLS-1$
+                        lockSelectButton = true;
+                        isWsdl = true;
+                        ((WSDLSchemaConnection) connectionItem.getConnection()).setIsInputModel(true);
+                    } else if ("WEBSERVICE".equals(elementParameter.getRepositoryValue())) { //$NON-NLS-1$
+                        lockSelectButton = true;
+                        isWsdl = false;
+                        ((WSDLSchemaConnection) connectionItem.getConnection()).setIsInputModel(false);
+                    }
+                }
+            }
+        }
+
         boolean inputModel = ((WSDLSchemaConnection) connectionItem.getConnection()).isIsInputModel();
         if (creation) {
             simpleButton.setSelection(isWsdl);
@@ -103,6 +128,10 @@ public class WSDLSchemaSelectWizardPage extends WSDLSchemaWizardPage {
             advanceButton.setSelection(!inputModel);
         }
         advanceButton.setEnabled(creation);
+        if (lockSelectButton) {
+            simpleButton.setEnabled(false);
+            advanceButton.setEnabled(false);
+        }
         setControl(composite);
         addListeners();
     }
@@ -128,6 +157,7 @@ public class WSDLSchemaSelectWizardPage extends WSDLSchemaWizardPage {
         });
     }
 
+    @Override
     public IWizardPage getNextPage() {
 
         generateDynamicWizardPage();
