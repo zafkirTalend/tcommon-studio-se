@@ -123,4 +123,21 @@ public class DocumentHelper {
             org.dom4j.DocumentHelper.createNamespace(prefix,TalendString.replaceSpecialCharForXML(uri))));
     }
 	
+    public static void applyNamespace2Attribute(org.dom4j.Element currentElement, String prefix, String localname, String value) {
+        if(value == null) {
+            return;
+        }
+        
+        if(prefix == null) {
+            currentElement.addAttribute(localname, value);
+            return;
+        }
+        
+        Namespace namespace = currentElement.getNamespaceForPrefix(prefix);
+        if(namespace == null) {
+            currentElement.addAttribute(localname, value);
+        }
+        
+        currentElement.addAttribute(org.dom4j.DocumentHelper.createQName(localname, namespace), value);
+    }
 }
