@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.talend.core.repository
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
+Eclipse-RegisterBuddy: org.talend.testutils
 Export-Package: org.talend.repository.items.importexport.handlers,
  org.talend.repository.items.importexport.handlers.cache,
  org.talend.repository.items.importexport.handlers.imports,
