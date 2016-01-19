@@ -26,8 +26,12 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.part.MultiPageEditorPart;
+import org.talend.commons.exception.BusinessException;
 import org.talend.core.IService;
+import org.talend.core.model.component_cache.ComponentsCache;
+import org.talend.core.model.components.AbstractComponentsProvider;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.components.IEmfComponent;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
@@ -178,4 +182,7 @@ public interface IDesignerCoreService extends IService {
     public Reader getJavadocContentAccessContentReader(IMember member) throws JavaModelException;
 
     public int getTACConnectionTimeout();
+
+    IEmfComponent createEmfComponent(String pathName, String bundleId, String name, String pathSource, ComponentsCache cache,
+            boolean isload, AbstractComponentsProvider provider) throws BusinessException;
 }

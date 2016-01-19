@@ -10,18 +10,12 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.components;
+package org.talend.core.runtime.process;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IEmfComponent {
+public interface IProcessProvider {
 
-    String getSourceBundleName();
-
-    void setVisible(Boolean visible);
-
-    void setTechnical(Boolean technical);
-
-    void setProvider(AbstractComponentsProvider provider);
+    void loadComponentsFromExtensionPoint();
 }
