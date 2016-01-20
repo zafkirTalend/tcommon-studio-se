@@ -15,9 +15,8 @@ package org.talend.core.ui.context;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -125,8 +124,8 @@ public class ContextTreeTable {
 
     private NatTable natTable;
 
-    // for bug TDI-32821， use LinkedHashMap to keep the original order of context parameter list.
-    private Map<String, ContextTreeNode> treeNodes = new LinkedHashMap<String, ContextTreeNode>();
+    // for bug TDI-32821， use LinkedList to keep the original order of context parameter list.
+    private List<ContextTreeNode> treeNodes = new LinkedList<ContextTreeNode>();
 
     private IStructuredSelection currentNatTabSel;
 
@@ -192,7 +191,7 @@ public class ContextTreeTable {
         if (propertyNames.length > 0) {
             treeNodes.clear();
             constructContextTreeNodes();
-            EventList<ContextTreeNode> eventList = GlazedLists.eventList(treeNodes.values());
+            EventList<ContextTreeNode> eventList = GlazedLists.eventList(treeNodes);
             SortedList<ContextTreeNode> sortedList = new SortedList<ContextTreeNode>(eventList, null);
             // init Column header layer
             IColumnPropertyAccessor<ContextTreeNode> columnPropertyAccessor = new ExtendedContextColumnPropertyAccessor<ContextTreeNode>(
@@ -350,24 +349,25 @@ public class ContextTreeTable {
     private void contructContextTrees(List<ContextTableTabParentModel> listOfData) {
         for (ContextTableTabParentModel contextModel : listOfData) {
             if (contextModel.hasChildren()) {
-                createContextTreeNode(contextModel.getOrder(), manager, contextModel, TREE_CONTEXT_ROOT,
+                ContextTreeNode parentTreeNode = createContextTreeNode(contextModel.getOrder(), manager, contextModel, null,
                         contextModel.getSourceName());
                 List<ContextTabChildModel> childModels = contextModel.getChildren();
                 for (ContextTabChildModel childModel : childModels) {
-                    createContextTreeNode(contextModel.getOrder(), manager, childModel, contextModel.getSourceName(), childModel
+                    createContextTreeNode(contextModel.getOrder(), manager, childModel, parentTreeNode, childModel
                             .getContextParameter().getName());
                 }
             } else {
-                createContextTreeNode(contextModel.getOrder(), manager, contextModel, TREE_CONTEXT_ROOT, contextModel
-                        .getContextParameter().getName());
+                createContextTreeNode(contextModel.getOrder(), manager, contextModel, null, contextModel.getContextParameter()
+                        .getName());
             }
         }
     }
 
-    private void createContextTreeNode(int orderId, IContextModelManager modelManager, Object data, String parent,
-            String currentNodeName) {
-        ContextTreeNode datum = new ContextTreeNode(orderId, modelManager, data, treeNodes.get(parent), currentNodeName);
-        treeNodes.put(currentNodeName, datum);
+    private ContextTreeNode createContextTreeNode(int orderId, IContextModelManager modelManager, Object data,
+            ContextTreeNode parent, String currentNodeName) {
+        ContextTreeNode datum = new ContextTreeNode(orderId, modelManager, data, parent, currentNodeName);
+        treeNodes.add(datum);
+        return datum;
     }
 
     private void addNatTableListener(final GlazedListsDataProvider<ContextTreeNode> bodyDataProvider,
