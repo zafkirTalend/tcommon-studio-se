@@ -31,8 +31,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
 
     //public static final String DQ_CHEATSHEET_START_ID = "org.talend.dataprofiler.core.talenddataprofiler";//$NON-NLS-1$
 
-    public static final String DQ_CHEATSHEET_START_ID = "org.talend.datacleansing.core.ui.dqcheatsheet";//$NON-NLS-1$
-
     protected String cheetSheetID;
 
     public HashMap<String, Boolean> cheetSheetInPerspective = new HashMap<String, Boolean>();
@@ -42,9 +40,9 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      * 
      */
     public CheatSheetPerspectiveAdapter() {
-        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet();
+        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet("org.talend.datacleansing.core.ui.dqcheatsheet");
         if (cheetSheet != null) {
-            cheetSheet.setInput(CheatSheetPerspectiveAdapter.DQ_CHEATSHEET_START_ID);
+            cheetSheet.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
         }
     }
 
@@ -56,7 +54,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      */
     @Override
     public void perspectivePreDeactivate(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet();
+        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet("org.talend.datacleansing.core.ui.dqcheatsheet");
         if (null != cheetSheet) {
             cheetSheetID = cheetSheet.getCheatSheetID();
             // Always hide cheatsheet first on switching perspective
@@ -106,7 +104,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
                     if (null != cheetSheetID) {
                         view.setInput(cheetSheetID);
                     } else {
-                        view.setInput(DQ_CHEATSHEET_START_ID);
+                        view.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
                     }
                     if (CheatSheetUtils.getInstance().isFirstTime()) {
                         CheatSheetUtils.getInstance().maxDisplayCheatSheetView(view);

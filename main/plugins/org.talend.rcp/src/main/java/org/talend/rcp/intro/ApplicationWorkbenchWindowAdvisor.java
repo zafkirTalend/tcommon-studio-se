@@ -86,6 +86,7 @@ import org.talend.core.token.TokenCollectorFactory;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.utils.ProductUtils;
 import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.core.ui.editor.palette.TalendPaletteHelper;
 import org.talend.designer.core.ui.views.properties.IComponentSettingsView;
@@ -250,15 +251,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
         }
         ApplicationDeletionUtil.removeAndResetPreferencePages(this.getWindowConfigurer().getWindow(), needRemovedPrefs, false);
-        // MOD mzhao feature 9207. 2009-09-21 ,Add part listener.
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
-            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    ITDQRepositoryService.class);
-            if (tdqRepositoryService != null) {
-                tdqRepositoryService.addPartListener();
-                tdqRepositoryService.addSoftwareSystemUpdateListener();
-            }
-        }
 
         showStarting();
         // feature 18752
@@ -352,7 +344,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         }
 
         menuManager.update(true);
-
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            ITDQRepositoryService tdqRepositoryService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    ITDQRepositoryService.class);
+            if (tdqRepositoryService != null) {
+                tdqRepositoryService.addPartListener();
+                tdqRepositoryService.addSoftwareSystemUpdateListener();
+            }
+        }
     }
 
     private void showStarting() {
@@ -363,7 +362,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow()
                     .getActivePage();
             if (activePage != null) {
-                if (activePage.getPerspective().getId().equals("org.talend.rcp.perspective")) { //$NON-NLS-1$
+                if (activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DI_ID)) {
                     startingBrowser = activePage.openEditor(new StartingEditorInput(service), service.getStartingBrowserId());
                 }
             }

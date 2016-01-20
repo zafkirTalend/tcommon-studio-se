@@ -254,7 +254,7 @@ public class DefaultBrandingConfiguration implements IBrandingConfiguration {
 
     @Override
     public String getInitialWindowPerspectiveId() {
-        return "org.talend.rcp.perspective"; //$NON-NLS-1$
+        return IBrandingConfiguration.PERSPECTIVE_DI_ID;
     }
 
     public String getTISProductNameForWelcome() {
