@@ -426,7 +426,8 @@ public class CopyObjectAction {
             }
         }
         if (sourceNode.getObjectType() != ERepositoryObjectType.PROCESS
-                && sourceNode.getObjectType() != ERepositoryObjectType.PROCESS_MR) {
+                && sourceNode.getObjectType() != ERepositoryObjectType.PROCESS_MR
+                && sourceNode.getObjectType() != ERepositoryObjectType.PROCESS_STORM) {
             return false;
         }
         if (!(newItem instanceof ProcessItem)) {
