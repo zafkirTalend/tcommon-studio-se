@@ -614,7 +614,7 @@ public class RepositoryToComponentProperty {
             if (isContextMode(connection, connection.getWSDL())) {
                 return connection.getWSDL();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getWSDL());
+                return TalendQuoteUtils.addQuotesIfNotExist(connection.getWSDL());
             }
         } else if ("NEED_AUTH".equals(value)) { //$NON-NLS-1$
             return new Boolean(connection.isNeedAuth());
@@ -657,13 +657,17 @@ public class RepositoryToComponentProperty {
                 return TalendQuoteUtils.addQuotes(connection.getValue(connection.getProxyPassword(), false));
             }
         } else if ("METHOD".equals(value)) { //$NON-NLS-1$
+            String methodName = connection.getMethodName();
+            if (methodName != null && methodName.contains("(")) {//$NON-NLS-1$
+                methodName = methodName.substring(0, methodName.lastIndexOf("("));//$NON-NLS-1$
+            }
             if (!connection.isIsInputModel()) {
-                return connection.getMethodName();
+                return TalendQuoteUtils.addQuotesIfNotExist(methodName);
             }
             if (isContextMode(connection, connection.getMethodName())) {
                 return connection.getMethodName();
             } else {
-                return TalendQuoteUtils.addQuotes(connection.getMethodName());
+                return TalendQuoteUtils.addQuotesIfNotExist(methodName);
             }
         } else if ("TIMEOUT".equals(value)) { //$NON-NLS-1$
             Integer timeOut = new Integer(connection.getTimeOut());

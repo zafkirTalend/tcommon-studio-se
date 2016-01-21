@@ -160,4 +160,6 @@ public interface ITalendCorePrefConstants {
     public static final String SVN_UPDATE_INFO_AUTO_CHECK = "PerformancePreferencePage.svn_update_info_auto_check"; //$NON-NLS-1$
 
     public static final String SVN_UPDATE_INFO_AUTO_CHECK_TIME_INTERVAL = "PerformancePreferencePage.svn_update_info_auto_check_time_interval"; //$NON-NLS-1$
+
+    public static final String PERFORMANCE_JAVA_PROCESS_CODE_FORMATE_TIMEOUT = "PERFORMANCE_JAVA_PROCESS_CODE_FORMATE_TIMEOUT"; //$NON-NLS-1$
 }
