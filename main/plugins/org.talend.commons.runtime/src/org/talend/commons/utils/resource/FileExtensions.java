@@ -77,4 +77,8 @@ public interface FileExtensions {
     String WSDL_FILE_SUFFIX = ".wsdl"; //$NON-NLS-1$
 
     String XML_FILE_SUFFIX = ".xml"; //$NON-NLS-1$
+
+    String JAVA_FILE_SUFFIX = ".java"; //$NON-NLS-1$
+
+    String CLASS_FILE_SUFFIX = ".class"; //$NON-NLS-1$
 }
