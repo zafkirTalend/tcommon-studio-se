@@ -40,10 +40,6 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      * 
      */
     public CheatSheetPerspectiveAdapter() {
-        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet("org.talend.datacleansing.core.ui.dqcheatsheet");
-        if (cheetSheet != null) {
-            cheetSheet.setInput(CheatSheetUtils.DQ_CHEATSHEET_START_ID);
-        }
     }
 
     /*
