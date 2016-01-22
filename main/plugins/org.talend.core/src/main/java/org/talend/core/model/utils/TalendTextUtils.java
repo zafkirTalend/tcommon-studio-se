@@ -409,28 +409,7 @@ public class TalendTextUtils {
     }
 
     public static String trimParameter(String value) {
-        if (value == null) {
-            return null;
-        }
-        int length = value.length();
-        String result = removeQuotes(value);
-        if (length > 1
-                && (((value.startsWith("\"") && value.endsWith("\""))) || (value.startsWith("\'") && value.endsWith("\'")))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-            result = value.substring(1, length - 1);
-
-            if (result.contains("\\")) { //$NON-NLS-1$
-                result = result.replaceAll("\\\\n", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
-                result = result.replaceAll("\\\\b", "\b"); //$NON-NLS-1$ //$NON-NLS-2$
-                result = result.replaceAll("\\\\f", "\f"); //$NON-NLS-1$ //$NON-NLS-2$
-                result = result.replaceAll("\\\\r", "\r"); //$NON-NLS-1$ //$NON-NLS-2$
-                result = result.replaceAll("\\\\t", "\t"); //$NON-NLS-1$ //$NON-NLS-2$
-                result = result.replaceAll("\\\\\"", "\""); //$NON-NLS-1$ //$NON-NLS-2$
-                result = result.replaceAll("\\\\\\\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
-
-            }
-        }
-
-        return result;
+        return TalendQuoteUtils.trimParameter(value);
     }
 
     public static String getQuoteChar() {
