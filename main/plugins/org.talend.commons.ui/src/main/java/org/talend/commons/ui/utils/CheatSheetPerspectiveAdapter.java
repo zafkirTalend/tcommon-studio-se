@@ -22,7 +22,6 @@ import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.cheatsheets.views.CheatSheetView;
 import org.eclipse.ui.internal.cheatsheets.views.ViewUtilities;
-import org.eclipse.ui.internal.util.PrefUtil;
 
 /**
  * DOC yyi class global comment. Detailled comment
@@ -50,7 +49,8 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
      */
     @Override
     public void perspectivePreDeactivate(IWorkbenchPage page, IPerspectiveDescriptor perspective) {
-        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet("org.talend.datacleansing.core.ui.dqcheatsheet");
+        CheatSheetView cheetSheet = CheatSheetUtils.getInstance().findCheetSheet("org.talend.datacleansing.core.ui.dqcheatsheet",
+                false);
         if (null != cheetSheet) {
             cheetSheetID = cheetSheet.getCheatSheetID();
             // Always hide cheatsheet first on switching perspective
@@ -73,9 +73,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
         }
         // MOD yyi 2011-04-08 19088: Close the cheat sheet view when the user is not in Data Profiler
         // perspective
-        if (!PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getName())
-                && perspective.getId().equals(CheatSheetUtils.DQ_PERSPECTIVE_ID)) {
-            PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getName(), true);
+        if (CheatSheetUtils.getInstance().isFirstTime() && perspective.getId().equals(CheatSheetUtils.DQ_PERSPECTIVE_ID)) {
             restoreCheetSheet();
         }
         super.perspectiveActivated(page, perspective);

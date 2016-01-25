@@ -150,22 +150,39 @@ public class CheatSheetUtils {
     }
 
     /**
-     * get the cheet sheet view.
+     * get the cheet sheet view. If can not find the veiw then create new one
      * 
      * @return CheatSheetView
      */
     public CheatSheetView findCheetSheet(String cheatSheetID) {
+
+        return findCheetSheet(cheatSheetID, true);
+
+    }
+
+    /**
+     * get the cheet sheet view.
+     * 
+     * @return CheatSheetView
+     */
+    public CheatSheetView findCheetSheet(String cheatSheetID, boolean froceOpen) {
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         IWorkbenchPage page = window.getActivePage();
         CheatSheetView view = (CheatSheetView) page.findView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
 
         IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (view == null && activePage != null && activePage.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
+        if ((view == null || view.getCheatSheetID() == null) && activePage != null
+                && activePage.getPerspective().getId().equals(DQ_PERSPECTIVE_ID)) {
             try {
-                view = (CheatSheetView) page.showView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
-                view.setInput(cheatSheetID);
-                page.activate(view);
+                if (froceOpen == true) {
+                    // page.isPartVisible(view); when the result is true then this view should show again
+                    view = (CheatSheetView) page.showView(ICheatSheetResource.CHEAT_SHEET_VIEW_ID);
+                }
+                if (view != null) {
+                    view.setInput(cheatSheetID);
+                    page.activate(view);
+                }
             } catch (PartInitException pie) {
                 String message = Messages.LAUNCH_SHEET_ERROR;
                 IStatus status = new Status(IStatus.ERROR, ICheatSheetResource.CHEAT_SHEET_PLUGIN_ID, IStatus.OK, message, pie);
