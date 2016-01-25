@@ -15,6 +15,7 @@ package org.talend.core.ui.metadata.celleditor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -375,14 +376,15 @@ public class ModuleListDialog extends Dialog {
         final Set<String> existingJars = libManager.list(new NullProgressMonitor());
         List<String> jarList = new ArrayList<String>();
         jarList.addAll(existingJars);
-        jarList.sort(new Comparator<String>() {
+        Comparator comparator = new Comparator<String>() {
 
             @Override
             public int compare(String o1, String o2) {
 
                 return o1.compareTo(o2);
             }
-        });
+        };
+        Collections.sort(jarList, comparator);
         this.moduleNameArray = jarList.toArray(new String[0]);
         if (this.moduleNameArray == null) {
             this.moduleNameArray = new String[0];
