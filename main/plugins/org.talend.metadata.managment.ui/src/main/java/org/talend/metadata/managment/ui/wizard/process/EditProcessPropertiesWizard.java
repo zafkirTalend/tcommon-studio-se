@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -75,8 +75,8 @@ public class EditProcessPropertiesWizard extends PropertiesWizard {
                 sourceFramework = frameworkObj.toString();
             }
             String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(object.getProperty().getItem());
-            boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(sourceJobType, sourceFramework,
-                    mainPage.jobTypeCCombo.getText(), mainPage.framework.getText());
+            boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(item, mainPage.jobTypeCCombo.getText(),
+                    mainPage.framework.getText(), true);
             if (sourceJobType != null && !isNeedConvert) {
                 return super.performFinish();
             }
