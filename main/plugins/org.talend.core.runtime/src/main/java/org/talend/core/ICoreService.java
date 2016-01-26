@@ -32,6 +32,8 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.designer.codegen.ISQLTemplateSynchronizer;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 /**
@@ -122,5 +124,9 @@ public interface ICoreService extends IService {
     public boolean isOpenedItemInEditor(IRepositoryViewObject object);
 
     public IMetadataTable convert(MetadataTable originalTable);
+
+    public ITalendSynchronizer createCodesSynchronizer();
+
+    public ISQLTemplateSynchronizer createSQLTemplateSynchronizer();
 
 }

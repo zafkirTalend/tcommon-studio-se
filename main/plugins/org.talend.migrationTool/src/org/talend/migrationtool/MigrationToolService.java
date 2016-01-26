@@ -58,7 +58,6 @@ import org.talend.core.model.utils.MigrationUtil;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.RoutineUtils;
 import org.talend.core.repository.utils.URIHelper;
-import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.migration.IMigrationTask;
 import org.talend.migration.IMigrationTask.ExecutionResult;
@@ -150,15 +149,17 @@ public class MigrationToolService implements IMigrationToolService {
         }
 
         try {
-            ICodeGeneratorService service = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                    ICodeGeneratorService.class);
-            ITalendSynchronizer routineSynchronizer = service.createJavaRoutineSynchronizer();
-            if (item != null && item instanceof RoutineItem) {
+            if (!GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                return;
+            }
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+            if (item != null && item instanceof RoutineItem && synchronizer != null) {
                 RoutineUtils.changeRoutinesPackage(item);
                 RoutineItem routineItem = (RoutineItem) item;
-                routineSynchronizer.forceSyncRoutine(routineItem);
-                routineSynchronizer.syncRoutine(routineItem, true);
-                routineSynchronizer.getFile(routineItem);
+                synchronizer.forceSyncRoutine(routineItem);
+                synchronizer.syncRoutine(routineItem, true);
+                synchronizer.getFile(routineItem);
             }
             if (item.getProperty().eResource() != null) {
                 factory.unloadResources(item.getProperty());

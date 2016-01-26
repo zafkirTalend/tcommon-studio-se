@@ -57,29 +57,5 @@ public interface ICodeGeneratorService extends IService {
      */
     public ICodeGenerator createCodeGenerator(IProcess process, boolean statistics, boolean trace, String... options);
 
-    /**
-     * Create the routine synchronizer for Perl project.
-     * 
-     * yzhang Comment method "creatPerlRoutineSynchronizer".
-     * 
-     * @return
-     * @deprecated no perl yet.
-     */
-    @Deprecated
-    public ITalendSynchronizer createPerlRoutineSynchronizer();
-
-    /**
-     * Create the routine synchronizer for Java project.
-     * 
-     * yzhang Comment method "creatJavaRoutineSynchronizer".
-     * 
-     * @return
-     */
-    public ITalendSynchronizer createJavaRoutineSynchronizer();
-
-    public ITalendSynchronizer createRoutineSynchronizer();
-
-    public ISQLPatternSynchronizer getSQLPatternSynchronizer();
-
     public boolean isInitializingJet();
 }

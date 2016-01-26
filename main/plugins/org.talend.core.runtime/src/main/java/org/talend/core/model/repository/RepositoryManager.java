@@ -26,6 +26,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -34,7 +35,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
-import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -81,22 +82,23 @@ public final class RepositoryManager {
         if (type == null) {
             return;
         }
+        ITalendSynchronizer synchronizer = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            synchronizer = coreService.createCodesSynchronizer();
+        }
         if (type.equals(ERepositoryObjectType.PIG_UDF)) {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-                ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                        ICodeGeneratorService.class);
+            if (synchronizer != null) {
                 try {
-                    codeGenService.createRoutineSynchronizer().syncAllPigudf();
+                    synchronizer.syncAllPigudf();
                 } catch (SystemException e) {
                     ExceptionHandler.process(e);
                 }
             }
         } else if (type.equals(ERepositoryObjectType.ROUTINES)) {
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-                ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                        ICodeGeneratorService.class);
+            if (synchronizer != null) {
                 try {
-                    codeGenService.createRoutineSynchronizer().syncAllRoutines();
+                    synchronizer.syncAllRoutines();
                 } catch (SystemException e) {
                     ExceptionHandler.process(e);
                 }
@@ -114,11 +116,9 @@ public final class RepositoryManager {
                 ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                         ICamelDesignerCoreService.class);
                 if (type.equals(service.getBeansType())) {
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-                        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault()
-                                .getService(ICodeGeneratorService.class);
+                    if (synchronizer != null) {
                         try {
-                            codeGenService.createRoutineSynchronizer().syncAllBeans();
+                            synchronizer.syncAllBeans();
                         } catch (SystemException e) {
                             ExceptionHandler.process(e);
                         }
@@ -182,14 +182,14 @@ public final class RepositoryManager {
                                     if (objectToMove.getProperty().getItem().getProperty().getLabel().equals(seg[0])) {
                                         return true;
                                     }
-                                }else if (editorInput.getAdapter(RepositoryNode.class) != null) {
-                                	RepositoryNode node = (RepositoryNode) editorInput.getAdapter(RepositoryNode.class);
-                                	IRepositoryViewObject object = node.getObject();
-                                	if (object != null && object.getId().equals(objectToMove.getId())
+                                } else if (editorInput.getAdapter(RepositoryNode.class) != null) {
+                                    RepositoryNode node = (RepositoryNode) editorInput.getAdapter(RepositoryNode.class);
+                                    IRepositoryViewObject object = node.getObject();
+                                    if (object != null && object.getId().equals(objectToMove.getId())
                                             && VersionUtils.compareTo(object.getVersion(), objectToMove.getVersion()) == 0) {
                                         return true;
                                     }
-								}
+                                }
                             }
                         }
                     }
@@ -200,7 +200,6 @@ public final class RepositoryManager {
         }
         return false;
     }
-
 
     /**
      * 

@@ -24,6 +24,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
@@ -32,7 +33,6 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ItemInforType;
@@ -296,15 +296,14 @@ public final class RoutinesUtil {
         if (type == null) {
             return errorItems;
         }
-        ICodeGeneratorService codegenService = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-            codegenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
-        }
-        if (codegenService == null) {
+        if (!GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
             return errorItems;
         }
-        final ITalendSynchronizer synchronizer = codegenService.createRoutineSynchronizer();
-
+        ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+        if (synchronizer == null) {
+            return errorItems;
+        }
         final IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         List<IRepositoryViewObject> routinesObjects = factory.getAll(ProjectManager.getInstance().getCurrentProject(), type);
         collectErrorCodesItems(errorItems, synchronizer, routinesObjects);
@@ -321,10 +320,9 @@ public final class RoutinesUtil {
         if (routinesObjects == null || errorItems == null) {
             return;
         }
-        if (synchronizer == null && GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-            ICodeGeneratorService codegenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                    ICodeGeneratorService.class);
-            synchronizer = codegenService.createRoutineSynchronizer();
+        if (synchronizer == null && GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            synchronizer = coreService.createCodesSynchronizer();
         }
         if (synchronizer == null) {
             return;

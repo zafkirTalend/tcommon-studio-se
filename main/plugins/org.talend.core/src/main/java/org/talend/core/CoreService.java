@@ -69,8 +69,10 @@ import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.services.IJobCheckService;
+import org.talend.core.synchronizer.JavaRoutineSynchronizer;
+import org.talend.core.synchronizer.JavaSQLTemplateSynchronizer;
 import org.talend.core.utils.KeywordsValidator;
-import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.ISQLTemplateSynchronizer;
 import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -242,19 +244,23 @@ public class CoreService implements ICoreService {
 
     @Override
     public void deleteRoutinefile(IRepositoryViewObject objToDelete) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                    ICodeGeneratorService.class);
-            codeGenService.createRoutineSynchronizer().deleteRoutinefile(objToDelete);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+            if (synchronizer != null) {
+                synchronizer.deleteRoutinefile(objToDelete);
+            }
         }
     }
 
     @Override
     public void deleteBeanfile(IRepositoryViewObject objToDelete) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                    ICodeGeneratorService.class);
-            codeGenService.createRoutineSynchronizer().deleteRoutinefile(objToDelete);
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+            if (synchronizer != null) {
+                synchronizer.deleteRoutinefile(objToDelete);
+            }
         }
     }
 
@@ -275,23 +281,24 @@ public class CoreService implements ICoreService {
      */
     @Override
     public void syncAllRoutines() throws SystemException {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                    ICodeGeneratorService.class);
-            codeGenService.createRoutineSynchronizer().syncAllRoutinesForLogOn();
-            codeGenService.createRoutineSynchronizer().syncAllPigudfForLogOn();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+            if (synchronizer != null) {
+                synchronizer.syncAllRoutinesForLogOn();
+                synchronizer.syncAllPigudfForLogOn();
+            }
         }
 
     }
 
     @Override
     public void syncAllBeans() throws SystemException {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICodeGeneratorService.class)) {
-            ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                    ICodeGeneratorService.class);
-            ITalendSynchronizer talendSynchronizer = codeGenService.createRoutineSynchronizer();
-            if (talendSynchronizer != null) {
-                talendSynchronizer.syncAllBeansForLogOn();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+            if (synchronizer != null) {
+                synchronizer.syncAllBeansForLogOn();
             }
         }
 
@@ -497,5 +504,15 @@ public class CoreService implements ICoreService {
             }
         };
         ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
+    }
+
+    @Override
+    public ITalendSynchronizer createCodesSynchronizer() {
+        return new JavaRoutineSynchronizer();
+    }
+
+    @Override
+    public ISQLTemplateSynchronizer createSQLTemplateSynchronizer() {
+        return new JavaSQLTemplateSynchronizer();
     }
 }

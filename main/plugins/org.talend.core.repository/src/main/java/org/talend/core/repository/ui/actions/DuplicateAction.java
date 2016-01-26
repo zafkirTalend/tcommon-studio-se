@@ -54,6 +54,7 @@ import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
 import org.talend.core.PluginChecker;
@@ -82,7 +83,7 @@ import org.talend.core.repository.utils.ConvertJobsUtil;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.utils.KeywordsValidator;
-import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.repository.ProjectManager;
@@ -870,16 +871,19 @@ public class DuplicateAction extends AContextualAction {
     }
 
     private void synDuplicatedRoutine(RoutineItem item, String oldLable) {
-        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                ICodeGeneratorService.class);
-        if (codeGenService != null) {
+        if (!GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            return;
+        }
+        ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+        if (synchronizer != null) {
             if (item instanceof PigudfItem) {
-                codeGenService.createRoutineSynchronizer().renamePigudfClass((PigudfItem) item, oldLable);
+                synchronizer.renamePigudfClass((PigudfItem) item, oldLable);
             } else {
-                codeGenService.createRoutineSynchronizer().renameRoutineClass(item);
+                synchronizer.renameRoutineClass(item);
             }
             try {
-                codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
+                synchronizer.syncRoutine(item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }

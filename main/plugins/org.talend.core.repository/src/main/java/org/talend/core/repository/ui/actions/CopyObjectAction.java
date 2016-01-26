@@ -40,6 +40,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.IESBService;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.IHadoopClusterService;
@@ -58,7 +59,7 @@ import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.dialog.PastSelectorDialog;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
-import org.talend.designer.codegen.ICodeGeneratorService;
+import org.talend.designer.codegen.ITalendSynchronizer;
 import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -456,29 +457,19 @@ public class CopyObjectAction {
     }
 
     private void synDuplicatedRoutine(RoutineItem item, String oldLabel) {
-        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                ICodeGeneratorService.class);
-        if (codeGenService != null) {
-            if (item instanceof PigudfItem) {
-                codeGenService.createRoutineSynchronizer().renamePigudfClass((PigudfItem) item, oldLabel);
-            } else {
-                codeGenService.createRoutineSynchronizer().renameRoutineClass(item);
-            }
-            try {
-                codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
-            } catch (SystemException e) {
-                ExceptionHandler.process(e);
-            }
+        if (!GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            return;
         }
-    }
-
-    private void synDuplicatedPigudf(PigudfItem item, String oldLabel) {
-        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
-                ICodeGeneratorService.class);
-        if (codeGenService != null) {
-            codeGenService.createRoutineSynchronizer().renamePigudfClass(item, oldLabel);
+        ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+        ITalendSynchronizer synchronizer = coreService.createCodesSynchronizer();
+        if (synchronizer != null) {
+            if (item instanceof PigudfItem) {
+                synchronizer.renamePigudfClass((PigudfItem) item, oldLabel);
+            } else {
+                synchronizer.renameRoutineClass(item);
+            }
             try {
-                codeGenService.createRoutineSynchronizer().syncRoutine(item, true);
+                synchronizer.syncRoutine(item, true);
             } catch (SystemException e) {
                 ExceptionHandler.process(e);
             }
