@@ -127,6 +127,10 @@ public class CheatSheetUtils {
     protected void restoreOtherViewAndEditor(IWorkbenchPart part) {
         if (part instanceof org.eclipse.ui.internal.cheatsheets.views.CheatSheetView) {
             IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+            if (activePage == null) {
+                return;
+            }
+
             for (IViewReference ref : activePage.getViewReferences()) {
                 if (part != ref.getView(false)) {
                     activePage.setPartState(ref, IWorkbenchPage.STATE_RESTORED);
