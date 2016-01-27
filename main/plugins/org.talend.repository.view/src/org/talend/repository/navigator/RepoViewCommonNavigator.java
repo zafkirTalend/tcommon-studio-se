@@ -36,7 +36,10 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
@@ -55,14 +58,15 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.Saveable;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.CommonViewerSorter;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -92,6 +96,8 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.model.provider.GitContentServiceProviderManager;
+import org.talend.core.repository.services.IGitContentService;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -253,6 +259,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private ResourcePostChangeRunnableListener resourcePostChangeRunnableListener;
 
+    private Combo comboDropDown;
+
     /**
      * yzhang Comment method "addPreparedListeners".
      * 
@@ -320,6 +328,34 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     @Override
     public void createPartControl(Composite parent) {
+        ColumnLayout rl = new ColumnLayout();
+        rl.maxNumColumns = 1;
+        parent.setLayout(rl);
+        comboDropDown = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
+        final IGitContentService service = GitContentServiceProviderManager.getGitContentService();
+        comboDropDown.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseDoubleClick(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                if (e.button == 1)
+                    service.setMenu(comboDropDown);
+
+            }
+
+            @Override
+            public void mouseUp(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+
         super.createPartControl(parent);
 
         viewer = getCommonViewer();
@@ -529,9 +565,27 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      * looks for an adapter on the input that adapts to INavigatorDescriptor and then changes the view descritor string
      */
     public void refreshContentDescription() {
+        INavigatorDescriptor navDesc = getNavDesc();
+        if (navDesc == null) {
+            setContentDescription("");
+        } else if (navDesc.getDescriptor().startsWith("GIT:")) {
+            String navDescString = navDesc.getDescriptor();
+            List list = Arrays.asList(comboDropDown.getItems());
+            if (list.contains(navDescString)) {
+                comboDropDown.select(list.indexOf(navDescString));
+            } else {
+                comboDropDown.add(navDesc.getDescriptor());
+            }
+        } else {
+            setContentDescription(navDesc.getDescriptor());
+            comboDropDown.setVisible(false);
+        }
+    }
+
+    protected INavigatorDescriptor getNavDesc() {
         INavigatorDescriptor navDesc = (INavigatorDescriptor) Platform.getAdapterManager().getAdapter(
                 getCommonViewer().getInput(), INavigatorDescriptor.class);
-        setContentDescription(navDesc != null ? navDesc.getDescriptor() : ""); //$NON-NLS-1$
+        return navDesc;
     }
 
     /**
