@@ -113,7 +113,10 @@ public class NexusDownloader implements IDownloadHelper {
                 bos.flush();
                 bos.close();
                 if (bytesDownloaded == contentLength) {
-                    String snapshotUri = MavenUrlHelper.generateSnapshotMavenUri(mavenUri);
+                    String snapshotUri = mavenUri;
+                    if (MavenConstants.DEFAULT_LIB_GROUP_ID.equals(parseMvnUrl.getGroupId())) {
+                        snapshotUri = MavenUrlHelper.generateSnapshotMavenUri(mavenUri);
+                    }
                     ArtifactsDeployer deployer = new ArtifactsDeployer();
                     deployer.deployToLocalMaven(destination.getAbsolutePath(), snapshotUri);
                 }

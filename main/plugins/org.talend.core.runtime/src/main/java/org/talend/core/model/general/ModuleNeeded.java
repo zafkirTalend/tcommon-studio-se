@@ -122,10 +122,10 @@ public class ModuleNeeded {
      *
      */
     public enum ELibraryInstallStatus {
-                                       UNKNOWN,
-                                       INSTALLED,
-                                       UNUSED,
-                                       NOT_INSTALLED;
+        UNKNOWN,
+        INSTALLED,
+        UNUSED,
+        NOT_INSTALLED;
     }
 
     /**
@@ -281,8 +281,8 @@ public class ModuleNeeded {
         } else {
             // compute the status of the lib.
             // first use the Library manager service
-            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                    .getService(ILibraryManagerService.class);
+            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
             Set<String> existLibraries = libManagerService.list();
             if (existLibraries.contains(getModuleName())) {
                 status = ELibraryInstallStatus.INSTALLED;

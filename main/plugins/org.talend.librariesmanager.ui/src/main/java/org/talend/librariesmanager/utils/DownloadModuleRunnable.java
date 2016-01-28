@@ -89,12 +89,14 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 boolean accepted;
                 try {
                     // check license
-                    boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                            .getBoolean(module.getLicenseType());
-                    accepted = isLicenseAccepted;
-                    if (!accepted) {
-                        subMonitor.worked(1);
-                        continue;
+                    if (module.getLicenseType() != null) {
+                        boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
+                                .getBoolean(module.getLicenseType());
+                        accepted = isLicenseAccepted;
+                        if (!accepted) {
+                            subMonitor.worked(1);
+                            continue;
+                        }
                     }
                     NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
                     if (!module.getMavenUris().isEmpty()) {

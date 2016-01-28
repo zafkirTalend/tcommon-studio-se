@@ -14,6 +14,7 @@ package org.talend.librariesmanager.maven;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -113,9 +114,8 @@ public abstract class ShareLibrareisHelper {
                         }
                     } else {
                         // share to custom nexus
-                        int searchLimit = 50;
                         setJobName(job, Messages.getString("ShareLibsJob.message", TYPE_NEXUS));
-                        final List<MavenArtifact> searchResults = new ArrayList<MavenArtifact>();
+
                         TalendLibsServerManager instance = TalendLibsServerManager.getInstance();
                         NexusServerBean customServer = instance.getCustomNexusServer();
                         if (customServer != null) {
@@ -126,86 +126,87 @@ public abstract class ShareLibrareisHelper {
                             SubMonitor mainSubMonitor = SubMonitor.convert(monitor, filesToShare.size());
                             Iterator<ModuleNeeded> iterator = filesToShare.keySet().iterator();
 
-                            Iterator<ModuleNeeded> searchIter = filesToShare.keySet().iterator();
-
-                            int index = 0;
-                            int limit = searchLimit;
-                            int shareIndex = 0;
+                            Map<String, Map<ModuleNeeded, MavenArtifact>> groupIdAndModule = new HashMap<String, Map<ModuleNeeded, MavenArtifact>>();
                             while (iterator.hasNext()) {
+                                final ModuleNeeded next = iterator.next();
+
+                                final String mavenUriSnapshot = next.getMavenUriSnapshot();
+                                final MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUriSnapshot);
+                                Map<ModuleNeeded, MavenArtifact> moduleAndArtifactMap = groupIdAndModule.get(parseMvnUrl
+                                        .getGroupId());
+                                if (moduleAndArtifactMap == null) {
+                                    moduleAndArtifactMap = new HashMap<ModuleNeeded, MavenArtifact>();
+                                    groupIdAndModule.put(parseMvnUrl.getGroupId(), moduleAndArtifactMap);
+                                }
+                                moduleAndArtifactMap.put(next, parseMvnUrl);
+                            }
+
+                            Iterator<String> groupIdIter = groupIdAndModule.keySet().iterator();
+
+                            while (groupIdIter.hasNext()) {
                                 if (monitor.isCanceled()) {
                                     return Status.CANCEL_STATUS;
                                 }
-                                String jarsToCheck = "";
-                                while (shareIndex < limit && index < limit && index < filesToShare.size()) {
-                                    ModuleNeeded toCheck = searchIter.next();
-                                    String jarName = toCheck.getModuleName();
-                                    String artifactId = jarName;
-                                    int lastIndexOf = jarName.lastIndexOf(".");
-                                    if (lastIndexOf != -1) {
-                                        artifactId = jarName.substring(0, lastIndexOf);
-                                    }
-                                    jarsToCheck += artifactId;
-                                    index++;
-                                    if (index < limit && index < filesToShare.size()) {
-                                        jarsToCheck += ",";
-                                    }
-                                    if (index == limit || index == filesToShare.size()) {
-                                        searchResults.clear();
-                                        // only talend offical nexus support search by multiple groupid seperated by ;
-                                        searchResults.addAll(instance.search(customServer.getServer(),
-                                                customServer.getUserName(), customServer.getPassword(),
-                                                customServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, null, null));
-                                    }
+                                final String groupIdToSearch = groupIdIter.next();
+
+                                // only share jars with org.talend.libraries for now because the customer nexus must use
+                                // SNAPSHOT for it , but other groups we do not deploy as SNAPSHOT
+                                if (!MavenConstants.DEFAULT_LIB_GROUP_ID.equals(groupIdToSearch)) {
+                                    continue;
                                 }
-                                shareIndex++;
-                                if (shareIndex == limit) {
-                                    limit += searchLimit;
+                                // search by group id
+                                mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.searchLibraries", groupIdToSearch));
+                                final List<MavenArtifact> searchResults = instance.search(customServer.getServer(),
+                                        customServer.getUserName(), customServer.getPassword(), customServer.getRepositoryId(),
+                                        groupIdToSearch, null, null);
+
+                                final Map<ModuleNeeded, MavenArtifact> moduleAndArtifactMap = groupIdAndModule
+                                        .get(groupIdToSearch);
+                                final Iterator<ModuleNeeded> moduleIterator = moduleAndArtifactMap.keySet().iterator();
+                                while (moduleIterator.hasNext()) {
+                                    ModuleNeeded next = moduleIterator.next();
+                                    File file = filesToShare.get(next);
+                                    String pomPath = file.getParent();
+                                    String name = file.getName();
+                                    MavenArtifact artifact = moduleAndArtifactMap.get(next);
+                                    boolean eixst = false;
+                                    for (MavenArtifact remoteAtifact : searchResults) {
+                                        String groupId = artifact.getGroupId();
+                                        String artifactId = artifact.getArtifactId();
+                                        String version = artifact.getVersion();
+                                        String rGroup = remoteAtifact.getGroupId();
+                                        String rArtifact = remoteAtifact.getArtifactId();
+                                        String rVersion = remoteAtifact.getVersion();
+                                        if (groupId != null && artifactId != null && version != null && groupId.equals(rGroup)
+                                                && artifactId.equals(rArtifact) && version.equals(rVersion)) {
+                                            eixst = true;
+                                            break;
+                                        }
+                                    }
+                                    if (eixst) {
+                                        continue;
+                                    }
+                                    mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", name));
+                                    int indexOf = name.lastIndexOf(".");
+                                    if (indexOf != -1) {
+                                        pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
+                                    }
+                                    try {
+                                        deployToLocalMaven(deployer, file, next);
+                                        deployer.installToRemote(file, artifact, artifact.getType());
+                                        File pomFile = new File(pomPath);
+                                        if (pomFile.exists()) {
+                                            deployer.installToRemote(pomFile, artifact, MavenConstants.PACKAGING_POM);
+                                        }
+                                        mainSubMonitor.worked(1);
+                                    } catch (Exception e) {
+                                        ExceptionHandler.process(new Exception("Share libraries :" + name + " failed !", e));
+                                        status = new Status(IStatus.ERROR, "unknown", IStatus.ERROR, "Share libraries :" + name
+                                                + " failed !", e);
+                                        continue;
+                                    }
                                 }
 
-                                ModuleNeeded next = iterator.next();
-                                File file = filesToShare.get(next);
-                                String pomPath = file.getParent();
-                                String name = file.getName();
-                                MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(next.getMavenUriSnapshot());
-                                if (artifact == null) {
-                                    continue;
-                                }
-                                boolean eixst = false;
-                                for (MavenArtifact remoteAtifact : searchResults) {
-                                    String groupId = artifact.getGroupId();
-                                    String artifactId = artifact.getArtifactId();
-                                    String version = artifact.getVersion();
-                                    String rGroup = remoteAtifact.getGroupId();
-                                    String rArtifact = remoteAtifact.getArtifactId();
-                                    String rVersion = remoteAtifact.getVersion();
-                                    if (groupId != null && artifactId != null && version != null && groupId.equals(rGroup)
-                                            && artifactId.equals(rArtifact) && version.equals(rVersion)) {
-                                        eixst = true;
-                                        break;
-                                    }
-                                }
-                                if (eixst) {
-                                    continue;
-                                }
-                                mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", name));
-                                int indexOf = name.lastIndexOf(".");
-                                if (indexOf != -1) {
-                                    pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
-                                }
-                                try {
-                                    deployToLocalMaven(deployer, file, next);
-                                    deployer.installToRemote(file, artifact, artifact.getType());
-                                    File pomFile = new File(pomPath);
-                                    if (pomFile.exists()) {
-                                        deployer.installToRemote(pomFile, artifact, MavenConstants.PACKAGING_POM);
-                                    }
-                                    mainSubMonitor.worked(1);
-                                } catch (Exception e) {
-                                    ExceptionHandler.process(new Exception("Share libraries :" + name + " failed !", e));
-                                    status = new Status(IStatus.ERROR, "unknown", IStatus.ERROR, "Share libraries :" + name
-                                            + " failed !", e);
-                                    continue;
-                                }
                             }
                         }
 

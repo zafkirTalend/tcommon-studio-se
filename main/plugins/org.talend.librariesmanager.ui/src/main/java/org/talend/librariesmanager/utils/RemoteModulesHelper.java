@@ -142,8 +142,7 @@ public class RemoteModulesHelper {
                         NexusServerBean nexusServer = manager.getLibrariesNexusServer();
 
                         List<MavenArtifact> searchResults = manager.search(nexusServer.getServer(), nexusServer.getUserName(),
-                                nexusServer.getPassword(), nexusServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID,
-                                jarsToCheck, null);
+                                nexusServer.getPassword(), nexusServer.getRepositoryId(), null, jarsToCheck, null);
                         monitor.worked(10);
                         for (MavenArtifact artifact : searchResults) {
                             String artifactId = artifact.getArtifactId();
@@ -495,6 +494,23 @@ public class RemoteModulesHelper {
                             }
                         }
                     }
+                }
+            } else {
+                // add package if it is not in the configured uri
+                final String[] split = mvnUri.split(MavenUrlHelper.SEPERATOR);
+                if (split.length < 4) {
+                    final MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mvnUri);
+                    String name = module.getModuleName();
+                    String type = null;
+                    if (name.lastIndexOf(".") != -1) {
+                        type = name.substring(name.lastIndexOf(".") + 1, name.length());
+                    }
+                    if (type == null) {
+                        type = parseMvnUrl.getType();
+                    }
+                    mvnUri = MavenUrlHelper.generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(),
+                            parseMvnUrl.getVersion(), type, parseMvnUrl.getClassifier());
+
                 }
             }
             if (mvnUri != null) {
