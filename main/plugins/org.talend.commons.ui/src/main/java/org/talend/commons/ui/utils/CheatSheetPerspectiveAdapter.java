@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -22,7 +22,6 @@ import org.eclipse.ui.PerspectiveAdapter;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.cheatsheets.views.CheatSheetView;
 import org.eclipse.ui.internal.cheatsheets.views.ViewUtilities;
-import org.eclipse.ui.internal.util.PrefUtil;
 
 /**
  * DOC yyi class global comment. Detailled comment
@@ -71,9 +70,7 @@ public class CheatSheetPerspectiveAdapter extends PerspectiveAdapter {
         }
         // MOD yyi 2011-04-08 19088: Close the cheat sheet view when the user is not in Data Profiler
         // perspective
-        if (!PrefUtil.getAPIPreferenceStore().getBoolean(this.getClass().getName())
-                && perspective.getId().equals(CheatSheetUtils.DQ_PERSPECTIVE_ID)) {
-            PrefUtil.getAPIPreferenceStore().setValue(this.getClass().getName(), true);
+        if (CheatSheetUtils.getInstance().isFirstTime() && perspective.getId().equals(CheatSheetUtils.DQ_PERSPECTIVE_ID)) {
             restoreCheetSheet();
         }
         super.perspectiveActivated(page, perspective);

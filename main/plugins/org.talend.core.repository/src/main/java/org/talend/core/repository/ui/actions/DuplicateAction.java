@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -267,9 +267,7 @@ public class DuplicateAction extends AContextualAction {
             createOperation(jobNewName, sourceNode, copyObjectAction, selectionInClipboard);
             if (newCreatedItem != null) {
                 // normally only for jobs, means will ignore hadoop cluster items
-                String sourceJobType = ConvertJobsUtil.getJobTypeFromFramework(newCreatedItem);
-                boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(sourceJobType, sourceFramework, jobTypeValue,
-                        frameworkNewValue);
+                boolean isNeedConvert = ConvertJobsUtil.isNeedConvert(newCreatedItem, jobTypeValue, frameworkNewValue, true);
                 boolean isNewItemCreated = false;
                 if (jobTypeValue != null && isNeedConvert) {
                     isAllowDuplicateTest = false;

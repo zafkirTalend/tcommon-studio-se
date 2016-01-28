@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -223,7 +223,9 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
      */
     @Override
     public ENodeType getType() {
-        if (type == ENodeType.REPOSITORY_ELEMENT && getObject().getRepositoryObjectType() == ERepositoryObjectType.FOLDER) {
+        // TDQ-11426: for dq exchange node, the object is null
+        if (type == ENodeType.REPOSITORY_ELEMENT && getObject() != null
+                && getObject().getRepositoryObjectType() == ERepositoryObjectType.FOLDER) {
             return ENodeType.SIMPLE_FOLDER;
         }
         return type;

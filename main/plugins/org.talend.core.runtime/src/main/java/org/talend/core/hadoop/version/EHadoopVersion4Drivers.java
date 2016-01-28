@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.hadoop.IHadoopDistributionService;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -244,21 +247,13 @@ public enum EHadoopVersion4Drivers {
 
     public boolean isSupportSpark() {
         boolean isSupport = false;
-
-        switch (this) {
-        case EMR_4_0_0:
-        case CLOUDERA_CDH5_4:
-        case CLOUDERA_CDH5_5:
-        case HDP_2_3:
-        case MAPR410:
-        case MAPR500:
-        case CUSTOM:
-            isSupport = true;
-            break;
-        default:
-            isSupport = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister.getDefault()
+                    .getService(IHadoopDistributionService.class);
+            isSupport = hadoopDistributionService.isSupportSpark(this);
+        } else {
+            ExceptionHandler.process(new Exception(IHadoopDistributionService.class.getName() + " is not registed.")); //$NON-NLS-1$
         }
-
         return isSupport;
     }
 }

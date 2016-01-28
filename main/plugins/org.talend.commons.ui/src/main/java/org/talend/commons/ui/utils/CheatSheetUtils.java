@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -127,6 +127,10 @@ public class CheatSheetUtils {
     protected void restoreOtherViewAndEditor(IWorkbenchPart part) {
         if (part instanceof org.eclipse.ui.internal.cheatsheets.views.CheatSheetView) {
             IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+            if (activePage == null) {
+                return;
+            }
+
             for (IViewReference ref : activePage.getViewReferences()) {
                 if (part != ref.getView(false)) {
                     activePage.setPartState(ref, IWorkbenchPage.STATE_RESTORED);

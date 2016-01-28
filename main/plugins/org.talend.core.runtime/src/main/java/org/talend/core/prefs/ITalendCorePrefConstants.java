@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -179,4 +179,6 @@ public interface ITalendCorePrefConstants {
      * TAC connection timeout (seconds)
      */
     public static final String PERFORMANCE_TAC_CONNECTION_TIMEOUT = "PERFORMANCE_TAC_CONNECTION_TIMEOUT"; //$NON-NLS-1$
+
+    public static final String PERFORMANCE_JAVA_PROCESS_CODE_FORMATE_TIMEOUT = "PERFORMANCE_JAVA_PROCESS_CODE_FORMATE_TIMEOUT"; //$NON-NLS-1$
 }
