@@ -261,6 +261,8 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private Combo comboDropDown;
 
+    private IGitContentService service;
+
     /**
      * yzhang Comment method "addPreparedListeners".
      * 
@@ -328,33 +330,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     @Override
     public void createPartControl(Composite parent) {
-        ColumnLayout rl = new ColumnLayout();
-        rl.maxNumColumns = 1;
-        parent.setLayout(rl);
-        comboDropDown = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
-        final IGitContentService service = GitContentServiceProviderManager.getGitContentService();
-        comboDropDown.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void mouseDown(MouseEvent e) {
-                if (e.button == 1)
-                    service.setMenu(comboDropDown);
-
-            }
-
-            @Override
-            public void mouseUp(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
+        service = GitContentServiceProviderManager.getGitContentService();
+        if (service.isGIT())
+            createDropdownComboIfGit(parent);
 
         super.createPartControl(parent);
 
@@ -532,6 +510,39 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         }
     }
 
+    public void createDropdownComboIfGit(Composite parent) {
+        ColumnLayout rl = new ColumnLayout();
+        rl.maxNumColumns = 1;
+        parent.setLayout(rl);
+        comboDropDown = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
+        comboDropDown.setVisibleItemCount(0);
+        comboDropDown.select(0);
+        comboDropDown.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseDoubleClick(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                if (e.button == 1) {
+                    comboDropDown.setVisibleItemCount(0);
+                    comboDropDown.select(0);
+                    service.setMenu(comboDropDown);
+                }
+            }
+
+            @Override
+            public void mouseUp(MouseEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+    }
+
     private RepoViewPerspectiveListener getRepoViewPerspectiveListener() {
         if (perspectiveListener == null) {
             perspectiveListener = new RepoViewPerspectiveListener(getCommonViewer());
@@ -568,17 +579,18 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         INavigatorDescriptor navDesc = getNavDesc();
         if (navDesc == null) {
             setContentDescription("");
-        } else if (navDesc.getDescriptor().startsWith("GIT:")) {
+        } else if (service.isGIT() && comboDropDown != null) {
             String navDescString = navDesc.getDescriptor();
             List list = Arrays.asList(comboDropDown.getItems());
             if (list.contains(navDescString)) {
                 comboDropDown.select(list.indexOf(navDescString));
             } else {
                 comboDropDown.add(navDesc.getDescriptor());
+                comboDropDown.select(list.indexOf(navDesc.getDescriptor()));
+
             }
         } else {
             setContentDescription(navDesc.getDescriptor());
-            comboDropDown.setVisible(false);
         }
     }
 
