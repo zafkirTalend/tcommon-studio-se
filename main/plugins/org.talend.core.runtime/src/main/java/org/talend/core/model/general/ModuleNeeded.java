@@ -122,10 +122,10 @@ public class ModuleNeeded {
      *
      */
     public enum ELibraryInstallStatus {
-                                       UNKNOWN,
-                                       INSTALLED,
-                                       UNUSED,
-                                       NOT_INSTALLED;
+        UNKNOWN,
+        INSTALLED,
+        UNUSED,
+        NOT_INSTALLED;
     }
 
     /**
@@ -275,14 +275,14 @@ public class ModuleNeeded {
     }
 
     public ELibraryInstallStatus getStatus() {
-        final ELibraryInstallStatus eLibraryInstallStatus = ModuleStatusProvider.getStatusMap().get(getMavenUri(true));
+        final ELibraryInstallStatus eLibraryInstallStatus = ModuleStatusProvider.getStatusMap().get(getMavenUriSnapshot());
         if (eLibraryInstallStatus != null) {
             return eLibraryInstallStatus;
         } else {
             // compute the status of the lib.
             // first use the Library manager service
-            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                    .getService(ILibraryManagerService.class);
+            ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                    ILibraryManagerService.class);
             Set<String> existLibraries = libManagerService.list();
             if (existLibraries.contains(getModuleName())) {
                 status = ELibraryInstallStatus.INSTALLED;
@@ -295,7 +295,7 @@ public class ModuleNeeded {
                     status = ELibraryInstallStatus.NOT_INSTALLED;
                 }
             }
-            ModuleStatusProvider.getStatusMap().put(getMavenUri(true), status);
+            ModuleStatusProvider.getStatusMap().put(getMavenUriSnapshot(), status);
         }
         return this.status;
     }
@@ -496,7 +496,16 @@ public class ModuleNeeded {
     }
 
     public String getMavenUriSnapshot() {
-        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(getMavenUri());
+        MavenArtifact artifact = null;
+        if (getMavenUri() != null) {
+            if (getMavenUri().split(MavenUrlHelper.SEPERATOR).length < 4 && getModuleName().lastIndexOf(".") != -1) {
+                String extension = getModuleName().substring(getModuleName().lastIndexOf(".") + 1, getModuleName().length());
+                artifact = MavenUrlHelper.parseMvnUrl(getMavenUri() + "/" + extension);
+            } else {
+                artifact = MavenUrlHelper.parseMvnUrl(getMavenUri());
+            }
+        }
+
         // for non-talend libs.
         if (artifact != null && !MavenConstants.DEFAULT_LIB_GROUP_ID.equals(artifact.getGroupId())) {
             return getMavenUri(); // snapshot url same as maven url
@@ -504,11 +513,9 @@ public class ModuleNeeded {
 
         // set an defaut maven uri if uri is null or empty, this could be done in the set
         // but this would mean to sure the set is called after the name is set.
-        if (StringUtils.isEmpty(mavenUriSnapshot)) {
-            String configuredUri = getMavenUri();
-            if (!StringUtils.isEmpty(configuredUri)) {
-                mavenUriSnapshot = MavenUrlHelper.generateSnapshotMavenUri(configuredUri);
-            }
+        if (StringUtils.isEmpty(mavenUriSnapshot) && artifact != null) {
+            mavenUriSnapshot = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifact.getArtifactId(),
+                    artifact.getVersion() + "-SNAPSHOT", artifact.getType(), artifact.getClassifier());
         }
         if (StringUtils.isEmpty(mavenUriSnapshot)) {
             // get the latest snapshot maven uri from index as default
