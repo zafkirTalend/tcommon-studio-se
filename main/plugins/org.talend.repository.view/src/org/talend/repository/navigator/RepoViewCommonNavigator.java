@@ -580,15 +580,10 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         if (navDesc == null) {
             setContentDescription("");
         } else if (service.isGIT() && comboDropDown != null) {
-            String navDescString = navDesc.getDescriptor();
-            List list = Arrays.asList(comboDropDown.getItems());
-            if (list.contains(navDescString)) {
-                comboDropDown.select(list.indexOf(navDescString));
-            } else {
-                comboDropDown.add(navDesc.getDescriptor());
-                comboDropDown.select(list.indexOf(navDesc.getDescriptor()));
-
-            }
+            if (comboDropDown.getItems().length > 0)
+                comboDropDown.remove(0);
+            comboDropDown.add(navDesc.getDescriptor());
+            comboDropDown.select(0);
         } else {
             setContentDescription(navDesc.getDescriptor());
         }
