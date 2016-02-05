@@ -185,6 +185,8 @@ public final class TaggedValueHelper {
 
     public static final String CONTENT_TYPE = "Content Type"; //$NON-NLS-1$
 
+    public static final String PREVIEW_ROW_NUMBER = "PREVIEW_ROW_NUMBER"; //$NON-NLS-1$
+
     private TaggedValueHelper() {
     }
 
