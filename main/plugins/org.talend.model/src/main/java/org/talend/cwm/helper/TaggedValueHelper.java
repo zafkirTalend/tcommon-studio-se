@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.talend.commons.runtime.model.emf.EmfHelper;
-
 import orgomg.cwm.objectmodel.core.CoreFactory;
 import orgomg.cwm.objectmodel.core.CorePackage;
 import orgomg.cwm.objectmodel.core.ModelElement;
@@ -177,6 +176,8 @@ public final class TaggedValueHelper {
 
     // Added yyin 20121203 TDQ-6497 use "IS_DB_NEED_RELOAD" to replace "USING_URL"
     public static final String IS_CONN_NEED_RELOAD = "Is Conn Need Reload";//$NON-NLS-1$
+
+    public static final String PREVIEW_ROW_NUMBER           = "PREVIEW_ROW_NUMBER";                     //$NON-NLS-1$
 
     private TaggedValueHelper() {
     }
