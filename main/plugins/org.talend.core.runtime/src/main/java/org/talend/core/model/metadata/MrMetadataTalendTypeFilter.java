@@ -15,10 +15,6 @@ package org.talend.core.model.metadata;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * created by rdubois on 30 juil. 2015 Detailled comment
- *
- */
 public class MrMetadataTalendTypeFilter extends MetadataTalendTypeFilter {
 
     private final static List<String> UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Document", "Dynamic", "List", "Object" }); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ 

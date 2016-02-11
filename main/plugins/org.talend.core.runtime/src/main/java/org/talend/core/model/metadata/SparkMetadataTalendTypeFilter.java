@@ -18,29 +18,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * created by rdubois on 30 juil. 2015 Detailled comment
- *
- */
 public class SparkMetadataTalendTypeFilter extends MetadataTalendTypeFilter {
 
     private final static List<String> UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Document", "Dynamic" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     private final static String ROWGENERATOR_COMPONENT_NAME = "tRowGenerator"; //$NON-NLS-1$
 
-    private final static Map<String, List<String>> COMPONENT_UNSUPPORTED_TYPES = new HashMap<>();
+    protected final static String INPUTPARQUET_COMPONENT_NAME = "tFileInputParquet", INPUTSTREAMPARQUET_COMPONENT_NAME = "tFileStreamInputParquet", OUTPUTPARQUET_COMPONENT_NAME = "tFileOutputParquet"; //$NON-NLS-1$; //$NON-NLS-2$ //$NON-NLS-3$
 
-    private final String mComponentName;
+    protected final static Map<String, List<String>> COMPONENT_UNSUPPORTED_TYPES = new HashMap<>();
+
+    protected final String mComponentName;
 
     static {
         COMPONENT_UNSUPPORTED_TYPES.put(ROWGENERATOR_COMPONENT_NAME, Arrays.asList(new String[] { "Object" })); //$NON-NLS-1$
+        COMPONENT_UNSUPPORTED_TYPES.put(INPUTPARQUET_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
+        COMPONENT_UNSUPPORTED_TYPES.put(OUTPUTPARQUET_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
+        COMPONENT_UNSUPPORTED_TYPES.put(INPUTSTREAMPARQUET_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
     }
 
-    /**
-     * DOC rdubois SparkMetadataTalendTypeFilter constructor comment.
-     * 
-     * @param componentName, the current component name the filter applies on.
-     */
     public SparkMetadataTalendTypeFilter(String componentName) {
         this.mComponentName = componentName;
     }
