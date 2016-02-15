@@ -45,6 +45,16 @@ import org.talend.utils.json.JSONObject;
  */
 public class TalendLibsServerManager {
 
+    private static String NEXUS_USER = "nexus.user";
+
+    private static String NEXUS_PASSWORD = "nexus.password";
+
+    private static String NEXUS_URL = "nexus.url";
+
+    private static String NEXUS_LIB_REPO = "nexus.lib.repo";
+
+    private static String DEFAULT_LIB_REPO = "talend-custom-libs";
+
     private static TalendLibsServerManager manager = null;
 
     private MavenResolver mavenResolver = null;
@@ -52,6 +62,8 @@ public class TalendLibsServerManager {
     private NexusServerBean previousCustomBean;
 
     public static final int CONNECTION_OK = 200;
+
+    private static Boolean lastConnectionValid;
 
     private TalendLibsServerManager() {
         // the tracker is use in case the service is modifed
@@ -140,12 +152,17 @@ public class TalendLibsServerManager {
     public NexusServerBean getCustomNexusServer() {
         NexusServerBean serverBean = null;
         try {
+            String nexus_url = System.getProperty(NEXUS_URL);
+            String nexus_user = System.getProperty(NEXUS_USER); //$NON-NLS-1$
+            String nexus_pass = System.getProperty(NEXUS_PASSWORD); //$NON-NLS-1$
+            String repositoryId = System.getProperty(NEXUS_LIB_REPO, DEFAULT_LIB_REPO);
+
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             RepositoryContext repositoryContext = factory.getRepositoryContext();
-            if (factory.isLocalConnectionProvider() || repositoryContext.isOffline()) {
+            if ((nexus_url == null && (factory.isLocalConnectionProvider() || repositoryContext.isOffline())) || Boolean.FALSE == lastConnectionValid) {
                 return null;
             }
-            if (repositoryContext != null && repositoryContext.getFields() != null) {
+            if (repositoryContext != null && repositoryContext.getFields() != null && !factory.isLocalConnectionProvider() && !repositoryContext.isOffline()) {
                 String adminUrl = repositoryContext.getFields().get(RepositoryConstants.REPOSITORY_URL);
                 String userName = "";
                 String password = "";
@@ -162,43 +179,40 @@ public class TalendLibsServerManager {
                     JSONObject libServerObject;
                     libServerObject = remoteService.getLibNexusServer(userName, password, adminUrl);
                     if (libServerObject != null) {
-                        String nexus_url = libServerObject.getString(NexusServerUtils.KEY_NEXUS_RUL);
-                        String nexus_user = libServerObject.getString(NexusServerUtils.KEY_NEXUS_USER);
-                        String nexus_pass = libServerObject.getString(NexusServerUtils.KEY_NEXUS_PASS);
-                        String repositoryId = libServerObject.getString(NexusServerUtils.KEY_CUSTOM_LIB_REPOSITORY);
-
-                        // TODO check if custom nexus is valid , only check http response for now , need check if it is
-                        // snapshot latter
-                        boolean connectionOk = NexusServerUtils.checkConnectionStatus(nexus_url, repositoryId, nexus_user,
-                                nexus_pass);
-                        if (!connectionOk) {
-                            return null;
-                        }
-
-                        String newUrl = nexus_url;
-                        if (newUrl.endsWith(NexusConstants.SLASH)) {
-                            newUrl = newUrl.substring(0, newUrl.length() - 1);
-                        }
-                        if (nexus_user != null && !"".equals(nexus_user)) {//$NON-NLS-1$
-                            String[] split = newUrl.split("://");//$NON-NLS-1$
-                            if (split.length != 2) {
-                                throw new RuntimeException("Nexus url is not valid ,please contract the administrator");
-                            }
-                            newUrl = split[0] + ":" + nexus_user + ":" + nexus_pass + "@//"//$NON-NLS-1$
-                                    + split[1];
-                        }
-                        newUrl = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId + "@id=" + repositoryId;//$NON-NLS-1$ 
-
-                        serverBean = new NexusServerBean();
-                        serverBean.setServer(nexus_url);
-                        serverBean.setUserName(nexus_user);
-                        serverBean.setPassword(nexus_pass);
-                        serverBean.setRepositoryId(repositoryId);
-                        serverBean.setRepositoryUrl(newUrl);
+                        nexus_url = libServerObject.getString(NexusServerUtils.KEY_NEXUS_RUL);
+                        nexus_user = libServerObject.getString(NexusServerUtils.KEY_NEXUS_USER);
+                        nexus_pass = libServerObject.getString(NexusServerUtils.KEY_NEXUS_PASS);
+                        repositoryId = libServerObject.getString(NexusServerUtils.KEY_CUSTOM_LIB_REPOSITORY);
                     }
                 }
-
             }
+            if (lastConnectionValid == null) {
+                boolean connectionOk = NexusServerUtils.checkConnectionStatus(nexus_url, repositoryId, nexus_user, nexus_pass);
+                lastConnectionValid = connectionOk; 
+                if (!connectionOk) {
+                    return null;
+                }
+            }
+            String newUrl = nexus_url;
+            if (newUrl.endsWith(NexusConstants.SLASH)) {
+                newUrl = newUrl.substring(0, newUrl.length() - 1);
+            }
+            if (nexus_user != null && !"".equals(nexus_user)) {//$NON-NLS-1$
+                String[] split = newUrl.split("://");//$NON-NLS-1$
+                if (split.length != 2) {
+                    throw new RuntimeException("Nexus url is not valid ,please contract the administrator");
+                }
+                newUrl = split[0] + ":" + nexus_user + ":" + nexus_pass + "@//"//$NON-NLS-1$
+                        + split[1];
+            }
+            newUrl = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId + "@id=" + repositoryId;//$NON-NLS-1$ 
+
+            serverBean = new NexusServerBean();
+            serverBean.setServer(nexus_url);
+            serverBean.setUserName(nexus_user);
+            serverBean.setPassword(nexus_pass);
+            serverBean.setRepositoryId(repositoryId);
+            serverBean.setRepositoryUrl(newUrl);
         } catch (Exception e) {
             serverBean = null;
             ExceptionHandler.process(e);
