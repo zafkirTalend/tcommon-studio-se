@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.metadata.managment.ui.wizard.context;
 
-import org.talend.components.api.properties.Property;
-import org.talend.components.api.properties.PropertyValueEvaluator;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.daikon.properties.Property;
+import org.talend.daikon.properties.PropertyValueEvaluator;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 
