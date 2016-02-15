@@ -150,11 +150,14 @@ public class TalendLibsServerManager {
     }
 
     public NexusServerBean getCustomNexusServer() {
+        if (!org.talend.core.PluginChecker.isCoreTISPluginLoaded()) {
+            return null;
+        }
         NexusServerBean serverBean = null;
         try {
             String nexus_url = System.getProperty(NEXUS_URL);
-            String nexus_user = System.getProperty(NEXUS_USER); //$NON-NLS-1$
-            String nexus_pass = System.getProperty(NEXUS_PASSWORD); //$NON-NLS-1$
+            String nexus_user = System.getProperty(NEXUS_USER);
+            String nexus_pass = System.getProperty(NEXUS_PASSWORD);
             String repositoryId = System.getProperty(NEXUS_LIB_REPO, DEFAULT_LIB_REPO);
 
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
