@@ -36,8 +36,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -58,7 +56,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.Saveable;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
-import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.CommonViewerSorter;
@@ -332,7 +329,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     public void createPartControl(Composite parent) {
         service = GitContentServiceProviderManager.getGitContentService();
         if (service.isGIT())
-            createDropdownComboIfGit(parent);
+            service.createDropdownCombo(parent);
 
         super.createPartControl(parent);
 
@@ -510,39 +507,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         }
     }
 
-    public void createDropdownComboIfGit(Composite parent) {
-        ColumnLayout rl = new ColumnLayout();
-        rl.maxNumColumns = 1;
-        parent.setLayout(rl);
-        comboDropDown = new Combo(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
-        comboDropDown.setVisibleItemCount(0);
-        comboDropDown.select(0);
-        comboDropDown.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseDoubleClick(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void mouseDown(MouseEvent e) {
-                if (e.button == 1) {
-                    comboDropDown.setVisibleItemCount(0);
-                    comboDropDown.select(0);
-                    service.setMenu(comboDropDown);
-                }
-            }
-
-            @Override
-            public void mouseUp(MouseEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
-    }
-
     private RepoViewPerspectiveListener getRepoViewPerspectiveListener() {
         if (perspectiveListener == null) {
             perspectiveListener = new RepoViewPerspectiveListener(getCommonViewer());
@@ -577,15 +541,13 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      */
     public void refreshContentDescription() {
         INavigatorDescriptor navDesc = getNavDesc();
+        final String descriptor = navDesc.getDescriptor();
         if (navDesc == null) {
             setContentDescription("");
-        } else if (service.isGIT() && comboDropDown != null) {
-            if (comboDropDown.getItems().length > 0)
-                comboDropDown.remove(0);
-            comboDropDown.add(navDesc.getDescriptor());
-            comboDropDown.select(0);
+        } else if (service.isGIT()) {
+            service.configureCombo(descriptor);
         } else {
-            setContentDescription(navDesc.getDescriptor());
+            setContentDescription(descriptor);
         }
     }
 
