@@ -13,9 +13,11 @@
 package org.talend.librariesmanager.model.service;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -34,15 +36,20 @@ import org.eclipse.emf.common.util.EMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.ops4j.pax.url.mvn.MavenResolver;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.nexus.NexusServerBean;
+import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.designer.maven.talendlib.TalendLibsServerManager;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
@@ -362,6 +369,68 @@ public class LocalLibraryManagerTest {
         String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
         File storageDir = new File(librariesPath);
         return storageDir;
+    }
+
+    @Test
+    public void testRetrieveModuleNeededStringBooleanIProgressMonitor() throws Exception {
+        TalendLibsServerManager serverManager = TalendLibsServerManager.getInstance();
+        try {
+            ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                    .getService(ILibraryManagerService.class);
+
+            TalendLibsServerManager fakeServerManager = mock(TalendLibsServerManager.class);
+            NexusServerBean fakeServerBean = new NexusServerBean();
+            when(fakeServerManager.getCustomNexusServer()).thenReturn(fakeServerBean);
+            MavenResolver resolver = mock(MavenResolver.class);
+            when(fakeServerManager.getMavenResolver()).thenReturn(resolver);
+            final Field declaredField = serverManager.getClass().getDeclaredField("manager");
+            declaredField.setAccessible(true);
+            declaredField.set(serverManager, fakeServerManager);
+
+            // test for TUP-4036,resolve module from custom nexus
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "MyTest.jar", "MyTest", "6.0.0", "jar", true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "log4j-1.2.15.jar", "log4j-1.2.15", "6.0.0", "jar",
+                    true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "log4j-1.2.15.jar",
+                    "org.apache.log4j_1.2.15.v201012070815", "6.0.0", "jar", true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "winutils-hadoop-2.6.0.exe",
+                    "winutils-hadoop-2.6.0", "6.0.0", "exe", true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "RoutineDependency.jar", "RoutineDependency",
+                    "6.0.0", "jar", false);
+        } finally {
+            // set back the server manager
+            final Field declaredField = serverManager.getClass().getDeclaredField("manager");
+            declaredField.setAccessible(true);
+            declaredField.set(serverManager, serverManager);
+        }
+    }
+
+    private void testRetreive(ILibraryManagerService libraryManagerService, TalendLibsServerManager fakeServerManager,
+            MavenResolver resolver, String jarName, String artifactId, String version, String type, boolean moduleWithMvnUri)
+            throws Exception {
+        String mvnUri = null;
+        if (moduleWithMvnUri) {
+            mvnUri = "mvn:org.talend.libraries/" + artifactId + "/" + version;
+        }
+        String snapshotUri = "mvn:org.talend.libraries/" + artifactId + "/" + version + "-SNAPSHOT" + "/" + type;
+        ModuleNeeded module1 = new ModuleNeeded("module context", jarName, "test", true, null, null, mvnUri);
+        MavenArtifact sArtifact = new MavenArtifact();
+        sArtifact.setGroupId("org.talend.libraries");
+        sArtifact.setArtifactId(artifactId);
+        sArtifact.setVersion(version + "-SNAPSHOT");
+        sArtifact.setType(type);
+        List<MavenArtifact> searchResult = new ArrayList<MavenArtifact>();
+        searchResult.add(sArtifact);
+        when(fakeServerManager.search(null, null, null, null, "org.talend.libraries", artifactId, "6.0.0-SNAPSHOT")).thenReturn(
+                searchResult);
+        when(resolver.resolve(snapshotUri)).thenReturn(new File(""));
+        boolean retrieve1 = libraryManagerService.retrieve(module1, null, false, null);
+        assertTrue(retrieve1);
+        assertEquals(module1.getStatus(), ELibraryInstallStatus.INSTALLED);
     }
 
 }

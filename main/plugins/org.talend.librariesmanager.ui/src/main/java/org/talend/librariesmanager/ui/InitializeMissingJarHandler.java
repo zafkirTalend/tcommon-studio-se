@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -134,24 +133,29 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
             if (!new File(jarMissingEvent.getExpectedLibFolder(), moduleName).exists()) {
                 // check that library is already available and registered but not deployed to maven.
                 try {
-                    if (librariesService != null
-                            && (librariesService.getLibraryStatus(moduleName) == ELibraryInstallStatus.INSTALLED)) {
-                        // lib exist so deploy it
-                        List<ModuleNeeded> allModuleNeeded = ModulesNeededProvider.getModulesNeededForName(moduleName);
-                        for (ModuleNeeded sameModule : allModuleNeeded) {
-                            String moduleLocation = sameModule.getModuleLocaion();
-                            if (sameModule.getStatus() == ELibraryInstallStatus.INSTALLED && moduleLocation != null
-                                    && !moduleLocation.isEmpty()) {
-                                URI uri = new URI(moduleLocation);
-                                URL url = FileLocator.toFileURL(uri.toURL());
-                                if ("file".equals(url.getProtocol())) { //$NON-NLS-1$
-                                    libraryManagerService.deploy(url.toURI(), null);
-                                    installed = true;
-                                }// else not a file so keep going
-                                break;
-                            }// else not an installed module or no url so keep so keep looking
-                        }
-                    }// else no installed so keep going and ask the user
+                    if (librariesService != null) {
+                        if (librariesService.getLibraryStatus(moduleName) == ELibraryInstallStatus.INSTALLED) {
+                            // lib exist so deploy it
+                            List<ModuleNeeded> allModuleNeeded = ModulesNeededProvider.getModulesNeededForName(moduleName);
+                            for (ModuleNeeded sameModule : allModuleNeeded) {
+                                String moduleLocation = sameModule.getModuleLocaion();
+                                if (sameModule.getStatus() == ELibraryInstallStatus.INSTALLED && moduleLocation != null
+                                        && !moduleLocation.isEmpty()) {
+                                    URI uri = new URI(moduleLocation);
+                                    URL url = FileLocator.toFileURL(uri.toURL());
+                                    if ("file".equals(url.getProtocol())) { //$NON-NLS-1$
+                                        libraryManagerService.deploy(url.toURI(), null);
+                                        installed = true;
+                                    }// else not a file so keep going
+                                    break;
+                                }// else not an installed module or no url so keep so keep looking
+                            }
+                        } else {
+                            // try to retreive again incase it exist on custom nexus
+                            final boolean retrieve = libraryManagerService.retrieve(module, null, false);
+                            installed = retrieve;
+                        }// else no installed so keep going and ask the user
+                    }
                 } catch (BusinessException e) {
                     log.warn("Could not get installade status for library:" + moduleName, e);
                 } catch (URISyntaxException e) {
@@ -168,7 +172,7 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
             Display.getDefault().syncExec(new Runnable() {
 
                 @Override
-                public void run() {                    
+                public void run() {
                     ExternalModulesInstallDialogWithProgress dialog = new ExternalModulesInstallDialogWithProgress(
                             DisplayUtils.getDefaultShell(),
                             Messages.getString("ExternalModulesInstallDialog_Title_Missing_jars_for_plugin"), //$NON-NLS-1$

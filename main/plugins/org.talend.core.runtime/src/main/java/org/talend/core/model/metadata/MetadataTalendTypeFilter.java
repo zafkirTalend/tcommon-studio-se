@@ -17,15 +17,10 @@ import java.util.List;
 
 import org.talend.core.model.metadata.types.JavaType;
 
-/**
- * created by rdubois on 30 juil. 2015 Detailled comment
- *
- */
 public abstract class MetadataTalendTypeFilter {
 
     /**
      * This method returns a List of String, representing the data types that must not be shown in the Talend schema.
-     * DOC rdubois Comment method "getUnsupportedTypes".
      * 
      * @return
      */
