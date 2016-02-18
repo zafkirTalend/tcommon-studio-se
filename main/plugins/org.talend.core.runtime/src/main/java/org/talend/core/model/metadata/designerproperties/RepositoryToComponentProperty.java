@@ -2694,4 +2694,13 @@ public class RepositoryToComponentProperty {
         }
         return value;
     }
+
+    public static boolean isGenericRepositoryValue(Connection connection, String paramName) {
+        for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
+            if (handler.canHandle(connection)) {
+                return handler.isGenericRepositoryValue(connection, paramName);
+            }
+        }
+        return false;
+    }
 }
