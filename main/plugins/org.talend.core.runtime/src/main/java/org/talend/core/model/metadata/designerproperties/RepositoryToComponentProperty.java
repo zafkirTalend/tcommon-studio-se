@@ -1259,7 +1259,7 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("ADVANCED_PROPERTIES") && EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
             String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
-            return HadoopRepositoryUtil.getHadoopPropertiesList(message, true);
+            return HadoopRepositoryUtil.getHadoopPropertiesList(message, connection.isContextMode(), true);
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {
