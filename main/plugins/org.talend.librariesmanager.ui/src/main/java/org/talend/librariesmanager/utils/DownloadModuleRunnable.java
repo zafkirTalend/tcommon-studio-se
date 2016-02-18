@@ -31,6 +31,8 @@ import org.ops4j.pax.url.mvn.Handler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.ModuleStatusProvider;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.librariesmanager.ui.LibManagerUiPlugin;
@@ -78,7 +80,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         SubMonitor subMonitor = SubMonitor
                 .convert(
                         monitor,
-                        Messages.getString("ExternalModulesInstallDialog.downloading2") + " (" + toDownload.size() + ")", toDownload.size() + 1); //$NON-NLS-1$
+                        Messages.getString("ExternalModulesInstallDialog.downloading2") + " (" + toDownload.size() + ")", toDownload.size()); //$NON-NLS-1$
 
         Map<String, String> customUriToAdd = new HashMap<String, String>();
         // TUP-3135 : stop to try to download at the first timeout.
@@ -89,20 +91,27 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
                 boolean accepted;
                 try {
                     // check license
-                    boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()
-                            .getBoolean(module.getLicenseType());
+                    boolean isLicenseAccepted = module.isFromCustomNexus()
+                            || LibManagerUiPlugin.getDefault().getPreferenceStore().getBoolean(module.getLicenseType());
                     accepted = isLicenseAccepted;
                     if (!accepted) {
                         subMonitor.worked(1);
                         continue;
                     }
-                    NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress();
+                    NexusDownloadHelperWithProgress downloader = new NexusDownloadHelperWithProgress(module);
                     if (!module.getMavenUris().isEmpty()) {
                         for (String mvnUri : module.getMavenUris()) {
                             downloader.download(new URL(null, mvnUri, new Handler()), null, subMonitor.newChild(1));
+                            // update module status
+                            final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
+                            statusMap.put(MavenUrlHelper.generateSnapshotMavenUri(mvnUri), ELibraryInstallStatus.INSTALLED);
                         }
                     } else {
                         downloader.download(new URL(null, module.getMavenUri(), new Handler()), null, subMonitor.newChild(1));
+                        // update module status
+                        final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
+                        statusMap.put(MavenUrlHelper.generateSnapshotMavenUri(module.getMavenUri()),
+                                ELibraryInstallStatus.INSTALLED);
                     }
 
                     // deploy to index as snapshot
@@ -129,14 +138,16 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
             ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
                     .getService(ILibraryManagerService.class);
             libraryManagerService.forceListUpdate();
-            LibManagerUiPlugin.getDefault().getLibrariesService().resetModulesNeeded();
         }
-        subMonitor.worked(1);
     }
 
     protected boolean hasLicensesToAccept() {
         if (toDownload != null && toDownload.size() > 0) {
             for (ModuleToInstall module : toDownload) {
+                // no need accept license if it is from custom nexus
+                if (module.isFromCustomNexus()) {
+                    continue;
+                }
                 String licenseType = module.getLicenseType();
                 if (licenseType != null) {
                     boolean isLicenseAccepted = LibManagerUiPlugin.getDefault().getPreferenceStore()

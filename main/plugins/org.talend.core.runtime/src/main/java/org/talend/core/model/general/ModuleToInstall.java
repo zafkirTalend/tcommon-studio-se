@@ -43,6 +43,8 @@ public class ModuleToInstall {
 
     private String distribution = "";
 
+    private boolean fromCustomNexus;
+
     public String getName() {
         return this.name;
     }
@@ -176,4 +178,16 @@ public class ModuleToInstall {
         return this.mavenUris;
     }
 
+    /**
+     * Sets the fromCustomNexus.
+     * 
+     * @param fromCustomNexus the fromCustomNexus to set
+     */
+    public void setFromCustomNexus(boolean fromCustomNexus) {
+        this.fromCustomNexus = fromCustomNexus;
+    }
+
+    public boolean isFromCustomNexus() {
+        return this.fromCustomNexus;
+    }
 }

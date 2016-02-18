@@ -292,6 +292,10 @@ public class AcceptModuleLicensesWizardPage extends WizardPage {
                     }
                     Map<String, License> typeToLicense = new HashMap<String, License>();
                     for (ModuleToInstall moduleToInstall : mti) {
+                        // no need accept license if it is from custom nexus
+                        if (moduleToInstall.isFromCustomNexus()) {
+                            continue;
+                        }
                         String licenseType = moduleToInstall.getLicenseType();
                         if (licenseType == null) {
                             licenseType = UNKNOWN_LICENSE;
