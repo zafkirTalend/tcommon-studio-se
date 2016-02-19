@@ -234,6 +234,21 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
     }
 
+    @Override
+    public ImportItem generateImportItem(IProgressMonitor monitor, ResourcesManager resManager, IPath resourcePath,
+            boolean overwrite, List<ImportItem> existedImportItems) throws Exception {
+        ImportItem importItem = computeImportItem(resManager, resourcePath);
+        if (monitor.isCanceled()) {
+            return null;
+        }
+        if (importItem != null && importItem.getProperty() != null) {
+            // set the import handler
+            importItem.setImportHandler(this);
+            return importItem;
+        }
+        return null;
+    }
+
     public ImportItem computeImportItem(ResourcesManager resManager, IPath path) {
         ImportItem importItem = new ImportItem(path);
         computeProperty(resManager, importItem);
@@ -1221,4 +1236,5 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     protected URI getReferenceFileURI(URI propertyResourceURI, ReferenceFileItem refItem) {
         return propertyResourceURI.trimFileExtension().appendFileExtension(refItem.getExtension());
     }
+
 }
