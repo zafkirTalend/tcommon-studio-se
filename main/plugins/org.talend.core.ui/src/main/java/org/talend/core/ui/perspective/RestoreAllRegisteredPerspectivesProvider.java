@@ -14,7 +14,6 @@ package org.talend.core.ui.perspective;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -273,6 +272,9 @@ public class RestoreAllRegisteredPerspectivesProvider {
             }
             // create new
             if (mPersp == null) { // copied some form method setPerspective of class WorkbenchPage
+                if (fWindow == null) {
+                    return;
+                }
                 String perspId = perspDesc.getId();
 
                 WorkbenchPage workbenchPage = (WorkbenchPage) workbench.getActiveWorkbenchWindow().getActivePage();

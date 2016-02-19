@@ -55,6 +55,8 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.ModuleStatusProvider;
 import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenArtifact;
@@ -314,7 +316,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
     private boolean retrieve(String jarNeeded, String snapshotMvnUri, String pathToStore, boolean showDialog) {
         String sourcePath = null, targetPath = pathToStore;
         File jarFile = null;
-        boolean needResetModule = false;
         try {
             jarFile = getJarFile(snapshotMvnUri);
             if (jarFile == null) {
@@ -333,6 +334,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             .get(jarNeeded);
                     if (snapshotMvnUri == null) {
                         snapshotMvnUri = MavenUrlHelper.generateMvnUrlForJarName(jarNeeded);
+                        toResolve.add(snapshotMvnUri);
                     } else {
                         final String[] split = snapshotMvnUri.split(MavenUrlHelper.MVN_INDEX_SPLITER);
                         for (String mvnUri : split) {
@@ -354,10 +356,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                 break;
                             }
                         }
-                        if (jarFile == null && resolvedFile != null) {
-                            needResetModule = true;
-                        }
                         if (resolvedFile != null) {
+                            // reset module status
+                            final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
+                            statusMap.put(uri, ELibraryInstallStatus.INSTALLED);
                             jarFile = resolvedFile;
                             // update installed path
                             mavenJarInstalled.put(uri, jarFile.getAbsolutePath());
@@ -393,12 +395,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
                                 ILibrariesService.class);
                         librariesService.resetModulesNeeded();
                     }
-                }
-            } else if (needResetModule) {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
-                    ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
-                            ILibrariesService.class);
-                    librariesService.resetModulesNeeded();
                 }
             }
             if (jarFile == null) {
