@@ -29,6 +29,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.designer.core.IDesignerCoreService;
+import org.talend.utils.string.MD5;
 
 /**
  * amaumont class global comment. Detailled comment <br/>
@@ -80,17 +81,19 @@ public class CoreImageProvider {
         return getIcon(itemType);
     }
 
-    private static Map<ImageDescriptor, Image> componentCachedImages = new HashMap<ImageDescriptor, Image>();
+    private static Map<String, Image> componentCachedImages = new HashMap<String, Image>();
 
-    public static Image getComponentImageFromDesc(ImageDescriptor imageDescriptor) {
-        Image image = null;
-        image = componentCachedImages.get(imageDescriptor);
-        if (image == null || image.isDisposed()) {
-            image = imageDescriptor.createImage();
-            componentCachedImages.put(imageDescriptor, image);
-        }
-        return image;
-    }
+	public static Image getComponentImageFromDesc(
+			ImageDescriptor imageDescriptor) {
+		String md5Desc = MD5.getMD5(imageDescriptor.getImageData().data);
+		Image image = componentCachedImages.get(md5Desc);
+
+		if (image == null || image.isDisposed()) {
+			image = imageDescriptor.createImage();
+			componentCachedImages.put(md5Desc, image);
+		}
+		return image;
+	}
 
     public static Image getComponentIcon(IComponent component, ICON_SIZE iconSize) {
         if (component != null && iconSize != null) {
@@ -130,21 +133,24 @@ public class CoreImageProvider {
         if (name != null && !name.equals("")) { //$NON-NLS-1$
             for (IComponent component : ComponentsFactoryProvider.getInstance().getComponents()) {
                 if (name.equals(component.getName())) {
-                    Image image = componentCachedImages.get(component.getIcon16());
+                	String md5Desc16 = MD5.getMD5(component.getIcon16().getImageData().data);
+                    Image image = componentCachedImages.get(md5Desc16);
                     if (image != null && !image.isDisposed()) {
                         image.dispose();
                     }
-                    componentCachedImages.remove(component.getIcon16());
-                    image = componentCachedImages.get(component.getIcon24());
+                    componentCachedImages.remove(md5Desc16);
+                    String md5Desc24 = MD5.getMD5(component.getIcon24().getImageData().data);
+                    image = componentCachedImages.get(md5Desc24);
                     if (image != null && !image.isDisposed()) {
                         image.dispose();
                     }
-                    componentCachedImages.remove(component.getIcon24());
-                    image = componentCachedImages.get(component.getIcon32());
+                    componentCachedImages.remove(md5Desc24);
+                    String md5Desc32 = MD5.getMD5(component.getIcon32().getImageData().data);
+                    image = componentCachedImages.get(md5Desc32);
                     if (image != null && !image.isDisposed()) {
                         image.dispose();
                     }
-                    componentCachedImages.remove(component.getIcon32());
+                    componentCachedImages.remove(md5Desc32);
                 }
             }
         }
