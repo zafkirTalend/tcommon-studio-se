@@ -41,6 +41,10 @@ public class ImportItemsViewerLabelProvider extends LabelProvider {
      */
     @Override
     public Image getImage(Object element) {
+        return getImageBasedOn(element);
+    }
+
+    public static Image getImageBasedOn(Object element) {
         if (element instanceof ImportNode) {
             if (element instanceof ProjectImportNode) {
                 return ImageProvider.getImage(ECoreImage.PROJECT_ICON);
@@ -50,7 +54,7 @@ public class ImportItemsViewerLabelProvider extends LabelProvider {
                 if (itemType == ERepositoryObjectType.PROCESS_MR || itemType == ERepositoryObjectType.PROCESS_STORM) {
                     return ImageProvider.getImage(CoreImageProvider.getIcon(item));
                 }
-                return getImage(itemType);
+                return getImageBasedOn(itemType);
             } else if (element instanceof TypeImportNode) {
                 ERepositoryObjectType repObjectType = ((TypeImportNode) element).getType();
                 // also see RepoViewCommonNavigator.java
@@ -59,14 +63,14 @@ public class ImportItemsViewerLabelProvider extends LabelProvider {
                 } else if (repObjectType == ERepositoryObjectType.PROCESS_MR) {
                     return ImageProvider.getImage(ECoreImage.PROCESS_BATCH_GENERIC_CATEGORY_OPEN_ICON);
                 } else {
-                    return getImage(repObjectType);
+                    return getImageBasedOn(repObjectType);
                 }
             } else if (element instanceof StandardJobImportNode) {
                 ERepositoryObjectType repObjectType = ((StandardJobImportNode) element).getType();
                 if (repObjectType == ERepositoryObjectType.PROCESS) {
                     return ImageProvider.getImage(ECoreImage.PROCESS_STANDARD_GENERIC_CATEGORY_OPEN_ICON);
                 }
-                return getImage(repObjectType);
+                return getImageBasedOn(repObjectType);
             } else if (element instanceof FolderImportNode) {
                 return CoreImageProvider.getImage(ERepositoryObjectType.FOLDER);
             }
