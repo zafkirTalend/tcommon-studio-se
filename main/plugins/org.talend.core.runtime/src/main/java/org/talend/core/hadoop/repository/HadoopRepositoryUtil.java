@@ -68,7 +68,7 @@ public class HadoopRepositoryUtil {
     }
 
     public static List<Map<String, Object>> getHadoopPropertiesList(String propertiesJsonStr) {
-        return getHadoopPropertiesList(propertiesJsonStr, false);
+        return getHadoopPropertiesList(propertiesJsonStr, false, false);
     }
 
     /**
@@ -83,7 +83,8 @@ public class HadoopRepositoryUtil {
      * @return
      * @throws JSONException
      */
-    public static List<Map<String, Object>> getHadoopPropertiesList(String propertiesJsonStr, boolean includeQuotes) {
+    public static List<Map<String, Object>> getHadoopPropertiesList(String propertiesJsonStr, boolean isContextMode,
+            boolean includeQuotes) {
         List<Map<String, Object>> properties = new ArrayList<Map<String, Object>>();
         try {
             if (StringUtils.isNotEmpty(propertiesJsonStr)) {
@@ -96,7 +97,11 @@ public class HadoopRepositoryUtil {
                         String key = it.next();
                         String value = String.valueOf(object.get(key));
                         if (includeQuotes) {
-                            value = TalendQuoteUtils.addQuotesIfNotExist(value);
+                            if (isContextMode && "VALUE".equals(key)) { //$NON-NLS-1$
+                                value = TalendQuoteUtils.removeQuotesIfExist(value);
+                            } else {
+                                value = TalendQuoteUtils.addQuotesIfNotExist(value);
+                            }
                         } else {
                             value = TalendQuoteUtils.removeQuotesIfExist(value);
                         }
@@ -134,9 +139,10 @@ public class HadoopRepositoryUtil {
         }
         List<Map<String, Object>> parentProperties = null;
         if (hadoopClusterService != null) {
-            parentProperties = getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(connection), true);
+            parentProperties = getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(connection),
+                    connection.isContextMode(), true);
         }
-        List<Map<String, Object>> properties = getHadoopPropertiesList(propertiesJsonStr, true);
+        List<Map<String, Object>> properties = getHadoopPropertiesList(propertiesJsonStr, connection.isContextMode(), true);
         Map<String, Map<String, Object>> propertiesMap = new HashMap<String, Map<String, Object>>();
         for (Map<String, Object> proMap : properties) {
             String property = String.valueOf(proMap.get("PROPERTY")); //$NON-NLS-1$
