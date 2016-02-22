@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.talend.repository.viewer.perspective.filter" name="CNF Perspective Filter" schema="schema/perspective.filter.exsd"/>
+   <extension-point id="repositorySorter" name="RepositorySorter" schema="schema/repositorySorter.exsd"/>
 
    <extension
          point="org.eclipse.ui.views">
@@ -426,5 +427,15 @@
             properties="isSchemaColumnFolder"
             type="org.talend.repository.model.RepositoryNode">
       </propertyTester>
+   </extension>
+   <extension
+         point="org.talend.repository.view.repositorySorter">
+      <sorter
+            class="org.talend.repository.view.sorter.RepositoryObjectTypeSorter"
+            description="sort children and based on the ordinal of type"
+            id="org.talend.repository.view.sorter.RepositoryObjectTypeSorter"
+            name="RepositoryObjectTypeSorter"
+            order="10">
+      </sorter>
    </extension>
 </plugin>
