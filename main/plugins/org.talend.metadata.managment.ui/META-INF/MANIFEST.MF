@@ -20,7 +20,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.datatools.xml,
  org.apache.log4j,
  org.eclipse.jdt.core,
- org.talend.core.ui
+ org.talend.core.ui,
+ org.talend.components.api
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-Localization: plugin
