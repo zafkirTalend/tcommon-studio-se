@@ -91,11 +91,6 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
     }
 
     @Override
-    public ComponentProperties commitFormValues(ComponentProperties properties, String formName) {
-        return service.commitFormValues(properties, formName);
-    }
-
-    @Override
     public Set<String> getAllComponentNames() {
         return service.getAllComponentNames();
     }
@@ -176,6 +171,21 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
                 setupChildrenPropertiesContextValueEvaluator(childComponentProperties, valueEvaluator);
             }
         }
+    }
+
+    @Deprecated
+    public ComponentProperties commitFormValues(ComponentProperties properties, String formName) {
+        // to delete
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.daikon.properties.service.PropertiesService#cancelFormValues(org.talend.daikon.properties.Properties, java.lang.String)
+     */
+    @Override
+    public ComponentProperties cancelFormValues(ComponentProperties arg0, String arg1) {
+        // to implement
+        return null;
     }
 
 }
