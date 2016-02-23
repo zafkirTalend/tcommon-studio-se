@@ -83,33 +83,17 @@ public class ImportNodesBuilder {
 
     public void addItems(List<ImportItem> items) {
         if (items != null) {
-            Map<ImportItem, List<ImportItem>> itemMap = new HashMap<ImportItem, List<ImportItem>>();
-            for (ImportItem ir : items) {
-                itemMap.put(ir, null);
-            }
-
-            Map<ImportItem, List<ImportItem>> map = getTestCaseItemMap(items);
-            if (map != null && !map.isEmpty()) {
-                for (Map.Entry<ImportItem, List<ImportItem>> es : map.entrySet()) {
-                    ImportItem ir = es.getKey();
-                    if (ir != null) {
-                        List<ImportItem> relatedItems = itemMap.get(ir);
-                        if (relatedItems == null) {
-                            itemMap.put(ir, es.getValue());
-                        } else {
-                            List<ImportItem> esRelatedItems = es.getValue();
-                            if (esRelatedItems != null && !esRelatedItems.isEmpty()) {
-                                relatedItems.addAll(esRelatedItems);
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (ImportItem ir : itemMap.keySet()) {
-                List<ImportItem> children = itemMap.get(ir);
-                addItem(ir, children);
-            }
+        	 if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+        		 Map<ImportItem, List<ImportItem>> itemMap = getTestCaseItemMap(items);
+                 for (ImportItem ir : itemMap.keySet()) {
+                     List<ImportItem> children = itemMap.get(ir);
+                     addItem(ir, children);
+                 }
+        	 }else{
+        		 for (ImportItem ir : items) {
+             		addItem(ir);
+             	}
+        	 }
         }
     }
 
