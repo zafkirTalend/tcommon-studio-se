@@ -1263,7 +1263,7 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("ADVANCED_PROPERTIES") && EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
             String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
-            return HadoopRepositoryUtil.getHadoopPropertiesList(message, true);
+            return HadoopRepositoryUtil.getHadoopPropertiesList(message, connection.isContextMode(), true);
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {
@@ -2693,5 +2693,14 @@ public class RepositoryToComponentProperty {
             }
         }
         return value;
+    }
+
+    public static boolean isGenericRepositoryValue(Connection connection, String paramName) {
+        for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
+            if (handler.canHandle(connection)) {
+                return handler.isGenericRepositoryValue(connection, paramName);
+            }
+        }
+        return false;
     }
 }

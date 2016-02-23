@@ -209,4 +209,17 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.core.model.utils.IDragAndDropServiceHandler#isGenericRepositoryValue(org.talend.core.model.metadata
+     * .builder.connection.Connection, java.lang.String)
+     */
+    @Override
+    public boolean isGenericRepositoryValue(Connection connection, String paramName) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

@@ -16,17 +16,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * created by rdubois on 30 juil. 2015 Detailled comment
- *
- */
 public class StormMetadataTalendTypeFilter extends SparkMetadataTalendTypeFilter {
 
     private final static List<String> STORM_UNSUPPORTED_TYPES = Arrays.asList(new String[] { "Document", "Dynamic", "Vector" }); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
-     * DOC rdubois SparkMetadataTalendTypeFilter constructor comment.
-     *
      * @param componentName, the current component name the filter applies on.
      */
     public StormMetadataTalendTypeFilter(String componentName) {
