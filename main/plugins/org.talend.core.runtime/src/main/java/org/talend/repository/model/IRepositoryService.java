@@ -55,6 +55,11 @@ public interface IRepositoryService extends IService {
 
     public IProxyRepositoryFactory getProxyRepositoryFactory();
 
+    /**
+     * init the proxy repository factor with local directly.
+     */
+    IProxyRepositoryFactory getLocalRepositoryFactory();
+
     public IPath getRepositoryPath(IRepositoryNode node);
 
     public void registerRepositoryChangedListener(IRepositoryChangedListener listener);

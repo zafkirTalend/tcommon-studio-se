@@ -12,15 +12,10 @@
 // ============================================================================
 package org.talend.core.repository.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordHelper;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
 import org.talend.repository.model.RepositoryConstants;
 
@@ -41,13 +36,13 @@ public class ProjectHelper {
     }
 
     public static Project createProject(String projectName, String projectDescription, String projectLanguage, User authoer) {
-        Project newProject = createProject(projectName, projectDescription, projectLanguage);
+        Project newProject = org.talend.core.runtime.project.ProjectHelper.createProject(projectName, projectDescription);
         newProject.setAuthor(authoer); // set in project to record
         return newProject;
     }
 
     public static Project createProject(String projectName, String projectDescription, ECodeLanguage language, User authoer) {
-        Project newProject = createProject(projectName, projectDescription, language);
+        Project newProject = org.talend.core.runtime.project.ProjectHelper.createProject(projectName, projectDescription);
         newProject.setAuthor(authoer); // set in project to record
         return newProject;
     }
@@ -62,26 +57,12 @@ public class ProjectHelper {
             String projectAuthor, String projectAuthorPass, String projectAuthorFirstname, String projectAuthorLastname,
             boolean encrypt) {
 
-        Project newProject = createProject(projectName, projectDescription, projectLanguage);
+        Project newProject = org.talend.core.runtime.project.ProjectHelper.createProject(projectName, projectDescription);
         User newUser = createUser(projectAuthor, projectAuthorPass, projectAuthorFirstname, projectAuthorLastname, encrypt);
 
         newProject.setAuthor(newUser); // set in project to record
 
         return newProject;
-    }
-
-    private static Project createProject(String projectName, String projectDescription, ECodeLanguage language) {
-        Project newProject = new Project();
-        newProject.setLabel(projectName.trim());// fwang fixed bug TDI-13127 Thurs,12 Jan 2012
-        newProject.setTechnicalLabel(Project.createTechnicalName(newProject.getLabel()));
-        newProject.setLanguage(language);
-        newProject.setDescription(projectDescription);
-
-        return newProject;
-    }
-
-    private static Project createProject(String projectName, String projectDescription, String projectLanguage) {
-        return createProject(projectName, projectDescription, ECodeLanguage.getCodeLanguage(projectLanguage));
     }
 
     public static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
@@ -91,27 +72,8 @@ public class ProjectHelper {
 
     public static User createUser(String projectAuthor, String projectAuthorPass, String projectAuthorFirstname,
             String projectAuthorLastname, boolean encrypt) {
-        User newUser = PropertiesFactory.eINSTANCE.createUser();
-        newUser.setLogin(projectAuthor);
-        newUser.setFirstName(projectAuthorFirstname);
-        newUser.setLastName(projectAuthorLastname);
-        if (projectAuthorPass != null && !"".equals(projectAuthorPass)) { //$NON-NLS-1$
-            if (encrypt) {
-                try {
-                    newUser.setPassword(PasswordHelper.encryptPasswd(projectAuthorPass));
-                } catch (NoSuchAlgorithmException e) {
-                    ExceptionHandler.process(e);
-                }
-            } else {
-                try {
-                    newUser.setPassword(projectAuthorPass.getBytes("UTF8")); //$NON-NLS-1$
-                } catch (UnsupportedEncodingException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-        }
-
-        return newUser;
+        return org.talend.core.runtime.project.ProjectHelper.createUser(projectAuthor, projectAuthorPass, projectAuthorFirstname,
+                projectAuthorLastname, encrypt);
     }
 
     public static String generateSandbocProjectName(String login) {

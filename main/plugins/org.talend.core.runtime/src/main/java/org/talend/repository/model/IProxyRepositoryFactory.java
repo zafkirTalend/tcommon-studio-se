@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
@@ -506,4 +507,5 @@ public interface IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
             String folderName, int options) throws PersistenceException;
 
+    void logOnProject(Project project, IProgressMonitor monitor) throws LoginException, PersistenceException;
 }
