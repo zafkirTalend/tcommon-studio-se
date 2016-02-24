@@ -23,7 +23,6 @@ import org.talend.components.api.service.ComponentService;
 import org.talend.components.api.wizard.ComponentWizard;
 import org.talend.components.api.wizard.ComponentWizardDefinition;
 import org.talend.components.api.wizard.WizardImageType;
-import org.talend.daikon.NamedThing;
 import org.talend.daikon.properties.PropertyValueEvaluator;
 import org.talend.daikon.properties.service.Repository;
 import org.talend.daikon.schema.Schema;
@@ -159,18 +158,6 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
     public ComponentProperties validateProperty(String propName, ComponentProperties properties) throws Throwable {
         properties.setValueEvaluator(valueEvaluator);
         return service.validateProperty(propName, properties);
-    }
-
-    private void setupChildrenPropertiesContextValueEvaluator(ComponentProperties compProperties,
-            PropertyValueEvaluator valueEvaluator) {
-        List<NamedThing> properties = compProperties.getProperties();
-        for (NamedThing property : properties) {
-            if (property instanceof ComponentProperties) {
-                ComponentProperties childComponentProperties = (ComponentProperties) property;
-                childComponentProperties.setValueEvaluator(valueEvaluator);
-                setupChildrenPropertiesContextValueEvaluator(childComponentProperties, valueEvaluator);
-            }
-        }
     }
 
     @Deprecated
