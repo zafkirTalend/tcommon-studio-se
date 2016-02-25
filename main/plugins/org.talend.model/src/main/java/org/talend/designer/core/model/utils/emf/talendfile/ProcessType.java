@@ -39,6 +39,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshot <em>Screenshot</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getScreenshots <em>Screenshots</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRoutinesDependencies <em>Routines Dependencies</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getJobType <em>Job Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getFramework <em>Framework</em>}</li>
  * </ul>
  * </p>
  *
@@ -271,6 +273,60 @@ public interface ProcessType extends EObject {
      * @generated
      */
     EList getRoutinesDependencies();
+
+    /**
+     * Returns the value of the '<em><b>Job Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Job Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Job Type</em>' attribute.
+     * @see #setJobType(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_JobType()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getJobType();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getJobType <em>Job Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Job Type</em>' attribute.
+     * @see #getJobType()
+     * @generated
+     */
+    void setJobType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Framework</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Framework</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Framework</em>' attribute.
+     * @see #setFramework(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Framework()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getFramework();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getFramework <em>Framework</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Framework</em>' attribute.
+     * @see #getFramework()
+     * @generated
+     */
+    void setFramework(String value);
 
     /**
      * Returns the value of the '<em><b>Logs</b></em>' containment reference.

@@ -1309,6 +1309,24 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProcessType_JobType() {
+        return (EAttribute)processTypeEClass.getEStructuralFeatures().get(20);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProcessType_Framework() {
+        return (EAttribute)processTypeEClass.getEStructuralFeatures().get(21);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1720,6 +1738,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(processTypeEClass, PROCESS_TYPE__SCREENSHOT);
         createEReference(processTypeEClass, PROCESS_TYPE__SCREENSHOTS);
         createEReference(processTypeEClass, PROCESS_TYPE__ROUTINES_DEPENDENCIES);
+        createEAttribute(processTypeEClass, PROCESS_TYPE__JOB_TYPE);
+        createEAttribute(processTypeEClass, PROCESS_TYPE__FRAMEWORK);
 
         requiredTypeEClass = createEClass(REQUIRED_TYPE);
         createEReference(requiredTypeEClass, REQUIRED_TYPE__JOB);
@@ -1931,6 +1951,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getProcessType_Screenshot(), theXMLTypePackage.getBase64Binary(), "screenshot", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Screenshots(), this.getScreenshotsMap(), null, "screenshots", null, 0, -1, ProcessType.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_RoutinesDependencies(), this.getItemInforType(), null, "routinesDependencies", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProcessType_JobType(), theXMLTypePackage.getString(), "jobType", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProcessType_Framework(), theXMLTypePackage.getString(), "framework", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(requiredTypeEClass, RequiredType.class, "RequiredType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getRequiredType_Job(), this.getJobType(), null, "job", null, 0, -1, RequiredType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2963,6 +2985,22 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "element",
              "name", "Subjob",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getProcessType_JobType(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "name",
+             "namespace", "##targetNamespace"
+           });	
+        addAnnotation
+          (getProcessType_Framework(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "name",
              "namespace", "##targetNamespace"
            });	
         addAnnotation

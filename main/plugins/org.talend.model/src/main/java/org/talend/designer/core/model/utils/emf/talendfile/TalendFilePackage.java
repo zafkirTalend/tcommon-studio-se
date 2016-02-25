@@ -1473,13 +1473,31 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__ROUTINES_DEPENDENCIES = 19;
 
     /**
+     * The feature id for the '<em><b>Job Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__JOB_TYPE = 20;
+
+    /**
+     * The feature id for the '<em><b>Framework</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__FRAMEWORK = 21;
+
+    /**
      * The number of structural features of the '<em>Process Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 20;
+    int PROCESS_TYPE_FEATURE_COUNT = 22;
 
 
     /**
@@ -3151,6 +3169,28 @@ public interface TalendFilePackage extends EPackage {
     EReference getProcessType_RoutinesDependencies();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getJobType <em>Job Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getJobType()
+     * @see #getProcessType()
+     * @generated
+     */
+    EAttribute getProcessType_JobType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getFramework <em>Framework</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Framework</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getFramework()
+     * @see #getProcessType()
+     * @generated
+     */
+    EAttribute getProcessType_Framework();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4549,6 +4589,22 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference PROCESS_TYPE__ROUTINES_DEPENDENCIES = eINSTANCE.getProcessType_RoutinesDependencies();
+
+        /**
+         * The meta object literal for the '<em><b>Job Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROCESS_TYPE__JOB_TYPE = eINSTANCE.getProcessType_JobType();
+
+        /**
+         * The meta object literal for the '<em><b>Framework</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROCESS_TYPE__FRAMEWORK = eINSTANCE.getProcessType_Framework();
 
         /**
          * The meta object literal for the '<em><b>Logs</b></em>' containment reference feature.
