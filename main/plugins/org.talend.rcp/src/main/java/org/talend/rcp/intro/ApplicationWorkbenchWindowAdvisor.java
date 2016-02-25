@@ -26,6 +26,9 @@ import java.util.Set;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -67,6 +70,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.utils.CheatSheetPerspectiveAdapter;
 import org.talend.commons.utils.VersionUtils;
@@ -105,6 +109,7 @@ import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.intro.starting.StartingEditorInput;
 import org.talend.rcp.intro.starting.StartingHelper;
 import org.talend.rcp.util.ApplicationDeletionUtil;
+import org.talend.repository.RepositoryWorkUnit;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -229,6 +234,33 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      */
     @Override
     public void postWindowOpen() {
+        // TDQ-11355 avoid "java.nio.channels.ClosedChannelException" .If the current perspective is DQ, delay this
+        // commit at here,it will be committed with DQ side(see DQRespositoryView Constructor).
+        IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        if (activePage != null && !(activePage.getPerspective().getId().equals(ProductUtils.PERSPECTIVE_DQ_ID))) {
+
+            Job myJob = new Job("Remote project update and commit on startup") {
+
+                @Override
+                protected IStatus run(IProgressMonitor monitor) {
+                    RepositoryWorkUnit rwu = new RepositoryWorkUnit<Object>("") {
+
+                        @Override
+                        protected void run() throws LoginException, PersistenceException {
+                            // nothing, just commit what has not been commited during the logon time.
+                        }
+                    };
+                    rwu.setAvoidUnloadResources(true);
+                    rwu.setUnloadResourcesAfterRun(true);
+                    rwu.setFilesModifiedOutsideOfRWU(true);
+                    rwu.setForceTransaction(true);
+                    ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
+                    return org.eclipse.core.runtime.Status.OK_STATUS;
+                }
+            };
+            myJob.schedule();
+        }
+
         try {
             JavaHomeUtil.initializeJavaHome();
         } catch (CoreException e1) {
@@ -286,8 +318,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
             final File stateFile = path.append("workbench.xml").toFile(); //$NON-NLS-1$
             if (stateFile.exists()) {
-                IWorkbenchWindow workBenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-                IWorkbenchPage activePage = workBenchWindow.getActivePage();
                 FileInputStream input;
                 try {
                     input = new FileInputStream(stateFile);
@@ -374,7 +404,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
-        IWorkbenchPage activePage = getWindowConfigurer().getWindow().getWorkbench().getActiveWorkbenchWindow().getActivePage();
         // MOD zshen TDQ-10745 when welcome page is open and current Perspective is DQ will not done
         // restoreAlwaysVisiblePerspectives action because of this method will do switch Perspectives action
         // And switch Perspectives action will cause cheat sheet view maximum display
