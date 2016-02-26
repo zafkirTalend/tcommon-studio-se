@@ -130,7 +130,7 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
     }
 
     @Override
-    public List<ComponentDefinition> getPossibleComponents(ComponentProperties properties) throws Throwable {
+    public List<ComponentDefinition> getPossibleComponents(ComponentProperties... properties) throws Throwable {
         return service.getPossibleComponents(properties);
     }
 
@@ -166,8 +166,12 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.talend.daikon.properties.service.PropertiesService#cancelFormValues(org.talend.daikon.properties.Properties, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.daikon.properties.service.PropertiesService#cancelFormValues(org.talend.daikon.properties.Properties,
+     * java.lang.String)
      */
     @Override
     public ComponentProperties cancelFormValues(ComponentProperties arg0, String arg1) {
