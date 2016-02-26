@@ -15,11 +15,9 @@ package org.talend.rcp.intro;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchPreferenceConstants;
@@ -29,11 +27,8 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.CommonsPlugin;
-import org.talend.commons.exception.LoginException;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.system.EclipseCommandLine;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.LoginTaskRegistryReader;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
@@ -42,7 +37,6 @@ import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.login.ILoginTask;
 import org.talend.rcp.TalendSplashHandler;
 import org.talend.registration.register.RegisterManagement;
-import org.talend.repository.RepositoryWorkUnit;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -136,28 +130,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         }
 
         // PerspectiveReviewUtil.checkPerspectiveDisplayItems();
-
         CommonsPlugin.setWorkbenchCreated(true);
-        Job myJob = new Job("Remote project update and commit on startup") {
-
-            @Override
-            protected IStatus run(IProgressMonitor monitor) {
-                RepositoryWorkUnit rwu = new RepositoryWorkUnit<Object>("") {
-
-                    @Override
-                    protected void run() throws LoginException, PersistenceException {
-                        // nothing, just commit what has not been commited during the logon time.
-                    }
-                };
-                rwu.setAvoidUnloadResources(true);
-                rwu.setUnloadResourcesAfterRun(true);
-                rwu.setFilesModifiedOutsideOfRWU(true);
-                rwu.setForceTransaction(true);
-                ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(rwu);
-                return org.eclipse.core.runtime.Status.OK_STATUS;
-            }
-        };
-        myJob.schedule();
     }
 
 }
