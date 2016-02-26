@@ -56,4 +56,8 @@ public abstract class AbstractDragAndDropServiceHandler implements IDragAndDropS
         }
     }
 
+    @Override
+    public boolean isGenericRepositoryValue(Connection connection, String paramName) {
+        return false;
+    }
 }

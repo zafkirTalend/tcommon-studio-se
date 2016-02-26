@@ -126,7 +126,8 @@ public class ShowViewAction extends Action {
             try {
                 boolean viewExist = true;
                 if (page instanceof WorkbenchPage) {
-                    List<MUIElement> elementList = getMUIElement(descriptor.getId(), ((WorkbenchPage) page).getWindowModel());
+                    List<MUIElement> elementList = getMUIElement(descriptor.getId(),
+                            ((WorkbenchPage) page).getCurrentPerspective());
                     if (elementList.isEmpty()) {
                         viewExist = false;
                     }

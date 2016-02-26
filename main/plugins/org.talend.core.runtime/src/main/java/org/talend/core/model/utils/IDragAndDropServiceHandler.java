@@ -109,4 +109,13 @@ public interface IDragAndDropServiceHandler {
      */
     public boolean isValidForDataViewer(Connection connection, IMetadataTable metadataTable);
 
+    /**
+     * 
+     * DOC hcyi Comment method "isGenericRepositoryValue".
+     * 
+     * @param connection
+     * @param paramName
+     * @return
+     */
+    public boolean isGenericRepositoryValue(Connection connection, String paramName);
 }
