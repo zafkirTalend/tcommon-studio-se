@@ -127,6 +127,8 @@ public class ProcessorUtilities {
     private static final int GENERATED_WITH_TRACES = 2;
 
     private static final String COMMA = ";"; //$NON-NLS-1$
+    
+    private static final Set<ModuleNeeded> retrievedJarsForCurrentBuild = new HashSet<ModuleNeeded>();
 
     public static void addOpenEditor(IEditorPart editor) {
         openedEditors.add(editor);
@@ -368,6 +370,7 @@ public class ProcessorUtilities {
 
             // this cache only keep the last main job's generation, so clear it since we regenerate a new job.
             LastGenerationInfo.getInstance().getLastGeneratedjobs().clear();
+            retrievedJarsForCurrentBuild.clear();
 
             // if it's the father, reset the processMap to ensure to have a good
             // code generation
@@ -458,7 +461,7 @@ public class ProcessorUtilities {
             LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
 
             // must install the needed libraries before generate codes with poms.
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess);
+            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess, retrievedJarsForCurrentBuild);
         }
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
@@ -592,6 +595,7 @@ public class ProcessorUtilities {
                 processor.syntaxCheck();
             }
             needContextInCurrentGeneration = true;
+            retrievedJarsForCurrentBuild.clear();
             codeModified = false;
         }
     }
@@ -702,7 +706,7 @@ public class ProcessorUtilities {
 
                 // this cache only keep the last main job's generation, so clear it since we regenerate a new job.
                 LastGenerationInfo.getInstance().getLastGeneratedjobs().clear();
-
+                retrievedJarsForCurrentBuild.clear();
                 // if it's the father, reset the processMap to ensure to have a good
                 // code generation
                 ItemCacheManager.clearCache();
@@ -801,7 +805,7 @@ public class ProcessorUtilities {
                         neededLibraries);
 
                 // must install the needed libraries before generate codes with poms.
-                CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess);
+                CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess, retrievedJarsForCurrentBuild);
             }
             resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
