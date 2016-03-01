@@ -13,12 +13,11 @@
 package routines.system;
 
 import java.util.Date;
-import java.util.Map;
 
-import org.talend.components.api.runtime.ComponentDynamicHolder;
-import org.talend.components.api.runtime.ComponentRuntimeContainer;
+import org.talend.components.api.container.RuntimeContainer;
+import org.talend.components.api.container.ComponentDynamicHolder;
 
-public class ComponentRuntimeContainerBase implements ComponentRuntimeContainer {
+public class ComponentRuntimeContainerBase implements RuntimeContainer {
 
 	@Override
 	public ComponentDynamicHolder createDynamicHolder() {
@@ -28,16 +27,6 @@ public class ComponentRuntimeContainerBase implements ComponentRuntimeContainer 
 	@Override
 	public String formatDate(Date date, String pattern) {
 		return FormatterUtils.format(date, pattern);
-	}
-
-	@Override
-	public Map<String, Object> getGlobalMap() {
-		throw new RuntimeException("This must be subclassed");
-	}
-
-	@Override
-	public String getCurrentComponentName() {
-		throw new RuntimeException("This must be subclassed");
 	}
 
 }
