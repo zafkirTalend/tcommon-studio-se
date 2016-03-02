@@ -21,7 +21,10 @@ import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EMap;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -48,6 +54,8 @@ import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.nexus.NexusServerBean;
+import org.talend.core.nexus.NexusServerUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.designer.maven.talendlib.TalendLibsServerManager;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
@@ -432,5 +440,60 @@ public class LocalLibraryManagerTest {
         assertTrue(retrieve1);
         assertEquals(module1.getStatus(), ELibraryInstallStatus.INSTALLED);
     }
+    
+    @Test
+    public void testDaysBetween() throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        Date sDate = sdf.parse("01/03/2016 13:00:00");
+        Date eDate = sdf.parse("01/03/2016 14:00:00");
+        Calendar sc = Calendar.getInstance();
+        sc.setTime(sDate);
+        
+        Calendar ec = Calendar.getInstance();
+        ec.setTime(eDate);
+        
+        LocalLibraryManager lm = new LocalLibraryManager();
+
+        assertEquals(lm.daysBetween(sc, ec),0);
+
+        ec.setTime(sdf.parse("02/03/2016 12:00:00"));
+
+        assertEquals(lm.daysBetween(sc, ec),0);
+
+        ec.setTime(sdf.parse("02/03/2016 15:00:00"));
+
+        assertEquals(lm.daysBetween(sc, ec),1);
+
+        ec.setTime(sdf.parse("11/03/2016 15:00:00"));
+
+        assertEquals(lm.daysBetween(sc, ec),10);
+    }
+    
+    @Test
+    public void testResolvedAllowed() throws Exception {
+        IEclipsePreferences node = InstanceScope.INSTANCE.getNode(NexusServerUtils.ORG_TALEND_DESIGNER_CORE);
+        node.putInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, -1);
+        
+        LocalLibraryManager lm = new LocalLibraryManager();
+
+        assertFalse(lm.isResolveAllowed(null));
+
+        node.putInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, 0);
+        assertTrue(lm.isResolveAllowed(null));
+
+        node.putInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, 1);
+        IEclipsePreferences prefSetting = ConfigurationScope.INSTANCE.getNode("org.talend.librariesmanager");
+        prefSetting.remove("lastUpdate");
+
+        // never resolved, so will be true
+        assertTrue(lm.isResolveAllowed("a")); //$NON-NLS-1$
+        // last resolve not updated, so should be true still
+        assertTrue(lm.isResolveAllowed("a")); //$NON-NLS-1$
+        
+        lm.updateLastResolveDate("a"); //$NON-NLS-1$
+        // already resolved, should not allow the resolve again.
+        assertFalse(lm.isResolveAllowed("a")); //$NON-NLS-1$
+   }
+
 
 }

@@ -26,6 +26,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -104,127 +106,200 @@ public class RemoteModulesHelper {
 
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-            final Set<String> mavenUriSet = contextMap.keySet();
-            Map<String, MavenArtifact> requiredArtifacts = new HashMap<String, MavenArtifact>();
+            final Set<String> mavenUrisTofetch = new HashSet<String>(contextMap.keySet());
+            monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), mavenUrisTofetch.size() * 10 + 10);//$NON-NLS-1$
+            // fetch modules from local nexus first
+            final NexusServerBean customNexusServer = TalendLibsServerManager.getInstance().getCustomNexusServer();
+            if (customNexusServer != null) {
+                if (addCachedModulesToToBeInstallModules(toInstall, mavenUrisTofetch, contextMap, localCache)) {
+                    if (collectModulesWithJarName) {
+                        collectModulesWithJarName(toInstall);
+                    }
+                    monitor.done();
+                    return;
+                }
+                // search from local nexus
+                searchFromLocalNexus(monitor);
+                // check again after search
+                if (addCachedModulesToToBeInstallModules(toInstall, mavenUrisTofetch, contextMap, localCache)) {
+                    if (collectModulesWithJarName) {
+                        collectModulesWithJarName(toInstall);
+                    }
+                    monitor.done();
+                    return;
+                }
+            }
+
+            if (addCachedModulesToToBeInstallModules(toInstall, mavenUrisTofetch, contextMap, remoteCache)) {
+                if (collectModulesWithJarName) {
+                    collectModulesWithJarName(toInstall);
+                }
+                monitor.done();
+                return;
+            }
+
             Set<String> unavailableModules = new HashSet<String>();
-            monitor.beginTask(Messages.getString("RemoteModulesHelper.fetch.module.info"), mavenUriSet.size() * 10 + 10);//$NON-NLS-1$
             // if the network is not valid, all jars are not available.
             boolean networkValid = NetworkUtil.isNetworkValid();
             if (!networkValid) {
-                unavailableModules.addAll(mavenUriSet);
                 if (!alreadyWarnedAboutConnectionIssue) {
                     log.warn("failed to connect to internet");
                     alreadyWarnedAboutConnectionIssue = true;
                 }// else already warned so do nothing
-            }
-            if (networkValid) {
-                try {
-                    int index = 0;
-                    int limit = 100;
-                    final Iterator<String> iterator = mavenUriSet.iterator();
-                    while (index < mavenUriSet.size()) {
-                        // get block of 100 jars
-                        String jarsToCheck = "";
-                        while (index < limit && index < mavenUriSet.size()) {
-                            index++;
-                            String uriToCheck = iterator.next();
-                            final MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(uriToCheck);
-                            if (parseMvnUrl != null) {
-                                requiredArtifacts.put(uriToCheck, parseMvnUrl);
-                                jarsToCheck += parseMvnUrl.getArtifactId();
-                                if (index < limit && index < mavenUriSet.size()) {
-                                    jarsToCheck += ",";
-                                }
-                            }
-                        }
-                        limit += 100;
-                        TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
-                        NexusServerBean nexusServer = manager.getLibrariesNexusServer();
-
-                        List<MavenArtifact> searchResults = manager.search(nexusServer.getServer(), nexusServer.getUserName(),
-                                nexusServer.getPassword(), nexusServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID,
-                                jarsToCheck, null);
-                        monitor.worked(10);
-                        for (MavenArtifact artifact : searchResults) {
-                            String artifactId = artifact.getArtifactId();
-                            String packageName = artifact.getType();
-                            if (packageName == null) {
-                                packageName = MavenConstants.TYPE_JAR;
-                            }
-                            String version = artifact.getVersion();
-                            String description = artifact.getDescription();
-                            String license = artifact.getLicense();
-                            String license_url = artifact.getLicenseUrl();
-                            String packaging = artifact.getType();
-                            String url = null;
-                            if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
-                                url = artifact.getUrl();
-                            }
-                            ModuleToInstall m = new ModuleToInstall();
-                            m.setName(artifactId + "." + packageName);
-                            String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, packaging,
-                                    artifact.getClassifier());
-                            m.setMavenUri(mvnUri);
-                            m.setLicenseType(license);
-                            m.setLicenseUrl(license_url);
-                            m.setDescription(description);
-                            m.setUrl_description(url);
-                            m.setUrl_download(url);
-                            if (artifact.getType() == null
-                                    || "".equals(artifact.getType()) || MavenConstants.PACKAGING_POM.equals(artifact.getType())) { //$NON-NLS-1$
-                                m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
-                            } else {
-                                m.setDistribution(artifact.getType());
-                            }
-
-                            cache.put(mvnUri, m);
-
-                            monitor.worked(10);
-                        }
-
-                    }
-
-                } catch (Exception e1) {
-                    ExceptionHandler.process(e1);
-                }
-                for (String uri : requiredArtifacts.keySet()) {
-                    String mvnUri = uri;
-                    // incase the package is not set int mavenuri
-                    final MavenArtifact artifact = requiredArtifacts.get(mvnUri);
-                    if (artifact.getType() == null) {
-                        artifact.setType(MavenConstants.TYPE_JAR);
-                    }
-                    mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifact.getArtifactId(),
-                            artifact.getVersion(), artifact.getType(), artifact.getClassifier());
-                    ModuleToInstall moduleToInstall = cache.get(mvnUri);
-                    if (moduleToInstall != null) {
-                        setContext(moduleToInstall, uri, contextMap);
-                        toInstall.add(moduleToInstall);
-                    } else {
-                        String artifactId = artifact.getArtifactId();
-                        String type = artifact.getType();
-                        if (type == null) {
-                            type = MavenConstants.TYPE_JAR;
-                        }
-                        String name = artifactId + "." + type;
-                        unavailableModules.add(uri);
-                        ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$//$NON-NLS-2$
-                        if (CommonsPlugin.isDebugMode()) {
-                            appendToLogFile(name + "\n");
-                        }
-                    }
-                    monitor.worked(10);
-                }
+            } else {
+                searchFromRemoteNexus(mavenUrisTofetch, monitor);
+                addCachedModulesToToBeInstallModules(toInstall, mavenUrisTofetch, contextMap, remoteCache);
             }
 
+            unavailableModules.addAll(mavenUrisTofetch);
             addUnavailableModulesToToBeInstalledModules(unavailableModules, toInstall, contextMap);
 
             if (collectModulesWithJarName) {
                 collectModulesWithJarName(toInstall);
             }
+            Collections.sort(toInstall, new Comparator<ModuleToInstall>() {
 
+                @Override
+                public int compare(ModuleToInstall o1, ModuleToInstall o2) {
+                    return o1.getName().compareTo(o2.getName());
+                }
+            });
             monitor.done();
         }
+    }
+
+    private void searchFromLocalNexus(IProgressMonitor monitor) {
+        try {
+            TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+            NexusServerBean customServer = manager.getCustomNexusServer();
+
+            List<MavenArtifact> searchResults = manager.search(customServer.getServer(), customServer.getUserName(),
+                    customServer.getPassword(), customServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID, null, null);
+            monitor.worked(10);
+            addModulesToCache(searchResults, localCache);
+
+        } catch (Exception e1) {
+            ExceptionHandler.process(e1);
+        }
+    }
+
+    private void searchFromRemoteNexus(Set<String> mavenUristoSearch, IProgressMonitor monitor) {
+        try {
+            int index = 0;
+            int limit = 100;
+            final Iterator<String> iterator = mavenUristoSearch.iterator();
+            while (index < mavenUristoSearch.size()) {
+                // get block of 100 jars
+                String jarsToCheck = "";
+                while (index < limit && index < mavenUristoSearch.size()) {
+                    index++;
+                    String uriToCheck = iterator.next();
+                    final MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(uriToCheck);
+                    if (parseMvnUrl != null) {
+                        jarsToCheck += parseMvnUrl.getArtifactId();
+                        if (index < limit && index < mavenUristoSearch.size()) {
+                            jarsToCheck += ",";
+                        }
+                    }
+                }
+                limit += 100;
+                TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+                NexusServerBean nexusServer = manager.getLibrariesNexusServer();
+
+                List<MavenArtifact> searchResults = manager.search(nexusServer.getServer(), nexusServer.getUserName(),
+                        nexusServer.getPassword(), nexusServer.getRepositoryId(), MavenConstants.DEFAULT_LIB_GROUP_ID,
+                        jarsToCheck, null);
+                monitor.worked(10);
+                addModulesToCache(searchResults, remoteCache);
+            }
+
+        } catch (Exception e1) {
+            ExceptionHandler.process(e1);
+        }
+    }
+
+    private void addModulesToCache(List<MavenArtifact> searchResults, Map<String, ModuleToInstall> theCache) {
+        for (MavenArtifact artifact : searchResults) {
+            String artifactId = artifact.getArtifactId();
+            String packageName = artifact.getType();
+            if (packageName == null) {
+                packageName = MavenConstants.TYPE_JAR;
+            }
+            String version = artifact.getVersion();
+            if (version.endsWith(MavenConstants.SNAPSHOT)) {
+                version = version.substring(0, version.indexOf(MavenConstants.SNAPSHOT));
+            }
+            String description = artifact.getDescription();
+            String license = artifact.getLicense();
+            String license_url = artifact.getLicenseUrl();
+            String packaging = artifact.getType();
+            String url = null;
+            if (artifact.getUrl() != null && !"".equals(artifact.getUrl())) {
+                url = artifact.getUrl();
+            }
+            ModuleToInstall m = new ModuleToInstall();
+            m.setName(artifactId + "." + packageName);
+            String mvnUri = MavenUrlHelper.generateMvnUrl(artifact.getGroupId(), artifactId, version, packaging,
+                    artifact.getClassifier());
+            m.setMavenUri(mvnUri);
+            m.setLicenseType(license);
+            m.setLicenseUrl(license_url);
+            m.setDescription(description);
+            m.setUrl_description(url);
+            m.setUrl_download(url);
+            if (artifact.getType() == null
+                    || "".equals(artifact.getType()) || MavenConstants.PACKAGING_POM.equals(artifact.getType())) { //$NON-NLS-1$
+                m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
+            } else {
+                m.setDistribution(artifact.getType());
+            }
+            if (theCache == localCache) {
+                m.setFromCustomNexus(true);
+            }
+            theCache.put(mvnUri, m);
+        }
+    }
+
+    /**
+     * 
+     * DOC wchen Comment method "addCachedModulesToToBeInstallModules".
+     * 
+     * @param toInstall
+     * @param mavenUrisTofetch
+     * @param contextMap
+     * @param theCache
+     * @return if find all modules form the cache ,return true;
+     */
+    private boolean addCachedModulesToToBeInstallModules(List<ModuleToInstall> toInstall, Set<String> mavenUrisTofetch,
+            Map<String, List<ModuleNeeded>> contextMap, Map<String, ModuleToInstall> theCache) {
+        if (theCache.isEmpty()) {
+            return false;
+        }
+        final Iterator<String> iterator = mavenUrisTofetch.iterator();
+        while (iterator.hasNext()) {
+            String mvnUri = iterator.next();
+            ModuleToInstall moduleToInstall = null;
+            moduleToInstall = theCache.get(mvnUri);
+            if (moduleToInstall != null) {
+                List<ModuleNeeded> moduleContext = contextMap.get(mvnUri);
+                setContext(moduleToInstall, mvnUri, contextMap);
+                if (moduleContext != null && moduleContext.size() > 0) {
+                    for (ModuleNeeded needed : moduleContext) {
+                        if (moduleToInstall.getName().equals(needed.getModuleName())) {
+                            moduleToInstall.setRequired(needed.isRequired());
+                        }
+                    }
+                }
+
+                toInstall.add(moduleToInstall);
+                iterator.remove();
+            }
+        }
+
+        if (mavenUrisTofetch.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -254,20 +329,27 @@ public class RemoteModulesHelper {
     private ModuleToInstall createUnavailableModuleToInstall(String mvnUri, Map<String, List<ModuleNeeded>> contextMap) {
         ModuleToInstall m = new ModuleToInstall();
         m.setDistribution(MavenConstants.DOWNLOAD_MANUAL);
+        m.setMavenUri(mvnUri);
         setContext(m, mvnUri, contextMap);
+        String name = null;
         if (contextMap != null) {
             final List<ModuleNeeded> neededModules = contextMap.get(mvnUri);
-            m.setName(neededModules.get(0).getModuleName());
+            name = neededModules.get(0).getModuleName();
+            m.setName(name);
             m.setDescription(getFirstDescription(neededModules));
         } else {
             final MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mvnUri);
-            String name = parseMvnUrl.getArtifactId();
+            name = parseMvnUrl.getArtifactId();
             String type = parseMvnUrl.getType();
             if (type == null) {
                 type = MavenConstants.TYPE_JAR;
             }
             m.setName(name + "." + type);
 
+        }
+        ExceptionHandler.log("The download URL for " + name + " is not available");//$NON-NLS-1$//$NON-NLS-2$
+        if (CommonsPlugin.isDebugMode()) {
+            appendToLogFile(name + "\n");
         }
 
         return m;
@@ -353,7 +435,9 @@ public class RemoteModulesHelper {
     /**
      * key : mvnuri(without SANPSHOT in version) value : ModuleToInstall
      */
-    private Map<String, ModuleToInstall> cache = new HashMap<String, ModuleToInstall>();
+    private Map<String, ModuleToInstall> remoteCache = new HashMap<String, ModuleToInstall>();
+
+    private Map<String, ModuleToInstall> localCache = new HashMap<String, ModuleToInstall>();
 
     private RemoteModulesHelper() {
     }
@@ -462,6 +546,7 @@ public class RemoteModulesHelper {
             List<ModuleToInstall> toInstall, boolean collectModulesWithJarName) {
         Map<String, List<ModuleNeeded>> contextMap = new HashMap<String, List<ModuleNeeded>>();
 
+        // collect mvnuri and modules incase many modules have the same mvnuri
         final Iterator<ModuleNeeded> iterator = neededModules.iterator();
         while (iterator.hasNext()) {
             ModuleNeeded module = iterator.next();
@@ -484,6 +569,7 @@ public class RemoteModulesHelper {
                     for (String snapshotUri : configuredSnapshotMvnUris) {
                         String uri = MavenUrlHelper.generateUriFromSnapshot(snapshotUri);
                         if (uri != null) {
+                            uri = addTypeForMavenUri(uri, module.getModuleName());
                             ModuleNeeded newModule = new ModuleNeeded(null, module.getModuleName(), null, true);
                             newModule.setMavenUri(uri);
                             if (!contextMap.keySet().contains(uri)) {
@@ -498,6 +584,7 @@ public class RemoteModulesHelper {
                 }
             }
             if (mvnUri != null) {
+                mvnUri = addTypeForMavenUri(mvnUri, module.getModuleName());
                 if (!contextMap.keySet().contains(mvnUri)) {
                     List<ModuleNeeded> modules = new ArrayList<ModuleNeeded>();
                     modules.add(module);
@@ -507,35 +594,22 @@ public class RemoteModulesHelper {
                 }
             }
         }
-        Set<String> contextKeys = new HashSet<String>(contextMap.keySet());
-        for (String mvnUri : contextKeys) {
-            ModuleToInstall moduleToInstall = null;
-            moduleToInstall = cache.get(mvnUri);
-            if (moduleToInstall != null) {
-                List<ModuleNeeded> moduleContext = contextMap.get(mvnUri);
-                setContext(moduleToInstall, mvnUri, contextMap);
-                if (moduleContext != null && moduleContext.size() > 0) {
-                    for (ModuleNeeded needed : moduleContext) {
-                        if (moduleToInstall.getName().equals(needed.getModuleName())) {
-                            moduleToInstall.setRequired(needed.isRequired());
-                        }
-                    }
-                }
-                toInstall.add(moduleToInstall);
-                contextMap.remove(mvnUri);
-            }
-        }
-
-        if (contextMap.isEmpty()) {
-            if (collectModulesWithJarName) {
-                collectModulesWithJarName(toInstall);
-            }
-            return null;
-        }
-
         // fetch the jars which are not in cache.
         return createRemoteModuleFetchRunnable(contextMap, toInstall, collectModulesWithJarName);
 
+    }
+
+    private String addTypeForMavenUri(String uri, String moduleName) {
+        // make sure that mvn uri have the package
+        final String[] split = uri.split("/");
+        if (split.length < 4) {
+            String type = MavenConstants.TYPE_JAR;
+            if (moduleName.lastIndexOf(".") != -1) {
+                type = moduleName.substring(moduleName.lastIndexOf(".") + 1, moduleName.length());
+            }
+            uri = uri + "/" + type;
+        }
+        return uri;
     }
 
     public RemoteModulesFetchRunnable getNotInstalledModulesRunnable(List<ModuleNeeded> neededModules,
