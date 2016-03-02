@@ -23,7 +23,6 @@ import org.talend.components.api.service.ComponentService;
 import org.talend.components.api.wizard.ComponentWizard;
 import org.talend.components.api.wizard.ComponentWizardDefinition;
 import org.talend.components.api.wizard.WizardImageType;
-import org.talend.daikon.NamedThing;
 import org.talend.daikon.properties.PropertyValueEvaluator;
 import org.talend.daikon.properties.service.Repository;
 import org.talend.daikon.schema.Schema;
@@ -131,7 +130,7 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
     }
 
     @Override
-    public List<ComponentDefinition> getPossibleComponents(ComponentProperties properties) throws Throwable {
+    public List<ComponentDefinition> getPossibleComponents(ComponentProperties... properties) throws Throwable {
         return service.getPossibleComponents(properties);
     }
 
@@ -161,26 +160,18 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
         return service.validateProperty(propName, properties);
     }
 
-    private void setupChildrenPropertiesContextValueEvaluator(ComponentProperties compProperties,
-            PropertyValueEvaluator valueEvaluator) {
-        List<NamedThing> properties = compProperties.getProperties();
-        for (NamedThing property : properties) {
-            if (property instanceof ComponentProperties) {
-                ComponentProperties childComponentProperties = (ComponentProperties) property;
-                childComponentProperties.setValueEvaluator(valueEvaluator);
-                setupChildrenPropertiesContextValueEvaluator(childComponentProperties, valueEvaluator);
-            }
-        }
-    }
-
     @Deprecated
     public ComponentProperties commitFormValues(ComponentProperties properties, String formName) {
         // to delete
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.talend.daikon.properties.service.PropertiesService#cancelFormValues(org.talend.daikon.properties.Properties, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.talend.daikon.properties.service.PropertiesService#cancelFormValues(org.talend.daikon.properties.Properties,
+     * java.lang.String)
      */
     @Override
     public ComponentProperties cancelFormValues(ComponentProperties arg0, String arg1) {
