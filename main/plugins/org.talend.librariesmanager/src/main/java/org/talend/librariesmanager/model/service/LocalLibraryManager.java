@@ -12,20 +12,28 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,10 +42,14 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EMap;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
+import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
@@ -58,6 +70,8 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleStatusProvider;
 import org.talend.core.nexus.NexusServerBean;
+import org.talend.core.nexus.NexusServerUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
@@ -321,11 +335,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (jarFile == null) {
                 jarFile = getJarFile(jarNeeded);
             }
-            // retreive form custom nexus server automatically
+            // retrieve form custom nexus server automatically
             TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
             final NexusServerBean customNexusServer = manager.getCustomNexusServer();
             if (customNexusServer != null) {
-                // TODO????? Resolver all versions if the mavenUri is null
                 Set<String> toResolve = new HashSet<String>();
                 if (snapshotMvnUri != null) {
                     toResolve.add(snapshotMvnUri);
@@ -343,27 +356,30 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     }
                 }
                 for (String uri : toResolve) {
-                    MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
-                    final List<MavenArtifact> searchResults = manager.search(customNexusServer.getServer(),
-                            customNexusServer.getUserName(), customNexusServer.getPassword(),
-                            customNexusServer.getRepositoryId(), artifact.getGroupId(), artifact.getArtifactId(),
-                            artifact.getVersion());
-                    if (!searchResults.isEmpty()) {
-                        File resolvedFile = null;
-                        for (MavenArtifact result : searchResults) {
-                            if (jarNeeded.equals(result.getArtifactId() + "." + result.getType())) {
-                                resolvedFile = manager.getMavenResolver().resolve(uri);
-                                break;
+                    if (isResolveAllowed(uri)) {
+                        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
+                        final List<MavenArtifact> searchResults = manager.search(customNexusServer.getServer(),
+                                customNexusServer.getUserName(), customNexusServer.getPassword(),
+                                customNexusServer.getRepositoryId(), artifact.getGroupId(), artifact.getArtifactId(),
+                                artifact.getVersion());
+                        if (!searchResults.isEmpty()) {
+                            File resolvedFile = null;
+                            for (MavenArtifact result : searchResults) {
+                                if (jarNeeded.equals(result.getArtifactId() + "." + result.getType())) {
+                                    resolvedFile = manager.getMavenResolver().resolve(uri);
+                                    break;
+                                }
+                            }
+                            if (resolvedFile != null) {
+                                // reset module status
+                                final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
+                                statusMap.put(uri, ELibraryInstallStatus.INSTALLED);
+                                jarFile = resolvedFile;
+                                // update installed path
+                                mavenJarInstalled.put(uri, jarFile.getAbsolutePath());
                             }
                         }
-                        if (resolvedFile != null) {
-                            // reset module status
-                            final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
-                            statusMap.put(uri, ELibraryInstallStatus.INSTALLED);
-                            jarFile = resolvedFile;
-                            // update installed path
-                            mavenJarInstalled.put(uri, jarFile.getAbsolutePath());
-                        }
+                        updateLastResolveDate(uri);
                     }
                 }
             }
@@ -418,6 +434,99 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         return false;
 
+    }
+
+    private Map<String, Date> lastResolveDate;
+
+    private String LAST_UPDATE_KEY = "lastUpdate"; //$NON-NLS-1$
+
+    public long daysBetween(final Calendar startDate, final Calendar endDate) {
+        // assert: startDate must be before endDate
+        int MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
+        long endInstant = endDate.getTimeInMillis();
+        int presumedDays = (int) ((endInstant - startDate.getTimeInMillis()) / MILLIS_IN_DAY);
+        Calendar cursor = (Calendar) startDate.clone();
+        cursor.add(Calendar.DAY_OF_YEAR, presumedDays);
+        long instant = cursor.getTimeInMillis();
+        if (instant == endInstant)
+            return presumedDays;
+
+        final int step = instant < endInstant ? 1 : -1;
+        do {
+            cursor.add(Calendar.DAY_OF_MONTH, step);
+            presumedDays += step;
+        } while (cursor.getTimeInMillis() <= endInstant);
+        return presumedDays -1;
+    }
+
+    /**
+     * DOC nrousseau Comment method "isResolveAllowed".
+     * 
+     * @param uri
+     * @return
+     */
+    public boolean isResolveAllowed(String uri) {
+        IEclipsePreferences node = InstanceScope.INSTANCE.getNode(NexusServerUtils.ORG_TALEND_DESIGNER_CORE);
+        int refreshTime = node.getInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, 0);
+        if (refreshTime == 0) {
+            return true;
+        }
+        if (refreshTime == -1) {
+            return false;
+        }
+
+        if (lastResolveDate == null) {
+            lastResolveDate = new HashMap<String, Date>();
+            IEclipsePreferences prefSetting = ConfigurationScope.INSTANCE.getNode("org.talend.librariesmanager");
+            String lastUpdate = prefSetting.get(LAST_UPDATE_KEY, null);
+            if (lastUpdate != null) {
+                byte[] lastUpdateStream = DatatypeConverter.parseHexBinary(lastUpdate);
+                ByteArrayInputStream bais = new ByteArrayInputStream(lastUpdateStream);
+                ObjectInputStream ois;
+                try {
+                    ois = new ObjectInputStream(bais);
+                    lastResolveDate = (HashMap) ois.readObject();
+                    ois.close();
+                    bais.close();
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        Date lastDate = lastResolveDate.get(uri);
+        if (lastDate == null) {
+            return true;
+        }
+        Calendar before = Calendar.getInstance();
+        before.setTime(lastDate);
+        Calendar after = Calendar.getInstance();
+        after.setTime(new Date());
+        long days = daysBetween(before, after);
+        if (days >= refreshTime) {
+            return true;
+        }
+        return false;
+    }
+
+    public void updateLastResolveDate(String uri) {
+        if (lastResolveDate == null) {
+            lastResolveDate = new HashMap<String, Date>();
+        }
+        lastResolveDate.put(uri, new Date());
+        IEclipsePreferences prefSetting = ConfigurationScope.INSTANCE.getNode("org.talend.librariesmanager");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos;
+        try {
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(lastResolveDate);
+            oos.close();
+            String lastUpdate = DatatypeConverter.printHexBinary(baos.toByteArray());
+            prefSetting.put(LAST_UPDATE_KEY, lastUpdate);
+            prefSetting.flush();
+            baos.close();
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
     }
 
     @Override
