@@ -88,7 +88,8 @@ public final class DqRepositoryViewService {
     private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
 
     public static final String[] TABLE_TYPES = new String[] { ETableTypes.TABLETYPE_TABLE.getName(),
-            ETableTypes.EXTERNAL_TABLE.getName(), ETableTypes.MANAGED_TABLE.getName(), ETableTypes.INDEX_TABLE.getName() };
+            ETableTypes.EXTERNAL_TABLE.getName(), ETableTypes.MANAGED_TABLE.getName(), ETableTypes.INDEX_TABLE.getName(),
+            ETableTypes.SYSTEM_TABLE.getName() };
 
     public static final String[] VIEW_TYPES = new String[] { ETableTypes.TABLETYPE_VIEW.getName(),
             ETableTypes.VIRTUAL_VIEW.getName() };
