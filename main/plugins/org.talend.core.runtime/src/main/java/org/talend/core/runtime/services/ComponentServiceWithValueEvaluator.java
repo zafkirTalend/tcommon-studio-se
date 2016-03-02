@@ -25,7 +25,6 @@ import org.talend.components.api.wizard.ComponentWizardDefinition;
 import org.talend.components.api.wizard.WizardImageType;
 import org.talend.daikon.properties.PropertyValueEvaluator;
 import org.talend.daikon.properties.service.Repository;
-import org.talend.daikon.schema.Schema;
 
 /**
  * created by ycbai on 2016年2月4日 Detailled comment
@@ -43,8 +42,9 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
     }
 
     @Override
-    public String storeProperties(ComponentProperties properties, String name, String repositoryLocation, Schema schema) {
-        return service.storeProperties(properties, name, repositoryLocation, schema);
+    public String storeProperties(ComponentProperties properties, String name, String repositoryLocation,
+            String schemaPropertyName) {
+        return service.storeProperties(properties, name, repositoryLocation, schemaPropertyName);
     }
 
     @Override
