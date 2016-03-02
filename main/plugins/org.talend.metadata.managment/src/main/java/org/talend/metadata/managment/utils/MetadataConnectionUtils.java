@@ -647,7 +647,6 @@ public class MetadataConnectionUtils {
      * @return
      */
     public static List<String> getTDQSupportDBTemplate() {
-
         try {
             if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
                 IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
@@ -670,17 +669,9 @@ public class MetadataConnectionUtils {
         if (conn == null) {
             return false;
         }
-        try {
-            if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
-                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
-                        IDriverService.class);
-                if (conn instanceof DatabaseConnection) {
-                    String databaseType = ((DatabaseConnection) conn).getDatabaseType();
-                    return driverService.getTDQSupportDBTemplate().contains(databaseType);
-                }
-            }
-        } catch (Exception e) {
-            log.error(e, e);
+        if (conn instanceof DatabaseConnection) {
+            String databaseType = ((DatabaseConnection) conn).getDatabaseType();
+            return getTDQSupportDBTemplate().contains(databaseType);
         }
 
         return false;

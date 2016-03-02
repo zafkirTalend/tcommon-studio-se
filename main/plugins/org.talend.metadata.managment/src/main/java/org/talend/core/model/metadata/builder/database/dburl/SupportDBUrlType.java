@@ -212,14 +212,14 @@ public enum SupportDBUrlType {
            "org.apache.hive.jdbc.HiveDriver", //$NON-NLS-1$
            null,
            "Impala"), //$NON-NLS-1$
-    PARACCEL("Paraccel", //$NON-NLS-1$
+    PARACCEL("ParAccel", //$NON-NLS-1$
              "localhost", //$NON-NLS-1$
              "5439", //$NON-NLS-1$
              null,
              null,
              "com.paraccel.Driver", //$NON-NLS-1$
              null,
-             "Paraccel"), //$NON-NLS-1$
+             "ParAccel"), //$NON-NLS-1$
     REDSHIFT("Redshift", //$NON-NLS-1$
              "localhost", //$NON-NLS-1$
              "5439", //$NON-NLS-1$
@@ -227,7 +227,7 @@ public enum SupportDBUrlType {
              null,
              "com.paraccel.Driver", //$NON-NLS-1$
              null,
-             "Redshift"), //$NON-NLS-1$
+             "Amazon Redshift"), //$NON-NLS-1$
     VERTICA("Vertica", //$NON-NLS-1$
             null,
             "5433", //$NON-NLS-1$
