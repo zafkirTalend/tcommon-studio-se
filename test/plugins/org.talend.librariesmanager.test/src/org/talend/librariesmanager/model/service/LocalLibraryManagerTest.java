@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -13,13 +13,18 @@
 package org.talend.librariesmanager.model.service;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -30,19 +35,29 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.EMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.ops4j.pax.url.mvn.MavenResolver;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.nexus.NexusServerBean;
+import org.talend.core.nexus.NexusServerUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.designer.maven.talendlib.TalendLibsServerManager;
 import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
@@ -363,5 +378,122 @@ public class LocalLibraryManagerTest {
         File storageDir = new File(librariesPath);
         return storageDir;
     }
+
+    @Test
+    public void testRetrieveModuleNeededStringBooleanIProgressMonitor() throws Exception {
+        TalendLibsServerManager serverManager = TalendLibsServerManager.getInstance();
+        try {
+            ILibraryManagerService libraryManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                    .getService(ILibraryManagerService.class);
+
+            TalendLibsServerManager fakeServerManager = mock(TalendLibsServerManager.class);
+            NexusServerBean fakeServerBean = new NexusServerBean();
+            when(fakeServerManager.getCustomNexusServer()).thenReturn(fakeServerBean);
+            MavenResolver resolver = mock(MavenResolver.class);
+            when(fakeServerManager.getMavenResolver()).thenReturn(resolver);
+            final Field declaredField = serverManager.getClass().getDeclaredField("manager");
+            declaredField.setAccessible(true);
+            declaredField.set(serverManager, fakeServerManager);
+
+            // test for TUP-4036,resolve module from custom nexus
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "MyTest.jar", "MyTest", "6.0.0", "jar", true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "log4j-1.2.15.jar", "log4j-1.2.15", "6.0.0", "jar",
+                    true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "log4j-1.2.15.jar",
+                    "org.apache.log4j_1.2.15.v201012070815", "6.0.0", "jar", true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "winutils-hadoop-2.6.0.exe",
+                    "winutils-hadoop-2.6.0", "6.0.0", "exe", true);
+
+            testRetreive(libraryManagerService, fakeServerManager, resolver, "RoutineDependency.jar", "RoutineDependency",
+                    "6.0.0", "jar", false);
+        } finally {
+            // set back the server manager
+            final Field declaredField = serverManager.getClass().getDeclaredField("manager");
+            declaredField.setAccessible(true);
+            declaredField.set(serverManager, serverManager);
+        }
+    }
+
+    private void testRetreive(ILibraryManagerService libraryManagerService, TalendLibsServerManager fakeServerManager,
+            MavenResolver resolver, String jarName, String artifactId, String version, String type, boolean moduleWithMvnUri)
+            throws Exception {
+        String mvnUri = null;
+        if (moduleWithMvnUri) {
+            mvnUri = "mvn:org.talend.libraries/" + artifactId + "/" + version;
+        }
+        String snapshotUri = "mvn:org.talend.libraries/" + artifactId + "/" + version + "-SNAPSHOT" + "/" + type;
+        ModuleNeeded module1 = new ModuleNeeded("module context", jarName, "test", true, null, null, mvnUri);
+        MavenArtifact sArtifact = new MavenArtifact();
+        sArtifact.setGroupId("org.talend.libraries");
+        sArtifact.setArtifactId(artifactId);
+        sArtifact.setVersion(version + "-SNAPSHOT");
+        sArtifact.setType(type);
+        List<MavenArtifact> searchResult = new ArrayList<MavenArtifact>();
+        searchResult.add(sArtifact);
+        when(fakeServerManager.search(null, null, null, null, "org.talend.libraries", artifactId, "6.0.0-SNAPSHOT")).thenReturn(
+                searchResult);
+        when(resolver.resolve(snapshotUri)).thenReturn(new File(""));
+        boolean retrieve1 = libraryManagerService.retrieve(module1, null, false, null);
+        assertTrue(retrieve1);
+        assertEquals(module1.getStatus(), ELibraryInstallStatus.INSTALLED);
+    }
+    
+    @Test
+    public void testDaysBetween() throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        Date sDate = sdf.parse("01/03/2016 13:00:00");
+        Date eDate = sdf.parse("01/03/2016 14:00:00");
+        Calendar sc = Calendar.getInstance();
+        sc.setTime(sDate);
+        
+        Calendar ec = Calendar.getInstance();
+        ec.setTime(eDate);
+        
+        LocalLibraryManager lm = new LocalLibraryManager();
+
+        assertEquals(lm.daysBetween(sc, ec),0);
+
+        ec.setTime(sdf.parse("02/03/2016 12:00:00"));
+
+        assertEquals(lm.daysBetween(sc, ec),0);
+
+        ec.setTime(sdf.parse("02/03/2016 15:00:00"));
+
+        assertEquals(lm.daysBetween(sc, ec),1);
+
+        ec.setTime(sdf.parse("11/03/2016 15:00:00"));
+
+        assertEquals(lm.daysBetween(sc, ec),10);
+    }
+    
+    @Test
+    public void testResolvedAllowed() throws Exception {
+        IEclipsePreferences node = InstanceScope.INSTANCE.getNode(NexusServerUtils.ORG_TALEND_DESIGNER_CORE);
+        node.putInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, -1);
+        
+        LocalLibraryManager lm = new LocalLibraryManager();
+
+        assertFalse(lm.isResolveAllowed(null));
+
+        node.putInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, 0);
+        assertTrue(lm.isResolveAllowed(null));
+
+        node.putInt(ITalendCorePrefConstants.NEXUS_REFRESH_FREQUENCY, 1);
+        IEclipsePreferences prefSetting = ConfigurationScope.INSTANCE.getNode("org.talend.librariesmanager");
+        prefSetting.remove("lastUpdate");
+
+        // never resolved, so will be true
+        assertTrue(lm.isResolveAllowed("a")); //$NON-NLS-1$
+        // last resolve not updated, so should be true still
+        assertTrue(lm.isResolveAllowed("a")); //$NON-NLS-1$
+        
+        lm.updateLastResolveDate("a"); //$NON-NLS-1$
+        // already resolved, should not allow the resolve again.
+        assertFalse(lm.isResolveAllowed("a")); //$NON-NLS-1$
+   }
+
 
 }

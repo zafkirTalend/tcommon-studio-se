@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2015 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -149,7 +149,9 @@ public interface ITalendCorePrefConstants {
 
     public static final String OOZIE_SCHEDULER_HADOOP_PROPERTIES = "oozie_scheduler_hadoop_properties"; //$NON-NLS-1$
 
-    public static final String OOZIE_SCHEDULER_PROPERTY_TYPE = "oozie_scheduler_property_type";
+    public static final String OOZIE_SCHEDULER_PROPERTY_TYPE = "oozie_scheduler_property_type"; //$NON-NLS-1$
+
+    public static final String OOZIE_SCHEDULER_RELATIVE_HADOOP_CLUSTER_ID = "oozie_scheduler_relative_hadoop_cluster_id"; //$NON-NLS-1$
 
     public static final String CoreUIPlugin_ID = "org.talend.core.ui"; //$NON-NLS-1$
 
@@ -172,4 +174,15 @@ public interface ITalendCorePrefConstants {
      * PlatformUI.getPreference().getBoolean("NOT_SHOW_ONBOARDING_AT_STARTUP")
      */
     public static final String PREFERENCE_NOT_SHOW_ONBOARDING_AT_STARTUP = "NOT_SHOW_ONBOARDING_AT_STARTUP"; //$NON-NLS-1$
+
+    /**
+     * TAC connection timeout (seconds)
+     */
+    public static final String PERFORMANCE_TAC_CONNECTION_TIMEOUT = "PERFORMANCE_TAC_CONNECTION_TIMEOUT"; //$NON-NLS-1$
+
+    public static final String PERFORMANCE_JAVA_PROCESS_CODE_FORMATE_TIMEOUT = "PERFORMANCE_JAVA_PROCESS_CODE_FORMATE_TIMEOUT"; //$NON-NLS-1$
+
+    public static final String NEXUS_TIMEOUT = "NEXUS_TIMEOUT"; //$NON-NLS-1$
+
+    public static final String NEXUS_REFRESH_FREQUENCY = "NEXUS_REFRESH_FREQUENCY"; //$NON-NLS-1$
 }
