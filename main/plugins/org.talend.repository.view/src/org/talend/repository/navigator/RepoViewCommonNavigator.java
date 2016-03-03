@@ -328,7 +328,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void createPartControl(Composite parent) {
         service = GitContentServiceProviderManager.getGitContentService();
-        if (service.isGIT())
+        if (service != null && service.isGIT())
             service.createDropdownCombo(parent);
 
         super.createPartControl(parent);
