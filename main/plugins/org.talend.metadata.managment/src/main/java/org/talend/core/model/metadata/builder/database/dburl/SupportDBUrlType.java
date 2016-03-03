@@ -170,7 +170,7 @@ public enum SupportDBUrlType {
               null,
               "org.exist.xmldb.DatabaseImpl", //$NON-NLS-1$
               null,
-              "eXist"),
+              "eXist"), //$NON-NLS-1$
     MDM("MDM", //$NON-NLS-1$
         "localhost", //$NON-NLS-1$
         "8080", //$NON-NLS-1$
@@ -178,7 +178,7 @@ public enum SupportDBUrlType {
         null,
         "", //$NON-NLS-1$
         null,
-        "MDM"),
+        "MDM"), //$NON-NLS-1$
     DELIMITEDFILE("DELIMITEDFILE", //$NON-NLS-1$
                   "", //$NON-NLS-1$
                   "", //$NON-NLS-1$
@@ -186,8 +186,8 @@ public enum SupportDBUrlType {
                   null,
                   "", //$NON-NLS-1$
                   null,
-                  "DELIMITEDFILE"),
-    JAVADEFAULTURL("Java", "localhost", null, "dbname", null, null, null, "Java"),
+                  "DELIMITEDFILE"), //$NON-NLS-1$
+    JAVADEFAULTURL("Java", "localhost", null, "dbname", null, null, null, "Java"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     ACCESS("ACCESS", //$NON-NLS-1$
            null,
            null,
@@ -212,14 +212,22 @@ public enum SupportDBUrlType {
            "org.apache.hive.jdbc.HiveDriver", //$NON-NLS-1$
            null,
            "Impala"), //$NON-NLS-1$
+    PARACCEL("ParAccel", //$NON-NLS-1$
+             "localhost", //$NON-NLS-1$
+             "5439", //$NON-NLS-1$
+             null,
+             null,
+             "com.paraccel.Driver", //$NON-NLS-1$
+             null,
+             "ParAccel"), //$NON-NLS-1$
     REDSHIFT("Redshift", //$NON-NLS-1$
              "localhost", //$NON-NLS-1$
-             "10000", //$NON-NLS-1$
+             "5439", //$NON-NLS-1$
              null,
              null,
-             "", //$NON-NLS-1$
+             "com.paraccel.Driver", //$NON-NLS-1$
              null,
-             "Redshift"), //$NON-NLS-1$
+             "Amazon Redshift"), //$NON-NLS-1$
     VERTICA("Vertica", //$NON-NLS-1$
             null,
             "5433", //$NON-NLS-1$

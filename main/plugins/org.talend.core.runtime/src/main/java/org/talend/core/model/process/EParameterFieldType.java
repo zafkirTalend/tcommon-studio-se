@@ -98,6 +98,7 @@ public enum EParameterFieldType {
     NAME_SELECTION_AREA, // ycbai added for generic wizard
     NAME_SELECTION_REFERENCE, // ycbai added for generic wizard
     COMPONENT_REFERENCE, // ycbai added for generic wizard
+    HIDDEN_TEXT, // hcyi added for generic wizard/component properties
 
     ;
 
