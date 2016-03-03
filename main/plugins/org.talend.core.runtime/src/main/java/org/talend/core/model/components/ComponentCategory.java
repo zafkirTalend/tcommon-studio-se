@@ -17,6 +17,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.service.IMRProcessService;
+import org.talend.core.service.IStormProcessService;
 import org.talend.designer.core.ICamelDesignerCoreService;
 
 /**
@@ -94,6 +95,16 @@ public enum ComponentCategory {
             }
             if (mrService.isMapReduceItem(item)) {
                 return ComponentCategory.CATEGORY_4_MAPREDUCE;
+            }
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IStormProcessService.class)) {
+            IStormProcessService stormService = (IStormProcessService) GlobalServiceRegister.getDefault().getService(
+                    IStormProcessService.class);
+            if (stormService.isSparkStreaming(item)) {
+                return ComponentCategory.CATEGORY_4_SPARKSTREAMING;
+            }
+            if (stormService.isStormItem(item)) {
+                return ComponentCategory.CATEGORY_4_STORM;
             }
         }
         if (item instanceof ProcessItem || item instanceof JobletProcessItem) {
