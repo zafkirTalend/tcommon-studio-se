@@ -32,6 +32,8 @@ public class HadoopConstants {
     public static final String FRAMEWORK_STORM = "Storm";
 
     public static final String FRAMEWORK_SPARKSTREAMING = "Spark Streaming";
+    
+    public static final String FRAMEWORK_SPARK_STREAMING = "Spark_Streaming";
 
     public static final String FRAMEWORK_MAPREDUCE = "MapReduce";
 
@@ -40,6 +42,10 @@ public class HadoopConstants {
     public static final String JOBTYPEBDSTREAMING = "Big Data Streaming";
 
     public static final String JOBTYPEBDBATCH = "Big Data Batch";
+    
+    public static final String JOBTYPE_BDSTREAMING = "Big_Data_Streaming";
+
+    public static final String JOBTYPE_BDBATCH = "Big_Data_Batch";
 
     public static final String SPARKSTREAMING_TYPE = "SPARKSTREAMING";
 
