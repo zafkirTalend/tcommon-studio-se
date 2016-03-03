@@ -22,4 +22,6 @@ import org.talend.core.model.properties.Item;
 public interface ITestContainerCoreService extends IService {
 
     public boolean isSpark(Item item);
+
+    public boolean isSparkStreaming(Item item);
 }

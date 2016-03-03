@@ -60,6 +60,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshot <em>Screenshot</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getScreenshots <em>Screenshots</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRoutinesDependencies <em>Routines Dependencies</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getJobType <em>Job Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getFramework <em>Framework</em>}</li>
  * </ul>
  * </p>
  *
@@ -367,6 +369,46 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
     protected EList routinesDependencies;
 
     /**
+     * The default value of the '{@link #getJobType() <em>Job Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJobType()
+     * @generated
+     * @ordered
+     */
+    protected static final String JOB_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getJobType() <em>Job Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJobType()
+     * @generated
+     * @ordered
+     */
+    protected String jobType = JOB_TYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getFramework() <em>Framework</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFramework()
+     * @generated
+     * @ordered
+     */
+    protected static final String FRAMEWORK_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFramework() <em>Framework</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFramework()
+     * @generated
+     * @ordered
+     */
+    protected String framework = FRAMEWORK_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -582,6 +624,48 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             routinesDependencies = new EObjectContainmentEList(ItemInforType.class, this, TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES);
         }
         return routinesDependencies;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getJobType() {
+        return jobType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJobType(String newJobType) {
+        String oldJobType = jobType;
+        jobType = newJobType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__JOB_TYPE, oldJobType, jobType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getFramework() {
+        return framework;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFramework(String newFramework) {
+        String oldFramework = framework;
+        framework = newFramework;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__FRAMEWORK, oldFramework, framework));
     }
 
     /**
@@ -853,6 +937,10 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 else return getScreenshots().map();
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 return getRoutinesDependencies();
+            case TalendFilePackage.PROCESS_TYPE__JOB_TYPE:
+                return getJobType();
+            case TalendFilePackage.PROCESS_TYPE__FRAMEWORK:
+                return getFramework();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -929,6 +1017,12 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 getRoutinesDependencies().clear();
                 getRoutinesDependencies().addAll((Collection)newValue);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__JOB_TYPE:
+                setJobType((String)newValue);
+                return;
+            case TalendFilePackage.PROCESS_TYPE__FRAMEWORK:
+                setFramework((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -999,6 +1093,12 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 getRoutinesDependencies().clear();
                 return;
+            case TalendFilePackage.PROCESS_TYPE__JOB_TYPE:
+                setJobType(JOB_TYPE_EDEFAULT);
+                return;
+            case TalendFilePackage.PROCESS_TYPE__FRAMEWORK:
+                setFramework(FRAMEWORK_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1049,6 +1149,10 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return screenshots != null && !screenshots.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__ROUTINES_DEPENDENCIES:
                 return routinesDependencies != null && !routinesDependencies.isEmpty();
+            case TalendFilePackage.PROCESS_TYPE__JOB_TYPE:
+                return JOB_TYPE_EDEFAULT == null ? jobType != null : !JOB_TYPE_EDEFAULT.equals(jobType);
+            case TalendFilePackage.PROCESS_TYPE__FRAMEWORK:
+                return FRAMEWORK_EDEFAULT == null ? framework != null : !FRAMEWORK_EDEFAULT.equals(framework);
         }
         return super.eIsSet(featureID);
     }
@@ -1081,6 +1185,10 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         result.append(version);
         result.append(", screenshot: ");
         result.append(screenshot);
+        result.append(", jobType: ");
+        result.append(jobType);
+        result.append(", framework: ");
+        result.append(framework);
         result.append(')');
         return result.toString();
     }

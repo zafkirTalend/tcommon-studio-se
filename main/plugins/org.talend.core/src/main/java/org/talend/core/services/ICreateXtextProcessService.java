@@ -15,6 +15,7 @@ package org.talend.core.services;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
 
@@ -30,6 +31,8 @@ public interface ICreateXtextProcessService extends IService {
 
     // create the processType with a .job file created by metalanguage.
     public void addProcess(String path);
+    
+    public  ERepositoryObjectType createProcessItem();
 
     public String convertJobtoScript(ProcessType processType);
 

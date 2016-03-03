@@ -64,7 +64,7 @@ import org.talend.repository.model.IProxyRepositoryService;
  */
 @SuppressWarnings("unchecked")
 public final class ProcessUtils {
-    
+
     private static boolean isHD;
 
     private static List<IProcess> fakeProcesses = new ArrayList<IProcess>();
@@ -751,6 +751,20 @@ public final class ProcessUtils {
         return false;
     }
 
+    public static boolean isSparkStreming(IProcess process) {
+        if (process instanceof IProcess2) {
+            return false;
+        }
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerCoreService.class)) {
+            ITestContainerCoreService testContainerService = (ITestContainerCoreService) GlobalServiceRegister.getDefault()
+                    .getService(ITestContainerCoreService.class);
+            if (testContainerService != null) {
+                return testContainerService.isSparkStreaming(((IProcess2) process).getProperty().getItem());
+            }
+        }
+        return false;
+    }
+
     public static List<String> getTestData(IProcess process, String instanceName) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
@@ -930,26 +944,26 @@ public final class ProcessUtils {
 
         return false;
     }
-    
+
     public static boolean isHDInsight() {
         return isHD;
     }
-    
+
     public static void setHDInsight(boolean isHD) {
         ProcessUtils.isHD = isHD;
     }
-    
+
     public static boolean isDistributionExist(ProcessItem processItem) {
         EList<ElementParameterType> parameters = processItem.getProcess().getParameters().getElementParameter();
         for (ElementParameterType pt : parameters) {
             if (pt.getName().equals("DISTRIBUTION")) { //$NON-NLS-1$
-                 String value = pt.getValue();
-                 if("MICROSOFT_HD_INSIGHT".equals(value)){ //$NON-NLS-1$
-                     return true;
-                 }
+                String value = pt.getValue();
+                if ("MICROSOFT_HD_INSIGHT".equals(value)) { //$NON-NLS-1$
+                    return true;
+                }
             }
         }
         return false;
     }
-    
+
 }
