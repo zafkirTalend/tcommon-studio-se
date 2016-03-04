@@ -17,6 +17,7 @@
    <extension-point id="repository_review_filter" name="repository_review_filter" schema="schema/repository_review_filter.exsd"/>
    <extension-point id="repository_context" name="Repository_context" schema="schema/repository_context.exsd"/>
    <extension-point id="document_generator" name="document_generator" schema="schema/document_generator.exsd"/>
+   <extension-point id="git_content_service" name="git_content_service" schema="schema/git_content_service.exsd"/>
 
    <extension
          point="org.talend.core.runtime.service">

@@ -23,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.talend.commons.CommonsPlugin;
 import org.talend.core.model.repository.DynaEnum;
@@ -30,6 +31,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.ProductUtils;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
+import org.talend.repository.items.importexport.manager.ResourcesManager;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -160,6 +162,13 @@ public class ImportRepTypeHandler extends ImportBasicHandler {
             }
         }
         return false;
+    }
+
+    @Override
+    public ImportItem generateImportItem(IProgressMonitor monitor, ResourcesManager resManager, IPath resourcePath,
+            boolean overwrite, List<ImportItem> existedImportItems) throws Exception {
+        // just do like createImportItem if no special cases
+        return createImportItem(monitor, resManager, resourcePath, overwrite, existedImportItems);
     }
 
 }

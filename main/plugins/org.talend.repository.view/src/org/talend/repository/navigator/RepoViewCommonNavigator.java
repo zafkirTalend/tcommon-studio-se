@@ -37,6 +37,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
@@ -61,8 +62,8 @@ import org.eclipse.ui.navigator.CommonViewerSorter;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
@@ -92,6 +93,8 @@ import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.model.provider.GitContentServiceProviderManager;
+import org.talend.core.repository.services.IGitContentService;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -253,6 +256,10 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     private ResourcePostChangeRunnableListener resourcePostChangeRunnableListener;
 
+    private Combo comboDropDown;
+
+    private IGitContentService service;
+
     /**
      * yzhang Comment method "addPreparedListeners".
      * 
@@ -320,6 +327,10 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     @Override
     public void createPartControl(Composite parent) {
+        service = GitContentServiceProviderManager.getGitContentService();
+        if (service != null && service.isGIT())
+            service.createDropdownCombo(parent);
+
         super.createPartControl(parent);
 
         viewer = getCommonViewer();
@@ -529,9 +540,21 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
      * looks for an adapter on the input that adapts to INavigatorDescriptor and then changes the view descritor string
      */
     public void refreshContentDescription() {
+        INavigatorDescriptor navDesc = getNavDesc();
+        final String descriptor = navDesc.getDescriptor();
+        if (navDesc == null) {
+            setContentDescription("");
+        } else if (service.isGIT()) {
+            service.configureCombo(descriptor);
+        } else {
+            setContentDescription(descriptor);
+        }
+    }
+
+    protected INavigatorDescriptor getNavDesc() {
         INavigatorDescriptor navDesc = (INavigatorDescriptor) Platform.getAdapterManager().getAdapter(
                 getCommonViewer().getInput(), INavigatorDescriptor.class);
-        setContentDescription(navDesc != null ? navDesc.getDescriptor() : ""); //$NON-NLS-1$
+        return navDesc;
     }
 
     /**
