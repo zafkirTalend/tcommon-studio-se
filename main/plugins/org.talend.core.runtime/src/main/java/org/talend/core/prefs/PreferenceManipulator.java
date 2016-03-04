@@ -39,6 +39,8 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
     private static final String PREF_DELIMITER = "|"; //$NON-NLS-1$
 
+    private static final String LOCAL_MODE = "local";
+
     /** The preference store manipulated. */
     private IPreferenceStore store;
 
@@ -246,6 +248,18 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
 
+    public int getLastLogonMode(String projectUrl, String projectName, String branch) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName + branch).getBytes());
+        int mode = store.getInt(hexKey);
+        return mode;
+    }
+
+    public void setLastLogonMode(String projectUrl, String projectName, String branch, int mode) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName + branch).getBytes());
+        store.setValue(hexKey, mode);
+        save();
+    }
+
     public String getLastUser() {
         return store.getString(LAST_USED_USER);
     }
@@ -283,5 +297,16 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
                 //
             }
         }
+    }
+
+    public void setNewCreateBranchObjectId(String projectUrl, String projectName, String branch, String id) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName + LOCAL_MODE + branch).getBytes());
+        store.setValue(hexKey, id);
+        save();
+    }
+
+    public String getNewCreateBranchObjectId(String projectUrl, String projectName, String branch) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName + LOCAL_MODE + branch).getBytes());
+        return store.getString(hexKey);
     }
 }

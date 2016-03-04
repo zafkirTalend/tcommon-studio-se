@@ -122,6 +122,11 @@ public class ImportExportHandlersManager {
 
     public List<ImportItem> populateImportingItems(ResourcesManager resManager, boolean overwrite,
             IProgressMonitor progressMonitor, boolean enableProductChecking) throws Exception {
+        return populateImportingItems(resManager, overwrite, progressMonitor, enableProductChecking, true);
+    }
+
+    public List<ImportItem> populateImportingItems(ResourcesManager resManager, boolean overwrite,
+            IProgressMonitor progressMonitor, boolean enableProductChecking, boolean needCheck) throws Exception {
         IProgressMonitor monitor = progressMonitor;
         if (monitor == null) {
             monitor = new NullProgressMonitor();
@@ -169,8 +174,12 @@ public class ImportExportHandlersManager {
                 if (!importHandlerHelper.validResourcePath(path)) { // valid "*.properties" will do it later.
                     IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
                     if (importHandler != null) {
-                        ImportItem importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite,
-                                items);
+                        ImportItem importItem = null;
+                        if (needCheck) {
+                            importItem = importHandler.generateImportItem(progressMonitor, resManager, path, overwrite, items);
+                        } else {
+                            importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
+                        }
                         // if have existed, won't add again.
                         if (importItem != null && !items.contains(importItem)) {
                             items.add(importItem);
@@ -189,7 +198,7 @@ public class ImportExportHandlersManager {
                 }
                 // process the "*.properties"
                 ImportItem importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
-                if (importItem != null) {
+                if (importItem != null && needCheck) {
                     IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
                     if (importHandler != null) {
                         if (importHandler instanceof ImportBasicHandler) {

@@ -70,6 +70,21 @@ public interface IImportItemsHandler extends IExecutableExtension {
             List<ImportItem> existedImportItems) throws Exception;
 
     /**
+     * 
+     * Almost seem with createImportItem, but this method won't do check
+     * 
+     * @param monitor
+     * @param resManager
+     * @param resourcePath
+     * @param overwrite
+     * @param existedImportItems
+     * @return
+     * @throws Exception
+     */
+    ImportItem generateImportItem(IProgressMonitor monitor, ResourcesManager resManager, IPath resourcePath, boolean overwrite,
+            List<ImportItem> existedImportItems) throws Exception;
+
+    /**
      * Find out current item's related items. in order to implictly import the related items.
      * 
      * @param monitor
