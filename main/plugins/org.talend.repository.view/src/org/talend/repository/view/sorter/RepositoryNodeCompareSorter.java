@@ -62,5 +62,15 @@ public abstract class RepositoryNodeCompareSorter implements IRepositoryNodeSort
         });
     }
 
-    protected abstract int compareNode(RepositoryNode n1, RepositoryNode n2);
+    protected void swap(Object[] children, int first, int second) {
+        if (first != second && first > -1 && second > -1 && first < children.length && second < children.length) {
+            Object t = children[first];
+            children[first] = children[second];
+            children[second] = t;
+        }
+    }
+
+    protected int compareNode(RepositoryNode n1, RepositoryNode n2) {
+        return 0; // keep order
+    }
 }
