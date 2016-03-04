@@ -544,7 +544,7 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         final String descriptor = navDesc.getDescriptor();
         if (navDesc == null) {
             setContentDescription("");
-        } else if (service.isGIT()) {
+        } else if (service != null && service.isGIT()) {
             service.configureCombo(descriptor);
         } else {
             setContentDescription(descriptor);
