@@ -56,6 +56,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
@@ -80,6 +81,8 @@ import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
@@ -1408,6 +1411,9 @@ public final class MetadataToolHelper {
         return result;
     }
 
+    /**
+     * @return An Avro schema with enriched properties from the incoming metadata table.
+     */
     public static org.apache.avro.Schema convertToAvro(MetadataTable in) {
         RecordBuilder<Schema> builder = SchemaBuilder.builder().record(in.getLabel());
         copyTableProperties(builder, in);
@@ -1419,6 +1425,49 @@ public final class MetadataToolHelper {
         return fa.endRecord();
     }
 
+    /**
+     * Copy all of the information from the MetadataTable in the form of key/value properties into an Avro object.
+     * 
+     * @param builder Any Avro builder capable of taking key/value in the form of strings.
+     * @param in The element to copy information from.
+     * @return the instance of the builder passed in.
+     */
+    private static <T extends PropBuilder<T>> PropBuilder<T> copyTableProperties(PropBuilder<T> builder, MetadataTable in) {
+
+        // Properties common to tables and columns.
+        if (in.getId() != null) {
+            builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
+        }
+        if (in.getComment() != null) {
+            builder.prop(Talend6SchemaConstants.TALEND6_COMMENT, in.getComment());
+        }
+        if (in.getLabel() != null) {
+            builder.prop(Talend6SchemaConstants.TALEND6_LABEL, in.getLabel());
+        }
+        if (in.isReadOnly()) {
+            builder.prop(Talend6SchemaConstants.TALEND6_IS_READ_ONLY, "true"); //$NON-NLS-1$
+        }
+        for (TaggedValue tv : in.getTaggedValue()) {
+            String additionalTag = tv.getTag();
+            if (tv.getValue() != null) {
+                builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + additionalTag, tv.getValue());
+            }
+        }
+
+        // Table-specific properties.
+        if (in.getName() != null) {
+            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_NAME, in.getName());
+        }
+        if (in.getTableType() != null) {
+            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_TYPE, in.getTableType());
+        }
+
+        return builder;
+    }
+
+    /**
+     * Build a field into a schema using enriched properties from the incoming column.
+     */
     private static FieldAssembler<Schema> convertToAvro(FieldAssembler<Schema> fa,
             org.talend.core.model.metadata.builder.connection.MetadataColumn in) {
         FieldBuilder<Schema> fb = fa.name(in.getLabel());
@@ -1493,59 +1542,7 @@ public final class MetadataToolHelper {
         }
 
         // Can this occur?
-        throw new UnsupportedOperationException("Unrecognized SchemaElement.Type"); //$NON-NLS-1$
-    }
-
-    /**
-     * Copy all of the information from the MetadataTable in the form of key/value properties into an Avro object.
-     * 
-     * @param builder Any Avro builder capable of taking key/value in the form of strings.
-     * @param in The element to copy information from.
-     * @return the instance of the builder passed in.
-     */
-    private static <T extends PropBuilder<T>> PropBuilder<T> copyTableProperties(PropBuilder<T> builder, MetadataTable in) {
-
-        // Properties common to tables and columns.
-        if (in.getId() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
-        }
-        if (in.getComment() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COMMENT, in.getComment());
-        }
-        if (in.getLabel() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_LABEL, in.getLabel());
-        }
-        if (in.isReadOnly()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_IS_READ_ONLY, "true"); //$NON-NLS-1$
-        }
-        for (TaggedValue tv : in.getTaggedValue()) {
-            String additionalTag = tv.getTag();
-            if (tv.getValue() != null) {
-                builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + additionalTag, tv.getValue());
-            }
-        }
-
-        // Table-specific properties.
-        // if (in.getDbms() != null) {
-        // builder.prop(Talend6SchemaConstants.TALEND6_TABLE_DBMS, in.getDbms());
-        // }
-        if (in.getName() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_NAME, in.getName());
-        }
-        if (in.getTableType() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_TYPE, in.getTableType());
-        }
-        // if (in.getAttachedConnector() != null) {
-        // builder.prop(Talend6SchemaConstants.TALEND6_TABLE_ATTACHED_CONNECTOR, in.getAttachedConnector());
-        // }
-        // if (in.getReadOnlyColumnPosition() != null) {
-        // builder.prop(Talend6SchemaConstants.TALEND6_TABLE_READ_ONLY_COLUMN_POSITION, in.getReadOnlyColumnPosition());
-        // }
-        // if (in.getDynamicColumn() != null) {
-        // builder.prop(Talend6SchemaConstants.TALEND6_TABLE_DYNAMIC_COLUMN, in.getDynamicColumn().getLabel());
-        // }
-
-        return builder;
+        throw new UnsupportedOperationException("Unrecognized type " + tt); //$NON-NLS-1$
     }
 
     /**
@@ -1582,7 +1579,7 @@ public final class MetadataToolHelper {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY, "true"); //$NON-NLS-1$
         }
         if (in.getType() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TYPE, in.getSourceType());
+            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_SOURCE_TYPE, in.getSourceType());
         }
         if (in.getTalendType() != null) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
@@ -1605,9 +1602,6 @@ public final class MetadataToolHelper {
         if (in.getInitialValue().getBody() != null) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getInitialValue().getBody());
         }
-        // if (in.isCustom()) {
-        //            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_CUSTOM, "true"); //$NON-NLS-1$
-        // }
         if (in.getName() != null) {
             // keyword fixes?
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME, in.getName());
@@ -1618,226 +1612,180 @@ public final class MetadataToolHelper {
         if (in.getRelationshipType() != null) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE, in.getRelationshipType());
         }
-        // if (in.getExpression() != null) {
-        // builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_EXPRESSION, in.getExpression());
-        // }
-        // if (in.isUsefulColumn()) {
-        //            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_USEFUL, "true"); //$NON-NLS-1$
-        // }
         return builder;
     }
 
-    public static org.apache.avro.Schema convertToAvro(IMetadataTable in) {
-        RecordBuilder<Schema> builder = SchemaBuilder.builder().record(in.getLabel());
-        copyTableProperties(builder, in);
-
-        FieldAssembler<Schema> fa = builder.fields();
-        for (IMetadataColumn column : in.getListColumns()) {
-            fa = convertToAvro(fa, column);
-        }
-        return fa.endRecord();
-    }
-
-    private static FieldAssembler<Schema> convertToAvro(FieldAssembler<Schema> fa, IMetadataColumn in) {
-        FieldBuilder<Schema> fb = fa.name(in.getLabel());
-        copyColumnProperties(fb, in);
-        BaseFieldTypeBuilder<Schema> ftb = in.isNullable() ? fb.type() : fb.type().nullable();
-
-        String defaultValue = in.getDefault();
-
-        String tt = in.getTalendType();
-
-        // Numeric types.
-        if (JavaTypesManager.LONG.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.longType().noDefault()
-                    : ftb.longType().longDefault(Long.parseLong(defaultValue));
-        }
-        if (JavaTypesManager.INTEGER.getId().equals(tt) || JavaTypesManager.SHORT.getId().equals(tt)
-                || JavaTypesManager.BYTE.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.intType().noDefault()
-                    : ftb.intType().intDefault(Integer.parseInt(defaultValue));
-        }
-        if (JavaTypesManager.DOUBLE.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.doubleType().noDefault()
-                    : ftb.doubleType().doubleDefault(Double.parseDouble(defaultValue));
-        }
-        if (JavaTypesManager.FLOAT.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.floatType().noDefault()
-                    : ftb.floatType().floatDefault(Float.parseFloat(defaultValue));
-        }
-        if (JavaTypesManager.BIGDECIMAL.getId().equals(tt)) {
-            // decimal(precision, scale) == column length and precision?
-            Decimal d = LogicalTypes.decimal(in.getLength(), in.getPrecision());
-            Schema bigdecimal = d.addToSchema(Schema.create(Schema.Type.BYTES));
-            return fb.type(bigdecimal).withDefault(defaultValue);
-        }
-
-        // Other primitive types that map directly to Avro.
-        if (JavaTypesManager.BOOLEAN.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.booleanType().noDefault()
-                    : ftb.booleanType().booleanDefault(Boolean.parseBoolean(in.getDefault()));
-        }
-        if (JavaTypesManager.BYTE_ARRAY.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.bytesType().noDefault()
-                    : ftb.bytesType().bytesDefault(defaultValue);
-        }
-        if (JavaTypesManager.DATE.getId().equals(tt)) {
-            // Date is saved as a long, like System.currentTimeMillis()
-            return ftb.longType().noDefault();
-        }
-        // String-ish types.
-        if (JavaTypesManager.STRING.getId().equals(tt) || JavaTypesManager.FILE.getId().equals(tt)
-                || JavaTypesManager.DIRECTORY.getId().equals(tt) || JavaTypesManager.VALUE_LIST.getId().equals(tt)
-                || JavaTypesManager.CHARACTER.getId().equals(tt) || JavaTypesManager.PASSWORD.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.stringType().noDefault()
-                    : ftb.stringType().stringDefault(defaultValue);
-        }
-
-        // Types with unknown elements, store as binary
-        if (JavaTypesManager.OBJECT.getId().equals(tt) || JavaTypesManager.DYNAMIC.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.bytesType().noDefault()
-                    : ftb.bytesType().bytesDefault(defaultValue);
-        }
-        if (JavaTypesManager.LIST.getId().equals(tt)) {
-            return ftb.array().items().bytesType().noDefault();
-        }
-
-        // Can this occur?
-        throw new UnsupportedOperationException("Unrecognized SchemaElement.Type"); //$NON-NLS-1$
-    }
-
     /**
-     * Copy all of the information from the IMetadataTable in the form of key/value properties into an Avro object.
-     * 
-     * @param builder Any Avro builder capable of taking key/value in the form of strings.
-     * @param in The element to copy information from.
-     * @return the instance of the builder passed in.
+     * @param in A schema which must be of type {@link Schema.Type#RECORD}.
+     * @return A MetadataTable containing all the information from the Schema, including any information included the
+     * schema as JSON property annotations for Talend 6 generated schemas.
      */
-    private static <T extends PropBuilder<T>> PropBuilder<T> copyTableProperties(PropBuilder<T> builder, IMetadataTable in) {
+    public static MetadataTable convertFromAvro(org.apache.avro.Schema in) {
+        MetadataTable table = ConnectionFactory.eINSTANCE.createMetadataTable();
+
+        // Set the defaults values to the name (the only information guaranteed to be present in the schema.)
+        table.setId(in.getName());
+        table.setLabel(in.getName());
+        table.setName(in.getName());
+        table.setSourceName(in.getName());
+
+        // Extract any properties that have been saved in the enriched schema.
 
         // Properties common to tables and columns.
-        if (in.getId() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
+        String prop;
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_ID))) {
+            table.setId(prop);
         }
-        if (in.getComment() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COMMENT, in.getComment());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COMMENT))) {
+            table.setComment(in.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
-        if (in.getLabel() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_LABEL, in.getLabel());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
+            table.setLabel(null);
         }
-        if (in.isReadOnly()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_IS_READ_ONLY, "true"); //$NON-NLS-1$
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
+            table.setReadOnly(Boolean.parseBoolean(prop));
         }
-        for (Map.Entry<String, String> e : in.getAdditionalProperties().entrySet()) {
-            if (e.getValue() != null) {
-                builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + e.getKey(), e.getValue());
+        for (String key : in.getObjectProps().keySet()) {
+            if (key.startsWith(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES)) {
+                String originalKey = key.substring(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES.length());
+                TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, in.getProp(key));
+                table.getTaggedValue().add(tv);
             }
         }
 
         // Table-specific properties.
-        if (in.getDbms() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_DBMS, in.getDbms());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_TABLE_NAME))) {
+            table.setName(prop);
         }
-        if (in.getTableName() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_NAME, in.getTableName());
-        }
-        if (in.getTableType() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_TYPE, in.getTableType());
-        }
-        if (in.getAttachedConnector() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_ATTACHED_CONNECTOR, in.getAttachedConnector());
-        }
-        if (in.getReadOnlyColumnPosition() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_READ_ONLY_COLUMN_POSITION, in.getReadOnlyColumnPosition());
-        }
-        if (in.getDynamicColumn() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_TABLE_DYNAMIC_COLUMN, in.getDynamicColumn().getLabel());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_TABLE_TYPE))) {
+            table.setTableType(prop);
         }
 
-        return builder;
+        // Add the columns.
+        List<org.talend.core.model.metadata.builder.connection.MetadataColumn> columns = new ArrayList<>(in.getFields().size());
+        for (Schema.Field f : in.getFields()) {
+            columns.add(convertFromAvro(f));
+        }
+        table.getColumns().addAll(columns);
+        return table;
     }
 
     /**
-     * Copy all of the information from the IMetadataColumn in the form of key/value properties into an Avro object.
-     * 
-     * @param builder Any Avro builder capable of taking key/value in the form of strings.
-     * @param in The element to copy information from.
-     * @return the instance of the builder passed in.
+     * @param in A field from an incoming schema
+     * @return A MetadataColumn containing all the information from the Schema, including any information included the
+     * schema as JSON property annotations for Talend 6 generated schemas.
      */
-    private static <T extends PropBuilder<T>> PropBuilder<T> copyColumnProperties(PropBuilder<T> builder, IMetadataColumn in) {
+    private static org.talend.core.model.metadata.builder.connection.MetadataColumn convertFromAvro(Schema.Field field) {
+        org.talend.core.model.metadata.builder.connection.MetadataColumn col = ConnectionFactory.eINSTANCE.createMetadataColumn();
+        Schema in = field.schema();
+
+        // Set the defaults values to the name (the only information guaranteed to be available in every field).
+        col.setId(field.name());
+        col.setLabel(field.name());
+        col.setName(field.name());
+        switch (AvroUtils.unwrapIfNullable(in).getType()) {
+        case ARRAY:
+            col.setSourceType(JavaTypesManager.LIST.getId());
+            break;
+        case BOOLEAN:
+            col.setSourceType(JavaTypesManager.BOOLEAN.getId());
+            break;
+        case BYTES:
+        case FIXED:
+            col.setSourceType(JavaTypesManager.BYTE_ARRAY.getId());
+            break;
+        case DOUBLE:
+            col.setSourceType(JavaTypesManager.DOUBLE.getId());
+            break;
+        case FLOAT:
+            col.setSourceType(JavaTypesManager.FLOAT.getId());
+            break;
+        case INT:
+            col.setSourceType(JavaTypesManager.INTEGER.getId());
+            break;
+        case LONG:
+            col.setSourceType(JavaTypesManager.LONG.getId());
+            break;
+        case ENUM:
+        case STRING:
+            col.setSourceType(JavaTypesManager.STRING.getId());
+            break;
+        case RECORD:
+        case NULL:
+        case MAP:
+        case UNION:
+        default:
+            // Can this occur in the studio?
+            throw new UnsupportedOperationException("Unrecognized type " + in); //$NON-NLS-1$
+        }
+        // TODO setSourceType from the field Schema type.
+        col.setNullable(AvroUtils.isNullable(in));
+
+        // Extract any properties that have been saved in the enriched schema.
+
         // Properties common to tables and columns.
-        if (in.getId() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
+        String prop;
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_ID))) {
+            col.setId(prop);
         }
-        if (in.getComment() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COMMENT, in.getComment());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COMMENT))) {
+            col.setComment(in.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
-        if (in.getLabel() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_LABEL, in.getLabel());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
+            col.setLabel(null);
         }
-        if (in.isReadOnly()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_IS_READ_ONLY, "true"); //$NON-NLS-1$
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
+            col.setReadOnly(Boolean.parseBoolean(prop));
         }
-        for (Map.Entry<String, String> e : in.getAdditionalField().entrySet()) {
-            if (e.getValue() != null) {
-                builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + e.getKey(), e.getValue());
+        for (String key : in.getObjectProps().keySet()) {
+            if (key.startsWith(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES)) {
+                String originalKey = key.substring(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES.length());
+                TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, in.getProp(key));
+                col.getTaggedValue().add(tv);
             }
         }
 
         // Column-specific properties.
-        if (in.isKey()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY, "true"); //$NON-NLS-1$
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY))) {
+            col.setKey(Boolean.parseBoolean(prop));
         }
-        if (in.getType() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TYPE, in.getType());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SOURCE_TYPE))) {
+            col.setSourceType(prop);
         }
-        if (in.getTalendType() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE))) {
+            col.setTalendType(prop);
         }
-        if (in.getPattern() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, in.getPattern());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
+            col.setPattern(prop);
         }
-        if (in.getLength() != null && in.getLength() >= 0) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH, String.valueOf(in.getLength()));
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
+            Long value = Long.parseLong(prop);
+            col.setLength(value > 0 ? value : -1);
         }
-        if (in.getOriginalLength() != null && in.getOriginalLength() >= 0) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH, String.valueOf(in.getOriginalLength()));
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
+            Long value = Long.parseLong(prop);
+            col.setOriginalLength(value > 0 ? value : -1);
         }
-        if (in.isNullable()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE, "true"); //$NON-NLS-1$
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE))) {
+            col.setNullable(Boolean.parseBoolean(prop));
         }
-        if (in.getPrecision() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION, String.valueOf(in.getPrecision()));
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
+            Long value = Long.parseLong(prop);
+            col.setPrecision(value > 0 ? value : -1);
         }
-        if (in.getDefault() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getDefault());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
+            col.setDefaultValue(prop);
         }
-        if (in.isCustom()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_CUSTOM, "true"); //$NON-NLS-1$
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME))) {
+            col.setName(prop);
         }
-        if (in.getOriginalDbColumnName() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME, in.getOriginalDbColumnName());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATED_ENTITY))) {
+            col.setRelatedEntity(prop);
         }
-        if (in.getRelatedEntity() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_RELATED_ENTITY, in.getRelatedEntity());
+        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE))) {
+            col.setRelationshipType(prop);
         }
-        if (in.getRelationshipType() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE, in.getRelationshipType());
-        }
-        if (in.getExpression() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_EXPRESSION, in.getExpression());
-        }
-        if (in.isUsefulColumn()) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_IS_USEFUL, "true"); //$NON-NLS-1$
-        }
-        return builder;
+
+        return col;
     }
 }

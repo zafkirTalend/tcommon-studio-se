@@ -552,29 +552,32 @@ public class MetadataToolHelperTest {
     @Test
     public void testConvertToAvro_Basic() {
         // Setup with a test table.
-        IMetadataTable table = new org.talend.core.model.metadata.MetadataTable();
+        MetadataTable table = ConnectionFactory.eINSTANCE.createMetadataTable();
         table.setLabel("testTable");
         table.setComment("A comment about this table.");
-        ArrayList<IMetadataColumn> columns = new ArrayList<>();
+        ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn> columns = new ArrayList<>();
         {
-            IMetadataColumn column = new MetadataColumn();
+            org.talend.core.model.metadata.builder.connection.MetadataColumn column = ConnectionFactory.eINSTANCE
+                    .createMetadataColumn();
             column.setLabel("id");
             column.setTalendType(JavaTypesManager.INTEGER.getId());
             columns.add(column);
         }
         {
-            IMetadataColumn column = new MetadataColumn();
+            org.talend.core.model.metadata.builder.connection.MetadataColumn column = ConnectionFactory.eINSTANCE
+                    .createMetadataColumn();
             column.setLabel("name");
             column.setTalendType(JavaTypesManager.STRING.getId());
             columns.add(column);
         }
         {
-            IMetadataColumn column = new MetadataColumn();
+            org.talend.core.model.metadata.builder.connection.MetadataColumn column = ConnectionFactory.eINSTANCE
+                    .createMetadataColumn();
             column.setLabel("valid");
             column.setTalendType(JavaTypesManager.BOOLEAN.getId());
             columns.add(column);
         }
-        table.setListColumns(columns);
+        table.getColumns().addAll(columns);
 
         Schema s = MetadataToolHelper.convertToAvro(table);
 
