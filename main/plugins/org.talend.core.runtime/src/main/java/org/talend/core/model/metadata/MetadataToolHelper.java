@@ -1716,7 +1716,7 @@ public final class MetadataToolHelper {
         case UNION:
         default:
             // Can this occur in the studio?
-            throw new UnsupportedOperationException("Unrecognized type " + in); //$NON-NLS-1$
+            break;
         }
         // TODO setSourceType from the field Schema type.
         col.setNullable(AvroUtils.isNullable(in));
@@ -1784,6 +1784,11 @@ public final class MetadataToolHelper {
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE))) {
             col.setRelationshipType(prop);
+        }
+
+        // If the source type wasn't set, there is an issue. Can this occur in the studio.
+        if (col.getSourceType() == null) {
+            throw new UnsupportedOperationException("Unrecognized type " + in); //$NON-NLS-1$
         }
 
         return col;
