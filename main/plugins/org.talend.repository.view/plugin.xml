@@ -413,7 +413,7 @@
             key="repository.code"
             label="%RepositoryView_code"
             nodeType="STABLE_SYSTEM_FOLDER"
-            ordinal="6"
+            ordinal="50"
             products="DI"
             type="CODE">
       </repositoryNode>

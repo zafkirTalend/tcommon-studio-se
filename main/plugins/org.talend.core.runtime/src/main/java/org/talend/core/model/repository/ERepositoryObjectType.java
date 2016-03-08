@@ -110,7 +110,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // "documentations", "DOCUMENTATION", true, 11, new String[] { PROD_DI }, new String[] {});
 
     public final static ERepositoryObjectType METADATA = new ERepositoryObjectType("repository.metadata", "metadata", "METADATA",
-            true, 8, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
+            true, 80, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType METADATA_CON_TABLE = new ERepositoryObjectType("repository.metadataTable",
             "METADATA_CON_TABLE", 13, true, true, new String[] { PROD_DI }, new String[] {}, false);
@@ -152,7 +152,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "MDM_ELEMENT_TYPE", 25, true, true, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType RECYCLE_BIN = new ERepositoryObjectType("repository.recyclebin", "", "RECYCLE_BIN",
-            true, 26, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
+            true, 900, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
 
     public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", "",
             "METADATA_COLUMN", true, 27, new String[] { PROD_DI }, new String[] {}, false);
