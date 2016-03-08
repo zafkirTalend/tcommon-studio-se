@@ -431,10 +431,17 @@
    <extension
          point="org.talend.repository.view.repositorySorter">
       <sorter
-            class="org.talend.repository.view.sorter.RepositoryObjectTypeSorter"
+            class="org.talend.repository.viewer.sorter.RepositoryObjectTypeSorter"
             description="sort children and based on the ordinal of type"
             id="org.talend.repository.view.sorter.RepositoryObjectTypeSorter"
             name="RepositoryObjectTypeSorter"
+            order="10">
+      </sorter>
+      <sorter
+            class="org.talend.repository.viewer.sorter.RoutinesRepositoryNodeSorter"
+            description="Always on top (1)"
+            id="org.talend.repository.view.sorter.routines"
+            name="Routine Sorter"
             order="10">
       </sorter>
    </extension>

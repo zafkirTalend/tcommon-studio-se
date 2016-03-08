@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.view.sorter;
+package org.talend.repository.viewer.sorter;
 
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.Viewer;
@@ -18,6 +18,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.navigator.TalendRepositoryRoot;
+import org.talend.repository.view.sorter.RepositoryNodeCompareSorter;
 
 /**
  * DOC ggu class global comment. Detailled comment

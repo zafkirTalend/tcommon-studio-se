@@ -37,6 +37,7 @@ Export-Package: org.talend.repository,
  org.talend.repository.viewer.dialog,
  org.talend.repository.viewer.filter,
  org.talend.repository.viewer.label,
+ org.talend.repository.viewer.sorter,
  org.talend.repository.viewer.ui.provider,
  org.talend.repository.viewer.ui.viewer
 Bundle-Activator: org.talend.repository.RepositoryViewPlugin
