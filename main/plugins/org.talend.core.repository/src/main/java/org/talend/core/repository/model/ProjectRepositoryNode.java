@@ -1168,7 +1168,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
             } else if (ERepositoryObjectType.GENERATED.name().equalsIgnoreCase(label)) {
                 if (PluginChecker.isDocumentationPluginLoaded()) {
-                    convertDocumentation(newProject, container, parent, type);
+                    // use CNF content provider instead
+                    // convertDocumentation(newProject, container, parent, type);
                 }
                 continue;
             } else {
