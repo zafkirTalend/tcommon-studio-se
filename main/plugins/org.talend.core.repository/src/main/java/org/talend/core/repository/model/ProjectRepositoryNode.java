@@ -39,7 +39,6 @@ import org.talend.commons.utils.data.container.Container;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.metadata.MetadataManager;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -94,7 +93,6 @@ import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
-import org.talend.designer.core.ICamelDesignerCoreService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.BinRepositoryNode;
@@ -980,51 +978,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         return false;
     }
 
-    @SuppressWarnings("rawtypes")
-    private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
-            RepositoryNode parent, ERepositoryObjectType type) {
-        // for folder Documentation/generated
-        // RepositoryNode generatedFolder = getRootRepositoryNode(ERepositoryObjectType.GENERATED);
-
-        // for folder Documentation/generated/jobs
-        convertDocumentation(newProject, generatedContainer, parent, type, ERepositoryObjectType.JOBS,
-                ERepositoryObjectType.JOB_DOC);
-
-        // for folder Documentation/generated/joblets
-        convertDocumentation(newProject, generatedContainer, parent, type, ERepositoryObjectType.JOBLETS,
-                ERepositoryObjectType.JOBLET_DOC);
-
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
-            ICamelDesignerCoreService service = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
-                    ICamelDesignerCoreService.class);
-            if (service.getRouteDocsType() != null && service.getRouteDocType() != null) {
-                convertDocumentation(newProject, generatedContainer, parent, type, service.getRouteDocsType(),
-                        service.getRouteDocType());
-            }
-        }
-
-    }
-
-    @SuppressWarnings("rawtypes")
-    private void convertDocumentation(org.talend.core.model.general.Project newProject, Container generatedContainer,
-            RepositoryNode parent, ERepositoryObjectType type, ERepositoryObjectType parentDocType, ERepositoryObjectType docType) {
-        RepositoryNode docsFolder = getRootRepositoryNode(parentDocType);
-
-        Container docsNode = null;
-        for (Object object : generatedContainer.getSubContainer()) {
-            if (((Container) object).getLabel().equalsIgnoreCase(parentDocType.name().toLowerCase())) {
-                docsNode = (Container) object;
-                break;
-            }
-        }
-
-        // get the files under generated/nodes.
-        if (docsNode != null) {
-            convert(newProject, docsNode, docsFolder, docType);
-        }
-
-    }
-
     private RepositoryNode getSQLPatternNode(String parentLabel, String label) {
         if (getMergeRefProject()) {
             List<IRepositoryNode> sqlChildren = getRootRepositoryNode(ERepositoryObjectType.SQLPATTERNS).getChildren();
@@ -1093,7 +1046,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             Folder oFolder = new Folder((Property) container.getProperty(), type);
             boolean found = false;
             // add for bug TDI-26084, whether or not hide folders under job_doc/joblet_doc.
-            if (ERepositoryObjectType.JOB_DOC.equals(type) || ERepositoryObjectType.JOBLET_DOC.equals(type)) {
+            if (type.equals(ERepositoryObjectType.JOB_DOC) || type.equals(ERepositoryObjectType.JOBLET_DOC)) {
                 for (FolderItem delFolder : delFolderItems) {
                     String parentName = ((FolderItem) delFolder.getParent()).getProperty().getLabel();
                     String oFolderPath = oFolder.getPath();
@@ -1126,19 +1079,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             if (label.equals("bin") || label.startsWith(".")) { //$NON-NLS-1$ //$NON-NLS-2$
                 continue;
             }
-            // currently, only process the docs for job, joblet and route.
-            if (type.equals(ERepositoryObjectType.JOB_DOC) || type.equals(ERepositoryObjectType.JOBLET_DOC)
-                    || type.equals(ERepositoryObjectType.JOBS) || type.equals(ERepositoryObjectType.JOBLETS)
-                    || type.equals(ERepositoryObjectType.valueOf("ROUTE_DOCS"))//$NON-NLS-1$ 
-                    || type.equals(ERepositoryObjectType.valueOf("ROUTE_DOC"))) {//$NON-NLS-1$ 
-                boolean isJobDocRootFolder = ((label.indexOf("_") != -1) && (label.indexOf(".") != -1)); //$NON-NLS-1$ //$NON-NLS-2$
-                boolean isPicFolderName = label.equals(IHTMLDocConstants.PIC_FOLDER_NAME);
-
-                // Do not show job documentation root folder and Foder "pictures" on the repository view.
-                if (isJobDocRootFolder || isPicFolderName) {
-                    continue;
-                }
-            }
             // for system folder
             if (RepositoryConstants.SYSTEM_DIRECTORY.equals(label)) {
                 if (getMergeRefProject()) {
@@ -1166,11 +1106,13 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     parent.getChildren().add(folder);
                 }
 
-            } else if (ERepositoryObjectType.GENERATED.name().equalsIgnoreCase(label)) {
-                if (PluginChecker.isDocumentationPluginLoaded()) {
-                    // use CNF content provider instead
-                    // convertDocumentation(newProject, container, parent, type);
-                }
+            } else
+            // ERepositoryObjectType.GENERATED
+            if (type.equals(ERepositoryObjectType.DOCUMENTATION) && label.equalsIgnoreCase("generated")) {//$NON-NLS-1$ 
+                // if (PluginChecker.isDocumentationPluginLoaded()) {
+                // use CNF content provider instead
+                // convertDocumentation(newProject, container, parent, type);
+                // }
                 continue;
             } else {
                 if (getMergeRefProject()) {

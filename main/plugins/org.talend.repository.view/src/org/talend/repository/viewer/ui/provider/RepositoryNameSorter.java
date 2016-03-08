@@ -104,10 +104,6 @@ public class RepositoryNameSorter extends ViewerSorter {
                 return 64;
             } else if (contentType == ERepositoryObjectType.DOCUMENTATION) {
                 return 65;
-            } else if (contentType == ERepositoryObjectType.JOBS) {
-                return 70;
-            } else if (contentType == ERepositoryObjectType.JOBLETS) {
-                return 75;
             } else if (!contentType.isStaticNode()) {
                 return contentType.ordinal();
             } else {

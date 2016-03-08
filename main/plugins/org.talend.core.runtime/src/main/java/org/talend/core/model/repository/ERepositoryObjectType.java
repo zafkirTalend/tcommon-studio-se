@@ -187,22 +187,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "REFERENCED_PROJECTS", 51, true, "repository.referencedProjects.alias", new String[] { PROD_DI, PROD_DQ },
             new String[] {}, false);
 
-    public final static ERepositoryObjectType GENERATED = new ERepositoryObjectType("repository.generated", //$NON-NLS-1$
-            "documentations/generated", "GENERATED", true, 52, new String[] { PROD_DI }, new String[] {}, false);
-
-    public final static ERepositoryObjectType JOBS = new ERepositoryObjectType(
-            "repository.jobs", "documentations/generated/jobs", //$NON-NLS-1$
-            "JOBS", true, 53, new String[] { PROD_DI }, new String[] {}, false);
-
-    public final static ERepositoryObjectType JOB_DOC = new ERepositoryObjectType("repository.jobdoc", //$NON-NLS-1$
-            "documentations/generated/jobs", "JOB_DOC", true, 54, new String[] { PROD_DI }, new String[] {});
-
-    public final static ERepositoryObjectType JOBLETS = new ERepositoryObjectType("repository.joblets", //$NON-NLS-1$
-            "documentations/generated/joblets", "JOBLETS", true, 58, new String[] { PROD_DI }, new String[] {}, false);
-
-    public final static ERepositoryObjectType JOBLET_DOC = new ERepositoryObjectType("repository.jobletdoc", //$NON-NLS-1$
-            "documentations/generated/joblets", "JOBLET_DOC", true, 59, new String[] { PROD_DI }, new String[] {});
-
     public final static ERepositoryObjectType COMPONENTS = new ERepositoryObjectType("repository.components", "components", //$NON-NLS-1$
             "COMPONENTS", true, 61, new String[] { PROD_DI }, new String[] {}, false);
 
@@ -439,8 +423,22 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType SQLPATTERNS = ERepositoryObjectType.valueOf("SQLPATTERNS"); //$NON-NLS-1$
 
+    /**
+     * Docs
+     * 
+     * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
+     */
     public final static ERepositoryObjectType DOCUMENTATION = ERepositoryObjectType.valueOf("DOCUMENTATION"); //$NON-NLS-1$
 
+    public final static ERepositoryObjectType GENERATED = ERepositoryObjectType.valueOf("GENERATED");//$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOB_DOC = ERepositoryObjectType.valueOf("JOB_DOC");//$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOBLET_DOC = ERepositoryObjectType.valueOf("JOBLET_DOC");//$NON-NLS-1$
+
+    /**
+     * Metadatas
+     */
     public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = ERepositoryObjectType
             .valueOf("METADATA_FILE_POSITIONAL"); //$NON-NLS-1$
 
@@ -463,11 +461,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType METADATA_MDMCONNECTION = ERepositoryObjectType.valueOf("METADATA_MDMCONNECTION"); //$NON-NLS-1$
 
-    /**
-     * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
-     */
-    public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
-
     public final static ERepositoryObjectType METADATA_CONNECTIONS = ERepositoryObjectType.valueOf("METADATA_CONNECTIONS");
 
     public final static ERepositoryObjectType METADATA_FILE_DELIMITED = ERepositoryObjectType.valueOf("METADATA_FILE_DELIMITED");
@@ -484,6 +477,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_FILE_HL7 = ERepositoryObjectType.valueOf("METADATA_FILE_HL7");
 
     public final static ERepositoryObjectType METADATA_EDIFACT = ERepositoryObjectType.valueOf("METADATA_EDIFACT");
+
+    /**
+     * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
+     */
+    public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
 
     /**
      * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
@@ -710,9 +708,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         return type;
     }
 
-    
     /**
      * Getter for typeCacheById.
+     * 
      * @return the typeCacheById
      */
     public static Map<String, ERepositoryObjectType> getTypeCacheById() {
@@ -733,12 +731,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static String getFolderName(ERepositoryObjectType type) {
 
-        if (type == GENERATED || type == JOBS || type == JOB_DOC) {
+        if (type == GENERATED || type == JOB_DOC) {
             if ((PluginChecker.isDocumentationPluginLoaded())) {
                 return type.getFolder();
             }
         }
-        if (type == JOBLETS || type == JOBLET_DOC) {
+        if (type == JOBLET_DOC) {
             if (PluginChecker.isJobLetPluginLoaded()) {
                 return type.getFolder();
             }
@@ -846,6 +844,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * Please use instead the method : public static ERepositoryObjectType getType(Property property)<br>
      * 
      * This method might change to private in the future, since many calls will have low performance.
+     * 
      * @param item
      * @return
      */

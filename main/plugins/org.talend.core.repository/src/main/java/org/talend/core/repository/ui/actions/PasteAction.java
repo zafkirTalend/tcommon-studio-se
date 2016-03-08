@@ -166,8 +166,8 @@ public class PasteAction extends AContextualAction {
         IProxyRepositoryFactory proxyFactory = ProxyRepositoryFactory.getInstance();
         IRepositoryViewObject object = target.getObject();
 
-        if (target.getContentType() == ERepositoryObjectType.JOBS
-                || target.getContentType() == ERepositoryObjectType.JOBLETS
+        if (target.getContentType() == ERepositoryObjectType.JOB_DOC
+                || target.getContentType() == ERepositoryObjectType.JOBLET_DOC
                 || target.getContentType() == ERepositoryObjectType.GENERATED
                 || target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOB_DOC
                 || target.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC
