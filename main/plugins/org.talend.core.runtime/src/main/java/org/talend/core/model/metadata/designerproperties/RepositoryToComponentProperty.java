@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
@@ -910,18 +909,10 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("SERVER_NAME")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getServerName())) {
-                return connection.getServerName();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getServerName());
-            }
+            return getAppropriateValue(connection, connection.getServerName());
         }
         if (value.equals("PORT")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getPort())) {
-                return connection.getPort();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getPort());
-            }
+            return getAppropriateValue(connection, connection.getPort());
         }
         if (value.equals("SID") || value.equals("DATABASE_ALIAS")) { //$NON-NLS-1$ //$NON-NLS-2$
             if (("").equals(connection.getSID()) || connection.getSID() == null) { //$NON-NLS-1$
@@ -939,54 +930,25 @@ public class RepositoryToComponentProperty {
             }
         }
         if (value.equals("DATASOURCE")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getDatasourceName())) {
-                return connection.getDatasourceName();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getDatasourceName());
-            }
+            return getAppropriateValue(connection, connection.getDatasourceName());
         }
         if (value.equals("USERNAME")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getUsername())) {
-                return connection.getUsername();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getUsername());
-            }
+            return getAppropriateValue(connection, connection.getUsername());
         }
         if (value.equals("PASSWORD")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getPassword())) {
-                return connection.getPassword();
-            } else {
-                String pwd = TalendQuoteUtils.checkAndAddBackslashes(connection.getRawPassword());
-                return TalendQuoteUtils.addQuotes(pwd);
-            }
+            return getAppropriateValue(connection, connection.getPassword());
         }
         if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getNullChar())) {
-                return connection.getNullChar();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getNullChar());
-            }
+            return getAppropriateValue(connection, connection.getNullChar());
         }
         if (value.equals("SCHEMA")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getUiSchema())) {
-                return connection.getUiSchema();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getUiSchema());
-            }
+            return getAppropriateValue(connection, connection.getUiSchema());
         }
         if (value.equals("FILE")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getFileFieldName())) {
-                return connection.getFileFieldName();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getFileFieldName());
-            }
+            return getAppropriateValue(connection, connection.getFileFieldName());
         }
         if (value.equals("PROPERTIES_STRING")) { //$NON-NLS-1$
-            if (isContextMode(connection, connection.getAdditionalParams())) {
-                return connection.getAdditionalParams();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getAdditionalParams());
-            }
+            return getAppropriateValue(connection, connection.getAdditionalParams());
         }
 
         if (value.equals("CDC_MODE")) { //$NON-NLS-1$
@@ -1163,12 +1125,7 @@ public class RepositoryToComponentProperty {
         }
         // add this for tJavaDB embeded "DB Root Path"
         if (value.equals("DIRECTORY")) {//$NON-NLS-1$
-            if (isContextMode(connection, connection.getDBRootPath())) {
-                return connection.getDBRootPath();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getDBRootPath());
-            }
-
+            return getAppropriateValue(connection, connection.getDBRootPath());
         }
         // add for feature 11674
         if (value.equals("RUNNING_MODE")) {//$NON-NLS-1$       
@@ -1183,25 +1140,13 @@ public class RepositoryToComponentProperty {
             return runningMode;
         }
         if (value.equals("DBPATH")) {//$NON-NLS-1$
-            if (isContextMode(connection, connection.getDBRootPath())) {
-                return connection.getDBRootPath();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getDBRootPath());
-            }
+            return getAppropriateValue(connection, connection.getDBRootPath());
         }
         if (value.equals("DBNAME")) {//$NON-NLS-1$
-            if (isContextMode(connection, connection.getDatasourceName())) {
-                return connection.getDatasourceName();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getDatasourceName());
-            }
+            return getAppropriateValue(connection, connection.getDatasourceName());
         }
         if (value.equals("RAC_URL")) {
-            if (isContextMode(connection, connection.getServerName())) {
-                return connection.getServerName();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getServerName());
-            }
+            return getAppropriateValue(connection, connection.getServerName());
         }
 
         if (value.equals("DISTRIBUTION")) {
@@ -1229,13 +1174,15 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("HBASE_MASTER_PRINCIPAL")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL));
+            String hbaseMasterPrinc = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+            return getAppropriateValue(connection, hbaseMasterPrinc);
         }
 
         if (value.equals("HBASE_REGIONSERVER_PRINCIPAL")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL));
+            String hbaseRegPrinc = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
+            return getAppropriateValue(connection, hbaseRegPrinc);
         }
 
         if (value.equals("HIVE_SERVER")) {
@@ -1300,11 +1247,7 @@ public class RepositoryToComponentProperty {
         if (value.equals(EParameterNameForComponent.PARA_NAME_MAPRED_JT.getName())
                 || value.equals(EParameterNameForComponent.PARA_NAME_RESOURCE_MANAGER.getName())) {
             String jobTrackerURL = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
-            if (isContextMode(connection, jobTrackerURL)) {
-                return jobTrackerURL;
-            } else {
-                return TalendQuoteUtils.addQuotes(jobTrackerURL);
-            }
+            return getAppropriateValue(connection, jobTrackerURL);
         }
 
         if (value.equals(EParameterNameForComponent.PARA_NAME_USE_YARN.getName())) {
@@ -1343,20 +1286,12 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("MAPRED_JOB_TRACKER") || value.equals("MAPRED_RESOURCE_MANAGER")) {
             String mapredJobTracker = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
-            if (mapredJobTracker == null) {
-                return mapredJobTracker;
-            } else {
-                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(mapredJobTracker));
-            }
+            return getAppropriateValue(connection, mapredJobTracker);
         }
 
         if (value.equals("NAMENODE_PRINCIPAL")) {
             String nameNodePrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_PRINCIPAL);
-            if (nameNodePrincipal == null) {
-                return nameNodePrincipal;
-            } else {
-                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(nameNodePrincipal));
-            }
+            return getAppropriateValue(connection, nameNodePrincipal);
         }
 
         /**
@@ -1366,36 +1301,20 @@ public class RepositoryToComponentProperty {
          */
         if (value.equals("JOBTRACKER_PRINCIPAL") || value.equals("RESOURCEMANAGER_PRINCIPAL")) {
             String jtOrRmPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_PRINCIPAL);
-            if (jtOrRmPrincipal == null) {
-                return jtOrRmPrincipal;
-            } else {
-                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(jtOrRmPrincipal));
-            }
+            return getAppropriateValue(connection, jtOrRmPrincipal);
         }
 
         if (value.equals("JOBHISTORY_PRINCIPAL")) {
             String jobHistoryPrincipal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_HISTORY_PRINCIPAL);
-            if (jobHistoryPrincipal == null) {
-                return jobHistoryPrincipal;
-            } else {
-                return TalendQuoteUtils.addQuotesIfNotExist(StringUtils.trimToNull(jobHistoryPrincipal));
-            }
+            return getAppropriateValue(connection, jobHistoryPrincipal);
         }
 
         if (value.equals("ZOOKEEPER_QUORUM")) {
-            if (isContextMode(connection, connection.getServerName())) {
-                return connection.getServerName();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getServerName());
-            }
+            return getAppropriateValue(connection, connection.getServerName());
         }
 
         if (value.equals("ZOOKEEPER_CLIENT_PORT")) {
-            if (isContextMode(connection, connection.getPort())) {
-                return connection.getPort();
-            } else {
-                return TalendQuoteUtils.addQuotes(connection.getPort());
-            }
+            return getAppropriateValue(connection, connection.getPort());
         }
 
         if (value.equals("COLUMN_MAPPING")) { //$NON-NLS-1$
@@ -1403,24 +1322,28 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("HIVE_PRINCIPAL")) {
-            return TalendQuoteUtils
-                    .addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA));
+            String hivePrincipal = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+            return getAppropriateValue(connection, hivePrincipal);
         }
 
         if (value.equals("METASTORE_JDBC_URL")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL));
+            String metadataUrl = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
+            return getAppropriateValue(connection, metadataUrl);
         }
 
         if (value.equals("METASTORE_CLASSNAME")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS));
+            String metastoreDC = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
+            return getAppropriateValue(connection, metastoreDC);
         }
 
         if (value.equals("METASTORE_USERNAME")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME));
+            String metastoreUser = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
+            return getAppropriateValue(connection, metastoreUser);
         }
 
         if (value.equals("METASTORE_PASSWORD")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD));
+            String metastorePwd = connection.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
+            return getAppropriateValue(connection, metastorePwd);
         }
 
         if (value.equals("USE_KEYTAB")) {
@@ -1433,15 +1356,18 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("PRINCIPAL") || value.equals("KEYTAB_PRINCIPAL")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL));
+            String principal = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
+            return getAppropriateValue(connection, principal);
         }
 
         if (value.equals("KEYTAB_PATH")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB));
+            String keytab = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+            return getAppropriateValue(connection, keytab);
         }
 
         if (value.equals("IMPALA_PRINCIPAL")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA));
+            String principal = connection.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA);
+            return getAppropriateValue(connection, principal);
         }
 
         if (value.equals("IMPALA_VERSION")) {
@@ -1461,8 +1387,8 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("RESOURCEMANAGER_SCHEDULER_ADDRESS")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_RESOURCEMANAGER_SCHEDULER_ADDRESS));
+            String rmSchAdr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_RESOURCEMANAGER_SCHEDULER_ADDRESS);
+            return getAppropriateValue(connection, rmSchAdr);
         }
 
         if (value.equals("SET_JOBHISTORY_ADDRESS")) {
@@ -1470,7 +1396,8 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("JOBHISTORY_ADDRESS")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOBHISTORY_ADDRESS));
+            String jhAddr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOBHISTORY_ADDRESS);
+            return getAppropriateValue(connection, jhAddr);
         }
 
         if (value.equals("SET_STAGING_DIRECTORY")) {
@@ -1478,7 +1405,8 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("STAGING_DIRECTORY")) {
-            return TalendQuoteUtils.addQuotes(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_STAGING_DIRECTORY));
+            String stageDir = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_STAGING_DIRECTORY);
+            return getAppropriateValue(connection, stageDir);
         }
 
         if (value.equals("USE_DATANODE_HOSTNAME")) {
@@ -1488,6 +1416,14 @@ public class RepositoryToComponentProperty {
 
         return null;
 
+    }
+
+    private static String getAppropriateValue(Connection connection, String rawValue) {
+        if (isContextMode(connection, rawValue)) {
+            return rawValue;
+        } else {
+            return TalendQuoteUtils.addQuotesIfNotExist(rawValue);
+        }
     }
 
     /**
