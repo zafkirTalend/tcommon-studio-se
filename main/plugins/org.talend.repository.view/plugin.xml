@@ -437,12 +437,5 @@
             name="RepositoryObjectTypeSorter"
             order="10">
       </sorter>
-      <sorter
-            class="org.talend.repository.viewer.sorter.RoutinesRepositoryNodeSorter"
-            description="Always on top (1)"
-            id="org.talend.repository.view.sorter.routines"
-            name="Routine Sorter"
-            order="10">
-      </sorter>
    </extension>
 </plugin>

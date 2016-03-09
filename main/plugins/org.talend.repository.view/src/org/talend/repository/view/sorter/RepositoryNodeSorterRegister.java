@@ -113,7 +113,7 @@ public final class RepositoryNodeSorterRegister extends RegistryReader {
                     String orderStr = element.getAttribute("order"); //$NON-NLS-1$
                     int order = 0;
                     try {
-                        if (orderStr.length() > 0) {
+                        if (orderStr != null && orderStr.length() > 0) {
                             order = Integer.parseInt(orderStr);
                         }
                     } catch (NumberFormatException e) {
