@@ -81,7 +81,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:odbc:<datasource>")), //$NON-NLS-1$
 
     ACCESS(new DbConnStr(EDatabaseTypeName.ACCESS, //
-            "jdbc:ucanaccess://<filename>")), //$NON-NLS-1$
+            "jdbc:ucanaccess://<filename>;<property>",null,"memory=false")), //$NON-NLS-1$
 
     SYBASEASE(new DbConnStr(EDatabaseTypeName.SYBASEASE, //
             "jdbc:sybase:Tds:<host>:<port>/<sid>?<property>", //$NON-NLS-1$ 
@@ -357,6 +357,7 @@ public enum EDatabaseConnTemplate {
             case TERADATA: // for feature 0013719
             case VERTICA:
             case EXASOL:
+            case ACCESS:
                 return true;
             default:
             }
