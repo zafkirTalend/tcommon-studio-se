@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import org.apache.avro.LogicalTypes;
 import org.apache.avro.LogicalTypes.Decimal;
+
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.SchemaBuilder.BaseFieldTypeBuilder;
@@ -1645,7 +1646,7 @@ public final class MetadataToolHelper {
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             table.setReadOnly(Boolean.parseBoolean(prop));
         }
-        for (String key : in.getObjectProps().keySet()) {
+        for (String key : in.getJsonProps().keySet()) {
             if (key.startsWith(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES)) {
                 String originalKey = key.substring(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES.length());
                 TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, in.getProp(key));
@@ -1675,7 +1676,7 @@ public final class MetadataToolHelper {
      * @return A MetadataColumn containing all the information from the Schema, including any information included the
      * schema as JSON property annotations for Talend 6 generated schemas.
      */
-    private static org.talend.core.model.metadata.builder.connection.MetadataColumn convertFromAvro(Schema.Field field) {
+    public static org.talend.core.model.metadata.builder.connection.MetadataColumn convertFromAvro(Schema.Field field) {
         org.talend.core.model.metadata.builder.connection.MetadataColumn col = ConnectionFactory.eINSTANCE.createMetadataColumn();
         Schema in = field.schema();
 
@@ -1737,7 +1738,7 @@ public final class MetadataToolHelper {
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             col.setReadOnly(Boolean.parseBoolean(prop));
         }
-        for (String key : in.getObjectProps().keySet()) {
+        for (String key : in.getJsonProps().keySet()) {
             if (key.startsWith(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES)) {
                 String originalKey = key.substring(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES.length());
                 TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, in.getProp(key));

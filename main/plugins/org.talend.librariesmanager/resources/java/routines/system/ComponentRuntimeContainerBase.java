@@ -15,14 +15,8 @@ package routines.system;
 import java.util.Date;
 
 import org.talend.components.api.container.RuntimeContainer;
-import org.talend.components.api.container.ComponentDynamicHolder;
 
 public class ComponentRuntimeContainerBase implements RuntimeContainer {
-
-	@Override
-	public ComponentDynamicHolder createDynamicHolder() {
-		throw new RuntimeException("This must be subclassed");
-	}
 
 	@Override
 	public String formatDate(Date date, String pattern) {
