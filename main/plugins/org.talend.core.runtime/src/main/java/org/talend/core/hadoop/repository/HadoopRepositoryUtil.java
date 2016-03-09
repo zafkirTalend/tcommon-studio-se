@@ -139,8 +139,11 @@ public class HadoopRepositoryUtil {
         }
         List<Map<String, Object>> parentProperties = null;
         if (hadoopClusterService != null) {
-            parentProperties = getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(connection),
-                    connection.isContextMode(), true);
+            Connection hadoopClusterConnection = hadoopClusterService.getHadoopClusterConnectionBySubConnection(connection);
+            if (hadoopClusterConnection != null) {
+                parentProperties = getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(connection),
+                        hadoopClusterConnection.isContextMode(), true);
+            }
         }
         List<Map<String, Object>> properties = getHadoopPropertiesList(propertiesJsonStr, connection.isContextMode(), true);
         Map<String, Map<String, Object>> propertiesMap = new HashMap<String, Map<String, Object>>();
