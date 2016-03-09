@@ -14,12 +14,13 @@ package org.talend.repository.view.sorter;
 
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.Viewer;
-import org.talend.repository.model.RepositoryNode;
+import org.talend.core.repository.model.ProjectRepositoryNode;
+import org.talend.repository.navigator.TalendRepositoryRoot;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public abstract class RepositoryNodeCompareSorter extends RepositoryCompareSorter {
+public abstract class RepositoryRootNodeCompareSorter extends RepositoryCompareSorter {
 
     /*
      * (non-Javadoc)
@@ -31,15 +32,12 @@ public abstract class RepositoryNodeCompareSorter extends RepositoryCompareSorte
     public void sort(Viewer viewer, Object parentPath, Object[] children) {
         if (parentPath instanceof TreePath) {
             Object lastSegm = ((TreePath) parentPath).getLastSegment();
-            if (lastSegm instanceof RepositoryNode) {
-                sortChildren((RepositoryNode) lastSegm, children);
+            if (lastSegm instanceof ProjectRepositoryNode) {
+                sortChildren(children);
             }
-        } else if (parentPath instanceof RepositoryNode) {
-            sortChildren((RepositoryNode) parentPath, children);
         }
-    }
-
-    protected void sortChildren(RepositoryNode parent, Object[] children) {
-        sortChildren(children);
+        if (parentPath instanceof TalendRepositoryRoot) {
+            sortChildren(children);
+        }
     }
 }
