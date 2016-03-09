@@ -13,7 +13,9 @@ Bundle-ClassPath: .,
  lib/avro-1.8.0.jar
 Bundle-Vendor: .Talend SA.
 Require-Bundle: org.apache.log4j;resolution:=optional,
- org.talend.libraries.apache.common;visibility:=reexport
+ org.talend.libraries.apache.common;visibility:=reexport,
+ jackson-core-asl;bundle-version="1.9.13",
+ jackson-mapper-asl;bundle-version="1.9.13"
 Export-Package: 
  org.apache.avro;version="1.8.0",
  org.apache.avro.data;version="1.8.0",
