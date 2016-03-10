@@ -12,9 +12,9 @@
 // ============================================================================
 package org.talend.core.model.metadata.designerproperties;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,22 +22,35 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Concept;
 import org.talend.core.model.metadata.builder.connection.ConceptTarget;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.utils.ContextParameterUtils;
 
 /**
  * DOC ycbai class global comment. Detailled comment
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ ContextParameterUtils.class })
 public class RepositoryToComponentPropertyTest {
+
+    private static final String QUOTES = "\""; //$NON-NLS-1$
 
     /**
      * Test method for
@@ -143,6 +156,32 @@ public class RepositoryToComponentPropertyTest {
         when(conceptTarget.getRelativeLoopExpression()).thenReturn(loopExpression);
 
         return conceptTarget;
+    }
+
+    @Test
+    public void testGetValueOfHive() {
+        DatabaseConnection dbConnection = mock(DatabaseConnection.class);
+        when(dbConnection.isContextMode()).thenReturn(true);
+        PowerMockito.mockStatic(ContextParameterUtils.class);
+        when(ContextParameterUtils.isContainContextParam(anyString())).thenReturn(true);
+        EMap<String, String> paramMap = new BasicEMap<>();
+        paramMap.put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA, "hive_principal"); //$NON-NLS-1$
+        paramMap.put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL, "keytab_principal"); //$NON-NLS-1$
+        paramMap.put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB, "keytab"); //$NON-NLS-1$
+        when(dbConnection.getParameters()).thenReturn(paramMap);
+
+        checkIfWithoutQuotes(dbConnection, "HIVE_PRINCIPAL"); //$NON-NLS-1$
+        checkIfWithoutQuotes(dbConnection, "PRINCIPAL"); //$NON-NLS-1$
+        checkIfWithoutQuotes(dbConnection, "KEYTAB_PATH"); //$NON-NLS-1$
+    }
+
+    private void checkIfWithoutQuotes(DatabaseConnection connection, String value) {
+        Object result = RepositoryToComponentProperty.getValue(connection, value, null);
+        assertFalse(isSurroundWithQuotes(String.valueOf(result)));
+    }
+
+    private boolean isSurroundWithQuotes(String str) {
+        return str != null && str.length() >= 3 && str.startsWith(QUOTES) && str.endsWith(QUOTES);
     }
 
 }
