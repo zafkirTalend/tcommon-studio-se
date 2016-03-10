@@ -34,9 +34,11 @@ public enum ECodePart {
     SPARKCODE("sparkcode"), //$NON-NLS-1$
     SPARKCONFIG("sparkconfig"), //$NON-NLS-1$
     SPARKJOBFOOTER("sparkjobfooter"), //$NON-NLS-1$
+    SPARKPOSTPROCESSING("sparkpostprocessing"), //$NON-NLS-1$
     SPARKSTREAMINGCODE("sparkstreamingcode"), //$NON-NLS-1$
     SPARKSTREAMINGCONFIG("sparkstreamingconfig"), //$NON-NLS-1$
-    SPARKSTREAMINGJOBFOOTER("sparkstreamingjobfooter"); //$NON-NLS-1$
+    SPARKSTREAMINGJOBFOOTER("sparkstreamingjobfooter"), //$NON-NLS-1$
+    SPARKSTREAMINGPOSTPROCESSING("sparkstreamingpostprocessing"); //$NON-NLS-1$
 
     private ECodePart(String name) {
         this.name = name;
