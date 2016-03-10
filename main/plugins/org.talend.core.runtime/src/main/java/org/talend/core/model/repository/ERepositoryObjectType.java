@@ -87,18 +87,16 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static final String PROD_DQ = ProductUtils.PROD_DQ;
 
-    public static final String PROD_CAMEL = ProductUtils.PROD_CAMEL;
-
     public static final String PROD_MDM = ProductUtils.PROD_MDM;
 
     public final static ERepositoryObjectType GENERAL_FILE = new ERepositoryObjectType("repository.generalfile", "",
-            "GENERAL_FILE", true, 1, new String[] { PROD_DI, PROD_CAMEL, PROD_DQ, PROD_MDM }, new String[] {}, false);
+            "GENERAL_FILE", true, 1, new String[] { PROD_DI, PROD_DQ, PROD_MDM }, new String[] {}, false);
 
     public final static ERepositoryObjectType GIT_ROOT = new ERepositoryObjectType("repository.gitroot", "", "GIT_ROOT", true, 1,
-            new String[] { PROD_DI, PROD_CAMEL, PROD_DQ }, new String[] {}, false);
+            new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
-            new String[] { PROD_DI, PROD_CAMEL, PROD_DQ }, new String[] {}, false);
+            new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType SVG_BUSINESS_PROCESS = new ERepositoryObjectType("repository.svgBusinessProcess",
             "businessProcessSVG", "SVG_BUSINESS_PROCESS", true, 3, new String[] { PROD_DI }, new String[] {});
@@ -152,7 +150,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "MDM_ELEMENT_TYPE", 25, true, true, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType RECYCLE_BIN = new ERepositoryObjectType("repository.recyclebin", "", "RECYCLE_BIN",
-            true, 900, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
+            true, 900, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", "",
             "METADATA_COLUMN", true, 27, new String[] { PROD_DI }, new String[] {}, false);
@@ -348,10 +346,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType SERVICESOPERATION = new ERepositoryObjectType("repository.servicesOperation", //$NON-NLS-1$
-            "SERVICESOPERATION", 101, true, true, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false); //$NON-NLS-1$
+            "SERVICESOPERATION", 101, true, true, new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$
 
     public final static ERepositoryObjectType SERVICESPORT = new ERepositoryObjectType("repository.servicesPort", "SERVICESPORT", //$NON-NLS-1$ //$NON-NLS-2$
-            102, true, true, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
+            102, true, true, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", //$NON-NLS-1$ //$NON-NLS-2$
@@ -611,8 +609,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             // limit with DI items only.
             List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
             for (ERepositoryObjectType currentType : values(ERepositoryObjectType.class)) {
-                if (ArrayUtils.contains(currentType.getProducts(), PROD_DI)
-                        || ArrayUtils.contains(currentType.getProducts(), PROD_CAMEL)) {
+                if (ArrayUtils.contains(currentType.getProducts(), PROD_DI)) {
                     toReturn.add(currentType);
                 }
             }

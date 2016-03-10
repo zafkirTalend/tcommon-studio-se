@@ -296,22 +296,6 @@ public class ERepositoryObjectTypeTest {
     }
 
     @Test
-    public void testTacMatchedCamelTypes() {
-        ObjectTypeMatcher matcher = new ObjectTypeMatcher(allTypes) {
-
-            @Override
-            String getCurrentProductName() {
-                return ERepositoryObjectType.PROD_CAMEL;
-            }
-
-        };
-        matcher.setUnusedTypes(unusedTypes);
-
-        String result = matcher.match();
-        Assert.assertTrue(result.toString(), result.length() == 0);
-    }
-
-    @Test
     public void testTacMatchedDQTypes() {
         ObjectTypeMatcher matcher = new ObjectTypeMatcher(allTypes) {
 

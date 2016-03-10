@@ -31,8 +31,6 @@ public interface IBrandingConfiguration extends IActionBarHelper {
 
     public static final String PERSPECTIVE_MDM_ID = ProductUtils.PERSPECTIVE_MDM_ID;
 
-    public static final String PERSPECTIVE_CAMEL_ID = ProductUtils.PERSPECTIVE_CAMEL_ID;
-
     /**
      * 
      * init perspective.
