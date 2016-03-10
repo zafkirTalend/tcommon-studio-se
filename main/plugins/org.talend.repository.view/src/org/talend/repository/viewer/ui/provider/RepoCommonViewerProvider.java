@@ -13,6 +13,7 @@
 package org.talend.repository.viewer.ui.provider;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPage;
@@ -22,6 +23,8 @@ import org.eclipse.ui.navigator.CommonViewerSorter;
 import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.navigator.INavigatorFilterService;
 import org.talend.repository.ui.views.IRepositoryView;
+import org.talend.repository.view.sorter.IRepositoryNodeSorter;
+import org.talend.repository.view.sorter.RepositoryNodeSorterRegister;
 import org.talend.repository.viewer.filter.PerspectiveFilterActionProvider;
 import org.talend.repository.viewer.filter.PerspectiveFilterHelper;
 import org.talend.repository.viewer.ui.viewer.CheckboxRepoCommonViewer;
@@ -38,7 +41,15 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
 
         @Override
         protected TreeViewer createTreeViewer(Composite parent, int style) {
-            return new CheckboxRepoCommonViewer(getViewId(), parent, style);
+            return new CheckboxRepoCommonViewer(getViewId(), parent, style) {
+
+                @Override
+                protected Object[] getSortedChildren(Object parentElementOrTreePath) {
+                    Object[] children = super.getSortedChildren(parentElementOrTreePath);
+                    sortChildren(this, parentElementOrTreePath, children);
+                    return children;
+                }
+            };
         }
 
     };
@@ -58,7 +69,15 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
 
     @Override
     protected TreeViewer createTreeViewer(final Composite parent, final int style) {
-        return new RepoCommonViewer(getViewId(), parent, style);
+        return new RepoCommonViewer(getViewId(), parent, style) {
+
+            @Override
+            protected Object[] getSortedChildren(Object parentElementOrTreePath) {
+                Object[] children = super.getSortedChildren(parentElementOrTreePath);
+                sortChildren(this, parentElementOrTreePath, children);
+                return children;
+            }
+        };
     }
 
     @Override
@@ -119,6 +138,19 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
 
     public void setViewId(String id) {
         this.baseViewId = id;
+    }
+
+    protected void sortChildren(Viewer viewer, Object parentElementOrTreePath, Object[] children) {
+        if (parentElementOrTreePath == null || children == null || children.length < 2) {
+            return;
+        }
+        // do special sorter for repository
+        IRepositoryNodeSorter[] sorters = RepositoryNodeSorterRegister.getInstance().getSorters();
+        if (sorters != null) {
+            for (IRepositoryNodeSorter sorter : sorters) {
+                sorter.sort(viewer, parentElementOrTreePath, children);
+            }
+        }
     }
 
 }

@@ -36,7 +36,7 @@ public abstract class RepositoryRootNodeCompareSorter extends RepositoryCompareS
                 sortChildren(children);
             }
         }
-        if (parentPath instanceof TalendRepositoryRoot) {
+        if (parentPath instanceof TalendRepositoryRoot || parentPath instanceof ProjectRepositoryNode) {
             sortChildren(children);
         }
     }
