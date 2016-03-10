@@ -216,6 +216,8 @@ public interface IHadoopClusterService extends IService {
      */
     public boolean hasDiffsFromClusterToProcess(Item item, IProcess process);
 
+    public Connection getHadoopClusterConnectionBySubConnection(Connection hadoopSubConnection);
+
     public String getHadoopClusterProperties(Connection hadoopSubConnection);
 
     /**
