@@ -126,6 +126,7 @@ import org.talend.repository.documentation.ERepositoryActionName;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.io.FilesUtils;
+import org.talend.utils.json.JSONArray;
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -2225,6 +2226,10 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 ExceptionHandler.process(e);
             }
         }
+    }
+
+    public JSONArray getAllRemoteLocks() {
+        return repositoryFactoryFromProvider.getAllRemoteLocks();
     }
 
 }
