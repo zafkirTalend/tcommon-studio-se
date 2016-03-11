@@ -1197,9 +1197,6 @@ public class DeleteAction extends AContextualAction {
             return true;
         }
 
-        if (node.getContentType() == ERepositoryObjectType.JOBS) {
-            return true;
-        }
         if (node.getContentType() == ERepositoryObjectType.GENERATED) {
             return true;
         }
@@ -1495,8 +1492,8 @@ public class DeleteAction extends AContextualAction {
                         label = (String) obj;
                     }
                     boolean isGointoCondition = false;
-                    if (node.getContentType() == ERepositoryObjectType.JOB_DOC
-                            || node.getContentType() == ERepositoryObjectType.JOBLET_DOC
+                    if (node.getContentType().equals(ERepositoryObjectType.JOB_DOC)
+                            || node.getContentType().equals(ERepositoryObjectType.JOBLET_DOC)
                             || RepositoryConstants.USER_DEFINED.equals(label)) {
                         visible = false;
                         isGointoCondition = true;

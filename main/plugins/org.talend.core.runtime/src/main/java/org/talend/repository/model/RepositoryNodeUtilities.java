@@ -75,8 +75,8 @@ public class RepositoryNodeUtilities {
         if (node.isBin()) {
             return new Path(""); //$NON-NLS-1$
         }
-        if ((node.getType() == ENodeType.STABLE_SYSTEM_FOLDER && node.getContentType() != ERepositoryObjectType.JOBS && node
-                .getContentType() != ERepositoryObjectType.JOBLETS) || node.getType() == ENodeType.SYSTEM_FOLDER) {
+        if ((node.getType() == ENodeType.STABLE_SYSTEM_FOLDER && node.getContentType() != ERepositoryObjectType.JOB_DOC && node
+                .getContentType() != ERepositoryObjectType.JOBLET_DOC) || node.getType() == ENodeType.SYSTEM_FOLDER) {
             return new Path(""); //$NON-NLS-1$
         }
         if (node.getType() == ENodeType.SIMPLE_FOLDER) {
@@ -87,11 +87,11 @@ public class RepositoryNodeUtilities {
         String label = node.getLabel();
         // checks if node is under Documentations/Generatated/Jobs
         if (node.getType() == ENodeType.STABLE_SYSTEM_FOLDER
-                && (node.getContentType() == ERepositoryObjectType.JOBS || node.getContentType() == ERepositoryObjectType.JOBLETS)) {
+                && (node.getContentType() == ERepositoryObjectType.JOB_DOC || node.getContentType() == ERepositoryObjectType.JOBLET_DOC)) {
 
             Object nodeLabel = node.getProperties(EProperties.LABEL);
 
-            if (nodeLabel == ERepositoryObjectType.JOBS) {
+            if (nodeLabel == ERepositoryObjectType.JOB_DOC) {
                 return new Path(""); //$NON-NLS-1$
             } else {
                 return getPath(node.getParent()).append(label);
@@ -463,7 +463,7 @@ public class RepositoryNodeUtilities {
         if (rootContextType == ERepositoryObjectType.REFERENCED_PROJECTS || rootNode.getType() == ENodeType.REFERENCED_PROJECT) {
             expandParentNode(view, rootNode);
         }
-        if (rootContextType != null) {
+        if (rootContextType != null && curType != null) {
 
             ERepositoryObjectType tmpType = null;
             if (curType == ERepositoryObjectType.METADATA_CON_TABLE || curType == ERepositoryObjectType.METADATA_CON_VIEW
@@ -490,8 +490,8 @@ public class RepositoryNodeUtilities {
                 tmpType = ERepositoryObjectType.METADATA;
             } else if (curType == ERepositoryObjectType.ROUTINES || curType == ERepositoryObjectType.SNIPPETS) {
                 tmpType = ERepositoryObjectType.ROUTINES;
-            } else if (curType == ERepositoryObjectType.DOCUMENTATION || curType == ERepositoryObjectType.JOB_DOC
-                    || curType == ERepositoryObjectType.JOBLET_DOC) {
+            } else if (curType.equals(ERepositoryObjectType.DOCUMENTATION) || curType.equals(ERepositoryObjectType.JOB_DOC)
+                    || curType.equals(ERepositoryObjectType.JOBLET_DOC)) {
                 tmpType = ERepositoryObjectType.DOCUMENTATION;
             }
 

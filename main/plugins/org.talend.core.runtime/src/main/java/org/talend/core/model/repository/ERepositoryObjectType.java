@@ -87,18 +87,16 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static final String PROD_DQ = ProductUtils.PROD_DQ;
 
-    public static final String PROD_CAMEL = ProductUtils.PROD_CAMEL;
-
     public static final String PROD_MDM = ProductUtils.PROD_MDM;
 
     public final static ERepositoryObjectType GENERAL_FILE = new ERepositoryObjectType("repository.generalfile", "",
-            "GENERAL_FILE", true, 1, new String[] { PROD_DI, PROD_CAMEL, PROD_DQ, PROD_MDM }, new String[] {}, false);
+            "GENERAL_FILE", true, 1, new String[] { PROD_DI, PROD_DQ, PROD_MDM }, new String[] {}, false);
 
     public final static ERepositoryObjectType GIT_ROOT = new ERepositoryObjectType("repository.gitroot", "", "GIT_ROOT", true, 1,
-            new String[] { PROD_DI, PROD_CAMEL, PROD_DQ }, new String[] {}, false);
+            new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType SVN_ROOT = new ERepositoryObjectType("repository.svnroot", "", "SVN_ROOT", true, 1,
-            new String[] { PROD_DI, PROD_CAMEL, PROD_DQ }, new String[] {}, false);
+            new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType SVG_BUSINESS_PROCESS = new ERepositoryObjectType("repository.svgBusinessProcess",
             "businessProcessSVG", "SVG_BUSINESS_PROCESS", true, 3, new String[] { PROD_DI }, new String[] {});
@@ -110,7 +108,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     // "documentations", "DOCUMENTATION", true, 11, new String[] { PROD_DI }, new String[] {});
 
     public final static ERepositoryObjectType METADATA = new ERepositoryObjectType("repository.metadata", "metadata", "METADATA",
-            true, 8, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
+            true, 80, new String[] { PROD_DI, PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType METADATA_CON_TABLE = new ERepositoryObjectType("repository.metadataTable",
             "METADATA_CON_TABLE", 13, true, true, new String[] { PROD_DI }, new String[] {}, false);
@@ -152,7 +150,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "MDM_ELEMENT_TYPE", 25, true, true, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType RECYCLE_BIN = new ERepositoryObjectType("repository.recyclebin", "", "RECYCLE_BIN",
-            true, 26, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
+            true, 900, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType METADATA_COLUMN = new ERepositoryObjectType("repository.column", "",
             "METADATA_COLUMN", true, 27, new String[] { PROD_DI }, new String[] {}, false);
@@ -186,22 +184,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             "repository.referencedProjects", "", //$NON-NLS-1$ //$NON-NLS-2$
             "REFERENCED_PROJECTS", 51, true, "repository.referencedProjects.alias", new String[] { PROD_DI, PROD_DQ },
             new String[] {}, false);
-
-    public final static ERepositoryObjectType GENERATED = new ERepositoryObjectType("repository.generated", //$NON-NLS-1$
-            "documentations/generated", "GENERATED", true, 52, new String[] { PROD_DI }, new String[] {}, false);
-
-    public final static ERepositoryObjectType JOBS = new ERepositoryObjectType(
-            "repository.jobs", "documentations/generated/jobs", //$NON-NLS-1$
-            "JOBS", true, 53, new String[] { PROD_DI }, new String[] {}, false);
-
-    public final static ERepositoryObjectType JOB_DOC = new ERepositoryObjectType("repository.jobdoc", //$NON-NLS-1$
-            "documentations/generated/jobs", "JOB_DOC", true, 54, new String[] { PROD_DI }, new String[] {});
-
-    public final static ERepositoryObjectType JOBLETS = new ERepositoryObjectType("repository.joblets", //$NON-NLS-1$
-            "joblets", "JOBLETS", true, 58, new String[] { PROD_DI }, new String[] {}, false);
-
-    public final static ERepositoryObjectType JOBLET_DOC = new ERepositoryObjectType("repository.jobletdoc", //$NON-NLS-1$
-            "documentations/generated/joblets", "JOBLET_DOC", true, 59, new String[] { PROD_DI }, new String[] {});
 
     public final static ERepositoryObjectType COMPONENTS = new ERepositoryObjectType("repository.components", "components", //$NON-NLS-1$
             "COMPONENTS", true, 61, new String[] { PROD_DI }, new String[] {}, false);
@@ -364,10 +346,10 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             true, "repository.systemIndicators.phoneNumberStatistics.alias", new String[] { PROD_DQ }, new String[] {}, false);
 
     public final static ERepositoryObjectType SERVICESOPERATION = new ERepositoryObjectType("repository.servicesOperation", //$NON-NLS-1$
-            "SERVICESOPERATION", 101, true, true, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false); //$NON-NLS-1$
+            "SERVICESOPERATION", 101, true, true, new String[] { PROD_DI }, new String[] {}, false); //$NON-NLS-1$
 
     public final static ERepositoryObjectType SERVICESPORT = new ERepositoryObjectType("repository.servicesPort", "SERVICESPORT", //$NON-NLS-1$ //$NON-NLS-2$
-            102, true, true, new String[] { PROD_DI, PROD_CAMEL }, new String[] {}, false);
+            102, true, true, new String[] { PROD_DI }, new String[] {}, false);
 
     public final static ERepositoryObjectType SYSTEM_INDICATORS_FRAUDDETECTION = new ERepositoryObjectType(
             "repository.systemIndicators.fraudDetection", "TDQ_Libraries/Indicators/System Indicators/Fraud Detection", //$NON-NLS-1$ //$NON-NLS-2$
@@ -439,8 +421,22 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType SQLPATTERNS = ERepositoryObjectType.valueOf("SQLPATTERNS"); //$NON-NLS-1$
 
+    /**
+     * Docs
+     * 
+     * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
+     */
     public final static ERepositoryObjectType DOCUMENTATION = ERepositoryObjectType.valueOf("DOCUMENTATION"); //$NON-NLS-1$
 
+    public final static ERepositoryObjectType GENERATED = ERepositoryObjectType.valueOf("GENERATED");//$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOB_DOC = ERepositoryObjectType.valueOf("JOB_DOC");//$NON-NLS-1$
+
+    public final static ERepositoryObjectType JOBLET_DOC = ERepositoryObjectType.valueOf("JOBLET_DOC");//$NON-NLS-1$
+
+    /**
+     * Metadatas
+     */
     public final static ERepositoryObjectType METADATA_FILE_POSITIONAL = ERepositoryObjectType
             .valueOf("METADATA_FILE_POSITIONAL"); //$NON-NLS-1$
 
@@ -463,11 +459,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType METADATA_MDMCONNECTION = ERepositoryObjectType.valueOf("METADATA_MDMCONNECTION"); //$NON-NLS-1$
 
-    /**
-     * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
-     */
-    public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
-
     public final static ERepositoryObjectType METADATA_CONNECTIONS = ERepositoryObjectType.valueOf("METADATA_CONNECTIONS");
 
     public final static ERepositoryObjectType METADATA_FILE_DELIMITED = ERepositoryObjectType.valueOf("METADATA_FILE_DELIMITED");
@@ -484,6 +475,11 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
     public final static ERepositoryObjectType METADATA_FILE_HL7 = ERepositoryObjectType.valueOf("METADATA_FILE_HL7");
 
     public final static ERepositoryObjectType METADATA_EDIFACT = ERepositoryObjectType.valueOf("METADATA_EDIFACT");
+
+    /**
+     * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
+     */
+    public final static ERepositoryObjectType PROCESS_MR = ERepositoryObjectType.valueOf("PROCESS_MR"); //$NON-NLS-1$
 
     /**
      * <font color="red">This value may be <b>null</b> in some licenses, <b>should add NPE check</b></font>
@@ -613,8 +609,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             // limit with DI items only.
             List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
             for (ERepositoryObjectType currentType : values(ERepositoryObjectType.class)) {
-                if (ArrayUtils.contains(currentType.getProducts(), PROD_DI)
-                        || ArrayUtils.contains(currentType.getProducts(), PROD_CAMEL)) {
+                if (ArrayUtils.contains(currentType.getProducts(), PROD_DI)) {
                     toReturn.add(currentType);
                 }
             }
@@ -710,9 +705,9 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         return type;
     }
 
-    
     /**
      * Getter for typeCacheById.
+     * 
      * @return the typeCacheById
      */
     public static Map<String, ERepositoryObjectType> getTypeCacheById() {
@@ -733,12 +728,12 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public static String getFolderName(ERepositoryObjectType type) {
 
-        if (type == GENERATED || type == JOBS || type == JOB_DOC) {
+        if (type == GENERATED || type == JOB_DOC) {
             if ((PluginChecker.isDocumentationPluginLoaded())) {
                 return type.getFolder();
             }
         }
-        if (type == JOBLETS || type == JOBLET_DOC) {
+        if (type == JOBLET_DOC) {
             if (PluginChecker.isJobLetPluginLoaded()) {
                 return type.getFolder();
             }
@@ -846,6 +841,7 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * Please use instead the method : public static ERepositoryObjectType getType(Property property)<br>
      * 
      * This method might change to private in the future, since many calls will have low performance.
+     * 
      * @param item
      * @return
      */

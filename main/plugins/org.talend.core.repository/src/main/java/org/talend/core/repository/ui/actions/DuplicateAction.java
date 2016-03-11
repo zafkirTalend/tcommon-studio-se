@@ -152,8 +152,8 @@ public class DuplicateAction extends AContextualAction {
                     } else if (node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOB_DOC
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC) {
                         canWork = false;
-                    } else if (node.getContentType() == ERepositoryObjectType.JOBS
-                            || node.getContentType() == ERepositoryObjectType.JOBLETS
+                    } else if (node.getContentType() == ERepositoryObjectType.JOB_DOC
+                            || node.getContentType() == ERepositoryObjectType.JOBLET_DOC
                             || node.getContentType() == ERepositoryObjectType.GENERATED
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOB_DOC
                             || node.getProperties(EProperties.CONTENT_TYPE) == ERepositoryObjectType.JOBLET_DOC) {
@@ -511,7 +511,7 @@ public class DuplicateAction extends AContextualAction {
     private boolean isKeyword(String itemName) {
         ERepositoryObjectType itemType = sourceNode.getObjectType();
         ERepositoryObjectType[] types = { ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES,
-                ERepositoryObjectType.JOBS, ERepositoryObjectType.JOBLET, ERepositoryObjectType.JOBLETS,
+                ERepositoryObjectType.JOB_DOC, ERepositoryObjectType.JOBLET, ERepositoryObjectType.JOBLET_DOC,
                 ERepositoryObjectType.JOB_SCRIPT };
         List<ERepositoryObjectType> arraysList = Arrays.asList(types);
         List<ERepositoryObjectType> typeList = new ArrayList<ERepositoryObjectType>();

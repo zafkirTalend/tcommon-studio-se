@@ -965,8 +965,10 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
     @Override
     public void dispose() {
-        PlatformUI.getWorkbench().getActiveWorkbenchWindow().removePerspectiveListener(getRepoViewPerspectiveListener());
-
+        final IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (activeWorkbenchWindow != null) {
+            activeWorkbenchWindow.removePerspectiveListener(getRepoViewPerspectiveListener());
+        }
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         if (workspace != null) {
             workspace.removeResourceChangeListener(getResourcePostChangerRunnableListener());

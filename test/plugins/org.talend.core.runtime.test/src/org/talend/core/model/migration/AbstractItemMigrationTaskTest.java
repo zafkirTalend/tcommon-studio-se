@@ -12,8 +12,10 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,7 +57,7 @@ public class AbstractItemMigrationTaskTest {
          */
         @Override
         public List<ERepositoryObjectType> getTypes() {
-            return Arrays.asList(ERepositoryObjectType.JOBS, ERepositoryObjectType.CODE);
+            return Arrays.asList(ERepositoryObjectType.JOB_DOC, ERepositoryObjectType.CODE);
         }
     }
 

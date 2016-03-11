@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -124,10 +125,12 @@ public class DocumentationHelper {
                     && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBLET.toString());
             boolean isNotGenerated = ERepositoryObjectType.GENERATED != null
                     && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.GENERATED.toString());
-            boolean isNotJobs = ERepositoryObjectType.JOBS != null
-                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBS.toString());
-            boolean isNotJoblets = ERepositoryObjectType.JOBLETS != null
-                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBLETS.toString());
+            boolean isNotJobs = ERepositoryObjectType.JOB_DOC != null
+                    && !node.getProperties(EProperties.LABEL).toString()
+                            .equals(new Path(ERepositoryObjectType.JOB_DOC.getFolder()).lastSegment());
+            boolean isNotJoblets = ERepositoryObjectType.JOBLET_DOC != null
+                    && !node.getProperties(EProperties.LABEL).toString()
+                            .equals(new Path(ERepositoryObjectType.JOBLET_DOC.getFolder()).lastSegment());
 
             if (isNotProcess && isNotJoblet && isNotGenerated && isNotJobs && isNotJoblets) {
                 folderName = node.getProperties(EProperties.LABEL).toString();
@@ -344,7 +347,7 @@ public class DocumentationHelper {
 
             // Goto the Node "Jobs";
             for (IRepositoryNode subNode : node.getChildren()) {
-                if (subNode.getContentType() != ERepositoryObjectType.JOBS) {
+                if (subNode.getContentType() != ERepositoryObjectType.JOB_DOC) {
                     continue;
                 }
 

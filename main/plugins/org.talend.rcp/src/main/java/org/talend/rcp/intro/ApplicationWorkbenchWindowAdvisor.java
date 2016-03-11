@@ -455,8 +455,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 // MOD xqliu 2010-10-14 bug 15756
                 String pId = perspective.getId();
 
-                if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)
-                        || IBrandingConfiguration.PERSPECTIVE_CAMEL_ID.equals(pId)) {
+                if (IBrandingConfiguration.PERSPECTIVE_DI_ID.equals(pId)) {
                     IRepositoryView view = RepositoryManager.getRepositoryView();
                     if (view != null) {
                         /* 0016610 need to refresh not only databaseconnection but only trash bin */
