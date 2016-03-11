@@ -155,6 +155,7 @@ import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
+import org.talend.utils.json.JSONArray;
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -892,21 +893,21 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * 
      * @param f1
      */
-//    private void clearSystemSqlPatterns(IFolder sqlPatternFolder) {
-//        try {
-//            for (IResource resource : sqlPatternFolder.members()) {
-//                if (resource.getType() == IResource.FOLDER) {
-//                    IFolder category = (IFolder) resource;
-//                    IFolder sysFolder = category.getFolder(RepositoryConstants.SYSTEM_DIRECTORY);
-//                    if (sysFolder != null && sysFolder.exists()) {
-//                        ResourceUtils.emptyFolder(sysFolder);
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            ExceptionHandler.process(e);
-//        }
-//    }
+    // private void clearSystemSqlPatterns(IFolder sqlPatternFolder) {
+    // try {
+    // for (IResource resource : sqlPatternFolder.members()) {
+    // if (resource.getType() == IResource.FOLDER) {
+    // IFolder category = (IFolder) resource;
+    // IFolder sysFolder = category.getFolder(RepositoryConstants.SYSTEM_DIRECTORY);
+    // if (sysFolder != null && sysFolder.exists()) {
+    // ResourceUtils.emptyFolder(sysFolder);
+    // }
+    // }
+    // }
+    // } catch (Exception e) {
+    // ExceptionHandler.process(e);
+    // }
+    // }
 
     /**
      * DOC smallet Comment method "createFolders".
@@ -3332,5 +3333,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void logOffProject() {
         invalidFiles.clear();
         super.logOffProject();
+    }
+
+    @Override
+    public JSONArray getAllRemoteLocks() {
+        // TODO Auto-generated method stub
+        return new JSONArray();
     }
 }

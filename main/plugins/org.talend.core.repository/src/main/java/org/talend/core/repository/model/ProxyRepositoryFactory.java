@@ -2229,12 +2229,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public JSONArray getAllRemoteLocks() {
-        if (repositoryFactoryFromProvider instanceof IRemoteRepositoryFactory) {
-            return ((IRemoteRepositoryFactory) repositoryFactoryFromProvider).getAllRemoteLocks();
-        } else {
-            return null;
-        }
-
+        return repositoryFactoryFromProvider.getAllRemoteLocks();
     }
 
 }
