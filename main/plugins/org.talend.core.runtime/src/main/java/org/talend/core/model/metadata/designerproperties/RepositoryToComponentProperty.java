@@ -932,7 +932,7 @@ public class RepositoryToComponentProperty {
             return getAppropriateValue(connection, connection.getUsername());
         }
         if (value.equals("PASSWORD")) { //$NON-NLS-1$
-            return getAppropriateValue(connection, connection.getPassword());
+            return getAppropriateValue(connection, connection.getValue(connection.getPassword(), false));
         }
         if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
             return getAppropriateValue(connection, connection.getNullChar());
