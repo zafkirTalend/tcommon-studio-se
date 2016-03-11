@@ -26,8 +26,6 @@ public final class ProductUtils {
      */
     public static final String PERSPECTIVE_DI_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
-    public static final String PERSPECTIVE_CAMEL_ID = "org.talend.camel.perspective"; //$NON-NLS-1$
-
     public static final String PERSPECTIVE_DQ_ID = "org.talend.dataprofiler.DataProfilingPerspective"; //$NON-NLS-1$
 
     public static final String PERSPECTIVE_MDM_ID = "org.talend.mdm.perspective"; //$NON-NLS-1$
@@ -54,7 +52,6 @@ public final class ProductUtils {
     static {
         productPerspectiveMap.put(PROD_DI, PERSPECTIVE_DI_ID);
         productPerspectiveMap.put(PROD_DQ, PERSPECTIVE_DQ_ID);
-        productPerspectiveMap.put(PROD_CAMEL, PERSPECTIVE_CAMEL_ID);
         productPerspectiveMap.put(PROD_MDM, PERSPECTIVE_MDM_ID);
         productPerspectiveMap.put(PROD_MAPPING, PERSPECTIVE_MAPPING_ID);
     }

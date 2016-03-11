@@ -13,8 +13,6 @@
 package org.talend.repository.navigator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +20,6 @@ import java.util.Map;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
 import org.eclipse.swt.dnd.DragSourceEvent;
@@ -32,12 +29,12 @@ import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.ui.view.RepositoryDropAdapter;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.view.sorter.IRepositoryNodeSorter;
+import org.talend.repository.view.sorter.RepositoryNodeSorterRegister;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
 import org.talend.repository.viewer.ui.provider.INavigatorContentServiceProvider;
 
@@ -214,44 +211,15 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
      */
     @Override
     protected Object[] getSortedChildren(Object parentElementOrTreePath) {
-        if (parentElementOrTreePath instanceof TreePath) {
-            Object lastSegm = ((TreePath) parentElementOrTreePath).getLastSegment();
-            if (lastSegm instanceof ProjectRepositoryNode) {
-                return getOverridedSortedChildren(parentElementOrTreePath);
+        Object[] children = super.getSortedChildren(parentElementOrTreePath);
+        // do special sorter for repository
+        IRepositoryNodeSorter[] sorters = RepositoryNodeSorterRegister.getInstance().getSorters();
+        if (sorters != null) {
+            for (IRepositoryNodeSorter sorter : sorters) {
+                sorter.sort(this, parentElementOrTreePath, children);
             }
         }
-        if (parentElementOrTreePath instanceof TalendRepositoryRoot) {
-            return getOverridedSortedChildren(parentElementOrTreePath);
-        }
-        return super.getSortedChildren(parentElementOrTreePath);
+        return children;
     }
 
-    protected Object[] getOverridedSortedChildren(Object parentElementOrTreePath) {
-        Object[] objects = super.getSortedChildren(parentElementOrTreePath);
-        List<RepositoryNode> nodes = new ArrayList<RepositoryNode>();
-        for (Object object : objects) {
-            if (object instanceof RepositoryNode) {
-                nodes.add((RepositoryNode) object);
-            }
-        }
-        Comparator<RepositoryNode> myComparator = new Comparator<RepositoryNode>() {
-
-            @Override
-            public int compare(RepositoryNode o1, RepositoryNode o2) {
-                ERepositoryObjectType type1 = o1.getContentType();
-                ERepositoryObjectType type2 = o2.getContentType();
-                if (type1 == null) { // null, will be front, seems only recycle bin will be null.
-                    return 1;
-                }
-                if (type2 == null) {
-                    return -1;
-                }
-
-                return type1.compareTo(type2);
-            }
-        };
-        RepositoryNode[] nodesArray = nodes.toArray(new RepositoryNode[0]);
-        Arrays.sort(nodesArray, myComparator);
-        return nodesArray;
-    }
 }

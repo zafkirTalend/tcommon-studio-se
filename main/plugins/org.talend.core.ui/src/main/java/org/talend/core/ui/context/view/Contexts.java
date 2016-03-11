@@ -42,7 +42,7 @@ public class Contexts {
             refreshView(cxtView);
         }
     }
-    
+
     public static void switchToCurContextsView(final IWorkbenchPart part) {
         final AbstractContextView cxtView = getViewWithPerspectiveIDs();
         Display.getDefault().asyncExec(new Runnable() {
@@ -60,7 +60,6 @@ public class Contexts {
     private static AbstractContextView getViewWithPerspectiveIDs() {
         Set<String> perspIDs = new HashSet<String>();
         perspIDs.add(PERSPECTIVE_DI_ID);
-        perspIDs.add(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
         return getView(perspIDs, AbstractContextView.CTX_ID_DESIGNER);
     }
 
@@ -91,7 +90,6 @@ public class Contexts {
     public static void refreshContextsView() {
         Set<String> perspIDs = new HashSet<String>();
         perspIDs.add(PERSPECTIVE_DI_ID);
-        perspIDs.add(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
         AbstractContextView cxtView = getView(perspIDs, AbstractContextView.CTX_ID_DESIGNER);
         if (cxtView != null) {
             refreshView(cxtView);
@@ -189,7 +187,6 @@ public class Contexts {
     public static void clearAll() {
         Set<String> perspIDs = new HashSet<String>();
         perspIDs.add(PERSPECTIVE_DI_ID);
-        perspIDs.add(IBrandingConfiguration.PERSPECTIVE_CAMEL_ID);
         AbstractContextView cxtView = getView(perspIDs, AbstractContextView.CTX_ID_DESIGNER);
         refreshView(cxtView);
         if (cxtView != null) {

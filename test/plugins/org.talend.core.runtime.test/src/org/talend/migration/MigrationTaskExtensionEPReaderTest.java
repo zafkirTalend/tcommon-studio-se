@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.migration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -41,7 +44,7 @@ public class MigrationTaskExtensionEPReaderTest {
         Map<ERepositoryObjectType, List<ERepositoryObjectType>> migrationTaskExtensions = migrationTaskExtensionEPReader
                 .getMigrationTaskExtensions();
         assertFalse(migrationTaskExtensions.isEmpty());
-        List<ERepositoryObjectType> listOfExtensions = migrationTaskExtensions.get(ERepositoryObjectType.JOBS);
+        List<ERepositoryObjectType> listOfExtensions = migrationTaskExtensions.get(ERepositoryObjectType.JOB_DOC);
         assertNotNull(listOfExtensions);
         assertTrue("list of extensions should have one extension", listOfExtensions.size() == 2); //$NON-NLS-1$
         assertEquals(listOfExtensions.get(0), ERepositoryObjectType.getType("JOB_EXT")); //$NON-NLS-1$
@@ -70,7 +73,7 @@ public class MigrationTaskExtensionEPReaderTest {
     public void testGetObjectTypeExtensionsOneType() {
         MigrationTaskExtensionEPReader migrationTaskExtensionEPReader = new MigrationTaskExtensionEPReader();
         Set<ERepositoryObjectType> objectTypeExtensions = migrationTaskExtensionEPReader.getObjectTypeExtensions(Collections
-                .singleton(ERepositoryObjectType.JOBS));
+                .singleton(ERepositoryObjectType.JOB_DOC));
         assertEquals(2, objectTypeExtensions.size());
         assertEquals("JOB_EXT2", ((ERepositoryObjectType) objectTypeExtensions.toArray()[0]).getType());
         assertEquals("JOB_EXT", ((ERepositoryObjectType) objectTypeExtensions.toArray()[1]).getType());
@@ -83,7 +86,7 @@ public class MigrationTaskExtensionEPReaderTest {
     public void testGetObjectTypeExtensions2TypesType() {
         MigrationTaskExtensionEPReader migrationTaskExtensionEPReader = new MigrationTaskExtensionEPReader();
         Set<ERepositoryObjectType> objectTypeExtensions = migrationTaskExtensionEPReader.getObjectTypeExtensions(Arrays.asList(
-                ERepositoryObjectType.JOBS, ERepositoryObjectType.CODE));
+                ERepositoryObjectType.JOB_DOC, ERepositoryObjectType.CODE));
         assertEquals(3, objectTypeExtensions.size());
         assertEquals("JOB_EXT2", ((ERepositoryObjectType) objectTypeExtensions.toArray()[0]).getType());
         assertEquals("JOB_EXT", ((ERepositoryObjectType) objectTypeExtensions.toArray()[1]).getType());

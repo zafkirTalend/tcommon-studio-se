@@ -107,8 +107,9 @@ public class CreateFolderAction extends AContextualAction {
                 canWork = false;
                 break;
             case SYSTEM_FOLDER:
-                if (ERepositoryObjectType.GENERATED.equals(property) || ERepositoryObjectType.JOBS.equals(property)
-                        || ERepositoryObjectType.JOBLETS.equals(property) || ERepositoryObjectType.SQLPATTERNS.equals(property)
+                if (property == null || property.equals(ERepositoryObjectType.GENERATED)
+                        || property.equals(ERepositoryObjectType.JOB_DOC) || property.equals(ERepositoryObjectType.JOBLET_DOC)
+                        || ERepositoryObjectType.SQLPATTERNS.equals(property)
                         || ERepositoryObjectType.REFERENCED_PROJECTS.equals(property)
                         || ERepositoryObjectType.SVN_ROOT.equals(property)) {
                     canWork = false;
@@ -122,7 +123,7 @@ public class CreateFolderAction extends AContextualAction {
                 }
                 break;
             case SIMPLE_FOLDER:
-                if (ERepositoryObjectType.JOB_DOC.equals(property) || ERepositoryObjectType.JOBLET_DOC.equals(property)
+                if (property.equals(ERepositoryObjectType.JOB_DOC) || property.equals(ERepositoryObjectType.JOBLET_DOC)
                         || (ERepositoryObjectType.SQLPATTERNS.equals(property) && !isUnderUserDefined(node))) {
                     canWork = false;
                 } else if (property != null
