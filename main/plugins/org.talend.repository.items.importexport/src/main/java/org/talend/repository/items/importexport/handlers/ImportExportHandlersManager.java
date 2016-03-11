@@ -198,14 +198,18 @@ public class ImportExportHandlersManager {
                 }
                 // process the "*.properties"
                 ImportItem importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
-                if (importItem != null && needCheck) {
+                if (importItem != null) {
                     IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
                     if (importHandler != null) {
                         if (importHandler instanceof ImportBasicHandler) {
                             // save as the createImportItem of ImportBasicHandler
                             ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
-                            if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
-                                importBasicHandler.checkAndSetProject(resManager, importItem);
+                            if (needCheck) {
+                                if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
+                                    importBasicHandler.checkAndSetProject(resManager, importItem);
+                                }
+                            } else {
+                                importBasicHandler.resolveItem(resManager, importItem);
                             }
                         }
                     } else {
