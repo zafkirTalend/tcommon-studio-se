@@ -312,6 +312,44 @@ public class NexusServerUtils {
             }
         }
     }
+    
+    public static String resolveSha1(String nexusUrl, final String userName, final String password, String repositoryId,
+            String groupId, String artifactId, String version) throws Exception {
+        HttpURLConnection urlConnection = null;
+        final Authenticator defaultAuthenticator = NetworkUtil.getDefaultAuthenticator();
+        if (userName != null && !"".equals(userName)) {
+            Authenticator.setDefault(new Authenticator() {
+
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(userName, password.toCharArray());
+                }
+
+            });
+        }
+        try {
+            String service = NexusConstants.SERVICES_RESOLVE
+                    + "a="+artifactId+"&g="+groupId+"&r="+repositoryId+"&v="+version;
+            urlConnection = getHttpURLConnection(nexusUrl, service, userName, password);
+            SAXReader saxReader = new SAXReader();
+
+            InputStream inputStream = urlConnection.getInputStream();
+            Document document = saxReader.read(inputStream);
+
+            Node sha1Node = document.selectSingleNode("/artifact-resolution/data/sha1");
+            String sha1 = null;
+            if (sha1Node != null) {
+                    sha1 = sha1Node.getText();
+            }
+            return sha1;
+
+        } finally {
+            Authenticator.setDefault(defaultAuthenticator);
+            if (null != urlConnection) {
+                urlConnection.disconnect();
+            }
+        }
+    }
 
     private static String getSearchQuery(String repositoryId, String groupId, String artifactId, String version, int from,
             int count) {
