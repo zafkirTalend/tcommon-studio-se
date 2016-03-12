@@ -49,7 +49,6 @@ import org.eclipse.emf.common.util.EMap;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.prefs.BackingStoreException;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
@@ -117,13 +116,14 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     boolean listToUpdate;
 
-    private ArtifactsDeployer deployer = new ArtifactsDeployer();
+    private ArtifactsDeployer deployer;
 
     /**
      * DOC nrousseau LocalLibraryManager constructor comment.
      */
     public LocalLibraryManager() {
         super();
+        deployer = new ArtifactsDeployer();
     }
 
     @Override
@@ -357,29 +357,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
                 for (String uri : toResolve) {
                     if (isResolveAllowed(uri)) {
-                        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
-                        final List<MavenArtifact> searchResults = manager.search(customNexusServer.getServer(),
-                                customNexusServer.getUserName(), customNexusServer.getPassword(),
-                                customNexusServer.getRepositoryId(), artifact.getGroupId(), artifact.getArtifactId(),
-                                artifact.getVersion());
-                        if (!searchResults.isEmpty()) {
-                            File resolvedFile = null;
-                            for (MavenArtifact result : searchResults) {
-                                if (jarNeeded.equals(result.getArtifactId() + "." + result.getType())) {
-                                    resolvedFile = manager.getMavenResolver().resolve(uri);
-                                    break;
-                                }
-                            }
-                            if (resolvedFile != null) {
-                                // reset module status
-                                final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
-                                statusMap.put(uri, ELibraryInstallStatus.INSTALLED);
-                                jarFile = resolvedFile;
-                                // update installed path
-                                mavenJarInstalled.put(uri, jarFile.getAbsolutePath());
-                            }
-                        }
-                        updateLastResolveDate(uri);
+                        jarFile = resolveJar(manager, customNexusServer, uri);
                     }
                 }
             }
@@ -434,6 +412,50 @@ public class LocalLibraryManager implements ILibraryManagerService {
         }
         return false;
 
+    }
+
+    /**
+     * DOC nrousseau Comment method "resolveJar".
+     * @param jarNeeded
+     * @param jarFile
+     * @param manager
+     * @param customNexusServer
+     * @param uri
+     * @return
+     * @throws Exception
+     * @throws IOException
+     */
+    public File resolveJar(TalendLibsServerManager manager,
+            final NexusServerBean customNexusServer, String uri) throws Exception, IOException {
+        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
+        String remoteSha1 = manager.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
+                customNexusServer.getPassword(), customNexusServer.getRepositoryId(), artifact.getGroupId(),
+                artifact.getArtifactId(), artifact.getVersion());
+        File resolvedFile = null;
+        if (remoteSha1 != null) {
+            String localFilePath = getJarPathFromMaven(uri);
+            if (localFilePath != null) {
+                File localFile = new File(localFilePath); 
+                FileInputStream fis = new FileInputStream(localFile);
+                String localSha1 = DigestUtils.shaHex(fis);
+                fis.close();
+                if (!StringUtils.equalsIgnoreCase(remoteSha1, localSha1)) {
+                    org.talend.utils.io.FilesUtils.deleteFolder(localFile.getParentFile(), true);
+                    resolvedFile = manager.getMavenResolver().resolve(uri);
+                }
+            } else {
+                resolvedFile = manager.getMavenResolver().resolve(uri);
+            }
+        }
+        if (resolvedFile != null) {
+            // reset module status
+            final Map<String, ELibraryInstallStatus> statusMap = ModuleStatusProvider.getStatusMap();
+            statusMap.put(uri, ELibraryInstallStatus.INSTALLED);
+            // update installed path
+            mavenJarInstalled.put(uri, resolvedFile.getAbsolutePath());
+        }
+        updateLastResolveDate(uri);
+        return resolvedFile;
     }
 
     private Map<String, Date> lastResolveDate;
@@ -935,6 +957,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     private boolean checkJarInstalledInMaven(String mvnUri) {
         if (mavenJarInstalled.containsKey(mvnUri)) {
+            if (!new File(mavenJarInstalled.get(mvnUri)).exists()) {
+                mavenJarInstalled.remove(mvnUri);
+                return false;
+            }
             return mavenJarInstalled.get(mvnUri) != null;
         }
         String artifactPath = PomUtil.getAbsArtifactPath(MavenUrlHelper.parseMvnUrl(mvnUri));
