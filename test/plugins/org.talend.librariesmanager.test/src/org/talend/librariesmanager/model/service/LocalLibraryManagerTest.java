@@ -496,22 +496,22 @@ public class LocalLibraryManagerTest {
 
     @Test
     public void testNexusUpdateJar() throws Exception {
-        String uri = "mvn:org.talend.libraries/ci.builder/6.0.0-SNAPSHOT/jar";
+        String uri = "mvn:org.talend.libraries/test/6.0.0-SNAPSHOT/jar";
         TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
         final NexusServerBean customNexusServer = manager.getCustomNexusServer();
         if (customNexusServer == null) {
             fail("Test not possible since Nexus is not setup");
         }
 
-        String jarNeeded = "ci.builder.jar";
+        String jarNeeded = "test.jar";
 
         LocalLibraryManager localLibraryManager = new LocalLibraryManager();
         Bundle bundle = Platform.getBundle("org.talend.librariesmanager.test");
 
-        URL entry = bundle.getEntry("/lib/old/ci.builder.jar");
+        URL entry = bundle.getEntry("/lib/old/test.jar");
         File originalJarFile = new File(FileLocator.toFileURL(entry).getFile());
 
-        entry = bundle.getEntry("/lib/new/ci.builder.jar");
+        entry = bundle.getEntry("/lib/new/test.jar");
         File newJarFile = new File(FileLocator.toFileURL(entry).getFile());
 
         // deploy jar on local + nexus
@@ -540,14 +540,14 @@ public class LocalLibraryManagerTest {
     
     @Test
     public void testNexusInstallNewJar() throws Exception {
-        String uri = "mvn:org.talend.libraries/ci.builder/6.0.0-SNAPSHOT/jar";
+        String uri = "mvn:org.talend.libraries/test/6.0.0-SNAPSHOT/jar";
         TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
         final NexusServerBean customNexusServer = manager.getCustomNexusServer();
         if (customNexusServer == null) {
             fail("Test not possible since Nexus is not setup");
         }
 
-        String jarNeeded = "ci.builder.jar";
+        String jarNeeded = "test.jar";
 
         LocalLibraryManager localLibraryManager = new LocalLibraryManager();
         String localJarPath = localLibraryManager.getJarPathFromMaven(uri);
@@ -561,7 +561,7 @@ public class LocalLibraryManagerTest {
         Bundle bundle = Platform.getBundle("org.talend.librariesmanager.test");
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
 
-        URL entry = bundle.getEntry("/lib/old/ci.builder.jar");
+        URL entry = bundle.getEntry("/lib/old/test.jar");
         File originalJarFile = new File(FileLocator.toFileURL(entry).getFile());
         // deploy the new jar to nexus (without update the local jar)
         new ArtifactsDeployer().installToRemote(originalJarFile, artifact, "jar");
@@ -576,6 +576,22 @@ public class LocalLibraryManagerTest {
         String finalJarSHA1 = getSha1(resolvedFile);
         assertEquals(originalSHA1, finalJarSHA1);
     }
+    
+    @Test
+    public void testResolveSha1NotExist() throws Exception {
+        String uri = "mvn:org.talend.libraries/not-existing/6.0.0-SNAPSHOT/jar";
+        TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+        final NexusServerBean customNexusServer = manager.getCustomNexusServer();
+        if (customNexusServer == null) {
+            fail("Test not possible since Nexus is not setup");
+        }
+        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
+        String remoteSha1 = manager.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
+                customNexusServer.getPassword(), customNexusServer.getRepositoryId(), artifact.getGroupId(),
+                artifact.getArtifactId(), artifact.getVersion());
+        assertNull(remoteSha1);
+    }
+
     
     private String getSha1(File file) throws IOException {
         FileInputStream fis = new FileInputStream(file);
