@@ -144,14 +144,16 @@ public class RepositoryConstants {
         if (label == null) {
             return false;
         }
-        return label.equalsIgnoreCase(new Path(ERepositoryObjectType.GENERATED.getFolder()).lastSegment());
+        return ERepositoryObjectType.GENERATED != null
+                && label.equalsIgnoreCase(new Path(ERepositoryObjectType.GENERATED.getFolder()).lastSegment());
     }
 
     public static boolean isJobsFolder(String label) {
         if (label == null) {
             return false;
         }
-        return label.equalsIgnoreCase(new Path(ERepositoryObjectType.JOB_DOC.getFolder()).lastSegment());
+        return ERepositoryObjectType.JOB_DOC != null
+                && label.equalsIgnoreCase(new Path(ERepositoryObjectType.JOB_DOC.getFolder()).lastSegment());
     }
 
     /**
@@ -164,6 +166,7 @@ public class RepositoryConstants {
         if (label == null) {
             return false;
         }
-        return label.equalsIgnoreCase(new Path(ERepositoryObjectType.JOBLET_DOC.getFolder()).lastSegment());
+        return ERepositoryObjectType.JOBLET_DOC != null
+                && label.equalsIgnoreCase(new Path(ERepositoryObjectType.JOBLET_DOC.getFolder()).lastSegment());
     }
 }
