@@ -153,7 +153,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (file == null || !file.exists()) {
             return;
         }
-        deployFile(file, null, monitorWrap);
+        deployFile(file, null, true, monitorWrap);
         // deploy to configuration/lib/java if tac still use the svn lib
         try {
             if (isSvnLibSetup()) {
@@ -181,7 +181,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @param mavenUri snaopshot mvn uri
      * @param monitorWrap
      */
-    private void deployFile(File file, String snapshotMavenUri, IProgressMonitor... monitorWrap) {
+    private void deployFile(File file, String snapshotMavenUri, boolean updateRemoteJar, IProgressMonitor... monitorWrap) {
         try {
             listToUpdate = true;
             if (file.isDirectory()) {
@@ -230,7 +230,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     sourceAndMavenUri.put(snapshotMavenUri, file.getAbsolutePath());
                 }
 
-                deployer.deployToLocalMaven(sourceAndMavenUri);
+                deployer.deployToLocalMaven(sourceAndMavenUri, updateRemoteJar);
             }
 
         } catch (IOException e) {
@@ -257,7 +257,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 return;
             }
             // deploy to maven
-            deployFile(file, null, monitorWrap);
+            deployFile(file, null, false, monitorWrap);
             // deploy to configuration/lib/java if tac still use the svn lib
             try {
                 if (isSvnLibSetup()) {
@@ -869,7 +869,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     ExceptionHandler.log("missing jar:" + module.getModuleName());
                 }
                 if (fileToDeploy != null) {
-                    deployFile(fileToDeploy, mavenUri, monitorWrap);
+                    deployFile(fileToDeploy, mavenUri, false, monitorWrap);
                 }
             }
         }
