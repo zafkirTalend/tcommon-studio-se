@@ -9,11 +9,23 @@ Bundle-ClassPath: .,
  lib/castor-1.0.3.jar,
  lib/jakarta-oro-2.0.8.jar,
  lib/xerces-2.6.2.jar,
- lib/xmlbeans-2.3.0.jar
+ lib/xmlbeans-2.3.0.jar,
+ lib/avro-1.8.0.jar
 Bundle-Vendor: .Talend SA.
 Require-Bundle: org.apache.log4j;resolution:=optional,
- org.talend.libraries.apache.common;visibility:=reexport
+ org.talend.libraries.apache.common;visibility:=reexport,
+ jackson-core-asl;bundle-version="1.9.13",
+ jackson-mapper-asl;bundle-version="1.9.13"
 Export-Package: 
+ org.apache.avro;version="1.8.0",
+ org.apache.avro.data;version="1.8.0",
+ org.apache.avro.file;version="1.8.0",
+ org.apache.avro.generic;version="1.8.0",
+ org.apache.avro.io;version="1.8.0",
+ org.apache.avro.io.parsing;version="1.8.0",
+ org.apache.avro.reflect;version="1.8.0",
+ org.apache.avro.specific;version="1.8.0",
+ org.apache.avro.util;version="1.8.0",
  org.apache.james.mime4j,
  org.apache.james.mime4j.codec,
  org.apache.james.mime4j.descriptor,

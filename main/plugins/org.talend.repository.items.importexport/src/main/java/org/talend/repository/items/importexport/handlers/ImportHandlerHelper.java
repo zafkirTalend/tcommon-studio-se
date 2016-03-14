@@ -54,8 +54,7 @@ public class ImportHandlerHelper {
         Resource resource = HandlerUtil.loadResource(resManager, importItem);
 
         if (resource != null) {
-            importItem.setProperty((Property) EcoreUtil.getObjectByType(resource.getContents(),
-                    PropertiesPackage.eINSTANCE.getProperty()));
+            importItem.setProperty(generateProperty(resource));
         } else {
             ResourceNotFoundException ex = new ResourceNotFoundException(Messages.getString(
                     "ImportBasicHandler_LoadEMFResourceError", //$NON-NLS-1$
@@ -71,4 +70,7 @@ public class ImportHandlerHelper {
         return ImportCacheHelper.getInstance().getXmiResourceManager().isPropertyFile(resourcePath.lastSegment());
     }
 
+    public Property generateProperty(Resource resource) {
+        return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
+    }
 }

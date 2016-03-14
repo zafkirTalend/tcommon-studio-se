@@ -25,15 +25,19 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.service.IRemoteService;
 import org.talend.utils.json.JSONException;
@@ -45,6 +49,11 @@ import org.talend.utils.ssl.SSLUtils;
  *
  */
 public class NexusServerUtils {
+
+    /**
+     * 
+     */
+    public static final String ORG_TALEND_DESIGNER_CORE = "org.talend.designer.core"; //$NON-NLS-1$
 
     public static final String KEY_NEXUS_RUL = "nexusUrl";//$NON-NLS-1$ 
 
@@ -131,6 +140,9 @@ public class NexusServerUtils {
      * @return
      */
     public static boolean checkConnectionStatus(String nexusUrl, String repositoryId, final String userName, final String password) {
+        if (StringUtils.isEmpty(nexusUrl)) {
+            return false;
+        }
         final Authenticator defaultAuthenticator = NetworkUtil.getDefaultAuthenticator();
         if (userName != null && !"".equals(userName)) {
             Authenticator.setDefault(new Authenticator() {
@@ -155,10 +167,6 @@ public class NexusServerUtils {
 
             URL url = new URL(urlToCheck);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            // if (userName != null && !"".equals(userName)) {
-            // urlConnection.setRequestProperty(
-            //                        "Authorization", "Basic " + Base64.encodeBase64((userName + ":" + password).getBytes()));//$NON-NLS-1$ //$NON-NLS-2$
-            // }
             if (urlConnection instanceof HttpsURLConnection) {
                 String userDir = Platform.getInstallLocation().getURL().getPath();
                 final SSLSocketFactory socketFactory = SSLUtils.getSSLContext(userDir).getSocketFactory();
@@ -173,14 +181,17 @@ public class NexusServerUtils {
 
                 });
             }
-            urlConnection.setConnectTimeout(10000);
-            urlConnection.setReadTimeout(10000);
+            IEclipsePreferences node = InstanceScope.INSTANCE.getNode(ORG_TALEND_DESIGNER_CORE);
+            int timeout = node.getInt(ITalendCorePrefConstants.NEXUS_TIMEOUT, 10000);
+
+            urlConnection.setConnectTimeout(timeout);
+            urlConnection.setReadTimeout(timeout);
             status = urlConnection.getResponseCode();
             if (status == CONNECTION_OK) {
                 return true;
             }
         } catch (Exception e) {
-            // do nothing
+            ExceptionHandler.process(e);
         } finally {
             Authenticator.setDefault(defaultAuthenticator);
         }
@@ -301,6 +312,44 @@ public class NexusServerUtils {
             }
         }
     }
+    
+    public static String resolveSha1(String nexusUrl, final String userName, final String password, String repositoryId,
+            String groupId, String artifactId, String version) throws Exception {
+        HttpURLConnection urlConnection = null;
+        final Authenticator defaultAuthenticator = NetworkUtil.getDefaultAuthenticator();
+        if (userName != null && !"".equals(userName)) {
+            Authenticator.setDefault(new Authenticator() {
+
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(userName, password.toCharArray());
+                }
+
+            });
+        }
+        try {
+            String service = NexusConstants.SERVICES_RESOLVE
+                    + "a="+artifactId+"&g="+groupId+"&r="+repositoryId+"&v="+version;
+            urlConnection = getHttpURLConnection(nexusUrl, service, userName, password);
+            SAXReader saxReader = new SAXReader();
+
+            InputStream inputStream = urlConnection.getInputStream();
+            Document document = saxReader.read(inputStream);
+
+            Node sha1Node = document.selectSingleNode("/artifact-resolution/data/sha1");
+            String sha1 = null;
+            if (sha1Node != null) {
+                    sha1 = sha1Node.getText();
+            }
+            return sha1;
+
+        } finally {
+            Authenticator.setDefault(defaultAuthenticator);
+            if (null != urlConnection) {
+                urlConnection.disconnect();
+            }
+        }
+    }
 
     private static String getSearchQuery(String repositoryId, String groupId, String artifactId, String version, int from,
             int count) {
@@ -352,7 +401,9 @@ public class NexusServerUtils {
 
             });
         }
-        urlConnection.setConnectTimeout(10000);
+        IEclipsePreferences node = InstanceScope.INSTANCE.getNode(ORG_TALEND_DESIGNER_CORE);
+        int timeout = node.getInt(ITalendCorePrefConstants.NEXUS_TIMEOUT, 10000);
+        urlConnection.setConnectTimeout(timeout);
         return urlConnection;
     }
 

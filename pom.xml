@@ -167,6 +167,7 @@
 		<module>test/plugins/org.talend.core.ui.test</module>
 		<module>test/plugins/org.talend.libraries.javacsv.test</module>
 		<module>test/plugins/org.talend.librariesmanager.test</module>
+		<module>test/plugins/org.talend.librariesmanager.ui.test</module>
 		<module>test/plugins/org.talend.metadata.managment.test</module>
 		<module>test/plugins/org.talend.migrationTool.test</module>
 		<module>test/plugins/org.talend.model.migration.test</module>

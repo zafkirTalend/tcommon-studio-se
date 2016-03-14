@@ -88,8 +88,15 @@ public class RecycleBinManager {
         List<TalendItem> notDeletedItems = new ArrayList<TalendItem>();
         for (TalendItem deletedItem : deletedItems) {
             try {
+                final ERepositoryObjectType type = ERepositoryObjectType.getType(deletedItem.getType());
+                // ignore the generated doc in recycle bin
+                if (type != null
+                        && (type.equals(ERepositoryObjectType.JOB_DOC) || type.equals(ERepositoryObjectType.JOBLET_DOC) || type
+                                .equals(ERepositoryObjectType.valueOf("ROUTE_DOC")))) { //$NON-NLS-1$
+                    continue;
+                }
                 IRepositoryViewObject object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId(),
-                        deletedItem.getPath(), ERepositoryObjectType.getType(deletedItem.getType()));
+                        deletedItem.getPath(), type);
                 if (object == null) {
                     object = ProxyRepositoryFactory.getInstance().getLastVersion(project, deletedItem.getId());
                 }

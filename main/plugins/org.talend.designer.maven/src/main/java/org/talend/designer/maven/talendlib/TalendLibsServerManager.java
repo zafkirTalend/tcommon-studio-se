@@ -251,4 +251,10 @@ public class TalendLibsServerManager {
             String groupIdToSearch, String artifactId, String versionToSearch) throws Exception {
         return NexusServerUtils.search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId, versionToSearch);
     }
+
+    public String resolveSha1(String nexusUrl, String userName, String password, String repositoryId,
+            String groupId, String artifactId, String version) throws Exception {
+        return NexusServerUtils.resolveSha1(nexusUrl, userName, password, repositoryId, groupId, artifactId, version);
+    }
+
 }

@@ -38,6 +38,7 @@ import org.talend.core.model.repository.IRepositoryWorkUnitListener;
 import org.talend.core.model.repository.LockInfo;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.RepositoryWorkUnit;
+import org.talend.utils.json.JSONArray;
 
 /**
  * Defines all methods that a repository provider plug-in must provides to client.<br/>
@@ -414,4 +415,6 @@ public interface IRepositoryFactory {
     public void setStorage(String storage);
 
     public String getStorage();
+
+    public JSONArray getAllRemoteLocks();
 }

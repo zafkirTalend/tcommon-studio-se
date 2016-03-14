@@ -20,6 +20,8 @@ public class NexusConstants {
 
     public static final String SERVICES_SEARCH = "service/local/lucene/search?";//$NON-NLS-1$ 
 
+    public static final String SERVICES_RESOLVE = "service/local/artifact/maven/resolve?";//$NON-NLS-1$ 
+
     public static final String CONTENT_REPOSITORIES = "/content/repositories/";//$NON-NLS-1$ 
 
     public static final String SLASH = "/";//$NON-NLS-1$ 

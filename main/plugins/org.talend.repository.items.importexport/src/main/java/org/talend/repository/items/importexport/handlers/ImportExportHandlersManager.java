@@ -122,6 +122,11 @@ public class ImportExportHandlersManager {
 
     public List<ImportItem> populateImportingItems(ResourcesManager resManager, boolean overwrite,
             IProgressMonitor progressMonitor, boolean enableProductChecking) throws Exception {
+        return populateImportingItems(resManager, overwrite, progressMonitor, enableProductChecking, true);
+    }
+
+    public List<ImportItem> populateImportingItems(ResourcesManager resManager, boolean overwrite,
+            IProgressMonitor progressMonitor, boolean enableProductChecking, boolean needCheck) throws Exception {
         IProgressMonitor monitor = progressMonitor;
         if (monitor == null) {
             monitor = new NullProgressMonitor();
@@ -169,8 +174,12 @@ public class ImportExportHandlersManager {
                 if (!importHandlerHelper.validResourcePath(path)) { // valid "*.properties" will do it later.
                     IImportItemsHandler importHandler = findValidImportHandler(resManager, path, enableProductChecking);
                     if (importHandler != null) {
-                        ImportItem importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite,
-                                items);
+                        ImportItem importItem = null;
+                        if (needCheck) {
+                            importItem = importHandler.generateImportItem(progressMonitor, resManager, path, overwrite, items);
+                        } else {
+                            importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
+                        }
                         // if have existed, won't add again.
                         if (importItem != null && !items.contains(importItem)) {
                             items.add(importItem);
@@ -195,8 +204,12 @@ public class ImportExportHandlersManager {
                         if (importHandler instanceof ImportBasicHandler) {
                             // save as the createImportItem of ImportBasicHandler
                             ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
-                            if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
-                                importBasicHandler.checkAndSetProject(resManager, importItem);
+                            if (needCheck) {
+                                if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
+                                    importBasicHandler.checkAndSetProject(resManager, importItem);
+                                }
+                            } else {
+                                importBasicHandler.resolveItem(resManager, importItem);
                             }
                         }
                     } else {

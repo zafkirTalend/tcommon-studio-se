@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.talend.core.model.genhtml.HTMLDocUtils;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
 import org.talend.core.model.properties.Item;
@@ -144,12 +145,13 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
 
         String subFolder = null;
 
-        if (targetPath.endsWith(ERepositoryObjectType.GENERATED.toString().toLowerCase())) {
+        if (ERepositoryObjectType.GENERATED != null
+                && targetPath.endsWith(new Path(ERepositoryObjectType.GENERATED.getFolder()).lastSegment().toLowerCase())) {
 
-            if (item instanceof JobDocumentationItem) {
-                subFolder = ERepositoryObjectType.JOBS.toString().toLowerCase();
-            } else if (item instanceof JobletDocumentationItem) {
-                subFolder = ERepositoryObjectType.JOBLETS.toString().toLowerCase();
+            if (item instanceof JobDocumentationItem && ERepositoryObjectType.JOB_DOC != null) {
+                subFolder = new Path(ERepositoryObjectType.JOB_DOC.getFolder()).lastSegment().toLowerCase();
+            } else if (item instanceof JobletDocumentationItem && ERepositoryObjectType.JOBLET_DOC != null) {
+                subFolder = new Path(ERepositoryObjectType.JOBLET_DOC.getFolder()).lastSegment().toLowerCase();
             } else {
                 subFolder = ""; //$NON-NLS-1$
             }
@@ -158,8 +160,8 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
         }
 
         // Used for generating/updating all jobs' documentaiton only.
-        if (targetPath.endsWith(ERepositoryObjectType.JOBS.toString().toLowerCase())
-                || targetPath.endsWith(ERepositoryObjectType.JOBLETS.toString().toLowerCase())) {
+        if (targetPath.endsWith(new Path(ERepositoryObjectType.JOB_DOC.getFolder()).lastSegment().toLowerCase())
+                || targetPath.endsWith(new Path(ERepositoryObjectType.JOBLET_DOC.getFolder()).lastSegment().toLowerCase())) {
             targetPath = targetPath + IPath.SEPARATOR + jobPath + IPath.SEPARATOR + jobName;
         }
         String version = ""; //$NON-NLS-1$
