@@ -77,6 +77,13 @@ public class ArtifactsDeployer {
             deployToLocalMaven(jarSourceAndMavenUri.get(mavenUri), mavenUri);
         }
     }
+    
+    public void deployToLocalMaven(Map<String, String> jarSourceAndMavenUri, boolean updateRemoteJar) throws Exception {
+        for (String mavenUri : jarSourceAndMavenUri.keySet()) {
+            deployToLocalMaven(jarSourceAndMavenUri.get(mavenUri), mavenUri, updateRemoteJar);
+        }
+    }
+
 
     public void deployToLocalMaven(String path, String mavenUri, boolean toRemoteNexus) throws Exception {
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUri);
@@ -172,6 +179,7 @@ public class ArtifactsDeployer {
             httpClient.getConnectionManager().shutdown();
         }
     }
+
 
     // private void install(String path, MavenArtifact artifact) {
     // StringBuffer command = new StringBuffer();

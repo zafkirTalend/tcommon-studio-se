@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.nexus;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
@@ -312,7 +313,7 @@ public class NexusServerUtils {
             }
         }
     }
-    
+
     public static String resolveSha1(String nexusUrl, final String userName, final String password, String repositoryId,
             String groupId, String artifactId, String version) throws Exception {
         HttpURLConnection urlConnection = null;
@@ -328,8 +329,8 @@ public class NexusServerUtils {
             });
         }
         try {
-            String service = NexusConstants.SERVICES_RESOLVE
-                    + "a="+artifactId+"&g="+groupId+"&r="+repositoryId+"&v="+version;
+            String service = NexusConstants.SERVICES_RESOLVE + "a=" + artifactId + "&g=" + groupId + "&r=" + repositoryId + "&v="
+                    + version;
             urlConnection = getHttpURLConnection(nexusUrl, service, userName, password);
             SAXReader saxReader = new SAXReader();
 
@@ -339,10 +340,13 @@ public class NexusServerUtils {
             Node sha1Node = document.selectSingleNode("/artifact-resolution/data/sha1");
             String sha1 = null;
             if (sha1Node != null) {
-                    sha1 = sha1Node.getText();
+                sha1 = sha1Node.getText();
             }
             return sha1;
 
+        } catch (FileNotFoundException e) {
+            // jar not existing on remote nexus
+            return null;
         } finally {
             Authenticator.setDefault(defaultAuthenticator);
             if (null != urlConnection) {
