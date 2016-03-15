@@ -28,6 +28,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.cwm.helper.TaggedValueHelper;
+import org.talend.daikon.avro.SchemaConstants;
 import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
 import orgomg.cwm.objectmodel.core.TaggedValue;
@@ -309,32 +310,39 @@ public final class MetadataToolAvroHelper {
         col.setId(field.name());
         col.setLabel(field.name());
         col.setName(field.name());
-        switch (AvroUtils.unwrapIfNullable(in).getType()) {
+        Schema nonnullable = AvroUtils.unwrapIfNullable(in);
+        switch (nonnullable.getType()) {
         case ARRAY:
-            col.setSourceType(JavaTypesManager.LIST.getId());
+            col.setTalendType(JavaTypesManager.LIST.getId());
             break;
         case BOOLEAN:
-            col.setSourceType(JavaTypesManager.BOOLEAN.getId());
+            col.setTalendType(JavaTypesManager.BOOLEAN.getId());
             break;
         case BYTES:
         case FIXED:
-            col.setSourceType(JavaTypesManager.BYTE_ARRAY.getId());
+            col.setTalendType(JavaTypesManager.BYTE_ARRAY.getId());
             break;
         case DOUBLE:
-            col.setSourceType(JavaTypesManager.DOUBLE.getId());
+            col.setTalendType(JavaTypesManager.DOUBLE.getId());
             break;
         case FLOAT:
-            col.setSourceType(JavaTypesManager.FLOAT.getId());
+            col.setTalendType(JavaTypesManager.FLOAT.getId());
             break;
         case INT:
-            col.setSourceType(JavaTypesManager.INTEGER.getId());
+            col.setTalendType(JavaTypesManager.INTEGER.getId());
             break;
         case LONG:
-            col.setSourceType(JavaTypesManager.LONG.getId());
+            String prop = null;
+            if (null != (prop = nonnullable.getProp(SchemaConstants.TALEND_COLUMN_PATTERN))) {
+                col.setTalendType(JavaTypesManager.DATE.getId());
+                col.setPattern(prop);
+            } else {
+                col.setTalendType(JavaTypesManager.LONG.getId());
+            }
             break;
         case ENUM:
         case STRING:
-            col.setSourceType(JavaTypesManager.STRING.getId());
+            col.setTalendType(JavaTypesManager.STRING.getId());
             break;
         case RECORD:
         case NULL:
@@ -413,7 +421,7 @@ public final class MetadataToolAvroHelper {
         }
 
         // If the source type wasn't set, there is an issue. Can this occur in the studio.
-        if (col.getSourceType() == null) {
+        if (col.getTalendType() == null) {
             throw new UnsupportedOperationException("Unrecognized type " + in); //$NON-NLS-1$
         }
 
