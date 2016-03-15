@@ -30,6 +30,7 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
+import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -100,7 +101,11 @@ public final class MetadataToolAvroHelper {
         copyColumnProperties(fb, in);
         BaseFieldTypeBuilder<Schema> ftb = in.isNullable() ? fb.type() : fb.type().nullable();
 
-        String defaultValue = in.getInitialValue().getBody();
+        String defaultValue = null;
+        Expression initialValue = in.getInitialValue();
+        if (initialValue != null) {
+            defaultValue = initialValue.getBody();
+        }
 
         String tt = in.getTalendType();
 
@@ -225,7 +230,7 @@ public final class MetadataToolAvroHelper {
         if (in.getPrecision() >= 0) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION, String.valueOf(in.getPrecision()));
         }
-        if (in.getInitialValue().getBody() != null) {
+        if (in.getInitialValue() != null && in.getInitialValue().getBody() != null) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getInitialValue().getBody());
         }
         if (in.getName() != null) {
