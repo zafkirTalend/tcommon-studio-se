@@ -514,6 +514,18 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      */
     public final static ERepositoryObjectType PROCESS_SPARKSTREAMING = ERepositoryObjectType.valueOf("PROCESS_SPARKSTREAMING");
 
+    public final static ERepositoryObjectType METADATA_SAP_BW_DATASOURCE = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_DATASOURCE"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_DATASTOREOBJECT = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_DATASTOREOBJECT"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_INFOCUBE = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_INFOCUBE"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_INFOOBJECT = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_INFOOBJECT"); //$NON-NLS-1$
+
     private static Map<String, ERepositoryObjectType> typeCacheById = new HashMap<String, ERepositoryObjectType>();
 
     ERepositoryObjectType(String key, String folder, String type, boolean isStaticNode, int ordinal, String[] products,
