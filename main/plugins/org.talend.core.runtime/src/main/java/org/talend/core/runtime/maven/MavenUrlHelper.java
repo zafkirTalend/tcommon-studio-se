@@ -208,6 +208,9 @@ public class MavenUrlHelper {
         if (parseMvnUrl == null) {
             return null;
         }
+        if (!MavenConstants.DEFAULT_LIB_GROUP_ID.equals(parseMvnUrl.getGroupId())) {
+            return mavenUri; // snapshot url same as maven url
+        }
 
         return generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getVersion()
                 + MavenConstants.SNAPSHOT, parseMvnUrl.getType(), parseMvnUrl.getClassifier());
@@ -218,6 +221,9 @@ public class MavenUrlHelper {
         MavenArtifact parseMvnUrl = parseMvnUrl(snapshotMvnuri);
         if (parseMvnUrl == null) {
             return null;
+        }
+        if (!MavenConstants.DEFAULT_LIB_GROUP_ID.equals(parseMvnUrl.getGroupId())) {
+            return snapshotMvnuri; // snapshot url same as maven url
         }
         String snapshotVerstion = parseMvnUrl.getVersion();
         String verstion = snapshotVerstion.substring(0, snapshotVerstion.indexOf(MavenConstants.SNAPSHOT));
