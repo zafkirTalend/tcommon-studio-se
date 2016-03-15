@@ -5,18 +5,35 @@ import java.util.List;
 import java.util.Set;
 
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.SAPBWTable;
 import org.talend.core.model.metadata.builder.connection.SAPConnection;
 
 public class SAPBWTableHelper {
     
-    private static final String TYPE_DATASOURCE = "DataSource"; //$NON-NLS-1$
-    private static final String TYPE_DATASTOREOBJECT = "DataStoreObject"; //$NON-NLS-1$
-    private static final String TYPE_INFOCUBE = "InfoCube"; //$NON-NLS-1$
-    private static final String TYPE_INFOOBJECT = "InfoObject"; //$NON-NLS-1$
+    // bw object type
+    public static final String TYPE_DATASOURCE = "DataSource"; //$NON-NLS-1$
 
-    public static Set<SAPBWTable> getBWTables(Connection connection, String bwTableType) {
-        Set<SAPBWTable> result = new HashSet<SAPBWTable>();
+    public static final String TYPE_DATASTOREOBJECT = "DataStoreObject"; //$NON-NLS-1$
+
+    public static final String TYPE_INFOCUBE = "InfoCube"; //$NON-NLS-1$
+
+    public static final String TYPE_INFOOBJECT = "InfoObject"; //$NON-NLS-1$
+
+    // InfoObject inner type
+    public static final String IO_INNERTYPE_BASIC = "BASIC"; //$NON-NLS-1$
+
+    public static final String IO_INNERTYPE_ATTRIBUTE = "ATTRIBUTE"; //$NON-NLS-1$
+
+    public static final String IO_INNERTYPE_TEXTS = "TEXT"; //$NON-NLS-1$
+
+    public static final String IO_INNERTYPE_HIERARCHY = "HIERARCHY"; //$NON-NLS-1$
+    
+    public static final String SAP_INFOOBJECT_INNER_TYPE = "innerIOType";  //$NON-NLS-1$
+
+
+    public static Set<MetadataTable> getBWTables(Connection connection, String bwTableType) {
+        Set<MetadataTable> result = new HashSet<MetadataTable>();
         List<SAPBWTable> bwTables;
         switch (bwTableType) {
         case TYPE_DATASOURCE:
@@ -38,13 +55,13 @@ public class SAPBWTableHelper {
         return result;
     }
 
-    public static Set<SAPBWTable> getBWTables(Connection connection, String bwTableType, String innerIOType, boolean innerInclude) {
+    public static Set<MetadataTable> getBWTables(Connection connection, String bwTableType, String innerIOType, boolean innerInclude) {
         if (!bwTableType.equals(TYPE_INFOOBJECT)
                 || (bwTableType.equals(TYPE_INFOOBJECT) && innerIOType == null)) {
             return getBWTables(connection, bwTableType);
         }
         List<SAPBWTable> bwTables = ((SAPConnection) connection).getBWInfoObjects();
-        Set<SAPBWTable> innerInfoObjects = new HashSet<SAPBWTable>();
+        Set<MetadataTable> innerInfoObjects = new HashSet<MetadataTable>();
         for (SAPBWTable bwTable : bwTables) {
             boolean flag = innerIOType.equals(bwTable.getInnerIOType());
             if(!innerInclude) {
@@ -58,7 +75,7 @@ public class SAPBWTableHelper {
     }
     
     public static void removeBWTable(Connection connection, String bwTableType, SAPBWTable table) {
-        Set<SAPBWTable> bwTables = getBWTables(connection, bwTableType);
+        Set<MetadataTable> bwTables = getBWTables(connection, bwTableType);
         if (bwTables.contains(table)) {
             bwTables.remove(table);
         }

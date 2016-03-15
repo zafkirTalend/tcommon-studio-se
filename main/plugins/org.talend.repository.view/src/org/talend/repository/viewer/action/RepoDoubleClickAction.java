@@ -245,11 +245,13 @@ public class RepoDoubleClickAction extends Action {
             RepositoryNode node = theNode.getParent().getParent().getParent();
             nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         }
-        if (nodeType == ERepositoryObjectType.METADATA_SAP_BW_DATASOURCE
-                || nodeType == ERepositoryObjectType.METADATA_SAP_BW_DATASTOREOBJECT
-                || nodeType == ERepositoryObjectType.METADATA_SAP_BW_INFOCUBE
-                || nodeType == ERepositoryObjectType.METADATA_SAP_BW_INFOOBJECT) {
-            return true;
+        if (ERepositoryObjectType.METADATA_SAP_BW_DATASOURCE != null) {
+            if (nodeType == ERepositoryObjectType.METADATA_SAP_BW_DATASOURCE
+                    || nodeType == ERepositoryObjectType.METADATA_SAP_BW_DATASTOREOBJECT
+                    || nodeType == ERepositoryObjectType.METADATA_SAP_BW_INFOCUBE
+                    || nodeType == ERepositoryObjectType.METADATA_SAP_BW_INFOOBJECT) {
+                return true;
+            }
         }
         return false;
     }

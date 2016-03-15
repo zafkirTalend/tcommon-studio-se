@@ -358,18 +358,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
 
     public final static ERepositoryObjectType METADATA_SAP_TABLE = new ERepositoryObjectType("repository.SAPTable", //$NON-NLS-1$
             "METADATA_SAP_TABLE", 104, true, true, new String[] { PROD_DI }, new String[] {}, false);
- 
-    public final static ERepositoryObjectType METADATA_SAP_BW_DATASOURCE = new ERepositoryObjectType("repository.SAPBWDataSource", //$NON-NLS-1$
-            "METADATA_SAP_BW_DATASOURCE", 105, true, true, new String[] { PROD_DI }, new String[] {}, false);
-    
-    public final static ERepositoryObjectType METADATA_SAP_BW_DATASTOREOBJECT = new ERepositoryObjectType("repository.SAPBWDataStoreObject", //$NON-NLS-1$
-            "METADATA_SAP_BW_DATASTOREOBJECT", 106, true, true, new String[] { PROD_DI }, new String[] {}, false);
-    
-    public final static ERepositoryObjectType METADATA_SAP_BW_INFOCUBE = new ERepositoryObjectType("repository.SAPBWInfoCube", //$NON-NLS-1$
-            "METADATA_SAP_BW_INFOCUBE", 107, true, true, new String[] { PROD_DI }, new String[] {}, false);
-    
-    public final static ERepositoryObjectType METADATA_SAP_BW_INFOOBJECT = new ERepositoryObjectType("repository.SAPBWInfoObject", //$NON-NLS-1$
-            "METADATA_SAP_BW_INFOOBJECT", 108, true, true, new String[] { PROD_DI }, new String[] {}, false);
 
     private String label;
 
@@ -525,6 +513,18 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
      * 2. both frameworks (storm / sparkstreaming) should use PROCESS_STORM in current code I think <br/>
      */
     public final static ERepositoryObjectType PROCESS_SPARKSTREAMING = ERepositoryObjectType.valueOf("PROCESS_SPARKSTREAMING");
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_DATASOURCE = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_DATASOURCE"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_DATASTOREOBJECT = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_DATASTOREOBJECT"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_INFOCUBE = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_INFOCUBE"); //$NON-NLS-1$
+
+    public final static ERepositoryObjectType METADATA_SAP_BW_INFOOBJECT = ERepositoryObjectType
+            .valueOf("METADATA_SAP_BW_INFOOBJECT"); //$NON-NLS-1$
 
     private static Map<String, ERepositoryObjectType> typeCacheById = new HashMap<String, ERepositoryObjectType>();
 

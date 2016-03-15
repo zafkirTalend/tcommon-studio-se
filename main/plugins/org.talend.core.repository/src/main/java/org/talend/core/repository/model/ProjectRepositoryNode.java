@@ -92,6 +92,7 @@ import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.cwm.helper.SubItemHelper;
 import org.talend.cwm.helper.TableHelper;
 import org.talend.designer.core.IDesignerCoreService;
@@ -1667,7 +1668,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         EList<SAPBWTable> infoObjects = ((SAPConnection) metadataConnection).getBWInfoObjects();
         EList<SAPBWTable> tables = new BasicEList<SAPBWTable>();
         for (SAPBWTable bwTable : infoObjects) {
-            if (!"BASIC".equals(bwTable.getInnerIOType())) { //$NON-NLS-1$
+            if (!SAPBWTableHelper.IO_INNERTYPE_BASIC.equals(bwTable.getInnerIOType())) {
                 tables.add(bwTable);
             }
         }
