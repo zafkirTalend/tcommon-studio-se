@@ -20,6 +20,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.maven.utils.PomUtil;
 
@@ -63,7 +64,10 @@ public abstract class AbstractMavenCodesTemplatePom extends AbstractMavenGeneral
             }
 
             for (ModuleNeeded module : runningModules) {
-                Dependency dependency = PomUtil.createModuleDependency(module.getModuleName());
+                Dependency dependency = null;
+                if (module.getMavenUriSnapshot() != null && !module.getMavenUriSnapshot().isEmpty() && module.getStatus() != ELibraryInstallStatus.NOT_INSTALLED) {
+                    dependency = PomUtil.createModuleDependency(module.getMavenUriSnapshot());
+                }
                 if (dependency != null) {
                     existedDependencies.add(dependency);
                 }
