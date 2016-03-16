@@ -50,7 +50,6 @@
                 <talendType type="id_Date">
                     <dbType type="timestamp" default="true" />
                     <dbType type="date" />
-                    <dbType type="time" />
                 </talendType>
                 <talendType type="id_BigDecimal">
                     <dbType type="decimal" default="true" />
@@ -67,6 +66,7 @@
                 <talendType type="id_Long">
                     <dbType type="bigint" default="true" />
                     <dbType type="counter" />
+                    <dbType type="time" />
                 </talendType>
                 <talendType type="id_Object">
                     <dbType type="varint" default="true" />
@@ -135,7 +135,7 @@
                     <talendType type="id_String" default="true" />
                 </dbType>
                 <dbType type="time">
-                    <talendType type="id_Date" default="true" />
+                    <talendType type="id_Long" default="true" />
                 </dbType>
                 <dbType type="timestamp">
                     <talendType type="id_Date" default="true" />
