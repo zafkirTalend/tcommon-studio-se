@@ -22,6 +22,8 @@ import org.talend.core.hadoop.IHadoopDistributionService;
 
 /**
  * DOC ycbai class global comment. Detailled comment
+ * 
+ * @deprecated @link HadoopComponent via osgi service instead.
  */
 public enum EHadoopVersion4Drivers {
 
@@ -248,8 +250,8 @@ public enum EHadoopVersion4Drivers {
     public boolean isSupportSpark() {
         boolean isSupport = false;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopDistributionService.class);
+            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister
+                    .getDefault().getService(IHadoopDistributionService.class);
             isSupport = hadoopDistributionService.isSupportSpark(this);
         } else {
             ExceptionHandler.process(new Exception(IHadoopDistributionService.class.getName() + " is not registed.")); //$NON-NLS-1$

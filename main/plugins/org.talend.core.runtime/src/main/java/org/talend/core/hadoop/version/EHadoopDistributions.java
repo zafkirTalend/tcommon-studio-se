@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * DOC ycbai class global comment. Detailled comment
+ * 
+ * @deprecated @link HadoopComponent via osgi service instead.
  */
 public enum EHadoopDistributions {
 
@@ -50,6 +52,13 @@ public enum EHadoopDistributions {
         return this.displayName;
     }
 
+    /**
+     * 
+     * DOC ggu Comment method "getAllDistributionDisplayNames".
+     * 
+     * @return
+     * @deprecated use DistributionFactory instead
+     */
     public static List<String> getAllDistributionDisplayNames() {
         return getAllDistributionNames(true);
     }
