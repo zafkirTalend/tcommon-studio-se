@@ -27,6 +27,7 @@ import org.apache.avro.SchemaBuilder.RecordBuilder;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.daikon.avro.SchemaConstants;
 import org.talend.daikon.avro.util.AvroUtils;
@@ -217,7 +218,7 @@ public final class MetadataToolAvroHelper {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
         }
         if (in.getPattern() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, in.getPattern());
+            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, TalendQuoteUtils.addQuotesIfNotExist(in.getPattern()));
         }
         if (in.getLength() >= 0) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH, String.valueOf((int) in.getLength()));
@@ -340,7 +341,7 @@ public final class MetadataToolAvroHelper {
             String prop = null;
             if (null != (prop = nonnullable.getProp(SchemaConstants.TALEND_COLUMN_PATTERN))) {
                 col.setTalendType(JavaTypesManager.DATE.getId());
-                col.setPattern(prop);
+                col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
             } else {
                 col.setTalendType(JavaTypesManager.LONG.getId());
             }
@@ -395,7 +396,7 @@ public final class MetadataToolAvroHelper {
             col.setTalendType(prop);
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
-            col.setPattern(prop);
+            col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
