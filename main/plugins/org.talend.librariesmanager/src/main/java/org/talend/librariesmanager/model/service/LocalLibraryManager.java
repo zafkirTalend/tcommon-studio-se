@@ -357,7 +357,11 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
                 for (String uri : toResolve) {
                     if (isResolveAllowed(uri)) {
-                        jarFile = resolveJar(manager, customNexusServer, uri);
+                        File resolvedJar = resolveJar(manager, customNexusServer, uri);
+                        if (resolvedJar != null) {
+                            jarFile = resolvedJar;
+                            break;
+                        }
                     }
                 }
             }

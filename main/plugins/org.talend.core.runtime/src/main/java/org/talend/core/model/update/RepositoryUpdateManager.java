@@ -93,6 +93,7 @@ import org.talend.core.service.IMRProcessService;
 import org.talend.core.service.IMetadataManagmentService;
 import org.talend.core.service.IStormProcessService;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -1642,6 +1643,11 @@ public abstract class RepositoryUpdateManager {
 
     public static boolean updateMultiSchema(ConnectionItem connItem, List<IMetadataTable> oldMetadataTable,
             Map<String, String> oldTableMap) {
+        return updateMultiSchema(connItem, oldMetadataTable, oldTableMap, null);
+    }
+
+    public static boolean updateMultiSchema(ConnectionItem connItem, List<IMetadataTable> oldMetadataTable,
+            Map<String, String> oldTableMap, String bwTableType) {
         if (connItem == null) {
             return false;
         }
@@ -1653,8 +1659,8 @@ public abstract class RepositoryUpdateManager {
 
         if (!update) {
             if (oldMetadataTable != null) {
-                List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connItem
-                        .getConnection());
+                List<IMetadataTable> newMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(
+                        connItem.getConnection(), bwTableType);
                 update = !RepositoryUpdateManager.sameAsMetadatTable(newMetadataTable, oldMetadataTable, oldTableMap);
                 isAddColumn = isAddColumn(newMetadataTable, oldMetadataTable);
             }
@@ -1665,9 +1671,14 @@ public abstract class RepositoryUpdateManager {
 
             List<IMetadataTable> newMetadataTable = new ArrayList<IMetadataTable>();
             if (coreService != null
-                    && ((connection instanceof DatabaseConnection) || (connection instanceof GenericSchemaConnection))) {
-                Set<org.talend.core.model.metadata.builder.connection.MetadataTable> newTables = ConnectionHelper
-                        .getTables(connection);
+                    && ((connection instanceof DatabaseConnection) || (connection instanceof GenericSchemaConnection))
+                    || (connection instanceof SAPConnection)) {
+                Set<org.talend.core.model.metadata.builder.connection.MetadataTable> newTables = null;
+                if (bwTableType == null) {
+                    newTables = ConnectionHelper.getTables(connection);
+                } else {
+                    newTables = SAPBWTableHelper.getBWTables(connection, bwTableType);
+                }
                 if (newTables != null) {
                     for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : newTables) {
                         IMetadataTable conversionTable = coreService.convert(originalTable);
@@ -1783,6 +1794,15 @@ public abstract class RepositoryUpdateManager {
                 String tableId = newTable.getId();
                 if (tableLabel.equals(oldtableLabel)) {
                     isDeleted = false;
+                    String newInnerIOType = newTable.getAdditionalProperties().get(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE);
+                    String oldInnerIOType = oldTable.getAdditionalProperties().get(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE);
+                    if (newInnerIOType != null) {
+                        if (newInnerIOType.equals(oldInnerIOType) && !tableId.equals(oldtableId)) {
+                            prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
+                            deletedOrReselectTables.put(prefix + tableLabel, EUpdateResult.RELOAD);
+                        }
+                        continue;
+                    }
                     /* if table name is same but tableId is not same,means table has been deselect and reselect */
                     if (!tableId.equals(oldtableId)) {
                         prefix = connItem.getProperty().getId() + UpdatesConstants.SEGMENT_LINE;
@@ -2197,14 +2217,22 @@ public abstract class RepositoryUpdateManager {
         return repositoryUpdateManager.doWork();
     }
 
-    @SuppressWarnings("unchecked")
     public static List<IMetadataTable> getConversionMetadataTables(Connection conn) {
+        return getConversionMetadataTables(conn, null);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<IMetadataTable> getConversionMetadataTables(Connection conn, String bwTableType) {
         if (conn == null) {
             return Collections.emptyList();
         }
         List<IMetadataTable> tables = new ArrayList<IMetadataTable>();
-
-        Set tables2 = ConnectionHelper.getTables(conn);
+        Set tables2 = null;
+        if (bwTableType != null) {
+            tables2 = SAPBWTableHelper.getBWTables(conn, bwTableType);
+        } else {
+            tables2 = ConnectionHelper.getTables(conn);
+        }
         if (tables2 != null) {
             for (org.talend.core.model.metadata.builder.connection.MetadataTable originalTable : (Set<org.talend.core.model.metadata.builder.connection.MetadataTable>) tables2) {
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentService.class)) {

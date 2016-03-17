@@ -27,8 +27,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.SAPBWTable;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.repository.ui.view.RepositoryLabelProvider;
+import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -189,12 +194,29 @@ public class RepositoryViewLabelProvider extends AbstractRepoViewLabelProvider {
 
     @Override
     public String getText(Object element) {
-        if (element instanceof RepositoryNode) {// Only handle repository
-                                                // node
-            return repoLabelProv.getText(element);
-        } else {
-            return ""; //$NON-NLS-1$
+        String text = ""; //$NON-NLS-1$
+        if (element instanceof RepositoryNode) {// Only handle repository node
+                 IRepositoryViewObject object = ((RepositoryNode) element).getObject(); 
+                 if (object instanceof MetadataTableRepositoryObject) {
+                     MetadataTable table = ((MetadataTableRepositoryObject)object).getTable();
+                     if (table instanceof SAPBWTable) {
+                         SAPBWTable bwTable = (SAPBWTable)table;
+                         if (SAPBWTableHelper.TYPE_INFOOBJECT.equals(bwTable.getModelType())) {
+                             String innerType = bwTable.getInnerIOType();
+                             if (innerType !=null && !innerType.equals(SAPBWTableHelper.IO_INNERTYPE_BASIC)) { //$NON-NLS-1$
+                                 text = bwTable.getLabel() + " (" + innerType +")"; //$NON-NLS-1$ //$NON-NLS-2$
+                             }
+                         } else {
+                             text = repoLabelProv.getText(element);
+                         }
+                     } else {
+                         text = repoLabelProv.getText(element);
+                     }
+                 } else {
+                     text = repoLabelProv.getText(element);
+                 }
         }
+        return text;
     }
 
     @Override

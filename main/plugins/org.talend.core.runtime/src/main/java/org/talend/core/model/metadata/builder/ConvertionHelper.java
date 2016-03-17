@@ -40,9 +40,11 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.MDMConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.SAPBWTable;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.model.bridge.ReponsitoryContextBridge;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
@@ -337,6 +339,12 @@ public final class ConvertionHelper {
         result.setId(old.getId());
         result.setLabel(old.getLabel());
         result.setTableType(old.getTableType());
+        if (old instanceof SAPBWTable) {
+            String innerType = ((SAPBWTable)old).getInnerIOType();
+            if (innerType != null) {
+                result.getAdditionalProperties().put(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE, innerType);
+            }
+        }
         String sourceName = old.getName();
         if (sourceName == null) {
             sourceName = old.getLabel();
