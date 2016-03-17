@@ -9,6 +9,7 @@
 			<dbType type="INT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="TINYINT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="STRING" ignoreLen="true" ignorePre="true"/>
+			<dbType type="DECIMAL" ignoreLen="false" ignorePre="false"/>
 			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true"/>
 			<dbType type="STRUCT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="MAP" ignoreLen="true" ignorePre="true"/>
@@ -36,7 +37,8 @@
 				    <dbType type="TIMESTAMP" default="true"/>
 				</talendType>
 				<talendType type="id_BigDecimal">
-					<dbType type="BIGINT" default="true"/>
+				    <dbType type="DECIMAL" default="true"/>
+					<dbType type="BIGINT"/>
 					<dbType type="FLOAT"/>
 					<dbType type="DOUBLE"/>
 				</talendType>
@@ -80,6 +82,9 @@
 					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Float"/>
 				</dbType>
+                <dbType type="DECIMAL">
+                    <talendType type="id_BigDecimal" default="true"/>
+                </dbType>
 				<dbType type="BIGINT">
 					<talendType type="id_BigDecimal" default="true"/>
 					<talendType type="id_Byte"/>
