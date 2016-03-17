@@ -46,23 +46,13 @@ public class ArtifactsDeployer {
 
     private static final String SLASH = "/";//$NON-NLS-1$ 
 
+    private boolean remoteNexusChecked = false;
+
     private NexusServerBean nexusServer;
 
     private String repositoryUrl;
 
     public ArtifactsDeployer() {
-        init();
-    }
-
-    private void init() {
-        nexusServer = TalendLibsServerManager.getInstance().getCustomNexusServer();
-        if (nexusServer != null) {
-            String server = nexusServer.getServer();
-            if (server.endsWith(NexusConstants.SLASH)) {
-                server = server.substring(0, server.length() - 1);
-            }
-            repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId() + NexusConstants.SLASH;
-        }
     }
 
     /**
@@ -77,13 +67,12 @@ public class ArtifactsDeployer {
             deployToLocalMaven(jarSourceAndMavenUri.get(mavenUri), mavenUri);
         }
     }
-    
+
     public void deployToLocalMaven(Map<String, String> jarSourceAndMavenUri, boolean updateRemoteJar) throws Exception {
         for (String mavenUri : jarSourceAndMavenUri.keySet()) {
             deployToLocalMaven(jarSourceAndMavenUri.get(mavenUri), mavenUri, updateRemoteJar);
         }
     }
-
 
     public void deployToLocalMaven(String path, String mavenUri, boolean toRemoteNexus) throws Exception {
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mavenUri);
@@ -107,6 +96,9 @@ public class ArtifactsDeployer {
             }
 
             // deploy to nexus server if it is not null and not official server
+            if (toRemoteNexus) {
+                initCustomNexus();
+            }
             if (toRemoteNexus && nexusServer != null && !nexusServer.isOfficial()) {
                 // repositoryManager.deploy(new File(path), parseMvnUrl);
                 installToRemote(new File(path), parseMvnUrl, artifactType);
@@ -180,6 +172,20 @@ public class ArtifactsDeployer {
         }
     }
 
+    private void initCustomNexus() {
+        if (!remoteNexusChecked) {
+            remoteNexusChecked = true;
+            nexusServer = TalendLibsServerManager.getInstance().getCustomNexusServer();
+            if (nexusServer != null) {
+                String server = nexusServer.getServer();
+                if (server.endsWith(NexusConstants.SLASH)) {
+                    server = server.substring(0, server.length() - 1);
+                }
+                repositoryUrl = server + NexusConstants.CONTENT_REPOSITORIES + nexusServer.getRepositoryId()
+                        + NexusConstants.SLASH;
+            }
+        }
+    }
 
     // private void install(String path, MavenArtifact artifact) {
     // StringBuffer command = new StringBuffer();
