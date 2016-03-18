@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -171,6 +172,11 @@ public class RecycleBinManager {
         }
     }
 
+    public RecycleBin getRecycleBin(Project project) {
+        loadRecycleBin(project);
+        return projectRecyclebins.get(project.getTechnicalLabel());
+    }
+
     private void loadRecycleBin(Project project) {
         if (projectRecyclebins.get(project.getTechnicalLabel()) != null) {
             // already loaded, nothing to do. Don't do any force reload
@@ -191,6 +197,14 @@ public class RecycleBinManager {
             // if there is any exception, just set a new resource
             projectRecyclebins.put(project.getTechnicalLabel(), RecycleBinFactory.eINSTANCE.createRecycleBin());
         }
+    }
+
+    public RecycleBin loadRecycleBin(IPath recycleBinIndexPath) {
+        return loadRecycleBin(createRecycleBinResource(recycleBinIndexPath));
+    }
+
+    public RecycleBin loadRecycleBin(Resource resource) {
+        return (RecycleBin) EcoreUtil.getObjectByType(resource.getContents(), RecycleBinPackage.eINSTANCE.getRecycleBin());
     }
 
     public void saveRecycleBin(Project project) {
@@ -226,7 +240,12 @@ public class RecycleBinManager {
 
     private Resource createRecycleBinResource(Project project) {
         IProject eclipseProject = ProjectManager.getInstance().getResourceProject(project.getEmfProject());
-        URI uri = URIHelper.convert(eclipseProject.getFullPath().append(TALEND_RECYCLE_BIN_INDEX));
+
+        return createRecycleBinResource(eclipseProject.getFullPath().append(TALEND_RECYCLE_BIN_INDEX));
+    }
+
+    public Resource createRecycleBinResource(IPath recycleBinIndexPath) {
+        URI uri = URIHelper.convert(recycleBinIndexPath);
 
         XMLResourceFactoryImpl resourceFact = new XMLResourceFactoryImpl();
         XMLResource resource = (XMLResource) resourceFact.createResource(uri);
@@ -241,5 +260,4 @@ public class RecycleBinManager {
         resource.getDefaultLoadOptions().put(XMLResource.OPTION_USE_LEXICAL_HANDLER, Boolean.TRUE);
         return resource;
     }
-
 }
