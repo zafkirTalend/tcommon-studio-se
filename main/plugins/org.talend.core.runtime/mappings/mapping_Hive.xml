@@ -15,6 +15,7 @@
 			<dbType type="MAP" ignoreLen="true" ignorePre="true"/>
 			<dbType type="ARRAY" ignoreLen="true" ignorePre="true"/>
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 		
 		<language name="java">
@@ -35,6 +36,7 @@
 				</talendType>
 				<talendType type="id_Date">
 				    <dbType type="TIMESTAMP" default="true"/>
+				    <dbType type="DATE"/>
 				</talendType>
 				<talendType type="id_BigDecimal">
 				    <dbType type="DECIMAL" default="true"/>
@@ -116,7 +118,10 @@
 				<dbType type="ARRAY">
 					<talendType type="id_Object" default="true"/>
 				</dbType>
-				<dbType type="TIMESTAMP">
+                <dbType type="TIMESTAMP">
+                    <talendType type="id_Date" default="true"/>
+                </dbType>
+                <dbType type="DATE">
                     <talendType type="id_Date" default="true"/>
                 </dbType>
 			</dbToTalendTypes>
