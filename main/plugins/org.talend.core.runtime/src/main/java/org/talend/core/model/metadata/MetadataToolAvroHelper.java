@@ -13,7 +13,9 @@
 package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.avro.LogicalTypes;
 import org.apache.avro.LogicalTypes.Decimal;
@@ -48,10 +50,31 @@ public final class MetadataToolAvroHelper {
         copyTableProperties(builder, in);
 
         FieldAssembler<Schema> fa = builder.fields();
+        int dynamicPosition = -1;
+        org.talend.core.model.metadata.builder.connection.MetadataColumn dynColumn = null;
+        int i = 0;
         for (org.talend.core.model.metadata.builder.connection.MetadataColumn column : in.getColumns()) {
-            fa = convertToAvro(fa, column);
+            if ("id_Dynamic".equals(column.getTalendType())) { //$NON-NLS-1$
+                dynamicPosition = i;
+                dynColumn = column;
+            } else {
+                fa = convertToAvro(fa, column);
+            }
+            i++;
         }
-        return fa.endRecord();
+
+        Schema schema = fa.endRecord();
+
+        if (dynColumn != null) {
+            // store all the dynamic column's properties
+            schema = copyDynamicColumnProperties(schema, dynColumn);
+            // store dynamic position
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_POSITION,
+                    String.valueOf(dynamicPosition));
+            // tag avro schema with include-all-columns
+            schema = AvroUtils.setIncludeAllFields(schema, true);
+        }
+        return schema;
     }
 
     /**
@@ -101,7 +124,7 @@ public final class MetadataToolAvroHelper {
             org.talend.core.model.metadata.builder.connection.MetadataColumn in) {
         FieldBuilder<Schema> fb = fa.name(in.getLabel());
         copyColumnProperties(fb, in);
-        BaseFieldTypeBuilder<Schema> ftb = in.isNullable() ? fb.type() : fb.type().nullable();
+        BaseFieldTypeBuilder<Schema> ftb = in.isNullable() ? fb.type().nullable() : fb.type();
 
         String defaultValue = null;
         Expression initialValue = in.getInitialValue();
@@ -137,7 +160,7 @@ public final class MetadataToolAvroHelper {
             // decimal(precision, scale) == column length and precision?
             Decimal d = LogicalTypes.decimal((int) in.getLength(), (int) in.getPrecision());
             Schema bigdecimal = d.addToSchema(Schema.create(Schema.Type.BYTES));
-            return fb.type(bigdecimal).withDefault(defaultValue);
+            return defaultValue == null ? fb.type(bigdecimal).noDefault() : fb.type(bigdecimal).withDefault(defaultValue);
         }
 
         // Other primitive types that map directly to Avro.
@@ -165,17 +188,87 @@ public final class MetadataToolAvroHelper {
         }
 
         // Types with unknown elements, store as binary
-        if (JavaTypesManager.OBJECT.getId().equals(tt) || JavaTypesManager.DYNAMIC.getId().equals(tt)) {
+        if (JavaTypesManager.OBJECT.getId().equals(tt)) {
             return defaultValue == null //
             ? ftb.bytesType().noDefault()
                     : ftb.bytesType().bytesDefault(defaultValue);
         }
+
         if (JavaTypesManager.LIST.getId().equals(tt)) {
             return ftb.array().items().bytesType().noDefault();
         }
 
         // Can this occur?
         throw new UnsupportedOperationException("Unrecognized type " + tt); //$NON-NLS-1$
+    }
+
+    private static Schema copyDynamicColumnProperties(Schema schema,
+            org.talend.core.model.metadata.builder.connection.MetadataColumn in) {
+        Map<String, String> props = new HashMap<String, String>();
+        if (in.getId() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_ID, in.getId());
+        }
+        if (in.getComment() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_COMMENT, in.getComment());
+        }
+        if (in.getLabel() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_NAME, in.getLabel());
+        }
+        if (in.isReadOnly()) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_DYNAMIC_IS_READ_ONLY, "true"); //$NON-NLS-1$
+        }
+        for (TaggedValue tv : in.getTaggedValue()) {
+            String additionalTag = tv.getTag();
+            if (tv.getValue() != null) {
+                schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_DYNAMIC_ADDITIONAL_PROPERTIES
+                        + additionalTag, tv.getValue());
+            }
+        }
+
+        // Column-specific properties.
+        if (in.isKey()) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY, "true"); //$NON-NLS-1$
+        }
+        if (in.getType() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_SOURCE_TYPE, in.getSourceType());
+        }
+        if (in.getTalendType() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
+        }
+        if (in.getPattern() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_PATTERN,
+                    TalendQuoteUtils.addQuotesIfNotExist(in.getPattern()));
+        }
+        if (in.getLength() >= 0) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_LENGTH,
+                    String.valueOf((int) in.getLength()));
+        }
+        if (in.getOriginalLength() >= 0) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH,
+                    String.valueOf(in.getOriginalLength()));
+        }
+        if (in.isNullable()) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE, "true"); //$NON-NLS-1$
+        }
+        if (in.getPrecision() >= 0) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_PRECISION,
+                    String.valueOf(in.getPrecision()));
+        }
+        if (in.getInitialValue() != null && in.getInitialValue().getBody() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getInitialValue().getBody());
+        }
+        if (in.getName() != null) {
+            // keyword fixes?
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME, in.getName());
+        }
+        if (in.getRelatedEntity() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_RELATED_ENTITY, in.getRelatedEntity());
+        }
+        if (in.getRelationshipType() != null) {
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE,
+                    in.getRelationshipType());
+        }
+        return schema;
     }
 
     /**
@@ -299,8 +392,84 @@ public final class MetadataToolAvroHelper {
         for (Schema.Field f : in.getFields()) {
             columns.add(convertFromAvro(f));
         }
+        boolean isDynamic = AvroUtils.isIncludeAllFields(in);
+        if (isDynamic) {
+            org.talend.core.model.metadata.builder.connection.MetadataColumn col = convertFromAvroForDynamic(in);
+            // get dynamic position
+            int dynPosition = Integer.valueOf(in.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_POSITION));
+            columns.add(dynPosition, col);
+        }
         table.getColumns().addAll(columns);
         return table;
+    }
+
+    public static org.talend.core.model.metadata.builder.connection.MetadataColumn convertFromAvroForDynamic(Schema schema) {
+        org.talend.core.model.metadata.builder.connection.MetadataColumn col = ConnectionFactory.eINSTANCE.createMetadataColumn();
+        String prop;
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_ID))) {
+            col.setId(prop);
+        }
+
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_COMMENT))) {
+            col.setComment(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_NAME))) {
+            col.setLabel(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_IS_READ_ONLY))) {
+            col.setReadOnly(Boolean.parseBoolean(prop));
+        }
+        for (String key : schema.getJsonProps().keySet()) {
+            if (key.startsWith(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES)) {
+                String originalKey = key.substring(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES.length());
+                TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, schema.getProp(key));
+                col.getTaggedValue().add(tv);
+            }
+        }
+
+        // Column-specific properties.
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY))) {
+            col.setKey(Boolean.parseBoolean(prop));
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SOURCE_TYPE))) {
+            col.setSourceType(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE))) {
+            col.setTalendType(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
+            col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
+            Long value = Long.parseLong(prop);
+            col.setLength(value > 0 ? value : -1);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
+            Long value = Long.parseLong(prop);
+            col.setOriginalLength(value > 0 ? value : -1);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE))) {
+            col.setNullable(Boolean.parseBoolean(prop));
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
+            Long value = Long.parseLong(prop);
+            col.setPrecision(value > 0 ? value : -1);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
+            col.setDefaultValue(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME))) {
+            col.setName(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATED_ENTITY))) {
+            col.setRelatedEntity(prop);
+        }
+        if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE))) {
+            col.setRelationshipType(prop);
+        }
+
+        col.setTalendType("id_Dynamic"); //$NON-NLS-1$
+        return col;
     }
 
     /**
