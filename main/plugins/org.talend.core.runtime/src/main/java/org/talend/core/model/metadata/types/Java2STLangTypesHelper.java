@@ -78,22 +78,17 @@ public class Java2STLangTypesHelper {
 
         String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
         // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
-        if (typeToGenerate.equalsIgnoreCase("int") || typeToGenerate.equalsIgnoreCase("short") || typeToGenerate.equalsIgnoreCase("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             return "int"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("long")) { //$NON-NLS-1$
+        } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
             return "long"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("BigDecimal")) { //$NON-NLS-1$
-            return "bigdecimal"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("double")) { //$NON-NLS-1$
+        } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$
             return "double"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("float")) { //$NON-NLS-1$ 
+        }
+
+        // Floats: float(Float)
+        if (typeToGenerate.equals("float")) { //$NON-NLS-1$ 
             return "float"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("boolean")) { //$NON-NLS-1$ 
-            return "boolean"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("byte[]")) { //$NON-NLS-1$ 
-            return "bytearray"; //$NON-NLS-1$
-        } else if (typeToGenerate.equalsIgnoreCase("java.util.Date")) { //$NON-NLS-1$ 
-            return "datetime"; //$NON-NLS-1$
         }
 
         // others treat as string
