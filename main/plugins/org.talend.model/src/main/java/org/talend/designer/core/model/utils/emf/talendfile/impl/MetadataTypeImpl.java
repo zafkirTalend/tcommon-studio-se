@@ -10,11 +10,14 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
@@ -32,6 +35,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -168,6 +172,16 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
      * @ordered
      */
     protected String type = TYPE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getAdditionalProperties() <em>Additional Properties</em>}' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalProperties()
+     * @generated
+     * @ordered
+     */
+    protected EMap additionalProperties;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -313,6 +327,18 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EMap getAdditionalProperties() {
+        if (additionalProperties == null) {
+            additionalProperties = new EcoreEMap(TalendFilePackage.Literals.ADDITIONAL_FIELD_MAP, AdditionalFieldMapImpl.class, this, TalendFilePackage.METADATA_TYPE__ADDITIONAL_PROPERTIES);
+        }
+        return additionalProperties;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -320,6 +346,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
         switch (featureID) {
             case TalendFilePackage.METADATA_TYPE__COLUMN:
                 return ((InternalEList)getColumn()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.METADATA_TYPE__ADDITIONAL_PROPERTIES:
+                return ((InternalEList)getAdditionalProperties()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -344,6 +372,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return getSource();
             case TalendFilePackage.METADATA_TYPE__TYPE:
                 return getType();
+            case TalendFilePackage.METADATA_TYPE__ADDITIONAL_PROPERTIES:
+                if (coreType) return getAdditionalProperties();
+                else return getAdditionalProperties().map();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -376,6 +407,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
             case TalendFilePackage.METADATA_TYPE__TYPE:
                 setType((String)newValue);
                 return;
+            case TalendFilePackage.METADATA_TYPE__ADDITIONAL_PROPERTIES:
+                ((EStructuralFeature.Setting)getAdditionalProperties()).set(newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -407,6 +441,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
             case TalendFilePackage.METADATA_TYPE__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case TalendFilePackage.METADATA_TYPE__ADDITIONAL_PROPERTIES:
+                getAdditionalProperties().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -431,6 +468,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
             case TalendFilePackage.METADATA_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+            case TalendFilePackage.METADATA_TYPE__ADDITIONAL_PROPERTIES:
+                return additionalProperties != null && !additionalProperties.isEmpty();
         }
         return super.eIsSet(featureID);
     }

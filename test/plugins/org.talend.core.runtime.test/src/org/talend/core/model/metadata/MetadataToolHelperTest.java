@@ -43,6 +43,8 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
+import org.talend.cwm.helper.SAPBWTableHelper;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
@@ -538,5 +540,20 @@ public class MetadataToolHelperTest {
         id = sapItem.getProperty().getId();
         unit = MetadataToolHelper.getSAPFunctionFromRepository(id);
         assertNull(unit);
+    }
+
+    /**
+     * Test method for
+     * {@link org.talend.core.model.metadata.MetadataToolHelper#copyTable(org.talend.core.model.metadata.IMetadataTable source, org.talend.core.model.metadata.IMetadataTable target)}
+     * 
+     */
+    @Test
+    public void testCopyMetadataTable() {
+        IMetadataTable source = new org.talend.core.model.metadata.MetadataTable();
+        IMetadataTable target = new org.talend.core.model.metadata.MetadataTable();
+        source.getAdditionalProperties().put(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE, SAPBWTableHelper.IO_INNERTYPE_HIERARCHY);
+        MetadataToolHelper.copyTable(source, target);
+        String innerType = target.getAdditionalProperties().get(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE);
+        assertEquals(SAPBWTableHelper.IO_INNERTYPE_HIERARCHY, innerType);
     }
 }
