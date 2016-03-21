@@ -994,6 +994,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getMetadataType_AdditionalProperties() {
+        return (EReference)metadataTypeEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1686,6 +1695,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(metadataTypeEClass, METADATA_TYPE__NAME);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__SOURCE);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__TYPE);
+        createEReference(metadataTypeEClass, METADATA_TYPE__ADDITIONAL_PROPERTIES);
 
         nodeTypeEClass = createEClass(NODE_TYPE);
         createEReference(nodeTypeEClass, NODE_TYPE__ELEMENT_PARAMETER);
@@ -1899,6 +1909,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getMetadataType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Source(), theXMLTypePackage.getString(), "source", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Type(), ecorePackage.getEString(), "type", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMetadataType_AdditionalProperties(), this.getAdditionalFieldMap(), null, "additionalProperties", null, 0, -1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(nodeTypeEClass, NodeType.class, "NodeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNodeType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

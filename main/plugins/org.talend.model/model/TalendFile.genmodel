@@ -108,6 +108,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/source"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//MetadataType/additionalProperties"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//NodeType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//NodeType/elementParameter"/>

@@ -1001,13 +1001,22 @@ public interface TalendFilePackage extends EPackage {
     int METADATA_TYPE__TYPE = 6;
 
     /**
+     * The feature id for the '<em><b>Additional Properties</b></em>' map.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TYPE__ADDITIONAL_PROPERTIES = 7;
+
+    /**
      * The number of structural features of the '<em>Metadata Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TYPE_FEATURE_COUNT = 7;
+    int METADATA_TYPE_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl <em>Node Type</em>}' class.
@@ -2744,6 +2753,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getMetadataType_Type();
 
     /**
+     * Returns the meta object for the map '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getAdditionalProperties <em>Additional Properties</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the map '<em>Additional Properties</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getAdditionalProperties()
+     * @see #getMetadataType()
+     * @generated
+     */
+    EReference getMetadataType_AdditionalProperties();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType <em>Node Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4269,6 +4289,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_TYPE__TYPE = eINSTANCE.getMetadataType_Type();
+
+        /**
+         * The meta object literal for the '<em><b>Additional Properties</b></em>' map feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference METADATA_TYPE__ADDITIONAL_PROPERTIES = eINSTANCE.getMetadataType_AdditionalProperties();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl <em>Node Type</em>}' class.

@@ -12,13 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.avro.Schema;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -46,7 +43,8 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
-import org.talend.daikon.talend6.Talend6SchemaConstants;
+import org.talend.cwm.helper.SAPBWTableHelper;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import orgomg.cwm.resource.record.RecordFactory;
 import orgomg.cwm.resource.record.RecordFile;
@@ -545,72 +543,17 @@ public class MetadataToolHelperTest {
     }
 
     /**
-     * Unit tests for {@link org.talend.core.model.metadata.MetadataToolHelper#convertToAvro(IMetadataTable)}
+     * Test method for
+     * {@link org.talend.core.model.metadata.MetadataToolHelper#copyTable(org.talend.core.model.metadata.IMetadataTable source, org.talend.core.model.metadata.IMetadataTable target)}
      * 
-     * Test a simple MetadataTable.
      */
     @Test
-    public void testConvertToAvro_Basic() {
-        // Setup with a test table.
-        MetadataTable table = ConnectionFactory.eINSTANCE.createMetadataTable();
-        table.setLabel("testTable");
-        table.setComment("A comment about this table.");
-        ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn> columns = new ArrayList<>();
-        {
-            org.talend.core.model.metadata.builder.connection.MetadataColumn column = ConnectionFactory.eINSTANCE
-                    .createMetadataColumn();
-            column.setLabel("id");
-            column.setTalendType(JavaTypesManager.INTEGER.getId());
-            columns.add(column);
-        }
-        {
-            org.talend.core.model.metadata.builder.connection.MetadataColumn column = ConnectionFactory.eINSTANCE
-                    .createMetadataColumn();
-            column.setLabel("name");
-            column.setTalendType(JavaTypesManager.STRING.getId());
-            columns.add(column);
-        }
-        {
-            org.talend.core.model.metadata.builder.connection.MetadataColumn column = ConnectionFactory.eINSTANCE
-                    .createMetadataColumn();
-            column.setLabel("valid");
-            column.setTalendType(JavaTypesManager.BOOLEAN.getId());
-            columns.add(column);
-        }
-        table.getColumns().addAll(columns);
-
-        Schema s = MetadataToolHelper.convertToAvro(table);
-
-        assertThat(s.getType(), is(Schema.Type.RECORD));
-        assertThat(s.getName(), is("testTable"));
-        assertThat(s.getFields(), hasSize(3));
-        //assertThat(s.getObjectProps().keySet(),
-        //        contains(Talend6SchemaConstants.TALEND6_LABEL, Talend6SchemaConstants.TALEND6_COMMENT));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("testTable"));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_COMMENT), is("A comment about this table."));
-
-        Schema.Field f = s.getFields().get(0);
-        assertThat(f.schema().getType(), is(Schema.Type.INT));
-        assertThat(s.getName(), is("id"));
-        //assertThat(s.getObjectProps().keySet(),
-        //        contains(Talend6SchemaConstants.TALEND6_LABEL, Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("id"));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_Integer"));
-
-        f = s.getFields().get(1);
-        assertThat(f.schema().getType(), is(Schema.Type.STRING));
-        assertThat(s.getName(), is("name"));
-        //assertThat(s.getObjectProps().keySet(),
-        //        contains(Talend6SchemaConstants.TALEND6_LABEL, Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("name"));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_String"));
-
-        f = s.getFields().get(2);
-        assertThat(f.schema().getType(), is(Schema.Type.BOOLEAN));
-        assertThat(s.getName(), is("valid"));
-        //assertThat(s.getObjectProps().keySet(),
-        //        contains(Talend6SchemaConstants.TALEND6_LABEL, Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("id"));
-        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_Boolean"));
+    public void testCopyMetadataTable() {
+        IMetadataTable source = new org.talend.core.model.metadata.MetadataTable();
+        IMetadataTable target = new org.talend.core.model.metadata.MetadataTable();
+        source.getAdditionalProperties().put(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE, SAPBWTableHelper.IO_INNERTYPE_HIERARCHY);
+        MetadataToolHelper.copyTable(source, target);
+        String innerType = target.getAdditionalProperties().get(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE);
+        assertEquals(SAPBWTableHelper.IO_INNERTYPE_HIERARCHY, innerType);
     }
 }
