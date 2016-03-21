@@ -199,8 +199,10 @@ public class RecycleBinManager {
         }
     }
 
-    public RecycleBin loadRecycleBin(IPath recycleBinIndexPath) {
-        return loadRecycleBin(createRecycleBinResource(recycleBinIndexPath));
+    public RecycleBin loadRecycleBin(IPath recycleBinIndexPath) throws Exception {
+        Resource resource = createRecycleBinResource(recycleBinIndexPath);
+        resource.load(null);
+        return loadRecycleBin(resource);
     }
 
     public RecycleBin loadRecycleBin(Resource resource) {
