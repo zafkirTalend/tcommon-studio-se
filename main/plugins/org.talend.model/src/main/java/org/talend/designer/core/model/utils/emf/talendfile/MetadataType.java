@@ -7,6 +7,7 @@
 package org.talend.designer.core.model.utils.emf.talendfile;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getSource <em>Source</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getAdditionalProperties <em>Additional Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -209,5 +211,22 @@ public interface MetadataType extends EObject {
      * @generated
      */
     void setType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Additional Properties</b></em>' map.
+     * The key is of type {@link java.lang.String},
+     * and the value is of type {@link java.lang.String},
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additional Properties</em>' map isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additional Properties</em>' map.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_AdditionalProperties()
+     * @model mapType="org.talend.designer.core.model.utils.emf.talendfile.AdditionalFieldMap" keyType="java.lang.String" valueType="java.lang.String"
+     * @generated
+     */
+    EMap getAdditionalProperties();
 
 } // MetadataType
