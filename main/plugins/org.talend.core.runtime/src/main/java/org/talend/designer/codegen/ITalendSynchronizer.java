@@ -43,6 +43,8 @@ public interface ITalendSynchronizer {
 
     void syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 
+    void syncRoutine(RoutineItem routineItem, boolean copyToTemp, boolean forceToUpdate) throws SystemException;
+
     IFile getFile(Item item) throws SystemException;
 
     IFile getRoutinesFile(Item routineItem) throws SystemException;

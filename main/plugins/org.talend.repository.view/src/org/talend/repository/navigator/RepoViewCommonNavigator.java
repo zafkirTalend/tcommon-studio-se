@@ -40,6 +40,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -334,6 +335,17 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
         super.createPartControl(parent);
 
         viewer = getCommonViewer();
+
+        if (service != null && service.isGIT())
+            viewer.getTree().addListener(SWT.Resize, new Listener() {
+
+                @Override
+                public void handleEvent(Event event) {
+                    Point point = parent.getSize();
+                    viewer.getTree().setSize(point.x - 7, point.y - 40);
+                }
+            });
+
         if (viewer instanceof ITreeViewerListener) {
             viewer.addTreeListener((ITreeViewerListener) viewer);
         }
