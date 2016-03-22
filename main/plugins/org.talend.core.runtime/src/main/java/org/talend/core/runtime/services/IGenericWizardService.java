@@ -16,7 +16,9 @@ import java.util.List;
 
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.components.api.properties.ComponentProperties;
 import org.talend.core.IService;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.EComponentCategory;
@@ -93,4 +95,21 @@ public interface IGenericWizardService extends IService {
      */
     public Composite creatDynamicComposite(Composite composite, Element element, EComponentCategory sectionCategory,
             boolean isCompactView);
+
+    /**
+     * Update component schema for metadata table of repository.
+     * 
+     * @param metadataTable
+     */
+    public void updateComponentSchema(MetadataTable metadataTable);
+
+    /**
+     * Update component schema for node metadata table of node.
+     * 
+     * @param componentProperties
+     * @param schemaPropertyName
+     * @param metadataTable
+     */
+    public void updateComponentSchema(ComponentProperties componentProperties, String schemaPropertyName,
+            IMetadataTable metadataTable);
 }

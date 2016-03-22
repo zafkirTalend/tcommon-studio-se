@@ -24,4 +24,9 @@ public interface IComponentConstants {
     public static final String JOBLET_NAME_CHANGED = "joblet name changed"; //$NON-NLS-1$
 
     public static final String JOBLET_SCHEMA_CHANGED = "joblet schema changed"; //$NON-NLS-1$
+
+    public static final String COMPONENT_PROPERTIES_TAG = "component.json.serialized"; //$NON-NLS-1$
+
+    public static final String COMPONENT_SCHEMA_TAG = "component.property.schema"; //$NON-NLS-1$
+
 }
