@@ -112,4 +112,7 @@ public interface IGenericWizardService extends IService {
      */
     public void updateComponentSchema(ComponentProperties componentProperties, String schemaPropertyName,
             IMetadataTable metadataTable);
+
+    public List<ComponentProperties> getAllComponentProperties(Connection connection);
+
 }
