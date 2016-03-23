@@ -33,7 +33,6 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.hadoop.IHadoopDistributionService;
-import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
@@ -43,6 +42,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.hd.IHDConstants;
+import org.talend.core.runtime.hd.IHDistributionVersion;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.core.convert.IProcessConvertService;
 import org.talend.designer.core.convert.IProcessConvertToAllTypeService;
@@ -317,8 +318,8 @@ public class ConvertJobsUtil {
         ERepositoryObjectType oldRepType = (oldJobType == null ? null : oldJobType.getERepositoryObjectType());
         ERepositoryObjectType newRepType = (newJobType == null ? null : newJobType.getERepositoryObjectType());
 
-        boolean isNeedConvert = ProcessConvertManager.getInstance().CheckConvertProcess(oldRepType, oldFrameworkValue, newRepType,
-                newFrameworkValue);
+        boolean isNeedConvert = ProcessConvertManager.getInstance().CheckConvertProcess(oldRepType, oldFrameworkValue,
+                newRepType, newFrameworkValue);
 
         // if need popup warning, then do this check
         if (isNeedConvert && needPopupWarning) {
@@ -327,29 +328,29 @@ public class ConvertJobsUtil {
                 boolean isSparkStreaming = SPARKSTREAMING_FRAMEWORK.equals(newFrameworkValue);
                 if (isSpark || isSparkStreaming) {
                     try {
-                        IProcessConvertService converter = ProcessConvertManager.getInstance()
-                                .extractConvertService(ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
+                        IProcessConvertService converter = ProcessConvertManager.getInstance().extractConvertService(
+                                ProcessConverterType.CONVERTER_FOR_MAPREDUCE);
 
                         IProcess process = converter.getProcessFromItem(originalItem, false);
                         IElementParameter mrVersion = process.getElementParameter(MR_VERSION);
-                        if (mrVersion != null) {
-                            EHadoopVersion4Drivers hadoopVersion = EHadoopVersion4Drivers
-                                    .indexOfByVersion((String) mrVersion.getValue());
-                            if (hadoopVersion != null) {
-                                if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-                                    IHadoopDistributionService hadoopService = (IHadoopDistributionService) GlobalServiceRegister
-                                            .getDefault().getService(IHadoopDistributionService.class);
-                                    boolean isSupport = false;
-                                    if (isSpark) {
-                                        isSupport = hadoopService.isSupportSpark(hadoopVersion);
-                                    } else if (isSparkStreaming) {
-                                        isSupport = hadoopService.isSupportSparkStreaming(hadoopVersion);
-                                    }
-                                    if (!isSupport) {
-                                        MessageDialog.openWarning(Display.getDefault().getActiveShell(),
-                                                Messages.getString("ConvertJobsUtil.warning.title"), //$NON-NLS-1$
-                                                Messages.getString("ConvertJobsUtil.warning.message")); //$NON-NLS-1$
-                                    }
+                        if (mrVersion != null
+                                && GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+                            IHadoopDistributionService hadoopService = (IHadoopDistributionService) GlobalServiceRegister
+                                    .getDefault().getService(IHadoopDistributionService.class);
+                            IHDistributionVersion distributionVersion = hadoopService.getHadoopDistributionVersion(
+                                    (String) mrVersion.getValue(), false);
+                            if (distributionVersion != null) {
+                                boolean isSupport = false;
+                                if (isSpark) {
+                                    isSupport = hadoopService.doSupportService(distributionVersion, IHDConstants.SERVICE_SPARK);
+                                } else if (isSparkStreaming) {
+                                    isSupport = hadoopService.doSupportService(distributionVersion,
+                                            IHDConstants.SERVICE_SPARK_STREAMING);
+                                }
+                                if (!isSupport) {
+                                    MessageDialog.openWarning(Display.getDefault().getActiveShell(),
+                                            Messages.getString("ConvertJobsUtil.warning.title"), //$NON-NLS-1$
+                                            Messages.getString("ConvertJobsUtil.warning.message")); //$NON-NLS-1$
                                 }
                             }
                         }

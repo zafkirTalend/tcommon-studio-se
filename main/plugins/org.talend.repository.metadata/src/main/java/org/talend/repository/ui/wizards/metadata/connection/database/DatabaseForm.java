@@ -100,10 +100,10 @@ import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
 import org.talend.core.exception.WarningSQLException;
 import org.talend.core.hadoop.EHadoopCategory;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.IHadoopDistributionService;
 import org.talend.core.hadoop.conf.EHadoopProperties;
 import org.talend.core.hadoop.conf.HadoopDefaultConfsManager;
 import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
-import org.talend.core.hadoop.version.EHadoopDistributions;
 import org.talend.core.hadoop.version.custom.ECustomVersionType;
 import org.talend.core.hadoop.version.custom.HadoopCustomVersionDefineDialog;
 import org.talend.core.hadoop.version.custom.HadoopVersionControlUtils;
@@ -130,6 +130,7 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
@@ -2064,8 +2065,14 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void updateImpalaVersionPart(String distribution) {
-        EHadoopDistributions dis = EHadoopDistributions.getDistributionByDisplayName(distribution);
-        if (dis == EHadoopDistributions.CUSTOM) {
+        boolean custom = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister
+                    .getDefault().getService(IHadoopDistributionService.class);
+            IHDistribution hadoopDistribution = hadoopDistributionService.getHadoopDistribution(distribution, false);
+            custom = hadoopDistribution != null && hadoopDistribution.useCustom();
+        }
+        if (custom) {
             impalaVersionCombo.setHideWidgets(true);
             impalaCustomButton.setVisible(true);
         } else {
@@ -2082,8 +2089,15 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void updateHBaseVersionPart(String distribution) {
-        EHadoopDistributions dis = EHadoopDistributions.getDistributionByDisplayName(distribution);
-        if (dis == EHadoopDistributions.CUSTOM) {
+
+        boolean custom = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister
+                    .getDefault().getService(IHadoopDistributionService.class);
+            IHDistribution hadoopDistribution = hadoopDistributionService.getHadoopDistribution(distribution, false);
+            custom = hadoopDistribution != null && hadoopDistribution.useCustom();
+        }
+        if (custom) {
             hbaseVersionCombo.setHideWidgets(true);
             hbaseCustomButton.setVisible(true);
         } else {

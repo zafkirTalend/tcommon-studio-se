@@ -13,17 +13,48 @@
 package org.talend.core.hadoop;
 
 import org.talend.core.IService;
-import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
-
+import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.IHDistributionVersion;
 
 /**
- * created by cmeng on Jan 15, 2016
- * Detailled comment
+ * created by cmeng on Jan 15, 2016 Detailled comment
  *
  */
 public interface IHadoopDistributionService extends IService {
 
-    public boolean isSupportSpark(EHadoopVersion4Drivers version);
+    /**
+     * 
+     * According to the service, find the distributions. The service is name of
+     * {@link org.talend.hadoop.distribution.component.HadoopComponent) .
+     */
+    IHDistribution[] getDistributions(String service);
 
-    public boolean isSupportSparkStreaming(EHadoopVersion4Drivers version);
+    /**
+     * Check the distribution version support the service or not.
+     * 
+     * The service must be full name, and be sub class of
+     * {@link org.talend.hadoop.distribution.component.HadoopComponent)
+     */
+    boolean doSupportService(IHDistributionVersion distributionVersion, String service);
+
+    /**
+     * Find the matched distribution via name.
+     * 
+     * If the display is true, the name match for display one of distribution.
+     */
+    IHDistribution getHadoopDistribution(String name, boolean byDisplay);
+
+    /**
+     * Find the matched distribution via version .
+     * 
+     * If the display is true, the version match for display one of distribution.
+     */
+    IHDistributionVersion getHadoopDistributionVersion(String version, boolean byDisplay);
+
+    /**
+     * 
+     * Temp for Oozie.
+     */
+    IHDistribution[] getOozieDistributions();
+
 }

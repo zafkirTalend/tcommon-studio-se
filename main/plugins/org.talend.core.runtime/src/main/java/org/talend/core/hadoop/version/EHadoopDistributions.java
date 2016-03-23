@@ -12,9 +12,6 @@
 // ============================================================================
 package org.talend.core.hadoop.version;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * DOC ycbai class global comment. Detailled comment
  * 
@@ -50,35 +47,6 @@ public enum EHadoopDistributions {
 
     public String getDisplayName() {
         return this.displayName;
-    }
-
-    /**
-     * 
-     * DOC ggu Comment method "getAllDistributionDisplayNames".
-     * 
-     * @return
-     * @deprecated use DistributionFactory instead
-     */
-    public static List<String> getAllDistributionDisplayNames() {
-        return getAllDistributionNames(true);
-    }
-
-    public static List<String> getAllDistributionNames(boolean display) {
-        List<String> names = new ArrayList<String>();
-        EHadoopDistributions[] values = values();
-        for (EHadoopDistributions distribution : values) {
-            if (display) {
-                names.add(distribution.getDisplayName());
-            } else {
-                names.add(distribution.getName());
-            }
-        }
-
-        return names;
-    }
-
-    public static EHadoopDistributions getDistributionByDisplayName(String name) {
-        return getDistributionByName(name, true);
     }
 
     public static EHadoopDistributions getDistributionByName(String name, boolean display) {
