@@ -17,6 +17,8 @@ package org.talend.core.runtime.hd;
  */
 public interface IHDConstants {
 
+    static final String DISTRIBUTION_CUSTOM = "CUSTOM";
+
     /**
      * must be full class name of {@link HadoopComponent}
      */

@@ -15,20 +15,23 @@ package org.talend.core.runtime.hd;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public interface IHDistribution {
+public interface IDistributionsManager {
 
-    String getName();
+    /**
+     * 
+     * Get all Distributions for this service manager.
+     */
+    IHDistribution[] getDistributions();
 
-    String getDisplayName();
+    /**
+     * 
+     * Find the name of distribution.
+     */
+    IHDistribution getDistribution(String name, boolean byDisplay);
 
-    IHDistributionVersion getDefaultVersion();
-
-    String[] getVersionsDisplay();
-
-    IHDistributionVersion[] getHDVersions();
-
-    IHDistributionVersion getHDVersion(String v, boolean byDisplay);
-
-    boolean useCustom();
-
+    /**
+     * 
+     * Find the version of distribution.
+     */
+    IHDistributionVersion getDistributionVersion(String version, boolean byDisplay);
 }

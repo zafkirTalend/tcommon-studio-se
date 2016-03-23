@@ -95,8 +95,6 @@ import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.database.conn.version.EImpalaDistribution4Versions;
 import org.talend.core.database.conn.version.EImpalaDistributions;
-import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
-import org.talend.core.database.hbase.conn.version.EHBaseDistributions;
 import org.talend.core.exception.WarningSQLException;
 import org.talend.core.hadoop.EHadoopCategory;
 import org.talend.core.hadoop.IHadoopClusterService;
@@ -131,6 +129,7 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.IHDistributionVersion;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
@@ -223,7 +222,7 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledCombo hiveModeCombo;
 
-    private LabelledCombo distributionCombo;
+    private LabelledCombo hiveDistributionCombo;
 
     private LabelledCombo hiveVersionCombo;
 
@@ -1232,7 +1231,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private boolean isSupportSecurity() {
-        int distributionIndex = distributionCombo.getSelectionIndex();
+        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
         int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
@@ -1250,7 +1249,7 @@ public class DatabaseForm extends AbstractForm {
 
     private boolean isSupportTez() {
         if (isHiveDBConnSelected()) {
-            int distributionIndex = distributionCombo.getSelectionIndex();
+            int distributionIndex = hiveDistributionCombo.getSelectionIndex();
             int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
             int hiveModeIndex = hiveModeCombo.getSelectionIndex();
             int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
@@ -1746,10 +1745,19 @@ public class DatabaseForm extends AbstractForm {
         hbaseSettingGroup = Form.createGroup(parent, 4, Messages.getString("DatabaseForm.hbase.settings"), 60); //$NON-NLS-1$
         GridLayout parentLayout = (GridLayout) parent.getLayout();
         GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hbaseSettingGroup);
+        List<String> hbaseDistributionsDisplay = new ArrayList<String>();
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            IHadoopDistributionService hadoopService = (IHadoopDistributionService) GlobalServiceRegister.getDefault()
+                    .getService(IHadoopDistributionService.class);
+            IHDistribution[] hBaseDistributions = hadoopService.getHBaseDistributionManager().getDistributions();
+            for (IHDistribution d : hBaseDistributions) {
+                hbaseDistributionsDisplay.add(d.getDisplayName());
+            }
+        }
 
         hbaseDistributionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.distribution"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.distribution.tooltip"), //$NON-NLS-1$
-                EHBaseDistributions.getAllDistributionDisplayNames().toArray(new String[0]), 1, true);
+                hbaseDistributionsDisplay.toArray(new String[0]), 1, true);
         hbaseVersionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
         hbaseVersionCombo.setHideWidgets(true);
@@ -1859,7 +1867,7 @@ public class DatabaseForm extends AbstractForm {
         impalaVersionCombo.setReadOnly(fromRepository || isContextMode());
         impalaCustomButton.setEnabled(!fromRepository && !isContextMode());
 
-        distributionCombo.setReadOnly(fromRepository || isContextMode());
+        hiveDistributionCombo.setReadOnly(fromRepository || isContextMode());
         hiveVersionCombo.setReadOnly(fromRepository || isContextMode());
         nameNodeURLTxt.setReadOnly(fromRepository || isContextMode());
         jobTrackerURLTxt.setReadOnly(fromRepository || isContextMode());
@@ -1996,23 +2004,32 @@ public class DatabaseForm extends AbstractForm {
         hcPropertyTypeCombo.setHideWidgets(hide);
     }
 
+    private IHDistribution getHBaseDistribution(String hbaseDistribution, boolean byDisplay) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            IHadoopDistributionService hadoopService = (IHadoopDistributionService) GlobalServiceRegister.getDefault()
+                    .getService(IHadoopDistributionService.class);
+            return hadoopService.getHBaseDistributionManager().getDistribution(hbaseDistribution, byDisplay);
+        }
+        return null;
+    }
+
     private void initHBaseSettings() {
         DatabaseConnection connection = getConnection();
         String hadoopDistribution = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
         String hadoopVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
 
-        EHBaseDistributions distribution = EHBaseDistributions.getDistributionByName(hadoopDistribution, false);
-        if (distribution != null) {
-            String distributionDisplayName = distribution.getDisplayName();
+        IHDistribution hBaseDistribution = getHBaseDistribution(hadoopDistribution, false);
+
+        if (hBaseDistribution != null) {
+            String distributionDisplayName = hBaseDistribution.getDisplayName();
             hbaseDistributionCombo.setText(distributionDisplayName);
-            updateHBaseVersionPart(distributionDisplayName);
+            updateHBaseVersionPart(hBaseDistribution);
+            IHDistributionVersion hdVersion = hBaseDistribution.getHDVersion(hadoopVersion, false);
+            if (hdVersion != null) {
+                hbaseVersionCombo.setText(hdVersion.getDisplayVersion());
+            }
         } else {
             hbaseDistributionCombo.select(0);
-        }
-        EHBaseDistribution4Versions version4Drivers = EHBaseDistribution4Versions.indexOfByVersion(hadoopVersion);
-        if (version4Drivers != null) {
-            hbaseVersionCombo.setText(version4Drivers.getVersionDisplayName());
-        } else {
             hbaseVersionCombo.select(0);
         }
 
@@ -2088,27 +2105,22 @@ public class DatabaseForm extends AbstractForm {
         }
     }
 
-    private void updateHBaseVersionPart(String distribution) {
-
-        boolean custom = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister
-                    .getDefault().getService(IHadoopDistributionService.class);
-            IHDistribution hadoopDistribution = hadoopDistributionService.getHadoopDistribution(distribution, false);
-            custom = hadoopDistribution != null && hadoopDistribution.useCustom();
-        }
-        if (custom) {
+    private void updateHBaseVersionPart(IHDistribution hBaseDistribution) {
+        if (hBaseDistribution != null && hBaseDistribution.useCustom()) {
             hbaseVersionCombo.setHideWidgets(true);
             hbaseCustomButton.setVisible(true);
         } else {
             hbaseVersionCombo.setHideWidgets(false);
             hbaseCustomButton.setVisible(false);
-            List<String> items = EHBaseDistribution4Versions.getHadoopDistributionVersions(distribution);
-            String[] versions = new String[items.size()];
-            items.toArray(versions);
-            hbaseVersionCombo.getCombo().setItems(versions);
-            if (versions.length > 0) {
-                hbaseVersionCombo.getCombo().select(0);
+            String[] versionsDisplay = hBaseDistribution.getVersionsDisplay();
+            hbaseVersionCombo.getCombo().setItems(versionsDisplay);
+            if (versionsDisplay.length > 0) {
+                IHDistributionVersion defaultVersion = hBaseDistribution.getDefaultVersion();
+                if (defaultVersion != null) {
+                    hbaseVersionCombo.getCombo().setText(defaultVersion.getDisplayVersion());
+                } else {
+                    hbaseVersionCombo.getCombo().select(0);
+                }
             }
         }
     }
@@ -2159,7 +2171,7 @@ public class DatabaseForm extends AbstractForm {
         String[] distributionstr = distributionItems.toArray(new String[distributionItems.size()]);
         String[] hiveModestr = hiveModeItems.toArray(new String[hiveModeItems.size()]);
 
-        distributionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distribution.labelName"), //$NON-NLS-1$
+        hiveDistributionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distribution.labelName"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.distribution.tips"), distributionstr, 1, false);//$NON-NLS-1$
 
         hiveVersionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distroVersion.labelName"), //$NON-NLS-1$
@@ -3797,14 +3809,13 @@ public class DatabaseForm extends AbstractForm {
                 String originalDistributionName = getConnection().getParameters().get(
                         ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
                 String newDistributionDisplayName = hbaseDistributionCombo.getText();
-                EHBaseDistributions newDistribution = EHBaseDistributions
-                        .getDistributionByDisplayName(newDistributionDisplayName);
-                EHBaseDistributions originalDistribution = EHBaseDistributions.getDistributionByName(originalDistributionName,
-                        false);
-                if (newDistribution != null && newDistribution != originalDistribution) {
+
+                IHDistribution newDistribution = getHBaseDistribution(newDistributionDisplayName, true);
+                IHDistribution originalDistribution = getHBaseDistribution(originalDistributionName, false);
+                if (newDistribution != null && !newDistribution.getName().equals(originalDistribution.getName())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
-                    updateHBaseVersionPart(newDistributionDisplayName);
+                    updateHBaseVersionPart(newDistribution);
                     fillDefaultsWhenHBaseVersionChanged();
                     checkFieldsValue();
                 }
@@ -3818,15 +3829,19 @@ public class DatabaseForm extends AbstractForm {
                 if (isContextMode()) {
                     return;
                 }
+                String originalDistributionName = getConnection().getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
                 String originalVersionName = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
                 String newVersionDisplayName = StringUtils.trimToNull(hbaseVersionCombo.getText());
-                EHBaseDistribution4Versions newVersion4Drivers = EHBaseDistribution4Versions
-                        .indexOfByVersionDisplay(newVersionDisplayName);
-                EHBaseDistribution4Versions originalVersion4Drivers = EHBaseDistribution4Versions
-                        .indexOfByVersion(originalVersionName);
-                if (newVersion4Drivers != null && newVersion4Drivers != originalVersion4Drivers) {
-                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION,
-                            newVersion4Drivers.getVersionValue());
+                IHDistribution originalDistribution = getHBaseDistribution(originalDistributionName, false);
+                if (originalDistribution == null) {
+                    return;
+                }
+                IHDistributionVersion newVersion = originalDistribution.getHDVersion(newVersionDisplayName, true);
+                IHDistributionVersion originalVersion = originalDistribution.getHDVersion(originalVersionName, false);
+
+                if (newVersion != null && !newVersion.getVersion().equals(originalVersion.getVersion())) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION, newVersion.getVersion());
                     fillDefaultsWhenHBaseVersionChanged();
                     checkFieldsValue();
                 }
@@ -4598,7 +4613,7 @@ public class DatabaseForm extends AbstractForm {
             if (template != null) {
                 EDatabaseVersion4Drivers version = null;
                 if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
-                    int distributionIndex = distributionCombo.getSelectionIndex();
+                    int distributionIndex = hiveDistributionCombo.getSelectionIndex();
                     int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
                     int hiveModeIndex = hiveModeCombo.getSelectionIndex();
                     int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
@@ -5467,7 +5482,7 @@ public class DatabaseForm extends AbstractForm {
      * an item is selected. Added by Marvin Wang on Aug 15, 2012.
      */
     private void regHiveDistributionComboListener() {
-        distributionCombo.getCombo().addSelectionListener(new SelectionAdapter() {
+        hiveDistributionCombo.getCombo().addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -5700,7 +5715,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     protected boolean isEmbeddedMode() {
-        int distributionIndex = distributionCombo.getSelectionIndex();
+        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
         int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
@@ -5720,7 +5735,7 @@ public class DatabaseForm extends AbstractForm {
      * Added by Marvin Wang on Aug 10, 2012.
      */
     protected void doHiveDistributionModify() {
-        int indexSelected = distributionCombo.getSelectionIndex();
+        int indexSelected = hiveDistributionCombo.getSelectionIndex();
         if (currIndexofDistribution != indexSelected) {
             currIndexofDistribution = indexSelected;
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
@@ -5739,7 +5754,7 @@ public class DatabaseForm extends AbstractForm {
      * Added by Marvin Wang on Oct 17, 2012.
      */
     protected void doHiveVersionModify() {
-        int distributionIndex = distributionCombo.getSelectionIndex();
+        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
         int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
         if (currIndexofHiveVersion != currSelectedIndex) {
             currIndexofHiveVersion = currSelectedIndex;
@@ -5813,7 +5828,7 @@ public class DatabaseForm extends AbstractForm {
                 return;
             }
             String[] versionPrefix = new String[] { distribution };
-            if (EHBaseDistributions.AMAZON_EMR.getName().equals(distribution)) {
+            if ("AMAZON_EMR".equals(distribution)) { //$NON-NLS-1$
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
             String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
@@ -5944,7 +5959,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     protected void doHiveServerSelected() {
-        int distributionIndex = distributionCombo.getSelectionIndex();
+        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
         int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
         if (!isContextMode()) {
             modifyFieldValue();
@@ -5957,8 +5972,8 @@ public class DatabaseForm extends AbstractForm {
     }
 
     protected void updateHiveDistributionAndMakeSelection(int distributionIndex) {
-        distributionCombo.getCombo().setItems(HiveConnUtils.getDistributionNames());
-        distributionCombo.select(distributionIndex);
+        hiveDistributionCombo.getCombo().setItems(HiveConnUtils.getDistributionNames());
+        hiveDistributionCombo.select(distributionIndex);
         currIndexofDistribution = distributionIndex;
     }
 
@@ -6027,7 +6042,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     protected String getHiveModeKey() {
-        int distributionIndex = distributionCombo.getSelectionIndex();
+        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
         int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
         int hiveModeIndex = hiveModeCombo.getSelectionIndex();
         int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
@@ -6089,7 +6104,7 @@ public class DatabaseForm extends AbstractForm {
 
     private void fillDefaultsWhenHiveModeChanged(boolean isEmbeddedMode) {
         if (isCreation) {
-            int distributionIndex = distributionCombo.getSelectionIndex();
+            int distributionIndex = hiveDistributionCombo.getSelectionIndex();
             String distribution = HiveConnUtils.getDistributionObj(distributionIndex).getKey();
             if (distribution == null) {
                 return;
@@ -6219,7 +6234,7 @@ public class DatabaseForm extends AbstractForm {
         GridData hiveCompGD = (GridData) hiveComposite.getLayoutData();
         hiveComposite.setVisible(!hide);
         hiveCompGD.exclude = hide;
-        distributionCombo.setHideWidgets(hide);
+        hiveDistributionCombo.setHideWidgets(hide);
         hiveVersionCombo.setHideWidgets(hide);
         hiveModeCombo.setHideWidgets(hide);
         if (hide) {
@@ -6302,7 +6317,7 @@ public class DatabaseForm extends AbstractForm {
         GridData gridData = (GridData) hiveComposite.getLayoutData();
         hiveComposite.setVisible(!hide);
         gridData.exclude = hide;
-        distributionCombo.setHideWidgets(hide);
+        hiveDistributionCombo.setHideWidgets(hide);
         hiveVersionCombo.setHideWidgets(hide);
         hiveModeCombo.setHideWidgets(hide);
         // usernameText.setHideWidgets(hide);
@@ -6341,7 +6356,7 @@ public class DatabaseForm extends AbstractForm {
      */
     protected void doUpdateConnection() {
         if (!isContextMode()) {
-            int distributionIndex = distributionCombo.getSelectionIndex();
+            int distributionIndex = hiveDistributionCombo.getSelectionIndex();
             int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
             int hiveModeIndex = hiveModeCombo.getSelectionIndex();
             int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
@@ -6450,7 +6465,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     public LabelledCombo getDistributionCombo() {
-        return this.distributionCombo;
+        return this.hiveDistributionCombo;
     }
 
     public LabelledCombo getHiveVersionCombo() {

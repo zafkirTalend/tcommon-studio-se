@@ -39,6 +39,7 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.hd.IDistributionsManager;
 import org.talend.core.runtime.hd.IHDConstants;
 import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.core.runtime.hd.IHDistributionVersion;
@@ -92,8 +93,6 @@ public class HadoopVersionDialog extends TitleAreaDialog {
 
     private Map<ECustomVersionType, Map<String, Object>> typeConfigurations = new HashMap<ECustomVersionType, Map<String, Object>>();
 
-    private IHadoopDistributionService hadoopDistributionService = null;
-
     public HadoopVersionDialog(Shell parentShell, Map<ECustomVersionGroup, String> groupsAndDispaly,
             HadoopCustomLibrariesUtil customLibUtil, ECustomVersionType[] types) {
         super(parentShell);
@@ -101,10 +100,13 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         this.groupsAndDispaly = groupsAndDispaly;
         this.customLibUtil = customLibUtil;
         this.types = types;
+    }
+
+    private IHadoopDistributionService getHadoopDistributionService() {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister.getDefault().getService(
-                    IHadoopDistributionService.class);
+            return (IHadoopDistributionService) GlobalServiceRegister.getDefault().getService(IHadoopDistributionService.class);
         }
+        return null;
     }
 
     @Override
@@ -276,6 +278,7 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     }
 
     private IHDistribution getHadoopDistribution() {
+        IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
         if (hadoopDistributionService != null) {
             final IHDistribution distributionByDisplay = hadoopDistributionService.getHadoopDistribution(
                     distributionCombo.getText(), true);
@@ -356,15 +359,20 @@ public class HadoopVersionDialog extends TitleAreaDialog {
 
     private void init() {
         List<String> distributionsDisplay = new ArrayList<String>();
+        IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
         if (hadoopDistributionService != null) {
-            String service = IHDConstants.SERVICE_HADOOP;
+            IDistributionsManager distributionManager = null;
             if (isSparkJob()) {
-                service = IHDConstants.SERVICE_SPARK;
+                distributionManager = hadoopDistributionService.getSparkDistributionManager();
+            } else {
+                distributionManager = hadoopDistributionService.getHadoopDistributionManager();
             }
-            IHDistribution[] distributions = hadoopDistributionService.getDistributions(service);
-            for (IHDistribution d : distributions) {
-                if (!d.useCustom()) {
-                    distributionsDisplay.add(d.getDisplayName());
+            IHDistribution[] distributions = distributionManager.getDistributions();
+            if (distributions != null) {
+                for (IHDistribution d : distributions) {
+                    if (!d.useCustom()) {
+                        distributionsDisplay.add(d.getDisplayName());
+                    }
                 }
             }
         }
@@ -383,6 +391,7 @@ public class HadoopVersionDialog extends TitleAreaDialog {
     }
 
     private void updateVersionPart() {
+        IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
         if (hadoopDistributionService != null) {
             final IHDistribution hDistribution = hadoopDistributionService.getHadoopDistribution(distribution, false);
             if (hDistribution != null) {

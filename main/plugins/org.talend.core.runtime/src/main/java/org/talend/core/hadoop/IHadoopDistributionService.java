@@ -13,6 +13,7 @@
 package org.talend.core.hadoop;
 
 import org.talend.core.IService;
+import org.talend.core.runtime.hd.IDistributionsManager;
 import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.core.runtime.hd.IHDistributionVersion;
 
@@ -24,8 +25,8 @@ public interface IHadoopDistributionService extends IService {
 
     /**
      * 
-     * According to the service, find the distributions. The service is name of
-     * {@link org.talend.hadoop.distribution.component.HadoopComponent) .
+     * According to the service, find the distributions. The service is name of HadoopComponent service.
+     * {@link org.talend.hadoop.distribution.component.HadoopComponent}.
      */
     IHDistribution[] getDistributions(String service);
 
@@ -50,6 +51,24 @@ public interface IHadoopDistributionService extends IService {
      * If the display is true, the version match for display one of distribution.
      */
     IHDistributionVersion getHadoopDistributionVersion(String version, boolean byDisplay);
+
+    /**
+     * 
+     * for Hadoop Distribution {@link HadoopComponent}.
+     */
+    IDistributionsManager getHadoopDistributionManager();
+
+    /**
+     * 
+     * for HBase in Database wizard.{@link HBaseComponent}.
+     */
+    IDistributionsManager getHBaseDistributionManager();
+
+    /**
+     * 
+     * for Spark Distribution {@link SparkComponent}.
+     */
+    IDistributionsManager getSparkDistributionManager();
 
     /**
      * 
