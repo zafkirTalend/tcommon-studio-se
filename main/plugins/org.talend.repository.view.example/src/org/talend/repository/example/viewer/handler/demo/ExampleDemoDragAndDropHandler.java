@@ -27,8 +27,8 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.utils.AbstractDragAndDropServiceHandler;
 import org.talend.core.model.utils.IComponentName;
-import org.talend.core.model.utils.IDragAndDropServiceHandler;
 import org.talend.core.repository.RepositoryComponentSetting;
 import org.talend.repository.example.model.demo.ExampleDemoConnection;
 import org.talend.repository.example.model.demo.ExampleDemoConnectionItem;
@@ -42,7 +42,7 @@ import org.talend.repository.model.RepositoryNode;
  * 
  * NOTE: this calss is not finished, because need related some components.
  */
-public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler {
+public class ExampleDemoDragAndDropHandler extends AbstractDragAndDropServiceHandler {
 
     /**
      * DOC ggu ExampleDemoDragAndDropHandler constructor comment.
@@ -207,19 +207,6 @@ public class ExampleDemoDragAndDropHandler implements IDragAndDropServiceHandler
             return false;
         }
         return true;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.talend.core.model.utils.IDragAndDropServiceHandler#isGenericRepositoryValue(org.talend.core.model.metadata
-     * .builder.connection.Connection, java.lang.String)
-     */
-    @Override
-    public boolean isGenericRepositoryValue(Connection connection, String paramName) {
-        // TODO Auto-generated method stub
-        return false;
     }
 
 }
