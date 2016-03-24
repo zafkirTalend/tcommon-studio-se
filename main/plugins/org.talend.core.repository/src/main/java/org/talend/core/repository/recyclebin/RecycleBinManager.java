@@ -76,6 +76,11 @@ public class RecycleBinManager {
         projectRecyclebins.clear();
     }
 
+    public void clearCache(Project project) {
+        String projectTechnicalLabel = project.getTechnicalLabel();
+        projectRecyclebins.remove(projectTechnicalLabel);
+    }
+
     public void clearIndex(Project project) {
         loadRecycleBin(project);
         projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems().clear();
