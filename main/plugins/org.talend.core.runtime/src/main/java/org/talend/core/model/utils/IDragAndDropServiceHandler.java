@@ -14,6 +14,7 @@ package org.talend.core.model.utils;
 
 import java.util.List;
 
+import org.talend.components.api.properties.ComponentProperties;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -117,5 +118,5 @@ public interface IDragAndDropServiceHandler {
      * @param paramName
      * @return
      */
-    public boolean isGenericRepositoryValue(Connection connection, String paramName);
+    public boolean isGenericRepositoryValue(List<ComponentProperties> componentProperties, String paramName);
 }
