@@ -273,6 +273,9 @@ public class RestoreAllRegisteredPerspectivesProvider {
             }
             // create new
             if (mPersp == null) { // copied some form method setPerspective of class WorkbenchPage
+                if (fWindow == null) {
+                    return;
+                }
                 String perspId = perspDesc.getId();
 
                 WorkbenchPage workbenchPage = (WorkbenchPage) workbench.getActiveWorkbenchWindow().getActivePage();
