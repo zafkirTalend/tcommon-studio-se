@@ -51,7 +51,7 @@ public interface IDesignerCoreUIService extends IService {
 
     void removePreferenceStorePropertyChangeListener(IPropertyChangeListener listener);
 
-    List<PaletteEntry> createJobletEtnry();
+    List<PaletteEntry> createPaletteEtnry();
 
     boolean executeCommand(IGEFProcess process, Command cmd);
 }
