@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.hadoop;
 
+import java.util.Map;
+
 import org.talend.core.IService;
 import org.talend.core.runtime.hd.IDistributionsManager;
 import org.talend.core.runtime.hd.IHDistribution;
@@ -37,6 +39,13 @@ public interface IHadoopDistributionService extends IService {
      * {@link org.talend.hadoop.distribution.component.HadoopComponent)
      */
     boolean doSupportService(IHDistributionVersion distributionVersion, String service);
+
+    /**
+     * Check the boolean methods for sub class of {@link org.talend.hadoop.distribution.component.HadoopComponent)
+     * 
+     * If no the method in the HadoopComponent object, won't contain in the result map.
+     */
+    Map<String, Boolean> doSupportMethods(IHDistributionVersion distributionVersion, String... methods);
 
     /**
      * Find the matched distribution via name.
@@ -66,9 +75,15 @@ public interface IHadoopDistributionService extends IService {
 
     /**
      * 
-     * for Spark Distribution {@link SparkComponent}.
+     * for Hive Distribution {@link HiveComponent}.
      */
     IDistributionsManager getSparkDistributionManager();
+
+    /**
+     * 
+     * for Spark Distribution {@link SparkComponent}.
+     */
+    IDistributionsManager getHiveDistributionManager();
 
     /**
      * 

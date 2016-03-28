@@ -29,6 +29,8 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
  * @author Marvin Wang
  * @version 1.0 jdk1.6
  * @date Aug 9, 2012
+ * 
+ * @deprecated will use distribution framework instead.
  */
 public enum HiveConnVersionInfo {
 

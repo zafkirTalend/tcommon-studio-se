@@ -34,7 +34,8 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
+import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
 
@@ -275,7 +276,9 @@ public class ClassLoaderFactory {
         String distroKey = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnUtils.isCustomDistro(distroKey)) {
+
+        IHDistribution distribution = HiveMetadataHelper.getDistribution(distroKey, false);
+        if (distribution != null && distribution.useCustom()) {
             String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             moduleList = jarsStr.split(";"); //$NON-NLS-1$
         } else {

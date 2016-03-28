@@ -17,7 +17,20 @@ package org.talend.core.runtime.hd;
  */
 public interface IHDConstants {
 
+    /**
+     * same as ICustomDistribution.DISTRIBUTION_NAME
+     */
     static final String DISTRIBUTION_CUSTOM = "CUSTOM";
+
+    /**
+     * same as IHortonworksDistribution.DISTRIBUTION_NAME
+     */
+    static final String DISTRIBUTION_HORTONWORKS = "HORTONWORKS";
+
+    /**
+     * same as IAmazonEMRDistribution.DISTRIBUTION_NAME
+     */
+    static final String DISTRIBUTION_AMAZON_EMR = "AMAZON_EMR";
 
     /**
      * must be full class name of {@link HadoopComponent}

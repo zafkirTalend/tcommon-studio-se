@@ -117,10 +117,8 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.HotClassLoader;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.extractots.IDBMetadataProviderObject;
-import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
-import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -128,8 +126,10 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.hd.IHDConstants;
 import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.core.runtime.hd.IHDistributionVersion;
+import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingConfiguration;
 import org.talend.core.ui.branding.IBrandingService;
@@ -343,12 +343,6 @@ public class DatabaseForm extends AbstractForm {
 
     private ScrolledComposite scrolledComposite;
 
-    private int currIndexofDistribution = -1;
-
-    private int currIndexofHiveVersion = -1;
-
-    private int currIndexofHiveMode = -1;
-
     private ContextType selectedContextType;
 
     private final String originalUischema;
@@ -495,6 +489,13 @@ public class DatabaseForm extends AbstractForm {
         GridLayout layout2 = (GridLayout) getLayout();
         layout2.marginHeight = 0;
         setLayout(layout2);
+    }
+
+    private IHadoopDistributionService getHadoopDistributionService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            return (IHadoopDistributionService) GlobalServiceRegister.getDefault().getService(IHadoopDistributionService.class);
+        }
+        return null;
     }
 
     /**
@@ -1209,7 +1210,7 @@ public class DatabaseForm extends AbstractForm {
 
     private void showIfAuthentication() {
         if (isHiveDBConnSelected()) {
-            if (isSupportSecurity()) {
+            if (doSupportSecurity()) {
                 updateAuthenticationForHive(isHiveEmbeddedMode());
                 setHidAuthenticationForHive(false);
             } else {
@@ -1218,49 +1219,6 @@ public class DatabaseForm extends AbstractForm {
         } else {
             setHidAuthenticationForHive(true);
         }
-    }
-
-    private boolean isCurrentDbSupportAuthentication() {
-        boolean needAuthencation = false;
-        if (isHiveDBConnSelected()) {
-            if (isSupportSecurity()) {
-                needAuthencation = true;
-            }
-        }
-        return needAuthencation;
-    }
-
-    private boolean isSupportSecurity() {
-        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                hiveServerVersionCombo.getSelectionIndex());
-        if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
-            boolean supportSecurity = HiveConnUtils.isSupportSecurity(distributionIndex, hiveVersionIndex, hiveModeIndex,
-                    HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText()),
-                    hiveServerIndex);
-            if (supportSecurity) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isSupportTez() {
-        if (isHiveDBConnSelected()) {
-            int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-            int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                    hiveServerVersionCombo.getSelectionIndex());
-            if (distributionIndex >= 0 && hiveVersionIndex >= 0 && hiveModeIndex >= 0) {
-                boolean supportTez = HiveConnUtils.isSupportTez(distributionIndex, hiveVersionIndex, hiveModeIndex,
-                        hiveServerIndex);
-                return supportTez;
-            }
-        }
-        return false;
     }
 
     private void addListenerForImpalaAuthentication() {
@@ -1746,9 +1704,8 @@ public class DatabaseForm extends AbstractForm {
         GridLayout parentLayout = (GridLayout) parent.getLayout();
         GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hbaseSettingGroup);
         List<String> hbaseDistributionsDisplay = new ArrayList<String>();
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            IHadoopDistributionService hadoopService = (IHadoopDistributionService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopDistributionService.class);
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null) {
             IHDistribution[] hBaseDistributions = hadoopService.getHBaseDistributionManager().getDistributions();
             for (IHDistribution d : hBaseDistributions) {
                 hbaseDistributionsDisplay.add(d.getDisplayName());
@@ -2005,9 +1962,8 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private IHDistribution getHBaseDistribution(String hbaseDistribution, boolean byDisplay) {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            IHadoopDistributionService hadoopService = (IHadoopDistributionService) GlobalServiceRegister.getDefault()
-                    .getService(IHadoopDistributionService.class);
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null) {
             return hadoopService.getHBaseDistributionManager().getDistribution(hbaseDistribution, byDisplay);
         }
         return null;
@@ -2083,10 +2039,9 @@ public class DatabaseForm extends AbstractForm {
 
     private void updateImpalaVersionPart(String distribution) {
         boolean custom = false;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            IHadoopDistributionService hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister
-                    .getDefault().getService(IHadoopDistributionService.class);
-            IHDistribution hadoopDistribution = hadoopDistributionService.getHadoopDistribution(distribution, false);
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null) {
+            IHDistribution hadoopDistribution = hadoopService.getHadoopDistribution(distribution, false);
             custom = hadoopDistribution != null && hadoopDistribution.useCustom();
         }
         if (custom) {
@@ -2134,7 +2089,7 @@ public class DatabaseForm extends AbstractForm {
     private void createHiveServerVersionField(Composite parent) {
         hiveServerVersionCombo = new LabelledCombo(parent, Messages.getString("DatabaseForm.hiveServer.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hiveServer.version.tips"), //$NON-NLS-1$
-                HiveServerVersionUtils.extractArrayDisplayNames(), 2, true);
+                new String[] {}, 2, true);
 
         hiveServerVersionCombo.setHideWidgets(true);
     }
@@ -2153,32 +2108,14 @@ public class DatabaseForm extends AbstractForm {
 
         hiveComposite.setLayout(new GridLayout(7, false));
 
-        List<String> distributionItems = new ArrayList<String>();
-        distributionItems.add(Messages.getString("DatabaseForm.distribution.hortonWorks")); //$NON-NLS-1$
-        distributionItems.add(Messages.getString("DatabaseForm.distribution.apache")); //$NON-NLS-1$
-        distributionItems.add(Messages.getString("DatabaseForm.distribution.cloudera")); //$NON-NLS-1$
-
-        List<String> hiveModeItems = new ArrayList<String>();
-        hiveModeItems.add(Messages.getString("DatabaseForm.hiveMode.standalone")); //$NON-NLS-1$
-        hiveModeItems.add(Messages.getString("DatabaseForm.hiveMode.embedded")); //$NON-NLS-1$
-
-        // As the embedded mode is not working for top, we need to hide some menus
-        if (isTOPStandaloneMode()) {
-            distributionItems.remove(0);
-            hiveModeItems.remove(1);
-        }
-
-        String[] distributionstr = distributionItems.toArray(new String[distributionItems.size()]);
-        String[] hiveModestr = hiveModeItems.toArray(new String[hiveModeItems.size()]);
-
         hiveDistributionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distribution.labelName"), //$NON-NLS-1$
-                Messages.getString("DatabaseForm.distribution.tips"), distributionstr, 1, false);//$NON-NLS-1$
+                Messages.getString("DatabaseForm.distribution.tips"), HiveMetadataHelper.getDistributionsDisplay(), 1, false);//$NON-NLS-1$
 
         hiveVersionCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.distroVersion.labelName"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.distroVersion.tips"), new String[] {}, 1, false);//$NON-NLS-1$
 
         hiveModeCombo = new LabelledCombo(hiveComposite, Messages.getString("DatabaseForm.hiveMode.labelName"), //$NON-NLS-1$
-                Messages.getString("DatabaseForm.hiveMode.tips"), hiveModestr, 1, false);//$NON-NLS-1$
+                Messages.getString("DatabaseForm.hiveMode.tips"), new String[] {}, 1, false);//$NON-NLS-1$
 
         hiveCustomButton = new Button(hiveComposite, SWT.NULL);
         hiveCustomButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
@@ -2634,8 +2571,8 @@ public class DatabaseForm extends AbstractForm {
             String versionStr = dbVersionCombo.getText();
             // The hive contents are not good, if this class is refactored, then this can be handled correspondingly.
             if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
-                EDatabaseVersion4Drivers driver = EDatabaseVersion4Drivers.indexOfByVersionDisplay(hiveModeCombo.getText());
-                versionStr = driver.getVersionValue();
+                HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModeCombo.getText());
+                versionStr = hiveMode.getName();
             } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
                 urlConnectionStringText.setText(getStringConnection());
                 if (EImpalaDistributions.CUSTOM != EImpalaDistributions.getDistributionByName(impalaDistributionCombo.getText(),
@@ -4449,7 +4386,7 @@ public class DatabaseForm extends AbstractForm {
                 } else {
                     template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
                 }
-                if (!isEmbeddedMode()) {
+                if (!isHiveEmbeddedMode()) {
                     s = DatabaseConnStrUtil.getHiveURLStringForStandardalone(template, getConnection(), getConnection()
                             .getServerName(), getConnection().getPort(), getConnection().getSID());
                 } else {
@@ -4613,19 +4550,15 @@ public class DatabaseForm extends AbstractForm {
             if (template != null) {
                 EDatabaseVersion4Drivers version = null;
                 if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
-                    int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-                    int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-                    int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-                    int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                            hiveServerVersionCombo.getSelectionIndex());
-                    if (HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex)) {
-                        if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex)) {
+                    boolean isEmbeddedMode = isHiveEmbeddedMode();
+                    if (doSupportHive2()) {
+                        if (isEmbeddedMode) {
                             s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_EMBEDDED);
                         } else {
                             s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_2_STANDALONE);
                         }
                     } else {
-                        if (HiveConnUtils.isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex)) {
+                        if (isEmbeddedMode) {
                             s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE_EMBEDDED);
                         } else {
                             s = template.getUrlTemplate(EDatabaseVersion4Drivers.HIVE);
@@ -4634,7 +4567,6 @@ public class DatabaseForm extends AbstractForm {
                 } else {
                     version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(dbVersionCombo.getText());
                     s = template.getUrlTemplate(version);
-
                 }
             }
             if (isHbase || isDBTypeSelected(EDatabaseConnTemplate.ORACLE_CUSTOM)
@@ -4655,7 +4587,7 @@ public class DatabaseForm extends AbstractForm {
             updateHadoopPropertiesFieldsState();
             updateHiveJDBCPropertiesFieldsState();
             showIfAuthentication();
-            hideHiveExecutionFields(!isSupportTez());
+            hideHiveExecutionFields(!doSupportTez());
 
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
@@ -4695,23 +4627,7 @@ public class DatabaseForm extends AbstractForm {
                     jDBCschemaText.setHideWidgets(true);
                     addContextParams(EDBParamName.Schema, false);
                 }
-
-                // Below added by Marvin Wang on Aug.3, 2012 for sub-task TDI-22201 of task TDI-22130.
-            }
-            // else if (template == EDatabaseConnTemplate.HIVE) {
-            // schemaTextIsShow = false;
-            // // hiveMode.setHideWidgets(false);
-            // doHideHiveWidgets(false);
-            // // int selectionIndex = hiveModeCombo.getSelectionIndex();
-            // // if (selectionIndex == -1 || selectionIndex == 0) {
-            // // hiveModeCombo.select(0);
-            // // handleStandaloneMode();
-            // // } else if (selectionIndex == 1) {
-            // // hiveModeCombo.select(selectionIndex);
-            // // handleEmbeddedMode();
-            // // }
-            // }
-            else {
+            } else {
                 // schemaText.hide();
                 schemaTextIsShow = false;
                 // addContextParams(EDBParamName.Schema, false);
@@ -4965,16 +4881,16 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.NameNode, useHadoopRepositoryParam());
             addContextParams(EDBParamName.JobTrackerOrResourceManager, useHadoopRepositoryParam());
             addContextParams(EDBParamName.Password, !isHiveEmbeddedMode());
-            addContextParams(EDBParamName.HivePrincipal, isCurrentDbSupportAuthentication() && useKerberos.getSelection());
-            addContextParams(EDBParamName.HiveMetastore, hasAuthentication());
-            addContextParams(EDBParamName.HiveDriverJar, hasAuthentication());
-            addContextParams(EDBParamName.HiveDriveClass, hasAuthentication());
-            addContextParams(EDBParamName.HiveUserName, hasAuthentication());
-            addContextParams(EDBParamName.HivePassword, hasAuthentication());
-            addContextParams(EDBParamName.HiveKeyTabPrincipal, isCurrentDbSupportAuthentication() && useKerberos.getSelection()
-                    && useKeyTab.getSelection());
-            addContextParams(EDBParamName.HiveKeyTab, isCurrentDbSupportAuthentication() && useKerberos.getSelection()
-                    && useKeyTab.getSelection());
+            boolean isHivePrincipal = isHiveDBConnSelected() && doSupportSecurity() && useKerberos.getSelection();
+            addContextParams(EDBParamName.HivePrincipal, isHivePrincipal);
+            boolean hasAuthentication = isHivePrincipal && isHiveEmbeddedMode();
+            addContextParams(EDBParamName.HiveMetastore, hasAuthentication);
+            addContextParams(EDBParamName.HiveDriverJar, hasAuthentication);
+            addContextParams(EDBParamName.HiveDriveClass, hasAuthentication);
+            addContextParams(EDBParamName.HiveUserName, hasAuthentication);
+            addContextParams(EDBParamName.HivePassword, hasAuthentication);
+            addContextParams(EDBParamName.HiveKeyTabPrincipal, isHivePrincipal && useKeyTab.getSelection());
+            addContextParams(EDBParamName.HiveKeyTab, isHivePrincipal && useKeyTab.getSelection());
         }
     }
 
@@ -4990,10 +4906,6 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.HbaseKeyTabPrincipal, useKeyTabForHBase.getSelection());
             addContextParams(EDBParamName.HbaseKeyTab, useKeyTabForHBase.getSelection());
         }
-    }
-
-    private boolean hasAuthentication() {
-        return isHiveEmbeddedMode() && isCurrentDbSupportAuthentication() && useKerberos.getSelection();
     }
 
     private boolean useHadoopRepositoryParam() {
@@ -5311,36 +5223,23 @@ public class DatabaseForm extends AbstractForm {
         String distributionObj = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String hiveVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveMode = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        String hiveServerKey = connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
 
-        if (distributionObj != null) {
+        IHDistribution hiveDistribution = HiveMetadataHelper.getDistribution(distributionObj, false);
+        IHDistributionVersion hdVersion = null;
+        if (hiveDistribution != null) {
+            hdVersion = hiveDistribution.getHDVersion(hiveVersion, false);
+            updateHiveDistributionAndMakeSelection(hiveDistribution);
+            updateHiveVersionAndMakeSelection(hiveDistribution, hdVersion);
+            updateHiveModeAndMakeSelection(HiveModeInfo.valueOf(hiveMode));
+            updateHiveServerAndMakeSelection(hiveDistribution, hdVersion);
 
-            currIndexofDistribution = HiveConnUtils.getIndexOfDistribution(distributionObj == null ? null
-                    : ((String) distributionObj));
-            updateHiveDistributionAndMakeSelection(currIndexofDistribution);
-
-            currIndexofHiveVersion = HiveConnUtils.getIndexOfHiveVersion(distributionObj == null ? null
-                    : ((String) distributionObj), hiveVersion == null ? null : ((String) hiveVersion));
-            updateHiveVersionAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion);
-
-            currIndexofHiveMode = HiveConnUtils.getIndexOfHiveMode(distributionObj == null ? null : ((String) distributionObj),
-                    hiveVersion == null ? null : ((String) hiveVersion), hiveMode == null ? null : ((String) hiveMode),
-                    hiveServerKey == null ? null : ((String) hiveServerKey));
-            int currIndexofHiveServer = HiveConnUtils.getIndexOfHiveServer(hiveServerKey == null ? null : hiveServerKey);
-            updateHiveModeAndMakeSelection(currIndexofDistribution, currIndexofHiveVersion, currIndexofHiveMode,
-                    currIndexofHiveServer);
-
-            // MOD sizhaoliu TDQ-6288 call doHiveModeModify() only for existing hive connection, to avoid a metadata
-            // reload exception when finish the wizard
-            if (EDatabaseTypeName.HIVE.getDisplayName().equals(connection.getDatabaseType())) {
-                doHiveModeModify();
-            }
         } else {
-            updateHiveDistributionAndMakeSelection(0);
-            updateHiveVersionAndMakeSelection(0, 0);
-            updateHiveModeAndMakeSelection(0, 0, 0, 0);
-            doHiveModeModify();
+            updateHiveDistributionAndMakeSelection(null);
+            updateHiveVersionAndMakeSelection(null, null);
+            updateHiveModeAndMakeSelection(null);
+            updateHiveServerAndMakeSelection(null, null);
         }
+        doHiveModeModify();
 
         if (isHiveEmbeddedMode()) {
             // Hadoop properties
@@ -5429,7 +5328,8 @@ public class DatabaseForm extends AbstractForm {
         // }
 
         updateYarnStatus();
-        updateYarnInfo(currIndexofDistribution, currIndexofHiveVersion);
+
+        updateYarnInfo(hiveDistribution, hdVersion);
     }
 
     private void updateYarnStatus() {
@@ -5488,7 +5388,7 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 doHiveDistributionModify();
                 showIfAuthentication();
-                hideHiveExecutionFields(!isSupportTez());
+                hideHiveExecutionFields(!doSupportTez());
             }
         });
     }
@@ -5504,7 +5404,7 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 doHiveVersionModify();
                 showIfAuthentication();
-                hideHiveExecutionFields(!isSupportTez());
+                hideHiveExecutionFields(!doSupportTez());
             }
         });
     }
@@ -5530,7 +5430,7 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 doHiveModeModify();
                 showIfAuthentication();
-                hideHiveExecutionFields(!isSupportTez());
+                hideHiveExecutionFields(!doSupportTez());
             }
         });
     }
@@ -5697,7 +5597,7 @@ public class DatabaseForm extends AbstractForm {
      * {@link #doUpdateConnection()} to update connection. Added by Marvin Wang on Aug. 3, 2012.
      */
     protected void doHiveModeModify() {
-        boolean isEmbeddedMode = isEmbeddedMode();
+        boolean isEmbeddedMode = isHiveEmbeddedMode();
         getConnection().setURL(getStringConnection());
         if (isEmbeddedMode) {
             urlConnectionStringText.setText(DbConnStrForHive.URL_HIVE_2_TEMPLATE);
@@ -5714,36 +5614,21 @@ public class DatabaseForm extends AbstractForm {
         doUpdateConnection();
     }
 
-    protected boolean isEmbeddedMode() {
-        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                hiveServerVersionCombo.getSelectionIndex());
-        // MOD msjian TDQ-6407 2012-11-26: for top, until now, not support embeded mode for hive
-        // if (isTOPStandaloneMode()) {
-        // getConnection().setURL(getStringConnection());
-        // handleUIWhenStandaloneModeSelected();
-        // } else {
-        boolean isEmbeddedMode = HiveConnUtils
-                .isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
-        return isEmbeddedMode;
-    }
-
     /**
      * 
      * Added by Marvin Wang on Aug 10, 2012.
      */
     protected void doHiveDistributionModify() {
-        int indexSelected = hiveDistributionCombo.getSelectionIndex();
-        if (currIndexofDistribution != indexSelected) {
-            currIndexofDistribution = indexSelected;
+        String distributionObj = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+        IHDistribution originalhiveDistribution = HiveMetadataHelper.getDistribution(distributionObj, false);
+        IHDistribution currentHiveDistribution = getCurrentHiveDistribution(false);
+        if (currentHiveDistribution != null && !currentHiveDistribution.equals(originalhiveDistribution)) {
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
             // for Hive mode. 3. To update connection parameters.
-            updateHiveVersionAndMakeSelection(indexSelected, 0);
-            // updateHiveModeAndMakeSelection(currIndexofDistribution, 0, 0, 0);
+            updateHiveVersionAndMakeSelection(currentHiveDistribution, null);
             setHideVersionInfoWidgets(false);
-            updateYarnInfo(indexSelected, 0);
+            updateYarnInfo(currentHiveDistribution, null);
+            updateHiveModeAndMakeSelection(null);
             doHiveModeModify();
             fillDefaultsWhenHiveVersionChanged();
         }
@@ -5754,14 +5639,15 @@ public class DatabaseForm extends AbstractForm {
      * Added by Marvin Wang on Oct 17, 2012.
      */
     protected void doHiveVersionModify() {
-        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-        int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
-        if (currIndexofHiveVersion != currSelectedIndex) {
-            currIndexofHiveVersion = currSelectedIndex;
+        IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+        IHDistributionVersion newVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
+        String originalVersion = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        IHDistributionVersion hdVersion = hiveDistribution.getHDVersion(originalVersion, true);
+        if (newVersion != null && !newVersion.equals(hdVersion)) {
             setHideVersionInfoWidgets(false);
-            // updateHiveModeAndMakeSelection(distributionIndex, currSelectedIndex, 0, 0);
-            updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
-            updateYarnInfo(distributionIndex, currSelectedIndex);
+            updateHiveServerAndMakeSelection(hiveDistribution, hdVersion);
+            updateYarnInfo(hiveDistribution, hdVersion);
+            updateHiveModeAndMakeSelection(null);
             doHiveModeModify();
             fillDefaultsWhenHiveVersionChanged();
         }
@@ -5775,7 +5661,7 @@ public class DatabaseForm extends AbstractForm {
                 return;
             }
             String[] versionPrefix = new String[] { distribution };
-            if (HiveConnVersionInfo.AMAZON_EMR.getKey().equals(distribution)) {
+            if (IHDConstants.DISTRIBUTION_AMAZON_EMR.equals(distribution)) {
                 versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
             }
             boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
@@ -5855,13 +5741,24 @@ public class DatabaseForm extends AbstractForm {
         }
     }
 
-    private void updateYarnInfo(int distributionIndex, int hiveVersionIndex) {
-        HiveConnVersionInfo hiveVersionObj = HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex);
-        if (hiveVersionObj == null) {
+    private void updateYarnInfo(IHDistribution hiveDistribution, IHDistributionVersion hiveVersion) {
+        if (hiveDistribution == null) {
+            hiveDistribution = getCurrentHiveDistribution(true);
+        }
+        IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
+        if (hiveDistribution == null || hadoopDistributionService == null) {
             return;
         }
-        if (hiveVersionObj.isSupportYARN() && !hiveVersionObj.isSupportMR1()
-                && HiveConnVersionInfo.DISTRO_CUSTOM != hiveVersionObj) {
+        IHDistributionVersion[] hdVersions = hiveDistribution.getHDVersions();
+        if (hiveVersion == null && hdVersions.length > 0) {
+            hiveVersion = hdVersions[0];
+        }
+
+        String supportYarnMethodName = "isHadoop2"; //$NON-NLS-1$
+        Map<String, Boolean> doSupportMethods = hadoopDistributionService.doSupportMethods(hiveVersion, supportYarnMethodName);
+        Boolean support = doSupportMethods.get(supportYarnMethodName);
+
+        if (support != null && support) {
             getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.TRUE));
         }
         updateJobtrackerContent();
@@ -5959,37 +5856,75 @@ public class DatabaseForm extends AbstractForm {
     }
 
     protected void doHiveServerSelected() {
-        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-        int currSelectedIndex = hiveVersionCombo.getSelectionIndex();
         if (!isContextMode()) {
             modifyFieldValue();
-            getConnection().getParameters().put(
-                    ConnParameterKeys.HIVE_SERVER_VERSION,
-                    HiveServerVersionUtils.extractKey(getRealHiveServerIndex(distributionIndex, currSelectedIndex,
-                            hiveServerVersionCombo.getSelectionIndex())));
+            getConnection().getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION,
+                    HiveServerVersionInfo.getByDisplay(hiveServerVersionCombo.getText()).getKey());
         }
-        updateHiveServerAndMakeSelection(distributionIndex, currSelectedIndex);
+
+        IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+        IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
+        updateHiveServerAndMakeSelection(hiveDistribution, hiveVersion);
     }
 
-    protected void updateHiveDistributionAndMakeSelection(int distributionIndex) {
-        hiveDistributionCombo.getCombo().setItems(HiveConnUtils.getDistributionNames());
-        hiveDistributionCombo.select(distributionIndex);
-        currIndexofDistribution = distributionIndex;
+    protected void updateHiveDistributionAndMakeSelection(IHDistribution hiveDistribution) {
+        hiveDistributionCombo.getCombo().setItems(HiveMetadataHelper.getDistributionsDisplay());
+        if (hiveDistribution != null) {
+            hiveDistributionCombo.getCombo().setText(hiveDistribution.getDisplayName());
+        } else {
+            hiveDistributionCombo.getCombo().select(0);
+        }
     }
 
-    protected void updateHiveVersionAndMakeSelection(int distributionIndex, int hiveVersionIndex) {
-        hiveVersionCombo.getCombo().setItems(HiveConnUtils.getHiveVersionNames(distributionIndex));
-        hiveVersionCombo.select(hiveVersionIndex);
-        currIndexofHiveVersion = hiveVersionIndex;
-
-        updateHiveServerAndMakeSelection(distributionIndex, hiveVersionIndex);
+    private IHDistribution getCurrentHiveDistribution(boolean withDefault) {
+        IHDistribution hiveDistribution = HiveMetadataHelper.getDistribution(hiveDistributionCombo.getText(), true);
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (withDefault && hiveDistribution == null && hadoopService != null) {
+            IHDistribution[] distributions = hadoopService.getHiveDistributionManager().getDistributions();
+            if (distributions.length > 0) {
+                hiveDistribution = distributions[0];
+            }
+        }
+        return hiveDistribution;
     }
 
-    protected void updateHiveModeAndMakeSelection(int distributionIndex, int hiveVersionIndex, int hiveModeIndex,
-            int hiveServerIndex) {
-        hiveModeCombo.getCombo().setItems(HiveConnUtils.getHiveModeNames(distributionIndex, hiveVersionIndex, hiveServerIndex));
-        hiveModeCombo.select(hiveModeIndex);
-        currIndexofHiveMode = hiveModeIndex;
+    protected void updateHiveVersionAndMakeSelection(IHDistribution hiveDistribution, IHDistributionVersion hiveVersion) {
+        if (hiveDistribution == null) {
+            hiveDistribution = getCurrentHiveDistribution(true);
+        }
+        if (hiveDistribution == null) {
+            return;
+        }
+        hiveVersionCombo.getCombo().setItems(hiveDistribution.getVersionsDisplay());
+        if (hiveVersion != null) {
+            hiveVersionCombo.getCombo().setText(hiveVersion.getDisplayVersion());
+        } else {
+            hiveVersionCombo.select(0);
+        }
+
+        updateHiveServerAndMakeSelection(hiveDistribution, hiveVersion);
+    }
+
+    protected void updateHiveModeAndMakeSelection(HiveModeInfo hiveMode) {
+        IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+        IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
+        if (hiveDistribution == null || hadoopDistributionService == null) {
+            return;
+        }
+        IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
+        IHDistributionVersion[] hdVersions = hiveDistribution.getHDVersions();
+        if (hiveVersion == null && hdVersions.length > 0) {
+            hiveVersion = hdVersions[0];
+        }
+        String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(hiveDistribution.getName(), hiveVersion.getVersion(),
+                false);
+        hiveModeCombo.getCombo().setItems(hiveModesDisplay);
+
+        if (hiveMode != null) {
+            hiveModeCombo.setText(hiveMode.getDisplayName());
+        } else {
+            hiveModeCombo.select(0);
+        }
     }
 
     /**
@@ -5999,56 +5934,46 @@ public class DatabaseForm extends AbstractForm {
      * @param distributionIndex
      * @param hiveVersionIndex
      */
-    protected void updateHiveServerAndMakeSelection(int distributionIndex, int hiveVersionIndex) {
-        boolean isSupportHiveServer2 = HiveConnUtils.isSupportHiveServer2(distributionIndex, hiveVersionIndex);
-        if (isSupportHiveServer2) {
-            DatabaseConnection conn = getConnection();
+    protected void updateHiveServerAndMakeSelection(IHDistribution hiveDistribution, IHDistributionVersion hiveVersion) {
+        if (hiveDistribution == null) {
+            hiveDistribution = getCurrentHiveDistribution(true);
+        }
+        IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
+        if (hiveDistribution == null || hadoopDistributionService == null) {
+            return;
+        }
+        IHDistributionVersion[] hdVersions = hiveDistribution.getHDVersions();
+        if (hiveVersion == null && hdVersions.length > 0) {
+            hiveVersion = hdVersions[0];
+        }
 
-            String hiveServerDisplayNames[] = HiveServerVersionUtils.extractAvailableArrayDisplayNames(HiveConnUtils
-                    .getHiveVersionObj(distributionIndex, hiveVersionIndex));
-            hiveServerVersionCombo.getCombo().setItems(hiveServerDisplayNames);
+        if (doSupportHive2()) {
+            DatabaseConnection conn = getConnection();
+            String mode = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
+            HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(mode);
+            if (hiveMode == null) {
+                String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(hiveDistribution.getName(),
+                        hiveVersion.getVersion(), false);
+                if (hiveModesDisplay.length > 0) {
+                    hiveMode = HiveModeInfo.getByDisplay(hiveModesDisplay[0]);
+                }
+            }
+            String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(hiveDistribution.getName(),
+                    hiveVersion.getVersion(), hiveMode.getName(), false);
+            hiveServerVersionCombo.getCombo().setItems(hiveServersDisplay);
 
             String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
-
-            int hiveServerIndex = 0;
-            if (hiveServerDisplayNames != null && hiveServerKey != null) {
-                for (hiveServerIndex = 0; hiveServerIndex < hiveServerDisplayNames.length; hiveServerIndex++) {
-                    if (hiveServerKey.equals(HiveServerVersionUtils.extractKey(HiveConnUtils
-                            .getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[hiveServerIndex])))) {
-                        break;
-                    }
+            if (hiveServerKey != null) {
+                HiveServerVersionInfo serverVersion = HiveServerVersionInfo.getByKey(hiveServerKey);
+                if (serverVersion != null) {
+                    hiveServerVersionCombo.setText(serverVersion.getDisplayName());
+                } else {
+                    hiveServerVersionCombo.select(0);
                 }
-                // if (hiveServerDisplayNames.length <= hiveServerIndex) {
-                // hiveServerIndex = 0;
-                // }
+            } else {
+                hiveServerVersionCombo.select(0);
             }
-            hiveServerVersionCombo.select(hiveServerIndex);
         }
-        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                hiveServerVersionCombo.getSelectionIndex());
-        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        updateHiveModeAndMakeSelection(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
-    }
-
-    private int getRealHiveServerIndex(int distributionIndex, int hiveVersionIndex, int relatedHiveServerIndex) {
-        int realIndex = relatedHiveServerIndex;
-        String hiveServerDisplayNames[] = HiveServerVersionUtils.extractAvailableArrayDisplayNames(HiveConnUtils
-                .getHiveVersionObj(distributionIndex, hiveVersionIndex));
-        if (hiveServerDisplayNames != null && 0 <= relatedHiveServerIndex
-                && relatedHiveServerIndex < hiveServerDisplayNames.length) {
-            realIndex = HiveConnUtils.getIndexOfHiveServerByDisplayName(hiveServerDisplayNames[relatedHiveServerIndex]);
-        }
-        return realIndex;
-    }
-
-    protected String getHiveModeKey() {
-        int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-        int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-        int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-        int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                hiveServerVersionCombo.getSelectionIndex());
-
-        return HiveConnUtils.getHiveModeObjKey(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
     }
 
     /**
@@ -6104,20 +6029,14 @@ public class DatabaseForm extends AbstractForm {
 
     private void fillDefaultsWhenHiveModeChanged(boolean isEmbeddedMode) {
         if (isCreation) {
-            int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-            String distribution = HiveConnUtils.getDistributionObj(distributionIndex).getKey();
-            if (distribution == null) {
-                return;
-            }
+            IHDistribution hiveDistribution = getCurrentHiveDistribution(false);
             String defaultPort = null;
             if (isEmbeddedMode) {
-                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                        EHadoopCategory.HIVE.getName(), HiveConnVersionInfo.MODE_EMBEDDED.getKey(),
-                        EHadoopProperties.PORT.getName());
+                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(hiveDistribution.getName(),
+                        EHadoopCategory.HIVE.getName(), HiveModeInfo.EMBEDDED.getName(), EHadoopProperties.PORT.getName());
             } else {
-                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                        EHadoopCategory.HIVE.getName(), HiveConnVersionInfo.MODE_STANDALONE.getKey(),
-                        EHadoopProperties.PORT.getName());
+                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(hiveDistribution.getName(),
+                        EHadoopCategory.HIVE.getName(), HiveModeInfo.STANDALONE.getName(), EHadoopProperties.PORT.getName());
             }
 
             if (defaultPort != null && !isContextMode()) {
@@ -6242,7 +6161,8 @@ public class DatabaseForm extends AbstractForm {
             hiveServerVersionCombo.setHideWidgets(true);
         } else {
             GridData yarnCompGd = (GridData) yarnComp.getLayoutData();
-            if (HiveConnUtils.isCustomDistro(currIndexofDistribution)) {
+            IHDistribution currentHiveDistribution = getCurrentHiveDistribution(false);
+            if (currentHiveDistribution != null && currentHiveDistribution.useCustom()) {
                 hiveVersionCombo.setHideWidgets(true);
                 hiveModeCombo.setHideWidgets(false);
                 hiveCustomButton.setVisible(true);
@@ -6250,7 +6170,7 @@ public class DatabaseForm extends AbstractForm {
                 yarnComp.setVisible(true);
                 yarnCompGd.exclude = false;
             } else {
-                if (HiveConnUtils.isSupportHiveServer2(currIndexofDistribution, currIndexofHiveVersion)) {
+                if (doSupportHive2()) {
                     hiveServerVersionCombo.setHideWidgets(false);
                 } else {
                     hiveServerVersionCombo.setHideWidgets(true);
@@ -6356,28 +6276,23 @@ public class DatabaseForm extends AbstractForm {
      */
     protected void doUpdateConnection() {
         if (!isContextMode()) {
-            int distributionIndex = hiveDistributionCombo.getSelectionIndex();
-            int hiveVersionIndex = hiveVersionCombo.getSelectionIndex();
-            int hiveModeIndex = hiveModeCombo.getSelectionIndex();
-            int hiveServerIndex = getRealHiveServerIndex(distributionIndex, hiveVersionIndex,
-                    hiveServerVersionCombo.getSelectionIndex());
-
-            String key = HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex)
-                    .getKey();
-
-            EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersion(key);
+            IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+            IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
+            HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModeCombo.getText());
+            HiveServerVersionInfo serverVersion = HiveServerVersionInfo.getByDisplay(hiveServerVersionCombo.getText());
             DatabaseConnection conn = getConnection();
-            if (version != null) {
-                conn.setDbVersionString(version.getVersionDisplay());
+            if (hiveMode != null) {
+                conn.setDbVersionString(hiveMode.getName());
             }
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE, EDatabaseConnTemplate.HIVE.getDBTypeName());
-            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION,
-                    HiveConnUtils.getDistributionObj(distributionIndex).getKey());
-            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION,
-                    HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex).getKey());
-            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE,
-                    HiveConnUtils.getHiveModeObj(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex).getKey());
-            conn.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, HiveServerVersionUtils.extractKey(hiveServerIndex));
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION, hiveDistribution.getName());
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, hiveVersion.getVersion());
+            if (hiveMode != null) {
+                conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode.getName());
+            }
+            if (serverVersion != null) {
+                conn.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, serverVersion.getKey());
+            }
 
         }
     }
@@ -6413,13 +6328,21 @@ public class DatabaseForm extends AbstractForm {
      * @return
      */
     protected boolean isHiveEmbeddedMode() {
-        String dbType = dbTypeCombo.getText();
-        if (EDatabaseTypeName.HIVE.getDisplayName().equalsIgnoreCase(dbType)) {
-            String hiveModeDisplayName = hiveModeCombo.getText();
-            if (hiveModeDisplayName != null
-                    && hiveModeDisplayName.equalsIgnoreCase(Messages.getString("DatabaseForm.hiveMode.embedded"))) { //$NON-NLS-1$
-                return true;
-            }
+        return HiveMetadataHelper.isHiveEmbeddedMode(dbTypeCombo.getText(), hiveModeCombo.getText());
+    }
+
+    private boolean doSupportHive2() {
+        return HiveMetadataHelper.doSupportHive2(hiveDistributionCombo.getText(), hiveVersionCombo.getText(), true);
+    }
+
+    private boolean doSupportSecurity() {
+        return HiveMetadataHelper.doSupportSecurity(hiveDistributionCombo.getText(), hiveVersionCombo.getText(),
+                hiveModeCombo.getText(), hiveServerVersionCombo.getText(), true);
+    }
+
+    private boolean doSupportTez() {
+        if (isHiveDBConnSelected()) {
+            HiveMetadataHelper.doSupportTez(hiveDistributionCombo.getText(), hiveVersionCombo.getText(), true);
         }
         return false;
     }

@@ -43,6 +43,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -497,7 +498,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     public boolean isHive2(IMetadataConnection metadataConn) {
         if (metadataConn != null) {
             String hiveServerKey = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_SERVER_VERSION);
-            return "HIVE2".equals(hiveServerKey); //$NON-NLS-1$
+            return HiveServerVersionInfo.HIVE_SERVER_2.getKey().equals(hiveServerKey);
         }
 
         return false;
