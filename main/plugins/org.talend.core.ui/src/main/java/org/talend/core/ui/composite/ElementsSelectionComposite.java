@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
 import org.talend.core.ui.advanced.composite.PatternFilter;
 
@@ -73,6 +74,22 @@ public class ElementsSelectionComposite<T> extends Composite {
         });
         GridData treeGridData = (GridData) filteredCheckboxTree.getLayoutData();
         treeGridData.heightHint = 270;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        updateChildrenEnableStatus(this, enabled);
+    }
+
+    private void updateChildrenEnableStatus(Composite comp, boolean enabled) {
+        Control[] children = comp.getChildren();
+        for (Control control : children) {
+            control.setEnabled(enabled);
+            if (control instanceof Composite) {
+                updateChildrenEnableStatus(((Composite) control), enabled);
+            }
+        }
     }
 
     protected void doSelectionChanged() {
