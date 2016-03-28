@@ -112,7 +112,7 @@ public final class HandlerUtil {
             // for migration task ,there is not .screeenshot file in preceding version - begin
             os = new FileOutputStream(fileURL.getFile());
             manager.getPaths().iterator().next();
-            is = manager.getStream(screenshotNeeded);
+            is = manager.getStream(screenshotNeeded, itemRecord);
             FileCopyUtils.copyStreams(is, os);
         } finally {
             if (os != null) {
@@ -146,7 +146,7 @@ public final class HandlerUtil {
         InputStream stream = null;
         try {
             final Resource resource = createResource(importItem, importItem.getPath(), false);
-            stream = manager.getStream(importItem.getPath());
+            stream = manager.getStream(importItem.getPath(), importItem);
             final ResourceSet resourceSet = resource.getResourceSet();
 
             URIConverter uriConverter = resourceSet.getURIConverter();
