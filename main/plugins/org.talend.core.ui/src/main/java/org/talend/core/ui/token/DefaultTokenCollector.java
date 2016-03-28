@@ -12,18 +12,14 @@
 // ============================================================================
 package org.talend.core.ui.token;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.commons.utils.VersionUtils;
-import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.branding.IBrandingService;
-import org.talend.cwm.helper.ConnectionHelper;
-import org.talend.utils.security.CryptoHelper;
+import org.talend.daikon.security.CryptoHelper;
+import org.talend.daikon.token.TokenGenerator;
 
 import us.monoid.json.JSONObject;
 
@@ -39,7 +35,11 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
     private static final TokenKey TYPE_STUDIO = new TokenKey("typeStudio"); //$NON-NLS-1$
 
     private static final TokenKey STOP_COLLECTOR = new TokenKey("stopUsageCollection"); //$NON-NLS-1$
-
+    
+    private static final TokenKey OS = new TokenKey("os"); //$NON-NLS-1$
+    
+    private static final String COLLECTOR_SYNC_NB = "COLLECTOR_SYNC_NB";
+    
     public DefaultTokenCollector() {
         super();
     }
@@ -47,9 +47,10 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
     @Override
     protected void collectTokenStudio(JSONObject tokenStudioObject) throws Exception {
         // version
-        tokenStudioObject.put(VERSION.getKey(), VersionUtils.getVersion());
+        tokenStudioObject.put(VERSION.getKey(), VersionUtils.getInternalVersion());
         // uniqueId
         tokenStudioObject.put(UNIQUE_ID.getKey(), calcUniqueId());
+        
         // typeStudio
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
             IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
@@ -57,8 +58,20 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
             tokenStudioObject.put(TYPE_STUDIO.getKey(), brandingService.getAcronym());
             // tokenStudioObject.put(TYPE_STUDIO.getKey(), brandingService.getShortProductName());
         }
+        JSONObject jsonObject = new JSONObject();
+ 
+        jsonObject.put("os.name", System.getProperty("os.name"));
+        jsonObject.put("os.arch", System.getProperty("os.arch"));
+        jsonObject.put("os.version", System.getProperty("os.version"));
+        tokenStudioObject.put(OS.getKey(), jsonObject);
 
+        
         final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
+        long syncNb = preferenceStore.getLong(COLLECTOR_SYNC_NB);
+        jsonObject.put("syncNb", syncNb++);
+        preferenceStore.setValue(COLLECTOR_SYNC_NB, syncNb);;
+        
+
         if (!preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             tokenStudioObject.put(STOP_COLLECTOR.getKey(), "1"); //$NON-NLS-1$
         } else {
@@ -66,26 +79,8 @@ public class DefaultTokenCollector extends AbstractTokenCollector {
         }
 
     }
-
+    
     public static String calcUniqueId() {
-        StringBuffer sb = new StringBuffer();
-        String macAddress = NetworkUtil.getMacAddress();
-        if (macAddress != null) {
-            sb.append(macAddress);
-            sb.append('-');
-        }
-        String osName = System.getProperty("os.name"); //$NON-NLS-1$
-        String osVersion = System.getProperty("os.version"); //$NON-NLS-1$
-        sb.append(osName);
-        sb.append(osVersion);
-        try {
-            String hostName = InetAddress.getLocalHost().getHostName();
-            sb.append('-');
-            sb.append(hostName);
-        } catch (UnknownHostException e) {
-            //
-        }
-        CryptoHelper cryptoHelper = new CryptoHelper(ConnectionHelper.PASSPHRASE);
-        return cryptoHelper.encrypt(sb.toString());
+        return TokenGenerator.generateMachineToken(new CryptoHelper(CryptoHelper.PASSPHRASE));
     }
 }

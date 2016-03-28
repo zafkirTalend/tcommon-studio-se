@@ -39,70 +39,6 @@ public class NetworkUtil {
 
     private static final String TALEND_DISABLE_INTERNET = "talend.disable.internet";//$NON-NLS-1$
 
-    private final static Set<String> getMacAddressList() throws IOException {
-        final Set<String> macAddressList = new HashSet<String>();
-
-        final String os = System.getProperty("os.name"); //$NON-NLS-1$
-
-        final String[] command;
-        if (os.startsWith("Windows")) { //$NON-NLS-1$
-            command = windowsCommand;
-        } else if (os.startsWith("Linux")) { //$NON-NLS-1$
-            command = linuxCommand;
-        } else {
-            throw new IOException("Unknown operating system: " + os); //$NON-NLS-1$
-        }
-
-        final Process process = Runtime.getRuntime().exec(command);
-        // Discard the stderr
-        new Thread() {
-
-            @Override
-            public void run() {
-                try {
-                    InputStream errorStream = process.getErrorStream();
-                    while (errorStream.read() != -1) {
-                    }
-                    errorStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
-        // Extract the MAC addresses from stdout
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        for (String line = null; (line = reader.readLine()) != null;) {
-            Matcher matcher = macPattern.matcher(line);
-            if (matcher.matches()) {
-                // macAddressList.add(matcher.group(1));
-                macAddressList.add(matcher.group(1).replaceAll("[-:]", "")); //$NON-NLS-1$ //$NON-NLS-2$
-            }
-        }
-        reader.close();
-        return macAddressList;
-    }
-
-    /**
-     * Note： should rename as "getFullMacAddresses" later since it takes in fact the concatenation of all mac address.
-     * 
-     * @return
-     */
-    public static String getMacAddress() {
-        try {
-            Set<String> addressList = getMacAddressList();
-            StringBuffer sb = new StringBuffer();
-            // remove empty mac address
-            addressList.remove("0000000000E0"); //$NON-NLS-1$
-            for (String curMacAddress : addressList) {
-                sb.append(curMacAddress);
-            }
-            return sb.toString();
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
     public static boolean isNetworkValid() {
         String disableInternet = System.getProperty(TALEND_DISABLE_INTERNET);
         if ("true".equals(disableInternet)) { //$NON-NLS-1$
@@ -141,14 +77,6 @@ public class NetworkUtil {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public final static void main(String[] args) {
-        try {
-            System.out.println("  MAC Address: " + getMacAddress()); //$NON-NLS-1$
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
     }
 
 }

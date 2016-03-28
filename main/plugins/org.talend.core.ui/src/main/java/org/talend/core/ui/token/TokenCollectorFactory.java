@@ -58,6 +58,9 @@ public final class TokenCollectorFactory {
     private static TokenCollectorFactory factory;
 
     private static final Map<String, TokenInforProvider> providers;
+    
+    private static boolean DEBUG_TOKEN = true;
+    
     static {
         providers = new HashMap<String, TokenInforProvider>();
 
@@ -131,6 +134,9 @@ public final class TokenCollectorFactory {
     }
 
     private boolean isActiveAndValid(boolean timeExpired) {
+        if (DEBUG_TOKEN) {
+            return true;
+        }
         final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             String last = preferenceStore.getString(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME);
@@ -210,6 +216,10 @@ public final class TokenCollectorFactory {
                         Authenticator defaultAuth = NetworkUtil.getDefaultAuthenticator();
                         try {
                             JSONObject tokenInfors = collectTokenInfors();
+                            if (DEBUG_TOKEN) {
+                                System.out.println("token:"+tokenInfors.toString());
+                                return org.eclipse.core.runtime.Status.OK_STATUS;
+                            }
 
                             Resty r = new Resty();
                             // set back the rath for Resty.

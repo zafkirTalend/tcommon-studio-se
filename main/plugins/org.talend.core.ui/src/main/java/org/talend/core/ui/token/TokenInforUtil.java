@@ -141,4 +141,33 @@ public final class TokenInforUtil {
         }
         return topComponentsArray;
     }
+    
+    public static void mergeJSON(JSONObject source, JSONObject target) throws JSONException {
+        Iterator<String> keys = source.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            Object o = source.get(key);
+            if (target.has(key)) {
+                // concatenate the data
+                if (o instanceof Integer) {
+                    // need to add to the total
+                    int nbSource = source.getInt(key);
+                    int nbTarget = target.getInt(key);
+                    target.put(key, nbSource+nbTarget);
+                } else if (o instanceof JSONObject) {
+                    JSONObject objectSource = (JSONObject) o;
+                    JSONObject objectTarget = target.getJSONObject(key);
+                    mergeJSON(objectSource, objectTarget);
+                } else if (o instanceof JSONArray) {
+                    // not yet supported
+                    throw new UnsupportedOperationException();
+                } else {
+                    // for simple string / other data
+                    target.put(key, o);
+                }
+            } else {
+                target.put(key, o);
+            }
+        }        
+    }
 }
