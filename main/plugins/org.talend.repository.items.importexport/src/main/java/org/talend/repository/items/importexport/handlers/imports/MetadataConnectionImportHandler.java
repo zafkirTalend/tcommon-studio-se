@@ -84,7 +84,7 @@ public class MetadataConnectionImportHandler extends ImportRepTypeHandler {
              */
 
             InputStream is = resManager.getStream(importItem.getPath().removeFileExtension()
-                    .addFileExtension(FileConstants.ITEM_EXTENSION));
+                    .addFileExtension(FileConstants.ITEM_EXTENSION), importItem);
 
             try {
                 URI propertyResourceURI = EcoreUtil.getURI(((ConnectionItem) tmpItem).getProperty());
