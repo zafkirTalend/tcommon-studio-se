@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.utils.PathUtils;
+import org.talend.components.api.properties.ComponentProperties;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -2631,10 +2632,11 @@ public class RepositoryToComponentProperty {
         return value;
     }
 
-    public static boolean isGenericRepositoryValue(Connection connection, String paramName) {
+    public static boolean isGenericRepositoryValue(Connection connection, List<ComponentProperties> componentProperties,
+            String paramName) {
         for (IDragAndDropServiceHandler handler : DragAndDropManager.getHandlers()) {
             if (handler.canHandle(connection)) {
-                return handler.isGenericRepositoryValue(connection, paramName);
+                return handler.isGenericRepositoryValue(componentProperties, paramName);
             }
         }
         return false;

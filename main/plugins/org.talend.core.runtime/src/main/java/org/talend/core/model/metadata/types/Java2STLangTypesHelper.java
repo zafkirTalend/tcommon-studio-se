@@ -60,8 +60,8 @@ public class Java2STLangTypesHelper {
         return "string"; //$NON-NLS-1$
 
     }
-	
-	/**
+
+    /**
      * DOC return as: int, long, double, float, string.
      * 
      * @author rdubois
@@ -69,32 +69,34 @@ public class Java2STLangTypesHelper {
      * @param columnLabel
      * @return
      */
-	
-	public static String getPigType(IMetadataTable metadataTable, String columnLabel) { // This method returns the Pig type according to the talendType
-            IMetadataColumn column = metadataTable.getColumn(columnLabel);
-            String talendType = column.getTalendType();
 
-            String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
-            // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
-            if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                return "int"; //$NON-NLS-1$
-            } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
-                return "long"; //$NON-NLS-1$
-            } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$
-                return "double"; //$NON-NLS-1$
-            }
+    public static String getPigType(IMetadataTable metadataTable, String columnLabel) { // This method returns the Pig
+                                                                                        // type according to the
+                                                                                        // talendType
+        IMetadataColumn column = metadataTable.getColumn(columnLabel);
+        String talendType = column.getTalendType();
 
-            // Floats: float(Float)
-            if (typeToGenerate.equals("float")) { //$NON-NLS-1$ //$NON-NLS-2$
-                return "float"; //$NON-NLS-1$
-            }
+        String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
+        // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
+        if (typeToGenerate.equals("int") || typeToGenerate.equals("short") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            return "int"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
+            return "long"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$
+            return "double"; //$NON-NLS-1$
+        }
 
-            // others treat as string
-            return "chararray"; //$NON-NLS-1$
-	
-       }
-	   
-	   	/**
+        // Floats: float(Float)
+        if (typeToGenerate.equals("float")) { //$NON-NLS-1$ 
+            return "float"; //$NON-NLS-1$
+        }
+
+        // others treat as string
+        return "chararray"; //$NON-NLS-1$
+
+    }
+
+    /**
      * DOC return as: int, long, double, float, string.
      * 
      * @author rdubois
@@ -102,34 +104,36 @@ public class Java2STLangTypesHelper {
      * @param columnLabel
      * @return
      */
-	
-	public static String getHCatType(IMetadataTable metadataTable, String columnLabel) { // This method returns the Pig type according to the talendType
-            IMetadataColumn column = metadataTable.getColumn(columnLabel);
-            String talendType = column.getTalendType();
 
-            String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
-            // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
-            if (typeToGenerate.equals("int") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                return "int"; //$NON-NLS-1$
-            } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
-                return "bigint"; //$NON-NLS-1$
-			} else if (typeToGenerate.equals("short")) { //$NON-NLS-1$
-				return "smallint";
-			} else if (typeToGenerate.equals("boolean")) { //$NON-NLS-1$
-				return "boolean";
-            } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$
-                return "double"; //$NON-NLS-1$
-            }
+    public static String getHCatType(IMetadataTable metadataTable, String columnLabel) { // This method returns the Pig
+                                                                                         // type according to the
+                                                                                         // talendType
+        IMetadataColumn column = metadataTable.getColumn(columnLabel);
+        String talendType = column.getTalendType();
 
-            // Floats: float(Float)
-            if (typeToGenerate.equals("float")) { //$NON-NLS-1$ //$NON-NLS-2$
-                return "float"; //$NON-NLS-1$
-            }
+        String typeToGenerate = JavaTypesManager.getTypeToGenerate(talendType, false);
+        // Integers: int(Integer), long(Long), short(Short), byte(Byte), BigDecimal, double(Double).
+        if (typeToGenerate.equals("int") || typeToGenerate.equals("byte")) { //$NON-NLS-1$ //$NON-NLS-2$ 
+            return "int"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("long")) { //$NON-NLS-1$
+            return "bigint"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("short")) { //$NON-NLS-1$
+            return "smallint"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("boolean")) { //$NON-NLS-1$
+            return "boolean"; //$NON-NLS-1$
+        } else if (typeToGenerate.equals("BigDecimal") || typeToGenerate.equals("double")) { //$NON-NLS-1$ //$NON-NLS-2$
+            return "double"; //$NON-NLS-1$
+        }
 
-            // others treat as string
-            return "string"; //$NON-NLS-1$
-	
-       }
+        // Floats: float(Float)
+        if (typeToGenerate.equals("float")) { //$NON-NLS-1$ 
+            return "float"; //$NON-NLS-1$
+        }
+
+        // others treat as string
+        return "string"; //$NON-NLS-1$
+
+    }
 
     /**
      * DOC return as: %d, %f, %b, %s.

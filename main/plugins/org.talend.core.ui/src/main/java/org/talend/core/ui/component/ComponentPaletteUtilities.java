@@ -108,7 +108,7 @@ public class ComponentPaletteUtilities {
                 }
 
                 if (extraPaletteEntry == null || extraPaletteEntry.size() == 0) {
-                    extraPaletteEntry = designerCoreUIService.createJobletEtnry();
+                    extraPaletteEntry = designerCoreUIService.createPaletteEtnry();
                 }
             }
         });
@@ -156,7 +156,7 @@ public class ComponentPaletteUtilities {
 
                 @Override
                 public void run() {
-                    extraPaletteEntry = designerCoreUIService.createJobletEtnry();
+                    extraPaletteEntry = designerCoreUIService.createPaletteEtnry();
                 }
             });
         }
