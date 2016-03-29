@@ -176,9 +176,9 @@ public class ImportExportHandlersManager {
                     if (importHandler != null) {
                         ImportItem importItem = null;
                         if (needCheck) {
-                            importItem = importHandler.generateImportItem(progressMonitor, resManager, path, overwrite, items);
-                        } else {
                             importItem = importHandler.createImportItem(progressMonitor, resManager, path, overwrite, items);
+                        } else {
+                            importItem = importHandler.generateImportItem(progressMonitor, resManager, path, overwrite, items);
                         }
                         // if have existed, won't add again.
                         if (importItem != null && !items.contains(importItem)) {
