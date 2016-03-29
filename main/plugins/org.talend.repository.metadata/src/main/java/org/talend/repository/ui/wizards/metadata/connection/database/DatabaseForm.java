@@ -5870,9 +5870,9 @@ public class DatabaseForm extends AbstractForm {
     protected void updateHiveDistributionAndMakeSelection(IHDistribution hiveDistribution) {
         hiveDistributionCombo.getCombo().setItems(HiveMetadataHelper.getDistributionsDisplay());
         if (hiveDistribution != null) {
-            hiveDistributionCombo.getCombo().setText(hiveDistribution.getDisplayName());
+            hiveDistributionCombo.setText(hiveDistribution.getDisplayName());
         } else {
-            hiveDistributionCombo.getCombo().select(0);
+            hiveDistributionCombo.select(0);
         }
     }
 
@@ -5895,9 +5895,10 @@ public class DatabaseForm extends AbstractForm {
         if (hiveDistribution == null) {
             return;
         }
-        hiveVersionCombo.getCombo().setItems(hiveDistribution.getVersionsDisplay());
+        hiveVersionCombo.getCombo()
+                .setItems(HiveMetadataHelper.getDistributionVersionsDisplay(hiveDistribution.getName(), false));
         if (hiveVersion != null) {
-            hiveVersionCombo.getCombo().setText(hiveVersion.getDisplayVersion());
+            hiveVersionCombo.setText(hiveVersion.getDisplayVersion());
         } else {
             hiveVersionCombo.select(0);
         }

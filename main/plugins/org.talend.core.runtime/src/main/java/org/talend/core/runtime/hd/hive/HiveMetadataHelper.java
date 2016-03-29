@@ -16,14 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.hadoop.IHadoopDistributionService;
 import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.runtime.hd.IDistributionsManager;
-import org.talend.core.runtime.hd.IHDConstants;
 import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.core.runtime.hd.IHDistributionVersion;
 
@@ -47,19 +45,15 @@ public class HiveMetadataHelper {
         return null;
     }
 
-    private static boolean isTOPStandaloneMode() {
-        return PluginChecker.isOnlyTopLoaded();
-    }
-
     public static String[] getDistributionsDisplay() {
         List<String> distributionItems = new ArrayList<String>();
         IDistributionsManager hiveDistributionManager = getHiveDistributionsManager();
-        boolean topStandaloneMode = isTOPStandaloneMode();
         if (hiveDistributionManager != null) {
             IHDistribution[] distributions = hiveDistributionManager.getDistributions();
             for (IHDistribution d : distributions) {
-                if (topStandaloneMode && IHDConstants.DISTRIBUTION_HORTONWORKS.equals(d.getName())) { //$NON-NLS-1$
-                    continue;
+                String[] distributionVersionsDisplay = getDistributionVersionsDisplay(d.getName(), false);
+                if (distributionVersionsDisplay == null || distributionVersionsDisplay.length == 0) {
+                    continue; // if no version support, ignore it.
                 }
                 distributionItems.add(d.getDisplayName());
             }
@@ -86,10 +80,25 @@ public class HiveMetadataHelper {
         return null;
     }
 
+    public static String[] getDistributionVersionsDisplay(String hiveDistribution, boolean byDisplay) {
+        List<String> versionsItems = new ArrayList<String>();
+        IHDistribution distribution = getDistribution(hiveDistribution, byDisplay);
+        if (distribution != null) {
+            IHDistributionVersion[] hdVersions = distribution.getHDVersions();
+            for (IHDistributionVersion v : hdVersions) {
+                String[] hiveModesDisplay = getHiveModesDisplay(distribution.getName(), v.getVersion(), false);
+                if (hiveModesDisplay == null || hiveModesDisplay.length == 0) {
+                    continue; // if no hive mode to support, ignore this version.
+                }
+                versionsItems.add(v.getDisplayVersion());
+            }
+        }
+        return versionsItems.toArray(new String[versionsItems.size()]);
+    }
+
     public static String[] getHiveModesDisplay(String hiveDistribution, String hiveVersion, boolean byDisplay) {
         List<String> hiveModeItems = new ArrayList<String>();
-        // As the embedded mode is not working for top, we need to hide some menus
-        if (doSupportEmbeddedMode(hiveDistribution, hiveVersion, byDisplay) && !isTOPStandaloneMode()) {
+        if (doSupportEmbeddedMode(hiveDistribution, hiveVersion, byDisplay)) {
             hiveModeItems.add(HiveModeInfo.EMBEDDED.getDisplayName());
         }
         // TODO, what mean doSupportHive1Standalone in HiveComponent?
