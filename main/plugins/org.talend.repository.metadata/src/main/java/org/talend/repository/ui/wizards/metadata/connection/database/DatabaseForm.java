@@ -4381,7 +4381,8 @@ public class DatabaseForm extends AbstractForm {
         } else {
             if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
                 String template = null;
-                if (HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
+                if (doSupportHive2()
+                        && HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
                     template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
                 } else {
                     template = DbConnStrForHive.URL_HIVE_1_TEMPLATE;
@@ -5645,9 +5646,9 @@ public class DatabaseForm extends AbstractForm {
         IHDistributionVersion hdVersion = hiveDistribution.getHDVersion(originalVersion, true);
         if (newVersion != null && !newVersion.equals(hdVersion)) {
             setHideVersionInfoWidgets(false);
-            updateHiveServerAndMakeSelection(hiveDistribution, hdVersion);
-            updateYarnInfo(hiveDistribution, hdVersion);
             updateHiveModeAndMakeSelection(null);
+            updateHiveServerAndMakeSelection(hiveDistribution, newVersion);
+            updateYarnInfo(hiveDistribution, newVersion);
             doHiveModeModify();
             fillDefaultsWhenHiveVersionChanged();
         }
