@@ -25,6 +25,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
  */
@@ -46,7 +47,7 @@ public class ProviderManager extends AbstractImportResourcesManager {
     }
 
     @Override
-    public InputStream getStream(IPath path) {
+    public InputStream getStream(IPath path, ImportItem importItem) {
         return provider.getContents(path2Object.get(path));
     }
 

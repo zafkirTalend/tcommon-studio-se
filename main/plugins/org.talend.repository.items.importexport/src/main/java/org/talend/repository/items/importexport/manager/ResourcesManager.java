@@ -44,11 +44,11 @@ public abstract class ResourcesManager {
         return getPaths().contains(path);
     }
 
-    public abstract InputStream getStream(IPath path) throws IOException;
-
-    public InputStream getStream(IPath path, ImportItem importItem) throws IOException {
+    final public InputStream getStream(IPath path) throws IOException {
         return getStream(path, null);
     }
+
+    public abstract InputStream getStream(IPath path, ImportItem importItem) throws IOException;
 
     public abstract boolean collectPath2Object(Object root);
 
