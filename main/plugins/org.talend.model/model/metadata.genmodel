@@ -532,7 +532,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AdditionalProperties/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AdditionalProperties/value"/>
     </genClasses>
-    <genClasses ecoreClass="metadata.ecore#//SAPTable"/>
+    <genClasses ecoreClass="metadata.ecore#//SAPTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPTable/tableSearchType"/>
+    </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SAPTableField">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPTableField/businessName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SAPTableField/refTable"/>
