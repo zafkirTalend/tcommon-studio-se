@@ -340,9 +340,13 @@ public final class ConvertionHelper {
         result.setLabel(old.getLabel());
         result.setTableType(old.getTableType());
         if (old instanceof SAPBWTable) {
-            String innerType = ((SAPBWTable)old).getInnerIOType();
+            String innerType = ((SAPBWTable) old).getInnerIOType();
+            String sourceSysName = ((SAPBWTable) old).getSourceSystemName();
             if (innerType != null) {
                 result.getAdditionalProperties().put(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE, innerType);
+            }
+            if (sourceSysName != null) {
+                result.getAdditionalProperties().put(SAPBWTableHelper.SAP_DATASOURCE_SOURCESYSNAME, sourceSysName);
             }
         }
         String sourceName = old.getName();
