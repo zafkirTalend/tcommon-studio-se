@@ -434,6 +434,11 @@ public class RelationshipItemBuilder {
         }
     }
 
+    public void clearAllItemsRelations() {
+        currentProjectItemsRelations.clear();
+        referencesItemsRelations.clear();
+    }
+
     public void mergeRelationship(Map<Relation, Set<Relation>> itemRelations, Map<Relation, Set<Relation>> newRelations) {
         if (itemRelations != null && newRelations != null) {
             for (Relation relation : newRelations.keySet()) {

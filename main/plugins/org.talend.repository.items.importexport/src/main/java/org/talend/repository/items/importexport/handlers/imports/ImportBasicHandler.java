@@ -30,6 +30,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Priority;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -547,7 +548,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         Map<IPath, Project> pathWithProjects = ImportCacheHelper.getInstance().getPathWithProjects();
         try {
             if (!pathWithProjects.containsKey(path)) {
-                stream = manager.getStream(path);
+                stream = manager.getStream(path, importItem);
                 Resource resource = createResource(importItem, path, false);
                 resource.load(stream, null);
                 // EmfHelper.loadResource(resource, stream, null);
@@ -991,7 +992,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 URL fileURL = FileLocator.toFileURL(new java.net.URL(
                         "platform:/resource" + relativePlateformDestUri.toPlatformString(true))); //$NON-NLS-1$
                 os = new FileOutputStream(fileURL.getFile());
-                is = manager.getStream(getReferenceItemPath(selectedImportItem.getPath(), refItem));
+                is = manager.getStream(getReferenceItemPath(selectedImportItem.getPath(), refItem), selectedImportItem);
                 FileCopyUtils.copyStreams(is, os);
             } finally {
                 if (os != null) {
@@ -1017,16 +1018,16 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             boolean byteArray = (item instanceof FileItem);
             IPath itemPath = HandlerUtil.getItemPath(importItem.getPath(), item);
             IPath itemRelativePath = HandlerUtil.getValidItemRelativePath(manager, itemPath);
-            Set<IPath> paths = manager.getPaths();
+            // Set<IPath> paths = manager.getPaths();
             // check the item file
-            if (!paths.contains(itemPath)) {
+            if (!manager.isContainsPath(itemPath)) {
                 importItem.addError(Messages.getString("ImportBasicHandler_MissingItemError", importItem.getItemName(),
                         itemPath.lastSegment(), itemRelativePath));
                 log.error(importItem.getItemName()
                         + " " + Messages.getString("ImportBasicHandler_MissingItemFile") + " - " + itemRelativePath); //$NON-NLS-1$
                 return;
             }
-            stream = manager.getStream(itemPath);
+            stream = manager.getStream(itemPath, importItem);
             Resource resource = createResource(importItem, itemPath, byteArray);
 
             if (byteArray) {
@@ -1047,7 +1048,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
             for (ReferenceFileItem rfItem : (List<ReferenceFileItem>) item.getReferenceResources()) {
                 itemPath = getReferenceItemPath(importItem.getPath(), rfItem);
-                stream = manager.getStream(itemPath);
+                stream = manager.getStream(itemPath, importItem);
                 Resource rfResource = createResource(importItem, itemPath, true);
                 rfResource.load(stream, null);
             }
@@ -1058,7 +1059,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 EObject object = itRef.next();
                 String linkedFile = EcoreUtil.getURI(object).toFileString();
                 IPath linkedPath = parentPath.append(linkedFile);
-                if (!paths.contains(linkedPath)) {
+                if (!manager.isContainsPath(linkedPath)) {
                     if (linkedFile != null && !linkedFile.equals(itemPath.lastSegment())
                             && linkedFile.endsWith(itemPath.getFileExtension())) {
                         if (object.eIsProxy()) {
@@ -1074,6 +1075,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             }
         } catch (IOException e) {
             // ignore
+        } catch (Exception ex) {
+            ExceptionHandler.process(ex, Priority.WARN);
         } finally {
             if (stream != null) {
                 try {

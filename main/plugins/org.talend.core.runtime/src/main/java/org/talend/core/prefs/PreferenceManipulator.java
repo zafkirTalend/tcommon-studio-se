@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.Hex;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.utils.json.JSONArray;
@@ -43,6 +44,8 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
     /** The preference store manipulated. */
     private IPreferenceStore store;
+
+    private String PROJECT_BRANCH_MANAGEMENT = "localBranchManagement";
 
     /**
      * Constructs a new PreferenceManipulator.
@@ -309,4 +312,26 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         String hexKey = Hex.encodeHexString((projectUrl + projectName + LOCAL_MODE + branch).getBytes());
         return store.getString(hexKey);
     }
+
+    public JSONObject getLogonLocalBranchStatus(String projectUrl, String projectName) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName + PROJECT_BRANCH_MANAGEMENT).getBytes());
+        String jsonString = store.getString(hexKey);
+        if (jsonString == null || "".equals(jsonString))
+            return null;
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            return jsonObject;
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            ExceptionHandler.process(e);
+        }
+        return null;
+    }
+
+    public void setLogonLocalBranchStatus(String projectUrl, String projectName, JSONObject json) {
+        String hexKey = Hex.encodeHexString((projectUrl + projectName + PROJECT_BRANCH_MANAGEMENT).getBytes());
+        store.setValue(hexKey, json.toString());
+        save();
+    }
+
 }

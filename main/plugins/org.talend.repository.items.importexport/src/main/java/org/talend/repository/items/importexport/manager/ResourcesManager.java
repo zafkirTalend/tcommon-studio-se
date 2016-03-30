@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
  */
@@ -39,7 +40,15 @@ public abstract class ResourcesManager {
         return path2Object.keySet();
     }
 
+    public boolean isContainsPath(IPath path) {
+        return getPaths().contains(path);
+    }
+
     public abstract InputStream getStream(IPath path) throws IOException;
+
+    public InputStream getStream(IPath path, ImportItem importItem) throws IOException {
+        return getStream(path, null);
+    }
 
     public abstract boolean collectPath2Object(Object root);
 
