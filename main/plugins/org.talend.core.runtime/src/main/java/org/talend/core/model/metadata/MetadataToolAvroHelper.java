@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.avro.LogicalTypes;
-import org.apache.avro.LogicalTypes.Decimal;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.SchemaBuilder.BaseFieldTypeBuilder;
@@ -31,7 +29,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.cwm.helper.TaggedValueHelper;
-import org.talend.daikon.avro.SchemaConstants;
+import org.talend.daikon.avro.util.AvroTypes;
 import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
 import orgomg.cwm.objectmodel.core.Expression;
@@ -126,7 +124,7 @@ public final class MetadataToolAvroHelper {
         copyColumnProperties(fb, in);
         BaseFieldTypeBuilder<Schema> ftb = in.isNullable() ? fb.type().nullable() : fb.type();
 
-        String defaultValue = null;
+        Object defaultValue = null;
         Expression initialValue = in.getInitialValue();
         if (initialValue != null) {
             defaultValue = initialValue.getBody();
@@ -134,72 +132,62 @@ public final class MetadataToolAvroHelper {
 
         String tt = in.getTalendType();
 
+        Schema type = null;
         // Numeric types.
         if (JavaTypesManager.LONG.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.longType().noDefault()
-                    : ftb.longType().longDefault(Long.parseLong(defaultValue));
-        }
-        if (JavaTypesManager.INTEGER.getId().equals(tt) || JavaTypesManager.SHORT.getId().equals(tt)
-                || JavaTypesManager.BYTE.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.intType().noDefault()
-                    : ftb.intType().intDefault(Integer.parseInt(defaultValue));
-        }
-        if (JavaTypesManager.DOUBLE.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.doubleType().noDefault()
-                    : ftb.doubleType().doubleDefault(Double.parseDouble(defaultValue));
-        }
-        if (JavaTypesManager.FLOAT.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.floatType().noDefault()
-                    : ftb.floatType().floatDefault(Float.parseFloat(defaultValue));
-        }
-        if (JavaTypesManager.BIGDECIMAL.getId().equals(tt)) {
+            type = AvroTypes._long();
+            defaultValue = defaultValue == null ? null : Long.parseLong(defaultValue.toString());
+        } else if (JavaTypesManager.INTEGER.getId().equals(tt)) {
+            type = AvroTypes._int();
+            defaultValue = defaultValue == null ? null : Integer.parseInt(defaultValue.toString());
+        } else if (JavaTypesManager.SHORT.getId().equals(tt)) {
+            type = AvroTypes._short();
+            defaultValue = defaultValue == null ? null : Integer.parseInt(defaultValue.toString());
+        } else if (JavaTypesManager.BYTE.getId().equals(tt)) {
+            type = AvroTypes._byte();
+            defaultValue = defaultValue == null ? null : Integer.parseInt(defaultValue.toString());
+        } else if (JavaTypesManager.DOUBLE.getId().equals(tt)) {
+            type = AvroTypes._double();
+            defaultValue = defaultValue == null ? null : Double.parseDouble(defaultValue.toString());
+        } else if (JavaTypesManager.FLOAT.getId().equals(tt)) {
+            type = AvroTypes._float();
+            defaultValue = defaultValue == null ? null : Float.parseFloat(defaultValue.toString());
+        } else if (JavaTypesManager.BIGDECIMAL.getId().equals(tt)) {
             // decimal(precision, scale) == column length and precision?
-            Decimal d = LogicalTypes.decimal((int) in.getLength(), (int) in.getPrecision());
-            Schema bigdecimal = d.addToSchema(Schema.create(Schema.Type.BYTES));
-            return defaultValue == null ? fb.type(bigdecimal).noDefault() : fb.type(bigdecimal).withDefault(defaultValue);
+            type = AvroTypes._decimal();
         }
 
         // Other primitive types that map directly to Avro.
-        if (JavaTypesManager.BOOLEAN.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.booleanType().noDefault()
-                    : ftb.booleanType().booleanDefault(Boolean.parseBoolean(defaultValue));
-        }
-        if (JavaTypesManager.BYTE_ARRAY.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.bytesType().noDefault()
-                    : ftb.bytesType().bytesDefault(defaultValue);
-        }
-        if (JavaTypesManager.DATE.getId().equals(tt)) {
-            // Date is saved as a long, like System.currentTimeMillis()
-            return ftb.longType().noDefault();
+        else if (JavaTypesManager.BOOLEAN.getId().equals(tt)) {
+            type = AvroTypes._boolean();
+            defaultValue = defaultValue == null ? null : Boolean.parseBoolean(defaultValue.toString());
+        } else if (JavaTypesManager.BYTE_ARRAY.getId().equals(tt)) {
+            type = AvroTypes._bytes();
+        } else if (JavaTypesManager.DATE.getId().equals(tt)) {
+            type = AvroTypes._date();
         }
         // String-ish types.
-        if (JavaTypesManager.STRING.getId().equals(tt) || JavaTypesManager.FILE.getId().equals(tt)
+        else if (JavaTypesManager.STRING.getId().equals(tt) || JavaTypesManager.FILE.getId().equals(tt)
                 || JavaTypesManager.DIRECTORY.getId().equals(tt) || JavaTypesManager.VALUE_LIST.getId().equals(tt)
                 || JavaTypesManager.CHARACTER.getId().equals(tt) || JavaTypesManager.PASSWORD.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.stringType().noDefault()
-                    : ftb.stringType().stringDefault(defaultValue);
+            type = AvroTypes._string();
         }
 
         // Types with unknown elements, store as binary
         if (JavaTypesManager.OBJECT.getId().equals(tt)) {
-            return defaultValue == null //
-            ? ftb.bytesType().noDefault()
-                    : ftb.bytesType().bytesDefault(defaultValue);
+            // FIXME it's not right, as it don't store all the information about the object
         }
 
         if (JavaTypesManager.LIST.getId().equals(tt)) {
-            return ftb.array().items().bytesType().noDefault();
+            // FIXME it's not right, as it don't store all the information about the object
+        }
+        // Can this occur?
+        if (type == null) {
+            throw new UnsupportedOperationException("Unrecognized type " + tt); //$NON-NLS-1$
         }
 
-        // Can this occur?
-        throw new UnsupportedOperationException("Unrecognized type " + tt); //$NON-NLS-1$
+        type = in.isNullable() ? AvroUtils.wrapAsNullable(type) : type;
+        return defaultValue == null ? fb.type(type).noDefault() : fb.type(type).withDefault(defaultValue);
     }
 
     private static Schema copyDynamicColumnProperties(Schema schema,
@@ -486,47 +474,33 @@ public final class MetadataToolAvroHelper {
         col.setLabel(field.name());
         col.setName(field.name());
         Schema nonnullable = AvroUtils.unwrapIfNullable(in);
-        switch (nonnullable.getType()) {
-        case ARRAY:
-            col.setTalendType(JavaTypesManager.LIST.getId());
-            break;
-        case BOOLEAN:
+        if (AvroTypes.isSameType(nonnullable, AvroTypes._boolean())) {
             col.setTalendType(JavaTypesManager.BOOLEAN.getId());
-            break;
-        case BYTES:
-        case FIXED:
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._byte())) {
+            col.setTalendType(JavaTypesManager.BYTE.getId());
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._bytes())) {
             col.setTalendType(JavaTypesManager.BYTE_ARRAY.getId());
-            break;
-        case DOUBLE:
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._character())) {
+            col.setTalendType(JavaTypesManager.CHARACTER.getId());
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._date())) {
+            col.setTalendType(JavaTypesManager.DATE.getId());
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._decimal())) {
+            col.setTalendType(JavaTypesManager.BIGDECIMAL.getId());
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._double())) {
             col.setTalendType(JavaTypesManager.DOUBLE.getId());
-            break;
-        case FLOAT:
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._float())) {
             col.setTalendType(JavaTypesManager.FLOAT.getId());
-            break;
-        case INT:
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._int())) {
             col.setTalendType(JavaTypesManager.INTEGER.getId());
-            break;
-        case LONG:
-            String prop = null;
-            if (null != (prop = nonnullable.getProp(SchemaConstants.TALEND_COLUMN_PATTERN))) {
-                col.setTalendType(JavaTypesManager.DATE.getId());
-                col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
-            } else {
-                col.setTalendType(JavaTypesManager.LONG.getId());
-            }
-            break;
-        case ENUM:
-        case STRING:
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._long())) {
+            col.setTalendType(JavaTypesManager.LONG.getId());
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._short())) {
+            col.setTalendType(JavaTypesManager.SHORT.getId());
+        } else if (AvroTypes.isSameType(nonnullable, AvroTypes._string())) {
             col.setTalendType(JavaTypesManager.STRING.getId());
-            break;
-        case RECORD:
-        case NULL:
-        case MAP:
-        case UNION:
-        default:
-            // Can this occur in the studio?
-            break;
         }
+        // FIXME missing List and Object here
+
         // TODO setSourceType from the field Schema type.
         col.setNullable(AvroUtils.isNullable(in));
 
