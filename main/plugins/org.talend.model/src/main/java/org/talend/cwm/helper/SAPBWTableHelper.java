@@ -31,6 +31,8 @@ public class SAPBWTableHelper {
     public static final String IO_INNERTYPE_HIERARCHY = "HIERARCHY"; //$NON-NLS-1$
     
     public static final String SAP_INFOOBJECT_INNER_TYPE = "innerIOType";  //$NON-NLS-1$
+
+    public static final String SAP_DATASOURCE_SOURCESYSNAME = "SOURCE_SYSNAME";  //$NON-NLS-1$
     
     private static final List<String> INFOOBJECT_INNERTYPE = new ArrayList<String>();
     
@@ -43,6 +45,12 @@ public class SAPBWTableHelper {
 
     public static Set<MetadataTable> getBWTables(Connection connection, String bwTableType) {
         Set<MetadataTable> result = new HashSet<MetadataTable>();
+        List<SAPBWTable> list = getBWTableList(connection, bwTableType);
+        result.addAll(list);
+        return result;
+    }
+    
+    public static List<SAPBWTable> getBWTableList(Connection connection, String bwTableType) {
         List<SAPBWTable> bwTables;
         switch (bwTableType) {
         case TYPE_DATASOURCE:
@@ -60,8 +68,7 @@ public class SAPBWTableHelper {
         default:
             bwTables = null;
         }
-        result.addAll(bwTables);
-        return result;
+        return bwTables;
     }
 
     public static Set<MetadataTable> getBWTables(Connection connection, String bwTableType, String innerIOType, boolean innerInclude) {
@@ -84,7 +91,7 @@ public class SAPBWTableHelper {
     }
     
     public static void removeBWTable(Connection connection, String bwTableType, SAPBWTable table) {
-        Set<MetadataTable> bwTables = getBWTables(connection, bwTableType);
+        List<SAPBWTable> bwTables = getBWTableList(connection, bwTableType);
         if (bwTables.contains(table)) {
             bwTables.remove(table);
         }
