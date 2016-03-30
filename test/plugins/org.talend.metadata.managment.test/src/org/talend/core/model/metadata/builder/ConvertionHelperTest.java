@@ -9,10 +9,13 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
+import org.talend.core.model.metadata.builder.connection.SAPBWTable;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.cwm.helper.SAPBWTableHelper;
 
 @PrepareForTest({ CoreRuntimePlugin.class })
 public class ConvertionHelperTest {
@@ -20,6 +23,19 @@ public class ConvertionHelperTest {
     @Rule
     public PowerMockRule powerMockRule = new PowerMockRule();
 
+    
+    @Test
+    public void testConvertMetadataTable() {
+        SAPBWTable table = ConnectionFactory.eINSTANCE.createSAPBWTable();
+        table.setSourceSystemName("TALEND");
+        table.setInnerIOType(SAPBWTableHelper.IO_INNERTYPE_HIERARCHY);
+        IMetadataTable newTable = ConvertionHelper.convert(table);
+        String sourceSysName = newTable.getAdditionalProperties().get(SAPBWTableHelper.SAP_DATASOURCE_SOURCESYSNAME);
+        String innerIOType = newTable.getAdditionalProperties().get(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE);
+        assertEquals("TALEND", sourceSysName);
+        assertEquals(SAPBWTableHelper.IO_INNERTYPE_HIERARCHY, innerIOType);
+    }
+    
     @Test
     public void testConvertDatabaseConnectionBooleanString() {
         DatabaseConnection dbProvider = ConnectionFactory.eINSTANCE.createDatabaseConnection();
