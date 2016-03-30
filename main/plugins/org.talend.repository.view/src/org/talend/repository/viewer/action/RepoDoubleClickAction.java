@@ -324,7 +324,7 @@ public class RepoDoubleClickAction extends Action {
             if (nodeType != null
                     && (nodeType.equals(ERepositoryObjectType.METADATA_CON_TABLE) || (nodeType
                             .equals(ERepositoryObjectType.METADATA_CON_COLUMN)))) {
-                if (current.getClassForDoubleClick().equals(IMetadataTable.class) && !isSAPBWTable(obj)) {
+                if (current.getClassForDoubleClick().equals(IMetadataTable.class)) {
                     return current;
                 }
                 // for ebcdic
