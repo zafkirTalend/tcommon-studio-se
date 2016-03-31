@@ -101,10 +101,16 @@ public class ImportExportHandlersManager {
         return null;
     }
 
-    private IImportItemsHandler findValidImportHandler(ImportItem importItem, boolean enableProductChecking) {
+    private IImportItemsHandler findValidImportHandler(ImportItem importItem, boolean enableProductChecking,
+            boolean checkBuiltIn) {
         for (IImportItemsHandler handler : getImportHandlers()) {
             handler.setEnableProductChecking(enableProductChecking);
-            if (handler.valid(importItem)) {
+            boolean isValid = handler.valid(importItem);
+            if (!isValid && !checkBuiltIn) {
+                // if don't care builtin/system item, then just use this value
+                isValid = handler.isValidSystemItem(importItem);
+            }
+            if (isValid) {
                 // set the handler
                 importItem.setImportHandler(handler);
                 return handler;
@@ -199,7 +205,7 @@ public class ImportExportHandlersManager {
                 // process the "*.properties"
                 ImportItem importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
                 if (importItem != null) {
-                    IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking);
+                    IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking, needCheck);
                     if (importHandler != null) {
                         if (importHandler instanceof ImportBasicHandler) {
                             // save as the createImportItem of ImportBasicHandler
