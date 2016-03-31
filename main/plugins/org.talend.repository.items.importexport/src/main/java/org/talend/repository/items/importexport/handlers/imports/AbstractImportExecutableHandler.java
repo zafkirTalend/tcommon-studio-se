@@ -78,4 +78,8 @@ public abstract class AbstractImportExecutableHandler implements IImportItemsHan
         // default, nothing to do
     }
 
+    @Override
+    public boolean isValidSystemItem(ImportItem importItem) {
+        return valid(importItem);
+    }
 }

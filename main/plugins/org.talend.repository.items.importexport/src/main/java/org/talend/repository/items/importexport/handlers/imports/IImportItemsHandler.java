@@ -55,6 +55,14 @@ public interface IImportItemsHandler extends IExecutableExtension {
     boolean valid(ImportItem importItem);
 
     /**
+     * If it is a valid and builtin/system item
+     * 
+     * @param importItem
+     * @return
+     */
+    boolean isValidSystemItem(ImportItem importItem);
+
+    /**
      * According to the valid resource path, resolve the EMF properties file, and check the overwrite status or be valid
      * item or not, etc.
      * 

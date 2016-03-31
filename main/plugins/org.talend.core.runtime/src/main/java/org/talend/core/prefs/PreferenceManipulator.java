@@ -251,12 +251,14 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
 
+    @Deprecated
     public int getLastLogonMode(String projectUrl, String projectName, String branch) {
         String hexKey = Hex.encodeHexString((projectUrl + projectName + branch).getBytes());
         int mode = store.getInt(hexKey);
         return mode;
     }
 
+    @Deprecated
     public void setLastLogonMode(String projectUrl, String projectName, String branch, int mode) {
         String hexKey = Hex.encodeHexString((projectUrl + projectName + branch).getBytes());
         store.setValue(hexKey, mode);
