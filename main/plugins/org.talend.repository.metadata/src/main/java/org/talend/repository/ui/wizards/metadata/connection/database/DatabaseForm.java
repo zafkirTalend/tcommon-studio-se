@@ -5231,14 +5231,14 @@ public class DatabaseForm extends AbstractForm {
             hdVersion = hiveDistribution.getHDVersion(hiveVersion, false);
             updateHiveDistributionAndMakeSelection(hiveDistribution);
             updateHiveVersionAndMakeSelection(hiveDistribution, hdVersion);
-            updateHiveModeAndMakeSelection(HiveModeInfo.valueOf(hiveMode));
             updateHiveServerAndMakeSelection(hiveDistribution, hdVersion);
+            updateHiveModeAndMakeSelection(HiveModeInfo.valueOf(hiveMode));
 
         } else {
             updateHiveDistributionAndMakeSelection(null);
             updateHiveVersionAndMakeSelection(null, null);
-            updateHiveModeAndMakeSelection(null);
             updateHiveServerAndMakeSelection(null, null);
+            updateHiveModeAndMakeSelection(null);
         }
         doHiveModeModify();
 
@@ -5755,11 +5755,14 @@ public class DatabaseForm extends AbstractForm {
             hiveVersion = hdVersions[0];
         }
 
-        String supportYarnMethodName = "isHadoop2"; //$NON-NLS-1$
-        Map<String, Boolean> doSupportMethods = hadoopDistributionService.doSupportMethods(hiveVersion, supportYarnMethodName);
-        Boolean support = doSupportMethods.get(supportYarnMethodName);
+        boolean support = false;
+        try {
+            support = hadoopDistributionService.doSupportMethod(hiveVersion, "isHadoop2"); //$NON-NLS-1$
+        } catch (Exception e) {
+            // ignore
+        }
 
-        if (support != null && support) {
+        if (support) {
             getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_YARN, String.valueOf(Boolean.TRUE));
         }
         updateJobtrackerContent();
@@ -5918,8 +5921,14 @@ public class DatabaseForm extends AbstractForm {
         if (hiveVersion == null && hdVersions.length > 0) {
             hiveVersion = hdVersions[0];
         }
+        HiveServerVersionInfo hiveServer = null;
+        if (doSupportHive2()) {
+            hiveServer = HiveServerVersionInfo.getByDisplay(hiveServerVersionCombo.getText());
+        } else {
+            hiveServer = HiveServerVersionInfo.HIVE_SERVER_1;
+        }
         String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(hiveDistribution.getName(), hiveVersion.getVersion(),
-                false);
+                hiveServer.getKey(), false);
         hiveModeCombo.getCombo().setItems(hiveModesDisplay);
 
         if (hiveMode != null) {
@@ -5949,32 +5958,21 @@ public class DatabaseForm extends AbstractForm {
             hiveVersion = hdVersions[0];
         }
 
-        if (doSupportHive2()) {
-            DatabaseConnection conn = getConnection();
-            String mode = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-            HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(mode);
-            if (hiveMode == null) {
-                String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(hiveDistribution.getName(),
-                        hiveVersion.getVersion(), false);
-                if (hiveModesDisplay.length > 0) {
-                    hiveMode = HiveModeInfo.getByDisplay(hiveModesDisplay[0]);
-                }
-            }
-            String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(hiveDistribution.getName(),
-                    hiveVersion.getVersion(), hiveMode.getName(), false);
-            hiveServerVersionCombo.getCombo().setItems(hiveServersDisplay);
+        DatabaseConnection conn = getConnection();
+        String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(hiveDistribution.getName(),
+                hiveVersion.getVersion(), false);
+        hiveServerVersionCombo.getCombo().setItems(hiveServersDisplay);
 
-            String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
-            if (hiveServerKey != null) {
-                HiveServerVersionInfo serverVersion = HiveServerVersionInfo.getByKey(hiveServerKey);
-                if (serverVersion != null) {
-                    hiveServerVersionCombo.setText(serverVersion.getDisplayName());
-                } else {
-                    hiveServerVersionCombo.select(0);
-                }
+        String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
+        if (hiveServerKey != null) {
+            HiveServerVersionInfo serverVersion = HiveServerVersionInfo.getByKey(hiveServerKey);
+            if (serverVersion != null) {
+                hiveServerVersionCombo.setText(serverVersion.getDisplayName());
             } else {
                 hiveServerVersionCombo.select(0);
             }
+        } else {
+            hiveServerVersionCombo.select(0);
         }
     }
 

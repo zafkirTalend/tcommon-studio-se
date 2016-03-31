@@ -14,7 +14,6 @@ package org.talend.core.runtime.hd.hive;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
@@ -86,24 +85,44 @@ public class HiveMetadataHelper {
         if (distribution != null) {
             IHDistributionVersion[] hdVersions = distribution.getHDVersions();
             for (IHDistributionVersion v : hdVersions) {
-                String[] hiveModesDisplay = getHiveModesDisplay(distribution.getName(), v.getVersion(), false);
-                if (hiveModesDisplay == null || hiveModesDisplay.length == 0) {
-                    continue; // if no hive mode to support, ignore this version.
-                }
+                // String[] hiveModesDisplay = getHiveModesDisplay(distribution.getName(), v.getVersion(), null, false);
+                // if (hiveModesDisplay == null || hiveModesDisplay.length == 0) {
+                // continue; // if no hive mode to support, ignore this version?
+                // }
+                // String[] hiveServersDisplay = getHiveServersDisplay(distribution.getName(), v.getVersion(), false);
+                // if (hiveServersDisplay == null || hiveServersDisplay.length == 0) {
+                // continue; // if no hive server to support, ignore this version?
+                // }
                 versionsItems.add(v.getDisplayVersion());
             }
         }
         return versionsItems.toArray(new String[versionsItems.size()]);
     }
 
-    public static String[] getHiveModesDisplay(String hiveDistribution, String hiveVersion, boolean byDisplay) {
+    public static String[] getHiveModesDisplay(String hiveDistribution, String hiveVersion, String hiveServer, boolean byDisplay) {
         List<String> hiveModeItems = new ArrayList<String>();
         if (doSupportEmbeddedMode(hiveDistribution, hiveVersion, byDisplay)) {
             hiveModeItems.add(HiveModeInfo.EMBEDDED.getDisplayName());
         }
-        // TODO, what mean doSupportHive1Standalone in HiveComponent?
         if (doSupportStandaloneMode(hiveDistribution, hiveVersion, byDisplay)) {
-            hiveModeItems.add(HiveModeInfo.STANDALONE.getDisplayName());
+            HiveServerVersionInfo mode = byDisplay ? HiveServerVersionInfo.getByDisplay(hiveServer) : HiveServerVersionInfo
+                    .getByKey(hiveServer);
+            if (mode == null) {
+                String[] hiveServersDisplay = getHiveServersDisplay(hiveDistribution, hiveVersion, byDisplay);
+                if (hiveServersDisplay != null && hiveServersDisplay.length > 0) {
+                    mode = HiveServerVersionInfo.getByDisplay(hiveServersDisplay[0]);
+                }
+            }
+
+            /*
+             * According to the tHiveXXX component to set it
+             */
+            if (mode == null // add always?
+                    || mode == HiveServerVersionInfo.HIVE_SERVER_2 // server 2
+                    || (HiveServerVersionInfo.HIVE_SERVER_1 == mode && doSupportMethod(hiveDistribution, hiveVersion, byDisplay,
+                            "doSupportHive1Standalone"))) {//$NON-NLS-1$
+                hiveModeItems.add(HiveModeInfo.STANDALONE.getDisplayName());
+            }
         }
         return hiveModeItems.toArray(new String[0]);
     }
@@ -116,9 +135,8 @@ public class HiveMetadataHelper {
         return false;
     }
 
-    public static String[] getHiveServersDisplay(String hiveDistribution, String hiveVersion, String hiveMode, boolean byDisplay) {
+    public static String[] getHiveServersDisplay(String hiveDistribution, String hiveVersion, boolean byDisplay) {
         List<String> hiveServerItems = new ArrayList<String>();
-        // TODO, what mean doSupportHive1Standalone in HiveComponent?
         if (doSupportHive1(hiveDistribution, hiveVersion, byDisplay)) {
             hiveServerItems.add(HiveServerVersionInfo.HIVE_SERVER_1.getDisplayName());
         }
@@ -187,10 +205,11 @@ public class HiveMetadataHelper {
             IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
 
             if (version != null && hadoopDistributionService != null) {
-                Map<String, Boolean> doSupportMethods = hadoopDistributionService.doSupportMethods(version, supportMethodName);
-                Boolean support = doSupportMethods.get(supportMethodName);
-
-                return support != null && support;
+                try {
+                    return hadoopDistributionService.doSupportMethod(version, supportMethodName);
+                } catch (Exception e) {
+                    // ignore if NoSuchMethodException
+                }
             }
         }
         return false;

@@ -105,17 +105,23 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
         String distribution = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String version = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
 
-        // model
-        String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(distribution, version, false);
-        HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModesDisplay[0]);
-        boolean isEmbeddedMode = (hiveMode == HiveModeInfo.EMBEDDED);
-        connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode.getName());
-
         // server
-        String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(distribution, version, hiveMode.getName(), false);
+        String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(distribution, version, false);
+        if (hiveServersDisplay == null || hiveServersDisplay.length == 0) {
+            return;
+        }
         HiveServerVersionInfo server = HiveServerVersionInfo.getByDisplay(hiveServersDisplay[0]);
         String hiveServer = server.getKey();
         connection.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, hiveServer);
+
+        // model
+        String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(distribution, version, hiveServer, false);
+        if (hiveModesDisplay == null || hiveModesDisplay.length == 0) {
+            return;
+        }
+        HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModesDisplay[0]);
+        boolean isEmbeddedMode = (hiveMode == HiveModeInfo.EMBEDDED);
+        connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode.getName());
 
         if (StringUtils.isEmpty(connection.getSID())) {
             String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,

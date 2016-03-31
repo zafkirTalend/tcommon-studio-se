@@ -45,7 +45,9 @@ public interface IHadoopDistributionService extends IService {
      * 
      * If no the method in the HadoopComponent object, won't contain in the result map.
      */
-    Map<String, Boolean> doSupportMethods(IHDistributionVersion distributionVersion, String... methods);
+    Map<String, Boolean> doSupportMethods(IHDistributionVersion distributionVersion, String... methods) throws Exception;
+
+    boolean doSupportMethod(IHDistributionVersion distributionVersion, String method) throws Exception;
 
     /**
      * Find the matched distribution via name.
