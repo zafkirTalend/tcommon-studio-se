@@ -128,6 +128,7 @@
 		<module>main/plugins/org.talend.libraries.nattable</module>
 		<module>main/plugins/org.talend.libraries.nattable.glazedlist</module>
 		<module>main/plugins/org.talend.libraries.netsuite</module>
+		<module>main/plugins/org.talend.libraries.redshift</module>
 		<module>main/plugins/org.talend.libraries.ui</module>
 		<module>main/plugins/org.talend.librariesmanager</module>
 		<module>main/plugins/org.talend.librariesmanager.ui</module>
