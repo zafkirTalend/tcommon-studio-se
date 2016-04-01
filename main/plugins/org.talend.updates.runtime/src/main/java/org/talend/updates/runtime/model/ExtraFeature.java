@@ -84,5 +84,7 @@ public interface ExtraFeature {
      * @return true if the user should install this extra feature.
      * */
     public boolean mustBeInstalled();
+    
+    public boolean needRestart();
 
 }
