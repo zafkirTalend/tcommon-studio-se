@@ -1981,8 +1981,10 @@ public class DatabaseForm extends AbstractForm {
             hbaseDistributionCombo.setText(distributionDisplayName);
             updateHBaseVersionPart(hBaseDistribution);
             IHDistributionVersion hdVersion = hBaseDistribution.getHDVersion(hadoopVersion, false);
-            if (hdVersion != null) {
+            if (hdVersion != null && hdVersion.getDisplayVersion() != null) {
                 hbaseVersionCombo.setText(hdVersion.getDisplayVersion());
+            } else {
+                hbaseVersionCombo.select(0);
             }
         } else {
             hbaseDistributionCombo.select(0);
@@ -2071,7 +2073,7 @@ public class DatabaseForm extends AbstractForm {
             hbaseVersionCombo.getCombo().setItems(versionsDisplay);
             if (versionsDisplay.length > 0) {
                 IHDistributionVersion defaultVersion = hBaseDistribution.getDefaultVersion();
-                if (defaultVersion != null) {
+                if (defaultVersion != null && defaultVersion.getDisplayVersion() != null) {
                     hbaseVersionCombo.getCombo().setText(defaultVersion.getDisplayVersion());
                 } else {
                     hbaseVersionCombo.getCombo().select(0);
@@ -3777,7 +3779,8 @@ public class DatabaseForm extends AbstractForm {
                 IHDistributionVersion newVersion = originalDistribution.getHDVersion(newVersionDisplayName, true);
                 IHDistributionVersion originalVersion = originalDistribution.getHDVersion(originalVersionName, false);
 
-                if (newVersion != null && !newVersion.getVersion().equals(originalVersion.getVersion())) {
+                if (newVersion != null && newVersion.getVersion() != null
+                        && !newVersion.getVersion().equals(originalVersion.getVersion())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION, newVersion.getVersion());
                     fillDefaultsWhenHBaseVersionChanged();
                     checkFieldsValue();
@@ -5901,7 +5904,7 @@ public class DatabaseForm extends AbstractForm {
         }
         hiveVersionCombo.getCombo()
                 .setItems(HiveMetadataHelper.getDistributionVersionsDisplay(hiveDistribution.getName(), false));
-        if (hiveVersion != null) {
+        if (hiveVersion != null && hiveVersion.getDisplayVersion() != null) {
             hiveVersionCombo.setText(hiveVersion.getDisplayVersion());
         } else {
             hiveVersionCombo.select(0);
