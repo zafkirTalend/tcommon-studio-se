@@ -32,7 +32,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -58,9 +58,9 @@ public final class TokenCollectorFactory {
     private static TokenCollectorFactory factory;
 
     private static final Map<String, TokenInforProvider> providers;
-    
+
     private static boolean DEBUG_TOKEN = true;
-    
+
     static {
         providers = new HashMap<String, TokenInforProvider>();
 
@@ -125,18 +125,14 @@ public final class TokenCollectorFactory {
             if (collector != null) {
                 JSONObject collectionObject = collector.collect();
                 if (collectionObject != null) {
-                    TokenInforUtil.integrateJSONObject(result, collectionObject);
+                    TokenInforUtil.mergeJSON(collectionObject, result);
                 }
             }
         }
-
         return result;
     }
 
     private boolean isActiveAndValid(boolean timeExpired) {
-        if (DEBUG_TOKEN) {
-            return true;
-        }
         final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             String last = preferenceStore.getString(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME);
@@ -173,20 +169,12 @@ public final class TokenCollectorFactory {
 
         // collect
         try {
-            if (isActiveAndValid(true)) {
+            if (isActiveAndValid(false)) {
+                // collect the data each time, if the token is active
                 TokenCollectorFactory.getFactory().priorCollect();
+            }
+            if (isActiveAndValid(true)) {
                 send();
-                // set new days
-                final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
-                preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
-                if (preferenceStore instanceof ScopedPreferenceStore) {
-                    try {
-                        ((ScopedPreferenceStore) preferenceStore).save();
-                    } catch (IOException e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
-
                 result = true;
             }
         } catch (Exception e) {
@@ -217,10 +205,9 @@ public final class TokenCollectorFactory {
                         try {
                             JSONObject tokenInfors = collectTokenInfors();
                             if (DEBUG_TOKEN) {
-                                System.out.println("token:"+tokenInfors.toString());
+                                System.out.println("token:" + tokenInfors.toString());
                                 return org.eclipse.core.runtime.Status.OK_STATUS;
                             }
-
                             Resty r = new Resty();
                             // set back the rath for Resty.
                             Field rathField = Resty.class.getDeclaredField("rath"); //$NON-NLS-1$
@@ -231,11 +218,24 @@ public final class TokenCollectorFactory {
                             AbstractContent ac = Resty.content(tokenInfors);
                             MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
 
-                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
+                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio2.php", mpc); //$NON-NLS-1$
                             String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
                             boolean okReturned = (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
-                            // returned value not checked yet, we might need in the future, but actually the token is
-                            // still "optional".
+                            if (okReturned) {
+                                // set new days
+                                final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
+                                preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
+                                if (preferenceStore instanceof ScopedPreferenceStore) {
+                                    try {
+                                        ((ScopedPreferenceStore) preferenceStore).save();
+                                    } catch (IOException e) {
+                                        ExceptionHandler.process(e);
+                                    }
+                                }
+                                long syncNb = preferenceStore.getLong(DefaultTokenCollector.COLLECTOR_SYNC_NB);
+                                syncNb++;
+                                preferenceStore.setValue(DefaultTokenCollector.COLLECTOR_SYNC_NB, syncNb);
+                            }
                         } catch (Exception e) {
                             // nothing
                         } finally {

@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import us.monoid.json.JSONArray;
 import us.monoid.json.JSONException;
@@ -46,46 +47,6 @@ public final class TokenInforUtil {
             return bd.floatValue();
         }
         return 0;
-    }
-
-    /**
-     * 
-     * ggu Comment method "integrateJSONObject".
-     * 
-     * if have same key and is not json value, will be error
-     */
-    public static void integrateJSONObject(JSONObject target, JSONObject source) throws Exception {
-        if (target != null && source != null) {
-            Iterator keys = source.keys();
-            while (keys.hasNext()) {
-                String key = (String) keys.next();
-                Object sourceValue = source.get(key);
-                if (target.has(key)) {
-                    Object targetValue = target.get(key);
-                    boolean valid = true;
-                    if (sourceValue instanceof JSONObject && targetValue instanceof JSONObject) {
-                        integrateJSONObject((JSONObject) targetValue, (JSONObject) sourceValue);
-                        valid = true;
-                    } else if (sourceValue instanceof JSONArray && targetValue instanceof JSONArray) {
-                        JSONArray sourceArray = (JSONArray) sourceValue;
-                        JSONArray targetArray = (JSONArray) targetValue;
-
-                        for (int i = 0; i < sourceArray.length(); i++) {
-                            targetArray.put(sourceArray.get(i));
-                        }
-                        valid = true;
-                    } else {
-                        throw new IllegalArgumentException("Have same value existed in target: " + key + "," + targetValue);
-                    }
-                    if (!valid) {
-                        throw new IllegalArgumentException("the type is not match, target is "
-                                + targetValue.getClass().getSimpleName());
-                    }
-                } else { // if not contain, add directly.
-                    target.put(key, sourceValue);
-                }
-            }
-        }
     }
 
     /**
@@ -141,7 +102,7 @@ public final class TokenInforUtil {
         }
         return topComponentsArray;
     }
-    
+
     public static void mergeJSON(JSONObject source, JSONObject target) throws JSONException {
         Iterator<String> keys = source.keys();
         while (keys.hasNext()) {
@@ -153,14 +114,27 @@ public final class TokenInforUtil {
                     // need to add to the total
                     int nbSource = source.getInt(key);
                     int nbTarget = target.getInt(key);
-                    target.put(key, nbSource+nbTarget);
+                    target.put(key, nbSource + nbTarget);
                 } else if (o instanceof JSONObject) {
                     JSONObject objectSource = (JSONObject) o;
                     JSONObject objectTarget = target.getJSONObject(key);
                     mergeJSON(objectSource, objectTarget);
                 } else if (o instanceof JSONArray) {
-                    // not yet supported
-                    throw new UnsupportedOperationException();
+                    JSONArray sourceArray = (JSONArray) o;
+                    JSONArray targetArray = target.getJSONArray(key);
+
+                    Set<Object> data = new HashSet<>();
+                    for (int i = 0; i < sourceArray.length(); i++) {
+                        data.add(sourceArray.get(i));
+                    }
+                    for (int i = 0; i < targetArray.length(); i++) {
+                        data.add(targetArray.get(i));
+                    }
+                    targetArray = new JSONArray();
+                    for (Object obj : data) {
+                        targetArray.put(obj);
+                    }
+                    target.put(key, targetArray);
                 } else {
                     // for simple string / other data
                     target.put(key, o);
@@ -168,6 +142,6 @@ public final class TokenInforUtil {
             } else {
                 target.put(key, o);
             }
-        }        
+        }
     }
 }

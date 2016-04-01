@@ -19,9 +19,7 @@ import us.monoid.json.JSONObject;
  */
 public abstract class AbstractTokenCollector implements ITokenCollector {
 
-    protected static final TokenKey TOKEN_STUDIO = new TokenKey("tokenStudio"); //$NON-NLS-1$
-
-    protected static final TokenKey PROPERTIES = new TokenKey("properties"); //$NON-NLS-1$
+    protected static final TokenKey PROJECTS_REPOSITORY = new TokenKey("projects.repository"); //$NON-NLS-1$
 
     public AbstractTokenCollector() {
         //
@@ -33,25 +31,12 @@ public abstract class AbstractTokenCollector implements ITokenCollector {
 
     public JSONObject collect() throws Exception {
         JSONObject result = new JSONObject();
-
-        // tokenStudio
-        JSONObject tokenStudioObject = new JSONObject();
-        result.put(TOKEN_STUDIO.getKey(), tokenStudioObject);
-        collectTokenStudio(tokenStudioObject);
-
-        // properties
-        JSONObject propertiesObject = new JSONObject();
-        tokenStudioObject.put(PROPERTIES.getKey(), propertiesObject);
-        collectProperties(propertiesObject);
+        // default is empty
 
         return result;
     }
-
-    protected void collectTokenStudio(JSONObject tokenStudioObject) throws Exception {
-        // will do something
-    }
-
+    
+    @Deprecated
     protected void collectProperties(JSONObject propertiesObject) throws Exception {
-        // will do something
     }
 }
