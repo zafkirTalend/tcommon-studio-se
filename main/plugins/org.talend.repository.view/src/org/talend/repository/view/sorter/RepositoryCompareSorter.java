@@ -38,11 +38,21 @@ public abstract class RepositoryCompareSorter implements IRepositoryNodeSorter {
         });
     }
 
-    protected void swap(Object[] children, int first, int second) {
-        if (first != second && first > -1 && second > -1 && first < children.length && second < children.length) {
-            Object t = children[first];
-            children[first] = children[second];
-            children[second] = t;
+    protected void swap(Object[] children, int source, int target) {
+        if (source != target && source > -1 && target > -1 && source < children.length && target < children.length) {
+            if (source > target) {
+                Object sourceObject = children[source];
+                for (int i = source; i > target; i--) {
+                    children[i] = children[i - 1]; // move previous one to bottom
+                }
+                children[target] = sourceObject;
+            } else if (source < target) {
+                Object sourceObject = children[source];
+                for (int i = source; i > target; i++) {
+                    children[i] = children[i + 1]; // move next one to up
+                }
+                children[target] = sourceObject;
+            }
         }
     }
 
