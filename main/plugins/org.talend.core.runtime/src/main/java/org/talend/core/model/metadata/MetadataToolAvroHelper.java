@@ -225,7 +225,7 @@ public final class MetadataToolAvroHelper {
         }
         if (in.getPattern() != null) {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_PATTERN,
-                    TalendQuoteUtils.addQuotesIfNotExist(in.getPattern()));
+                    TalendQuoteUtils.removeQuotesIfExist(in.getPattern()));
         }
         if (in.getLength() >= 0) {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_LENGTH,
@@ -299,7 +299,7 @@ public final class MetadataToolAvroHelper {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
         }
         if (in.getPattern() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, TalendQuoteUtils.addQuotesIfNotExist(in.getPattern()));
+            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, TalendQuoteUtils.removeQuotesIfExist(in.getPattern()));
         }
         if (in.getLength() >= 0) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH, String.valueOf((int) in.getLength()));
@@ -508,64 +508,64 @@ public final class MetadataToolAvroHelper {
 
         // Properties common to tables and columns.
         String prop;
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_ID))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_ID))) {
             col.setId(prop);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COMMENT))) {
-            col.setComment(in.getProp(Talend6SchemaConstants.TALEND6_ID));
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COMMENT))) {
+            col.setComment(field.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
             col.setLabel(null);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             col.setReadOnly(Boolean.parseBoolean(prop));
         }
-        for (String key : in.getJsonProps().keySet()) {
+        for (String key : field.getJsonProps().keySet()) {
             if (key.startsWith(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES)) {
                 String originalKey = key.substring(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES.length());
-                TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, in.getProp(key));
+                TaggedValue tv = TaggedValueHelper.createTaggedValue(originalKey, field.getProp(key));
                 col.getTaggedValue().add(tv);
             }
         }
 
         // Column-specific properties.
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_KEY))) {
             col.setKey(Boolean.parseBoolean(prop));
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SOURCE_TYPE))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SOURCE_TYPE))) {
             col.setSourceType(prop);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE))) {
             col.setTalendType(prop);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
             col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
             col.setLength(value > 0 ? value : -1);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
             Long value = Long.parseLong(prop);
             col.setOriginalLength(value > 0 ? value : -1);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE))) {
             col.setNullable(Boolean.parseBoolean(prop));
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
             col.setPrecision(value > 0 ? value : -1);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
             col.setDefaultValue(prop);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME))) {
             col.setName(prop);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATED_ENTITY))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATED_ENTITY))) {
             col.setRelatedEntity(prop);
         }
-        if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE))) {
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_RELATIONSHIP_TYPE))) {
             col.setRelationshipType(prop);
         }
 
