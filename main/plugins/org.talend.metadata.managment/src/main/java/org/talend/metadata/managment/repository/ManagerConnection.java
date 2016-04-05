@@ -37,7 +37,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.repository.model.connection.ConnectionStatus;
 import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
@@ -340,7 +340,7 @@ public class ManagerConnection {
                 testConnection = new ConnectionStatus();
                 testConnection.setResult(false);
                 try {
-                    if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(key)) {
+                    if (HiveModeInfo.get(key) == HiveModeInfo.EMBEDDED) {
                         JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
                     }
                     HiveConnectionManager.getInstance().checkConnection(metadataConnection);

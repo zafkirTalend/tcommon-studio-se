@@ -42,7 +42,7 @@ import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.ReflectionUtils;
@@ -92,7 +92,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
             IllegalAccessException, SQLException {
         Connection conn = null;
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             conn = createHiveStandloneConnection(metadataConn);
         } else {
             conn = createHiveEmbeddedConnection(metadataConn);
@@ -370,7 +370,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
             IllegalAccessException, SQLException {
         setHadoopProperties(metadataConn);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             createHiveStandloneConnection(metadataConn);
         } else {
             EmbeddedHiveDataBaseMetadata embeddedHiveDatabaseMetadata = new EmbeddedHiveDataBaseMetadata(metadataConn);
@@ -463,7 +463,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     public DatabaseMetaData extractDatabaseMetaData(IMetadataConnection metadataConn) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, SQLException {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             return extractHiveStandaloneDatabaseMetaData(metadataConn);
         } else {
             return extractHiveEmbeddedDatabaseMetaData(metadataConn);
@@ -516,7 +516,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         HiveConnectionHandler handler = null;
         String version = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             handler = new HiveConnectionHandler(metadataConnection);
         } else {
             if (EHadoopVersion4Drivers.HDP_1_3.getVersionValue().equals(version)) {

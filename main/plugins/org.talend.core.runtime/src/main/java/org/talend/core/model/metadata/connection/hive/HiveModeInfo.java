@@ -42,4 +42,13 @@ public enum HiveModeInfo {
         }
         return null;
     }
+
+    public static HiveModeInfo get(String name) {
+        for (HiveModeInfo m : HiveModeInfo.values()) {
+            if (m.getName().equals(name)) {
+                return m;
+            }
+        }
+        return null;
+    }
 }

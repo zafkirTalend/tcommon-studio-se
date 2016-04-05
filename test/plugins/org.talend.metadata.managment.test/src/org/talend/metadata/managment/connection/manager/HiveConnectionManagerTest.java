@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 import org.talend.core.model.metadata.builder.MetadataConnection;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.metadata.managment.hive.handler.CDH4YarnHandler;
 import org.talend.metadata.managment.hive.handler.CDH5YarnHandler;
 import org.talend.metadata.managment.hive.handler.HDP130Handler;
@@ -62,7 +62,7 @@ public class HiveConnectionManagerTest {
     public void testCreateHandler_embeded() {
         MetadataConnection mc = new MetadataConnection();
         mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHadoopVersion4Drivers.HDP_1_3.getVersionValue());
-        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, HiveConnVersionInfo.MODE_EMBEDDED.getKey());
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, HiveModeInfo.EMBEDDED.getName());
         HiveConnectionHandler createHandler = HiveConnectionManager.getInstance().createHandler(mc);
         assertTrue(createHandler instanceof HDP130Handler);
 
@@ -95,7 +95,7 @@ public class HiveConnectionManagerTest {
     public void testCreateHandler_standalone() {
         MetadataConnection mc = new MetadataConnection();
         mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, EHadoopVersion4Drivers.HDP_1_3.getVersionValue());
-        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, HiveConnVersionInfo.MODE_STANDALONE.getKey());
+        mc.setParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, HiveModeInfo.STANDALONE.getName());
         HiveConnectionHandler createHandler = HiveConnectionManager.getInstance().createHandler(mc);
         assertFalse(createHandler instanceof HDP130Handler);
 

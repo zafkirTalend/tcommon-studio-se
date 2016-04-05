@@ -5235,7 +5235,7 @@ public class DatabaseForm extends AbstractForm {
             updateHiveDistributionAndMakeSelection(hiveDistribution);
             updateHiveVersionAndMakeSelection(hiveDistribution, hdVersion);
             updateHiveServerAndMakeSelection(hiveDistribution, hdVersion);
-            updateHiveModeAndMakeSelection(HiveModeInfo.valueOf(hiveMode));
+            updateHiveModeAndMakeSelection(HiveModeInfo.get(hiveMode));
 
         } else {
             updateHiveDistributionAndMakeSelection(null);

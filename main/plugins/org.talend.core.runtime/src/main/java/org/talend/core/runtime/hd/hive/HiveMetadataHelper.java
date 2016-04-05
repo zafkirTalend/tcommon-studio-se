@@ -177,7 +177,7 @@ public class HiveMetadataHelper {
      */
     public static boolean doSupportSecurity(String hiveDistribution, String hiveVersion, String hiveMode,
             String hiveServerVersion, boolean byDisplay) {
-        HiveModeInfo hiveModeInfo = byDisplay ? HiveModeInfo.getByDisplay(hiveMode) : HiveModeInfo.valueOf(hiveMode);
+        HiveModeInfo hiveModeInfo = byDisplay ? HiveModeInfo.getByDisplay(hiveMode) : HiveModeInfo.get(hiveMode);
         HiveServerVersionInfo hiveServerVersionInfo = byDisplay ? HiveServerVersionInfo.getByDisplay(hiveServerVersion)
                 : HiveServerVersionInfo.valueOf(hiveServerVersion);
 

@@ -72,7 +72,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -137,7 +137,7 @@ public class ExtractMetaDataUtils {
         String dbType = metadataConn.getDbType();
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
             Object hiveModelObj = metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModelObj == null ? null : (String) hiveModelObj)) {
+            if (hiveModelObj != null && (HiveModeInfo.get(hiveModelObj.toString()) == HiveModeInfo.EMBEDDED)) {
                 databaseMetadata = new EmbeddedHiveDataBaseMetadata(metadataConn);
             }
         }
