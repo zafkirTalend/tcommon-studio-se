@@ -264,6 +264,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
                                 if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                                     return false;
                                 }
+                                break;
                             }
                         }
                         if (!exist) {
