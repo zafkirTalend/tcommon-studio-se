@@ -84,6 +84,8 @@ public class ImportItem {
 
     private IImportItemsHandler importHandler;
 
+    private boolean isSystemItem = false;
+
     public ImportItem(IPath path) {
         this.path = path;
     }
@@ -343,6 +345,14 @@ public class ImportItem {
 
     public String getItemPath() {
         return this.itemPath;
+    }
+
+    public boolean isSystemItem() {
+        return this.isSystemItem;
+    }
+
+    public void setSystemItem(boolean isSystemItem) {
+        this.isSystemItem = isSystemItem;
     }
 
     @Override

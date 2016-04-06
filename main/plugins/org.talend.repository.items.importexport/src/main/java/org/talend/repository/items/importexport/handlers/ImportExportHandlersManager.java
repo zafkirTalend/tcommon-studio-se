@@ -109,6 +109,9 @@ public class ImportExportHandlersManager {
             if (!isValid && !checkBuiltIn) {
                 // if don't care builtin/system item, then just use this value
                 isValid = handler.isValidSystemItem(importItem);
+                if (isValid) {
+                    importItem.setSystemItem(true);
+                }
             }
             if (isValid) {
                 // set the handler
