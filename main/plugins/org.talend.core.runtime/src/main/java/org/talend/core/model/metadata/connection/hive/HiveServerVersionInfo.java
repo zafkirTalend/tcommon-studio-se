@@ -43,30 +43,12 @@ public enum HiveServerVersionInfo {
     }
 
     /**
-     * Sets the key.
-     * 
-     * @param key the key to set
-     */
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
      * Getter for name.
      * 
      * @return the name
      */
     public String getName() {
         return this.name;
-    }
-
-    /**
-     * Sets the name.
-     * 
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -78,13 +60,21 @@ public enum HiveServerVersionInfo {
         return this.displayName;
     }
 
-    /**
-     * Sets the displayName.
-     * 
-     * @param displayName the displayName to set
-     */
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public static HiveServerVersionInfo getByDisplay(String display) {
+        for (HiveServerVersionInfo s : HiveServerVersionInfo.values()) {
+            if (s.getDisplayName().equals(display)) {
+                return s;
+            }
+        }
+        return null;
     }
 
+    public static HiveServerVersionInfo getByKey(String key) {
+        for (HiveServerVersionInfo s : HiveServerVersionInfo.values()) {
+            if (s.getKey().equals(key)) {
+                return s;
+            }
+        }
+        return null;
+    }
 }

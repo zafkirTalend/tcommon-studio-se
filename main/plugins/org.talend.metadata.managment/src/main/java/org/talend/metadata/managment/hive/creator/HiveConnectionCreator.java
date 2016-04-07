@@ -29,14 +29,13 @@ import org.talend.core.hadoop.conf.EHadoopProperties;
 import org.talend.core.hadoop.conf.HadoopDefaultConfsManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
-import org.talend.core.model.metadata.connection.hive.HiveServerVersionUtils;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.metadata.managment.creator.AbstractHadoopDBConnectionCreator;
 
 /**
@@ -104,24 +103,26 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
 
     private void fillDefaultValues(DatabaseConnection connection) {
         String distribution = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
-        String hiveVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-        int distributionIndex = HiveConnUtils.getIndexOfDistribution(distribution == null ? null : distribution);
-        int hiveVersionIndex = HiveConnUtils.getIndexOfHiveVersion(distribution == null ? null : distribution,
-                hiveVersion == null ? null : hiveVersion);
-        HiveConnVersionInfo hiveVersionObj = HiveConnUtils.getHiveVersionObj(distributionIndex, hiveVersionIndex);
-        String[] hiveServerDisplayNames = HiveServerVersionUtils.extractAvailableArrayDisplayNames(hiveVersionObj);
-        int indexofHiveServer = HiveServerVersionUtils.getIndexofHiveServer(hiveServerDisplayNames[0]);
-        String hiveServer = HiveServerVersionUtils.extractKey(indexofHiveServer);
+        String version = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+
+        // server
+        String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(distribution, version, false);
+        if (hiveServersDisplay == null || hiveServersDisplay.length == 0) {
+            return;
+        }
+        HiveServerVersionInfo server = HiveServerVersionInfo.getByDisplay(hiveServersDisplay[0]);
+        String hiveServer = server.getKey();
         connection.getParameters().put(ConnParameterKeys.HIVE_SERVER_VERSION, hiveServer);
-        int hiveServerIndex = HiveConnUtils.getIndexOfHiveServer(hiveServer == null ? null : hiveServer);
-        String[] hiveModeKeys = HiveConnUtils.getHiveModeKeys(distributionIndex, hiveVersionIndex, hiveServerIndex);
-        String hiveMode = hiveModeKeys[0];
-        connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode);
-        int hiveModeIndex = HiveConnUtils.getIndexOfHiveMode(distribution == null ? null : distribution,
-                hiveVersion == null ? null : hiveVersion, hiveMode == null ? null : hiveMode, hiveServer == null ? null
-                        : hiveServer);
-        boolean isEmbeddedMode = HiveConnUtils
-                .isEmbeddedMode(distributionIndex, hiveVersionIndex, hiveModeIndex, hiveServerIndex);
+
+        // model
+        String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(distribution, version, hiveServer, false);
+        if (hiveModesDisplay == null || hiveModesDisplay.length == 0) {
+            return;
+        }
+        HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModesDisplay[0]);
+        boolean isEmbeddedMode = (hiveMode == HiveModeInfo.EMBEDDED);
+        connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode.getName());
+
         if (StringUtils.isEmpty(connection.getSID())) {
             String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
                     EHadoopCategory.HIVE.getName(), EHadoopProperties.DATABASE.getName());
@@ -133,12 +134,10 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
             String defaultPort = null;
             if (isEmbeddedMode) {
                 defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                        EHadoopCategory.HIVE.getName(), HiveConnVersionInfo.MODE_EMBEDDED.getKey(),
-                        EHadoopProperties.PORT.getName());
+                        EHadoopCategory.HIVE.getName(), HiveModeInfo.EMBEDDED.getName(), EHadoopProperties.PORT.getName());
             } else {
                 defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                        EHadoopCategory.HIVE.getName(), HiveConnVersionInfo.MODE_STANDALONE.getKey(),
-                        EHadoopProperties.PORT.getName());
+                        EHadoopCategory.HIVE.getName(), HiveModeInfo.STANDALONE.getName(), EHadoopProperties.PORT.getName());
             }
             if (StringUtils.isNotEmpty(defaultPort)) {
                 connection.setPort(defaultPort);
@@ -158,5 +157,4 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
             }
         }
     }
-
 }

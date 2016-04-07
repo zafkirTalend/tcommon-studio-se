@@ -58,7 +58,7 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
@@ -1019,7 +1019,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                     // metadataConnection.setDriverJarPath((String)metadataConnection
                                     // .getParameter(ConnParameterKeys.CONN_PARA_KEY_METASTORE_CONN_DRIVER_JAR));
                                     metadataConnection.setUrl(connection.getURL());
-                                    if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                                    if (HiveModeInfo.get(hiveMode) == HiveModeInfo.EMBEDDED) {
                                         JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection
                                                 .getCurrentConnection());
                                     }

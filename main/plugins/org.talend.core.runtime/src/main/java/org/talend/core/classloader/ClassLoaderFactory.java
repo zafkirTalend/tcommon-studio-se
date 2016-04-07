@@ -34,7 +34,8 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
+import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
 
@@ -43,21 +44,21 @@ import org.talend.utils.io.FilesUtils;
  */
 public class ClassLoaderFactory {
 
-    private final static String EXTENSION_POINT_ID = "org.talend.core.runtime.classloader_provider"; //$NON-NLS-1$
+    public final static String EXTENSION_POINT_ID = "org.talend.core.runtime.classloader_provider"; //$NON-NLS-1$
 
     private static IConfigurationElement[] configurationElements = null;
 
     private static Map<String, DynamicClassLoader> classLoadersMap = null;
 
-    private final static String SEPARATOR = ";"; //$NON-NLS-1$
+    public final static String SEPARATOR = ";"; //$NON-NLS-1$
 
     private final static String PATH_SEPARATOR = "/"; //$NON-NLS-1$
 
-    private final static String INDEX_ATTR = "index"; //$NON-NLS-1$
+    public final static String INDEX_ATTR = "index"; //$NON-NLS-1$
 
-    private final static String LIB_ATTR = "libraries"; //$NON-NLS-1$
+    public final static String LIB_ATTR = "libraries"; //$NON-NLS-1$
 
-    private final static String PARENT_ATTR = "parent"; //$NON-NLS-1$
+    public final static String PARENT_ATTR = "parent"; //$NON-NLS-1$
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -166,43 +167,66 @@ public class ClassLoaderFactory {
         classLoadersMap = new ConcurrentHashMap<String, DynamicClassLoader>();
     }
 
-    private static synchronized DynamicClassLoader findLoader(String index, ClassLoader parentLoader,
-            boolean showDownloadIfNotExist) {
-        if (index != null && configurationElements != null) {
+    public static IConfigurationElement findIndex(String index) {
+        if (StringUtils.isNotEmpty(index) && configurationElements != null) {
             for (IConfigurationElement current : configurationElements) {
                 String key = current.getAttribute(INDEX_ATTR);
                 if (index.equals(key)) {
-                    String libraries = current.getAttribute(LIB_ATTR);
-                    if (StringUtils.isNotEmpty(index)) {
-                        DynamicClassLoader classLoader = null;
-                        ClassLoader parentClassLoader = null;
-                        String parentKey = current.getAttribute(PARENT_ATTR);
-                        // take parent classlaoder in extensions first
-                        if (StringUtils.isNotEmpty(parentKey)) {
-                            parentClassLoader = getClassLoader(parentKey, showDownloadIfNotExist);
-                        }
-                        if (parentClassLoader == null) {
-                            parentClassLoader = parentLoader;
-                        }
-
-                        if (parentClassLoader == null) {
-                            classLoader = new DynamicClassLoader();
-                        } else {
-                            classLoader = new DynamicClassLoader(parentClassLoader);
-                        }
-                        boolean putInCache = true;
-                        if (StringUtils.isNotEmpty(libraries)) {
-                            String[] librariesArray = libraries.split(SEPARATOR);
-                            putInCache = loadLibraries(classLoader, librariesArray, showDownloadIfNotExist);
-                        }
-                        if (putInCache) {
-                            // if any libraries can't be retreived , do not put it in cache
-                            classLoadersMap.put(index, classLoader);
-                        }
-                        return classLoader;
-                    }
+                    return current;
                 }
             }
+        }
+        return null;
+    }
+
+    public static String[] getLibs(String index) {
+        IConfigurationElement current = findIndex(index);
+        return getLibs(current);
+    }
+
+    public static String[] getLibs(IConfigurationElement current) {
+        if (current != null) {
+            String libraries = current.getAttribute(LIB_ATTR);
+            if (StringUtils.isNotEmpty(libraries)) {
+                return libraries.split(SEPARATOR);
+            }
+        }
+        return new String[0];
+    }
+
+    private static synchronized DynamicClassLoader findLoader(String index, ClassLoader parentLoader,
+            boolean showDownloadIfNotExist) {
+        IConfigurationElement current = findIndex(index);
+        if (current != null) {
+            // String key = current.getAttribute(INDEX_ATTR);
+            // String libraries = current.getAttribute(LIB_ATTR);
+            String parentKey = current.getAttribute(PARENT_ATTR);
+
+            ClassLoader parentClassLoader = null;
+            // take parent classlaoder in extensions first
+            if (StringUtils.isNotEmpty(parentKey)) {
+                parentClassLoader = getClassLoader(parentKey, showDownloadIfNotExist);
+            }
+            if (parentClassLoader == null) {
+                parentClassLoader = parentLoader;
+            }
+
+            DynamicClassLoader classLoader = null;
+            if (parentClassLoader == null) {
+                classLoader = new DynamicClassLoader();
+            } else {
+                classLoader = new DynamicClassLoader(parentClassLoader);
+            }
+            boolean putInCache = true;
+            String[] librariesArray = getLibs(current);
+            if (librariesArray.length > 0) {
+                putInCache = loadLibraries(classLoader, librariesArray, showDownloadIfNotExist);
+            }
+            if (putInCache) {
+                // if any libraries can't be retreived , do not put it in cache
+                classLoadersMap.put(index, classLoader);
+            }
+            return classLoader;
         }
 
         return null;
@@ -275,7 +299,9 @@ public class ClassLoaderFactory {
         String distroKey = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnUtils.isCustomDistro(distroKey)) {
+
+        IHDistribution distribution = HiveMetadataHelper.getDistribution(distroKey, false);
+        if (distribution != null && distribution.useCustom()) {
             String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             moduleList = jarsStr.split(";"); //$NON-NLS-1$
         } else {
