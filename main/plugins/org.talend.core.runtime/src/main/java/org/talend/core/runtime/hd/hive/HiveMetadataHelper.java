@@ -51,9 +51,11 @@ public class HiveMetadataHelper {
         if (hiveDistributionManager != null) {
             IHDistribution[] distributions = hiveDistributionManager.getDistributions();
             for (IHDistribution d : distributions) {
-                String[] distributionVersionsDisplay = getDistributionVersionsDisplay(d.getName(), false);
-                if (distributionVersionsDisplay == null || distributionVersionsDisplay.length == 0) {
-                    continue; // if no version support, ignore it.
+                if (!d.useCustom()) {// custom should be add
+                    String[] distributionVersionsDisplay = getDistributionVersionsDisplay(d.getName(), false);
+                    if (distributionVersionsDisplay == null || distributionVersionsDisplay.length == 0) {
+                        continue; // if no version support, ignore it.
+                    }
                 }
                 distributionItems.add(d.getDisplayName());
             }
