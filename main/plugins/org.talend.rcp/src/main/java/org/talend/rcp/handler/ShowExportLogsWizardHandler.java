@@ -29,7 +29,7 @@ public class ShowExportLogsWizardHandler extends AbstractHandler {
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
         ExportLogsWizard wizard = new ExportLogsWizard();
-        wizard.setWindowTitle("Export Logs");
+        wizard.setWindowTitle("Support Logs"); //$NON-NLS-1$
         Shell activeShell = Display.getCurrent().getActiveShell();
         WizardDialog dialog = new WizardDialog(activeShell, wizard);
         dialog.open();
