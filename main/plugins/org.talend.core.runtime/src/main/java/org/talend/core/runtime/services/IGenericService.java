@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.runtime.services;
 
+import java.util.List;
+import java.util.Map;
+
 import org.talend.core.IService;
 import org.talend.core.model.process.IElementParameter;
 
@@ -29,5 +32,11 @@ public interface IGenericService extends IService {
      * @return
      */
     public boolean callBeforeActivate(IElementParameter parameter);
+    
+    /**
+     * Get all installed generic components information.
+     * 
+     */
+    public List<Map<String, String>> getAllGenericComponentsInfo();
 
 }

@@ -20,6 +20,8 @@ import java.io.LineNumberReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -27,9 +29,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -41,9 +46,20 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.osgi.service.prefs.BackingStoreException;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.runtime.services.IGenericService;
+import org.talend.core.services.ICoreTisService;
+import org.talend.core.ui.CoreUIPlugin;
+import org.talend.core.ui.branding.IBrandingService;
+import org.talend.core.updatesite.IUpdateSiteBean;
 import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.utils.ZipToFile;
 import org.talend.repository.ui.wizards.exportjob.util.ExportJobUtil;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
 
 import com.sun.management.OperatingSystemMXBean;
 
@@ -52,7 +68,7 @@ import com.sun.management.OperatingSystemMXBean;
  */
 public class ExportLogsWizardPage extends WizardPage {
 
-    private Button logsFromArchiveRadio;
+    private Label logsFromArchiveLabel;
 
     private Text archivePathField;
 
@@ -64,17 +80,15 @@ public class ExportLogsWizardPage extends WizardPage {
 
     private String lastPath;
 
-    private Label label;
-
-    private Button addLogsButton;
-
-    private Button sysConfigButton;
-
     private static final int CPUTIME = 30;
 
     private static final int PERCENT = 100;
 
     private static final int FAULTLENGTH = 10;
+
+    private static final String NEW_LINE = System.lineSeparator();
+
+    private static final String BLANK = "  "; //$NON-NLS-1$
 
     protected ExportLogsWizardPage(String pageName) {
         super(pageName);
@@ -104,9 +118,9 @@ public class ExportLogsWizardPage extends WizardPage {
         projectGroup.setLayout(layout);
         projectGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        logsFromArchiveRadio = new Button(projectGroup, SWT.RADIO);
+        logsFromArchiveLabel = new Label(projectGroup, SWT.NONE);
         // logsFromArchiveRadio.setText(DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle);
-        logsFromArchiveRadio.setText(Messages.getString("DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle")); //$NON-NLS-1$
+        logsFromArchiveLabel.setText(Messages.getString("DataTransferMessages.WizardProjectsImportPage_ArchiveSelectTitle")); //$NON-NLS-1$
 
         archivePathField = new Text(projectGroup, SWT.BORDER);
 
@@ -116,8 +130,7 @@ public class ExportLogsWizardPage extends WizardPage {
         browseArchivesButton.setText(Messages.getString("DataTransferMessages.DataTransfer_browse")); //$NON-NLS-1$
         setButtonLayoutData(browseArchivesButton);
 
-        archivePathField.setEnabled(false);
-        browseArchivesButton.setEnabled(false);
+        this.setPageComplete(false);
 
         browseArchivesButton.addSelectionListener(new SelectionAdapter() {
 
@@ -145,46 +158,15 @@ public class ExportLogsWizardPage extends WizardPage {
                 lastPath = archivePathField.getText().trim();
             }
         });
-
-        logsFromArchiveRadio.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                archiveRadioSelected();
-            }
-        });
-
-        label = new Label(workArea, SWT.NONE);
-        label.setText(Messages.getString("ExportLogsWizardPage.selectItem")); //$NON-NLS-1$
-
-        addLogsButton = new Button(workArea, SWT.CHECK);
-        addLogsButton.setSelection(true);
-        addLogsButton.setText(Messages.getString("ExportLogsWizardPage.addLog")); //$NON-NLS-1$
-
-        sysConfigButton = new Button(workArea, SWT.CHECK);
-        sysConfigButton.setSelection(true);
-        sysConfigButton.setText(Messages.getString("ExportLogsWizardPage.sysConfig")); //$NON-NLS-1$
-
-        addLogsButton.addSelectionListener(new SelectionAdapter() {
+        archivePathField.addModifyListener(new ModifyListener() {
 
             @Override
-            public void widgetSelected(SelectionEvent e) {
-                if (addLogsButton.getSelection() == false && sysConfigButton.getSelection() == false) {
-                    setPageComplete(false);
+            public void modifyText(ModifyEvent e) {
+                if (archivePathField.getText() != null && !"".equals(archivePathField.getText().trim())) { //$NON-NLS-1$
+                    lastPath = archivePathField.getText().trim();
+                    ExportLogsWizardPage.this.setPageComplete(true);
                 } else {
-                    setPageComplete(true);
-                }
-            }
-        });
-
-        sysConfigButton.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                if (addLogsButton.getSelection() == false && sysConfigButton.getSelection() == false) {
-                    setPageComplete(false);
-                } else {
-                    setPageComplete(true);
+                    ExportLogsWizardPage.this.setPageComplete(false);
                 }
             }
         });
@@ -220,15 +202,6 @@ public class ExportLogsWizardPage extends WizardPage {
         }
     }
 
-    private void archiveRadioSelected() {
-        if (logsFromArchiveRadio.getSelection()) {
-            archivePathField.setEnabled(true);
-            browseArchivesButton.setEnabled(true);
-            lastPath = archivePathField.getText().trim();
-            archivePathField.setFocus();
-        }
-    }
-
     public boolean performCancel() {
         return true;
     }
@@ -237,19 +210,14 @@ public class ExportLogsWizardPage extends WizardPage {
         if (!checkExportFile()) {
             return false;
         }
-        if (sysConfigButton.getSelection()) {
+        try {
             exportSysconfig(new File(lastPath));
+            exportLogs(new File(lastPath));
+            exportStudioInfo(new File(lastPath));
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
         }
-        if (addLogsButton.getSelection()) {
-            try {
-                exportLogs(new File(lastPath));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
         ExportJobUtil.deleteTempFiles();
-
         return true;
     }
 
@@ -258,6 +226,12 @@ public class ExportLogsWizardPage extends WizardPage {
             MessageDialog.openError(getShell(),
                     Messages.getString("ExportLogsWizardPage.error"), Messages.getString("ExportLogsWizardPage.errorMess")); //$NON-NLS-1$ //$NON-NLS-2$
             return false;
+        }
+        File file = new File(lastPath.trim());
+        if (file.exists()) {
+            boolean confirm = MessageDialog.openConfirm(getShell(), Messages.getString("ExportLogsWizardPage.confirm"), //$NON-NLS-1$
+                    Messages.getString("ExportLogsWizardPage.confirmMsg")); //$NON-NLS-1$
+            return confirm;
         }
         return true;
     }
@@ -274,6 +248,82 @@ public class ExportLogsWizardPage extends WizardPage {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void exportStudioInfo(File dest) {
+
+        StringBuffer info = new StringBuffer();
+        info.append("********Studio Information********").append(NEW_LINE); //$NON-NLS-1$
+        info.append(NEW_LINE);
+
+        info.append("-----Branding Details-----").append(NEW_LINE); //$NON-NLS-1$
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IBrandingService.class)) {
+            IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                    IBrandingService.class);
+            String productName = brandingService.getFullProductName();
+            String productInternalVersion = VersionUtils.getInternalVersion();
+            info.append("Product Name: ").append(productName).append(NEW_LINE); //$NON-NLS-1$
+            info.append("Product Version: ").append(productInternalVersion).append(NEW_LINE); //$NON-NLS-1$
+        }
+        info.append(NEW_LINE);
+
+        info.append("-----Installed Addons-----").append(NEW_LINE); //$NON-NLS-1$
+        IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
+        String addons = preferenceStore.getString("ADDONS"); //$NON-NLS-1$
+        JSONArray allAddons = null;
+        try {
+            if (addons != null && !"".equals(addons)) { //$NON-NLS-1$
+                allAddons = new JSONArray(addons);
+            }
+        } catch (JSONException e) {
+            info.append("Failed to get addons information...").append(NEW_LINE); //$NON-NLS-1$
+        }
+        if (allAddons != null) {
+            for (int i = 0; i < allAddons.length(); i++) {
+                try {
+                    String addon = allAddons.getString(i);
+                    info.append(addon).append(NEW_LINE);
+                } catch (JSONException e) {
+                    info.append("Failed to get addon information...").append(NEW_LINE); //$NON-NLS-1$
+                }
+            }
+        }
+        info.append(NEW_LINE);
+
+        info.append("-----Installed Components-----").append(NEW_LINE); //$NON-NLS-1$
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericService.class)) {
+            IGenericService genericService = (IGenericService) GlobalServiceRegister.getDefault().getService(
+                    IGenericService.class);
+            List<Map<String, String>> componentsInfo = genericService.getAllGenericComponentsInfo();
+            for (Map<String, String> componentInfo : componentsInfo) {
+                for (Map.Entry<String, String> entry : componentInfo.entrySet()) {
+                    info.append(entry.getKey()).append(": ").append(entry.getValue()).append(BLANK); //$NON-NLS-1$
+                }
+                info.append(NEW_LINE);
+            }
+            info.append(NEW_LINE);
+        }
+
+        info.append("-----Installed Patches-----").append(NEW_LINE); //$NON-NLS-1$
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreTisService.class)) {
+            ICoreTisService coreTisService = (ICoreTisService) GlobalServiceRegister.getDefault().getService(
+                    ICoreTisService.class);
+            List<IUpdateSiteBean> installedPatches = null;
+            try {
+                installedPatches = coreTisService.getPatchesInstalled();
+            } catch (BackingStoreException e) {
+                info.append("Failed to get installed patches information...").append(NEW_LINE); //$NON-NLS-1$
+                ExceptionHandler.process(e);
+            }
+            if (installedPatches != null) {
+                for (IUpdateSiteBean patch : installedPatches) {
+                    info.append("GroupId: ").append(patch.getGroupID()).append(BLANK); //$NON-NLS-1$
+                    info.append("Version: ").append(patch.getVersion()).append(BLANK); //$NON-NLS-1$
+                    info.append("ArtifactId: ").append(patch.getArtifactID()).append(NEW_LINE); //$NON-NLS-1$
+                }
+            }
+        }
+        writeToFile(dest, "studioInfo.log", info); //$NON-NLS-1$
     }
 
     private void exportSysconfig(File dest) {
@@ -341,27 +391,28 @@ public class ExportLogsWizardPage extends WizardPage {
         for (Entry<Object, Object> en : p.entrySet()) {
             sb.append(en.getKey() + "=" + en.getValue() + "\n"); //$NON-NLS-1$ //$NON-NLS-2$
         }
+        writeToFile(dest, ".sysConfig", sb); //$NON-NLS-1$
+    }
+
+    private void writeToFile(File dest, String fileName, StringBuffer sb) {
         String zipFile = dest.getAbsolutePath();
         String tmpFolder = ExportJobUtil.getTmpFolder();
-        String destFile = new File(tmpFolder + File.separator + new File(".sysConfig")).getAbsolutePath(); //$NON-NLS-1$
+        String destFile = new File(tmpFolder + File.separator + new File(fileName)).getAbsolutePath();
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(destFile);
             out.write(sb.toString().getBytes());
             out.flush();
-            if (!addLogsButton.getSelection()) {
-                ZipToFile.zipFile(tmpFolder, zipFile);
-
-            }
+            ZipToFile.zipFile(tmpFolder, zipFile);
         } catch (Exception e) {
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         } finally {
             try {
                 if (out != null) {
                     out.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                ExceptionHandler.process(e);
             }
         }
     }

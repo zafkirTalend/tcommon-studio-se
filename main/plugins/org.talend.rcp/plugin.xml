@@ -98,7 +98,7 @@
       point="org.eclipse.ui.commands">
    <command
          id="org.talend.rcp.show.exportLogs.command"
-         name="Export Logs">
+         name="Support Logs">
    </command>
 </extension>
 <extension
