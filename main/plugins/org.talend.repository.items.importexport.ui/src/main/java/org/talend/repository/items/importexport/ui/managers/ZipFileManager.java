@@ -20,6 +20,7 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
  */
@@ -32,7 +33,7 @@ public class ZipFileManager extends AbstractImportResourcesManager {
     }
 
     @Override
-    public InputStream getStream(IPath path) throws IOException {
+    public InputStream getStream(IPath path, ImportItem importItem) throws IOException {
         return zipFile.getInputStream((ZipEntry) path2Object.get(path));
     }
 

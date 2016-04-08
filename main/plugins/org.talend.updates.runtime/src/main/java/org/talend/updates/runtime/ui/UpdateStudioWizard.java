@@ -84,6 +84,18 @@ public class UpdateStudioWizard extends Wizard {
         storeDoNotShowAgainPref();
         InstallNewFeatureJob installNewFeatureJob = new InstallNewFeatureJob(new HashSet<ExtraFeature>(
                 updateWizardModel.selectedExtraFeatures), updateWizardModel.getFeatureRepositories());
+        boolean _needRestart = false;
+        if (updateWizardModel.selectedExtraFeatures != null) {
+            for (Object feature : updateWizardModel.selectedExtraFeatures) {
+                if (feature instanceof ExtraFeature) {
+                    if (((ExtraFeature) feature).needRestart()) {
+                        _needRestart = true;
+                        break;
+                    }
+                }
+            }
+        }
+        final boolean needRestart = _needRestart;
         installNewFeatureJob.schedule();
         // listen to the job end so that we can ask the user to restart the Studio
         installNewFeatureJob.addJobChangeListener(new JobChangeAdapter() {
@@ -127,10 +139,12 @@ public class UpdateStudioWizard extends Wizard {
                             // this will force from the Application class to reset all the perspectives
                             store.putValue("last_started_project_type", "NO_TYPE");
 
-                            boolean isOkToRestart = MessageDialog.openQuestion(getShell(),
-                                    Messages.getString("UpdateStudioWizard.install.sucessfull"), finalMessage); //$NON-NLS-1$
-                            if (isOkToRestart) {
-                                PlatformUI.getWorkbench().restart();
+                            if (needRestart) {
+                                boolean isOkToRestart = MessageDialog.openQuestion(getShell(),
+                                        Messages.getString("UpdateStudioWizard.install.sucessfull"), finalMessage); //$NON-NLS-1$
+                                if (isOkToRestart) {
+                                    PlatformUI.getWorkbench().restart();
+                                }
                             }
                         }
                     });

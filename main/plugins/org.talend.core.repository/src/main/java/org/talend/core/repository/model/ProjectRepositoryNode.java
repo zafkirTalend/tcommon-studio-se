@@ -1407,6 +1407,12 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         if (vo != null) {
             String schema = vo.getId();
             schema = schema + " - " + metadataTable.getLabel(); //$NON-NLS-1$
+            if (metadataTable instanceof SAPBWTable) {
+                String innerIOType = ((SAPBWTable) metadataTable).getInnerIOType();
+                if (innerIOType != null) {
+                    schema = schema + " - " + innerIOType; //$NON-NLS-1$
+                }
+            }
             List<IRepositoryViewObject> objs = getValidationRuleObjsFromSchema(validationRules, schema);
             if (objs.size() > 0) {
                 int num = objs.size();

@@ -25,6 +25,8 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -35,12 +37,13 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
-import org.talend.core.database.hbase.conn.version.EHBaseDistribution4Versions;
 import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
+import org.talend.core.hadoop.version.EHadoopVersion4Drivers;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
+import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -52,8 +55,6 @@ import org.talend.metadata.managment.hive.handler.HDP130Handler;
 import org.talend.metadata.managment.hive.handler.HDP200YarnHandler;
 import org.talend.metadata.managment.hive.handler.HiveConnectionHandler;
 import org.talend.metadata.managment.hive.handler.Mapr212Handler;
-
-import metadata.managment.i18n.Messages;
 
 /**
  * Created by Marvin Wang on Mar 13, 2013.
@@ -87,11 +88,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws IllegalAccessException
      * @throws SQLException
      */
-    public Connection createConnection(IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public Connection createConnection(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, SQLException {
         Connection conn = null;
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             conn = createHiveStandloneConnection(metadataConn);
         } else {
             conn = createHiveEmbeddedConnection(metadataConn);
@@ -108,8 +109,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public Driver getDriver(IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public Driver getDriver(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException {
         ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
         String connURL = metadataConn.getUrl();
         Driver driver = null;
@@ -127,8 +128,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return driver;
     }
 
-    private Connection createHiveStandloneConnection(IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    private Connection createHiveStandloneConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
         Connection hiveStandaloneConn = null;
         String connURL = metadataConn.getUrl();
         if (connURL != null) {
@@ -162,8 +163,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return hiveStandaloneConn;
     }
 
-    private Connection createHive2StandaloneConnection(final IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    private Connection createHive2StandaloneConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
 
         FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
 
@@ -216,8 +217,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return conn;
     }
 
-    private Connection createHive1StandaloneConnection(final IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    private Connection createHive1StandaloneConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
 
         FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
 
@@ -300,8 +301,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         backgroundJob.schedule();
     }
 
-    private Connection createHiveEmbeddedConnection(IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    private Connection createHiveEmbeddedConnection(IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException {
         String connURL = metadataConn.getUrl();
         String username = metadataConn.getUsername();
         String password = metadataConn.getPassword();
@@ -365,11 +366,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws IllegalAccessException
      * @throws SQLException
      */
-    public void checkConnection(IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public void checkConnection(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, SQLException {
         setHadoopProperties(metadataConn);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             createHiveStandloneConnection(metadataConn);
         } else {
             EmbeddedHiveDataBaseMetadata embeddedHiveDatabaseMetadata = new EmbeddedHiveDataBaseMetadata(metadataConn);
@@ -392,8 +393,8 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         Object connectionObj = metadataConn.getCurrentConnection();
         if (connectionObj instanceof DatabaseConnection) {
             DatabaseConnection currentConnection = (DatabaseConnection) connectionObj;
-            String currentHadoopProperties = currentConnection.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
+            String currentHadoopProperties = currentConnection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
             List<Map<String, Object>> hadoopProperties = HadoopRepositoryUtil.getHadoopPropertiesFullList(currentConnection,
                     currentHadoopProperties, false);
             for (Map<String, Object> propMap : hadoopProperties) {
@@ -459,10 +460,10 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
      * @throws IllegalAccessException
      * @throws SQLException
      */
-    public DatabaseMetaData extractDatabaseMetaData(IMetadataConnection metadataConn)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+    public DatabaseMetaData extractDatabaseMetaData(IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             return extractHiveStandaloneDatabaseMetaData(metadataConn);
         } else {
             return extractHiveEmbeddedDatabaseMetaData(metadataConn);
@@ -497,7 +498,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
     public boolean isHive2(IMetadataConnection metadataConn) {
         if (metadataConn != null) {
             String hiveServerKey = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_SERVER_VERSION);
-            return "HIVE2".equals(hiveServerKey); //$NON-NLS-1$
+            return HiveServerVersionInfo.HIVE_SERVER_2.getKey().equals(hiveServerKey);
         }
 
         return false;
@@ -515,19 +516,19 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         HiveConnectionHandler handler = null;
         String version = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnVersionInfo.MODE_STANDALONE.getKey().equalsIgnoreCase(hiveModel)) {
+        if (HiveModeInfo.get(hiveModel) == HiveModeInfo.STANDALONE) {
             handler = new HiveConnectionHandler(metadataConnection);
         } else {
-            if (EHBaseDistribution4Versions.HDP_1_3.getVersionValue().equals(version)) {
+            if (EHadoopVersion4Drivers.HDP_1_3.getVersionValue().equals(version)) {
                 handler = new HDP130Handler(metadataConnection);
-            } else if (EHBaseDistribution4Versions.CLOUDERA_CDH4_YARN.getVersionValue().equals(version)) {
+            } else if (EHadoopVersion4Drivers.CLOUDERA_CDH4_YARN.getVersionValue().equals(version)) {
                 handler = new CDH4YarnHandler(metadataConnection);
-            } else if (EHBaseDistribution4Versions.HDP_2_0.getVersionValue().equals(version)) {
+            } else if (EHadoopVersion4Drivers.HDP_2_0.getVersionValue().equals(version)) {
                 handler = new HDP200YarnHandler(metadataConnection);
-            } else if (EHBaseDistribution4Versions.MAPR_2_1_2.getVersionValue().equals(version)
-                    || EHBaseDistribution4Versions.MAPR_3_0_1.getVersionValue().equals(version)) {
+            } else if (EHadoopVersion4Drivers.MAPR212.getVersionValue().equals(version)
+                    || EHadoopVersion4Drivers.MAPR301.getVersionValue().equals(version)) {
                 handler = new Mapr212Handler(metadataConnection);
-            } else if (EHBaseDistribution4Versions.CLOUDERA_CDH5.getVersionValue().equals(version)) {
+            } else if (EHadoopVersion4Drivers.CLOUDERA_CDH5.getVersionValue().equals(version)) {
                 handler = new CDH5YarnHandler(metadataConnection);
             } else {
                 handler = new HiveConnectionHandler(metadataConnection);

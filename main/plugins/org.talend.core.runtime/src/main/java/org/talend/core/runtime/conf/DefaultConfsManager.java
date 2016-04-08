@@ -82,7 +82,7 @@ public abstract class DefaultConfsManager {
     }
 
     private static Object getValue(Object object, String... args) {
-        if (args.length > 0) {
+        if (args.length > 0 && object instanceof JSONObject) {
             String arg = args[0];
             Object obj = ((JSONObject) object).get(arg);
             String[] newArgs = (String[]) ArrayUtils.remove(args, 0);

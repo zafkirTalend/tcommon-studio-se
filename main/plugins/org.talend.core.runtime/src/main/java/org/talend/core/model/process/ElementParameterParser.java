@@ -317,7 +317,7 @@ public final class ElementParameterParser {
         return null;
     }
 
-    private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
+    public static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
             final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
         if (paramValues != null) {

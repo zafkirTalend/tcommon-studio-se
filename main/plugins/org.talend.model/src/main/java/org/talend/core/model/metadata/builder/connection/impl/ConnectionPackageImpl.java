@@ -4072,6 +4072,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSAPTable_TableSearchType() {
+        return (EAttribute) sapTableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -4788,6 +4797,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(additionalPropertiesEClass, ADDITIONAL_PROPERTIES__VALUE);
 
         sapTableEClass = createEClass(SAP_TABLE);
+        createEAttribute(sapTableEClass, SAP_TABLE__TABLE_SEARCH_TYPE);
 
         sapTableFieldEClass = createEClass(SAP_TABLE_FIELD);
         createEAttribute(sapTableFieldEClass, SAP_TABLE_FIELD__BUSINESS_NAME);
@@ -6052,6 +6062,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sapTableEClass, SAPTable.class, "SAPTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSAPTable_TableSearchType(), ecorePackage.getEString(), "tableSearchType", null, 0, 1, SAPTable.class,
+                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(sapTableFieldEClass, SAPTableField.class, "SAPTableField", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);

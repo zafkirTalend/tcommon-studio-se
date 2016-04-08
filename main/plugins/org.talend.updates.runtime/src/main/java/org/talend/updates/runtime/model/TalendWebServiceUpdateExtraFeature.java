@@ -254,4 +254,9 @@ public class TalendWebServiceUpdateExtraFeature implements ExtraFeature {
         return null;// we do not handle udpates yet.
     }
 
+    @Override
+    public boolean needRestart() {
+        return false;
+    }
+
 }

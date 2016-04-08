@@ -25,7 +25,8 @@ import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.hadoop.EHadoopConfigurationJars;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
+import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.metadata.managment.connection.manager.DatabaseConnConstants;
 
 /**
@@ -113,7 +114,8 @@ public class HiveClassLoaderFactory {
 
     private void loadConfigurationJars(IMetadataConnection metadataConn, DynamicClassLoader loader) {
         String distroKey = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
-        if (HiveConnUtils.isCustomDistro(distroKey)) {
+        IHDistribution distribution = HiveMetadataHelper.getDistribution(distroKey, false);
+        if (distribution != null && distribution.useCustom()) {
             return;
         }
 
@@ -195,7 +197,9 @@ public class HiveClassLoaderFactory {
         String distroKey = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
-        if (HiveConnUtils.isCustomDistro(distroKey)) {
+
+        IHDistribution distribution = HiveMetadataHelper.getDistribution(distroKey, false);
+        if (distribution != null && distribution.useCustom()) {
             String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             String index = "HadoopCustomVersion:Hive:" + metadataConn.getId(); //$NON-NLS-1$
             loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
@@ -225,7 +229,8 @@ public class HiveClassLoaderFactory {
         String distroVersion = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         String hiveModel = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
 
-        if (HiveConnUtils.isCustomDistro(distroKey)) {
+        IHDistribution distribution = HiveMetadataHelper.getDistribution(distroKey, false);
+        if (distribution != null && distribution.useCustom()) {
             String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             String index = "HadoopCustomVersion:Hive2:" + metadataConn.getId(); //$NON-NLS-1$
             loader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);

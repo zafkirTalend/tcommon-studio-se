@@ -31,6 +31,8 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.SAPBWTable;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
@@ -41,11 +43,13 @@ import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.model.repository.ISubRepositoryObject;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.ITestContainerProviderService;
+import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
@@ -570,15 +574,49 @@ public class RepositoryNodeUtilities {
 
     private static RepositoryNode getSAPSchemaFromConnection(RepositoryNode realNode, String name) {
         String[] values = name.split(" - "); //$NON-NLS-1$
-        if (values.length != 3) {
-            return null;
+        String metadataName = null;
+        String innerIOType = null;
+        if (values.length >= 2) {
+            metadataName = values[1];
         }
-        String metadataName = values[2];
-        String repositoryId = name.substring(0, name.lastIndexOf(" - ")); //$NON-NLS-1$
-        RepositoryNode functionNode = getSAPFunctionFromConnection(repositoryId);
-        for (IRepositoryNode node : functionNode.getChildren()) {
-            if (metadataName.equals(node.getProperties(EProperties.LABEL))) {
-                return (RepositoryNode) node;
+        if (values.length == 3) {
+            innerIOType = values[2];
+        }
+        if (innerIOType == null) {
+            RepositoryNode functionNode = getSAPFunctionFromConnection(realNode, name);
+            if (functionNode != null) {
+                return functionNode;
+            }
+        }
+
+        if (innerIOType == null || SAPBWTableHelper.isInnerIOType(innerIOType)) {
+            for (IRepositoryNode node : realNode.getChildren()) {
+                if (node.getLabel().equals(Messages.getString("RepositoryContentProvider.repositoryLabel.sapTable")) //$NON-NLS-1$
+                        || node.getLabel().equals(Messages.getString("RepositoryContentProvider.repositoryLabel.sapDataSource")) //$NON-NLS-1$
+                        || node.getLabel().equals(Messages.getString("RepositoryContentProvider.repositoryLabel.sapDSO")) //$NON-NLS-1$
+                        || node.getLabel().equals(Messages.getString("RepositoryContentProvider.repositoryLabel.sapInfoCube")) //$NON-NLS-1$
+                        || node.getLabel().equals(Messages.getString("RepositoryContentProvider.repositoryLabel.sapInfoObject"))) { //$NON-NLS-1$
+                    for (IRepositoryNode metadataNode : node.getChildren()) {
+                        IRepositoryViewObject metadataObject = metadataNode.getObject();
+                        if (metadataObject instanceof ISubRepositoryObject) {
+                            AbstractMetadataObject metadataTable = ((ISubRepositoryObject) metadataObject)
+                                    .getAbstractMetadataObject();
+                            if (metadataName.equals(metadataTable.getLabel())) {
+                                String innerIOTypeInMetaTable = null;
+                                if (metadataTable instanceof SAPBWTable) {
+                                    innerIOTypeInMetaTable = ((SAPBWTable) metadataTable).getInnerIOType();
+                                }
+                                if (innerIOType == null) {
+                                    return (RepositoryNode) metadataNode;
+                                } else {
+                                    if (innerIOType.equals(innerIOTypeInMetaTable)) {
+                                        return (RepositoryNode) metadataNode;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         return null;
@@ -599,19 +637,40 @@ public class RepositoryNodeUtilities {
     }
 
     public static RepositoryNode getSAPFunctionFromConnection(String id) {
+        return getSAPFunctionFromConnection(null, id);
+    }
+
+    public static RepositoryNode getSAPFunctionFromConnection(RepositoryNode realNode, String id) {
         String[] values = id.split(" - "); //$NON-NLS-1$
         String repositoryID = values[0];
         String functionName = values[1];
 
         try {
-            final RepositoryNode realNode = getRepositoryNode(repositoryID);
+            if (realNode == null) {
+                realNode = getRepositoryNode(repositoryID);
+            }
             if (realNode.getObject() != null) {
                 if (ERepositoryObjectType.METADATA_SAPCONNECTIONS.equals(realNode.getObject().getRepositoryObjectType())) {
                     for (IRepositoryNode node : realNode.getChildren()) {
-                        if (Messages.getString("RepositoryContentProvider.repositoryLabel.sapFunction").equals(node.getLabel())) { //$NON-NLS-1$
+                        if (Messages.getString("RepositoryContentProvider.repositoryLabel.sapBapi").equals(node.getLabel())) {
                             for (IRepositoryNode function : node.getChildren()) {
-                                if (functionName.equals(function.getProperties(EProperties.LABEL))) {
-                                    return (RepositoryNode) function;
+                                List<IRepositoryNode> inputAndOutputs = function.getChildren();
+                                for (IRepositoryNode inputAndOutput : inputAndOutputs) {
+                                    if (Messages.getString("RepositoryContentProvider.repositoryLabel.sapBapi.input").equals(
+                                            inputAndOutput.getLabel())) {
+                                        for (IRepositoryNode input : inputAndOutput.getChildren()) {
+                                            if (input.getProperties(EProperties.LABEL).equals(functionName)) {
+                                                return (RepositoryNode) input;
+                                            }
+                                        }
+                                    } else if (Messages.getString("RepositoryContentProvider.repositoryLabel.sapBapi.output")
+                                            .equals(inputAndOutput.getLabel())) {
+                                        for (IRepositoryNode output : inputAndOutput.getChildren()) {
+                                            if (output.getLabel().equals(functionName)) {
+                                                return (RepositoryNode) output;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

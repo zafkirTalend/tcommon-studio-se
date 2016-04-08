@@ -18,12 +18,13 @@ import java.util.List;
 /**
  * created by ycbai on 2013-9-16 Detailled comment
  * 
+ * @deprecated @link EHadoopVersion instead.
  */
 public enum EMRVersion {
 
-    MR1,
+    MR1, // EHadoopVersion.HADOOP_1
 
-    YARN,
+    YARN, // EHadoopVersion.HADOOP_2
 
     ;
 

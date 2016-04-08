@@ -20,6 +20,7 @@ import java.io.InputStream;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.utils.io.FilesUtils;
 
 /**
@@ -27,7 +28,7 @@ import org.talend.utils.io.FilesUtils;
 public class FilesManager extends AbstractImportResourcesManager {
 
     @Override
-    public InputStream getStream(IPath path) throws IOException {
+    public InputStream getStream(IPath path, ImportItem importItem) throws IOException {
         return new BufferedInputStream(new FileInputStream((File) path2Object.get(path)));
     }
 

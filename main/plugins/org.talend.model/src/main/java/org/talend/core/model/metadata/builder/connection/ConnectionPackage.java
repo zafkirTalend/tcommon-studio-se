@@ -18409,13 +18409,22 @@ public interface ConnectionPackage extends EPackage {
     int SAP_TABLE__ADDITIONAL_PROPERTIES = METADATA_TABLE__ADDITIONAL_PROPERTIES;
 
     /**
+     * The feature id for the '<em><b>Table Search Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAP_TABLE__TABLE_SEARCH_TYPE = METADATA_TABLE_FEATURE_COUNT + 0;
+
+    /**
      * The number of structural features of the '<em>SAP Table</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SAP_TABLE_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 0;
+    int SAP_TABLE_FEATURE_COUNT = METADATA_TABLE_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -19599,6 +19608,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int SAPBW_TABLE__ADDITIONAL_PROPERTIES = SAP_TABLE__ADDITIONAL_PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Table Search Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SAPBW_TABLE__TABLE_SEARCH_TYPE = SAP_TABLE__TABLE_SEARCH_TYPE;
 
     /**
      * The feature id for the '<em><b>Model Type</b></em>' attribute.
@@ -24782,6 +24800,17 @@ public interface ConnectionPackage extends EPackage {
     EClass getSAPTable();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SAPTable#getTableSearchType <em>Table Search Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Table Search Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SAPTable#getTableSearchType()
+     * @see #getSAPTable()
+     * @generated
+     */
+    EAttribute getSAPTable_TableSearchType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.ValidationRulesConnection <em>Validation Rules Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -28515,6 +28544,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EClass SAP_TABLE = eINSTANCE.getSAPTable();
+
+        /**
+         * The meta object literal for the '<em><b>Table Search Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SAP_TABLE__TABLE_SEARCH_TYPE = eINSTANCE.getSAPTable_TableSearchType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.ValidationRulesConnectionImpl <em>Validation Rules Connection</em>}' class.

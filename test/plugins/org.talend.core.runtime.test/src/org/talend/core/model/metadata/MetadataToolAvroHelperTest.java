@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.daikon.avro.SchemaConstants;
 import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
 
@@ -83,7 +84,7 @@ public class MetadataToolAvroHelperTest {
 
         assertThat(s.getType(), is(Schema.Type.RECORD));
         assertThat(s.getName(), is("testTable"));
-        assertThat(s.getFields(), hasSize(4));
+        assertThat(s.getFields(), hasSize(3));
         // assertThat(s.getObjectProps().keySet(),
         // contains(Talend6SchemaConstants.TALEND6_LABEL, Talend6SchemaConstants.TALEND6_COMMENT));
         assertThat(s.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("testTable"));
@@ -115,12 +116,9 @@ public class MetadataToolAvroHelperTest {
         assertThat(f.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("valid"));
         assertThat(f.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_Boolean"));
 
-        f = s.getFields().get(3);
-        assertThat(f.schema().getType(), is(Schema.Type.BYTES));
-        assertThat(f.name(), is("dyn"));
-        // assertThat(s.getObjectProps().keySet(),
-        // contains(Talend6SchemaConstants.TALEND6_LABEL, Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE));
-        assertThat(f.getProp(Talend6SchemaConstants.TALEND6_LABEL), is("dyn"));
-        assertThat(f.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_Dynamic"));
+        assertThat(s.getProp(SchemaConstants.INCLUDE_ALL_FIELDS), is("true"));
+        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_NAME), is("dyn"));
+        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_POSITION), is("3"));
+        assertThat(s.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_Dynamic"));
     }
 }

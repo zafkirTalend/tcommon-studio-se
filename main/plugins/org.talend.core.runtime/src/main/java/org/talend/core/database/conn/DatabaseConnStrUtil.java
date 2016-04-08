@@ -23,7 +23,7 @@ import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
 
@@ -191,15 +191,16 @@ public class DatabaseConnStrUtil {
         }
         // DbConnStrForHive.URL_HIVE_2_TEMPLATE or DbConnStrForHive.URL_HIVE_1_TEMPLATE
         // set a default
+        boolean isEmbedded = (HiveModeInfo.get(hiveModel) == HiveModeInfo.EMBEDDED);
         String url = null;
         if (template.startsWith(DbConnStrForHive.URL_HIVE_2_TEMPLATE)) {
-            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
+            if (isEmbedded) {
                 url = getHive2EmbeddedURLString();
             } else {
                 url = getHive2StandaloneURLString(false, server, port, sidOrDatabase, hivePrincipal);
             }
         } else if (template.startsWith(DbConnStrForHive.URL_HIVE_1_TEMPLATE)) {
-            if (HiveConnVersionInfo.MODE_EMBEDDED.getKey().equalsIgnoreCase(hiveModel)) {
+            if (isEmbedded) {
                 url = getHive1EmbeddedURLString();
             } else {
                 url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);

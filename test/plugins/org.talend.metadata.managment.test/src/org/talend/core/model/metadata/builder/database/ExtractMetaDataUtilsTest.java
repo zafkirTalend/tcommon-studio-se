@@ -21,6 +21,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.talend.commons.utils.database.DB2ForZosDataBaseMetadata;
+import org.talend.commons.utils.database.EXASOLDatabaseMetaData;
 import org.talend.commons.utils.database.SASDataBaseMetadata;
 import org.talend.commons.utils.database.SybaseIQDatabaseMetaData;
 import org.talend.commons.utils.database.TeradataDataBaseMetadata;
@@ -30,6 +31,7 @@ import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+
 import orgomg.cwm.objectmodel.core.Expression;
 
 /**
@@ -207,7 +209,11 @@ public class ExtractMetaDataUtilsTest {
                 verify(mockConn, times(times++)).getMetaData();
 
                 Assert.assertNotNull(databaseMetaData);
-                Assert.assertEquals(databaseMetaData, metaData);
+                if (EDatabaseTypeName.EXASOL.equals(type)) {
+                    assertTrue(databaseMetaData instanceof EXASOLDatabaseMetaData);
+                } else {
+                    Assert.assertEquals(metaData, databaseMetaData);
+                }
             }
         }
     }
@@ -363,7 +369,11 @@ public class ExtractMetaDataUtilsTest {
                 times++;
 
                 Assert.assertNotNull(databaseMetaData);
-                Assert.assertEquals(databaseMetaData, metaData);
+                if (EDatabaseTypeName.EXASOL.equals(type)) {
+                    assertTrue(databaseMetaData instanceof EXASOLDatabaseMetaData);
+                } else {
+                    Assert.assertEquals(metaData, databaseMetaData);
+                }
             }
         }
     }
@@ -581,9 +591,6 @@ public class ExtractMetaDataUtilsTest {
         Assert.assertEquals(
                 extractMetaManger.getDbTypeByClassNameAndDriverJar("org.postgresql.Driver", "postgresql-8.3-603.jdbc4.jar"),
                 EDatabaseTypeName.PSQL.getXmlName());
-        //
-        Assert.assertEquals(extractMetaManger.getDbTypeByClassNameAndDriverJar("sun.jdbc.odbc.JdbcOdbcDriver",
-                "mysql-connector-java-5.1.3-bin.jar"), EDatabaseTypeName.ACCESS.getXmlName());
     }
 
     @Test

@@ -59,7 +59,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.dburl.SupportDBUrlType;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
@@ -686,7 +686,7 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
 
         String hiveMode = (String) metadataConnection.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
         if (EDatabaseTypeName.HIVE.getDisplayName().equals(metadataConnection.getDbType())
-                && HiveConnVersionInfo.MODE_EMBEDDED.getKey().equals(hiveMode)) {
+                && HiveModeInfo.get(hiveMode) == HiveModeInfo.EMBEDDED) {
             JavaSqlFactory.doHivePreSetup((DatabaseConnection) metadataConnection.getCurrentConnection());
         }
         List<Catalog> catalogs = ConnectionHelper.getCatalogs(connection);

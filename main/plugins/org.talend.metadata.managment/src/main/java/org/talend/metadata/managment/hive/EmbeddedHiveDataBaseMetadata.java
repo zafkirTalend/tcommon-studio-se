@@ -33,7 +33,7 @@ import org.talend.core.exception.WarningSQLException;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.database.ExtractMetaDataFromDataBase.ETableTypes;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
-import org.talend.core.model.metadata.connection.hive.HiveConnVersionInfo;
+import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.core.utils.ReflectionUtils;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.utils.sql.metadata.constants.GetTable;
@@ -121,11 +121,10 @@ public class EmbeddedHiveDataBaseMetadata extends AbstractFakeDatabaseMetaData {
             throw new SQLException("This function is not available with a JDK < 1.7"); //$NON-NLS-1$ 
         }
         boolean isWindows = EnvironmentUtils.isWindowsSystem();
-        String hive_version = (String) this.metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        String hiveDistribution = (String) this.metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
+        String hiveVersion = (String) this.metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
 
-        boolean isNotSupportEmbedded = ArrayUtils.contains(HiveConnVersionInfo.getHiveVersionsNotSupportOnWindows(),
-                HiveConnVersionInfo.getVersionByKey(hive_version));
-
+        boolean isNotSupportEmbedded = HiveMetadataHelper.doSupportEmbeddedMode(hiveDistribution, hiveVersion, false);
         if (isWindows && isNotSupportEmbedded) {
             throw new WarningSQLException(Messages.getString("EmbeddedHiveDataBaseMetadata.functionNotSupportMessage")); //$NON-NLS-1$ 
         }
