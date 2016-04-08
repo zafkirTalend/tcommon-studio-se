@@ -47,6 +47,8 @@ public class JobInfoProperties extends Properties {
 
     public static final String JOB_NAME = "job"; //$NON-NLS-1$
 
+    public static final String JOB_TYPE = "jobType"; //$NON-NLS-1$
+
     public static final String JOB_VERSION = "jobVersion"; //$NON-NLS-1$
 
     public static final String DATE = "date"; //$NON-NLS-1$
@@ -94,6 +96,7 @@ public class JobInfoProperties extends Properties {
 
         setProperty(JOB_ID, jobInfo.getJobId());
         setProperty(JOB_NAME, jobInfo.getJobName());
+        setProperty(JOB_TYPE, processItem.getProcess().getJobType());
         setProperty(JOB_VERSION, jobInfo.getJobVersion());
         setProperty(CONTEXT_NAME, this.contextName);
         setProperty(DATE, DATAFORMAT.format(new Date()));
