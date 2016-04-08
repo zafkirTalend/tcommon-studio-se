@@ -37,7 +37,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -256,8 +255,6 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     private RepoViewPartListener partListener;
 
     private ResourcePostChangeRunnableListener resourcePostChangeRunnableListener;
-
-    private Combo comboDropDown;
 
     private IGitContentService service;
 
