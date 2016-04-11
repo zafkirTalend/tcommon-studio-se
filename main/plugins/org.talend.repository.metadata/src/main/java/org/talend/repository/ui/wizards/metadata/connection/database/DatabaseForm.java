@@ -5926,14 +5926,12 @@ public class DatabaseForm extends AbstractForm {
         if (hiveVersion == null && hdVersions.length > 0) {
             hiveVersion = hdVersions[0];
         }
-        HiveServerVersionInfo hiveServer = null;
+        HiveServerVersionInfo hiveServer = HiveServerVersionInfo.HIVE_SERVER_1;
         if (doSupportHive2()) {
             hiveServer = HiveServerVersionInfo.getByDisplay(hiveServerVersionCombo.getText());
-        } else {
-            hiveServer = HiveServerVersionInfo.HIVE_SERVER_1;
         }
-        String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(hiveDistribution.getName(), hiveVersion.getVersion(),
-                hiveServer.getKey(), false);
+        String[] hiveModesDisplay = HiveMetadataHelper.getHiveModesDisplay(hiveDistribution.getName(), hiveVersion == null ? null
+                : hiveVersion.getVersion(), hiveServer == null ? null : hiveServer.getKey(), false);
         hiveModeCombo.getCombo().setItems(hiveModesDisplay);
 
         if (hiveMode != null) {
@@ -5965,7 +5963,7 @@ public class DatabaseForm extends AbstractForm {
 
         DatabaseConnection conn = getConnection();
         String[] hiveServersDisplay = HiveMetadataHelper.getHiveServersDisplay(hiveDistribution.getName(),
-                hiveVersion.getVersion(), false);
+                hiveVersion == null ? null : hiveVersion.getVersion(), false);
         hiveServerVersionCombo.getCombo().setItems(hiveServersDisplay);
 
         String hiveServerKey = conn.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
