@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.token;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.Authenticator;
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -58,8 +60,6 @@ public final class TokenCollectorFactory {
     private static TokenCollectorFactory factory;
 
     private static final Map<String, TokenInforProvider> providers;
-
-    private static boolean DEBUG_TOKEN = true;
 
     static {
         providers = new HashMap<String, TokenInforProvider>();
@@ -204,10 +204,6 @@ public final class TokenCollectorFactory {
                         Authenticator defaultAuth = NetworkUtil.getDefaultAuthenticator();
                         try {
                             JSONObject tokenInfors = collectTokenInfors();
-                            if (DEBUG_TOKEN) {
-                                System.out.println("token:" + tokenInfors.toString());
-                                return org.eclipse.core.runtime.Status.OK_STATUS;
-                            }
                             Resty r = new Resty();
                             // set back the rath for Resty.
                             Field rathField = Resty.class.getDeclaredField("rath"); //$NON-NLS-1$
@@ -215,7 +211,12 @@ public final class TokenCollectorFactory {
                             Authenticator auth = (Authenticator) rathField.get(null);
                             Authenticator.setDefault(auth);
 
-                            AbstractContent ac = Resty.content(tokenInfors);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            ZipOutputStream zos = new ZipOutputStream(baos);
+                            zos.write(tokenInfors.toString().getBytes(), 0, tokenInfors.toString().getBytes().length);
+                            AbstractContent ac = Resty.content(baos.toByteArray());
+                            baos.close();
+                            zos.close();
                             MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
 
                             TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio2.php", mpc); //$NON-NLS-1$
