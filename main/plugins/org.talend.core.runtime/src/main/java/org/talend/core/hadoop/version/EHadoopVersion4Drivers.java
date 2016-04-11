@@ -24,6 +24,12 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public enum EHadoopVersion4Drivers {
 
+    HDP_2_4(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.4.0", //$NON-NLS-1$
+            "HDP_2_4", //$NON-NLS-1$
+            true,
+            false,
+            new EMRVersion[] { EMRVersion.YARN }),
+
     HDP_2_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.3.0", //$NON-NLS-1$
             "HDP_2_3", //$NON-NLS-1$
             true,
