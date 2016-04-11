@@ -3751,7 +3751,8 @@ public class DatabaseForm extends AbstractForm {
 
                 IHDistribution newDistribution = getHBaseDistribution(newDistributionDisplayName, true);
                 IHDistribution originalDistribution = getHBaseDistribution(originalDistributionName, false);
-                if (newDistribution != null && !newDistribution.getName().equals(originalDistribution.getName())) {
+                if (originalDistribution == null || newDistribution != null
+                        && !newDistribution.getName().equals(originalDistribution.getName())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
                     updateHBaseVersionPart(newDistribution);
@@ -3779,7 +3780,7 @@ public class DatabaseForm extends AbstractForm {
                 IHDistributionVersion newVersion = originalDistribution.getHDVersion(newVersionDisplayName, true);
                 IHDistributionVersion originalVersion = originalDistribution.getHDVersion(originalVersionName, false);
 
-                if (newVersion != null && newVersion.getVersion() != null
+                if (originalVersion == null || newVersion != null && newVersion.getVersion() != null
                         && !newVersion.getVersion().equals(originalVersion.getVersion())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION, newVersion.getVersion());
                     fillDefaultsWhenHBaseVersionChanged();
@@ -5626,7 +5627,8 @@ public class DatabaseForm extends AbstractForm {
         String distributionObj = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         IHDistribution originalhiveDistribution = HiveMetadataHelper.getDistribution(distributionObj, false);
         IHDistribution currentHiveDistribution = getCurrentHiveDistribution(false);
-        if (currentHiveDistribution != null && !currentHiveDistribution.equals(originalhiveDistribution)) {
+        if (originalhiveDistribution == null || currentHiveDistribution != null
+                && !currentHiveDistribution.equals(originalhiveDistribution)) {
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
             // for Hive mode. 3. To update connection parameters.
             updateHiveVersionAndMakeSelection(currentHiveDistribution, null);
@@ -5647,7 +5649,7 @@ public class DatabaseForm extends AbstractForm {
         IHDistributionVersion newVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
         String originalVersion = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
         IHDistributionVersion hdVersion = hiveDistribution.getHDVersion(originalVersion, true);
-        if (newVersion != null && !newVersion.equals(hdVersion)) {
+        if (hdVersion == null || newVersion != null && !newVersion.equals(hdVersion)) {
             setHideVersionInfoWidgets(false);
             updateHiveModeAndMakeSelection(null);
             updateHiveServerAndMakeSelection(hiveDistribution, newVersion);
