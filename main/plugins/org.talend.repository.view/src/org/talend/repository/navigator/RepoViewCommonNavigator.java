@@ -338,8 +338,12 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
 
                 @Override
                 public void handleEvent(Event event) {
+                    Point viewerPoint = viewer.getTree().getSize();
                     Point point = parent.getSize();
+                    if (viewerPoint.x == point.x - 7 && viewerPoint.y == point.y - 40)
+                        return;
                     viewer.getTree().setSize(point.x - 7, point.y - 40);
+                    viewer.getTree().showSelection();
                 }
             });
 
