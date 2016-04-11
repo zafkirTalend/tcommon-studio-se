@@ -1065,7 +1065,8 @@ public final class MetadataToolHelper {
         String uniqueName = null;
         for (int i = 0; i < elementParameters.size(); i++) {
             IElementParameter param = elementParameters.get(i);
-            if (param.getFieldType().equals(EParameterFieldType.SCHEMA_TYPE)
+            if ((param.getFieldType().equals(EParameterFieldType.SCHEMA_TYPE) || param.getFieldType().equals(
+                    EParameterFieldType.SCHEMA_REFERENCE))
                     && param.getContext().equals(metadataTable.getAttachedConnector())) {
                 if (param.getValue() instanceof IMetadataTable) {
                     param.setValueToDefault(elementParameters);

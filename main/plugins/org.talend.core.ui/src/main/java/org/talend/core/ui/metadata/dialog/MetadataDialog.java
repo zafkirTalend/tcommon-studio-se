@@ -314,7 +314,7 @@ public class MetadataDialog extends Dialog {
         // TDI-29264:improve here for adapt two or more schemas with different mode,such as tHiveCreateTable etc
         boolean nodeModeFlag = false;
         for (IElementParameter param : node.getElementParameters()) {
-            if (param.getFieldType() == EParameterFieldType.SCHEMA_TYPE
+            if ((param.getFieldType() == EParameterFieldType.SCHEMA_TYPE || param.getFieldType() == EParameterFieldType.SCHEMA_REFERENCE)
                     && (param.getContext() == null || param.getContext().equals(currentTable.getAttachedConnector()))) {
                 IElementParameter schemaParam = param.getChildParameters().get("SCHEMA_TYPE");
                 if (schemaParam.getValue() != null) {
