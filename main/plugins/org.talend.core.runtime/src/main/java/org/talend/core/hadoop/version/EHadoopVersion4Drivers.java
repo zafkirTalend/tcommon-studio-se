@@ -122,6 +122,12 @@ public enum EHadoopVersion4Drivers {
               false,
               new EMRVersion[] { EMRVersion.YARN }),
 
+    EMR_4_5_0(EHadoopDistributions.AMAZON_EMR, "EMR 4.5.0 (Apache 2.7.2)", //$NON-NLS-1$
+              "EMR_4_5_0", //$NON-NLS-1$
+              false,
+              false,
+              new EMRVersion[] { EMRVersion.YARN }),
+
     APACHE_2_4_0_EMR(EHadoopDistributions.AMAZON_EMR, "Apache 2.4.0", //$NON-NLS-1$
                      "APACHE_2_4_0_EMR", //$NON-NLS-1$
                      false,
