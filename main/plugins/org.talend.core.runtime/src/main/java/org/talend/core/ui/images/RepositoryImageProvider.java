@@ -150,6 +150,8 @@ public class RepositoryImageProvider {
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_PHONENUMBER_STATISTICS
                 || type == ERepositoryObjectType.SYSTEM_INDICATORS_FRAUDDETECTION) {
             return ECoreImage.TDQ_INDICATOR_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_DATA_PROFILING) {
+            return ECoreImage.TDQ_DATA_PROFILING_ICON;
         } else {
             IImage image = null;
             for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
