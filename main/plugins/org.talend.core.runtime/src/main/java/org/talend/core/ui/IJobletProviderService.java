@@ -20,6 +20,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.MultiPageEditorPart;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -34,6 +35,7 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.IRepositoryEditorInput;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
@@ -131,5 +133,8 @@ public interface IJobletProviderService extends IService {
     public IConnection[] getNonShadowDataConnections(INode node);
 
     public void clearJobletComponent();
+
+    public IRepositoryEditorInput getJobletProcessEditorInput(JobletProcessItem processItem, boolean load, boolean lastVersion,
+            boolean readOnly) throws PersistenceException;
 
 }
