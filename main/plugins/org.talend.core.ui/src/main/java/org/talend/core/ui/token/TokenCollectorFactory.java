@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.token;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -21,7 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.ZipOutputStream;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -137,6 +139,11 @@ public final class TokenCollectorFactory {
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             String last = preferenceStore.getString(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME);
             int days = preferenceStore.getInt(ITalendCorePrefConstants.DATA_COLLECTOR_UPLOAD_PERIOD);
+            
+            long syncNb = preferenceStore.getLong(DefaultTokenCollector.COLLECTOR_SYNC_NB);
+            if (syncNb < 15) {
+                days = 2;
+            }
             Date lastDate = null;
             if (last != null && !"".equals(last.trim())) { //$NON-NLS-1$
                 // parse the last date;
@@ -212,14 +219,14 @@ public final class TokenCollectorFactory {
                             Authenticator.setDefault(auth);
 
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            ZipOutputStream zos = new ZipOutputStream(baos);
-                            zos.write(tokenInfors.toString().getBytes(), 0, tokenInfors.toString().getBytes().length);
+                            GZIPOutputStream gzos = new GZIPOutputStream(baos);
+                            gzos.write(tokenInfors.toString().getBytes());
+                            gzos.close();
                             AbstractContent ac = Resty.content(baos.toByteArray());
                             baos.close();
-                            zos.close();
                             MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
 
-                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio2.php", mpc); //$NON-NLS-1$
+                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio_v2.php", mpc); //$NON-NLS-1$
                             String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
                             boolean okReturned = (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
                             if (okReturned) {
@@ -238,7 +245,7 @@ public final class TokenCollectorFactory {
                                 preferenceStore.setValue(DefaultTokenCollector.COLLECTOR_SYNC_NB, syncNb);
                             }
                         } catch (Exception e) {
-                            // nothing
+                            ExceptionHandler.process(e);
                         } finally {
                             Authenticator.setDefault(defaultAuth);
                         }
