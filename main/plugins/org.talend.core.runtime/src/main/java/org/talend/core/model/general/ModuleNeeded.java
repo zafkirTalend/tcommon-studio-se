@@ -162,7 +162,12 @@ public class ModuleNeeded {
     public ModuleNeeded(String context, String informationMsg, boolean required, String mvnUri) {
         this(context, null, informationMsg, required, null, null, mvnUri, ELibraryInstallStatus.UNKNOWN);
         MavenArtifact mavenArtifact = MavenUrlHelper.parseMvnUrl(mvnUri);
-        setModuleName(mavenArtifact.getArtifactId() + "." + mavenArtifact.getType());
+        if (MavenConstants.DEFAULT_LIB_GROUP_ID.equals(mavenArtifact.getGroupId())
+                || StringUtils.isEmpty(mavenArtifact.getVersion())) {
+            setModuleName(mavenArtifact.getArtifactId() + "." + mavenArtifact.getType()); //$NON-NLS-1$
+        } else {
+            setModuleName(mavenArtifact.getArtifactId() + "-" + mavenArtifact.getVersion() + "." + mavenArtifact.getType());  //$NON-NLS-1$//$NON-NLS-2$
+        }
 
     }
 
