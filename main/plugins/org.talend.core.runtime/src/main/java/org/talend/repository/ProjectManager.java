@@ -46,6 +46,9 @@ import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.nodes.IProjectRepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
+import us.monoid.json.JSONException;
+import us.monoid.json.JSONObject;
+
 /**
  * ggu class global comment. Detailled comment
  */
@@ -575,5 +578,24 @@ public final class ProjectManager {
 
     public void clearFolderCache() {
         foldersMap.clear();
+    }
+    
+    /**
+     * Returns the type of project (local / svn / git).
+     * @param project
+     * @return
+     */
+    public String getProjectType(Project project) {
+        String projectType = "local";
+        if (!currentProject.getEmfProject().isLocal()) {
+            JSONObject projectInfo;
+            try {
+                projectInfo = new JSONObject(currentProject.getEmfProject().getUrl());
+                projectType = projectInfo.getString("storage");
+            } catch (JSONException e) {
+                // nothing to do, consider local by default
+            }
+        }
+        return projectType;
     }
 }
