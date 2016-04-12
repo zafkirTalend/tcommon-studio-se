@@ -24,12 +24,6 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public enum EHadoopVersion4Drivers {
 
-    HDP_2_4(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.4.0", //$NON-NLS-1$
-            "HDP_2_4", //$NON-NLS-1$
-            true,
-            false,
-            new EMRVersion[] { EMRVersion.YARN }),
-
     HDP_2_3(EHadoopDistributions.HORTONWORKS, "Hortonworks Data Platform V2.3.0", //$NON-NLS-1$
             "HDP_2_3", //$NON-NLS-1$
             true,
@@ -98,8 +92,6 @@ public enum EHadoopVersion4Drivers {
 
     CLOUDERA_CDH4(EHadoopDistributions.CLOUDERA, "Cloudera CDH4.X(MR1 mode)", "Cloudera_CDH4", true, false), //$NON-NLS-1$ //$NON-NLS-2$
 
-    MAPR510(EHadoopDistributions.MAPR, "MapR 5.1.0(YARN mode)", "MAPR510", true, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
-
     MAPR500(EHadoopDistributions.MAPR, "MapR 5.0.0(YARN mode)", "MAPR500", true, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
 
     MAPR410(EHadoopDistributions.MAPR, "MapR 4.1.0(YARN mode)", "MAPR410", false, true, new EMRVersion[] { EMRVersion.YARN }), //$NON-NLS-1$ //$NON-NLS-2$
@@ -118,12 +110,6 @@ public enum EHadoopVersion4Drivers {
 
     EMR_4_0_0(EHadoopDistributions.AMAZON_EMR, "EMR 4.0.0 (Apache 2.6.0)", //$NON-NLS-1$
               "EMR_4_0_0", //$NON-NLS-1$
-              false,
-              false,
-              new EMRVersion[] { EMRVersion.YARN }),
-
-    EMR_4_5_0(EHadoopDistributions.AMAZON_EMR, "EMR 4.5.0 (Apache 2.7.2)", //$NON-NLS-1$
-              "EMR_4_5_0", //$NON-NLS-1$
               false,
               false,
               new EMRVersion[] { EMRVersion.YARN }),
