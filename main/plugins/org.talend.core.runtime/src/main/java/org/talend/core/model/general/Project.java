@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.model.general;
 
-import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.context.Context;
