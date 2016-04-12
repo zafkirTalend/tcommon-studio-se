@@ -54,6 +54,7 @@ public enum ETalendMavenVariables {
     JobBatAddition,
     JobShClasspath,
     JobShAddition,
+    Framework,
 
     //
     ;

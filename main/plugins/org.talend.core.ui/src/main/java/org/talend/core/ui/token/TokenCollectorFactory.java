@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.ui.token;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.Authenticator;
@@ -20,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -32,7 +36,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.network.NetworkUtil;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -58,6 +62,7 @@ public final class TokenCollectorFactory {
     private static TokenCollectorFactory factory;
 
     private static final Map<String, TokenInforProvider> providers;
+
     static {
         providers = new HashMap<String, TokenInforProvider>();
 
@@ -122,11 +127,10 @@ public final class TokenCollectorFactory {
             if (collector != null) {
                 JSONObject collectionObject = collector.collect();
                 if (collectionObject != null) {
-                    TokenInforUtil.integrateJSONObject(result, collectionObject);
+                    TokenInforUtil.mergeJSON(collectionObject, result);
                 }
             }
         }
-
         return result;
     }
 
@@ -135,6 +139,11 @@ public final class TokenCollectorFactory {
         if (preferenceStore.getBoolean(ITalendCorePrefConstants.DATA_COLLECTOR_ENABLED)) {
             String last = preferenceStore.getString(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME);
             int days = preferenceStore.getInt(ITalendCorePrefConstants.DATA_COLLECTOR_UPLOAD_PERIOD);
+            
+            long syncNb = preferenceStore.getLong(DefaultTokenCollector.COLLECTOR_SYNC_NB);
+            if (syncNb < 15) {
+                days = 2;
+            }
             Date lastDate = null;
             if (last != null && !"".equals(last.trim())) { //$NON-NLS-1$
                 // parse the last date;
@@ -167,20 +176,12 @@ public final class TokenCollectorFactory {
 
         // collect
         try {
-            if (isActiveAndValid(true)) {
+            if (isActiveAndValid(false)) {
+                // collect the data each time, if the token is active
                 TokenCollectorFactory.getFactory().priorCollect();
+            }
+            if (isActiveAndValid(true)) {
                 send();
-                // set new days
-                final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
-                preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
-                if (preferenceStore instanceof ScopedPreferenceStore) {
-                    try {
-                        ((ScopedPreferenceStore) preferenceStore).save();
-                    } catch (IOException e) {
-                        ExceptionHandler.process(e);
-                    }
-                }
-
                 result = true;
             }
         } catch (Exception e) {
@@ -210,7 +211,6 @@ public final class TokenCollectorFactory {
                         Authenticator defaultAuth = NetworkUtil.getDefaultAuthenticator();
                         try {
                             JSONObject tokenInfors = collectTokenInfors();
-
                             Resty r = new Resty();
                             // set back the rath for Resty.
                             Field rathField = Resty.class.getDeclaredField("rath"); //$NON-NLS-1$
@@ -218,16 +218,34 @@ public final class TokenCollectorFactory {
                             Authenticator auth = (Authenticator) rathField.get(null);
                             Authenticator.setDefault(auth);
 
-                            AbstractContent ac = Resty.content(tokenInfors);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            GZIPOutputStream gzos = new GZIPOutputStream(baos);
+                            gzos.write(tokenInfors.toString().getBytes());
+                            gzos.close();
+                            AbstractContent ac = Resty.content(baos.toByteArray());
+                            baos.close();
                             MultipartContent mpc = Resty.form(new FormData("data", ac)); //$NON-NLS-1$
 
-                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio.php", mpc); //$NON-NLS-1$
+                            TextResource result = r.text("https://www.talend.com/TalendRegisterWS/tokenstudio_v2.php", mpc); //$NON-NLS-1$
                             String resultStr = new JSONObject(result.toString()).getString("result"); //$NON-NLS-1$
                             boolean okReturned = (resultStr != null && resultStr.endsWith("OK")); //$NON-NLS-1$
-                            // returned value not checked yet, we might need in the future, but actually the token is
-                            // still "optional".
+                            if (okReturned) {
+                                // set new days
+                                final IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
+                                preferenceStore.setValue(ITalendCorePrefConstants.DATA_COLLECTOR_LAST_TIME, DATE_FORMAT.format(new Date()));
+                                if (preferenceStore instanceof ScopedPreferenceStore) {
+                                    try {
+                                        ((ScopedPreferenceStore) preferenceStore).save();
+                                    } catch (IOException e) {
+                                        ExceptionHandler.process(e);
+                                    }
+                                }
+                                long syncNb = preferenceStore.getLong(DefaultTokenCollector.COLLECTOR_SYNC_NB);
+                                syncNb++;
+                                preferenceStore.setValue(DefaultTokenCollector.COLLECTOR_SYNC_NB, syncNb);
+                            }
                         } catch (Exception e) {
-                            // nothing
+                            ExceptionHandler.process(e);
                         } finally {
                             Authenticator.setDefault(defaultAuth);
                         }
