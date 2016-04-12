@@ -152,6 +152,8 @@ public class RepositoryImageProvider {
             return ECoreImage.TDQ_INDICATOR_ICON;
         } else if (type == ERepositoryObjectType.TDQ_DATA_PROFILING) {
             return ECoreImage.TDQ_DATA_PROFILING_ICON;
+        } else if (type == ERepositoryObjectType.TDQ_LIBRARIES) {
+            return ECoreImage.TDQ_LIBRARIES_ICON;
         } else {
             IImage image = null;
             for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
