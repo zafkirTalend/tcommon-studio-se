@@ -253,6 +253,9 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 jobInfoProp.getProperty(JobInfoProperties.JOB_TYPE));
         if (process instanceof IProcess2) {
             String framework = (String) ((IProcess2) process).getAdditionalProperties().get("FRAMEWORK"); //$NON-NLS-1$
+            if (framework == null) {
+                framework = ""; //$NON-NLS-1$
+            }
             checkPomProperty(properties, "talend.job.framework", ETalendMavenVariables.Framework, framework); //$NON-NLS-1$
         }
 
