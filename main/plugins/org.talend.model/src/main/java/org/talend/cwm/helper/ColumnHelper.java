@@ -689,15 +689,17 @@ public final class ColumnHelper {
      * @param columns
      */
     public static boolean checkSameTable(ModelElement[] columns) {
-        Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
-        for (ModelElement column : columns) {
-            MetadataTable metadataTable = getColumnOwnerAsMetadataTable(column);
-            if (metadataTable == null) {
-                continue;
-            }
-            tableSet.add(metadataTable);
-            if (tableSet.size() > 1) {
-                return false;
+        if (columns != null) {
+            Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
+            for (ModelElement column : columns) {
+                MetadataTable metadataTable = getColumnOwnerAsMetadataTable(column);
+                if (metadataTable == null) {
+                    continue;
+                }
+                tableSet.add(metadataTable);
+                if (tableSet.size() > 1) {
+                    return false;
+                }
             }
         }
         return true;
