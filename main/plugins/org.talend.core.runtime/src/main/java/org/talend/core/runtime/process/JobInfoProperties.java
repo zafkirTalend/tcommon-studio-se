@@ -96,7 +96,16 @@ public class JobInfoProperties extends Properties {
 
         setProperty(JOB_ID, jobInfo.getJobId());
         setProperty(JOB_NAME, jobInfo.getJobName());
-        setProperty(JOB_TYPE, processItem.getProcess().getJobType());
+        String jobType = processItem.getProcess().getJobType();
+        if (jobType == null) {
+            /*
+             * should call ConvertJobsUtil.getJobTypeFromFramework(processItem)
+             * 
+             * ConvertJobsUtil.JobType.STANDARD.getDisplayName
+             */
+            jobType = "Standard"; //$NON-NLS-1$
+        }
+        setProperty(JOB_TYPE, jobType);
         setProperty(JOB_VERSION, jobInfo.getJobVersion());
         setProperty(CONTEXT_NAME, this.contextName);
         setProperty(DATE, DATAFORMAT.format(new Date()));
