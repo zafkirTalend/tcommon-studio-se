@@ -57,6 +57,12 @@ public class ExtendedNodeConnectionContextUtils {
         Group,
         Principal,
         KeyTab,
+        ClouderaNavigatorUsername,       
+        ClouderaNavigatorPassword,
+        ClouderaNavigatorUrl,
+        ClouderaNavigatorMetadataUrl,
+        ClouderaNavigatorClientUrl,
+        
 
         // Hadoop hd insight param
         WebHostName,
