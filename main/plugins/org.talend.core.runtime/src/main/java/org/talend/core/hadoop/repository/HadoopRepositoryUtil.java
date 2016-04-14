@@ -163,5 +163,113 @@ public class HadoopRepositoryUtil {
 
         return properties;
     }
+    
+    public static boolean useClouderaNavi(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.useClouderaNavi(hadoopSubConnection);
+        }
+        return false;
+    }
+
+    public static String getClouderaNaviUserName(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.getClouderaNaviUserName(hadoopSubConnection);
+        }
+        return null;
+    }
+
+    public static String getClouderaNaviPassword(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.getClouderaNaviPassword(hadoopSubConnection);
+        }
+        return null;
+    }
+
+    public static String getClouderaNaviUrl(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.getClouderaNaviUrl(hadoopSubConnection);
+        }
+        return null;
+    }
+
+    public static String getClouderaNaviMetadataUrl(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.getClouderaNaviMetadataUrl(hadoopSubConnection);
+        }
+        return null;
+    }
+
+    public static String getClouderaNaviClientUrl(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.getClouderaNaviClientUrl(hadoopSubConnection);
+        }
+        return null;
+    }
+
+    public static boolean clouderaNaviAutoCommit(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.clouderaNaviAutoCommit(hadoopSubConnection);
+        }
+        return false;
+    }
+
+    public static boolean clouderaNaviDisableSSL(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.clouderaNaviDisableSSL(hadoopSubConnection);
+        }
+        return false;
+    }
+
+    public static boolean clouderaNaviDieOnError(Connection hadoopSubConnection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if(hadoopClusterService!=null){
+           return hadoopClusterService.clouderaNaviDieOnError(hadoopSubConnection);
+        }
+        return false;
+    }
 
 }
