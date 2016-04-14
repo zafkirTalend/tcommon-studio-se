@@ -204,8 +204,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
         Connection conn = null;
         try {
-            int timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
-            conn = futureTask.get(timeout, TimeUnit.SECONDS);
+            conn = futureTask.get(getDBConnectionTimeout(), TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             threadGroup.interrupt();
             addBackgroundJob(futureTask, newThread);
@@ -258,8 +257,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
 
         Connection conn = null;
         try {
-            int timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
-            conn = futureTask.get(timeout, TimeUnit.SECONDS);
+            conn = futureTask.get( getDBConnectionTimeout(), TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             threadGroup.interrupt();
             addBackgroundJob(futureTask, newThread);
@@ -536,6 +534,17 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
             }
         }
         return handler;
+    }
+    
+    
+    private int getDBConnectionTimeout() {
+        int timeout = 15;
+        try {
+            timeout = CoreRuntimePlugin.getInstance().getDesignerCoreService().getDBConnectionTimeout();
+        } catch (Exception e) {
+            // can't get timeout in some cases, for example: can't get designerCoreService when running jobs
+        }
+        return timeout;
     }
 
 }
