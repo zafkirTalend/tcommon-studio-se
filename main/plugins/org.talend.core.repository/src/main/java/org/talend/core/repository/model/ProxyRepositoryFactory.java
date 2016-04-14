@@ -127,6 +127,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.io.FilesUtils;
 import org.talend.utils.json.JSONArray;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -250,6 +251,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     public IRepositoryFactory getRepositoryFactoryFromProvider() {
         return this.repositoryFactoryFromProvider;
+    }
+
+    @Override
+    public Object getXmiResourceManager() {
+        return getRepositoryFactoryFromProvider().getResourceManager();
     }
 
     /*
@@ -2023,6 +2029,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         this.repositoryFactoryFromProvider.executeRepositoryWorkUnit(workUnit);
     }
 
+    @Override
     public void unloadResources(Property property) throws PersistenceException {
         repositoryFactoryFromProvider.unloadResources(property);
     }

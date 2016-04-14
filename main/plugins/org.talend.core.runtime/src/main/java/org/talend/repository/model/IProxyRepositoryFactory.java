@@ -506,4 +506,7 @@ public interface IProxyRepositoryFactory {
     public RootContainer<String, IRepositoryViewObject> getObjectFromFolder(Project project, ERepositoryObjectType type,
             String folderName, int options) throws PersistenceException;
 
+    public void unloadResources(Property property) throws PersistenceException;
+
+    public Object getXmiResourceManager();
 }
