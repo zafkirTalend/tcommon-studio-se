@@ -35,14 +35,17 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.RepositoryContentManager;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataColumnRepositoryObject;
 import org.talend.core.repository.model.repositoryObject.QueryEMFRepositoryNode;
 import org.talend.core.repository.model.repositoryObject.SAPFunctionRepositoryObject;
 import org.talend.core.repository.model.repositoryObject.SAPIDocRepositoryObject;
 import org.talend.core.repository.model.repositoryObject.SalesforceModuleRepositoryObject;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.i18n.Messages;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
 import org.talend.repository.model.IRepositoryNode.EProperties;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -236,14 +239,23 @@ public class RepoDoubleClickAction extends Action {
         return false;
     }
 
-    private boolean isSAPBWTable(RepositoryNode theNode) {
+    private boolean isSAPBWTable(RepositoryNode theNode, ITreeContextualAction action) {
         ERepositoryObjectType nodeType = (ERepositoryObjectType) theNode.getProperties(EProperties.CONTENT_TYPE);
+        RepositoryNode node = null;
         if (nodeType == ERepositoryObjectType.METADATA_CON_TABLE) {
-            RepositoryNode node = theNode.getParent();
+            node = theNode.getParent();
             nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
         } else if (nodeType == ERepositoryObjectType.METADATA_CON_COLUMN) {
-            RepositoryNode node = theNode.getParent().getParent().getParent();
+            node = theNode.getParent().getParent().getParent();
             nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
+        }
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        boolean readOnly = false;
+        if (factory.isUserReadOnlyOnCurrentProject() || !ProjectManager.getInstance().isInCurrentMainProject(node)) {
+            readOnly = true;
+        }
+        if ((action.isEditAction() && readOnly) || (action.isReadAction() && !readOnly)) {
+            return false;
         }
         if (ERepositoryObjectType.METADATA_SAP_BW_DATASOURCE != null) {
             if (nodeType == ERepositoryObjectType.METADATA_SAP_BW_DATASOURCE
@@ -335,7 +347,7 @@ public class RepoDoubleClickAction extends Action {
                 if (isSAPTable(obj) && current.getClassForDoubleClick().equals(SAPTableImpl.class)) {
                     return current;
                 }
-                if (isSAPBWTable(obj) && current.getClassForDoubleClick().equals(SAPBWTableImpl.class)) {
+                if (isSAPBWTable(obj, current) && current.getClassForDoubleClick().equals(SAPBWTableImpl.class)) {
                     return current;
                 }
 
