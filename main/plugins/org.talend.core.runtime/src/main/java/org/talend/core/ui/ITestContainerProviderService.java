@@ -51,6 +51,8 @@ public interface ITestContainerProviderService extends IService {
     public boolean hasTestCase(Property property);
 
     public ProcessType getTestContainerProcess(Item item);
+    
+    public void setTestContainerProcess(ProcessType process,Item item);
 
     public Item getParentJobItem(Item item) throws PersistenceException;
 
