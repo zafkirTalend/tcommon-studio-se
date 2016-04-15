@@ -85,9 +85,11 @@ public final class MetadataToolAvroHelper {
     private static <T extends PropBuilder<T>> PropBuilder<T> copyTableProperties(PropBuilder<T> builder, MetadataTable in) {
 
         // Properties common to tables and columns.
-        if (in.getId() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
-        }
+
+        // FIXME: I comment it. I think there is no need to care id.
+        // if (in.getId() != null) {
+        // builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
+        // }
         if (in.getComment() != null) {
             builder.prop(Talend6SchemaConstants.TALEND6_COMMENT, in.getComment());
         }
@@ -97,12 +99,15 @@ public final class MetadataToolAvroHelper {
         if (in.isReadOnly()) {
             builder.prop(Talend6SchemaConstants.TALEND6_IS_READ_ONLY, "true"); //$NON-NLS-1$
         }
-        for (TaggedValue tv : in.getTaggedValue()) {
-            String additionalTag = tv.getTag();
-            if (tv.getValue() != null) {
-                builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + additionalTag, tv.getValue());
-            }
-        }
+
+        // FIXME: I comment those codes. I think it is no need concerned about the tagged values since they are already
+        // contained by metadata table and even the avro schema is stored by tagged values. -ycbai
+        // for (TaggedValue tv : in.getTaggedValue()) {
+        // String additionalTag = tv.getTag();
+        // if (tv.getValue() != null) {
+        // builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + additionalTag, tv.getValue());
+        // }
+        // }
 
         // Table-specific properties.
         if (in.getName() != null) {
