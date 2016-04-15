@@ -22,4 +22,6 @@ public interface IHDistributionVersion {
     String getVersion();
 
     String getDisplayVersion();
+
+    String getDefaultConfig(String... keys);
 }
