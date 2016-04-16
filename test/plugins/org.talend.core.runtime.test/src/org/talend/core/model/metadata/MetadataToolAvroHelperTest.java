@@ -16,13 +16,20 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.apache.avro.Schema;
+import org.apache.avro.SchemaBuilder;
+import org.apache.avro.SchemaBuilder.FieldAssembler;
+import org.apache.avro.SchemaBuilder.FieldBuilder;
+import org.apache.avro.SchemaBuilder.RecordBuilder;
 import org.junit.Test;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.daikon.avro.SchemaConstants;
+import org.talend.daikon.avro.util.AvroTypes;
 import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
 
@@ -120,5 +127,38 @@ public class MetadataToolAvroHelperTest {
         assertThat(s.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_NAME), is("dyn"));
         assertThat(s.getProp(Talend6SchemaConstants.TALEND6_DYNAMIC_COLUMN_POSITION), is("3"));
         assertThat(s.getProp(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE), is("id_Dynamic"));
+    }
+
+    @Test
+    public void testConvertFromAvro() {
+        SortedMap<String, Schema> map = new TreeMap<>();
+        map.put(JavaTypesManager.STRING.getId(), AvroTypes._string());
+        map.put(JavaTypesManager.LONG.getId(), AvroTypes._long());
+        map.put(JavaTypesManager.INTEGER.getId(), AvroTypes._int());
+        map.put(JavaTypesManager.SHORT.getId(), AvroTypes._short());
+        map.put(JavaTypesManager.BYTE.getId(), AvroTypes._byte());
+        map.put(JavaTypesManager.DOUBLE.getId(), AvroTypes._double());
+        map.put(JavaTypesManager.FLOAT.getId(), AvroTypes._float());
+        map.put(JavaTypesManager.BIGDECIMAL.getId(), AvroTypes._decimal());
+        map.put(JavaTypesManager.BOOLEAN.getId(), AvroTypes._boolean());
+        map.put(JavaTypesManager.BYTE_ARRAY.getId(), AvroTypes._bytes());
+        map.put(JavaTypesManager.DATE.getId(), AvroTypes._date());
+
+        RecordBuilder<Schema> builder = SchemaBuilder.builder().record("MyTable");
+        FieldAssembler<Schema> fa = builder.fields();
+        for (String talendType : map.keySet()) {
+            FieldBuilder<Schema> fb = fa.name(talendType.replace('[', '_').replace(']', '_'));
+            fb.prop(Talend6SchemaConstants.TALEND6_LABEL, talendType);
+            fa = fb.type(map.get(talendType)).noDefault();
+        }
+        Schema schema = fa.endRecord();
+        MetadataTable table = MetadataToolAvroHelper.convertFromAvro(schema);
+        assertEquals(map.size(), table.getColumns().size());
+        int i = 0;
+        for (String talendType : map.keySet()) {
+            assertThat(table.getColumns().get(i).getLabel(), is(talendType));
+            assertThat(table.getColumns().get(i).getTalendType(), is(talendType));
+            i++;
+        }
     }
 }

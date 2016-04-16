@@ -304,7 +304,7 @@ public final class MetadataToolAvroHelper {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
         }
         if (in.getPattern() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, TalendQuoteUtils.removeQuotesIfExist(in.getPattern()));
+            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, in.getPattern());
         }
         if (in.getLength() >= 0) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH, String.valueOf((int) in.getLength()));
@@ -359,7 +359,7 @@ public final class MetadataToolAvroHelper {
             table.setComment(in.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
-            table.setLabel(null);
+            table.setLabel(in.getProp(Talend6SchemaConstants.TALEND6_LABEL));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             table.setReadOnly(Boolean.parseBoolean(prop));
@@ -517,10 +517,10 @@ public final class MetadataToolAvroHelper {
             col.setId(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COMMENT))) {
-            col.setComment(field.getProp(Talend6SchemaConstants.TALEND6_ID));
+            col.setComment(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
-            col.setLabel(null);
+            col.setLabel(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             col.setReadOnly(Boolean.parseBoolean(prop));
@@ -544,7 +544,7 @@ public final class MetadataToolAvroHelper {
             col.setTalendType(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
-            col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
+            col.setPattern(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
