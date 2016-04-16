@@ -147,7 +147,7 @@ public class MetadataToolAvroHelperTest {
         RecordBuilder<Schema> builder = SchemaBuilder.builder().record("MyTable");
         FieldAssembler<Schema> fa = builder.fields();
         for (String talendType : map.keySet()) {
-            FieldBuilder<Schema> fb = fa.name(talendType.replace('[','_').replace(']', '_'));
+            FieldBuilder<Schema> fb = fa.name(talendType.replace('[', '_').replace(']', '_'));
             fb.prop(Talend6SchemaConstants.TALEND6_LABEL, talendType);
             fa = fb.type(map.get(talendType)).noDefault();
         }
