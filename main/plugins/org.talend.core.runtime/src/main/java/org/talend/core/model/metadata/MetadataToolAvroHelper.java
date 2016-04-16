@@ -359,7 +359,7 @@ public final class MetadataToolAvroHelper {
             table.setComment(in.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
-            table.setLabel(null);
+            table.setLabel(in.getProp(Talend6SchemaConstants.TALEND6_LABEL));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             table.setReadOnly(Boolean.parseBoolean(prop));
@@ -520,7 +520,7 @@ public final class MetadataToolAvroHelper {
             col.setComment(field.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
-            col.setLabel(null);
+            col.setLabel(field.getProp(Talend6SchemaConstants.TALEND6_LABEL));
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             col.setReadOnly(Boolean.parseBoolean(prop));
