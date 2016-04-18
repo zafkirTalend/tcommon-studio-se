@@ -203,7 +203,7 @@ public final class ProjectManager {
 
     public List<Project> getReferencedProjects(IProxyRepositoryFactory proxyRepositoryFactory, Project project) {
         List<Project> referencedprojects = new ArrayList<Project>();
-        retrieveReferencedProjects(referencedprojects);
+        retrieveReferencedProjects(proxyRepositoryFactory, project, referencedprojects);
         return referencedprojects;
     }
 
