@@ -32,6 +32,8 @@ public enum EHadoopConfProperties {
 
     RESOURCEMANAGER_SCHEDULER("yarn.resourcemanager.scheduler.address", "localhost:8030"), //$NON-NLS-1$ //$NON-NLS-2$
 
+    RESOURCEMANAGER_SCHEDULER_ADDRESS_RM_ID("yarn.resourcemanager.scheduler.address.%s", ""), //$NON-NLS-1$ //$NON-NLS-2$
+
     JOBHISTORY("mapreduce.jobhistory.address", "localhost:10020"), //$NON-NLS-1$ //$NON-NLS-2$
 
     STAGING_DIR("yarn.app.mapreduce.am.staging-dir", "/user"), //$NON-NLS-1$ //$NON-NLS-2$
