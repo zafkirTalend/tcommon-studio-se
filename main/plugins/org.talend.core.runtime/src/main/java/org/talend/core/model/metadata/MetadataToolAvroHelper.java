@@ -247,6 +247,10 @@ public final class MetadataToolAvroHelper {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_PRECISION,
                     String.valueOf(in.getPrecision()));
         }
+        if (in.getScale() >= 0) {
+            schema = AvroUtils
+                    .setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_SCALE, String.valueOf(in.getScale()));
+        }
         if (in.getInitialValue() != null && in.getInitialValue().getBody() != null) {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getInitialValue().getBody());
         }
@@ -304,7 +308,7 @@ public final class MetadataToolAvroHelper {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_TALEND_TYPE, in.getTalendType());
         }
         if (in.getPattern() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, in.getPattern());
+            builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN, TalendQuoteUtils.removeQuotesIfExist(in.getPattern()));
         }
         if (in.getLength() >= 0) {
             builder.prop(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH, String.valueOf((int) in.getLength()));
@@ -544,7 +548,7 @@ public final class MetadataToolAvroHelper {
             col.setTalendType(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
-            col.setPattern(prop);
+            col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
@@ -560,6 +564,10 @@ public final class MetadataToolAvroHelper {
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
             col.setPrecision(value > 0 ? value : -1);
+        }
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SCALE))) {
+            Long value = Long.parseLong(prop);
+            col.setScale(value > 0 ? value : -1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
             col.setDefaultValue(prop);
