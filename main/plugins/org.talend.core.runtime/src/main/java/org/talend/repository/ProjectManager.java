@@ -157,14 +157,21 @@ public final class ProjectManager {
                     IProxyRepositoryService.class);
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
             if (factory != null) {
-                List<org.talend.core.model.properties.Project> rProjects = factory
-                        .getReferencedProjects(this.getCurrentProject());
-                if (rProjects != null) {
-                    for (org.talend.core.model.properties.Project p : rProjects) {
-                        Project project = new Project(p);
-                        resolveRefProject(p);
-                        referencedprojects.add(project);
-                    }
+                retrieveReferencedProjects(factory, this.getCurrentProject(), referencedprojects);
+            }
+        }
+    }
+
+    public void retrieveReferencedProjects(IProxyRepositoryFactory proxyRepositoryFactory, Project mainProject,
+            List<Project> referencedprojects) {
+        referencedprojects.clear();
+        if (proxyRepositoryFactory != null) {
+            List<org.talend.core.model.properties.Project> rProjects = proxyRepositoryFactory.getReferencedProjects(mainProject);
+            if (rProjects != null) {
+                for (org.talend.core.model.properties.Project p : rProjects) {
+                    Project project = new Project(p);
+                    resolveRefProject(p);
+                    referencedprojects.add(project);
                 }
             }
         }
@@ -191,6 +198,12 @@ public final class ProjectManager {
     public List<Project> getReferencedProjects() {
         List<Project> referencedprojects = new ArrayList<Project>();
         retrieveReferencedProjects(referencedprojects);
+        return referencedprojects;
+    }
+
+    public List<Project> getReferencedProjects(IProxyRepositoryFactory proxyRepositoryFactory, Project project) {
+        List<Project> referencedprojects = new ArrayList<Project>();
+        retrieveReferencedProjects(proxyRepositoryFactory, project, referencedprojects);
         return referencedprojects;
     }
 
@@ -273,6 +286,26 @@ public final class ProjectManager {
         return null;
     }
 
+    public org.talend.core.model.properties.Project getProject(Project project, EObject object) {
+        if (object != null) {
+            if (object instanceof org.talend.core.model.properties.Project) {
+                return (org.talend.core.model.properties.Project) object;
+            }
+            if (object instanceof Property) {
+                return getProject(project, ((Property) object).getItem());
+            }
+            if (object instanceof Item) {
+                return getProject(project, ((Item) object).getParent());
+            }
+        }
+
+        // default
+        if (project != null) {
+            return project.getEmfProject();
+        }
+        return null;
+    }
+
     public IProject getResourceProject(org.talend.core.model.properties.Project project) {
         if (project != null) {
             try {
@@ -299,11 +332,14 @@ public final class ProjectManager {
      * check the EObject in current main project.
      */
     public boolean isInCurrentMainProject(EObject object) {
+        return isInMainProject(getCurrentProject(), object);
+    }
+
+    public boolean isInMainProject(Project mainProject, EObject object) {
         if (object != null) {
-            org.talend.core.model.properties.Project project = getProject(object);
-            Project p = getCurrentProject();
-            if (project != null && p != null) {
-                return project.getTechnicalLabel().equals(p.getEmfProject().getTechnicalLabel());
+            org.talend.core.model.properties.Project project = getProject(mainProject, object);
+            if (project != null && mainProject != null) {
+                return project.getTechnicalLabel().equals(mainProject.getEmfProject().getTechnicalLabel());
             }
         }
         return false;
