@@ -92,23 +92,49 @@ public final class ElementParameterParser {
 
     public static boolean canEncrypt(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
-        if (value != null && value.startsWith("\"") && value.endsWith("\"") && TalendQuoteUtils.filterQuote(value).length() == 0) { //$NON-NLS-1$//$NON-NLS-2$
+        if (canEncryptValue(value)) {
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * DOC nrousseau Comment method "canEncryptValue".
+     * 
+     * @param value
+     * @return
+     */
+    public static boolean canEncryptValue(String value) {
+        return value != null
+                && value.startsWith("\"") && value.endsWith("\"") && TalendQuoteUtils.filterQuote(value).length() == 0;//$NON-NLS-1$//$NON-NLS-2$
+    }
+
     public static String getEncryptedValue(final IElement node, final String parameterName) {
         String value = getValue(node, parameterName);
-        try {
-            String removeQuotes = TalendQuoteUtils.removeQuotes(value);
-            removeQuotes = TalendQuoteUtils.checkSlashAndRemoveQuotation(removeQuotes);
-            removeQuotes = TalendQuoteUtils.checkAndRemoveBackslashes(removeQuotes);
-            value = PasswordEncryptUtil.encryptPasswordHex(removeQuotes);
-            value = TalendQuoteUtils.addQuotes(value, TalendQuoteUtils.QUOTATION_MARK);
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+        value = getEncryptedValue(value);
+        return value;
+    }
+
+    /**
+     * DOC nrousseau Comment method "getEncryptedValue".
+     * 
+     * @param value
+     * @return
+     * @throws Exception
+     */
+    public static String getEncryptedValue(String value) {
+        if (canEncryptValue(value)) {
+            try {
+                String removeQuotes = TalendQuoteUtils.removeQuotes(value);
+                removeQuotes = TalendQuoteUtils.checkSlashAndRemoveQuotation(removeQuotes);
+                removeQuotes = TalendQuoteUtils.checkAndRemoveBackslashes(removeQuotes);
+                return TalendQuoteUtils.addQuotes(PasswordEncryptUtil.encryptPasswordHex(removeQuotes),
+                        TalendQuoteUtils.QUOTATION_MARK);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+                return value;
+            }
         }
         return value;
     }
@@ -551,8 +577,7 @@ public final class ElementParameterParser {
                     return ""; //$NON-NLS-1$
                 }
                 return processItem.getProperty().getVersion();
-            }
-            else if ("PROCESS_TYPE_CONTEXT".equals(param.getName())) { //$NON-NLS-1$
+            } else if ("PROCESS_TYPE_CONTEXT".equals(param.getName())) { //$NON-NLS-1$
                 String jobId = (String) param.getParentParameter().getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
@@ -573,8 +598,7 @@ public final class ElementParameterParser {
                     return processItem.getProcess().getDefaultContext();
                 }
                 return (String) value;
-            }
-            else if ("SELECTED_JOB_NAME".equals(param.getName())) {
+            } else if ("SELECTED_JOB_NAME".equals(param.getName())) {
                 String jobId = (String) param.getChildParameters().get("PROCESS_TYPE_PROCESS").getValue(); //$NON-NLS-1$
                 ProcessItem processItem = ItemCacheManager.getProcessItem(jobId);
                 if (processItem == null) {
