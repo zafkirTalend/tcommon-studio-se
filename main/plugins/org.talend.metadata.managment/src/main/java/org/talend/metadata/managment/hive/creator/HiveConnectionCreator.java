@@ -17,16 +17,17 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.CoreException;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.hadoop.EHadoopCategory;
+import org.talend.core.hadoop.IHadoopDistributionService;
 import org.talend.core.hadoop.conf.EHadoopConfProperties;
 import org.talend.core.hadoop.conf.EHadoopConfs;
 import org.talend.core.hadoop.conf.EHadoopProperties;
-import org.talend.core.hadoop.conf.HadoopDefaultConfsManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
@@ -35,6 +36,8 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.IHDistributionVersion;
 import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.metadata.managment.creator.AbstractHadoopDBConnectionCreator;
 
@@ -122,10 +125,27 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
         HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModesDisplay[0]);
         boolean isEmbeddedMode = (hiveMode == HiveModeInfo.EMBEDDED);
         connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode.getName());
+        IHadoopDistributionService hadoopDistributionService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            hadoopDistributionService = (IHadoopDistributionService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopDistributionService.class);
+        }
+        if (hadoopDistributionService == null) {
+            return;
+        }
+        IHDistribution hiveDistribution = hadoopDistributionService.getHiveDistributionManager().getDistribution(distribution,
+                false);
+        if (hiveDistribution == null) {
+            return;
+        }
+        IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(version, false);
+        if (hiveVersion == null) {
+            return;
+        }
 
         if (StringUtils.isEmpty(connection.getSID())) {
-            String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                    EHadoopCategory.HIVE.getName(), EHadoopProperties.DATABASE.getName());
+            String defaultDatabase = hiveVersion.getDefaultConfig(distribution, EHadoopCategory.HIVE.getName(),
+                    EHadoopProperties.DATABASE.getName());
             if (StringUtils.isNotEmpty(defaultDatabase)) {
                 connection.setSID(defaultDatabase);
             }
@@ -133,11 +153,11 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
         if (StringUtils.isEmpty(connection.getPort())) {
             String defaultPort = null;
             if (isEmbeddedMode) {
-                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                        EHadoopCategory.HIVE.getName(), HiveModeInfo.EMBEDDED.getName(), EHadoopProperties.PORT.getName());
+                defaultPort = hiveVersion.getDefaultConfig(distribution, EHadoopCategory.HIVE.getName(),
+                        HiveModeInfo.EMBEDDED.getName(), EHadoopProperties.PORT.getName());
             } else {
-                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                        EHadoopCategory.HIVE.getName(), HiveModeInfo.STANDALONE.getName(), EHadoopProperties.PORT.getName());
+                defaultPort = hiveVersion.getDefaultConfig(distribution, EHadoopCategory.HIVE.getName(),
+                        HiveModeInfo.STANDALONE.getName(), EHadoopProperties.PORT.getName());
             }
             if (StringUtils.isNotEmpty(defaultPort)) {
                 connection.setPort(defaultPort);

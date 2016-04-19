@@ -23,16 +23,6 @@ public interface IHDConstants {
     static final String DISTRIBUTION_CUSTOM = "CUSTOM";
 
     /**
-     * same as IHortonworksDistribution.DISTRIBUTION_NAME
-     */
-    static final String DISTRIBUTION_HORTONWORKS = "HORTONWORKS";
-
-    /**
-     * same as IAmazonEMRDistribution.DISTRIBUTION_NAME
-     */
-    static final String DISTRIBUTION_AMAZON_EMR = "AMAZON_EMR";
-
-    /**
      * must be full class name of {@link HadoopComponent}
      */
     static final String SERVICE_HADOOP = "org.talend.hadoop.distribution.component.HadoopComponent";

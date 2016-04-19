@@ -1198,6 +1198,42 @@ public class RepositoryToComponentProperty {
             String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
             return HadoopRepositoryUtil.getHadoopPropertiesFullList(connection, message, true);
         }
+        
+        if (value.equals("USE_CLOUDERA_NAVIGATOR")) {
+            return HadoopRepositoryUtil.useClouderaNavi(connection);
+        }
+        
+        if (value.equals("CLOUDERA_NAVIGATOR_USERNAME")) {
+            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviUserName(connection));
+        }
+        
+        if (value.equals("CLOUDERA_NAVIGATOR_PASSWORD")) {
+            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviPassword(connection));
+        }
+
+        if (value.equals("CLOUDERA_NAVIGATOR_URL")) {
+            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviUrl(connection));
+        }
+
+        if (value.equals("CLOUDERA_NAVIGATOR_METADATA_URL")) {
+            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviMetadataUrl(connection));
+        }
+
+        if (value.equals("CLOUDERA_NAVIGATOR_CLIENT_URL")) {
+            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviClientUrl(connection));
+        }
+
+        if (value.equals("CLOUDERA_NAVIGATOR_AUTOCOMMIT")) {
+            return HadoopRepositoryUtil.clouderaNaviAutoCommit(connection);
+        }
+
+        if (value.equals("CLOUDERA_NAVIGATOR_DISABLE_SSL_VALIDATION")) {
+            return HadoopRepositoryUtil.clouderaNaviDisableSSL(connection);
+        }
+        
+        if (value.equals("CLOUDERA_NAVIGATOR_DIE_ON_ERROR")) {
+            return HadoopRepositoryUtil.clouderaNaviDieOnError(connection);
+        }
 
         if (value.equals("HADOOP_ADVANCED_PROPERTIES")) {
             String message = null;

@@ -52,7 +52,6 @@ Export-Package: org.talend.commons.utils.generation,
  org.talend.core.prefs,
  org.talend.core.repository,
  org.talend.core.runtime,
- org.talend.core.runtime.conf,
  org.talend.core.runtime.hd,
  org.talend.core.runtime.hd.hive,
  org.talend.core.runtime.maven,
@@ -120,3 +119,4 @@ Bundle-ClassPath: .,
  lib/resty-0.3.2.jar,
  lib/json_simple-1.1.jar
 Eclipse-RegisterBuddy: org.talend.testutils
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

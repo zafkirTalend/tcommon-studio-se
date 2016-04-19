@@ -85,9 +85,11 @@ public final class MetadataToolAvroHelper {
     private static <T extends PropBuilder<T>> PropBuilder<T> copyTableProperties(PropBuilder<T> builder, MetadataTable in) {
 
         // Properties common to tables and columns.
-        if (in.getId() != null) {
-            builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
-        }
+
+        // FIXME: I comment it. I think there is no need to care id.
+        // if (in.getId() != null) {
+        // builder.prop(Talend6SchemaConstants.TALEND6_ID, in.getId());
+        // }
         if (in.getComment() != null) {
             builder.prop(Talend6SchemaConstants.TALEND6_COMMENT, in.getComment());
         }
@@ -97,12 +99,15 @@ public final class MetadataToolAvroHelper {
         if (in.isReadOnly()) {
             builder.prop(Talend6SchemaConstants.TALEND6_IS_READ_ONLY, "true"); //$NON-NLS-1$
         }
-        for (TaggedValue tv : in.getTaggedValue()) {
-            String additionalTag = tv.getTag();
-            if (tv.getValue() != null) {
-                builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + additionalTag, tv.getValue());
-            }
-        }
+
+        // FIXME: I comment those codes. I think it is no need concerned about the tagged values since they are already
+        // contained by metadata table and even the avro schema is stored by tagged values. -ycbai
+        // for (TaggedValue tv : in.getTaggedValue()) {
+        // String additionalTag = tv.getTag();
+        // if (tv.getValue() != null) {
+        // builder.prop(Talend6SchemaConstants.TALEND6_ADDITIONAL_PROPERTIES + additionalTag, tv.getValue());
+        // }
+        // }
 
         // Table-specific properties.
         if (in.getName() != null) {
@@ -242,6 +247,10 @@ public final class MetadataToolAvroHelper {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_PRECISION,
                     String.valueOf(in.getPrecision()));
         }
+        if (in.getScale() >= 0) {
+            schema = AvroUtils
+                    .setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_SCALE, String.valueOf(in.getScale()));
+        }
         if (in.getInitialValue() != null && in.getInitialValue().getBody() != null) {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getInitialValue().getBody());
         }
@@ -354,7 +363,7 @@ public final class MetadataToolAvroHelper {
             table.setComment(in.getProp(Talend6SchemaConstants.TALEND6_ID));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
-            table.setLabel(null);
+            table.setLabel(in.getProp(Talend6SchemaConstants.TALEND6_LABEL));
         }
         if (null != (prop = in.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             table.setReadOnly(Boolean.parseBoolean(prop));
@@ -512,10 +521,10 @@ public final class MetadataToolAvroHelper {
             col.setId(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COMMENT))) {
-            col.setComment(field.getProp(Talend6SchemaConstants.TALEND6_ID));
+            col.setComment(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_LABEL))) {
-            col.setLabel(null);
+            col.setLabel(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_IS_READ_ONLY))) {
             col.setReadOnly(Boolean.parseBoolean(prop));
@@ -555,6 +564,10 @@ public final class MetadataToolAvroHelper {
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
             col.setPrecision(value > 0 ? value : -1);
+        }
+        if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SCALE))) {
+            Long value = Long.parseLong(prop);
+            col.setScale(value > 0 ? value : -1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
             col.setDefaultValue(prop);

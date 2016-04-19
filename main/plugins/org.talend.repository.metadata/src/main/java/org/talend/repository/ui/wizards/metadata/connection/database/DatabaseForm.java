@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Priority;
 import org.eclipse.core.runtime.IPath;
@@ -100,7 +99,6 @@ import org.talend.core.hadoop.EHadoopCategory;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.IHadoopDistributionService;
 import org.talend.core.hadoop.conf.EHadoopProperties;
-import org.talend.core.hadoop.conf.HadoopDefaultConfsManager;
 import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.hadoop.version.custom.ECustomVersionType;
 import org.talend.core.hadoop.version.custom.HadoopCustomVersionDefineDialog;
@@ -126,7 +124,6 @@ import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.runtime.hd.IHDConstants;
 import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.core.runtime.hd.IHDistributionVersion;
 import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
@@ -5666,13 +5663,21 @@ public class DatabaseForm extends AbstractForm {
             if (distribution == null) {
                 return;
             }
-            String[] versionPrefix = new String[] { distribution };
-            if (IHDConstants.DISTRIBUTION_AMAZON_EMR.equals(distribution)) {
-                versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
+            IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
+            if (hadoopDistributionService == null) {
+                return;
+            }
+            IHDistribution hiveDistribution = hadoopDistributionService.getHiveDistributionManager().getDistribution(
+                    distribution, false);
+            if (hiveDistribution == null) {
+                return;
+            }
+            IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(version, false);
+            if (hiveVersion == null) {
+                return;
             }
             boolean useYarn = Boolean.valueOf(getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_YARN));
-            String defaultNN = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
-                    (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.NAMENODE_URI.getName()));
+            String defaultNN = hiveVersion.getDefaultConfig(distribution, EHadoopProperties.NAMENODE_URI.getName());
             String nameNodeURLstr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             String jobTrackerURLStr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             String hiveKerberosPrin = getConnection().getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
@@ -5683,26 +5688,25 @@ public class DatabaseForm extends AbstractForm {
             }
             String defaultJTORRM = null;
             if (useYarn) {
-                defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
-                        (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.RESOURCE_MANAGER.getName()));
+                defaultJTORRM = hiveVersion.getDefaultConfig(distribution, EHadoopProperties.RESOURCE_MANAGER.getName());
             } else {
-                defaultJTORRM = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
-                        (String[]) ArrayUtils.add(versionPrefix, EHadoopProperties.JOBTRACKER.getName()));
+                defaultJTORRM = hiveVersion.getDefaultConfig(distribution, EHadoopProperties.JOBTRACKER.getName());
             }
             if (StringUtils.isNotEmpty(jobTrackerURLStr)) {
                 jobTrackerURLTxt.setText(jobTrackerURLStr);
             } else if (defaultJTORRM != null) {
                 jobTrackerURLTxt.setText(defaultJTORRM);
             }
-            String defaultPrincipal = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                    EHadoopCategory.HIVE.getName(), EHadoopProperties.HIVE_PRINCIPAL.getName());
+
+            String defaultPrincipal = hiveVersion.getDefaultConfig(distribution, EHadoopCategory.HIVE.getName(),
+                    EHadoopProperties.HIVE_PRINCIPAL.getName());
             if (StringUtils.isNotEmpty(hiveKerberosPrin)) {
                 hivePrincipalTxt.setText(hiveKerberosPrin);
             } else if (defaultPrincipal != null) {
                 hivePrincipalTxt.setText(defaultPrincipal);
             }
-            String defaultDatabase = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(distribution,
-                    EHadoopCategory.HIVE.getName(), EHadoopProperties.DATABASE.getName());
+            String defaultDatabase = hiveVersion.getDefaultConfig(distribution, EHadoopCategory.HIVE.getName(),
+                    EHadoopProperties.DATABASE.getName());
             if (StringUtils.isNotEmpty(getConnection().getSID())) {
                 sidOrDatabaseText.setText(getConnection().getSID());
             } else if (defaultDatabase != null) {
@@ -5719,13 +5723,21 @@ public class DatabaseForm extends AbstractForm {
             if (distribution == null) {
                 return;
             }
-            String[] versionPrefix = new String[] { distribution };
-            if ("AMAZON_EMR".equals(distribution)) { //$NON-NLS-1$
-                versionPrefix = (String[]) ArrayUtils.add(versionPrefix, version);
+            IHadoopDistributionService hadoopDistributionService = getHadoopDistributionService();
+            if (hadoopDistributionService == null) {
+                return;
             }
-            String defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(
-                    (String[]) ArrayUtils.add(ArrayUtils.add(versionPrefix, EHadoopCategory.HBASE.getName()),
-                            EHadoopProperties.PORT.getName()));
+            IHDistribution hbaseDistribution = hadoopDistributionService.getHBaseDistributionManager().getDistribution(
+                    distribution, false);
+            if (hbaseDistribution == null) {
+                return;
+            }
+            IHDistributionVersion hbaseVersion = hbaseDistribution.getHDVersion(version, false);
+            if (hbaseVersion == null) {
+                return;
+            }
+            String defaultPort = hbaseVersion.getDefaultConfig(distribution, EHadoopCategory.HBASE.getName(),
+                    EHadoopProperties.PORT.getName());
             if (defaultPort != null && !isContextMode()) {
                 getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
@@ -6033,13 +6045,21 @@ public class DatabaseForm extends AbstractForm {
     private void fillDefaultsWhenHiveModeChanged(boolean isEmbeddedMode) {
         if (isCreation) {
             IHDistribution hiveDistribution = getCurrentHiveDistribution(false);
+            if (hiveDistribution == null) {
+                return;
+            }
+            IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
+            if (hiveVersion == null) {
+                return;
+            }
+
             String defaultPort = null;
             if (isEmbeddedMode) {
-                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(hiveDistribution.getName(),
-                        EHadoopCategory.HIVE.getName(), HiveModeInfo.EMBEDDED.getName(), EHadoopProperties.PORT.getName());
+                defaultPort = hiveVersion.getDefaultConfig(hiveDistribution.getName(), EHadoopCategory.HIVE.getName(),
+                        HiveModeInfo.EMBEDDED.getName(), EHadoopProperties.PORT.getName());
             } else {
-                defaultPort = HadoopDefaultConfsManager.getInstance().getDefaultConfValue(hiveDistribution.getName(),
-                        EHadoopCategory.HIVE.getName(), HiveModeInfo.STANDALONE.getName(), EHadoopProperties.PORT.getName());
+                defaultPort = hiveVersion.getDefaultConfig(hiveDistribution.getName(), EHadoopCategory.HIVE.getName(),
+                        HiveModeInfo.STANDALONE.getName(), EHadoopProperties.PORT.getName());
             }
 
             if (defaultPort != null && !isContextMode()) {

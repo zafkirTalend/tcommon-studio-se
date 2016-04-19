@@ -234,5 +234,23 @@ public interface IHadoopClusterService extends IService {
     public String getCustomConfsJarName(String clusterId);
 
     public void useCustomConfsJarIfNeeded(List<ModuleNeeded> modulesNeeded, String clusterId);
+    
+    public boolean useClouderaNavi(Connection hadoopSubConnection);
+    
+    public String getClouderaNaviUserName(Connection hadoopSubConnection);
+    
+    public String getClouderaNaviPassword(Connection hadoopSubConnection);
+    
+    public String getClouderaNaviUrl(Connection hadoopSubConnection);
+    
+    public String getClouderaNaviMetadataUrl(Connection hadoopSubConnection);
+    
+    public String getClouderaNaviClientUrl(Connection hadoopSubConnection);
+    
+    public boolean clouderaNaviAutoCommit(Connection hadoopSubConnection);
+    
+    public boolean clouderaNaviDisableSSL(Connection hadoopSubConnection);
+    
+    public boolean clouderaNaviDieOnError(Connection hadoopSubConnection);
 
 }

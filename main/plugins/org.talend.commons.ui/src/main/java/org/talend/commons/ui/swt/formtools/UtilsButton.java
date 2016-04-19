@@ -46,7 +46,7 @@ public class UtilsButton {
     public UtilsButton(Composite parent, String string, int width, int height) {
         parent.setLayout(new RowLayout());
         createButton(parent, string, false);
-        button.setLayoutData(new RowData(width, height));
+        button.computeSize(SWT.DEFAULT, SWT.DEFAULT);
     }
 
     /**
