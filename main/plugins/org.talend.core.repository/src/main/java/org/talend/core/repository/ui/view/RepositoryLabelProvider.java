@@ -36,6 +36,7 @@ import org.talend.core.PluginChecker;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.builder.connection.SAPBWTable;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.JobletProcessItem;
@@ -55,6 +56,7 @@ import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.images.RepositoryImageProvider;
+import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -180,6 +182,20 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                     || repositoryObjectType == ERepositoryObjectType.METADATA_SALESFORCE_MODULE
                     || repositoryObjectType == ERepositoryObjectType.METADATA_CON_COLUMN) {
                 label = label + object.getLabel();
+
+                if (object instanceof MetadataTableRepositoryObject) {
+                    MetadataTable table = ((MetadataTableRepositoryObject) object).getTable();
+                    if (table instanceof SAPBWTable) {
+                        SAPBWTable bwTable = (SAPBWTable) table;
+                        if (SAPBWTableHelper.TYPE_INFOOBJECT.equals(bwTable.getModelType())) {
+                            String innerType = bwTable.getInnerIOType();
+                            if (innerType != null && !innerType.equals(SAPBWTableHelper.IO_INNERTYPE_BASIC)) { //$NON-NLS-1$
+                                label = label + " (" + innerType + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+                            }
+                        }
+                    }
+                }
+
                 if (!mainProject.getLabel().equals(projectLabel) && PluginChecker.isRefProjectLoaded()) {
 
                     IReferencedProjectService service = (IReferencedProjectService) GlobalServiceRegister.getDefault()
@@ -300,10 +316,10 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
             imageDesc = ImageUtils.scale(imageDesc, ICON_SIZE.ICON_32);
             String md5Desc = MD5.getMD5(item.getIcon().getInnerContent());
             image = cachedImages.get(md5Desc);
-           
+
             if (image == null || image.isDisposed()) {
                 image = imageDesc.createImage();
-            	cachedImages.put(md5Desc, image);
+                cachedImages.put(md5Desc, image);
             } else {
                 // image = imageDesc.createImage();
             }
