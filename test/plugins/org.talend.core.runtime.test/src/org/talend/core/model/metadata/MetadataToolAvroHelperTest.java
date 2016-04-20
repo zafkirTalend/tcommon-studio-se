@@ -144,7 +144,7 @@ public class MetadataToolAvroHelperTest {
         map.put(JavaTypesManager.BYTE_ARRAY.getId(), AvroTypes._bytes());
         map.put(JavaTypesManager.DATE.getId(), AvroTypes._date());
 
-        RecordBuilder<Schema> builder = SchemaBuilder.builder().record("MyTable");
+        RecordBuilder<Schema> builder = SchemaBuilder.builder().record("MyTable"); //$NON-NLS-1$
         FieldAssembler<Schema> fa = builder.fields();
         for (String talendType : map.keySet()) {
             FieldBuilder<Schema> fb = fa.name(talendType.replace('[', '_').replace(']', '_'));
@@ -158,6 +158,11 @@ public class MetadataToolAvroHelperTest {
         for (String talendType : map.keySet()) {
             assertThat(table.getColumns().get(i).getLabel(), is(talendType));
             assertThat(table.getColumns().get(i).getTalendType(), is(talendType));
+            assertThat(table.getColumns().get(i).getPattern(), is("")); //$NON-NLS-1$
+            assertThat(table.getColumns().get(i).getLength(), is(-1L));
+            assertThat(table.getColumns().get(i).getOriginalLength(), is(-1L));
+            assertThat(table.getColumns().get(i).getPrecision(), is(-1L));
+            assertThat(table.getColumns().get(i).getScale(), is(-1L));
             i++;
         }
     }

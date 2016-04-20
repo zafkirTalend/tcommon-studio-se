@@ -24,6 +24,7 @@ import org.apache.avro.SchemaBuilder.FieldAssembler;
 import org.apache.avro.SchemaBuilder.FieldBuilder;
 import org.apache.avro.SchemaBuilder.PropBuilder;
 import org.apache.avro.SchemaBuilder.RecordBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
@@ -32,6 +33,7 @@ import org.talend.cwm.helper.TaggedValueHelper;
 import org.talend.daikon.avro.util.AvroTypes;
 import org.talend.daikon.avro.util.AvroUtils;
 import org.talend.daikon.talend6.Talend6SchemaConstants;
+
 import orgomg.cwm.objectmodel.core.Expression;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
@@ -248,8 +250,7 @@ public final class MetadataToolAvroHelper {
                     String.valueOf(in.getPrecision()));
         }
         if (in.getScale() >= 0) {
-            schema = AvroUtils
-                    .setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_SCALE, String.valueOf(in.getScale()));
+            schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_SCALE, String.valueOf(in.getScale()));
         }
         if (in.getInitialValue() != null && in.getInitialValue().getBody() != null) {
             schema = AvroUtils.setProperty(schema, Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT, in.getInitialValue().getBody());
@@ -435,15 +436,21 @@ public final class MetadataToolAvroHelper {
             col.setTalendType(prop);
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
-            col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
+            if (!StringUtils.isEmpty(prop)) {
+                col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
+            }
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
             col.setLength(value > 0 ? value : -1);
+        } else {
+            col.setLength(-1);
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
             Long value = Long.parseLong(prop);
             col.setOriginalLength(value > 0 ? value : -1);
+        } else {
+            col.setOriginalLength(-1);
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE))) {
             col.setNullable(Boolean.parseBoolean(prop));
@@ -451,6 +458,8 @@ public final class MetadataToolAvroHelper {
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
             col.setPrecision(value > 0 ? value : -1);
+        } else {
+            col.setPrecision(-1);
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
             col.setDefaultValue(prop);
@@ -548,15 +557,21 @@ public final class MetadataToolAvroHelper {
             col.setTalendType(prop);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PATTERN))) {
-            col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
+            if (!StringUtils.isEmpty(prop)) {
+                col.setPattern(TalendQuoteUtils.addQuotesIfNotExist(prop));
+            }
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
             col.setLength(value > 0 ? value : -1);
+        } else {
+            col.setLength(-1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
             Long value = Long.parseLong(prop);
             col.setOriginalLength(value > 0 ? value : -1);
+        } else {
+            col.setOriginalLength(-1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_IS_NULLABLE))) {
             col.setNullable(Boolean.parseBoolean(prop));
@@ -564,10 +579,14 @@ public final class MetadataToolAvroHelper {
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
             col.setPrecision(value > 0 ? value : -1);
+        } else {
+            col.setPrecision(-1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SCALE))) {
             Long value = Long.parseLong(prop);
             col.setScale(value > 0 ? value : -1);
+        } else {
+            col.setScale(-1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_DEFAULT))) {
             col.setDefaultValue(prop);
