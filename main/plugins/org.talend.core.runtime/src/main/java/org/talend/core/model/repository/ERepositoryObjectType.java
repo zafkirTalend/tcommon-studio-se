@@ -1369,10 +1369,6 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
         if (ERepositoryObjectType.PROCESS_ROUTELET != null) {
             allTypes.add(ERepositoryObjectType.PROCESS_ROUTELET);
         }
-        // testContainer is also instance of process
-        if (ERepositoryObjectType.TEST_CONTAINER != null) {
-            allTypes.add(ERepositoryObjectType.TEST_CONTAINER);
-        }
 
         return allTypes;
     }
