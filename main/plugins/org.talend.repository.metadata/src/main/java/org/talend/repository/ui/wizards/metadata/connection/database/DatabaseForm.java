@@ -6300,6 +6300,9 @@ public class DatabaseForm extends AbstractForm {
     protected void doUpdateConnection() {
         if (!isContextMode()) {
             IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+            if (hiveDistribution == null) {
+                return;
+            }
             IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
             HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModeCombo.getText());
             HiveServerVersionInfo serverVersion = HiveServerVersionInfo.getByDisplay(hiveServerVersionCombo.getText());
@@ -6309,7 +6312,9 @@ public class DatabaseForm extends AbstractForm {
             }
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE, EDatabaseConnTemplate.HIVE.getDBTypeName());
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION, hiveDistribution.getName());
-            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, hiveVersion.getVersion());
+            if (hiveVersion != null) {
+                conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION, hiveVersion.getVersion());
+            }
             if (hiveMode != null) {
                 conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE, hiveMode.getName());
             }
