@@ -3742,14 +3742,15 @@ public class DatabaseForm extends AbstractForm {
                 if (isContextMode()) {
                     return;
                 }
+
+                IHDistribution newDistribution = getHBaseDistribution(hbaseDistributionCombo.getText(), true);
+                if (newDistribution == null) {
+                    return;
+                }
                 String originalDistributionName = getConnection().getParameters().get(
                         ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
-                String newDistributionDisplayName = hbaseDistributionCombo.getText();
-
-                IHDistribution newDistribution = getHBaseDistribution(newDistributionDisplayName, true);
                 IHDistribution originalDistribution = getHBaseDistribution(originalDistributionName, false);
-                if (originalDistribution == null || newDistribution != null
-                        && !newDistribution.getName().equals(originalDistribution.getName())) {
+                if (originalDistribution == null || !newDistribution.getName().equals(originalDistribution.getName())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
                     updateHBaseVersionPart(newDistribution);
@@ -3768,16 +3769,19 @@ public class DatabaseForm extends AbstractForm {
                 }
                 String originalDistributionName = getConnection().getParameters().get(
                         ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
-                String originalVersionName = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
-                String newVersionDisplayName = StringUtils.trimToNull(hbaseVersionCombo.getText());
                 IHDistribution originalDistribution = getHBaseDistribution(originalDistributionName, false);
                 if (originalDistribution == null) {
                     return;
                 }
+                String newVersionDisplayName = StringUtils.trimToNull(hbaseVersionCombo.getText());
                 IHDistributionVersion newVersion = originalDistribution.getHDVersion(newVersionDisplayName, true);
+                if (newVersion == null) {
+                    return;
+                }
+                String originalVersionName = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
                 IHDistributionVersion originalVersion = originalDistribution.getHDVersion(originalVersionName, false);
 
-                if (originalVersion == null || newVersion != null && newVersion.getVersion() != null
+                if (originalVersion == null || newVersion.getVersion() != null
                         && !newVersion.getVersion().equals(originalVersion.getVersion())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION, newVersion.getVersion());
                     fillDefaultsWhenHBaseVersionChanged();
@@ -5621,16 +5625,18 @@ public class DatabaseForm extends AbstractForm {
      * Added by Marvin Wang on Aug 10, 2012.
      */
     protected void doHiveDistributionModify() {
+        IHDistribution newHiveDistribution = getCurrentHiveDistribution(false);
+        if (newHiveDistribution == null) {
+            return;
+        }
         String distributionObj = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
-        IHDistribution originalhiveDistribution = HiveMetadataHelper.getDistribution(distributionObj, false);
-        IHDistribution currentHiveDistribution = getCurrentHiveDistribution(false);
-        if (originalhiveDistribution == null || currentHiveDistribution != null
-                && !currentHiveDistribution.equals(originalhiveDistribution)) {
+        IHDistribution originalHiveDistribution = HiveMetadataHelper.getDistribution(distributionObj, false);
+        if (originalHiveDistribution == null || !newHiveDistribution.equals(originalHiveDistribution)) {
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
             // for Hive mode. 3. To update connection parameters.
-            updateHiveVersionAndMakeSelection(currentHiveDistribution, null);
+            updateHiveVersionAndMakeSelection(newHiveDistribution, null);
             setHideVersionInfoWidgets(false);
-            updateYarnInfo(currentHiveDistribution, null);
+            updateYarnInfo(newHiveDistribution, null);
             updateHiveModeAndMakeSelection(null);
             doHiveModeModify();
             fillDefaultsWhenHiveVersionChanged();
@@ -5643,10 +5649,16 @@ public class DatabaseForm extends AbstractForm {
      */
     protected void doHiveVersionModify() {
         IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+        if (hiveDistribution == null) {
+            return;
+        }
         IHDistributionVersion newVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
-        String originalVersion = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
-        IHDistributionVersion hdVersion = hiveDistribution.getHDVersion(originalVersion, true);
-        if (hdVersion == null || newVersion != null && !newVersion.equals(hdVersion)) {
+        if (newVersion == null) {
+            return;
+        }
+        String versionStr = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
+        IHDistributionVersion originalVersion = hiveDistribution.getHDVersion(versionStr, true);
+        if (originalVersion == null || !newVersion.equals(originalVersion)) {
             setHideVersionInfoWidgets(false);
             updateHiveModeAndMakeSelection(null);
             updateHiveServerAndMakeSelection(hiveDistribution, newVersion);
