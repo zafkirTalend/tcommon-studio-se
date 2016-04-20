@@ -202,4 +202,12 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.slf4j.impl.log4j12"
+         download-size="0"
+         install-size="0"
+         version="1.7.2.v20131105-2200"
+         fragment="true"
+         unpack="false"/>
+
 </feature>
