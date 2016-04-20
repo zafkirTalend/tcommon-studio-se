@@ -60,6 +60,7 @@ import org.talend.repository.ui.utils.ZipToFile;
 import org.talend.repository.ui.wizards.exportjob.util.ExportJobUtil;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
+import org.talend.utils.json.JSONObject;
 
 import com.sun.management.OperatingSystemMXBean;
 
@@ -270,21 +271,24 @@ public class ExportLogsWizardPage extends WizardPage {
         info.append("-----Installed Addons-----").append(NEW_LINE); //$NON-NLS-1$
         IPreferenceStore preferenceStore = CoreUIPlugin.getDefault().getPreferenceStore();
         String addons = preferenceStore.getString("ADDONS"); //$NON-NLS-1$
-        JSONArray allAddons = null;
+        JSONObject jsonObject = null;
         try {
             if (addons != null && !"".equals(addons)) { //$NON-NLS-1$
-                allAddons = new JSONArray(addons);
+                jsonObject = new JSONObject(addons);
             }
         } catch (JSONException e) {
             info.append("Failed to get addons information...").append(NEW_LINE); //$NON-NLS-1$
         }
-        if (allAddons != null) {
-            for (int i = 0; i < allAddons.length(); i++) {
-                try {
-                    String addon = allAddons.getString(i);
-                    info.append(addon).append(NEW_LINE);
-                } catch (JSONException e) {
-                    info.append("Failed to get addon information...").append(NEW_LINE); //$NON-NLS-1$
+        if (jsonObject != null) {
+            JSONArray jsonArray = jsonObject.names();
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        String addon = jsonArray.getString(i);
+                        info.append(addon).append(NEW_LINE);
+                    } catch (JSONException e) {
+                        info.append("Failed to get addon information...").append(NEW_LINE); //$NON-NLS-1$
+                    }
                 }
             }
         }
