@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,10 @@ import java.util.Map;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.dom.DOMDocument;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IProcess;
@@ -31,8 +35,13 @@ public class InternalNodeComponentHandlerTest {
     @Test
     public void testGenerateComponentInfo() throws Exception {
         ProcessItem processItem = null;
+        URL testJobURL = FileLocator.find(Platform.getBundle("org.talend.core.ui.test"), new Path("/resources/testViewDoc.zip"),
+                null);
+        if (testJobURL != null) {
+            testJobURL = FileLocator.toFileURL(testJobURL);
+        }
+        File srcFile = new File(testJobURL.getFile());
         ImportExportHandlersManager importManager = new ImportExportHandlersManager();
-        File srcFile = new File("resources/testViewDoc.zip");
         FileResourcesUnityManager fileUnityManager = ResourcesManagerFactory.getInstance().createFileUnityManager(srcFile);
         ResourcesManager resManager = fileUnityManager.doUnify();
         List<ImportItem> projectRecords = importManager.populateImportingItems(resManager, true, new NullProgressMonitor());
@@ -44,7 +53,6 @@ public class InternalNodeComponentHandlerTest {
         Item item = obj.getProperty().getItem();
         assertTrue(item instanceof ProcessItem);
         processItem = (ProcessItem) item;
-        processItem.getProcess().getNode();
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
             IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
