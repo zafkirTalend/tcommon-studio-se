@@ -604,7 +604,11 @@ public final class MetadataToolHelper {
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
         target.setLabel(source.getLabel());
-        target.getAdditionalProperties().putAll(source.getAdditionalProperties());
+        Map<String, String> targetProperties = target.getAdditionalProperties();
+        Map<String, String> sourceProperties = source.getAdditionalProperties();
+        for (Entry<String, String> entry : sourceProperties.entrySet()) {
+            targetProperties.put(entry.getKey(), entry.getValue());
+        }
     }
 
     public static void copyTable(List<IMetadataColumn> sourceColumns, IMetadataTable target, List<IMetadataColumn> targetColumns) {

@@ -552,8 +552,12 @@ public class MetadataToolHelperTest {
         IMetadataTable source = new org.talend.core.model.metadata.MetadataTable();
         IMetadataTable target = new org.talend.core.model.metadata.MetadataTable();
         source.getAdditionalProperties().put(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE, SAPBWTableHelper.IO_INNERTYPE_HIERARCHY);
+        target.getAdditionalProperties().put(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE, SAPBWTableHelper.IO_INNERTYPE_ATTRIBUTE);
+        target.getAdditionalProperties().put("TEST", "TEST");
         MetadataToolHelper.copyTable(source, target);
         String innerType = target.getAdditionalProperties().get(SAPBWTableHelper.SAP_INFOOBJECT_INNER_TYPE);
+        String test = target.getAdditionalProperties().get("TEST");
         assertEquals(SAPBWTableHelper.IO_INNERTYPE_HIERARCHY, innerType);
+        assertEquals(test, "TEST");
     }
 }
