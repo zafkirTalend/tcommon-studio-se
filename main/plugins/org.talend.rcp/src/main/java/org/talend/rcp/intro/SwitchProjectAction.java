@@ -60,8 +60,6 @@ public class SwitchProjectAction extends Action {
             }
         }
 
-        ProxyRepositoryFactory.getInstance().logOffProject();
-
         // for bug 7071
         IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (workbenchWindow.getActivePage() != null

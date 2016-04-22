@@ -496,6 +496,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             @Override
             public boolean preShutdown(IWorkbench workbench, boolean forced) {
                 TokenCollectorFactory.getFactory().process();
+                ProxyRepositoryFactory.getInstance().logOffProject();
                 return true;
             }
 

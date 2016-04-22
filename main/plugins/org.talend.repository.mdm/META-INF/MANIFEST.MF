@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.ui.workbench,
  org.talend.datatools.xml,
  org.talend.repository.view.di;resolution:=optional,
  javax.mail,
- org.talend.repository.items.importexport
+ org.talend.repository.items.importexport,
+ org.apache.xerces
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .
