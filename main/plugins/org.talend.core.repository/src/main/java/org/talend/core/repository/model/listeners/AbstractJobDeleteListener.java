@@ -15,7 +15,9 @@ package org.talend.core.repository.model.listeners;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.documentation.ERepositoryActionName;
 
 /**
@@ -50,4 +52,22 @@ public abstract class AbstractJobDeleteListener implements PropertyChangeListene
 
     public abstract void execute(IRepositoryObject object, int deleteType);
 
+    protected Project getProject(IRepositoryObject repositoryObject) {
+        String projectLabel = repositoryObject.getProjectLabel();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        if (currentProject.getTechnicalLabel().equalsIgnoreCase(projectLabel)) {
+            return currentProject;
+        }
+        {
+            /**
+             * Attention!!<br>
+             * Can't use the workspace version, since reference project may be different branch with master
+             */
+            // Project project = ProjectManager.getInstance().getProjectFromProjectLabel(projectLabel);
+        }
+        org.talend.core.model.properties.Project emfProject = ProjectManager.getInstance()
+                .getProject(repositoryObject.getProperty());
+        Project project = new Project(emfProject);
+        return project;
+    }
 }

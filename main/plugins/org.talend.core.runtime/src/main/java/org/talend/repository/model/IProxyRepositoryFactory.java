@@ -205,6 +205,9 @@ public interface IProxyRepositoryFactory {
     public abstract void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException,
             BusinessException;
 
+    public abstract void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete, boolean needCheckAvailability)
+            throws PersistenceException, BusinessException;
+
     public abstract void deleteObjectPhysical(IRepositoryViewObject objToDelete) throws PersistenceException;
 
     public abstract void deleteObjectPhysical(IRepositoryViewObject objToDelete, String version) throws PersistenceException;
@@ -220,6 +223,9 @@ public interface IProxyRepositoryFactory {
 
     public abstract void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException,
             BusinessException;
+
+    public abstract void restoreObject(Project project, IRepositoryViewObject objToRestore, IPath path)
+            throws PersistenceException, BusinessException;
 
     /*
      * (non-Javadoc)

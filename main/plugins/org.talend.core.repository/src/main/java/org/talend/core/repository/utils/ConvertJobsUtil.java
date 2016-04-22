@@ -33,6 +33,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.hadoop.IHadoopDistributionService;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Item;
@@ -363,6 +364,18 @@ public class ConvertJobsUtil {
         }
 
         return isNeedConvert;
+    }
+
+    public static boolean hasTestCase(Project project, Property property) {
+        boolean hasTestCase = false;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                hasTestCase = testContainerService.hasTestCase(project, property);
+            }
+        }
+        return hasTestCase;
     }
 
     public static boolean hasTestCase(Property property) {

@@ -138,20 +138,24 @@ public class RelationshipItemBuilder {
 
     public static RelationshipItemBuilder getInstance() {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        return getInstance(proxyRepositoryFactory, currentProject);
-    }
-
-    public static RelationshipItemBuilder getInstance(IProxyRepositoryFactory repositoryFactory, Project project) {
-        String projectName = project.getTechnicalLabel();
+        String projectName = currentProject.getTechnicalLabel();
 
         if (projectToInstanceMap.containsKey(projectName)) {
             return projectToInstanceMap.get(projectName);
         }
+
+        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        RelationshipItemBuilder instance = createInstance(proxyRepositoryFactory, currentProject);
+        projectToInstanceMap.put(projectName, instance);
+        return instance;
+    }
+
+    public static RelationshipItemBuilder createInstance(IProxyRepositoryFactory repositoryFactory, Project project) {
         RelationshipItemBuilder instance = new RelationshipItemBuilder();
         instance.setAimProject(project);
         instance.setProxyRepositoryFactory(repositoryFactory);
-        projectToInstanceMap.put(projectName, instance);
+        // won't store instance for other projects
+        // projectToInstanceMap.put(projectName, instance);
         return instance;
     }
 

@@ -1662,10 +1662,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
+
     @Override
     public void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException {
-        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(getRepositoryContext().getProject(), objToRestore.getId(),
-                false);
+        restoreObject(getRepositoryContext().getProject(), objToRestore, path);
+    }
+
+    @Override
+    public void restoreObject(Project project, IRepositoryViewObject objToRestore, IPath path) throws PersistenceException {
+        List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToRestore.getId(), false);
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
@@ -1675,9 +1680,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Item item = allVersionToDelete.get(0).getProperty().getItem();
             if (!(item instanceof ConnectionItem)
                     || !ProjectRepositoryNode.getInstance().hasDeletedSubItem((ConnectionItem) item)) {
-                RecycleBinManager.getInstance().removeFromRecycleBin(getRepositoryContext().getProject(), item);
+                RecycleBinManager.getInstance().removeFromRecycleBin(project, item);
             } else {
-                RecycleBinManager.getInstance().saveRecycleBin(getRepositoryContext().getProject());
+                RecycleBinManager.getInstance().saveRecycleBin(project);
             }
         }
     }

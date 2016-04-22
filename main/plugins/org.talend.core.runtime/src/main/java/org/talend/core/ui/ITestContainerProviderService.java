@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
@@ -49,6 +50,8 @@ public interface ITestContainerProviderService extends IService {
     public boolean isTestContainerItem(Item item);
 
     public boolean hasTestCase(Property property);
+
+    public boolean hasTestCase(Project project, Property property);
 
     public ProcessType getTestContainerProcess(Item item);
     

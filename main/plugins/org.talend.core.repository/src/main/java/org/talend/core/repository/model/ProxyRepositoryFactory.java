@@ -533,7 +533,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public synchronized void deleteFolder(Project project, ERepositoryObjectType type, IPath path) throws PersistenceException {
-        deleteFolder(projectManager.getCurrentProject(), type, path, false);
+        deleteFolder(project, type, path, false);
     }
 
     @Override
@@ -684,9 +684,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException,
             BusinessException {
+        deleteObjectLogical(project, objToDelete, true);
+    }
+
+    @Override
+    public void deleteObjectLogical(Project project, IRepositoryViewObject objToDelete, boolean needCheckAvailability)
+            throws PersistenceException, BusinessException {
         // RepositoryViewObject is dynamic, so force to use in all case the RepositoryObject with fixed object.
         IRepositoryViewObject object = new RepositoryObject(objToDelete.getProperty());
-        checkAvailability(object);
+        if (needCheckAvailability) {
+            checkAvailability(object);
+        }
         this.repositoryFactoryFromProvider.deleteObjectLogical(project, object);
         // unlock(objToDelete);
         // i18n
@@ -811,7 +819,14 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
             throw new BusinessException(Messages.getString("ProxyRepositoryFactory.bussinessException.itemNonModifiable")); //$NON-NLS-1$
         }
-        this.repositoryFactoryFromProvider.restoreObject(objToRestore, path);
+
+        restoreObject(ProjectManager.getInstance().getCurrentProject(), objToRestore, path);
+    }
+
+    @Override
+    public void restoreObject(Project project, IRepositoryViewObject objToRestore, IPath path)
+            throws PersistenceException, BusinessException {
+        this.repositoryFactoryFromProvider.restoreObject(project, objToRestore, path);
         unlock(objToRestore);
         // i18n
         // log.debug("Restoration [" + objToRestore + "] by " + getRepositoryContext().getUser() + " to \"/" + path +

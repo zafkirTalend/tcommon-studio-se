@@ -216,6 +216,8 @@ public interface IRepositoryFactory {
      */
     public void restoreObject(IRepositoryViewObject objToRestore, IPath path) throws PersistenceException;
 
+    public void restoreObject(Project project, IRepositoryViewObject objToRestore, IPath path) throws PersistenceException;
+
     public void moveObject(IRepositoryViewObject objToMove, IPath newPath) throws PersistenceException;
 
     public void moveObjectMulti(IRepositoryViewObject[] objToMove, IPath newPath) throws PersistenceException;
