@@ -16,8 +16,10 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.avro.Schema;
 import org.talend.components.api.component.ComponentDefinition;
 import org.talend.components.api.component.ComponentImageType;
+import org.talend.components.api.component.Connector;
 import org.talend.components.api.properties.ComponentProperties;
 import org.talend.components.api.service.ComponentService;
 import org.talend.components.api.wizard.ComponentWizard;
@@ -160,12 +162,6 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
         return service.validateProperty(propName, properties);
     }
 
-    @Deprecated
-    public ComponentProperties commitFormValues(ComponentProperties properties, String formName) {
-        // to delete
-        return null;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -175,8 +171,31 @@ public class ComponentServiceWithValueEvaluator implements ComponentService {
      */
     @Override
     public ComponentProperties cancelFormValues(ComponentProperties arg0, String arg1) {
-        // to implement
-        return null;
+        return service.cancelFormValues(arg0, arg1);
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.components.api.service.ComponentService#getSchema(org.talend.components.api.properties.ComponentProperties, org.talend.components.api.component.Connector, boolean)
+     */
+    @Override
+    public Schema getSchema(ComponentProperties arg0, Connector arg1, boolean arg2) {
+        return service.getSchema(arg0, arg1, arg2);
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.components.api.service.ComponentService#getAvailableConnectors(org.talend.components.api.properties.ComponentProperties, java.util.Set, boolean)
+     */
+    @Override
+    public Set<? extends Connector> getAvailableConnectors(ComponentProperties arg0, Set<? extends Connector> arg1, boolean arg2) {
+        return service.getAvailableConnectors(arg0, arg1, arg2);
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.components.api.service.ComponentService#setSchema(org.talend.components.api.properties.ComponentProperties, org.talend.components.api.component.Connector, org.apache.avro.Schema, boolean)
+     */
+    @Override
+    public void setSchema(ComponentProperties arg0, Connector arg1, Schema arg2, boolean arg3) {
+        service.setSchema(arg0, arg1, arg2, arg3);
     }
 
 }

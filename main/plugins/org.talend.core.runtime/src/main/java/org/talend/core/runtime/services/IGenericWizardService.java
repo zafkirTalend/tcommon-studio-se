@@ -23,7 +23,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.Element;
-import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.RepositoryNode;
@@ -108,11 +108,9 @@ public interface IGenericWizardService extends IService {
      * Update component schema for node metadata table of node.
      * 
      * @param componentProperties
-     * @param schemaPropertyName
      * @param metadataTable
      */
-    public void updateComponentSchema(ComponentProperties componentProperties, String schemaPropertyName,
-            IMetadataTable metadataTable, IElementParameter param);
+    public void updateComponentSchema(INode node, IMetadataTable metadataTable);
 
     public List<ComponentProperties> getAllComponentProperties(Connection connection);
 
