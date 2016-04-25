@@ -577,7 +577,6 @@ public class ContextUtils {
                                 }
                             }
                             if (modified) {
-                                processType.getContext().clear();
                                 processJobManager.saveToEmf(processType.getContext());
                                 added = true;
                             }
