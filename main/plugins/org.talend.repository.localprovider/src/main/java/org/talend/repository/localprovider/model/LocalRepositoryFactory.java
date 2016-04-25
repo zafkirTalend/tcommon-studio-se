@@ -996,21 +996,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public Project[] readProjects(boolean local) throws PersistenceException {
         IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
 
+        return readProject(local, true, prjs);
+    }
+
+    @Override
+    public Project[] readProject(boolean local, boolean reuseExisting, IProject... eclipseProjects) throws PersistenceException {
         List<Project> toReturn = new ArrayList<Project>();
 
         Exception ex = null;
         int readSuccess = 0;
-        for (IProject p : prjs) {
+        for (IProject p : eclipseProjects) {
             try {
-                readProject(local, toReturn, p, false);
-                readProject(local, toReturn, p, true);
+                readProject(local, toReturn, p, false, reuseExisting);
+                readProject(local, toReturn, p, true, reuseExisting);
                 readSuccess++;
             } catch (Exception e) {
                 ExceptionHandler.process(e);
             }
 
         }
-        if (readSuccess == 0 && prjs.length > 0) {
+        if (readSuccess == 0 && eclipseProjects.length > 0) {
             throw new PersistenceException("Read projects error.", ex); //$NON-NLS-1$
         } else {
             return toReturn.toArray(new Project[toReturn.size()]);
@@ -1018,31 +1023,41 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void readProject(boolean local, List<Project> toReturn, IProject p, boolean useOldProjectFile) {
+        readProject(local, toReturn, p, useOldProjectFile, true);
+    }
+
+    private void readProject(boolean local, List<Project> toReturn, IProject p, boolean useOldProjectFile, boolean tryToReuse) {
         xmiResourceManager.setUseOldProjectFile(useOldProjectFile);
         try {
             if (xmiResourceManager.hasTalendProjectFile(p)) {
-                Project curProject = ProjectManager.getInstance().getCurrentProject();
+                if (tryToReuse) {
+                    Project curProject = ProjectManager.getInstance().getCurrentProject();
 
-                if (curProject != null && curProject.isLocal() && curProject.getTechnicalLabel().equals(p.getName())) {
-                    // I think only local projects can add itself dirrectly, in case different TACs and locals have
-                    // project with same name
-                    toReturn.add(curProject);
-                } else {
-                    boolean foundInRefs = false;
-                    if (curProject != null) {
-                        for (Project refP : ProjectManager.getInstance().getAllReferencedProjects()) {
-                            if (refP.getTechnicalLabel().equals(p.getName())) {
-                                toReturn.add(refP);
-                                foundInRefs = true;
-                                break;
+                    if (curProject != null && curProject.isLocal() && curProject.getTechnicalLabel().equals(p.getName())) {
+                        // I think only local projects can add itself dirrectly, in case different TACs and locals have
+                        // project with same name
+                        toReturn.add(curProject);
+                    } else {
+                        boolean foundInRefs = false;
+                        if (curProject != null) {
+                            for (Project refP : ProjectManager.getInstance().getAllReferencedProjects()) {
+                                if (refP.getTechnicalLabel().equals(p.getName())) {
+                                    toReturn.add(refP);
+                                    foundInRefs = true;
+                                    break;
+                                }
                             }
                         }
+                        if (!foundInRefs) {
+                            org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
+                            Project project = new Project(emfProject);
+                            toReturn.add(project);
+                        }
                     }
-                    if (!foundInRefs) {
-                        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
-                        Project project = new Project(emfProject);
-                        toReturn.add(project);
-                    }
+                } else {
+                    org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
+                    Project project = new Project(emfProject);
+                    toReturn.add(project);
                 }
             }
         } catch (PersistenceException e) {
