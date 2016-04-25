@@ -14,6 +14,7 @@ package org.talend.core.repository.model;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.SubMonitor;
 import org.talend.commons.exception.BusinessException;
@@ -91,6 +92,8 @@ public interface IRepositoryFactory {
     // public void createUser() throws PersistenceException;
 
     public Project[] readProject() throws PersistenceException, BusinessException;
+
+    public Project[] readProject(boolean local, boolean reuseExisting, IProject... eclipseProjects) throws PersistenceException;
 
     // for export project ,no need to unload resource when read projects
     public Project[] readProject(boolean unloadResource) throws PersistenceException, BusinessException;
