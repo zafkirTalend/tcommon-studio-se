@@ -68,24 +68,40 @@ public class PluginUtil {
         return (Platform.getInstallLocation().getURL()).getFile();
     }
 
+    /**
+     * @return true if esb editor opened
+     */
     public static boolean isMediation() {
+        return "org.talend.camel.designer.core.ui.CamelMultiPageTalendEditor".equals(getActiveEditorId()); //$NON-NLS-1$
+    }
+
+    /**
+     * DOC yyan Comment method "isRouteTestEditor".
+     * 
+     * @return true if esb route test case editor opened
+     */
+    public static boolean isRouteTestEditor() {
+        return "org.talend.camel.testcontainer.ui.editor.CamelTestContainerMultiPageEditor".equals(getActiveEditorId()); //$NON-NLS-1$
+    }
+
+    /**
+     * DOC yyan Get active editor ID.
+     * 
+     * @return Active editor ID
+     */
+    public static String getActiveEditorId() {
         IWorkbenchWindow workbenchWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
         if (null == workbenchWindow) {
-            return false;
+            return null;
         }
         IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
         if (null == workbenchPage) {
-            return false;
+            return null;
         }
         IEditorPart part = workbenchPage.getActiveEditor();
         if (part == null) {
-            return false;
+            return null;
         }
-        String editorID = part.getEditorSite().getId();
-        if (editorID.equals("org.talend.camel.designer.core.ui.CamelMultiPageTalendEditor")) {
-            return true;
-        }
-        return false;
+        return part.getEditorSite().getId();
     }
-
 }
