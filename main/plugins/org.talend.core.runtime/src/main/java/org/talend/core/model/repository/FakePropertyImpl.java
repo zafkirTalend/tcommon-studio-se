@@ -40,7 +40,7 @@ public class FakePropertyImpl extends PropertyImpl {
     public FakePropertyImpl() {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         RepositoryContext repoContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
-
+        this.setId("1");
         this.setAuthor(repoContext.getUser());
         setVersion(""); //$NON-NLS-1$
         setCreationDate(new Date());

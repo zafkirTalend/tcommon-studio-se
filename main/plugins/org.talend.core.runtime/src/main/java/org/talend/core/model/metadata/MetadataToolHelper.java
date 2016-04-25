@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
+import org.apache.avro.Schema;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.BasicEList;
@@ -37,6 +38,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.components.IComponentConstants;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
@@ -71,12 +73,14 @@ import org.talend.core.runtime.i18n.Messages;
 import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
+import org.talend.daikon.talend6.Talend6SchemaConstants;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryConstants;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -1005,7 +1009,10 @@ public final class MetadataToolHelper {
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryId) {
         MetadataTable table = getMetadataTableFromRepository(metaRepositoryId);
         if (table != null) {
-            return convert(table);
+            IMetadataTable convertedTable = convert(table);
+            convertedTable.getAdditionalProperties().remove(IComponentConstants.COMPONENT_PROPERTIES_TAG);
+            convertedTable.getAdditionalProperties().remove(IComponentConstants.COMPONENT_SCHEMA_TAG);
+            return convertedTable;
         }
         return null;
 
@@ -1126,6 +1133,21 @@ public final class MetadataToolHelper {
                                 oldColumn.setComment(newColumn.getComment());
                             }
                         }
+                    }
+                } else if (param.getValue() instanceof Schema) {
+                    if (!param.getDefaultValues().isEmpty()) {
+                        Schema schema = (Schema) param.getDefaultValues().get(0).getDefaultValue();
+                        org.talend.core.model.metadata.builder.connection.MetadataTable defaultEmfTable = MetadataToolAvroHelper
+                                .convertFromAvro(schema);
+                        IMetadataTable defaultTable = MetadataToolHelper.convert(defaultEmfTable);
+                        for (IMetadataColumn currentColumn : metadataTable.getListColumns()) {
+                            IMetadataColumn defaultColumn = defaultTable.getColumn(currentColumn.getLabel());
+                            if (defaultColumn != null) {
+                                currentColumn.setCustom(defaultColumn.isCustom());
+                                currentColumn.setReadOnly(defaultColumn.isReadOnly());
+                            }
+                        }
+                        metadataTable.setReadOnly(defaultTable.isReadOnly());
                     }
                 }
             }
@@ -1330,6 +1352,13 @@ public final class MetadataToolHelper {
         }
         result.setTableName(sourceName);
         List<IMetadataColumn> columns = new ArrayList<IMetadataColumn>(old.getColumns().size());
+        for (TaggedValue tv : old.getTaggedValue()) {
+            if (Talend6SchemaConstants.TALEND6_IS_READ_ONLY.equals(tv.getTag())) {
+                result.setReadOnly(Boolean.valueOf(tv.getValue()));
+                break;
+            }
+        }
+
         for (Object o : old.getColumns()) {
             org.talend.core.model.metadata.builder.connection.MetadataColumn column = (org.talend.core.model.metadata.builder.connection.MetadataColumn) o;
             IMetadataColumn newColumn = new org.talend.core.model.metadata.MetadataColumn();
@@ -1363,7 +1392,13 @@ public final class MetadataToolHelper {
                         String[] splits = additionalTag.split(":");
                         additionalTag = splits[1];
                     }
-                    newColumn.getAdditionalField().put(additionalTag, tv.getValue());
+                    if (Talend6SchemaConstants.TALEND6_COLUMN_CUSTOM.equals(additionalTag)) {
+                        newColumn.setCustom(Boolean.valueOf(tv.getValue()));
+                    } else if (Talend6SchemaConstants.TALEND6_IS_READ_ONLY.equals(additionalTag)) {
+                        newColumn.setReadOnly(Boolean.valueOf(tv.getValue()));
+                    } else {
+                        newColumn.getAdditionalField().put(additionalTag, tv.getValue());
+                    }
                 }
             }
 

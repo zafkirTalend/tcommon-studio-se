@@ -193,6 +193,7 @@ Require-Bundle: org.junit;visibility:=reexport,
  org.apache.axis;bundle-version="1.4.0",
  org.talend.daikon,
  org.talend.components.api,
- org.apache.servicemix.bundles.avro
+ org.apache.servicemix.bundles.avro,
+ org.talend.components.common
 Eclipse-BuddyPolicy: registered
 
