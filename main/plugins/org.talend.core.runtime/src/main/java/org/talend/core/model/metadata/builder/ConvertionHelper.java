@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.common.util.EMap;
+import org.talend.commons.runtime.model.components.IComponentConstants;
 import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabase4DriverClassName;
@@ -46,6 +47,7 @@ import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.model.bridge.ReponsitoryContextBridge;
+
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -419,6 +421,12 @@ public final class ConvertionHelper {
         }
         for (TaggedValue tv : old.getTaggedValue()) {
             String additionalTag = tv.getTag();
+            if (IComponentConstants.COMPONENT_PROPERTIES_TAG.equals(additionalTag)) {
+                continue;
+            }
+            if (IComponentConstants.COMPONENT_SCHEMA_TAG.equals(additionalTag)) {
+                continue;
+            }
             result.getAdditionalProperties().put(additionalTag, tv.getValue());
         }
 
