@@ -124,5 +124,17 @@
             class="org.talend.metadata.managment.hive.creator.HiveConnectionCreator">
       </creator>
    </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <projecttask
+            beforeLogon="false"
+            breaks="6.2.0"
+            class="org.talend.metadata.managment.migration.AddXmiIdForContextItemMigrationTask"
+            description="Add XMI Id for context item"
+            id="org.talend.metadata.managment.migration.AddXmiIdForContextItemMigrationTask"
+            name="Add XMI Id for context item"
+            version="6.2.0">
+      </projecttask>
+   </extension>
 
 </plugin>
