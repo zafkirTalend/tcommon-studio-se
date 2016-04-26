@@ -405,6 +405,10 @@ public class RepoDoubleClickAction extends Action {
                     return current;
                 }
 
+            } else if (nodeType != null && nodeType.equals(ERepositoryObjectType.PROCESS_ROUTE)
+                    && isDITestCaseEditOrReadAction(current)) {
+                continue;
+
             } else if (obj.getObject() != null
                     && current.getClassForDoubleClick().getSimpleName()
                             .equals(obj.getObject().getProperty().getItem().eClass().getName())) {
@@ -413,6 +417,13 @@ public class RepoDoubleClickAction extends Action {
         }
         return null;
     }
+
+    private boolean isDITestCaseEditOrReadAction(ITreeContextualAction action) {
+
+        return "org.talend.testcontainer.core.ui.actions.EditTestContainer".equals(action.getId())
+                || "org.talend.testcontainer.core.ui.actions.ReadTestContainer".equals(action.getId());
+    }
+
     // protected ISelection getSelection() {
     // IRepositoryView view = getViewPart();
     // if (view != null) {
