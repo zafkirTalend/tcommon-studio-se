@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
@@ -242,29 +243,47 @@ public class JobContextManager implements IContextManager {
         return defaultContext;
     }
 
+    /**
+     * If the context group or context parameter have existed, just update the attributes. If not existed, will create
+     * new one. If not existed any more, will be removed.
+     */
     @Override
     public void saveToEmf(EList contextTypeList) {
-        ContextType contextType;
-        IContext context;
+        if (contextTypeList == null) {
+            return;
+        }
 
-        EList contextTypeParamList;
-        ContextParameterType contextParamType;
-        IContextParameter contextParam;
         if (listContext.isEmpty()) {
             retrieveDefaultContext();
         }
-        for (int i = 0; i < listContext.size(); i++) {
-            contextType = TalendFileFactory.eINSTANCE.createContextType();
-            context = listContext.get(i);
-            contextType.setName(context.getName());
-            contextType.setConfirmationNeeded(context.isConfirmationNeeded());
-            contextTypeParamList = contextType.getContextParameter();
 
-            if (context.getContextParameterList() != null) {
-                for (int j = 0; j < context.getContextParameterList().size(); j++) {
-                    contextParamType = TalendFileFactory.eINSTANCE.createContextParameterType();
-                    contextParam = context.getContextParameterList().get(j);
-                    contextParamType.setName(contextParam.getName());
+        EList newcontextTypeList = new BasicEList();
+        for (int i = 0; i < listContext.size(); i++) {
+            IContext context = listContext.get(i);
+            String contextGroupName = context.getName();
+
+            ContextType contextType = findContextType(contextTypeList, contextGroupName);
+            if (contextType == null) {
+                contextType = TalendFileFactory.eINSTANCE.createContextType();
+                contextType.setName(contextGroupName);
+            }
+            contextType.setConfirmationNeeded(context.isConfirmationNeeded());
+            newcontextTypeList.add(contextType);
+
+            EList contextTypeParamList = contextType.getContextParameter();
+            List<IContextParameter> contextParameterList = context.getContextParameterList();
+
+            EList newContextTypeParamList = new BasicEList();
+            if (contextParameterList != null) {
+                for (int j = 0; j < contextParameterList.size(); j++) {
+                    IContextParameter contextParam = contextParameterList.get(j);
+                    ContextParameterType contextParamType = findContextParameterType(contextTypeParamList, contextParam.getName());
+                    if (contextParamType == null) {
+                        contextParamType = TalendFileFactory.eINSTANCE.createContextParameterType();
+                        contextParamType.setName(contextParam.getName());
+                    }
+                    newContextTypeParamList.add(contextParamType);
+
                     contextParamType.setPrompt(contextParam.getPrompt());
                     contextParamType.setType(contextParam.getType());
                     contextParamType.setRawValue(contextParam.getValue());
@@ -276,11 +295,40 @@ public class JobContextManager implements IContextManager {
                             contextParamType.setRepositoryContextId(item.getProperty().getId());
                         }
                     }
-                    contextTypeParamList.add(contextParamType);
+                }
+
+                contextTypeParamList.clear(); // remove old
+                contextTypeParamList.addAll(newContextTypeParamList);
+            }
+        }
+
+        contextTypeList.clear(); // clear old
+        contextTypeList.addAll(newcontextTypeList);
+
+    }
+
+    private ContextType findContextType(EList contextTypeList, String contextName) {
+        if (contextName != null) {
+            for (int i = 0; i < contextTypeList.size(); i++) {
+                ContextType contextType = (ContextType) contextTypeList.get(i);
+                if (contextName.equals(contextType.getName())) {
+                    return contextType;
                 }
             }
-            contextTypeList.add(contextType);
         }
+        return null;
+    }
+
+    private ContextParameterType findContextParameterType(EList contextTypeParamList, String paramName) {
+        if (paramName != null) {
+            for (int i = 0; i < contextTypeParamList.size(); i++) {
+                ContextParameterType contextParamType = (ContextParameterType) contextTypeParamList.get(i);
+                if (paramName.equals(contextParamType.getName())) {
+                    return contextParamType;
+                }
+            }
+        }
+        return null;
     }
 
     @Override

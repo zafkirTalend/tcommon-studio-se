@@ -270,7 +270,6 @@ public class ContextWizard extends CheckLastVersionRepositoryWizard implements I
                         //
                     }
                 } else {
-                    contextItem.getContext().clear();
                     contextManager.saveToEmf(contextItem.getContext());
                     contextItem.setDefaultContext(contextManager.getDefaultContext().getName());
                     if (contextManager instanceof JobContextManager) {

@@ -220,6 +220,14 @@ public enum SupportDBUrlType {
              "com.paraccel.Driver", //$NON-NLS-1$
              null,
              "ParAccel"), //$NON-NLS-1$
+    EXASOL("Exasol", //$NON-NLS-1$
+           "localhost", //$NON-NLS-1$
+           "8563", //$NON-NLS-1$
+           null,
+           null,
+           "com.paraccel.Driver", //$NON-NLS-1$
+           null,
+           "EXASolution"), //$NON-NLS-1$
     VERTICA("Vertica", //$NON-NLS-1$
             null,
             "5433", //$NON-NLS-1$

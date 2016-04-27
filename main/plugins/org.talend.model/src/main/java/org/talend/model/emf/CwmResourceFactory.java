@@ -33,11 +33,10 @@ public class CwmResourceFactory extends XMIResourceFactoryImpl {
     @Override
     public Resource createResource(URI uri) {
         String business = "businessProcess";
-        String context = "context";
         String process = "process";
         String joblet = "joblets";
         // PTODO, maybe will bring bugs, like mr job,route, maybe jobscript
-        if (validUrl(uri, business) || validUrl(uri, context) || validUrl(uri, process) || validUrl(uri, joblet)) {
+        if (validUrl(uri, business) || validUrl(uri, process) || validUrl(uri, joblet)) {
             return new TalendXMIResource(uri);
         } else {
             return new CwmResource(uri);
