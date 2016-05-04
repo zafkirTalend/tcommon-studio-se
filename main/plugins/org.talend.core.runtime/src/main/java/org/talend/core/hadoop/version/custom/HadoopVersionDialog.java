@@ -32,7 +32,6 @@ import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.swt.formtools.LabelledCombo;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.HadoopConstants;
-import org.talend.core.hadoop.IHadoopDistributionService;
 import org.talend.core.hadoop.IHadoopService;
 import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.general.ModuleNeeded;
@@ -99,13 +98,6 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         this.groupsAndDispaly = groupsAndDispaly;
         this.customLibUtil = customLibUtil;
         this.types = types;
-    }
-
-    private IHadoopDistributionService getHadoopDistributionService() {
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
-            return (IHadoopDistributionService) GlobalServiceRegister.getDefault().getService(IHadoopDistributionService.class);
-        }
-        return null;
     }
 
     @Override
@@ -359,7 +351,8 @@ public class HadoopVersionDialog extends TitleAreaDialog {
         if (types != null && types.length == 1) {
             return HadoopVersionControlUtils.getDistributionsManager(types[0]);
         }
-        return null;
+        // try to get the default hadoop distributions
+        return HadoopVersionControlUtils.getDistributionsManager(null);
 
     }
 
