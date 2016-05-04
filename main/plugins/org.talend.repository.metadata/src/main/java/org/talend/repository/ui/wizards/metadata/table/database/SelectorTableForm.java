@@ -36,6 +36,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
@@ -1552,7 +1553,7 @@ public class SelectorTableForm extends AbstractForm {
                         }
                         // Check the label and add it to the table
                         metadataColumnsValid.add(metadataColumn);
-                        dbtable.getColumns().add(metadataColumn);
+                        dbtable.getColumns().add(EcoreUtil.copy(metadataColumn));
                     }
                     if (!ConnectionHelper.getTables(getConnection()).contains(dbtable) && !limitTemplateTable(dbtable)) {
                         String catalog = "";
