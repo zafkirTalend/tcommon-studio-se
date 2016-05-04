@@ -405,10 +405,10 @@ public class RepoDoubleClickAction extends Action {
                     return current;
                 }
 
-            } else if (nodeType != null && nodeType.equals(ERepositoryObjectType.PROCESS_ROUTE)
-                    && isDITestCaseEditOrReadAction(current)) {
+            } else if (nodeType != null && obj.getContentType() != null
+                    && obj.getContentType().equals(ERepositoryObjectType.PROCESS_ROUTE) && isDITestCaseEditOrReadAction(current)) {
+                // TESB-17272: Cannot open route test case editor by double click
                 continue;
-
             } else if (obj.getObject() != null
                     && current.getClassForDoubleClick().getSimpleName()
                             .equals(obj.getObject().getProperty().getItem().eClass().getName())) {
