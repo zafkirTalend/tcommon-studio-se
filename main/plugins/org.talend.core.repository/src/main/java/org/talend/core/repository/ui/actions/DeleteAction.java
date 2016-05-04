@@ -93,6 +93,7 @@ import org.talend.core.repository.utils.RepositoryNodeDeleteManager;
 import org.talend.core.repository.utils.RepositoryReferenceBeanUtils;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.service.ICoreUIService;
 import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.cwm.helper.SubItemHelper;
@@ -484,11 +485,12 @@ public class DeleteAction extends AContextualAction {
         if (!objectType.getKey().toString().startsWith("repository.metadata") && objectType != ERepositoryObjectType.SQLPATTERNS //$NON-NLS-1$
                 && objectType != ERepositoryObjectType.ROUTINES && objectType != ERepositoryObjectType.getType("BEANS")
                 && objectType != ERepositoryObjectType.JOB_SCRIPT && curItem.getParent() instanceof FolderItem
-                && ((Item) curItem.getParent()).getParent() instanceof FolderItem && !objectType.isDQItemType()) {// MOD
-                                                                                                                  // qiongli
-                                                                                                                  // 2011-1-20
-                                                                                                                  // except
-                                                                                                                  // DQItem.
+                && ((Item) curItem.getParent()).getParent() instanceof FolderItem && !objectType.isDQItemType()
+                && !isGenericType(objectType)) {// MOD
+            // qiongli
+            // 2011-1-20
+            // except
+            // DQItem.
             FolderItem parentFolder = (FolderItem) curItem.getParent();
             if ("".equals(fullPath)) { //$NON-NLS-1$
                 fullPath = parentFolder.getProperty().getLabel() + fullPath;
@@ -559,6 +561,17 @@ public class DeleteAction extends AContextualAction {
         }
         folderItem.getState().setPath(fullPath);
         this.setChildFolderPath(folderItem);
+    }
+
+    private boolean isGenericType(ERepositoryObjectType objectType) {
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null && wizardService.isGenericType(objectType)) {
+            return true;
+        }
+        return false;
     }
 
     private void setChildFolderPath(FolderItem folderItem) {
