@@ -4,14 +4,14 @@
    <extension
          point="org.talend.migration.task.type.extension">
       <TypeExtension
-            extended_type="JOBS"
+            extended_type="JOB_DOC"
             type="JOB_EXT">
       </TypeExtension>
    </extension>
    <extension
          point="org.talend.migration.task.type.extension">
       <TypeExtension
-            extended_type="JOBS"
+            extended_type="JOB_DOC"
             type="JOB_EXT2">
       </TypeExtension>
       <TypeExtension
@@ -30,7 +30,7 @@
             folder="metadata/exmple_demo"
             isResouce="true"
             label="job.Ext"
-            parentNodeType="JOBS"
+            parentNodeType="JOB_DOC"
             products="DI"
             type="JOB_EXT">
       </repositoryNode>
@@ -42,7 +42,7 @@
             folder="metadata/exmple_demo"
             isResouce="true"
             label="job.Ext2"
-            parentNodeType="JOBS"
+            parentNodeType="JOB_DOC"
             products="DI"
             type="JOB_EXT2">
       </repositoryNode>
