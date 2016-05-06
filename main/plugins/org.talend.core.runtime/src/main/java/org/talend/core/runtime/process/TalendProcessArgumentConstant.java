@@ -52,6 +52,12 @@ public interface TalendProcessArgumentConstant {
 
     static final String ARG_ENABLE_WATCH = "ENABLE_WATCH";
 
+    static final String CMD_ARG_STATS_PORT_PARAM = "stat_port";
+
+    static final String CMD_ARG_TRACE_PORT_PARAM = "trace_port";
+
+    static final String CMD_ARG_TRACE_HOST_PARAM = "client_host";
+
     /*
      * command
      */
@@ -61,9 +67,9 @@ public interface TalendProcessArgumentConstant {
 
     static final String CMD_ARG_LOG4J_LEVEL = "--log4jLevel=";
 
-    static final String CMD_ARG_STATS_PORT = "--stat_port=";
+    static final String CMD_ARG_STATS_PORT = "--" + CMD_ARG_STATS_PORT_PARAM + "=";
 
-    static final String CMD_ARG_TRACE_PORT = "--trace_port=";
+    static final String CMD_ARG_TRACE_PORT = "--" + CMD_ARG_TRACE_PORT_PARAM + "=";
 
     static final String CMD_ARG_WATCH = "--watch";
 
