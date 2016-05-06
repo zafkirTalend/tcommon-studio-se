@@ -17,6 +17,7 @@ import java.util.List;
 import org.talend.core.IService;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.ITargetExecutionConfig;
+import org.talend.designer.runprocess.IProcessMessageManager;
 import org.talend.designer.runprocess.ProcessorException;
 
 /**
@@ -27,4 +28,9 @@ public interface ICommandlineClientService extends IService {
     public Process deployAndRunByCommandline(final ITargetExecutionConfig config, String jobName, String jobVersion,
             String jobContextName, int statisticsPort, int tracePort, String watchParam, final boolean runnable,
             List<IContextParameter> jobContextParams) throws ProcessorException;
+
+    public Process deployByCommandlineAndRunByStudio(final IProcessMessageManager processMessageManager,
+            final ITargetExecutionConfig config, String jobName, String jobVersion, String jobContextName, int statisticsPort,
+            int tracePort, String watchParam, List<IContextParameter> jobContextParams) throws ProcessorException;
+
 }
