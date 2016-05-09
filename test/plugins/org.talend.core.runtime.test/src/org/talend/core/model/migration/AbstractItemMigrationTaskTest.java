@@ -112,7 +112,7 @@ public class AbstractItemMigrationTaskTest {
     @Test
     public void testGetAllTypes() {
         List<ERepositoryObjectType> allTypes = jobAndCodeItemMigrationTask.getAllTypes();
-        assertEquals(5, allTypes.size());// 2 types and 3 extended types
+        assertEquals(4, allTypes.size());// 1 types and 3 extended types
     }
 
     @Test

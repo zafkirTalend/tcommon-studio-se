@@ -26,6 +26,7 @@ import org.eclipse.swt.graphics.Image;
 import org.talend.commons.runtime.model.repository.ECDCStatus;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.image.ECoreImage;
+import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.IImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
@@ -51,6 +52,7 @@ import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.repositoryObject.MetadataTableRepositoryObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.ICDCProviderService;
 import org.talend.core.ui.IReferencedProjectService;
 import org.talend.core.ui.ITestContainerProviderService;
@@ -189,7 +191,7 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                         SAPBWTable bwTable = (SAPBWTable) table;
                         if (SAPBWTableHelper.TYPE_INFOOBJECT.equals(bwTable.getModelType())) {
                             String innerType = bwTable.getInnerIOType();
-                            if (innerType != null && !innerType.equals(SAPBWTableHelper.IO_INNERTYPE_BASIC)) { //$NON-NLS-1$
+                            if (innerType != null && !innerType.equals(SAPBWTableHelper.IO_INNERTYPE_BASIC)) {
                                 label = label + " (" + innerType + ")"; //$NON-NLS-1$ //$NON-NLS-2$
                             }
                         }
@@ -263,6 +265,12 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
                 img = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
                 if (img == null) {
                     IImage icon = RepositoryImageProvider.getIcon(itemType);
+                    if (icon == null || EImage.DEFAULT_IMAGE.equals(icon)) {
+                        Image image = getImageFromFramework(itemType);
+                        if (image != null) {
+                            return image;
+                        }
+                    }
                     if (icon != null) {
                         img = ImageProvider.getImage(icon);
                     }
@@ -286,6 +294,17 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         ERepositoryStatus informationStatus = object.getInformationStatus();
 
         return OverlayImageProvider.getImageWithStatus(image, informationStatus);
+    }
+
+    protected Image getImageFromFramework(ERepositoryObjectType itemType) {
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null && wizardService.isGenericType(itemType)) {
+            return wizardService.getNodeImage(itemType.getType());
+        }
+        return null;
     }
 
     public static Image getDefaultJobletImage() {
@@ -342,10 +361,16 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         switch (node.getType()) {
         case STABLE_SYSTEM_FOLDER:
         case SYSTEM_FOLDER:
+            ERepositoryObjectType contentType = node.getContentType();
+            if (nodeIcon == null || EImage.DEFAULT_IMAGE.equals(nodeIcon)) {
+                Image image = getImageFromFramework(contentType);
+                if (image != null) {
+                    return image;
+                }
+            }
             if (nodeIcon != null) {
                 return ImageProvider.getImage(nodeIcon);
             }
-            ERepositoryObjectType contentType = node.getContentType();
             if (contentType != null) {
                 Image image = RepositoryNodeProviderRegistryReader.getInstance().getImage(contentType);
                 if (image != null) {

@@ -12,12 +12,14 @@
 // ============================================================================
 package org.talend.utils.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -25,14 +27,37 @@ import org.junit.Test;
  */
 public class FilesUtilsTest {
 
+    private File testBaseFolder, testTmpFolder, testDataFolder;
+
+    @Before
+    public void beforeTest() throws IOException {
+        testBaseFolder = File.createTempFile(this.getClass().getSimpleName(), "");
+        testBaseFolder.delete();
+        testBaseFolder.mkdirs();
+        testDataFolder = new File(testBaseFolder, "data");
+        testTmpFolder = new File(testBaseFolder, "temp");
+    }
+
+    @After
+    public void clearFolder() throws IOException {
+        if (testBaseFolder.exists() && testBaseFolder.isDirectory()) {
+            File files[] = testBaseFolder.listFiles();
+            for (File file2 : files) {
+                deleteFile(file2);
+            }
+        }
+    }
+
     /**
      * Test method for {@link org.talend.utils.io.FilesUtils#isSVNFolder(java.io.File)}.
      */
     @Test
     public void testIsSVNFolderFile() {
-        File file = new File("META-INF");
+        File file = new File(testBaseFolder, "META-INF");
+        file.mkdirs();
         assertTrue(file.exists());
         assertFalse(FilesUtils.isSVNFolder(file));
+        deleteFile(file);
     }
 
     /**
@@ -40,10 +65,10 @@ public class FilesUtilsTest {
      */
     @Test
     public void testIsEmptyFolder() {
-        File file = new File("temp");
-        file.mkdirs();
-        assertTrue(file.exists());
-        assertTrue(FilesUtils.isEmptyFolder("temp"));
+
+        testTmpFolder.mkdirs();
+        assertTrue(testTmpFolder.exists());
+        assertTrue(FilesUtils.isEmptyFolder(testTmpFolder.getAbsolutePath()));
     }
 
     /**
@@ -55,12 +80,18 @@ public class FilesUtilsTest {
      */
     @Test
     public void testCopyFolder() throws IOException {
-        File source = new File("data");
-        File target = new File("temp");
+        File source = testDataFolder;
+        source.mkdirs();
+        File testFile = new File(source, "testfile");
+        testFile.createNewFile();
+
+        File target = testTmpFolder;
+        testTmpFolder.mkdirs();
         assertTrue(source.exists());
         assertTrue(target.exists());
         FilesUtils.copyFolder(source, target, false, null, null, false);
-        assertTrue(new File("temp//testfile").exists());
+        assertTrue(new File(testTmpFolder, "testfile").exists());
+        deleteFile(source);
     }
 
     private void deleteFile(File file) {
@@ -78,32 +109,17 @@ public class FilesUtilsTest {
     }
 
     /**
-     * 
-     * DOC Administrator Comment method "clearFolder".
-     * 
-     * @throws IOException
-     */
-    @After
-    public void clearFolder() throws IOException {
-        File file = new File("temp");
-        if (file.isDirectory()) {
-            File files[] = file.listFiles();
-            for (File file2 : files) {
-                deleteFile(file2);
-            }
-        }
-    }
-
-    /**
      * Test method for {@link org.talend.utils.io.FilesUtils#copyDirectory(java.io.File, java.io.File)}.
      */
     @Test
     public void testCopyDirectory() {
-        File source = new File("data");
-        File target = new File("temp");
+        File source = testDataFolder;
+        source.mkdirs();
+        File target = testTmpFolder;
+        target.mkdirs();
         assertTrue(source.isDirectory() && target.isDirectory());
         FilesUtils.copyDirectory(source, target);
-        assertTrue(new File("temp//data").exists());
+        assertTrue(new File(testTmpFolder, "data").exists());
     }
 
     /**
@@ -111,7 +127,8 @@ public class FilesUtilsTest {
      */
     @Test
     public void testCreateFolderFile() {
-        File file = new File("temp//testfolder");
+        testTmpFolder.mkdirs();
+        File file = new File(testTmpFolder, "testfolder");
         assertFalse(file.exists());
         FilesUtils.createFolder(file);
         assertTrue(file.exists());
@@ -124,7 +141,7 @@ public class FilesUtilsTest {
      */
     @Test
     public void testCreateFoldersIfNotExistsString() throws IOException {
-        File file = new File("temp//testfolder1/testfolder2");
+        File file = new File(testTmpFolder, "testfolder1/testfolder2");
         assertFalse(file.exists());
         FilesUtils.createFoldersIfNotExists(file.getAbsolutePath());
         assertTrue(file.exists());
@@ -137,10 +154,10 @@ public class FilesUtilsTest {
      */
     @Test
     public void testCreateFoldersIfNotExistsStringBooleanIsFilePath() {
-        String baseDirectory = "temp//testfolder1/testfolder2";
-        File directory = new File(baseDirectory);
+        String baseDirectory = "testfolder1/testfolder2";
+        File directory = new File(testTmpFolder, baseDirectory);
         assertFalse(directory.exists());
-        File filePath = new File(baseDirectory + "/myfile");
+        File filePath = new File(testTmpFolder, baseDirectory + "/myfile");
         boolean pathIsFilePath = true;
         FilesUtils.createFoldersIfNotExists(filePath.getAbsolutePath(), pathIsFilePath);
         assertTrue(directory.exists());
@@ -154,8 +171,8 @@ public class FilesUtilsTest {
      */
     @Test
     public void testCreateFoldersIfNotExistsStringBooleanIsNotFilePath() {
-        String baseDirectory = "temp//testfolder1/testfolder2";
-        File directory = new File(baseDirectory);
+        String baseDirectory = "testfolder1//testfolder2";
+        File directory = new File(testTmpFolder, baseDirectory);
         assertFalse(directory.exists());
         boolean pathIsFilePath = false;
         FilesUtils.createFoldersIfNotExists(directory.getAbsolutePath(), pathIsFilePath);
@@ -169,7 +186,8 @@ public class FilesUtilsTest {
      */
     @Test
     public void testDeleteFile() throws IOException {
-        File file = new File("temp//testFiles");
+        testTmpFolder.mkdirs();
+        File file = new File(testTmpFolder, "testFiles");
         assertFalse(file.exists());
         file.createNewFile();
         assertTrue(file.exists());
@@ -179,8 +197,7 @@ public class FilesUtilsTest {
 
     @Test
     public void testDeleteFolder() throws IOException {
-        File tmpFolder = new File("temp");
-        File testFolder = new File(tmpFolder, "test1111111111111");
+        File testFolder = new File(testTmpFolder, "test1111111111111");
         FilesUtils.deleteFolder(testFolder, true);
         assertFalse(testFolder.exists());
 
@@ -230,28 +247,28 @@ public class FilesUtilsTest {
         assertFalse(FilesUtils.allInSameFolder(null));
         assertFalse(FilesUtils.allInSameFolder(new File("abc")));
 
-        File tmpFolder = new File("temp");
-        assertTrue(FilesUtils.allInSameFolder(tmpFolder));
+        testTmpFolder.mkdirs();
+        assertTrue(FilesUtils.allInSameFolder(testTmpFolder));
 
-        File abcFile = new File(tmpFolder, "abc.txt");
-        assertFalse(FilesUtils.allInSameFolder(tmpFolder, "abc.txt"));
+        File abcFile = new File(testTmpFolder, "abc.txt");
+        assertFalse(FilesUtils.allInSameFolder(testTmpFolder, "abc.txt"));
         assertFalse(FilesUtils.allInSameFolder(abcFile, "abc.txt"));
 
         if (!abcFile.exists()) {
             abcFile.createNewFile();
         }
-        assertTrue(FilesUtils.allInSameFolder(tmpFolder, "abc.txt"));
+        assertTrue(FilesUtils.allInSameFolder(testTmpFolder, "abc.txt"));
         assertTrue(FilesUtils.allInSameFolder(abcFile, "abc.txt"));
 
-        File xyzFile = new File(tmpFolder, "xyz.txt");
+        File xyzFile = new File(testTmpFolder, "xyz.txt");
         if (!xyzFile.exists()) {
             xyzFile.createNewFile();
         }
-        assertTrue(FilesUtils.allInSameFolder(tmpFolder, "abc.txt", "xyz.txt"));
+        assertTrue(FilesUtils.allInSameFolder(testTmpFolder, "abc.txt", "xyz.txt"));
         assertTrue(FilesUtils.allInSameFolder(abcFile, "abc.txt", "xyz.txt"));
         assertTrue(FilesUtils.allInSameFolder(xyzFile, "abc.txt", "xyz.txt"));
 
-        assertFalse(FilesUtils.allInSameFolder(tmpFolder, "abc.txt", "xyz.txt", "XXXX123.txt"));
+        assertFalse(FilesUtils.allInSameFolder(testTmpFolder, "abc.txt", "xyz.txt", "XXXX123.txt"));
         assertFalse(FilesUtils.allInSameFolder(abcFile, "abc.txt", "xyz.txt", "XXXX123.txt"));
         assertFalse(FilesUtils.allInSameFolder(xyzFile, "abc.txt", "xyz.txt", "XXXX123.txt"));
     }

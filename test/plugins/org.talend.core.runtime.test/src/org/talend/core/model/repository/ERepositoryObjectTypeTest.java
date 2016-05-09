@@ -265,6 +265,24 @@ public class ERepositoryObjectTypeTest {
         unusedTypes = new ArrayList<ERepositoryObjectType>();
         unusedTypes.add(ERepositoryObjectType.SVG_BUSINESS_PROCESS);
         unusedTypes.add(ERepositoryObjectType.SNIPPETS);
+
+        // for example tests
+        ERepositoryObjectType t = ERepositoryObjectType.getType("CODE_EXT");
+        if (t != null) {
+            unusedTypes.add(t);
+        }
+        t = ERepositoryObjectType.getType("JOB_DOC_EXT");
+        if (t != null) {
+            unusedTypes.add(t);
+        }
+        t = ERepositoryObjectType.getType("JOB_EXT");
+        if (t != null) {
+            unusedTypes.add(t);
+        }
+        t = ERepositoryObjectType.getType("JOB_EXT2");
+        if (t != null) {
+            unusedTypes.add(t);
+        }
     }
 
     @After
