@@ -601,7 +601,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     public void buildDeletedItemsTree(RepositoryNode rootNode) {
         // build deleted folders
-        List<String> folders = RecycleBinManager.getInstance().getDeletedFolders(rootNode.getRoot().getProject());
+        //need to use the current project to avoid the cache influence
+        List<String> folders = RecycleBinManager.getInstance()
+                .getDeletedFolders(ProjectManager.getInstance().getCurrentProject());
         Collections.sort(folders);
         for (String fullPath : folders) {
             String path = null;
