@@ -19,6 +19,7 @@ import java.util.Properties;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.JavaResourcesHelper;
@@ -35,7 +36,12 @@ import org.talend.repository.ProjectManager;
 public class CreateMavenTestPom extends AbstractMavenProcessorPom {
 
     public CreateMavenTestPom(IProcessor jobProcessor, IFile pomFile) {
-        super(jobProcessor, pomFile, IProjectSettingTemplateConstants.POM_TEST_TEMPLATE_FILE_NAME);
+        // TBD-3480: Use a separate POM for camel route test case
+        super(
+                jobProcessor,
+                pomFile,
+                ComponentCategory.CATEGORY_4_CAMEL.getName().equals(jobProcessor.getProcess().getComponentsType()) ? IProjectSettingTemplateConstants.POM_TEST_ROUTE_TEMPLATE_FILE_NAME
+                        : IProjectSettingTemplateConstants.POM_TEST_TEMPLATE_FILE_NAME);
     }
 
     @Override
