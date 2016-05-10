@@ -74,6 +74,11 @@ public class JobAndNodesParametersRelationshipHandler implements IItemRelationsh
      */
     @Override
     public Map<Relation, Set<Relation>> find(Item baseItem) {
+        return find(RelationshipItemBuilder.getInstance(), baseItem);
+    }
+
+    @Override
+    public Map<Relation, Set<Relation>> find(RelationshipItemBuilder relationshipItemBuilder, Item baseItem) {
         if (!valid(baseItem)) {
             return Collections.emptyMap();
         }
@@ -93,11 +98,11 @@ public class JobAndNodesParametersRelationshipHandler implements IItemRelationsh
 
         // jobsetting parameters
         if (processType.getParameters() != null) {
-            Map<String, ElementParameterType> jobParametersMap = getParameterTypesMap(processType.getParameters()
-                    .getElementParameter());
+            Map<String, ElementParameterType> jobParametersMap = getParameterTypesMap(
+                    processType.getParameters().getElementParameter());
             Map<String, Object> jobOptions = new HashMap<String, Object>();
             jobOptions.put(RelationshipItemBuilder.OPTION_KEY_TYPE, RelationshipItemBuilder.OPTION_TYPE_JOB);
-            findRelations(baseItem, jobParametersMap, relationsMap, jobOptions);
+            findRelations(relationshipItemBuilder, baseItem, jobParametersMap, relationsMap, jobOptions);
         }
         //
         final EList nodesList = processType.getNode();
@@ -109,7 +114,7 @@ public class JobAndNodesParametersRelationshipHandler implements IItemRelationsh
                     Map<String, Object> jobOptions = new HashMap<String, Object>();
                     jobOptions.put(RelationshipItemBuilder.OPTION_KEY_TYPE, RelationshipItemBuilder.OPTION_TYPE_NODE);
                     jobOptions.put(RelationshipItemBuilder.OPTION_KEY_NODE, node);
-                    findRelations(baseItem, nodeParametersMap, relationsMap, jobOptions);
+                    findRelations(relationshipItemBuilder, baseItem, nodeParametersMap, relationsMap, jobOptions);
                 }
             }
         }
@@ -117,13 +122,14 @@ public class JobAndNodesParametersRelationshipHandler implements IItemRelationsh
 
     }
 
-    private void findRelations(Item baseItem, Map<String, ElementParameterType> jobParametersMap,
-            Map<Relation, Set<Relation>> relationsMap, Map<String, Object> jobOptions) {
+    private void findRelations(RelationshipItemBuilder relationshipItemBuilder, Item baseItem,
+            Map<String, ElementParameterType> jobParametersMap, Map<Relation, Set<Relation>> relationsMap,
+            Map<String, Object> jobOptions) {
         IParameterRelationshipHandler[] parameterRelationshipHandlers = RelationshipRegistryReader.getInstance()
                 .getParameterRelationshipHandlers();
         for (IParameterRelationshipHandler handler : parameterRelationshipHandlers) {
             Map<Relation, Set<Relation>> relations = handler.find(baseItem, jobParametersMap, jobOptions);
-            RelationshipItemBuilder.getInstance().mergeRelationship(relationsMap, relations);
+            relationshipItemBuilder.mergeRelationship(relationsMap, relations);
         }
     }
 

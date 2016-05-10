@@ -138,29 +138,55 @@ public class RelationshipItemBuilder {
 
     public static RelationshipItemBuilder getInstance() {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        String projectName = currentProject.getTechnicalLabel();
+        RelationshipItemBuilder relationshipBuilder = getInstance(currentProject, true);
+        return relationshipBuilder;
+    }
 
-        if (projectToInstanceMap.containsKey(projectName)) {
-            return projectToInstanceMap.get(projectName);
+    public static RelationshipItemBuilder getInstance(String projectTechnicalName) {
+        synchronized (projectToInstanceMap) {
+            return projectToInstanceMap.get(projectTechnicalName);
+        }
+    }
+
+    public static RelationshipItemBuilder getInstance(Project project, boolean createIfNotExist) {
+        String projectName = project.getTechnicalLabel();
+
+        synchronized (projectToInstanceMap) {
+            if (projectToInstanceMap.containsKey(projectName)) {
+                RelationshipItemBuilder relationshipBuilder = projectToInstanceMap.get(projectName);
+                // refresh current project realtime, in case studio switched project
+                relationshipBuilder.setAimProject(project);
+                return relationshipBuilder;
+            }
+        }
+
+        if (!createIfNotExist) {
+            return null;
         }
 
         IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        RelationshipItemBuilder instance = createInstance(proxyRepositoryFactory, currentProject);
-        projectToInstanceMap.put(projectName, instance);
+        RelationshipItemBuilder instance = createInstance(proxyRepositoryFactory, project);
+        synchronized (projectToInstanceMap) {
+            projectToInstanceMap.put(projectName, instance);
+        }
         return instance;
     }
 
-    public static RelationshipItemBuilder createInstance(IProxyRepositoryFactory repositoryFactory, Project project) {
-        /**
-         * NOTE: if use cache, should take care of synchronize problem
-         */
-
+    private static RelationshipItemBuilder createInstance(IProxyRepositoryFactory repositoryFactory, Project project) {
         RelationshipItemBuilder instance = new RelationshipItemBuilder();
         instance.setAimProject(project);
         instance.setProxyRepositoryFactory(repositoryFactory);
-        // won't store instance for other projects
-        // projectToInstanceMap.put(projectName, instance);
         return instance;
+    }
+
+    public static boolean isExist(Project project) {
+        String projectName = project.getTechnicalLabel();
+
+        if (projectToInstanceMap.containsKey(projectName)) {
+            return true;
+        }
+
+        return false;
     }
 
     public Project getAimProject() {
@@ -329,6 +355,22 @@ public class RelationshipItemBuilder {
         return jobRelations;
     }
 
+    public static void destroy(Project project) throws Exception {
+        if (project == null) {
+            return;
+        }
+        String projectName = project.getTechnicalLabel();
+        RelationshipItemBuilder relationshipItemBuilder = null;
+        synchronized (projectToInstanceMap) {
+            if (projectToInstanceMap.containsKey(projectName)) {
+                relationshipItemBuilder = projectToInstanceMap.remove(projectName);
+            }
+        }
+        if (relationshipItemBuilder != null) {
+            relationshipItemBuilder.unloadRelations();
+        }
+    }
+
     public void unloadRelations() {
         loaded = false;
         currentProjectItemsRelations = new HashMap<Relation, Set<Relation>>();
@@ -465,15 +507,6 @@ public class RelationshipItemBuilder {
         }
     }
 
-    public void clearAllItemsRelations() {
-        if (currentProjectItemsRelations != null) {
-            currentProjectItemsRelations.clear();
-        }
-        if (referencesItemsRelations != null) {
-            referencesItemsRelations.clear();
-        }
-    }
-
     public void mergeRelationship(Map<Relation, Set<Relation>> itemRelations, Map<Relation, Set<Relation>> newRelations) {
         if (itemRelations != null && newRelations != null) {
             for (Relation relation : newRelations.keySet()) {
@@ -482,6 +515,15 @@ public class RelationshipItemBuilder {
                 }
                 itemRelations.get(relation).addAll(newRelations.get(relation));
             }
+        }
+    }
+
+    public void clearAllItemsRelations() {
+        if (currentProjectItemsRelations != null) {
+            currentProjectItemsRelations.clear();
+        }
+        if (referencesItemsRelations != null) {
+            referencesItemsRelations.clear();
         }
     }
 

@@ -46,6 +46,11 @@ public abstract class AbstractItemRelationshipHandler implements IItemRelationsh
      */
     @Override
     public Map<Relation, Set<Relation>> find(Item baseItem) {
+        return find(RelationshipItemBuilder.getInstance(), baseItem);
+    }
+
+    @Override
+    public Map<Relation, Set<Relation>> find(RelationshipItemBuilder relationshipItemBuilder, Item baseItem) {
         if (!valid(baseItem)) {
             return Collections.emptyMap();
         }
@@ -73,5 +78,9 @@ public abstract class AbstractItemRelationshipHandler implements IItemRelationsh
      * @param baseItem
      * @return
      */
-    protected abstract Set<Relation> collect(Item baseItem);
+    protected Set<Relation> collect(Item baseItem) {
+        return collect(RelationshipItemBuilder.getInstance(), baseItem);
+    }
+
+    abstract protected Set<Relation> collect(RelationshipItemBuilder relationshipItemBuilder, Item baseItem);
 }

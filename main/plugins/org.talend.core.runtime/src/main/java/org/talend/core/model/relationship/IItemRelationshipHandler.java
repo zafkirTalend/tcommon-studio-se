@@ -29,4 +29,6 @@ public interface IItemRelationshipHandler {
      * @return
      */
     Map<Relation, Set<Relation>> find(Item baseItem);
+
+    Map<Relation, Set<Relation>> find(RelationshipItemBuilder relationshipItemBuilder, Item baseItem);
 }

@@ -162,7 +162,9 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                         // 9035
 
                         if (!avoidSaveRelations) {
-                            RelationshipItemBuilder.getInstance().addOrUpdateItem(getItem());
+                            Item item = getItem();
+                            RelationshipItemBuilder relationshipItemBuilder = getRelationshipItemBuilder(item);
+                            relationshipItemBuilder.addOrUpdateItem(item);
                         }
                     }
                 };
@@ -194,6 +196,19 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                 monitor.done();
             }
         }
+    }
+
+    protected RelationshipItemBuilder getRelationshipItemBuilder(Item item) {
+        RelationshipItemBuilder relationshipItemBuilder = null;
+        if (item != null) {
+            org.talend.core.model.properties.Project propProject = ProjectManager.getInstance().getProject(item);
+            org.talend.core.model.general.Project project = new org.talend.core.model.general.Project(propProject);
+            relationshipItemBuilder = RelationshipItemBuilder.getInstance(project.getTechnicalLabel());
+        }
+        if (relationshipItemBuilder == null) {
+            relationshipItemBuilder = RelationshipItemBuilder.getInstance();
+        }
+        return relationshipItemBuilder;
     }
 
     /**
