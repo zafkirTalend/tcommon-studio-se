@@ -493,24 +493,23 @@ public class P2ExtraFeature implements ExtraFeature {
     }
     
     public URI getP2RepositoryURI() {
-        return getP2RepositoryURI(null);
+        return getP2RepositoryURI(null,false);
     }
 
-    public URI getP2RepositoryURI(String key) {
+    public URI getP2RepositoryURI(String key,boolean isTOS) {
         String uriString = getBaseRepoUriString();
         if(key==null){
             key = "talend.p2.repo.url"; //$NON-NLS-1$
         }
         String p2RepoUrlFromProp = System.getProperty(key);
-        if (p2RepoUrlFromProp != null) {
+        if (!isTOS&&p2RepoUrlFromProp != null) {
             uriString = p2RepoUrlFromProp;
         } else {
-            org.osgi.framework.Version studioVersion = new org.osgi.framework.Version(VersionUtils.getVersion());
+            org.osgi.framework.Version studioVersion = new org.osgi.framework.Version(VersionUtils.getTalendVersion());
             uriString = uriString + (uriString.endsWith("/") ? "" : "/") + studioVersion.getMajor() + '.' //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     + studioVersion.getMinor() + '.' + studioVersion.getMicro();
         }
         return URI.create(uriString);
-
     }
 
     /**
