@@ -12,6 +12,6 @@ public interface IRemoteRunService extends IService {
 
     public void executeJobOnServer(IProcessMessageManager processMessageManager, ITargetExecutionConfig config,
             PipedInputStream stdInputStream, PipedInputStream errInputStream, PipedOutputStream stdOutputStream,
-            PipedOutputStream errOutputStream, String remoteJobId, String jobName, Map<String, String> jobParams)
-            throws Exception;
+            PipedOutputStream errOutputStream, String remoteJobId, String jobName, Map<String, String> jobParams,
+            Map<String, String> contextParams) throws Exception;
 }
