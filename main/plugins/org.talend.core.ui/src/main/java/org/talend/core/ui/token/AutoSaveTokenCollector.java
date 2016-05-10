@@ -65,7 +65,13 @@ public abstract class AutoSaveTokenCollector extends AbstractTokenCollector {
 
         IPreferenceStore preferenceStore = getPreferenceStore();
         String records = preferenceStore.getString(getPreferenceKey());
-        JSONObject allProjectRecords = new JSONObject(records);
+        JSONObject allProjectRecords = null;
+        try {
+            allProjectRecords = new JSONObject(records);
+        } catch (Exception e) {
+            // the value is not set, or is empty
+            allProjectRecords = new JSONObject();
+        }
         Iterator<String> keys = allProjectRecords.keys();
         while (keys.hasNext()) {
             String projectName = keys.next();
