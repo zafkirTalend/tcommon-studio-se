@@ -90,6 +90,13 @@ public class Application implements IApplication {
         Display display = PlatformUI.createDisplay();
 
         try {
+            Shell shell = new Shell(display, SWT.ON_TOP);
+            Object instanceLocationCheck = acquireWorkspaceLock(shell);
+            if (instanceLocationCheck != null) {// no workspace selected so return.
+                shell.dispose();
+                return instanceLocationCheck;
+            }
+            
             // setup MavenResolver properties
             // before set, must check user setting first.
             if (GlobalServiceRegister.getDefault().isServiceRegistered(IMavenUIService.class)) {
@@ -101,14 +108,7 @@ public class Application implements IApplication {
                     mavenUIService.addMavenConfigurationChangeListener();
                 }
             }
-
-            Shell shell = new Shell(display, SWT.ON_TOP);
-            Object instanceLocationCheck = acquireWorkspaceLock(shell);
-            if (instanceLocationCheck != null) {// no workspace selected so return.
-                shell.dispose();
-                return instanceLocationCheck;
-            }
-
+            
             /*
              * setSqlpatternUsibility(context); setRefProjectUsibility(context);
              */
