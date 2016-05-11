@@ -29,4 +29,9 @@ public interface IComponentConstants {
 
     public static final String COMPONENT_SCHEMA_TAG = "component.property.schema"; //$NON-NLS-1$
 
+    /**
+     * Tag key is used by property to estimates if it supports context or not.
+     */
+    public static final String SUPPORT_CONTEXT = "SUPPORT_CONTEXT"; //$NON-NLS-1$
+
 }
