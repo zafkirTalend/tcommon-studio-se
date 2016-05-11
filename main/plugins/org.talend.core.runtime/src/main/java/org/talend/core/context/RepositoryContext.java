@@ -39,6 +39,8 @@ public class RepositoryContext {
     private boolean forceReadOnly = false;
 
     private boolean editableAsReadOnly = false;
+    
+    private boolean noUpdateWhenLogon = false;
 
     private Map<String, String> fields;
 
@@ -219,5 +221,13 @@ public class RepositoryContext {
 
     public boolean isForceReadOnly() {
         return this.forceReadOnly;
+    }
+
+    public boolean isNoUpdateWhenLogon() {
+        return noUpdateWhenLogon;
+    }
+
+    public void setNoUpdateWhenLogon(boolean noUpdateWhenLogon) {
+        this.noUpdateWhenLogon = noUpdateWhenLogon;
     }
 }
