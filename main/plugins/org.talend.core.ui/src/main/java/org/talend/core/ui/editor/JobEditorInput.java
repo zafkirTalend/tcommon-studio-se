@@ -200,10 +200,16 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
 
     protected RelationshipItemBuilder getRelationshipItemBuilder(Item item) {
         RelationshipItemBuilder relationshipItemBuilder = null;
+        org.talend.core.model.general.Project currentProject = ProjectManager.getInstance().getCurrentProject();
+
         if (item != null) {
             org.talend.core.model.properties.Project propProject = ProjectManager.getInstance().getProject(item);
-            org.talend.core.model.general.Project project = new org.talend.core.model.general.Project(propProject);
-            relationshipItemBuilder = RelationshipItemBuilder.getInstance(project.getTechnicalLabel());
+            if (propProject.getLabel().equalsIgnoreCase(currentProject.getTechnicalLabel())) {
+                relationshipItemBuilder = RelationshipItemBuilder.getInstance(currentProject, true);
+            } else {
+                org.talend.core.model.general.Project project = new org.talend.core.model.general.Project(propProject);
+                relationshipItemBuilder = RelationshipItemBuilder.getInstance(project, true);
+            }
         }
         if (relationshipItemBuilder == null) {
             relationshipItemBuilder = RelationshipItemBuilder.getInstance();
