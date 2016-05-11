@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.core.ui.token;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -22,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
@@ -111,9 +109,13 @@ public final class TokenCollectorFactory {
     public void priorCollect() throws Exception {
         if (isActiveAndValid(false)) { //
             for (TokenInforProvider tip : getProviders()) {
-                ITokenCollector collector = tip.getCollector();
-                if (collector != null) {
-                    collector.priorCollect();
+                try {
+                    ITokenCollector collector = tip.getCollector();
+                    if (collector != null) {
+                        collector.priorCollect();
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                 }
             }
         }
@@ -125,9 +127,13 @@ public final class TokenCollectorFactory {
         for (TokenInforProvider tip : getProviders()) {
             ITokenCollector collector = tip.getCollector();
             if (collector != null) {
-                JSONObject collectionObject = collector.collect();
-                if (collectionObject != null) {
-                    TokenInforUtil.mergeJSON(collectionObject, result);
+                try {
+                    JSONObject collectionObject = collector.collect();
+                    if (collectionObject != null) {
+                        TokenInforUtil.mergeJSON(collectionObject, result);
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                 }
             }
         }
