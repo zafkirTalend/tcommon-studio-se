@@ -7,6 +7,3 @@ Fragment-Host: org.talend.core.runtime
 Require-Bundle: org.junit;bundle-version="4.11.0",
  org.talend.utils,
  org.talend.testutils
-Import-Package: org.talend.designer.core.model.components,
- org.talend.designer.core.model.process,
- org.talend.designer.core.ui.editor.nodes
