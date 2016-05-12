@@ -370,6 +370,8 @@ public class XmiResourceManager {
     }
 
     public Resource getItemResource(Item item, boolean forceLoad) {
+        if (item == null)
+            return null;
         URI itemResourceURI = null;
         if (item.getFileExtension() != null) {
             itemResourceURI = getItemResourceURI(getItemURI(item), item.getFileExtension());
