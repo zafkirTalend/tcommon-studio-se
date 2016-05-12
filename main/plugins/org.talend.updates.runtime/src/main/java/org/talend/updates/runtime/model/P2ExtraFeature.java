@@ -506,8 +506,11 @@ public class P2ExtraFeature implements ExtraFeature {
             uriString = p2RepoUrlFromProp;
         } else {
             org.osgi.framework.Version studioVersion = new org.osgi.framework.Version(VersionUtils.getTalendVersion());
-            uriString = uriString + (uriString.endsWith("/") ? "" : "/") + studioVersion.getMajor() + '.' //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                    + studioVersion.getMinor() + '.' + studioVersion.getMicro();
+            String version = studioVersion.getMajor() + "." + studioVersion.getMinor() + "." + studioVersion.getMicro();
+            if(uriString==null){
+                return URI.create(version);
+            }
+            uriString = uriString + (uriString.endsWith("/") ? "" : "/") + version; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
         return URI.create(uriString);
     }
