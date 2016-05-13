@@ -61,7 +61,7 @@ public class TOSDynamicExtraFeaturesFactory extends AbstractExtraUpdatesFactory 
                 return Collections.EMPTY_SET;
             }
             IuP2ExtraFeature p2ExtraFeature = new IuP2ExtraFeature(url);
-            String updateSiteUrl = p2ExtraFeature.getP2RepositoryURI(key).toString();
+            String updateSiteUrl = p2ExtraFeature.getP2RepositoryURI(key,true).toString();
             return retrieveAllExtraFeature(mainSubMonitor, updateSiteUrl, acronym);
         } catch (ProvisionException | OperationCanceledException | URISyntaxException e) {
             log.error(Messages.getString("DynamicExtraFeaturesFactory.failed.to.retreive.features"), e); //$NON-NLS-1$
