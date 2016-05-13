@@ -260,13 +260,15 @@ public class JobContextManager implements IContextManager {
         EList newcontextTypeList = new BasicEList();
         for (int i = 0; i < listContext.size(); i++) {
             IContext context = listContext.get(i);
-            String contextGroupName = context.getName();
-
+            String contextGroupName = renameGroupContext.get(context);
+            if (contextGroupName == null) {
+                contextGroupName = context.getName();
+            }
             ContextType contextType = findContextType(contextTypeList, contextGroupName);
             if (contextType == null) {
                 contextType = TalendFileFactory.eINSTANCE.createContextType();
-                contextType.setName(contextGroupName);
             }
+            contextType.setName(context.getName());
             contextType.setConfirmationNeeded(context.isConfirmationNeeded());
             newcontextTypeList.add(contextType);
 
@@ -277,13 +279,17 @@ public class JobContextManager implements IContextManager {
             if (contextParameterList != null) {
                 for (int j = 0; j < contextParameterList.size(); j++) {
                     IContextParameter contextParam = contextParameterList.get(j);
-                    ContextParameterType contextParamType = findContextParameterType(contextTypeParamList, contextParam.getName());
+                    String contexParameterName = nameMap.get(contextParam.getName());
+                    if (contexParameterName == null) {
+                        contexParameterName = contextParam.getName();
+                    }
+                    ContextParameterType contextParamType = findContextParameterType(contextTypeParamList, contexParameterName);
                     if (contextParamType == null) {
                         contextParamType = TalendFileFactory.eINSTANCE.createContextParameterType();
-                        contextParamType.setName(contextParam.getName());
                     }
                     newContextTypeParamList.add(contextParamType);
 
+                    contextParamType.setName(contextParam.getName());
                     contextParamType.setPrompt(contextParam.getPrompt());
                     contextParamType.setType(contextParam.getType());
                     contextParamType.setRawValue(contextParam.getValue());
