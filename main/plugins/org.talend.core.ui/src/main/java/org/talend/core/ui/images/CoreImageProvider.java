@@ -27,6 +27,7 @@ import org.talend.core.hadoop.HadoopConstants;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.runtime.services.IGenericWizardService;
 import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.utils.string.MD5;
@@ -83,17 +84,16 @@ public class CoreImageProvider {
 
     private static Map<String, Image> componentCachedImages = new HashMap<String, Image>();
 
-	public static Image getComponentImageFromDesc(
-			ImageDescriptor imageDescriptor) {
-		String md5Desc = MD5.getMD5(imageDescriptor.getImageData().data);
-		Image image = componentCachedImages.get(md5Desc);
+    public static Image getComponentImageFromDesc(ImageDescriptor imageDescriptor) {
+        String md5Desc = MD5.getMD5(imageDescriptor.getImageData().data);
+        Image image = componentCachedImages.get(md5Desc);
 
-		if (image == null || image.isDisposed()) {
-			image = imageDescriptor.createImage();
-			componentCachedImages.put(md5Desc, image);
-		}
-		return image;
-	}
+        if (image == null || image.isDisposed()) {
+            image = imageDescriptor.createImage();
+            componentCachedImages.put(md5Desc, image);
+        }
+        return image;
+    }
 
     public static Image getComponentIcon(IComponent component, ICON_SIZE iconSize) {
         if (component != null && iconSize != null) {
@@ -133,7 +133,7 @@ public class CoreImageProvider {
         if (name != null && !name.equals("")) { //$NON-NLS-1$
             for (IComponent component : ComponentsFactoryProvider.getInstance().getComponents()) {
                 if (name.equals(component.getName())) {
-                	String md5Desc16 = MD5.getMD5(component.getIcon16().getImageData().data);
+                    String md5Desc16 = MD5.getMD5(component.getIcon16().getImageData().data);
                     Image image = componentCachedImages.get(md5Desc16);
                     if (image != null && !image.isDisposed()) {
                         image.dispose();
@@ -164,4 +164,16 @@ public class CoreImageProvider {
         }
         componentCachedImages.clear();
     }
+
+    public static Image getImageFromFramework(ERepositoryObjectType itemType) {
+        IGenericWizardService wizardService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IGenericWizardService.class)) {
+            wizardService = (IGenericWizardService) GlobalServiceRegister.getDefault().getService(IGenericWizardService.class);
+        }
+        if (wizardService != null && wizardService.isGenericType(itemType)) {
+            return wizardService.getNodeImage(itemType.getType());
+        }
+        return null;
+    }
+
 }
