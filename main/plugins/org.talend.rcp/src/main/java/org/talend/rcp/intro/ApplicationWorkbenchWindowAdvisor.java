@@ -401,7 +401,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         RestoreAllRegisteredPerspectivesProvider perspProvider = new RestoreAllRegisteredPerspectivesProvider();
         IWorkbench workbench = PlatformUI.getWorkbench();
-        IEclipseContext activeContext = ((IEclipseContext) workbench.getService(IEclipseContext.class)).getActiveLeaf();
+        IEclipseContext activeContext = ((IEclipseContext) workbench.getActiveWorkbenchWindow().getService(IEclipseContext.class))
+                .getActiveLeaf();
 
         ContextInjectionFactory.inject(perspProvider, activeContext);
         // MOD zshen TDQ-10745 when welcome page is open and current Perspective is DQ will not done
