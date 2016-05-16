@@ -12,13 +12,10 @@
 // ============================================================================
 package org.talend.commons.utils.io;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.support.membermodification.MemberMatcher.method;
-import static org.powermock.api.support.membermodification.MemberModifier.stub;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.powermock.api.support.membermodification.MemberMatcher.*;
+import static org.powermock.api.support.membermodification.MemberModifier.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,6 +27,7 @@ import junit.framework.Assert;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.w3c.dom.Document;
@@ -40,6 +38,7 @@ import org.w3c.dom.NodeList;
  * DOC xqliu class global comment. Detailled comment
  */
 @PrepareForTest({ FilesUtils.class })
+@PowerMockIgnore({"org.w3c.*", "javax.xml.*", "com.sun.*"})
 public class FilesUtilsTest {
 
     @Rule

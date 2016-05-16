@@ -109,6 +109,8 @@ public class RepositoryImageProvider {
             return ECoreImage.METADATA_RULES_ICON;
         } else if (type == ERepositoryObjectType.METADATA_FILE_LINKRULES) {
             return ECoreImage.METADATA_RULES_ICON;
+        } else if (type == ERepositoryObjectType.METADATA_RULES_MANAGEMENT) {
+            return ECoreImage.METADATA_RULES_ICON;
         } else if (type == ERepositoryObjectType.METADATA_VALIDATION_RULES) {
             return ECoreImage.METADATA_ICON;
         } else if (type == ERepositoryObjectType.RECYCLE_BIN) {

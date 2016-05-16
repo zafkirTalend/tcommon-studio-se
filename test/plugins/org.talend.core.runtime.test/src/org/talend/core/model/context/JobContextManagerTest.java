@@ -13,6 +13,8 @@
 package org.talend.core.model.context;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -292,6 +294,67 @@ public class JobContextManagerTest {
         contextManager.saveToEmf(contextTypeList);
 
         doEMFContextTest(contextTypeList);
+    }
+
+    @Test
+    public void testSaveToEMF_SomeInContextManager_RenameGroupAndParamName() {
+        JobContextManager contextManager = new JobContextManager();
+        List<IContextParameter> contextParameterList = contextManager.getDefaultContext().getContextParameterList();
+
+        // create context parameters
+        IContextParameter contextParam = new JobContextParameter();
+        contextParam.setName("new");
+        contextParam.setType(JavaTypesManager.getDefaultJavaType().getId());
+        contextParam.setValue("abc");
+        contextParameterList.add(contextParam);
+
+        // create context group
+        IContext testGroup = new JobContext("Test");
+        contextManager.getListContext().add(testGroup);
+
+        // create context parameter
+        contextParam = new JobContextParameter();
+        contextParam.setName("tnew");
+        contextParam.setType(JavaTypesManager.getDefaultJavaType().getId());
+        contextParam.setValue("tabc");
+        testGroup.getContextParameterList().add(contextParam);
+
+        EList contextTypeList = new BasicEList();
+        // create some existed context group
+        ContextType contextType = TalendFileFactory.eINSTANCE.createContextType();
+        contextType.setName("Default");
+        contextTypeList.add(contextType);
+
+        // create existed context parameter
+        ContextParameterType contextParameterType = TalendFileFactory.eINSTANCE.createContextParameterType();
+        contextParameterType.setName("old");
+        contextParameterType.setValue("abc");
+        contextParameterType.setType(JavaTypesManager.getDefaultJavaType().getId());
+        contextType.getContextParameter().add(contextParameterType);
+
+        // create another group
+        contextType = TalendFileFactory.eINSTANCE.createContextType();
+        contextType.setName("Dev");
+        contextTypeList.add(contextType);
+
+        ContextParameterType contextParameterType2 = TalendFileFactory.eINSTANCE.createContextParameterType();
+        contextParameterType2.setName("tnew");
+        contextParameterType2.setValue("10001");
+        contextParameterType2.setType(JavaTypesManager.INTEGER.getId());
+        contextType.getContextParameter().add(contextParameterType2);
+
+        contextManager.getNameMap().put("new", "old");
+        contextManager.getRenameGroupContext().put(testGroup, "Dev");
+        contextManager.saveToEmf(contextTypeList);
+        // test rename parameter's name
+        ContextType defaultContextGroup = (ContextType) contextTypeList.get(0);
+        ContextParameterType newContextParameterType = (ContextParameterType) defaultContextGroup.getContextParameter().get(0);
+        assertEquals("new", newContextParameterType.getName());
+        assertSame(contextParameterType, newContextParameterType);
+        // test rename context group's name
+        ContextType newContextType = (ContextType) contextTypeList.get(1);
+        assertEquals("Test", newContextType.getName());
+        assertSame(contextType, newContextType);
     }
 
     private JobContextManager createTestJobContextManager() {

@@ -35,6 +35,8 @@ public class AnimatableZoomManager
 
     private int zoomAnimationStyle = ANIMATE_NEVER;
     private List animationListeners = new ArrayList();
+    
+    public static double currentZoom = 1.0;
 
     /**
      * @return Returns the zoomAnimationStyle.
@@ -168,6 +170,7 @@ public class AnimatableZoomManager
         
         double initialZoom = getZoom();
         double finalZoom = zoom;
+        currentZoom = finalZoom;
         
         Point finalCenterRel = finalCenter.getCopy();
         Point originalViewLocation = getViewport().getViewLocation();
@@ -183,7 +186,6 @@ public class AnimatableZoomManager
         boolean finished = false;
         
         fireAnimatedZoomStarted();
-        
         while(!finished) {
             
             if (animationModel == null || animationModel.isFinished())
@@ -201,7 +203,6 @@ public class AnimatableZoomManager
             if (animationModel != null)
                 progress = animationModel.getProgress();
         }
-        
         fireAnimatedZoomEnded();
     }
 }

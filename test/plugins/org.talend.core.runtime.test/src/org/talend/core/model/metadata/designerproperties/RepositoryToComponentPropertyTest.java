@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.EMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.talend.core.database.conn.ConnParameterKeys;
@@ -47,7 +48,7 @@ import org.talend.core.model.utils.ContextParameterUtils;
  * DOC ycbai class global comment. Detailled comment
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ ContextParameterUtils.class })
+@PrepareForTest({ ContextParameterUtils.class, JavaTypesManager.class })
 public class RepositoryToComponentPropertyTest {
 
     private static final String QUOTES = "\""; //$NON-NLS-1$

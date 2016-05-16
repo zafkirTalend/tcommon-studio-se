@@ -264,15 +264,12 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
             if (!isExtensionPoint || img == null) {
                 img = RepositoryNodeProviderRegistryReader.getInstance().getImage(itemType);
                 if (img == null) {
-                    IImage icon = RepositoryImageProvider.getIcon(itemType);
-                    if (icon == null || EImage.DEFAULT_IMAGE.equals(icon)) {
-                        Image image = getImageFromFramework(itemType);
-                        if (image != null) {
-                            return image;
+                    img = getImageFromFramework(itemType);
+                    if (img == null) {
+                        IImage icon = RepositoryImageProvider.getIcon(itemType);
+                        if (icon != null) {
+                            img = ImageProvider.getImage(icon);
                         }
-                    }
-                    if (icon != null) {
-                        img = ImageProvider.getImage(icon);
                     }
                 }
             }

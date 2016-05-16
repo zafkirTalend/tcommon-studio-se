@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.metadata.managment.ui.wizard.context;
 
+import org.talend.commons.runtime.model.components.IComponentConstants;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.daikon.properties.Property;
@@ -33,7 +34,11 @@ public class MetadataContextPropertyValueEvaluator implements PropertyValueEvalu
 
     @Override
     public Object evaluate(Property property, Object storedValue) {
-        if (connection != null && connection.isContextMode() && storedValue != null) {
+        boolean isPropertySupportContext = false;
+        if (Boolean.valueOf(String.valueOf(property.getTaggedValue(IComponentConstants.SUPPORT_CONTEXT)))) {
+            isPropertySupportContext = true;
+        }
+        if (connection != null && connection.isContextMode() && isPropertySupportContext && storedValue != null) {
             ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, connection, true);
             if (contextType != null) {
                 return ContextParameterUtils.getOriginalValue(contextType, String.valueOf(storedValue));

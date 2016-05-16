@@ -123,7 +123,7 @@ public class JobAndNodesParametersRelationshipHandler implements IItemRelationsh
                 .getParameterRelationshipHandlers();
         for (IParameterRelationshipHandler handler : parameterRelationshipHandlers) {
             Map<Relation, Set<Relation>> relations = handler.find(baseItem, jobParametersMap, jobOptions);
-            RelationshipItemBuilder.getInstance().mergeRelationship(relationsMap, relations);
+            RelationshipItemBuilder.mergeRelationship(relationsMap, relations);
         }
     }
 
