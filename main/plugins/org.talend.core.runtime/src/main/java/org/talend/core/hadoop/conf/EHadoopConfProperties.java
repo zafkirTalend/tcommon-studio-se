@@ -55,6 +55,10 @@ public enum EHadoopConfProperties {
 
     YARN_RESOURCEMANAGER_HA_RM_IDS("yarn.resourcemanager.ha.rm-ids", ""), //$NON-NLS-1$ //$NON-NLS-2$
 
+    YARN_RESOURCEMANAGER_HOSTNAME_RM_ID("yarn.resourcemanager.hostname.%s", ""), //$NON-NLS-1$ //$NON-NLS-2$
+
+    YARN_RESOURCEMANAGER_ADDRESS_RM_ID("yarn.resourcemanager.address.%s", ""), //$NON-NLS-1$ //$NON-NLS-2$
+
     YARN_RESOURCEMANAGER_ADMIN_ADDRESS_RM_ID("yarn.resourcemanager.admin.address.%s", ""), //$NON-NLS-1$ //$NON-NLS-2$
 
     FS_HDFS_IMPL_DISABLE_CACHE("fs.hdfs.impl.disable.cache", "false"), //$NON-NLS-1$ //$NON-NLS-2$
