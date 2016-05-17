@@ -75,6 +75,8 @@ public interface ITalendCorePrefConstants {
 
     public static final String DOC_GENERATESOURCECODE = "doc_generatesourcecode"; //$NON-NLS-1$
 
+    public static final String DOC_GENERATE_LASTEST_VERSION = "doc_generatelastestversion"; //$NON-NLS-1$
+
     public static final String LINE_SEPERATOR_STR = "lineSeperator"; //$NON-NLS-1$
 
     public static final String DEACTIVE_REPOSITORY_UPDATE = "DEACTIVE_REPOSITORY_UPDATE"; //$NON-NLS-1$
