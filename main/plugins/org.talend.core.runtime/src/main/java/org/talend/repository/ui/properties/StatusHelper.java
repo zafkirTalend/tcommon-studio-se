@@ -67,7 +67,9 @@ public class StatusHelper {
 
     public List<Status> getStatusList(Property property) throws PersistenceException {
         List<Status> status = null;
-        Item item = property.getItem();
+        Item item =null;
+        if(property!=null)
+            item = property.getItem();
         if (item != null) {
             EClass propertyEClass = item.eClass();
             int i = propertyEClass.getClassifierID();
