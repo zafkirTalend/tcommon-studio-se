@@ -893,7 +893,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         getAllVersions(project, property, allVersion);
         for (IRepositoryViewObject repositoryObject : allVersion) {
             Property uptodateProperty = repositoryObject.getProperty();
-            if (uptodateProperty.getVersion().equals(property.getVersion())) {
+            if (uptodateProperty!=null&&uptodateProperty.getVersion().equals(property.getVersion())) {
                 return uptodateProperty;
             }
         }
