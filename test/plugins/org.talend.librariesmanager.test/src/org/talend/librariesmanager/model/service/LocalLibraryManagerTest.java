@@ -12,8 +12,14 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -71,7 +77,6 @@ import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
  * DOC hwang class global comment. Detailled comment
  */
 public class LocalLibraryManagerTest {
-
 
     private List<String> notDilivers = new ArrayList<String>();
 
@@ -432,8 +437,8 @@ public class LocalLibraryManagerTest {
         sArtifact.setType(type);
         List<MavenArtifact> searchResult = new ArrayList<MavenArtifact>();
         searchResult.add(sArtifact);
-        when(fakeServerManager.resolveSha1(null, null, null, null, "org.talend.libraries", artifactId, "6.0.0-SNAPSHOT")).thenReturn(
-                "abc");
+        when(fakeServerManager.resolveSha1(null, null, null, null, "org.talend.libraries", artifactId, "6.0.0-SNAPSHOT", type))
+                .thenReturn("abc");
         when(resolver.resolve(snapshotUri)).thenReturn(new File(""));
         boolean retrieve1 = libraryManagerService.retrieve(module1, null, false, null);
         assertTrue(retrieve1);
@@ -518,18 +523,18 @@ public class LocalLibraryManagerTest {
         localLibraryManager.deploy(originalJarFile.toURI(), null);
         String originalSHA1 = getSha1(originalJarFile);
         String newJarSHA1 = getSha1(newJarFile);
-        
+
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
 
         String remoteSha1 = NexusServerUtils.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
                 customNexusServer.getPassword(), customNexusServer.getRepositoryId(), artifact.getGroupId(),
-                artifact.getArtifactId(), artifact.getVersion());
+                artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
         assertEquals(originalSHA1, remoteSha1);
         // deploy the new jar to nexus (without update the local jar)
         new ArtifactsDeployer().installToRemote(newJarFile, artifact, "jar");
         remoteSha1 = NexusServerUtils.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
                 customNexusServer.getPassword(), customNexusServer.getRepositoryId(), artifact.getGroupId(),
-                artifact.getArtifactId(), artifact.getVersion());
+                artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
         assertEquals(newJarSHA1, remoteSha1);
 
         File resolvedFile = localLibraryManager.resolveJar(manager, customNexusServer, uri);
@@ -537,7 +542,7 @@ public class LocalLibraryManagerTest {
         String finalJarSHA1 = getSha1(resolvedFile);
         assertEquals(newJarSHA1, finalJarSHA1);
     }
-    
+
     @Test
     public void testNexusInstallNewJar() throws Exception {
         String uri = "mvn:org.talend.libraries/test/6.0.0-SNAPSHOT/jar";
@@ -557,7 +562,7 @@ public class LocalLibraryManagerTest {
         }
         // jar should not exist anymore
         assertNull(localLibraryManager.getJarPathFromMaven(uri));
-        
+
         Bundle bundle = Platform.getBundle("org.talend.librariesmanager.test");
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
 
@@ -570,13 +575,12 @@ public class LocalLibraryManagerTest {
         // jar should not exist still on local
         assertNull(localLibraryManager.getJarPathFromMaven(uri));
 
-
         File resolvedFile = localLibraryManager.resolveJar(manager, customNexusServer, uri);
         assertNotNull(resolvedFile);
         String finalJarSHA1 = getSha1(resolvedFile);
         assertEquals(originalSHA1, finalJarSHA1);
     }
-    
+
     @Test
     public void testResolveSha1NotExist() throws Exception {
         String uri = "mvn:org.talend.libraries/not-existing/6.0.0-SNAPSHOT/jar";
@@ -588,18 +592,17 @@ public class LocalLibraryManagerTest {
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
         String remoteSha1 = manager.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
                 customNexusServer.getPassword(), customNexusServer.getRepositoryId(), artifact.getGroupId(),
-                artifact.getArtifactId(), artifact.getVersion());
+                artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
         assertNull(remoteSha1);
     }
 
-    
     private String getSha1(File file) throws IOException {
         FileInputStream fis = new FileInputStream(file);
         String sha1 = DigestUtils.shaHex(fis);
         fis.close();
         return sha1;
     }
-    
+
     private String getSha1(String file) throws IOException {
         return getSha1(new File(file));
     }

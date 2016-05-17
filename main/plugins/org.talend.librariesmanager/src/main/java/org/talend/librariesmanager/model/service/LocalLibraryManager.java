@@ -420,6 +420,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     /**
      * DOC nrousseau Comment method "resolveJar".
+     * 
      * @param jarNeeded
      * @param jarFile
      * @param manager
@@ -429,17 +430,17 @@ public class LocalLibraryManager implements ILibraryManagerService {
      * @throws Exception
      * @throws IOException
      */
-    public File resolveJar(TalendLibsServerManager manager,
-            final NexusServerBean customNexusServer, String uri) throws Exception, IOException {
+    public File resolveJar(TalendLibsServerManager manager, final NexusServerBean customNexusServer, String uri)
+            throws Exception, IOException {
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
         String remoteSha1 = manager.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
                 customNexusServer.getPassword(), customNexusServer.getRepositoryId(), artifact.getGroupId(),
-                artifact.getArtifactId(), artifact.getVersion());
+                artifact.getArtifactId(), artifact.getVersion(), artifact.getType());
         File resolvedFile = null;
         if (remoteSha1 != null) {
             String localFilePath = getJarPathFromMaven(uri);
             if (localFilePath != null) {
-                File localFile = new File(localFilePath); 
+                File localFile = new File(localFilePath);
                 FileInputStream fis = new FileInputStream(localFile);
                 String localSha1 = DigestUtils.shaHex(fis);
                 fis.close();
@@ -482,7 +483,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
             cursor.add(Calendar.DAY_OF_MONTH, step);
             presumedDays += step;
         } while (cursor.getTimeInMillis() <= endInstant);
-        return presumedDays -1;
+        return presumedDays - 1;
     }
 
     /**
