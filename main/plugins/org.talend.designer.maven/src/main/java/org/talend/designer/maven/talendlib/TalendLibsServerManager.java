@@ -162,10 +162,12 @@ public class TalendLibsServerManager {
 
             IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             RepositoryContext repositoryContext = factory.getRepositoryContext();
-            if ((nexus_url == null && (factory.isLocalConnectionProvider() || repositoryContext.isOffline())) || Boolean.FALSE == lastConnectionValid) {
+            if ((nexus_url == null && (factory.isLocalConnectionProvider() || repositoryContext.isOffline()))
+                    || Boolean.FALSE == lastConnectionValid) {
                 return null;
             }
-            if (repositoryContext != null && repositoryContext.getFields() != null && !factory.isLocalConnectionProvider() && !repositoryContext.isOffline()) {
+            if (repositoryContext != null && repositoryContext.getFields() != null && !factory.isLocalConnectionProvider()
+                    && !repositoryContext.isOffline()) {
                 String adminUrl = repositoryContext.getFields().get(RepositoryConstants.REPOSITORY_URL);
                 String userName = "";
                 String password = "";
@@ -191,7 +193,7 @@ public class TalendLibsServerManager {
             }
             if (lastConnectionValid == null) {
                 boolean connectionOk = NexusServerUtils.checkConnectionStatus(nexus_url, repositoryId, nexus_user, nexus_pass);
-                lastConnectionValid = connectionOk; 
+                lastConnectionValid = connectionOk;
                 if (!connectionOk) {
                     return null;
                 }
@@ -205,7 +207,7 @@ public class TalendLibsServerManager {
                 if (split.length != 2) {
                     throw new RuntimeException("Nexus url is not valid ,please contract the administrator");
                 }
-                newUrl = split[0] + ":" + nexus_user + ":" + nexus_pass + "@//"//$NON-NLS-1$
+                newUrl = split[0] + "://" + nexus_user + ":" + nexus_pass + "@"//$NON-NLS-1$
                         + split[1];
             }
             newUrl = newUrl + NexusConstants.CONTENT_REPOSITORIES + repositoryId + "@id=" + repositoryId;//$NON-NLS-1$ 
@@ -252,9 +254,9 @@ public class TalendLibsServerManager {
         return NexusServerUtils.search(nexusUrl, userName, password, repositoryId, groupIdToSearch, artifactId, versionToSearch);
     }
 
-    public String resolveSha1(String nexusUrl, String userName, String password, String repositoryId,
-            String groupId, String artifactId, String version) throws Exception {
-        return NexusServerUtils.resolveSha1(nexusUrl, userName, password, repositoryId, groupId, artifactId, version);
+    public String resolveSha1(String nexusUrl, String userName, String password, String repositoryId, String groupId,
+            String artifactId, String version, String type) throws Exception {
+        return NexusServerUtils.resolveSha1(nexusUrl, userName, password, repositoryId, groupId, artifactId, version, type);
     }
 
 }

@@ -315,7 +315,7 @@ public class NexusServerUtils {
     }
 
     public static String resolveSha1(String nexusUrl, final String userName, final String password, String repositoryId,
-            String groupId, String artifactId, String version) throws Exception {
+            String groupId, String artifactId, String version, String type) throws Exception {
         HttpURLConnection urlConnection = null;
         final Authenticator defaultAuthenticator = NetworkUtil.getDefaultAuthenticator();
         if (userName != null && !"".equals(userName)) {
@@ -330,7 +330,7 @@ public class NexusServerUtils {
         }
         try {
             String service = NexusConstants.SERVICES_RESOLVE + "a=" + artifactId + "&g=" + groupId + "&r=" + repositoryId + "&v="
-                    + version;
+                    + version + "&p=" + type;
             urlConnection = getHttpURLConnection(nexusUrl, service, userName, password);
             SAXReader saxReader = new SAXReader();
 
