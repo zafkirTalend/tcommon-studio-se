@@ -500,7 +500,10 @@ public class ModuleNeeded {
         if (getMavenUri() != null) {
             if (getMavenUri().split(MavenUrlHelper.SEPERATOR).length < 4 && getModuleName().lastIndexOf(".") != -1) {
                 String extension = getModuleName().substring(getModuleName().lastIndexOf(".") + 1, getModuleName().length());
-                artifact = MavenUrlHelper.parseMvnUrl(getMavenUri() + "/" + extension);
+                artifact = MavenUrlHelper.parseMvnUrl(getMavenUri());
+                if (artifact != null) {
+                    artifact.setType(extension);
+                }
             } else {
                 artifact = MavenUrlHelper.parseMvnUrl(getMavenUri());
             }
