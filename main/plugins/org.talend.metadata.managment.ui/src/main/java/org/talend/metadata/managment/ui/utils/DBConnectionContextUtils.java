@@ -829,9 +829,22 @@ public final class DBConnectionContextUtils {
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES,
                     HadoopRepositoryUtil.getOriginalValueOfProperties(contextType, jdbcPropertiesString));
 
+            String additionalJDBCSettings = cloneConn.getParameters()
+                    .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS,
+                    ContextParameterUtils.getOriginalValue(contextType, additionalJDBCSettings));
+
             String propertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES,
                     HadoopRepositoryUtil.getOriginalValueOfProperties(contextType, propertiesString));
+
+            String trustStorePath = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH,
+                    ContextParameterUtils.getOriginalValue(contextType, trustStorePath));
+
+            String trustStorePassword = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
+                    ContextParameterUtils.getOriginalValue(contextType, trustStorePassword));
 
             String template = null;
             String hiveServerVersion = HiveServerVersionInfo.HIVE_SERVER_1.getKey();
