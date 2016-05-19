@@ -1651,9 +1651,12 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_SSL,
-                        String.valueOf(useSSLEncryption.getSelection()));
-                updateSSLEncryptionDetailsDisplayStatus();
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_SSL,
+                            String.valueOf(useSSLEncryption.getSelection()));
+                    updateSSLEncryptionDetailsDisplayStatus();
+                    urlConnectionStringText.setText(getStringConnection());
+                }
             }
 
         });
@@ -1661,14 +1664,20 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                updateTrustStorePathParameter();
+                if (!isContextMode()) {
+                    updateTrustStorePathParameter();
+                    urlConnectionStringText.setText(getStringConnection());
+                }
             }
         });
         trustStorePath.setAfterSetNewValueCallable(new Callable<Void>() {
 
             @Override
             public Void call() throws Exception {
-                updateTrustStorePathParameter();
+                if (!isContextMode()) {
+                    updateTrustStorePathParameter();
+                    urlConnectionStringText.setText(getStringConnection());
+                }
                 return null;
             }
         });
@@ -1676,8 +1685,11 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
-                        getConnection().getValue(trustStorePassword.getText(), true));
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
+                            getConnection().getValue(trustStorePassword.getText(), true));
+                    urlConnectionStringText.setText(getStringConnection());
+                }
             }
         });
     }
@@ -3383,6 +3395,7 @@ public class DatabaseForm extends AbstractForm {
                 if (!isContextMode()) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS,
                             additionalJDBCSettingsText.getText());
+                    urlConnectionStringText.setText(getStringConnection());
                 }
             }
         });
@@ -5492,6 +5505,11 @@ public class DatabaseForm extends AbstractForm {
         String useKeytabString = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB);
         String Principla = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
         String keytab = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+        String additionalJDBCSettings = connection.getParameters()
+                .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
+        boolean useSSL = Boolean.parseBoolean(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_SSL));
+        String trustStorePathStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
+        String trustStorePasswordStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
 
         if (Boolean.valueOf(useKrb)) {
             useKerberos.setSelection(true);
@@ -5509,6 +5527,15 @@ public class DatabaseForm extends AbstractForm {
         driverClassTxt.setText(driverClass == null ? "" : driverClass);
         usernameTxt.setText(username == null ? "" : username);
         passwordTxt.setText(password == null ? "" : password);
+        additionalJDBCSettingsText.setText(additionalJDBCSettings == null ? "" : additionalJDBCSettings);
+        useSSLEncryption.setSelection(useSSL);
+        trustStorePath.setText(trustStorePathStr == null ? "" : trustStorePathStr);
+        if (trustStorePasswordStr == null) {
+            trustStorePasswordStr = "";
+        } else {
+            trustStorePasswordStr = connection.getValue(trustStorePasswordStr, false);
+        }
+        trustStorePassword.setText(trustStorePasswordStr);
         if (Boolean.valueOf(useKeytabString)) {
             useKeyTab.setSelection(true);
             GridData hadoopData = (GridData) keyTabComponent.getLayoutData();
@@ -5542,6 +5569,7 @@ public class DatabaseForm extends AbstractForm {
         updateYarnStatus();
 
         updateYarnInfo(hiveDistribution, hdVersion);
+        updateSSLEncryptionDetailsDisplayStatus();
     }
 
     private void updateYarnStatus() {
