@@ -64,9 +64,9 @@ public class TalendLibsServerManager {
 
     public static final String KEY_NEXUS_PASS = "password";//$NON-NLS-1$ 
 
-    public static final String KEY_CUSTOM_LIB_REPOSITORY = "repository";//$NON-NLS-1$ 
+    public static final String KEY_CUSTOM_LIB_REPOSITORY = "repositoryReleases";//$NON-NLS-1$ 
 
-    public static final String KEY_CUSTOM_LIB_SNAPSHOT_REPOSITORY = "repository";//$NON-NLS-1$ 
+    public static final String KEY_CUSTOM_LIB_SNAPSHOT_REPOSITORY = "repositorySnapshots";//$NON-NLS-1$ 
 
     public static final String KEY_SOFTWARE_UPDATE_REPOSITORY = "repositoryID";//$NON-NLS-1$ 
 
@@ -245,7 +245,6 @@ public class TalendLibsServerManager {
                         nexus_user = libServerObject.getString(KEY_NEXUS_USER);
                         nexus_pass = libServerObject.getString(KEY_NEXUS_PASS);
                         repositoryId = libServerObject.getString(KEY_CUSTOM_LIB_REPOSITORY);
-                        // TODO wait for tac team to give the key for the json
                         snapshotRepId = libServerObject.getString(KEY_CUSTOM_LIB_SNAPSHOT_REPOSITORY);
                     }
                 }
