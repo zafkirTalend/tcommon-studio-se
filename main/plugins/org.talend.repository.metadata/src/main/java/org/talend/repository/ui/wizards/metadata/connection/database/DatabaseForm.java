@@ -1074,7 +1074,7 @@ public class DatabaseForm extends AbstractForm {
         rightHalfPart.setLayout(new GridLayout(2, false));
         trustStorePassword = new LabelledText(rightHalfPart,
                 Messages.getString("DatabaseForm.hive.encryption.useSSLEncryption.trustStorePassword"), 1, //$NON-NLS-1$
-                SWT.PASSWORD | SWT.BORDER);
+                SWT.PASSWORD | SWT.SINGLE | SWT.BORDER);
 
         updateSSLEncryptionDetailsDisplayStatus();
         addListenersForEncryptionGroup();
@@ -2035,6 +2035,14 @@ public class DatabaseForm extends AbstractForm {
         keytabTxt.setEditable(!isContextMode());
         additionalJDBCSettingsText.setEditable(!isContextMode());
         useSSLEncryption.setEnabled(!isContextMode());
+        trustStorePath.setEditable(!isContextMode());
+        trustStorePassword.setEditable(!isContextMode());
+
+        if (isContextMode()) {
+            trustStorePassword.getTextControl().setEchoChar('\0');
+        } else {
+            trustStorePassword.getTextControl().setEchoChar('*');
+        }
     }
 
     private void adaptHbaseHadoopPartEditable() {
@@ -5116,6 +5124,10 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.HivePassword, hasAuthentication);
             addContextParams(EDBParamName.HiveKeyTabPrincipal, isHivePrincipal && useKeyTab.getSelection());
             addContextParams(EDBParamName.HiveKeyTab, isHivePrincipal && useKeyTab.getSelection());
+            addContextParams(EDBParamName.hiveAdditionalJDBCParameters, isSupportHiveAdditionalSettings());
+            boolean addSSLEncryptionContext = useSSLEncryption.getSelection() && isSupportHiveEncryption();
+            addContextParams(EDBParamName.hiveSSLTrustStorePath, addSSLEncryptionContext);
+            addContextParams(EDBParamName.hiveSSLTrustStorePassword, addSSLEncryptionContext);
         }
     }
 

@@ -210,6 +210,7 @@ public class DatabaseConnStrUtil {
             // set a default
             url = getHive1EmbeddedURLString();
         }
+        url = attachAdditionalHiveParameters(url, dbConn, false);
         return url;
     }
 
@@ -231,6 +232,12 @@ public class DatabaseConnStrUtil {
             // set a default
             url = getHive1StandaloneURLString(false, server, port, sidOrDatabase);
         }
+        url = attachAdditionalHiveParameters(url, dbConn, true);
+        return url;
+    }
+
+    private static String attachAdditionalHiveParameters(String urlIn, DatabaseConnection dbConn, boolean encryptPassword) {
+        String url = urlIn;
         boolean useSSL = Boolean.valueOf(dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_SSL));
         if (useSSL) {
             if (!url.endsWith(";")) { //$NON-NLS-1$
@@ -243,9 +250,14 @@ public class DatabaseConnStrUtil {
             }
             url = url + "sslTrustStore=" + trustStorePath + ";"; //$NON-NLS-1$//$NON-NLS-2$
             String trustStorePassword = null;
-            // trustStorePassword =
-            // dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
-            trustStorePassword = "[encrypted]"; //$NON-NLS-1$
+            if (encryptPassword) {
+                trustStorePassword = "encrypted"; //$NON-NLS-1$
+            } else {
+                trustStorePassword = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
+                if (trustStorePassword != null) {
+                    trustStorePassword = dbConn.getValue(trustStorePassword, false);
+                }
+            }
             if (trustStorePassword == null) {
                 trustStorePassword = ""; //$NON-NLS-1$
             }
