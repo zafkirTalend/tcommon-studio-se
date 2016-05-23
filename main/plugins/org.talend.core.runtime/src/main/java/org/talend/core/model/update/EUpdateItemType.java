@@ -36,6 +36,7 @@ public enum EUpdateItemType implements IUpdateItemType {
     JUNIT_RELOAD(Messages.getString("EUpdateItemType.Components")), //$NON-NLS-1$
     // for mapper
     MAP_PATH(Messages.getString("EUpdateItemType.MapPath")), //$NON-NLS-1$
+    STRUCTURE_PATH(Messages.getString("EUpdateItemType.StructurePath")), //$NON-NLS-1$
     // for joblet
     JOBLET_RENAMED(Messages.getString("EUpdateItemType.Name")), //$NON-NLS-1$
     JOBLET_SCHEMA(Messages.getString("EUpdateItemType.Schema")), //$NON-NLS-1$

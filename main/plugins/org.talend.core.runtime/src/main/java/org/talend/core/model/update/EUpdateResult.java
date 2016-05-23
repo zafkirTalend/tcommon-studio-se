@@ -26,6 +26,7 @@ public enum EUpdateResult {
     DELETE(Messages.getString("EUpdateResult.Delete")), //$NON-NLS-1$
     // for mapper
     PATH_UPDATE(Messages.getString("EUpdateResult.PathUpdate")), //$NON-NLS-1$
+    STRUCTURE_PATH_UPDATE(Messages.getString("EUpdateResult.StructurePathUpdate")), //$NON-NLS-1$
     // for joblet
     JOBLET_UPDATE(Messages.getString("EUpdateResult.JobletUpdate")), //$NON-NLS-1$
     // for test container
