@@ -196,6 +196,13 @@ public class HiveMetadataHelper {
     }
 
     /**
+     * return true/false of {@link HiveComponent#doSupportSSLwithKerberos}.
+     */
+    public static boolean doSupportSSLwithKerberos(String hiveDistribution, String hiveVersion, boolean byDisplay) {
+        return doSupportMethod(hiveDistribution, hiveVersion, byDisplay, "doSupportSSLwithKerberos"); //$NON-NLS-1$
+    }
+
+    /**
      * return true/false of {@link HiveComponent#doSupportSecurity}. also, when hive service or embedded
      */
     public static boolean doSupportSecurity(String hiveDistribution, String hiveVersion, String hiveMode,

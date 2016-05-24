@@ -868,8 +868,10 @@ public final class DBConnectionContextUtils {
                     HadoopRepositoryUtil.getOriginalValueOfProperties(contextType, propertiesString));
 
             String trustStorePath = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
-            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH,
-                    ContextParameterUtils.getOriginalValue(contextType, trustStorePath));
+            if (trustStorePath != null) {
+                cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH,
+                        ContextParameterUtils.getOriginalValue(contextType, trustStorePath));
+            }
 
             String trustStorePassword = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
             if (trustStorePassword != null) {

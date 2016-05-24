@@ -1076,17 +1076,31 @@ public class DatabaseForm extends AbstractForm {
                 Messages.getString("DatabaseForm.hive.encryption.useSSLEncryption.trustStorePassword"), 1, //$NON-NLS-1$
                 SWT.PASSWORD | SWT.SINGLE | SWT.BORDER);
 
-        updateSSLEncryptionDetailsDisplayStatus();
         addListenersForEncryptionGroup();
     }
 
     private void updateSSLEncryptionDetailsDisplayStatus() {
-        boolean isVisible = useSSLEncryption.getSelection();
+        boolean isSupport = isSupportHiveTrustStore();
         GridData hadoopData = (GridData) sslEncryptionDetailComposite.getLayoutData();
-        hadoopData.exclude = !isVisible;
-        sslEncryptionDetailComposite.setVisible(isVisible);
+        hadoopData.exclude = !isSupport;
+        sslEncryptionDetailComposite.setVisible(isSupport);
         sslEncryptionDetailComposite.setLayoutData(hadoopData);
         sslEncryptionDetailComposite.getParent().getParent().layout();
+
+        setHiveTrustStoreParameters(!isSupport);
+        String url = getStringConnection();
+        urlConnectionStringText.setText(url);
+        getConnection().setURL(url);
+    }
+
+    private void setHiveTrustStoreParameters(boolean shouldRemove) {
+        if (shouldRemove) {
+            getConnection().getParameters().removeKey(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
+            getConnection().getParameters().removeKey(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
+        } else {
+            updateTrustStorePathParameter();
+            updateTrustStorePasswordParameter();
+        }
     }
 
     private void createAuthenticationForHive(Composite parent) {
@@ -1348,12 +1362,50 @@ public class DatabaseForm extends AbstractForm {
         return false;
     }
 
+    private boolean isSupportHiveTrustStore() {
+        if (isHiveDBConnSelected()) {
+            // if (!useSSLEncryption.isVisible()) {
+            // return false;
+            // }
+            if (!isSupportHiveEncryption()) {
+                return false;
+            }
+            if (!useSSLEncryption.getSelection()) {
+                return false;
+            }
+            IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
+            if (hiveDistribution != null) {
+                if (hiveDistribution.useCustom()) {
+                    return true;
+                }
+                // no need to check useKerberos visible or not
+                if (!useKerberos.getSelection()) {
+                    return true;
+                }
+                if (doSupportHiveSSLwithKerberos()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private void setHidHiveEncryption(boolean hide) {
         GridData hadoopData = (GridData) encryptionGrp.getLayoutData();
         hadoopData.exclude = hide;
         encryptionGrp.setVisible(!hide);
         encryptionGrp.setLayoutData(hadoopData);
         encryptionGrp.getParent().layout();
+        setHiveTrustStoreParameters(hide);
+        if (hide) {
+            getConnection().getParameters().removeKey(ConnParameterKeys.CONN_PARA_KEY_USE_SSL);
+        } else {
+            getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_SSL,
+                    String.valueOf(useSSLEncryption.getSelection()));
+        }
+        String url = getStringConnection();
+        urlConnectionStringText.setText(url);
+        getConnection().setURL(url);
     }
 
     private void addListenerForImpalaAuthentication() {
@@ -1525,6 +1577,7 @@ public class DatabaseForm extends AbstractForm {
                     authenticationGrp.getParent().layout();
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "false");
                 }
+                updateSSLEncryptionDetailsDisplayStatus();
                 urlConnectionStringText.setText(getStringConnection());
             }
 
@@ -1686,9 +1739,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
-                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
-                            getConnection().getValue(trustStorePassword.getText(), true));
-                    urlConnectionStringText.setText(getStringConnection());
+                    updateTrustStorePasswordParameter();
                 }
             }
         });
@@ -1696,6 +1747,14 @@ public class DatabaseForm extends AbstractForm {
 
     private void updateTrustStorePathParameter() {
         getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH, trustStorePath.getText());
+    }
+
+    private void updateTrustStorePasswordParameter() {
+        getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
+                getConnection().getValue(trustStorePassword.getText(), true));
+        String url = getStringConnection();
+        urlConnectionStringText.setText(url);
+        getConnection().setURL(url);
     }
 
     private void setHidAuthenticationForHive(boolean hide) {
@@ -5125,7 +5184,7 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.HiveKeyTabPrincipal, isHivePrincipal && useKeyTab.getSelection());
             addContextParams(EDBParamName.HiveKeyTab, isHivePrincipal && useKeyTab.getSelection());
             addContextParams(EDBParamName.hiveAdditionalJDBCParameters, isSupportHiveAdditionalSettings());
-            boolean addSSLEncryptionContext = useSSLEncryption.getSelection() && isSupportHiveEncryption();
+            boolean addSSLEncryptionContext = isSupportHiveEncryption() && isSupportHiveTrustStore();
             addContextParams(EDBParamName.hiveSSLTrustStorePath, addSSLEncryptionContext);
             addContextParams(EDBParamName.hiveSSLTrustStorePassword, addSSLEncryptionContext);
         }
@@ -5581,6 +5640,7 @@ public class DatabaseForm extends AbstractForm {
         updateYarnStatus();
 
         updateYarnInfo(hiveDistribution, hdVersion);
+        showIfSupportEncryption();
         updateSSLEncryptionDetailsDisplayStatus();
     }
 
@@ -6639,6 +6699,10 @@ public class DatabaseForm extends AbstractForm {
 
     private boolean doSupportHiveSSL() {
         return HiveMetadataHelper.doSupportSSL(hiveDistributionCombo.getText(), hiveVersionCombo.getText(), true);
+    }
+
+    private boolean doSupportHiveSSLwithKerberos() {
+        return HiveMetadataHelper.doSupportSSLwithKerberos(hiveDistributionCombo.getText(), hiveVersionCombo.getText(), true);
     }
 
     private boolean doSupportHiveStandaloneMode() {

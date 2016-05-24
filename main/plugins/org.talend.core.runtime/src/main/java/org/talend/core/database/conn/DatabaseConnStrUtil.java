@@ -245,23 +245,27 @@ public class DatabaseConnStrUtil {
             }
             url = url + "ssl=true;"; //$NON-NLS-1$
             String trustStorePath = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
-            if (trustStorePath == null) {
-                trustStorePath = ""; //$NON-NLS-1$
+            if (trustStorePath != null) {
+                url = url + "sslTrustStore=" + trustStorePath + ";"; //$NON-NLS-1$//$NON-NLS-2$
             }
-            url = url + "sslTrustStore=" + trustStorePath + ";"; //$NON-NLS-1$//$NON-NLS-2$
             String trustStorePassword = null;
-            if (encryptPassword) {
-                trustStorePassword = "encrypted"; //$NON-NLS-1$
-            } else {
-                trustStorePassword = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
-                if (trustStorePassword != null) {
-                    trustStorePassword = dbConn.getValue(trustStorePassword, false);
+            trustStorePassword = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
+            if (trustStorePassword != null) {
+                if (encryptPassword) {
+                    trustStorePassword = "encrypted"; //$NON-NLS-1$
+                } else {
+                    if (trustStorePassword != null) {
+                        trustStorePassword = dbConn.getValue(trustStorePassword, false);
+                    }
                 }
+                if (trustStorePassword == null) {
+                    trustStorePassword = ""; //$NON-NLS-1$
+                }
+                url = url + "trustStorePassword=" + trustStorePassword; //$NON-NLS-1$
             }
-            if (trustStorePassword == null) {
-                trustStorePassword = ""; //$NON-NLS-1$
+            if (url.endsWith(";")) { //$NON-NLS-1$
+                url = url.substring(0, url.length() - 1);
             }
-            url = url + "trustStorePassword=" + trustStorePassword; //$NON-NLS-1$
         }
         String additionalJDBCSetting = dbConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
         if (additionalJDBCSetting != null && !additionalJDBCSetting.trim().isEmpty()) {
