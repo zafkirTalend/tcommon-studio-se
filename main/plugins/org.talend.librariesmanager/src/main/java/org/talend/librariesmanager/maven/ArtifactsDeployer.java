@@ -106,11 +106,7 @@ public class ArtifactsDeployer {
                         parseMvnUrl.getVersion(), new File(generatePom));
             }
 
-            // deploy to nexus server if it is not null and not official server
             if (toRemoteNexus) {
-                initCustomNexus();
-            }
-            if (toRemoteNexus && nexusServer != null && !nexusServer.isOfficial()) {
                 // repositoryManager.deploy(new File(path), parseMvnUrl);
                 installToRemote(new File(path), parseMvnUrl, artifactType);
                 // deploy the pom
@@ -138,6 +134,9 @@ public class ArtifactsDeployer {
     public void installToRemote(File content, MavenArtifact artifact, String type) throws Exception {
         if (nexusServer == null) {
             initCustomNexus();
+        }
+        if (nexusServer == null) {
+            return;
         }
         URL targetURL;
         try {
