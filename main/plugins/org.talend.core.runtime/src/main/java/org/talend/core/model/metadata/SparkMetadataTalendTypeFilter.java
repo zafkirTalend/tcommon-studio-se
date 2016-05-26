@@ -26,6 +26,12 @@ public class SparkMetadataTalendTypeFilter extends MetadataTalendTypeFilter {
 
     protected final static String INPUTPARQUET_COMPONENT_NAME = "tFileInputParquet", INPUTSTREAMPARQUET_COMPONENT_NAME = "tFileStreamInputParquet", OUTPUTPARQUET_COMPONENT_NAME = "tFileOutputParquet"; //$NON-NLS-1$; //$NON-NLS-2$ //$NON-NLS-3$
 
+    private final static String INPUTCASSANDRA_COMPONENT_NAME = "tCassandraInput"; //$NON-NLS-1$
+
+    private final static String LOOKUPINPUTCASSANDRA_COMPONENT_NAME = "tCassandraLookupInput"; //$NON-NLS-1$
+
+    private final static String OUTPUTCASSANDRA_COMPONENT_NAME = "tCassandraOutput"; //$NON-NLS-1$
+
     protected final static Map<String, List<String>> COMPONENT_UNSUPPORTED_TYPES = new HashMap<>();
 
     protected final String mComponentName;
@@ -34,6 +40,9 @@ public class SparkMetadataTalendTypeFilter extends MetadataTalendTypeFilter {
         COMPONENT_UNSUPPORTED_TYPES.put(ROWGENERATOR_COMPONENT_NAME, Arrays.asList(new String[] { "Object" })); //$NON-NLS-1$
         COMPONENT_UNSUPPORTED_TYPES.put(INPUTPARQUET_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
         COMPONENT_UNSUPPORTED_TYPES.put(OUTPUTPARQUET_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
+        COMPONENT_UNSUPPORTED_TYPES.put(INPUTCASSANDRA_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
+        COMPONENT_UNSUPPORTED_TYPES.put(LOOKUPINPUTCASSANDRA_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
+        COMPONENT_UNSUPPORTED_TYPES.put(OUTPUTCASSANDRA_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
         COMPONENT_UNSUPPORTED_TYPES.put(INPUTSTREAMPARQUET_COMPONENT_NAME, Arrays.asList(new String[] { "Object", "List" })); //$NON-NLS-1$ //$NON-NLS-2$ 
     }
 
