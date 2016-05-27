@@ -48,7 +48,6 @@ import org.talend.repository.ui.views.IRepositoryView;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
 
-
 /**
  * ggu class global comment. Detailled comment
  */
@@ -528,7 +527,16 @@ public final class ProjectManager {
     }
 
     public String getMainProjectBranch(org.talend.core.model.properties.Project project) {
-        return project != null ? getMainProjectBranch(project.getTechnicalLabel()) : null;
+        String branchForMainProject = project != null ? getMainProjectBranch(project.getTechnicalLabel()) : null;
+        if (branchForMainProject != null) {
+            if (!branchForMainProject.contains(SVNConstant.NAME_TAGS)
+                    && !branchForMainProject.contains(SVNConstant.NAME_BRANCHES)
+                    && !branchForMainProject.contains(SVNConstant.NAME_TRUNK)
+                    && !branchForMainProject.contains(SVNConstant.NAME_MASTER)) {
+                branchForMainProject = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchForMainProject;
+            }
+        }
+        return branchForMainProject;
     }
 
     /**
@@ -615,9 +623,10 @@ public final class ProjectManager {
     public void clearFolderCache() {
         foldersMap.clear();
     }
-    
+
     /**
      * Returns the type of project (local / svn / git).
+     * 
      * @param project
      * @return
      */
