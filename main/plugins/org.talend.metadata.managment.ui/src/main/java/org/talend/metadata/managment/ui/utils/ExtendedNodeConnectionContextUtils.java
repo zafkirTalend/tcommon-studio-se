@@ -63,7 +63,6 @@ public class ExtendedNodeConnectionContextUtils {
         ClouderaNavigatorMetadataUrl,
         ClouderaNavigatorClientUrl,
 
-        maprTUsername,
         maprTPassword,
         maprTCluster,
         maprTDuration,
