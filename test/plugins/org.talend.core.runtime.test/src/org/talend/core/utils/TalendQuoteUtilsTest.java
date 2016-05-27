@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.utils;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -167,6 +169,29 @@ public class TalendQuoteUtilsTest {
         String expect = QUOTES_2 + QUOTES + "JUnit" + QUOTES + QUOTES_2;
         String output = TalendQuoteUtils.addQuotesIfNotExist(input, QUOTES_2);
         Assert.assertTrue(expect.equals(output));
+    }
+
+    @Test
+    public void testAddPairQuotesIfNotExist() {
+        String testStr = "abcd";
+        String resultStr = TalendQuoteUtils.addPairQuotesIfNotExist(testStr);
+        assertTrue((QUOTES + testStr + QUOTES).equals(resultStr));
+
+        testStr = "\"abcd";
+        resultStr = TalendQuoteUtils.addPairQuotesIfNotExist(testStr);
+        assertEquals("\"\\\"abcd\"", resultStr);
+
+        testStr = "abcd\"";
+        resultStr = TalendQuoteUtils.addPairQuotesIfNotExist(testStr);
+        assertEquals("\"abcd\\\"\"", resultStr);
+
+        testStr = "\"abcd\"";
+        resultStr = TalendQuoteUtils.addPairQuotesIfNotExist(testStr);
+        assertTrue(testStr.equals(resultStr));
+
+        testStr = "ab\"cd\"";
+        resultStr = TalendQuoteUtils.addPairQuotesIfNotExist(testStr);
+        assertEquals("\"ab\\\"cd\\\"\"", resultStr);
     }
 
 }
