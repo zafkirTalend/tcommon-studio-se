@@ -1403,9 +1403,11 @@ public class DatabaseForm extends AbstractForm {
             getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_SSL,
                     String.valueOf(useSSLEncryption.getSelection()));
         }
-        String url = getStringConnection();
-        urlConnectionStringText.setText(url);
-        getConnection().setURL(url);
+        if (isHiveDBConnSelected()) {
+            String url = getStringConnection();
+            urlConnectionStringText.setText(url);
+            getConnection().setURL(url);
+        }
     }
 
     private void addListenerForImpalaAuthentication() {
