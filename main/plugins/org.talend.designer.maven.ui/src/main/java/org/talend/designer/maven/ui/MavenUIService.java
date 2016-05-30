@@ -64,13 +64,7 @@ public class MavenUIService implements IMavenUIService {
      */
     @Override
     public void updateMavenResolver(boolean setupRemoteRepository) {
-        String studioUserSettingsFile = MavenPlugin.getMavenConfiguration().getUserSettingsFile();
-        // apply the user settings to MavenResolver
-        Dictionary<String, String> props = new Hashtable<String, String>();
-        if (studioUserSettingsFile != null && !"".equals(studioUserSettingsFile)) {
-            // change back to use the user settings after Pax-url-eather fix the space bug
-            props.put("org.ops4j.pax.url.mvn.settings", studioUserSettingsFile);
-        }
+        Dictionary<String, String> props = getTalendMavenSetting();
         TalendLibsServerManager.getInstance().updateMavenResolver(props, setupRemoteRepository);
     }
 
@@ -87,5 +81,17 @@ public class MavenUIService implements IMavenUIService {
                 }
             }
         });
+    }
+
+    @Override
+    public Dictionary<String, String> getTalendMavenSetting() {
+        String studioUserSettingsFile = MavenPlugin.getMavenConfiguration().getUserSettingsFile();
+        // apply the user settings to MavenResolver
+        Dictionary<String, String> props = new Hashtable<String, String>();
+        if (studioUserSettingsFile != null && !"".equals(studioUserSettingsFile)) {
+            // change back to use the user settings after Pax-url-eather fix the space bug
+            props.put("org.ops4j.pax.url.mvn.settings", studioUserSettingsFile);
+        }
+        return props;
     }
 }
