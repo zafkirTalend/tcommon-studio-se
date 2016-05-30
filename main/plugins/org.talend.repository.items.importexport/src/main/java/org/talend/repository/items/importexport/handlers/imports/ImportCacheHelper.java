@@ -22,16 +22,24 @@ import java.util.Set;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.MigrationTask;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.repository.recyclebin.RecycleBinManager;
 import org.talend.core.repository.ui.actions.RestoreFolderUtil;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.cache.RepositoryObjectCache;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
+import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -173,6 +181,23 @@ public final class ImportCacheHelper {
                 }
             }
             foldersCreated.clear();
+        }
+    }
+    public synchronized void checkDeletedItems(){
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        try {
+            for (ImportItem itemRecord : importedItemRecords) {
+                if (itemRecord.isValid()&&itemRecord.getItemId()!=null) {
+                    IRepositoryViewObject obj = factory.getLastVersion(itemRecord.getItemId());
+                    Item item = obj.getProperty().getItem();
+                    ERepositoryStatus status = factory.getStatus(item);
+                    if (status!=null&&status == ERepositoryStatus.DELETED) {
+                        RecycleBinManager.getInstance().addToRecycleBin(ProjectManager.getInstance().getCurrentProject(), item);
+                    }
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
         }
     }
 
