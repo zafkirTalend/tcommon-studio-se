@@ -436,6 +436,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     @Override
     protected void afterCreate(IProgressMonitor monitor) throws Exception {
         setPomForHDLight(monitor);
+        
+        PomJobExtensionRegistry.getInstance().updatePom(monitor, getPomFile());
 
         generateAssemblyFile(monitor);
 
