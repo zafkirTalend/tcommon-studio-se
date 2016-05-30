@@ -383,6 +383,7 @@ public class ImportExportHandlersManager {
                                 }
                             }
                             ImportCacheHelper.getInstance().checkDeletedFolders();
+                            ImportCacheHelper.getInstance().checkDeletedItems();
                             monitor.done();
 
                             TimeMeasure.step("importItemRecords", "before save"); //$NON-NLS-1$ //$NON-NLS-2$
