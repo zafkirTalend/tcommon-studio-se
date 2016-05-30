@@ -431,6 +431,20 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledFileField keytabForHBaseTxt;
 
+    private Button useMaprTForHBase;
+
+    private Composite authenticationMaprTComForHBase;
+
+    private Composite authenticationUserPassComForHBase;
+
+    private LabelledText maprTUsernameForHBaseTxt;
+
+    private LabelledText maprTPasswordForHBaseTxt;
+
+    private LabelledText maprTClusterForHBaseTxt;
+
+    private LabelledText maprTDurationForHBaseTxt;
+
     private SashForm sash;
 
     private Composite dbConnectionArea;
@@ -1213,6 +1227,35 @@ public class DatabaseForm extends AbstractForm {
                 Messages.getString("DatabaseForm.hiveEmbedded.keytab"), //$NON-NLS-1$
                 extensions);
 
+        // Mapr ticket
+        useMaprTForHBase = new Button(authenticationGrpForHBase, SWT.CHECK);
+        useMaprTForHBase.setText(Messages.getString("DatabaseForm.hbase.useMaprTicket")); //$NON-NLS-1$
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.horizontalSpan = 4;
+        useMaprTForHBase.setLayoutData(data);
+
+        authenticationMaprTComForHBase = new Composite(authenticationGrpForHBase, SWT.NONE);
+        data = new GridData(GridData.FILL_BOTH);
+        data.horizontalSpan = 4;
+        authenticationMaprTComForHBase.setLayoutData(data);
+        authenticationMaprTComForHBase.setLayout(new GridLayout(3, false));
+
+        authenticationUserPassComForHBase = new Composite(authenticationMaprTComForHBase, SWT.NONE);
+        data = new GridData(GridData.FILL_BOTH);
+        data.horizontalSpan = 4;
+        authenticationUserPassComForHBase.setLayoutData(data);
+        authenticationUserPassComForHBase.setLayout(new GridLayout(3, false));
+
+        maprTUsernameForHBaseTxt = new LabelledText(authenticationUserPassComForHBase,
+                Messages.getString("DatabaseForm.hbaseMaprTUsernameTxt.label"), 2); //$NON-NLS-1$
+        maprTPasswordForHBaseTxt = new LabelledText(authenticationUserPassComForHBase,
+                Messages.getString("DatabaseForm.hbaseMaprTPasswordTxt.label"), 2, SWT.PASSWORD); //$NON-NLS-1$
+
+        maprTClusterForHBaseTxt = new LabelledText(authenticationMaprTComForHBase,
+                Messages.getString("DatabaseForm.hbaseMaprTClusterTxt.label"), 2); //$NON-NLS-1$
+        maprTDurationForHBaseTxt = new LabelledText(authenticationMaprTComForHBase,
+                Messages.getString("DatabaseForm.hbaseMaprTDurationTxt.label"), 2); //$NON-NLS-1$
+
         addListenerHBaseAuthentication();
         initForHBaseAuthentication();
     }
@@ -1457,9 +1500,11 @@ public class DatabaseForm extends AbstractForm {
             public void widgetSelected(SelectionEvent e) {
                 if (useKerberosForHBase.getSelection()) {
                     hideControl(authenticationComForHBase, false);
+                    hideControl(authenticationUserPassComForHBase, true);
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "true"); //$NON-NLS-1$
                 } else {
                     hideControl(authenticationComForHBase, true);
+                    hideControl(authenticationUserPassComForHBase, !useMaprTForHBase.getSelection());
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "false"); //$NON-NLS-1$
                 }
                 authenticationGrpForHBase.layout();
@@ -1522,6 +1567,68 @@ public class DatabaseForm extends AbstractForm {
                     getConnection().getParameters().put(
                             ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
                             hbaseRSPrincipalTxt.getText());
+                }
+            }
+        });
+
+        useMaprTForHBase.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (useMaprTForHBase.getSelection()) {
+                    hideControl(authenticationMaprTComForHBase, false);
+                    hideControl(authenticationUserPassComForHBase, useKerberosForHBase.getSelection());
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USE_MAPRTICKET,
+                            "true"); //$NON-NLS-1$
+                } else {
+                    hideControl(authenticationMaprTComForHBase, true);
+                    hideControl(authenticationUserPassComForHBase, true);
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USE_MAPRTICKET,
+                            "false"); //$NON-NLS-1$
+                }
+                authenticationGrpForHBase.layout();
+                authenticationGrpForHBase.getParent().layout();
+            }
+
+        });
+
+        maprTUsernameForHBaseTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME,
+                            maprTUsernameForHBaseTxt.getText());
+                }
+            }
+        });
+        maprTPasswordForHBaseTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD,
+                            maprTPasswordForHBaseTxt.getText());
+                }
+            }
+        });
+        maprTClusterForHBaseTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER,
+                            maprTClusterForHBaseTxt.getText());
+                }
+            }
+        });
+        maprTDurationForHBaseTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION,
+                            maprTDurationForHBaseTxt.getText());
                 }
             }
         });
@@ -2114,6 +2221,12 @@ public class DatabaseForm extends AbstractForm {
         hbaseRSPrincipalTxt.setEditable(!isContextMode());
         principalForHBaseTxt.setEditable(!isContextMode());
         keytabForHBaseTxt.setEditable(!isContextMode());
+
+        useMaprTForHBase.setEnabled(!isContextMode());
+        maprTUsernameForHBaseTxt.setEditable(!isContextMode());
+        maprTPasswordForHBaseTxt.setEditable(!isContextMode());
+        maprTClusterForHBaseTxt.setEditable(!isContextMode());
+        maprTDurationForHBaseTxt.setEditable(!isContextMode());
     }
 
     private void updateHadoopProperties(boolean isEditable) {
@@ -2270,6 +2383,34 @@ public class DatabaseForm extends AbstractForm {
         hideControl(keyTabCompoisteForHBase, !useKeytab);
         hideControl(authenticationComForHBase, !useKrb);
         hideControl(authenticationGrpForHBase, false);
+
+        //
+        boolean doSupportMapRTicket = false;
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null && hBaseDistribution != null) {
+            doSupportMapRTicket = hadoopService.doSupportMapRTicket(hBaseDistribution.getHDVersion(hadoopVersion, false));
+        }
+        String useMaprTForHBaseString = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USE_MAPRTICKET);
+        String maprTUsernameForHBase = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
+        String maprTPasswordForHBase = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+        String maprTClusterForHBase = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+        String maprTDurationForHBase = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+        boolean checkMaprTForHBase = Boolean.valueOf(useMaprTForHBaseString);
+        useMaprTForHBase.setEnabled(doSupportMapRTicket);
+        useMaprTForHBase.setSelection(checkMaprTForHBase);
+        if (checkMaprTForHBase) {
+            maprTUsernameForHBaseTxt.setText(StringUtils.trimToEmpty(maprTUsernameForHBase));
+            maprTPasswordForHBaseTxt.setText(StringUtils.trimToEmpty(maprTPasswordForHBase));
+            maprTClusterForHBaseTxt.setText(StringUtils.trimToEmpty(maprTClusterForHBase));
+            maprTDurationForHBaseTxt.setText(StringUtils.trimToEmpty(maprTDurationForHBase));
+        }
+        hideControl(authenticationMaprTComForHBase, !checkMaprTForHBase);
+        hideControl(authenticationUserPassComForHBase, useKrb);
     }
 
     private void initImpalaSettings() {
@@ -4022,6 +4163,16 @@ public class DatabaseForm extends AbstractForm {
                 String originalDistributionName = getConnection().getParameters().get(
                         ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
                 IHDistribution originalDistribution = getHBaseDistribution(originalDistributionName, false);
+                //
+                boolean doSupportMapRTicket = false;
+                IHadoopDistributionService hadoopService = getHadoopDistributionService();
+                if (hadoopService != null && newDistribution != null) {
+                    doSupportMapRTicket = hadoopService.doSupportMapRTicket(newDistribution.getDefaultVersion());
+                }
+                useMaprTForHBase.setEnabled(doSupportMapRTicket);
+                hideControl(useMaprTForHBase, !doSupportMapRTicket);
+                hideControl(authenticationMaprTComForHBase, !doSupportMapRTicket);
+                hideControl(authenticationUserPassComForHBase, !doSupportMapRTicket);
                 if (originalDistribution == null || !newDistribution.getName().equals(originalDistribution.getName())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
@@ -4169,7 +4320,7 @@ public class DatabaseForm extends AbstractForm {
                         String[] jarNames = jarPath.split(";");
                         StringBuffer buffer = new StringBuffer();
                         for (int i = 0; i < jarNames.length; i++) {
-                            if(i!=0){
+                            if (i != 0) {
                                 buffer.append(";");
                             }
                             String path = jarNames[i];
@@ -5201,6 +5352,12 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.RegionPrincipal, useKerberosForHBase.getSelection());
             addContextParams(EDBParamName.HbaseKeyTabPrincipal, useKeyTabForHBase.getSelection());
             addContextParams(EDBParamName.HbaseKeyTab, useKeyTabForHBase.getSelection());
+
+            addContextParams(EDBParamName.Username, !useKerberosForHBase.getSelection() && useMaprTForHBase.getSelection());
+            addContextParams(EDBParamName.Maprticket_Password,
+                    !useKerberosForHBase.getSelection() && useMaprTForHBase.getSelection());
+            addContextParams(EDBParamName.Maprticket_Cluster, useMaprTForHBase.getSelection());
+            addContextParams(EDBParamName.Maprticket_Duration, useMaprTForHBase.getSelection());
         }
     }
 
@@ -5576,8 +5733,8 @@ public class DatabaseForm extends AbstractForm {
         String useKeytabString = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB);
         String Principla = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
         String keytab = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
-        String additionalJDBCSettings = connection.getParameters()
-                .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
+        String additionalJDBCSettings = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
         boolean useSSL = Boolean.parseBoolean(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USE_SSL));
         String trustStorePathStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
         String trustStorePasswordStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);

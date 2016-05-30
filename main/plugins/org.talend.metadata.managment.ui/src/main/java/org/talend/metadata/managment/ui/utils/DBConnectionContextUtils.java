@@ -53,7 +53,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.model.IConnParamName;
 import org.talend.model.bridge.ReponsitoryContextBridge;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -98,16 +97,20 @@ public final class DBConnectionContextUtils {
         HivePassword,
         HiveKeyTabPrincipal,
         HiveKeyTab,
-                                                        hiveAdditionalJDBCParameters,
-                                                        hiveUseSSL,
-                                                        hiveSSLTrustStorePath,
-                                                        hiveSSLTrustStorePassword,
+        hiveAdditionalJDBCParameters,
+        hiveUseSSL,
+        hiveSSLTrustStorePath,
+        hiveSSLTrustStorePassword,
 
         // hbase
         MasterPrincipal,
         RegionPrincipal,
         HbaseKeyTabPrincipal,
         HbaseKeyTab,
+        Username,
+        Maprticket_Password,
+        Maprticket_Cluster,
+        Maprticket_Duration,
     }
 
     static List<IContextParameter> getDBVariables(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet) {
@@ -858,8 +861,8 @@ public final class DBConnectionContextUtils {
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES,
                     HadoopRepositoryUtil.getOriginalValueOfProperties(contextType, jdbcPropertiesString));
 
-            String additionalJDBCSettings = cloneConn.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
+            String additionalJDBCSettings = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS,
                     ContextParameterUtils.getOriginalValue(contextType, additionalJDBCSettings));
 
@@ -875,12 +878,10 @@ public final class DBConnectionContextUtils {
 
             String trustStorePassword = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
             if (trustStorePassword != null) {
-                cloneConn.getParameters()
-                        .put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
-                                cloneConn.getValue(
-                                        cloneConn.getValue(
-                                                ContextParameterUtils.getOriginalValue(contextType, trustStorePassword), false),
-                                        true));
+                cloneConn.getParameters().put(
+                        ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
+                        cloneConn.getValue(cloneConn.getValue(
+                                ContextParameterUtils.getOriginalValue(contextType, trustStorePassword), false), true));
             }
 
             String template = null;
@@ -1064,8 +1065,8 @@ public final class DBConnectionContextUtils {
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
                     ContextParameterUtils.getOriginalValue(contextType, keytab));
 
-            String addtionalJDBCParameters = conn.getParameters()
-                    .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
+            String addtionalJDBCParameters = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS,
                     ContextParameterUtils.getOriginalValue(contextType, addtionalJDBCParameters));
 
