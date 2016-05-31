@@ -166,7 +166,7 @@ public abstract class RepositoryWizard extends Wizard {
     private void calculateRepositoryObjectEditable(IRepositoryViewObject repositoryViewObject) {
         if (repositoryObject != null && !forceReadOnly) {
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-            repositoryObjectEditable = factory.isEditableAndLockIfPossible(repositoryObject);
+            repositoryObjectEditable = factory.isEditableAndLockIfPossible(repositoryViewObject);
 
             if (!CoreRuntimePlugin.getInstance().isDataProfilePerspectiveSelected()) {
                 final IRepositoryNode repositoryNode = repositoryViewObject.getRepositoryNode();
