@@ -385,6 +385,20 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledText hivePrincipalTxt;
 
+    private Button useMaprTForHive;
+
+    private Composite authenticationMaprTComForHive;
+
+    private Composite authenticationUserPassComForHive;
+
+    private LabelledText maprTUsernameForHiveTxt;
+
+    private LabelledText maprTPasswordForHiveTxt;
+
+    private LabelledText maprTClusterForHiveTxt;
+
+    private LabelledText maprTDurationForHiveTxt;
+
     private LabelledText impalaPrincipalTxt;
 
     private LabelledText hbaseMasterPrincipalTxt;
@@ -1174,6 +1188,35 @@ public class DatabaseForm extends AbstractForm {
         String[] extensions = { "*.*" }; //$NON-NLS-1$
         keytabTxt = new LabelledFileField(keyTabComponent, Messages.getString("DatabaseForm.hiveEmbedded.keytab"), extensions); //$NON-NLS-1$
 
+        // Mapr ticket
+        useMaprTForHive = new Button(authenticationGrp, SWT.CHECK);
+        useMaprTForHive.setText(Messages.getString("DatabaseForm.hive.useMaprTicket")); //$NON-NLS-1$
+        data = new GridData(GridData.FILL_HORIZONTAL);
+        data.horizontalSpan = 4;
+        useMaprTForHive.setLayoutData(data);
+
+        authenticationMaprTComForHive = new Composite(authenticationGrp, SWT.NONE);
+        data = new GridData(GridData.FILL_BOTH);
+        data.horizontalSpan = 4;
+        authenticationMaprTComForHive.setLayoutData(data);
+        authenticationMaprTComForHive.setLayout(new GridLayout(3, false));
+
+        authenticationUserPassComForHive = new Composite(authenticationMaprTComForHive, SWT.NONE);
+        data = new GridData(GridData.FILL_BOTH);
+        data.horizontalSpan = 4;
+        authenticationUserPassComForHive.setLayoutData(data);
+        authenticationUserPassComForHive.setLayout(new GridLayout(3, false));
+
+        maprTUsernameForHiveTxt = new LabelledText(authenticationUserPassComForHive,
+                Messages.getString("DatabaseForm.hive.MaprTUsernameTxt.label"), 2); //$NON-NLS-1$
+        maprTPasswordForHiveTxt = new LabelledText(authenticationUserPassComForHive,
+                Messages.getString("DatabaseForm.hive.MaprTPasswordTxt.label"), 2, SWT.PASSWORD); //$NON-NLS-1$
+
+        maprTClusterForHiveTxt = new LabelledText(authenticationMaprTComForHive,
+                Messages.getString("DatabaseForm.hive.MaprTClusterTxt.label"), 2); //$NON-NLS-1$
+        maprTDurationForHiveTxt = new LabelledText(authenticationMaprTComForHive,
+                Messages.getString("DatabaseForm.hive.MaprTDurationTxt.label"), 2); //$NON-NLS-1$
+
         addListenerForAuthentication();
         initForAuthentication();
     }
@@ -1673,6 +1716,7 @@ public class DatabaseForm extends AbstractForm {
                     authenticationCom.getParent().layout();
                     authenticationGrp.layout();
                     authenticationGrp.getParent().layout();
+                    hideControl(authenticationUserPassComForHive, true);
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "true");
                 } else {
                     GridData hadoopData = (GridData) authenticationCom.getLayoutData();
@@ -1682,6 +1726,7 @@ public class DatabaseForm extends AbstractForm {
                     authenticationCom.getParent().layout();
                     authenticationGrp.layout();
                     authenticationGrp.getParent().layout();
+                    hideControl(authenticationUserPassComForHive, !useMaprTForHive.getSelection());
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "false");
                 }
                 updateSSLEncryptionDetailsDisplayStatus();
@@ -1801,6 +1846,68 @@ public class DatabaseForm extends AbstractForm {
             public void modifyText(ModifyEvent e) {
                 if (!isContextMode()) {
                     getConnection().getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD, passwordTxt.getText());
+                }
+            }
+        });
+
+        useMaprTForHive.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (useMaprTForHive.getSelection()) {
+                    hideControl(authenticationMaprTComForHive, false);
+                    hideControl(authenticationUserPassComForHive, useKerberos.getSelection());
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET,
+                            "true"); //$NON-NLS-1$
+                } else {
+                    hideControl(authenticationMaprTComForHive, true);
+                    hideControl(authenticationUserPassComForHive, true);
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET,
+                            "false"); //$NON-NLS-1$
+                }
+                authenticationGrp.layout();
+                authenticationGrp.getParent().layout();
+            }
+
+        });
+
+        maprTUsernameForHiveTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME,
+                            maprTUsernameForHiveTxt.getText());
+                }
+            }
+        });
+        maprTPasswordForHiveTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD,
+                            maprTPasswordForHiveTxt.getText());
+                }
+            }
+        });
+        maprTClusterForHiveTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER,
+                            maprTClusterForHiveTxt.getText());
+                }
+            }
+        });
+        maprTDurationForHiveTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION,
+                            maprTDurationForHiveTxt.getText());
                 }
             }
         });
@@ -2203,6 +2310,12 @@ public class DatabaseForm extends AbstractForm {
         useSSLEncryption.setEnabled(!isContextMode());
         trustStorePath.setEditable(!isContextMode());
         trustStorePassword.setEditable(!isContextMode());
+
+        useMaprTForHive.setEnabled(!isContextMode());
+        maprTUsernameForHiveTxt.setEditable(!isContextMode());
+        maprTPasswordForHiveTxt.setEditable(!isContextMode());
+        maprTClusterForHiveTxt.setEditable(!isContextMode());
+        maprTDurationForHiveTxt.setEditable(!isContextMode());
 
         if (isContextMode()) {
             trustStorePassword.getTextControl().setEchoChar('\0');
@@ -5785,6 +5898,34 @@ public class DatabaseForm extends AbstractForm {
             getConnection().getParameters().put(ConnParameterKeys.HIVE_EXECUTION_ENGINE, null);
         }
 
+        //
+        boolean doSupportMapRTicket = false;
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null && hiveDistribution != null) {
+            doSupportMapRTicket = hadoopService.doSupportMapRTicket(hiveDistribution.getHDVersion(hiveVersion, false));
+        }
+        String useMaprTForHiveString = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET);
+        String maprTUsernameForHive = connection.getParameters()
+                .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+        String maprTPasswordForHive = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+        String maprTClusterForHive = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+        String maprTDurationForHive = connection.getParameters().get(
+                ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+        boolean checkMaprTForHive = Boolean.valueOf(useMaprTForHiveString);
+        useMaprTForHive.setEnabled(doSupportMapRTicket);
+        useMaprTForHive.setSelection(checkMaprTForHive);
+        if (checkMaprTForHive) {
+            maprTUsernameForHiveTxt.setText(StringUtils.trimToEmpty(maprTUsernameForHive));
+            maprTPasswordForHiveTxt.setText(StringUtils.trimToEmpty(maprTPasswordForHive));
+            maprTClusterForHiveTxt.setText(StringUtils.trimToEmpty(maprTClusterForHive));
+            maprTDurationForHiveTxt.setText(StringUtils.trimToEmpty(maprTDurationForHive));
+        }
+        hideControl(authenticationMaprTComForHive, !checkMaprTForHive);
+        hideControl(authenticationUserPassComForHive, Boolean.valueOf(useKrb));
+
         // String hadoopProperties =
         // getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
         // try {
@@ -6102,6 +6243,16 @@ public class DatabaseForm extends AbstractForm {
         }
         String distributionObj = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
         IHDistribution originalHiveDistribution = HiveMetadataHelper.getDistribution(distributionObj, false);
+        //
+        boolean doSupportMapRTicket = false;
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null && newHiveDistribution != null) {
+            doSupportMapRTicket = hadoopService.doSupportMapRTicket(newHiveDistribution.getDefaultVersion());
+        }
+        useMaprTForHive.setEnabled(doSupportMapRTicket);
+        hideControl(useMaprTForHive, !doSupportMapRTicket);
+        hideControl(authenticationMaprTComForHive, !doSupportMapRTicket);
+        hideControl(authenticationUserPassComForHive, !doSupportMapRTicket);
         if (originalHiveDistribution == null || !newHiveDistribution.equals(originalHiveDistribution)) {
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
             // for Hive mode. 3. To update connection parameters.

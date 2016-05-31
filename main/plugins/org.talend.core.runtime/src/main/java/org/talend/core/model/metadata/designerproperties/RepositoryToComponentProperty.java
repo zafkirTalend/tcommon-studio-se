@@ -1187,8 +1187,14 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("USE_MAPRTICKET")) {
-            String useMaprTValue = connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USE_MAPRTICKET);
+            String useMaprTValue = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                useMaprTValue = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USE_MAPRTICKET);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                useMaprTValue = connection.getParameters()
+                        .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET);
+            }
             if (useMaprTValue == null) {
                 return useMaprTValue;
             } else {
@@ -1199,21 +1205,44 @@ public class RepositoryToComponentProperty {
             String hbaseUsername = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
             return getAppropriateValue(connection, hbaseUsername);
         }
+        if (value.equals("MAPRTICKET_USERNAME")) {
+            String maprticket_Username = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+            return getAppropriateValue(connection, maprticket_Username);
+        }
 
         if (value.equals("MAPRTICKET_PASSWORD")) {
-            String hbaseMaprticket_Password = connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD);
-            return getAppropriateValue(connection, hbaseMaprticket_Password);
+            String maprticket_Password = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                maprticket_Password = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                maprticket_Password = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            }
+            return getAppropriateValue(connection, maprticket_Password);
         }
         if (value.equals("MAPRTICKET_CLUSTER")) {
-            String hbaseMaprticket_Cluster = connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
-            return getAppropriateValue(connection, hbaseMaprticket_Cluster);
+            String maprticket_Cluster = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                maprticket_Cluster = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                maprticket_Cluster = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            }
+            return getAppropriateValue(connection, maprticket_Cluster);
         }
         if (value.equals("MAPRTICKET_DURATION")) {
-            String hbaseMaprticket_Duration = connection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
-            return getAppropriateValue(connection, hbaseMaprticket_Duration);
+            String maprticket_Duration = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                maprticket_Duration = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                maprticket_Duration = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+            }
+            return getAppropriateValue(connection, maprticket_Duration);
         }
 
         if (value.equals("HIVE_SERVER")) {
