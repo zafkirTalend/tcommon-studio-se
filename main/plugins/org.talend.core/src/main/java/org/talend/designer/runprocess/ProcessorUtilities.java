@@ -29,12 +29,16 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.ui.IEditorPart;
 import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
@@ -127,7 +131,7 @@ public class ProcessorUtilities {
     private static final int GENERATED_WITH_TRACES = 2;
 
     private static final String COMMA = ";"; //$NON-NLS-1$
-    
+
     private static final Set<ModuleNeeded> retrievedJarsForCurrentBuild = new HashSet<ModuleNeeded>();
 
     public static void addOpenEditor(IEditorPart editor) {
@@ -364,7 +368,22 @@ public class ProcessorUtilities {
             return null;
         }
         boolean isMainJob = false;
+        boolean isAutoBuild = false;
         if (jobInfo.getFatherJobInfo() == null) {
+
+            // In order to avoid eclipse to compile the code at each change in the workspace, we deactivate the
+            // auto-build feature during the whole build time.
+            // It will be reactivated at the end if the auto-build is activated in the workspace preferences.
+            isAutoBuild = ResourcesPlugin.getWorkspace().getDescription().isAutoBuilding();
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            IWorkspaceDescription desc = workspace.getDescription();
+            desc.setAutoBuilding(false);
+            try {
+                workspace.setDescription(desc);
+            } catch (CoreException e) {
+                CommonExceptionHandler.warn(e.getMessage());
+            }
+
             isMainJob = true;
             codeModified = false;
 
@@ -461,7 +480,8 @@ public class ProcessorUtilities {
             LastGenerationInfo.getInstance().setModulesNeededPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(), neededLibraries);
 
             // must install the needed libraries before generate codes with poms.
-            CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess, retrievedJarsForCurrentBuild);
+            CorePlugin.getDefault().getRunProcessService()
+                    .updateLibraries(neededLibraries, currentProcess, retrievedJarsForCurrentBuild);
         }
         resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
@@ -492,6 +512,20 @@ public class ProcessorUtilities {
          * libraries.
          */
         generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
+
+        // If the auto-build is activated in the workspace preferences, we reactivate the feature since it's been
+        // deactivated at the beginning of the build time.
+        if (isAutoBuild) {
+            IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            IWorkspaceDescription desc = workspace.getDescription();
+            desc.setAutoBuilding(true);
+            try {
+                workspace.setDescription(desc);
+            } catch (CoreException e) {
+                CommonExceptionHandler.warn(e.getMessage());
+            }
+        }
+
         return processor;
     }
 
@@ -805,7 +839,8 @@ public class ProcessorUtilities {
                         neededLibraries);
 
                 // must install the needed libraries before generate codes with poms.
-                CorePlugin.getDefault().getRunProcessService().updateLibraries(neededLibraries, currentProcess, retrievedJarsForCurrentBuild);
+                CorePlugin.getDefault().getRunProcessService()
+                        .updateLibraries(neededLibraries, currentProcess, retrievedJarsForCurrentBuild);
             }
             resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
 
