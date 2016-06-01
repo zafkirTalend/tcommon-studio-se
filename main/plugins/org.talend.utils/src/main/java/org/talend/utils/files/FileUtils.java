@@ -108,4 +108,38 @@ public final class FileUtils {
         return returncodes;
     }
 
+
+    /**
+     * 
+     * DOC ggu Comment method "createTmpFolder".
+     * 
+     * @param prefix
+     * @param suffix
+     * @return
+     */
+    public static File createTmpFolder(String prefix, String suffix) {
+        File tempFolder = null;
+        try {
+            tempFolder = File.createTempFile(prefix, suffix);
+            tempFolder.delete();
+        } catch (IOException e) {
+            String tempFolderName = prefix + System.currentTimeMillis() + suffix;
+            tempFolder = createUserTmpFolder(tempFolderName);
+        }
+        tempFolder.mkdirs();
+        return tempFolder;
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "createUserTmpFolder".
+     * 
+     * @param folderName
+     * @return
+     */
+    public static File createUserTmpFolder(String folderName) {
+        File tmpFolder = new File(System.getProperty("user.dir"), "temp/" + folderName); //$NON-NLS-1$  //$NON-NLS-2$
+        tmpFolder.mkdirs();
+        return tmpFolder;
+    }
 }
