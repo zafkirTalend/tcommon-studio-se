@@ -13,8 +13,6 @@
 package org.talend.designer.maven.launch;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.maven.model.Dependency;
@@ -69,7 +67,6 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
         }
         final MavenModelManager mavenModelManager = MavenPlugin.getMavenModelManager();
         List<Dependency> oldProjectDependencies = new ArrayList<Dependency>();
-
         boolean withPackage = getGoals().contains(TalendMavenConstants.GOAL_PACKAGE);
         try {
             if (withPackage) {
@@ -99,6 +96,7 @@ public class MavenPomCommandLauncher extends MavenCommandLauncher {
                     List<Dependency> dependencies = model.getDependencies();
                     dependencies.clear();
                     dependencies.addAll(oldProjectDependencies);
+
                     PomUtil.savePom(monitor, model, launcherPomFile);
                 } catch (CoreException e) {
                     ExceptionHandler.process(e);
