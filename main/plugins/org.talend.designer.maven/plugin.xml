@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="mavenSetting" name="MavenSetting" schema="schema/mavenSetting.exsd"/>
+   <extension-point id="mavenPomJob" name="mavenPomJob" schema="schema/mavenPomJob.exsd"/>
    <extension
          point="org.talend.designer.maven.mavenSetting">
       <ProjectSettingManager
