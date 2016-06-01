@@ -1234,15 +1234,11 @@ public class RepositoryToComponentProperty {
             return getAppropriateValue(connection, maprticket_Cluster);
         }
         if (value.equals("MAPRTICKET_DURATION")) {
-            String maprticket_Duration = null;
             if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
-                maprticket_Duration = connection.getParameters().get(
-                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
             } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
-                maprticket_Duration = connection.getParameters().get(
-                        ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
             }
-            return getAppropriateValue(connection, maprticket_Duration);
         }
 
         if (value.equals("HIVE_SERVER")) {
