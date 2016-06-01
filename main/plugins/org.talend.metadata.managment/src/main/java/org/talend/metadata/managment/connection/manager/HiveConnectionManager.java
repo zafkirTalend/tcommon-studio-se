@@ -34,6 +34,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
@@ -134,7 +135,10 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         String connURL = metadataConn.getUrl();
         if (connURL != null) {
             boolean useKerberos = Boolean.valueOf((String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
+            boolean useMaprTicket = Boolean.valueOf((String) metadataConn
+                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET));
             String hivePrincipal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
+            ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
             if (useKerberos) {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
@@ -142,7 +146,6 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 boolean useKeytab = Boolean
                         .valueOf((String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_USEKEYTAB));
                 if (useKeytab) {
-                    ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
                     try {
                         ReflectionUtils.invokeStaticMethod("org.apache.hadoop.security.UserGroupInformation", hiveClassLoader, //$NON-NLS-1$
                                 "loginUserFromKeytab", new String[] { principal, keytabPath }); //$NON-NLS-1$
@@ -150,7 +153,50 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                         throw new SQLException(e);
                     }
                 }
+                if (useMaprTicket) {
+                    System.setProperty("pname", "MapRLogin");//$NON-NLS-1$ //$NON-NLS-2$
+                    System.setProperty("https.protocols", "TLSv1.2");//$NON-NLS-1$ //$NON-NLS-2$
+                    System.setProperty("mapr.home.dir", "/opt/mapr");//$NON-NLS-1$ //$NON-NLS-2$
+                    System.setProperty("hadoop.login", "kerberos");//$NON-NLS-1$ //$NON-NLS-2$
+                    String mapRTicketCluster = (String) metadataConn
+                            .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+                    Object mapRTicketDuration = metadataConn
+                            .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+                    try {
+                        ReflectionUtils.invokeStaticMethod("com.mapr.login.client.MapRLoginHttpsClient", hiveClassLoader, //$NON-NLS-1$
+                                "getMapRCredentialsViaKerberos", new Object[] { mapRTicketCluster, mapRTicketDuration }); //$NON-NLS-1$
+                    } catch (Exception e) {
+                        throw new SQLException(e);
+                    }
+                }
             }
+            if (useMaprTicket) {
+                System.setProperty("pname", "MapRLogin");//$NON-NLS-1$ //$NON-NLS-2$
+                System.setProperty("https.protocols", "TLSv1.2");//$NON-NLS-1$ //$NON-NLS-2$
+                System.setProperty("mapr.home.dir", "/opt/mapr");//$NON-NLS-1$ //$NON-NLS-2$
+                String mapRTicketUsername = (String) metadataConn
+                        .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+                String mapRTicketPassword = (String) metadataConn
+                        .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+                String mapRTicketCluster = (String) metadataConn
+                        .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+                Object mapRTicketDuration = metadataConn
+                        .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+                try {
+                    String decryptedPassword = PasswordEncryptUtil.encryptPassword(mapRTicketPassword);
+                    ReflectionUtils
+                            .invokeStaticMethod(
+                                    "com.mapr.login.client.MapRLoginHttpsClient", hiveClassLoader, "setCheckUGI", new Object[] { false }, Boolean.class);//$NON-NLS-1$//$NON-NLS-2$
+                    ReflectionUtils
+                            .invokeStaticMethod(
+                                    "com.mapr.login.client.MapRLoginHttpsClient",//$NON-NLS-1$
+                                    hiveClassLoader,
+                                    "getMapRCredentialsViaPassword", new Object[] { mapRTicketCluster, mapRTicketUsername, decryptedPassword, mapRTicketDuration }); //$NON-NLS-1$
+                } catch (Exception e) {
+                    throw new SQLException(e);
+                }
+            }
+
             if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
                 hiveStandaloneConn = createHive2StandaloneConnection(metadataConn);
             } else if (connURL.startsWith(DatabaseConnConstants.HIVE_1_URL_FORMAT)) {

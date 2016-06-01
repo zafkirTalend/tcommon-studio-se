@@ -1186,6 +1186,61 @@ public class RepositoryToComponentProperty {
             return getAppropriateValue(connection, hbaseRegPrinc);
         }
 
+        if (value.equals("USE_MAPRTICKET")) {
+            String useMaprTValue = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                useMaprTValue = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USE_MAPRTICKET);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                useMaprTValue = connection.getParameters()
+                        .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET);
+            }
+            if (useMaprTValue == null) {
+                return useMaprTValue;
+            } else {
+                return Boolean.parseBoolean(useMaprTValue);
+            }
+        }
+        if (value.equals("USERNAME")) {
+            String hbaseUsername = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
+            return getAppropriateValue(connection, hbaseUsername);
+        }
+        if (value.equals("MAPRTICKET_USERNAME")) {
+            String maprticket_Username = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+            return getAppropriateValue(connection, maprticket_Username);
+        }
+
+        if (value.equals("MAPRTICKET_PASSWORD")) {
+            String maprticket_Password = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                maprticket_Password = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                maprticket_Password = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            }
+            return getAppropriateValue(connection, maprticket_Password);
+        }
+        if (value.equals("MAPRTICKET_CLUSTER")) {
+            String maprticket_Cluster = null;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                maprticket_Cluster = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                maprticket_Cluster = connection.getParameters().get(
+                        ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            }
+            return getAppropriateValue(connection, maprticket_Cluster);
+        }
+        if (value.equals("MAPRTICKET_DURATION")) {
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+            } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
+                return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+            }
+        }
+
         if (value.equals("HIVE_SERVER")) {
             return connection.getParameters().get(ConnParameterKeys.HIVE_SERVER_VERSION);
         }
@@ -1198,29 +1253,29 @@ public class RepositoryToComponentProperty {
             String message = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_PROPERTIES);
             return HadoopRepositoryUtil.getHadoopPropertiesFullList(connection, message, true);
         }
-        
+
         if (value.equals("USE_CLOUDERA_NAVIGATOR")) {
             return HadoopRepositoryUtil.useClouderaNavi(connection);
         }
-        
+
         if (value.equals("CLOUDERA_NAVIGATOR_USERNAME")) {
-            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviUserName(connection));
+            return getAppropriateValue(connection, HadoopRepositoryUtil.getClouderaNaviUserName(connection));
         }
-        
+
         if (value.equals("CLOUDERA_NAVIGATOR_PASSWORD")) {
-            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviPassword(connection));
+            return getAppropriateValue(connection, HadoopRepositoryUtil.getClouderaNaviPassword(connection));
         }
 
         if (value.equals("CLOUDERA_NAVIGATOR_URL")) {
-            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviUrl(connection));
+            return getAppropriateValue(connection, HadoopRepositoryUtil.getClouderaNaviUrl(connection));
         }
 
         if (value.equals("CLOUDERA_NAVIGATOR_METADATA_URL")) {
-            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviMetadataUrl(connection));
+            return getAppropriateValue(connection, HadoopRepositoryUtil.getClouderaNaviMetadataUrl(connection));
         }
 
         if (value.equals("CLOUDERA_NAVIGATOR_CLIENT_URL")) {
-            return getAppropriateValue(connection,HadoopRepositoryUtil.getClouderaNaviClientUrl(connection));
+            return getAppropriateValue(connection, HadoopRepositoryUtil.getClouderaNaviClientUrl(connection));
         }
 
         if (value.equals("CLOUDERA_NAVIGATOR_AUTOCOMMIT")) {
@@ -1230,7 +1285,7 @@ public class RepositoryToComponentProperty {
         if (value.equals("CLOUDERA_NAVIGATOR_DISABLE_SSL_VALIDATION")) {
             return HadoopRepositoryUtil.clouderaNaviDisableSSL(connection);
         }
-        
+
         if (value.equals("CLOUDERA_NAVIGATOR_DIE_ON_ERROR")) {
             return HadoopRepositoryUtil.clouderaNaviDieOnError(connection);
         }
@@ -1266,8 +1321,8 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("SSL_TRUST_STORE_PASSWORD") && EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
-            return getAppropriateValue(connection, connection
-                    .getValue(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD), false));
+            return getAppropriateValue(connection, connection.getValue(
+                    connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD), false));
         }
 
         if (value.equals("HADOOP_CUSTOM_JARS")) {

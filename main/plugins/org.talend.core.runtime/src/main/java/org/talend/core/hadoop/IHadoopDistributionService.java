@@ -105,4 +105,12 @@ public interface IHadoopDistributionService extends IService {
      */
     IHDistribution[] getOozieDistributions();
 
+    /**
+     * 
+     * Comment method "doSupportMapRTicket".
+     * 
+     * @param distributionVersion
+     * @return
+     */
+    boolean doSupportMapRTicket(IHDistributionVersion distributionVersion);
 }
