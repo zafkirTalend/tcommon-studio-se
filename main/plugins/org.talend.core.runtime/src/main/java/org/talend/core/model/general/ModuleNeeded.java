@@ -550,7 +550,7 @@ public class ModuleNeeded {
         // make sure that mvn uri have the package
         MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(uri, false);
         if (parseMvnUrl != null && parseMvnUrl.getType() == null) {
-            if (moduleName.lastIndexOf(".") != -1) {
+            if (moduleName != null && moduleName.lastIndexOf(".") != -1) {
                 parseMvnUrl.setType(moduleName.substring(moduleName.lastIndexOf(".") + 1, moduleName.length()));
                 uri = MavenUrlHelper.generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(),
                         parseMvnUrl.getVersion(), parseMvnUrl.getType(), parseMvnUrl.getClassifier());
