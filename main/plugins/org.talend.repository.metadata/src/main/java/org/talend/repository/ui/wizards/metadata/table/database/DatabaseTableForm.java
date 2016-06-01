@@ -315,7 +315,7 @@ public class DatabaseTableForm extends AbstractForm {
                                 MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0,
                                 Messages.getString("DatabaseTableForm.doNotShowMessage"), //$NON-NLS-1$
                                 false);
-                        dialog.setPrefKey(preKey); //$NON-NLS-1$
+                        dialog.setPrefKey(preKey);
                         dialog.setPrefStore(preferenceStore);
                         dialog.open();
                         preferenceStore.setValue(preKey, dialog.getToggleState());
@@ -1160,6 +1160,11 @@ public class DatabaseTableForm extends AbstractForm {
                             || metadataColumn.getTalendType().equals(PerlTypesManager.DATE)) {
                         if ("".equals(metadataColumn.getPattern())) { //$NON-NLS-1$
                             metadataColumn.setPattern(TalendQuoteUtils.addQuotes("dd-MM-yyyy")); //$NON-NLS-1$
+                            if (EDatabaseTypeName.MSSQL.getDisplayName().equals(metadataconnection.getDbType())) {
+                                if ("TIME".equals(metadataColumn.getSourceType())) {
+                                    metadataColumn.setPattern(TalendQuoteUtils.addQuotes("HH:mm:ss")); //$NON-NLS-1$
+                                }
+                            }
                         }
                     }
 
