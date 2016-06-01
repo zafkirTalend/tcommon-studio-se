@@ -118,7 +118,7 @@ public interface IRunProcessService extends IService {
     public void setDelegateService(IRunProcessService delegateService);
 
     public void updateLibraries(Set<ModuleNeeded> jobModuleList, IProcess process);
-    
+
     public void updateLibraries(Set<ModuleNeeded> jobModuleList, IProcess process, Set<ModuleNeeded> alreadyRetrievedModules);
 
     public void refreshView();
@@ -140,6 +140,8 @@ public interface IRunProcessService extends IService {
     public IProcess getActiveProcess();
 
     public boolean checkExportProcess(IStructuredSelection selection, boolean isJob);
+
+    public void checkLastGenerationHasCompilationError(boolean updateProblemsView) throws ProcessorException;
 
     /**
      * DOC ycbai Comment method "getResourceFilePath".
