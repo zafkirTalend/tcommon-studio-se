@@ -449,13 +449,13 @@ public final class MetadataToolAvroHelper {
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
-            col.setLength(value > 0 ? value : -1);
+            col.setLength(value >= 0 ? value : -1);
         } else {
             col.setLength(-1);
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
             Long value = Long.parseLong(prop);
-            col.setOriginalLength(value > 0 ? value : -1);
+            col.setOriginalLength(value >= 0 ? value : -1);
         } else {
             col.setOriginalLength(-1);
         }
@@ -464,7 +464,7 @@ public final class MetadataToolAvroHelper {
         }
         if (null != (prop = schema.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
-            col.setPrecision(value > 0 ? value : -1);
+            col.setPrecision(value >= 0 ? value : -1);
         } else {
             col.setPrecision(-1);
         }
@@ -575,13 +575,13 @@ public final class MetadataToolAvroHelper {
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_LENGTH))) {
             Long value = Long.parseLong(prop);
-            col.setLength(value > 0 ? value : -1);
+            col.setLength(value >= 0 ? value : -1);
         } else {
             col.setLength(-1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_ORIGINAL_LENGTH))) {
             Long value = Long.parseLong(prop);
-            col.setOriginalLength(value > 0 ? value : -1);
+            col.setOriginalLength(value >= 0 ? value : -1);
         } else {
             col.setOriginalLength(-1);
         }
@@ -590,13 +590,13 @@ public final class MetadataToolAvroHelper {
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_PRECISION))) {
             Long value = Long.parseLong(prop);
-            col.setPrecision(value > 0 ? value : -1);
+            col.setPrecision(value >= 0 ? value : -1);
         } else {
             col.setPrecision(-1);
         }
         if (null != (prop = field.getProp(Talend6SchemaConstants.TALEND6_COLUMN_SCALE))) {
             Long value = Long.parseLong(prop);
-            col.setScale(value > 0 ? value : -1);
+            col.setScale(value >= 0 ? value : -1);
         } else {
             col.setScale(-1);
         }

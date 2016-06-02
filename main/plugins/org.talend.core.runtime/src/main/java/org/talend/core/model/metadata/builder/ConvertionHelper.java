@@ -531,6 +531,11 @@ public final class ConvertionHelper {
             } else {
                 newColumn.setLength(column.getLength());
             }
+            if (column.getOriginalLength() == null || column.getOriginalLength() < 0) {
+                newColumn.setOriginalLength(-1);
+            } else {
+                newColumn.setOriginalLength(column.getOriginalLength());
+            }
             newColumn.setNullable(column.isNullable());
             if (column.getPrecision() == null || column.getPrecision() < 0) {
                 newColumn.setPrecision(-1);
