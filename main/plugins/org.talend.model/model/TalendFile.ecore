@@ -105,8 +105,7 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalLength" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"
-        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalLength" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Int"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="additionalField" upperBound="-1"
         eType="#//AdditionalFieldMap" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usefulColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

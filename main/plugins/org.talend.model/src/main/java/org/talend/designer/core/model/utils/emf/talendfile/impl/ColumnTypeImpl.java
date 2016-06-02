@@ -351,7 +351,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected static final int ORIGINAL_LENGTH_EDEFAULT = -1;
+    protected static final int ORIGINAL_LENGTH_EDEFAULT = 0;
 
     /**
      * The cached value of the '{@link #getOriginalLength() <em>Original Length</em>}' attribute.
