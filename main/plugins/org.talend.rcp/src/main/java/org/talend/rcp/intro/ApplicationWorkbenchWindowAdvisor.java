@@ -259,7 +259,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                     return org.eclipse.core.runtime.Status.OK_STATUS;
                 }
             };
-            myJob.setRule(null);
             myJob.schedule();
         }
 
