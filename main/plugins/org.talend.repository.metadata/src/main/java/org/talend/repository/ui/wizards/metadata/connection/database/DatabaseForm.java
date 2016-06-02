@@ -2522,7 +2522,7 @@ public class DatabaseForm extends AbstractForm {
             maprTUsernameForHBaseTxt.setText(StringUtils.trimToEmpty(maprTUsernameForHBase));
             maprTPasswordForHBaseTxt.setText(StringUtils.trimToEmpty(maprTPasswordForHBase));
             maprTClusterForHBaseTxt.setText(StringUtils.trimToEmpty(maprTClusterForHBase));
-            maprTDurationForHBaseTxt.setText(StringUtils.trimToEmpty(maprTDurationForHBase));
+            maprTDurationForHBaseTxt.setText(maprTDurationForHBase == null ? "86400" : maprTDurationForHBase.trim()); //$NON-NLS-1$);
         }
         hideControl(authenticationMaprTComForHBase, !checkMaprTForHBase);
         hideControl(authenticationUserPassComForHBase, useKrb);
@@ -4286,8 +4286,8 @@ public class DatabaseForm extends AbstractForm {
                 }
                 useMaprTForHBase.setEnabled(doSupportMapRTicket);
                 hideControl(useMaprTForHBase, !doSupportMapRTicket);
-                hideControl(authenticationMaprTComForHBase, !doSupportMapRTicket);
-                hideControl(authenticationUserPassComForHBase, !doSupportMapRTicket);
+                hideControl(authenticationMaprTComForHBase, !useMaprTForHBase.getSelection());
+                hideControl(authenticationUserPassComForHBase, !useMaprTForHBase.getSelection());
                 if (originalDistribution == null || !newDistribution.getName().equals(originalDistribution.getName())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
@@ -5923,7 +5923,7 @@ public class DatabaseForm extends AbstractForm {
             maprTUsernameForHiveTxt.setText(StringUtils.trimToEmpty(maprTUsernameForHive));
             maprTPasswordForHiveTxt.setText(StringUtils.trimToEmpty(maprTPasswordForHive));
             maprTClusterForHiveTxt.setText(StringUtils.trimToEmpty(maprTClusterForHive));
-            maprTDurationForHiveTxt.setText(StringUtils.trimToEmpty(maprTDurationForHive));
+            maprTDurationForHiveTxt.setText(maprTDurationForHive == null ? "86400" : maprTDurationForHive.trim()); //$NON-NLS-1$
         }
         hideControl(authenticationMaprTComForHive, !checkMaprTForHive);
         hideControl(authenticationUserPassComForHive, Boolean.valueOf(useKrb));
@@ -6253,8 +6253,8 @@ public class DatabaseForm extends AbstractForm {
         }
         useMaprTForHive.setEnabled(doSupportMapRTicket);
         hideControl(useMaprTForHive, !doSupportMapRTicket);
-        hideControl(authenticationMaprTComForHive, !doSupportMapRTicket);
-        hideControl(authenticationUserPassComForHive, !doSupportMapRTicket);
+        hideControl(authenticationMaprTComForHive, !useMaprTForHive.getSelection());
+        hideControl(authenticationUserPassComForHive, !useMaprTForHive.getSelection());
         if (originalHiveDistribution == null || !newHiveDistribution.equals(originalHiveDistribution)) {
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
             // for Hive mode. 3. To update connection parameters.
