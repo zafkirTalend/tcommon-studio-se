@@ -506,6 +506,7 @@ public interface ColumnType extends EObject {
 
     /**
      * Returns the value of the '<em><b>Original Length</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Original Length</em>' attribute isn't clear,
@@ -515,7 +516,7 @@ public interface ColumnType extends EObject {
      * @return the value of the '<em>Original Length</em>' attribute.
      * @see #setOriginalLength(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_OriginalLength()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model default="-1" dataType="org.eclipse.emf.ecore.xml.type.Int"
      * @generated
      */
     int getOriginalLength();
