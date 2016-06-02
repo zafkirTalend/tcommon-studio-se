@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
@@ -50,6 +51,7 @@ import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IESBService;
 import org.talend.core.ITDQRepositoryService;
@@ -81,6 +83,7 @@ import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.i18n.Messages;
 import org.talend.core.repository.model.ContextReferenceBean;
+import org.talend.core.repository.model.IRepositoryFactory;
 import org.talend.core.repository.model.ItemReferenceBean;
 import org.talend.core.repository.model.JobletReferenceBean;
 import org.talend.core.repository.model.ProjectRepositoryNode;
@@ -1410,11 +1413,31 @@ public class DeleteAction extends AContextualAction {
         if (!(currentJobNode.getObject().getProperty().getItem() instanceof ProcessItem)) {
             return;
         }
-        if (currentJobNode.getChildren().isEmpty()) {
+        if (!currentJobNode.getChildren().isEmpty()) {
+            for (IRepositoryNode child : currentJobNode.getChildren()) {
+                deleteElements(factory, deleteActionCache, (RepositoryNode) child, confirm);
+            }
             return;
         }
-        for (IRepositoryNode child : currentJobNode.getChildren()) {
-            deleteElements(factory, deleteActionCache, (RepositoryNode) child, confirm);
+        if(ERepositoryObjectType.TEST_CONTAINER==null){
+            return;
+        }
+        IPath path = new Path(currentJobNode.getObjectType().getFolder());
+        path = path.append(currentJobNode.getId());
+        RootContainer<String, IRepositoryViewObject> junitObjects = ProxyRepositoryFactory.getInstance().getObjectFromFolder(
+                ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.TEST_CONTAINER, path.toOSString(),
+                IRepositoryFactory.OPTION_ONLY_LAST_VERSION | IRepositoryFactory.OPTION_DYNAMIC_OBJECTS);
+        if (junitObjects.isEmpty()||junitObjects.getMembers().isEmpty()) {
+            return;
+        }
+        for (IRepositoryViewObject viewNode : junitObjects.getMembers()) {
+            if (viewNode.isDeleted()) {
+                continue;
+            }
+            RepositoryNode node = new RepositoryNode(viewNode, (RepositoryNode)currentJobNode, ENodeType.REPOSITORY_ELEMENT);
+            node.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.TEST_CONTAINER);
+            node.setProperties(EProperties.LABEL, viewNode.getLabel());
+            deleteElements(factory, deleteActionCache, node, confirm);
         }
     }
 
