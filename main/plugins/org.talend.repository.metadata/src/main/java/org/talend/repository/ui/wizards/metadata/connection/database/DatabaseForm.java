@@ -2516,7 +2516,6 @@ public class DatabaseForm extends AbstractForm {
         String maprTDurationForHBase = connection.getParameters().get(
                 ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
         boolean checkMaprTForHBase = Boolean.valueOf(useMaprTForHBaseString);
-        useMaprTForHBase.setEnabled(doSupportMapRTicket);
         useMaprTForHBase.setSelection(checkMaprTForHBase);
         if (checkMaprTForHBase) {
             maprTUsernameForHBaseTxt.setText(StringUtils.trimToEmpty(maprTUsernameForHBase));
@@ -2524,8 +2523,11 @@ public class DatabaseForm extends AbstractForm {
             maprTClusterForHBaseTxt.setText(StringUtils.trimToEmpty(maprTClusterForHBase));
             maprTDurationForHBaseTxt.setText(maprTDurationForHBase == null ? "86400" : maprTDurationForHBase.trim()); //$NON-NLS-1$);
         }
-        hideControl(authenticationMaprTComForHBase, !checkMaprTForHBase);
-        hideControl(authenticationUserPassComForHBase, useKrb);
+        hideControl(useMaprTForHBase, !doSupportMapRTicket);
+        hideControl(authenticationMaprTComForHBase, !(checkMaprTForHBase && doSupportMapRTicket));
+        hideControl(authenticationUserPassComForHBase, useKrb && doSupportMapRTicket);
+        authenticationGrpForHBase.layout();
+        authenticationGrpForHBase.getParent().layout();
     }
 
     private void initImpalaSettings() {
@@ -4285,10 +4287,11 @@ public class DatabaseForm extends AbstractForm {
                 if (hadoopService != null && newDistribution != null) {
                     doSupportMapRTicket = hadoopService.doSupportMapRTicket(newDistribution.getDefaultVersion());
                 }
-                useMaprTForHBase.setEnabled(doSupportMapRTicket);
                 hideControl(useMaprTForHBase, !doSupportMapRTicket);
-                hideControl(authenticationMaprTComForHBase, !useMaprTForHBase.getSelection());
-                hideControl(authenticationUserPassComForHBase, !useMaprTForHBase.getSelection());
+                hideControl(authenticationMaprTComForHBase, !(useMaprTForHBase.getSelection() && doSupportMapRTicket));
+                hideControl(authenticationUserPassComForHBase, useKerberosForHBase.getSelection() && doSupportMapRTicket);
+                authenticationGrpForHBase.layout();
+                authenticationGrpForHBase.getParent().layout();
                 if (originalDistribution == null || !newDistribution.getName().equals(originalDistribution.getName())) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION,
                             newDistribution.getName());
@@ -5918,7 +5921,6 @@ public class DatabaseForm extends AbstractForm {
         String maprTDurationForHive = connection.getParameters().get(
                 ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
         boolean checkMaprTForHive = Boolean.valueOf(useMaprTForHiveString);
-        useMaprTForHive.setEnabled(doSupportMapRTicket);
         useMaprTForHive.setSelection(checkMaprTForHive);
         if (checkMaprTForHive) {
             maprTUsernameForHiveTxt.setText(StringUtils.trimToEmpty(maprTUsernameForHive));
@@ -5926,8 +5928,11 @@ public class DatabaseForm extends AbstractForm {
             maprTClusterForHiveTxt.setText(StringUtils.trimToEmpty(maprTClusterForHive));
             maprTDurationForHiveTxt.setText(maprTDurationForHive == null ? "86400" : maprTDurationForHive.trim()); //$NON-NLS-1$
         }
-        hideControl(authenticationMaprTComForHive, !checkMaprTForHive);
-        hideControl(authenticationUserPassComForHive, Boolean.valueOf(useKrb));
+        hideControl(useMaprTForHive, !doSupportMapRTicket);
+        hideControl(authenticationMaprTComForHive, !(checkMaprTForHive && doSupportMapRTicket));
+        hideControl(authenticationUserPassComForHive, Boolean.valueOf(useKrb) && doSupportMapRTicket);
+        authenticationGrp.layout();
+        authenticationGrp.getParent().layout();
 
         // String hadoopProperties =
         // getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
@@ -6252,10 +6257,11 @@ public class DatabaseForm extends AbstractForm {
         if (hadoopService != null && newHiveDistribution != null) {
             doSupportMapRTicket = hadoopService.doSupportMapRTicket(newHiveDistribution.getDefaultVersion());
         }
-        useMaprTForHive.setEnabled(doSupportMapRTicket);
         hideControl(useMaprTForHive, !doSupportMapRTicket);
-        hideControl(authenticationMaprTComForHive, !useMaprTForHive.getSelection());
-        hideControl(authenticationUserPassComForHive, !useMaprTForHive.getSelection());
+        hideControl(authenticationMaprTComForHive, !(useMaprTForHive.getSelection() && doSupportMapRTicket));
+        hideControl(authenticationUserPassComForHive, useKerberos.getSelection() && doSupportMapRTicket);
+        authenticationGrp.layout();
+        authenticationGrp.getParent().layout();
         if (originalHiveDistribution == null || !newHiveDistribution.equals(originalHiveDistribution)) {
             // 1. To update Hive Version List and make a default selection. 2. To do the same as Hive Version list
             // for Hive mode. 3. To update connection parameters.
