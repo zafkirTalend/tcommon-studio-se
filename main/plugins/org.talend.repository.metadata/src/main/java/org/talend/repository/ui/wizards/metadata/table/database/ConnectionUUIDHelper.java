@@ -229,6 +229,9 @@ public class ConnectionUUIDHelper {
                 if (itemTable.getLabel().equals(originalTable.getLabel())) {
                     checkObjectForSameUUID(itemTable, originalTable);
 
+                    // if same name ,should be same id also
+                    itemTable.setId(originalTable.getId());
+
                     // TaggedValue
                     checkTaggedValues(itemTable.getTaggedValue(), originalTable.getTaggedValue());
 
