@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Repo View Test
+Bundle-SymbolicName: org.talend.repository.view.test
+Bundle-Version: 6.2.1.qualifier
+Fragment-Host: org.talend.repository.view
+Require-Bundle: org.talend.testutils
