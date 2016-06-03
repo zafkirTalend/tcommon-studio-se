@@ -91,6 +91,8 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
 
     private static Map<String, String> originalTablesMap = new HashMap<String, String>();
 
+    private final ConnectionUUIDHelper tableHelper;
+
     /**
      * DOC ocarbone DatabaseTableWizard constructor comment.
      * 
@@ -116,7 +118,9 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
         initLockStrategy();
         this.selectedMetadataTable = metadataTable;
         this.connectionItem = (ConnectionItem) object.getProperty().getItem();
+        this.tableHelper = new ConnectionUUIDHelper(connectionItem);
         if (connectionItem != null) {
+            this.tableHelper.recordConnection();
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
             oldMetadataTable = RepositoryUpdateManager.getConversionMetadataTables(connectionItem.getConnection());
             cloneBaseDataBaseConnection((DatabaseConnection) connectionItem.getConnection());
@@ -198,6 +202,13 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                     // temConnection will be set to model when finish
                     DatabaseConnection connection = (DatabaseConnection) connectionItem.getConnection();
 
+                    /*
+                     * The first save,to make sure all the columns and tables in connection can has a eResource,or it
+                     * can't set uuids
+                     */
+                    saveMetaData();
+                    tableHelper.resetUUID(connection);
+
                     ITDQRepositoryService tdqRepositoryService = null;
                     boolean needUpdateAnalysis = false;
 
@@ -234,6 +245,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                     CoreRuntimePlugin.getInstance().getRepositoryService().notifySQLBuilder(list);
 
                     oldCopiedConnection = null;
+                    tableHelper.clean();
                 }
             };
             try {
@@ -282,6 +294,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
             selectorWizardPage.performCancel();
         }
         oldCopiedConnection = null;
+        tableHelper.clean();
         return super.performCancel();
     }
 

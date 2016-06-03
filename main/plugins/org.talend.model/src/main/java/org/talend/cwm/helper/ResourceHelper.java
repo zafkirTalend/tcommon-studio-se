@@ -51,6 +51,17 @@ public final class ResourceHelper {
         return xmlResource.getID(object);
     }
 
+    public static void setUUid(EObject object, String uuid) {
+        if (object == null || uuid == null) {
+            return;
+        }
+        Resource resource = object.eResource();
+        if (resource != null && resource instanceof XMLResource) {
+            XMLResource xmlResource = (XMLResource) resource;
+            xmlResource.setID(object, uuid);
+        }
+    }
+
     public static boolean areSame(EObject o1, EObject o2) {
         if (o1 == null || o2 == null) {
             return false;

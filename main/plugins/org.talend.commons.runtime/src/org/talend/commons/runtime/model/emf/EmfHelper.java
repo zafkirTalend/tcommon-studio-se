@@ -14,6 +14,7 @@ package org.talend.commons.runtime.model.emf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -195,6 +196,10 @@ public class EmfHelper {
     }
 
     public static void saveResource(Resource resource) throws PersistenceException {
+        saveResource(resource, null);
+    }
+
+    public static void saveResource(Resource resource, OutputStream outputStream) throws PersistenceException {
         if (resource == null) {
             return;
         }
@@ -206,7 +211,11 @@ public class EmfHelper {
         options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
         options.put(XMLResource.OPTION_ESCAPE_USING_CDATA, Boolean.TRUE);
         try {
-            resource.save(options);
+            if (outputStream == null) {
+                resource.save(options);
+            } else {
+                resource.save(outputStream, options);
+            }
 
         } catch (IOException e) {
             throw new PersistenceException(e);
@@ -218,7 +227,11 @@ public class EmfHelper {
             options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
 
             try {
-                resource.save(options);
+                if (outputStream == null) {
+                    resource.save(options);
+                } else {
+                    resource.save(outputStream, options);
+                }
             } catch (IOException e1) {
                 throw new PersistenceException(e);
             }
