@@ -230,8 +230,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         ResultSet schemas = null;
         // teradata use db name to filter schema
         // MOD jlolling TDI-34429 EXASol database behaves pretty much in the same way as Oracle
-        if (dbConn != null
-                && EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())) {
+        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())) {
             if (!dbConn.isContextMode()) {
                 String sid = getDatabaseName(dbConn);
                 if (sid != null && sid.length() > 0) {
@@ -271,8 +270,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             }
             schemas = dbJDBCMetadata.getSchemas();
         } catch (SQLException e) {
-        	// TDI-34429, jlolling we do not get an exception if the database simply do not have schemas!
-        	// in this case the resultset is empty
+            // TDI-34429, jlolling we do not get an exception if the database simply do not have schemas!
+            // in this case the resultset is empty
             log.error("Retrieve schema from database failed: " + e.getMessage(), e); //$NON-NLS-1$
         }
         boolean hasSchema = false;
@@ -1406,14 +1405,17 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     typeName = "TIMESTAMP"; //$NON-NLS-1$
                 }
                 typeName = MetadataToolHelper.validateValueForDBType(typeName);
+                String pattern = null;
                 if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
                     if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
                         dataType = 91;
+                        pattern = TalendQuoteUtils.addQuotes("dd-MM-yyyy");
                         // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
                         // the sql
                         // data type it is null and results in a NPE
                     } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
                         dataType = 92;
+                        pattern = TalendQuoteUtils.addQuotes("HH:mm:ss");
                         // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
                         // the sql
                         // data type it is null and results in a NPE
@@ -1436,6 +1438,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
                         numPrecRadix);
                 column.setSqlDataType(sqlDataType);
+                if (pattern != null) {
+                    column.setPattern(pattern);
+                }
 
                 // Null able
                 if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
