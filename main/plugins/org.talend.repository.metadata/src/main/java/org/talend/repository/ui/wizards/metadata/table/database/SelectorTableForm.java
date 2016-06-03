@@ -1300,6 +1300,24 @@ public class SelectorTableForm extends AbstractForm {
         }
         TableNode tableNode = (TableNode) tableItem.getData();
         TableNode parent = tableNode.getParent();
+
+        removeTable(parent, tables);
+    }
+
+    protected void deleteTable(TableNode tableItem) {
+        Collection<MetadataTable> tables = new ArrayList<MetadataTable>();
+        Iterator<MetadataTable> iterate = ConnectionHelper.getTables(getConnection()).iterator();
+        while (iterate.hasNext()) {
+            MetadataTable metadata = iterate.next();
+            if (metadata != null && metadata.getLabel().equals(tableItem.getValue())) {
+                tables.add(metadata);
+            }
+        }
+        TableNode parent = tableItem.getParent();
+        removeTable(parent, tables);
+    }
+
+    private void removeTable(TableNode parent, Collection<MetadataTable> tables) {
         String catalog = "";
         String schema = "";
         if (parent != null) {
@@ -1820,40 +1838,6 @@ public class SelectorTableForm extends AbstractForm {
                     deleteTable(item);
                 }
             }
-        }
-    }
-
-    protected void deleteTable(TableNode tableItem) {
-        Collection<MetadataTable> tables = new ArrayList<MetadataTable>();
-        Iterator<MetadataTable> iterate = ConnectionHelper.getTables(getConnection()).iterator();
-        while (iterate.hasNext()) {
-            MetadataTable metadata = iterate.next();
-            if (metadata != null && metadata.getLabel().equals(tableItem.getValue())) {
-                tables.add(metadata);
-            }
-        }
-        TableNode parent = tableItem.getParent();
-        String catalog = "";
-        String schema = "";
-        if (parent != null) {
-            if (parent.getType() == TableNode.CATALOG) {
-                catalog = parent.getValue();
-            } else if (parent.getType() == TableNode.SCHEMA) {
-                schema = parent.getValue();
-                TableNode catalogNode = parent.getParent();
-                if (catalogNode != null) {
-                    catalog = catalogNode.getValue();
-                }
-            }
-        }
-        boolean isAccess = EDatabaseTypeName.ACCESS.getDisplayName().equals(metadataconnection.getDbType());
-        if (isAccess) {
-            ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, getConnection().getName(), getConnection(), tables);
-        } else {
-            if ("".equals(schema) && ExtractMetaDataUtils.getInstance().isUseAllSynonyms()) {
-                schema = MetadataConnectionUtils.FAKE_SCHEMA_SYNONYMS;
-            }
-            ProjectNodeHelper.removeTablesFromCurrentCatalogOrSchema(catalog, schema, getConnection(), tables);
         }
     }
 
