@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.Path;
@@ -197,9 +199,19 @@ public class ConnectionUUIDHelper {
     }
 
     private void checkTaggedValues(List<TaggedValue> itemTaggedValue, List<TaggedValue> originalTaggedValue) {
-        for (TaggedValue itemTV : itemTaggedValue) {
+        List<String> tags = new ArrayList<String>();
+
+        Iterator<TaggedValue> itemIterator = itemTaggedValue.iterator();
+        while (itemIterator.hasNext()) {
+            TaggedValue itemTV = itemIterator.next();
+            String itemTag = itemTV.getTag();
+            if (tags.contains(itemTag)) { // FIXME existed same tag??
+                itemIterator.remove();
+                continue;
+            }
             for (TaggedValue originalTV : originalTaggedValue) {
-                if (itemTV.getTag().equals(originalTV.getTag())) {
+                if (itemTag.equals(originalTV.getTag())) {
+                    tags.add(itemTag);
                     checkObjectForSameUUID(itemTV, originalTV);
 
                     // FIXME, need check others??
