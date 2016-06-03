@@ -718,7 +718,10 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     return (RepositoryNode) node;
                 }
             } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
-                return getTestCaseParent(node.getChildren(), originalID);
+                RepositoryNode pNode = getTestCaseParent(node.getChildren(), originalID);
+                if(pNode!=null){
+                    return pNode;
+                }
             }
         }
         return null;
