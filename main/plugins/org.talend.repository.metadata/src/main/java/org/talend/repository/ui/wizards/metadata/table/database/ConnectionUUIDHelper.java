@@ -226,7 +226,9 @@ public class ConnectionUUIDHelper {
     private void checkTables(List<TdTable> itemTables, List<TdTable> originalTables) {
         for (TdTable itemTable : itemTables) {
             for (TdTable originalTable : originalTables) {
-                if (itemTable.getLabel().equals(originalTable.getLabel())) {
+                // same name or label
+                if (itemTable.getName() != null && itemTable.getName().equals(originalTable.getName())
+                        || itemTable.getLabel().equals(originalTable.getLabel())) {
                     checkObjectForSameUUID(itemTable, originalTable);
 
                     // if same name ,should be same id also
@@ -249,7 +251,9 @@ public class ConnectionUUIDHelper {
     private void checkViews(List<TdView> itemViews, List<TdView> originalViews) {
         for (TdView itemView : itemViews) {
             for (TdView originalView : originalViews) {
-                if (itemView.getLabel().equals(originalView.getLabel())) {
+                // same name or label
+                if (itemView.getName() != null && itemView.getName().equals(originalView.getName())
+                        || itemView.getLabel().equals(originalView.getLabel())) {
                     checkObjectForSameUUID(itemView, originalView);
 
                     // TaggedValue
