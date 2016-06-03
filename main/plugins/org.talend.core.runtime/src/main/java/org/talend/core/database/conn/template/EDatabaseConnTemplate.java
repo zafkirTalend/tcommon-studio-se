@@ -166,7 +166,8 @@ public enum EDatabaseConnTemplate {
 
     REDSHIFT(new DbConnStr(EDatabaseTypeName.REDSHIFT, //
             "jdbc:redshift://<host>:<port>/<sid>", //$NON-NLS-1$
-            "5439")), //$NON-NLS-1$
+            "5439",//$NON-NLS-1$
+            "")), //$NON-NLS-1$
 
     NETEZZA(new DbConnStr(EDatabaseTypeName.NETEZZA, //
             "jdbc:netezza://<host>:<port>/<sid>", //$NON-NLS-1$
@@ -358,6 +359,7 @@ public enum EDatabaseConnTemplate {
             case VERTICA:
             case EXASOL:
             case ACCESS:
+            case REDSHIFT:
                 return true;
             default:
             }
