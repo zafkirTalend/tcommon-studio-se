@@ -648,6 +648,8 @@ public final class ElementParameterParser {
                     }
 
                 }
+            } else if (param.getFieldType() == EParameterFieldType.TEXT_AREA) {
+                return param.getValue().toString().replace("\n", " ").replace("\r", " ");
             }
 
             return (String) value;
