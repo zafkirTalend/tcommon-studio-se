@@ -48,7 +48,7 @@ public abstract class RepositoryCompareSorter implements IRepositoryNodeSorter {
                 children[target] = sourceObject;
             } else if (source < target) {
                 Object sourceObject = children[source];
-                for (int i = source; i > target; i++) {
+                for (int i = source; i < target; i++) {
                     children[i] = children[i + 1]; // move next one to up
                 }
                 children[target] = sourceObject;
