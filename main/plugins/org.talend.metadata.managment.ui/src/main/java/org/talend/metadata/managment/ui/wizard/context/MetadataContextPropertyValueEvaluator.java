@@ -18,8 +18,8 @@ import org.talend.commons.runtime.model.components.IComponentConstants;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.runtime.util.GenericTypeUtils;
-import org.talend.daikon.properties.Property;
-import org.talend.daikon.properties.PropertyValueEvaluator;
+import org.talend.daikon.properties.property.Property;
+import org.talend.daikon.properties.property.PropertyValueEvaluator;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 

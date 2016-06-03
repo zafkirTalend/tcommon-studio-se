@@ -17,8 +17,8 @@ import java.util.List;
 import org.apache.avro.Schema;
 import org.apache.commons.lang3.reflect.TypeLiteral;
 import org.apache.commons.lang3.reflect.TypeUtils;
-import org.talend.daikon.properties.EnumProperty;
-import org.talend.daikon.properties.Property;
+import org.talend.daikon.properties.property.EnumProperty;
+import org.talend.daikon.properties.property.Property;
 
 
 /**
