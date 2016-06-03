@@ -32,7 +32,6 @@ import org.talend.commons.runtime.model.emf.EmfHelper;
 import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
-import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.repository.utils.URIHelper;
 import org.talend.cwm.helper.CatalogHelper;
 import org.talend.cwm.helper.ResourceHelper;
@@ -58,15 +57,15 @@ import orgomg.cwm.resource.relational.Schema;
  */
 public class ConnectionUUIDHelper {
 
-    private final ConnectionItem workConnItem;
+    private final DatabaseConnection baseConn;
 
     private DatabaseConnection originalConnection;
 
     private final File tempWorkFolder;
 
-    public ConnectionUUIDHelper(ConnectionItem workConnItem) {
+    public ConnectionUUIDHelper(DatabaseConnection baseConn) {
         super();
-        this.workConnItem = workConnItem;
+        this.baseConn = baseConn;
         this.tempWorkFolder = FileUtils.createTmpFolder("Database", "");//$NON-NLS-1$ //$NON-NLS-2$
     }
 
@@ -77,13 +76,13 @@ public class ConnectionUUIDHelper {
     }
 
     public boolean recordConnection() {
-        if (workConnItem != null && workConnItem.eResource() != null && originalConnection == null) {
+        if (baseConn != null && baseConn.eResource() != null && originalConnection == null) {
             FileOutputStream fos = null;
             FileInputStream fis = null;
             try {
-                File tmpFile = new File(tempWorkFolder, workConnItem.getProperty().getLabel() + FileExtensions.ITEM_FILE_SUFFIX);
+                File tmpFile = new File(tempWorkFolder, System.currentTimeMillis() + FileExtensions.ITEM_FILE_SUFFIX);
                 fos = new FileOutputStream(tmpFile);
-                EmfHelper.saveResource(workConnItem.getConnection().eResource(), fos);
+                EmfHelper.saveResource(baseConn.eResource(), fos);
 
                 fis = new FileInputStream(tmpFile);
 

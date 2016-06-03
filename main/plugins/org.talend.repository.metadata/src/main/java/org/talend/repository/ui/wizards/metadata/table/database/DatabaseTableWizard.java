@@ -118,7 +118,7 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
         initLockStrategy();
         this.selectedMetadataTable = metadataTable;
         this.connectionItem = (ConnectionItem) object.getProperty().getItem();
-        this.tableHelper = new ConnectionUUIDHelper(connectionItem);
+        this.tableHelper = new ConnectionUUIDHelper((DatabaseConnection) this.connectionItem.getConnection());
         if (connectionItem != null) {
             this.tableHelper.recordConnection();
             oldTableMap = RepositoryUpdateManager.getOldTableIdAndNameMap(connectionItem, metadataTable, creation);
