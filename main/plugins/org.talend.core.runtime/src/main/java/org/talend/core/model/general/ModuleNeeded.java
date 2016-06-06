@@ -552,9 +552,12 @@ public class ModuleNeeded {
         if (parseMvnUrl != null && parseMvnUrl.getType() == null) {
             if (moduleName != null && moduleName.lastIndexOf(".") != -1) {
                 parseMvnUrl.setType(moduleName.substring(moduleName.lastIndexOf(".") + 1, moduleName.length()));
-                uri = MavenUrlHelper.generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(),
-                        parseMvnUrl.getVersion(), parseMvnUrl.getType(), parseMvnUrl.getClassifier());
+            } else {
+                // set jar by default
+                parseMvnUrl.setType(MavenConstants.TYPE_JAR);
             }
+            uri = MavenUrlHelper.generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(),
+                    parseMvnUrl.getVersion(), parseMvnUrl.getType(), parseMvnUrl.getClassifier());
         }
         return uri;
     }
