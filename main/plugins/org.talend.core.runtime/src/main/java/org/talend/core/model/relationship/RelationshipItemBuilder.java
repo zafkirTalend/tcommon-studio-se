@@ -70,6 +70,8 @@ public class RelationshipItemBuilder {
 
     public static final String JOB_RELATION = "job"; //$NON-NLS-1$
 
+    public static final String TEST_RELATION = "test_case"; //$NON-NLS-1$
+
     public static final String JOBLET_RELATION = "joblet"; //$NON-NLS-1$
 
     public static final String SERVICES_RELATION = "services"; //$NON-NLS-1$
@@ -206,8 +208,8 @@ public class RelationshipItemBuilder {
     }
 
     /**
-     * Look for every linked items who use the selected id, no matter the version.
-     * Usefull when want to delete an item since it will delete every versions.
+     * Look for every linked items who use the selected id, no matter the version. Usefull when want to delete an item
+     * since it will delete every versions.
      * 
      * @param itemId
      * @param version
@@ -215,19 +217,25 @@ public class RelationshipItemBuilder {
      * @return
      */
     public List<Relation> getItemsHaveRelationWith(String itemId) {
+        return getItemsHaveRelationWith(itemId, true);
+    }
+
+    public List<Relation> getItemsHaveRelationWith(String itemId, boolean includeTestCase) {
+
         if (!loaded) {
             loadRelations();
         }
         Set<Relation> relations = new HashSet<Relation>();
-        Set<Relation> itemsRelations = getItemsHaveRelationWith(currentProjectItemsRelations, itemId);
+        Set<Relation> itemsRelations = getItemsHaveRelationWith(currentProjectItemsRelations, itemId, includeTestCase);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
-        itemsRelations = getItemsHaveRelationWith(referencesItemsRelations, itemId);
+        itemsRelations = getItemsHaveRelationWith(referencesItemsRelations, itemId, includeTestCase);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
         return new ArrayList<Relation>(relations);
+
     }
 
     public List<Relation> getItemsRelatedTo(String itemId, String version, String relationType) {
@@ -245,13 +253,14 @@ public class RelationshipItemBuilder {
         }
         return new ArrayList<Relation>(relations);
     }
-    
-    private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId) {
+
+    private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId,
+            boolean includeTestCase) {
 
         Set<Relation> relations = new HashSet<Relation>();
 
         for (Relation baseItem : itemsRelations.keySet()) {
-            for (Relation relatedItem : itemsRelations.get(baseItem)) {            	
+            for (Relation relatedItem : itemsRelations.get(baseItem)) {
                 String id = relatedItem.getId();
                 if (id != null) {
                     Relation tmpRelatedItem = null;
@@ -266,6 +275,9 @@ public class RelationshipItemBuilder {
                         tmpRelatedItem = relatedItem;
                     }
                     if (tmpRelatedItem != null && itemId.equals(id)) {
+                        if (!includeTestCase && TEST_RELATION.equals(tmpRelatedItem.getType())) {
+                            continue;
+                        }
                         relations.add(baseItem);
                         break;
                     }
