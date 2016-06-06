@@ -662,7 +662,7 @@ public class RepositoryToComponentProperty {
                 methodName = methodName.substring(0, methodName.lastIndexOf("("));//$NON-NLS-1$
             }
             if (!connection.isIsInputModel()) {
-                return TalendQuoteUtils.addQuotesIfNotExist(methodName);
+                return connection.getMethodName();
             }
             if (isContextMode(connection, connection.getMethodName())) {
                 return connection.getMethodName();
