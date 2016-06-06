@@ -12,8 +12,10 @@ Bundle-ClassPath: .,
  lib/powermock-api-mockito-common-1.6.5.jar,
  lib/powermock-module-junit4-rule-1.6.5.jar,
  lib/classmexer-0.0.3.1.jar,
- lib/powermock-classloading-objenesis-1.6.5.jar,
- lib/powermock-classloading-base-1.6.5.jar
+ lib/powermock-classloading-base-1.6.5.jar,
+ lib/powermock-classloading-xstream-1.6.5.jar,
+ lib/xstream-1.4.9.jar,
+ lib/xpp3-1.1.4c.jar
 Export-Package: com.javamex.classmexer,
  javassist,
  org.mockito,
