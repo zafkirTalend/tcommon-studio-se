@@ -1539,9 +1539,14 @@ public final class ConnectionContextHelper {
             final String contextItemId, final Set<String> neededVars, final IContextManager ctxManager, boolean added) {
         Set<String> addedVars = new HashSet<String>();
         for (IContext context : ctxManager.getListContext()) {
-
             ContextType type = ContextUtils.getContextTypeByName(contexts, context.getName(), defaultContextName);
             if (type != null) {
+                for (IContextParameter jobParam : context.getContextParameterList()) {
+                    if (contextItemId.equals(jobParam.getSource())
+                            && ContextUtils.getContextParameterTypeByName(type, jobParam.getName()) == null) {
+                        jobParam.setSource(IContextParameter.BUILT_IN);
+                    }
+                }
                 for (String var : neededVars) {
                     if (context.getContextParameter(var) != null) {
                         continue;
