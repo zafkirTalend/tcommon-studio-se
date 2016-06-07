@@ -486,7 +486,16 @@ public final class ProjectManager {
     }
 
     public String getMainProjectBranch(org.talend.core.model.properties.Project project) {
-        return project != null ? getMainProjectBranch(project.getTechnicalLabel()) : null;
+        String branchForMainProject = project != null ? getMainProjectBranch(project.getTechnicalLabel()) : null;
+        if (branchForMainProject != null) {
+            if (!branchForMainProject.contains(SVNConstant.NAME_TAGS)
+                    && !branchForMainProject.contains(SVNConstant.NAME_BRANCHES)
+                    && !branchForMainProject.contains(SVNConstant.NAME_TRUNK)
+                    && !branchForMainProject.contains(SVNConstant.NAME_MASTER)) {
+                branchForMainProject = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchForMainProject;
+            }
+        }
+        return branchForMainProject;
     }
 
     /**
