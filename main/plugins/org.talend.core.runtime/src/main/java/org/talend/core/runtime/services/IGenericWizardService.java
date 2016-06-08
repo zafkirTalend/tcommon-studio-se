@@ -105,6 +105,13 @@ public interface IGenericWizardService extends IService {
      */
     public void updateComponentSchema(INode node, IMetadataTable metadataTable);
 
-    public List<ComponentProperties> getAllComponentProperties(Connection connection);
+    /**
+     * Get all component properties which are related to the <code>connection</code>.
+     * 
+     * @param connection the connection.
+     * @param tableLabel the table which need to consider the component properties along.
+     * @return
+     */
+    public List<ComponentProperties> getAllComponentProperties(Connection connection, String tableLabel);
 
 }
