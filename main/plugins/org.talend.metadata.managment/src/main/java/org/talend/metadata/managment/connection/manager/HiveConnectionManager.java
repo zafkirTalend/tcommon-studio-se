@@ -139,7 +139,9 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                     .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET));
             String hivePrincipal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
             ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
-            setMaprTicketConfig(metadataConn, hiveClassLoader, useMaprTicket, useKerberos);
+            if (useMaprTicket) {
+                setMaprTicketConfig(metadataConn, hiveClassLoader, useKerberos);
+            }
             if (useKerberos) {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
@@ -167,42 +169,40 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return hiveStandaloneConn;
     }
 
-    private void setMaprTicketConfig(IMetadataConnection metadataConn, ClassLoader classLoader, boolean useMaprTicket,
-            boolean useKerberos) throws SQLException {
-        if (useMaprTicket) {
-            System.setProperty("pname", "MapRLogin");//$NON-NLS-1$ //$NON-NLS-2$
-            System.setProperty("https.protocols", "TLSv1.2");//$NON-NLS-1$ //$NON-NLS-2$
-            System.setProperty("mapr.home.dir", "/opt/mapr");//$NON-NLS-1$ //$NON-NLS-2$
-            String mapRTicketUsername = (String) metadataConn
-                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
-            String mapRTicketPassword = (String) metadataConn
-                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
-            String mapRTicketCluster = (String) metadataConn
-                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
-            String mapRTicketDuration = (String) metadataConn
-                    .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
-            Long desiredTicketDurInSecs = 86400L;
-            if (mapRTicketDuration != null && StringUtils.isNotBlank(mapRTicketDuration)) {
-                desiredTicketDurInSecs = Long.parseLong(mapRTicketDuration);
+    private void setMaprTicketConfig(IMetadataConnection metadataConn, ClassLoader classLoader, boolean useKerberos)
+            throws SQLException {
+        System.setProperty("pname", "MapRLogin");//$NON-NLS-1$ //$NON-NLS-2$
+        System.setProperty("https.protocols", "TLSv1.2");//$NON-NLS-1$ //$NON-NLS-2$
+        System.setProperty("mapr.home.dir", "/opt/mapr");//$NON-NLS-1$ //$NON-NLS-2$
+        String mapRTicketUsername = (String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+        String mapRTicketPassword = (String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+        String mapRTicketCluster = (String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+        String mapRTicketDuration = (String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+        Long desiredTicketDurInSecs = 86400L;
+        if (mapRTicketDuration != null && StringUtils.isNotBlank(mapRTicketDuration)) {
+            desiredTicketDurInSecs = Long.parseLong(mapRTicketDuration);
+        }
+        try {
+            Object mapRClientConfig = ReflectionUtils.newInstance(
+                    "com.mapr.login.client.MapRLoginHttpsClient", classLoader, new Object[] {}); //$NON-NLS-1$
+            if (useKerberos) {
+                System.setProperty("hadoop.login", "kerberos");//$NON-NLS-1$ //$NON-NLS-2$
+                ReflectionUtils.invokeMethod(mapRClientConfig,
+                        "getMapRCredentialsViaKerberos", new Object[] { mapRTicketCluster, desiredTicketDurInSecs }); //$NON-NLS-1$
+            } else {
+                String decryptedPassword = PasswordEncryptUtil.encryptPassword(mapRTicketPassword);
+                ReflectionUtils.invokeMethod(mapRClientConfig, "setCheckUGI", new Object[] { false }, boolean.class);//$NON-NLS-1$
+                ReflectionUtils
+                        .invokeMethod(
+                                mapRClientConfig,
+                                "getMapRCredentialsViaPassword", new Object[] { mapRTicketCluster, mapRTicketUsername, decryptedPassword, desiredTicketDurInSecs }); //$NON-NLS-1$
             }
-            try {
-                Object mapRClientConfig = ReflectionUtils.newInstance(
-                        "com.mapr.login.client.MapRLoginHttpsClient", classLoader, new Object[] {}); //$NON-NLS-1$
-                if (useKerberos) {
-                    System.setProperty("hadoop.login", "kerberos");//$NON-NLS-1$ //$NON-NLS-2$
-                    ReflectionUtils.invokeMethod(mapRClientConfig,
-                            "getMapRCredentialsViaKerberos", new Object[] { mapRTicketCluster, desiredTicketDurInSecs }); //$NON-NLS-1$
-                } else {
-                    String decryptedPassword = PasswordEncryptUtil.encryptPassword(mapRTicketPassword);
-                    ReflectionUtils.invokeMethod(mapRClientConfig, "setCheckUGI", new Object[] { false }, boolean.class);//$NON-NLS-1$
-                    ReflectionUtils
-                            .invokeMethod(
-                                    mapRClientConfig,
-                                    "getMapRCredentialsViaPassword", new Object[] { mapRTicketCluster, mapRTicketUsername, decryptedPassword, desiredTicketDurInSecs }); //$NON-NLS-1$
-                }
-            } catch (Exception e) {
-                throw new SQLException(e);
-            }
+        } catch (Exception e) {
+            throw new SQLException(e);
         }
     }
 
