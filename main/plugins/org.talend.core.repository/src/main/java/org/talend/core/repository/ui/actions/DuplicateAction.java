@@ -450,7 +450,7 @@ public class DuplicateAction extends AContextualAction {
                         if (testContainerService != null) {
                             isTestContainer = testContainerService.isTestContainerType(repositoryType);
                             if (isTestContainer) {
-                                testObjectList = testContainerService.listExistingTestCases();
+                                testObjectList = testContainerService.listExistingTestCases(null);
                             }
                         }
                     }
