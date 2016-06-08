@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess2;
@@ -172,6 +173,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
                 rwu.setAvoidSvnUpdate(true);
                 rwu.setAvoidUpdateLocks(true);
                 factory.executeRepositoryWorkUnit(rwu);
+                rwu.throwPersistenceExceptionIfAny();
                 // factory.save(getItem());
                 // loadedProcess.setProperty(getItem().getProperty());
                 // // 9035
@@ -186,7 +188,7 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
             }
             return true;
         } catch (Exception e) {
-            ExceptionHandler.process(e);
+            MessageBoxExceptionHandler.process(e);
             if (monitor != null) {
                 monitor.setCanceled(true);
             }
