@@ -43,6 +43,8 @@ public interface ISAPConstant {
 
     public static final String NAME = "NAME"; //$NON-NLS-1$
 
+    public static final String CHANGING = "CHANGING";//$NON-NLS-1$
+
     /*
      * 
      */

@@ -169,6 +169,14 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
             valueMap.put(ISAPConstant.FIELD_SCHEMA, uinqueTableName);
             if (isInput) {
                 valueMap.put(ISAPConstant.PARENT_ROW, ""); //$NON-NLS-1$
+                if (functionUnit != null && functionUnit.getParamData() != null
+                        && functionUnit.getParamData().getInputRoot() != null) {
+                    for (SAPFunctionParameter param : functionUnit.getParamData().getInputRoot().getChildren()) {
+                        if (param.getName().equals(newMetadatTable.getTableName())) {
+                            valueMap.put(ISAPConstant.CHANGING, param.isChanging());
+                        }
+                    }
+                }
                 Map<String, String> properties = newMetadatTable.getAdditionalProperties();
                 if (properties != null) {
                     properties.put(ISINPUT, TRUE);
