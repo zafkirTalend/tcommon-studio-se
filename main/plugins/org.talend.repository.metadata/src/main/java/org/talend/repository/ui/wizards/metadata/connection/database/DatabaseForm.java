@@ -2737,7 +2737,6 @@ public class DatabaseForm extends AbstractForm {
 
         generalJdbcDriverjarText = new LabelledText(generalDbCompositeParent, Messages.getString("DatabaseForm.general.jarfile"), //$NON-NLS-1$
                 1);
-        generalJdbcDriverjarText.setReadOnly(true);
 
         browseJarFilesButton = new Button(generalDbCompositeParent, SWT.NONE);
         browseJarFilesButton.setText("..."); //$NON-NLS-1$
