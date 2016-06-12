@@ -101,6 +101,12 @@ public interface IHadoopDistributionService extends IService {
 
     /**
      * 
+     * for Impala Distribution {@link ImpalaComponent}.
+     */
+    IDistributionsManager getImpalaDistributionManager();
+
+    /**
+     * 
      * Temp for Oozie.
      */
     IHDistribution[] getOozieDistributions();

@@ -48,8 +48,8 @@ import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.core.database.conn.version.EImpalaDistributions;
 import org.talend.core.hadoop.IHadoopClusterService;
+import org.talend.core.hadoop.IHadoopDistributionService;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -71,6 +71,7 @@ import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.TDQServiceRegister;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.hd.IHDistribution;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SwitchHelpers;
 import org.talend.designer.core.IDesignerCoreService;
@@ -92,7 +93,6 @@ import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
@@ -385,6 +385,13 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
         return jsonArr.toString();
     }
 
+    private IHadoopDistributionService getHadoopDistributionService() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopDistributionService.class)) {
+            return (IHadoopDistributionService) GlobalServiceRegister.getDefault().getService(IHadoopDistributionService.class);
+        }
+        return null;
+    }
+
     /**
      * This method is called when 'Finish' button is pressed in the wizard. Save metadata close Lock Strategy and close
      * wizard.
@@ -425,12 +432,16 @@ public class DatabaseWizard extends CheckLastVersionRepositoryWizard implements 
                     driverClass = EDatabase4DriverClassName.VERTICA2.getDriverClass();
                 }
                 if (EDatabaseTypeName.IMPALA.equals(dbType)) {
-                    String distributionName = dbConnection.getParameters().get(
-                            ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
-                    EImpalaDistributions distribution = EImpalaDistributions.getDistributionByName(distributionName, false);
-                    if (null != distribution && EImpalaDistributions.CUSTOM != distribution) {
-                        dbConnection.setDbVersionString(dbConnection.getParameters().get(
-                                ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION));
+                    IHadoopDistributionService hadoopService = getHadoopDistributionService();
+                    if (hadoopService != null) {
+                        String distributionName = dbConnection.getParameters().get(
+                                ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
+                        IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager().getDistribution(
+                                distributionName, false);
+                        if (null != impalaDistribution && !impalaDistribution.useCustom()) {
+                            dbConnection.setDbVersionString(dbConnection.getParameters().get(
+                                    ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION));
+                        }
                     }
                 }
                 if (EDatabaseTypeName.MYSQL.equals(dbType)
