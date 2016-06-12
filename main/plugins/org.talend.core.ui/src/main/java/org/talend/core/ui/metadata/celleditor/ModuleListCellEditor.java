@@ -23,6 +23,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -43,10 +44,40 @@ public class ModuleListCellEditor extends DialogCellEditor {
 
     private AbstractDataTableEditorView<?> tableEditorView;
 
+    private Text defaultLabel;
+
     public ModuleListCellEditor(Composite parent, IElementParameter param, IElementParameter tableParam) {
         super(parent, SWT.NONE);
         this.param = param;
         this.tableParam = tableParam;
+    }
+
+    @Override
+    protected Control createContents(Composite cell) {
+        defaultLabel = new Text(cell, SWT.LEFT);
+        defaultLabel.setFont(cell.getFont());
+        defaultLabel.setBackground(cell.getBackground());
+        return defaultLabel;
+    }
+
+    @Override
+    protected void updateContents(Object value) {
+        if (defaultLabel == null) {
+            return;
+        }
+
+        String text = "";//$NON-NLS-1$
+        if (value != null) {
+            text = value.toString();
+        }
+        defaultLabel.setText(text);
+    }
+
+    @Override
+    protected void doSetFocus() {
+        if (defaultLabel != null && !defaultLabel.isDisposed()) {
+            defaultLabel.setFocus();
+        }
     }
 
     private void executeCommand(Command cmd) {
