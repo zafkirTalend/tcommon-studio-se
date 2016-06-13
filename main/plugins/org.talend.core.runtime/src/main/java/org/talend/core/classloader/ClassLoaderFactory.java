@@ -243,12 +243,14 @@ public class ClassLoaderFactory {
         String libPath = getLibPath();
         List<String> driverNotExist = new ArrayList<String>();
         for (String driverName : driversArray) {
-            String jarPath = libPath + PATH_SEPARATOR + driverName;
-            File jarFile = new File(jarPath);
-            if (!jarFile.exists()) {
-                driverNotExist.add(driverName);
+            if (StringUtils.isNotEmpty(driverName)) {
+                String jarPath = libPath + PATH_SEPARATOR + driverName;
+                File jarFile = new File(jarPath);
+                if (!jarFile.exists()) {
+                    driverNotExist.add(driverName);
+                }
+                jarPathList.add(jarFile.getAbsolutePath());
             }
-            jarPathList.add(jarFile.getAbsolutePath());
         }
         // retreive all needed libs in one time
         boolean putInCache = false;

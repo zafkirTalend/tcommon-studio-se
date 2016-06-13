@@ -93,8 +93,6 @@ import org.talend.core.database.conn.EDatabaseConnVar;
 import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
-import org.talend.core.database.conn.version.EImpalaDistribution4Versions;
-import org.talend.core.database.conn.version.EImpalaDistributions;
 import org.talend.core.exception.WarningSQLException;
 import org.talend.core.hadoop.EHadoopCategory;
 import org.talend.core.hadoop.IHadoopClusterService;
@@ -1509,7 +1507,7 @@ public class DatabaseForm extends AbstractForm {
                     authenticationComForImpala.getParent().layout();
                     authenticationGrpForImpala.layout();
                     authenticationGrpForImpala.getParent().layout();
-                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "true");
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, Boolean.TRUE.toString());
                 } else {
                     GridData hadoopData = (GridData) authenticationComForImpala.getLayoutData();
                     hadoopData.exclude = true;
@@ -1518,7 +1516,7 @@ public class DatabaseForm extends AbstractForm {
                     authenticationComForImpala.getParent().layout();
                     authenticationGrpForImpala.layout();
                     authenticationGrpForImpala.getParent().layout();
-                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, "false");
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, Boolean.FALSE.toString());
                 }
                 urlConnectionStringText.setText(getStringConnection());
             }
@@ -2165,18 +2163,15 @@ public class DatabaseForm extends AbstractForm {
         hbaseSettingGroup = Form.createGroup(parent, 4, Messages.getString("DatabaseForm.hbase.settings"), 60); //$NON-NLS-1$
         GridLayout parentLayout = (GridLayout) parent.getLayout();
         GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(hbaseSettingGroup);
-        List<String> hbaseDistributionsDisplay = new ArrayList<String>();
+        String[] hbaseDistributionsDisplay = new String[0];
         IHadoopDistributionService hadoopService = getHadoopDistributionService();
         if (hadoopService != null) {
-            IHDistribution[] hBaseDistributions = hadoopService.getHBaseDistributionManager().getDistributions();
-            for (IHDistribution d : hBaseDistributions) {
-                hbaseDistributionsDisplay.add(d.getDisplayName());
-            }
+            hbaseDistributionsDisplay = hadoopService.getHBaseDistributionManager().getDistributionsDisplay(true);
         }
 
         hbaseDistributionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.distribution"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.distribution.tooltip"), //$NON-NLS-1$
-                hbaseDistributionsDisplay.toArray(new String[0]), 1, true);
+                hbaseDistributionsDisplay, 1, true);
         hbaseVersionCombo = new LabelledCombo(hbaseSettingGroup, Messages.getString("DatabaseForm.hbase.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.hbase.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
         hbaseVersionCombo.setHideWidgets(true);
@@ -2196,9 +2191,14 @@ public class DatabaseForm extends AbstractForm {
         GridLayout parentLayout = (GridLayout) parent.getLayout();
         GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).applyTo(impalaSettingGroup);
 
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        String[] items = new String[0];
+        if (hadoopService != null) {
+            items = hadoopService.getImpalaDistributionManager().getDistributionsDisplay(true);
+        }
         impalaDistributionCombo = new LabelledCombo(impalaSettingGroup, Messages.getString("DatabaseForm.impala.distribution"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.impala.distribution.tooltip"), //$NON-NLS-1$
-                EImpalaDistributions.getAllDistributionDisplayNames().toArray(new String[0]), 1, true);
+                items, 1, true);
         impalaVersionCombo = new LabelledCombo(impalaSettingGroup, Messages.getString("DatabaseForm.impala.version"), //$NON-NLS-1$
                 Messages.getString("DatabaseForm.impala.version.tooltip"), new String[0], 1, true); //$NON-NLS-1$
         impalaVersionCombo.setHideWidgets(true);
@@ -2534,43 +2534,44 @@ public class DatabaseForm extends AbstractForm {
         DatabaseConnection connection = getConnection();
         String hadoopDistribution = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
         String hadoopVersion = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION);
-
-        EImpalaDistributions distribution = EImpalaDistributions.getDistributionByName(hadoopDistribution, false);
-        if (distribution != null) {
-            String distributionDisplayName = distribution.getDisplayName();
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService == null) {
+            return;
+        }
+        IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager().getDistribution(hadoopDistribution,
+                false);
+        if (impalaDistribution != null) {
+            String distributionDisplayName = impalaDistribution.getDisplayName();
             impalaDistributionCombo.setText(distributionDisplayName);
-            updateImpalaVersionPart(distributionDisplayName);
+            updateImpalaVersionPart(impalaDistribution);
+
+            IHDistributionVersion hdVersion = impalaDistribution.getHDVersion(hadoopVersion, false);
+            if (hdVersion != null) {
+                impalaVersionCombo.setText(hdVersion.getDisplayVersion());
+            } else {
+                impalaVersionCombo.select(0);
+            }
         } else {
             impalaDistributionCombo.select(0);
         }
-        EImpalaDistribution4Versions version4Drivers = EImpalaDistribution4Versions.indexOfByVersion(hadoopVersion);
-        if (version4Drivers != null) {
-            impalaVersionCombo.setText(version4Drivers.getVersionDisplayName());
-        } else {
-            impalaVersionCombo.select(0);
-        }
+
         authenticationGrpForImpala.setVisible(true);
         authenticationGrpForImpala.getParent().layout();
     }
 
-    private void updateImpalaVersionPart(String distribution) {
-        boolean custom = false;
-        IHadoopDistributionService hadoopService = getHadoopDistributionService();
-        if (hadoopService != null) {
-            IHDistribution hadoopDistribution = hadoopService.getHadoopDistribution(distribution, false);
-            custom = hadoopDistribution != null && hadoopDistribution.useCustom();
+    private void updateImpalaVersionPart(IHDistribution impalaDistribution) {
+        if (impalaDistribution == null) {
+            return;
         }
+        boolean custom = impalaDistribution != null && impalaDistribution.useCustom();
         if (custom) {
             impalaVersionCombo.setHideWidgets(true);
             impalaCustomButton.setVisible(true);
         } else {
             impalaVersionCombo.setHideWidgets(false);
             impalaCustomButton.setVisible(false);
-            List<String> items = EImpalaDistribution4Versions.getHadoopDistributionVersions(distribution);
-            String[] versions = new String[items.size()];
-            items.toArray(versions);
-            impalaVersionCombo.getCombo().setItems(versions);
-            if (versions.length > 0) {
+            if (impalaDistribution != null) {
+                impalaVersionCombo.getCombo().setItems(impalaDistribution.getVersionsDisplay());
                 impalaVersionCombo.getCombo().select(0);
             }
         }
@@ -3085,16 +3086,22 @@ public class DatabaseForm extends AbstractForm {
             urlConnectionStringText.setText(urlStr);
         } else {
             String versionStr = dbVersionCombo.getText();
-            // The hive contents are not good, if this class is refactored, then this can be handled correspondingly.
-            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+            if (isHiveDBConnSelected()) {
                 HiveModeInfo hiveMode = HiveModeInfo.getByDisplay(hiveModeCombo.getText());
                 versionStr = hiveMode.getName();
-            } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
+            } else if (isImpalaDBConnSelected()) {
                 urlConnectionStringText.setText(getStringConnection());
-                if (EImpalaDistributions.CUSTOM != EImpalaDistributions.getDistributionByName(impalaDistributionCombo.getText(),
-                        true)) {
-                    versionStr = EImpalaDistribution4Versions.indexOfByVersionDisplay(impalaVersionCombo.getText())
-                            .getVersionValue();
+                IHadoopDistributionService hadoopService = getHadoopDistributionService();
+                if (hadoopService != null) {
+                    IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager().getDistribution(
+                            impalaDistributionCombo.getText(), true);
+                    if (impalaDistribution != null && !impalaDistribution.useCustom()) {
+                        IHDistributionVersion impalaVersion = impalaDistribution.getHDVersion(impalaVersionCombo.getText(), true);
+                        if (impalaVersion != null) {
+                            versionStr = impalaVersion.getVersion();
+
+                        }
+                    }
                 }
             } else {
                 EDatabaseVersion4Drivers version = EDatabaseVersion4Drivers.indexOfByVersionDisplay(versionStr);
@@ -3144,6 +3151,15 @@ public class DatabaseForm extends AbstractForm {
                 @Override
                 protected Boolean runWithCancel(IProgressMonitor monitor) throws Throwable {
                     return managerConnection.checkHiveConnection(metadataConn);
+                }
+            };
+        } else if (isImpalaDBConnSelected()) {
+            final IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+            checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
+
+                @Override
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Throwable {
+                    return managerConnection.checkImpalaConnection(metadataConn);
                 }
             };
         } else {
@@ -4351,14 +4367,21 @@ public class DatabaseForm extends AbstractForm {
                 String originalDistributionName = getConnection().getParameters().get(
                         ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
                 String newDistributionDisplayName = impalaDistributionCombo.getText();
-                EImpalaDistributions newDistribution = EImpalaDistributions
-                        .getDistributionByDisplayName(newDistributionDisplayName);
-                EImpalaDistributions originalDistribution = EImpalaDistributions.getDistributionByName(originalDistributionName,
-                        false);
-                if (newDistribution != null && newDistribution != originalDistribution) {
+
+                IHadoopDistributionService hadoopService = getHadoopDistributionService();
+                if (hadoopService == null) {
+                    return;
+                }
+                IHDistribution newDistribution = hadoopService.getImpalaDistributionManager().getDistribution(
+                        newDistributionDisplayName, true);
+                if (newDistribution == null) {
+                    return;
+                }
+
+                if (!newDistribution.getName().equals(originalDistributionName)) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION,
                             newDistribution.getName());
-                    updateImpalaVersionPart(newDistributionDisplayName);
+                    updateImpalaVersionPart(newDistribution);
                     fillDefaultsWhenImpalaVersionChanged();
                     checkFieldsValue();
                 }
@@ -4374,13 +4397,22 @@ public class DatabaseForm extends AbstractForm {
                 }
                 String originalVersionName = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION);
                 String newVersionDisplayName = StringUtils.trimToNull(impalaVersionCombo.getText());
-                EImpalaDistribution4Versions newVersion4Drivers = EImpalaDistribution4Versions
-                        .indexOfByVersionDisplay(newVersionDisplayName);
-                EImpalaDistribution4Versions originalVersion4Drivers = EImpalaDistribution4Versions
-                        .indexOfByVersion(originalVersionName);
-                if (newVersion4Drivers != null && newVersion4Drivers != originalVersion4Drivers) {
+
+                IHadoopDistributionService hadoopService = getHadoopDistributionService();
+                if (hadoopService == null) {
+                    return;
+                }
+                IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager().getDistribution(
+                        impalaDistributionCombo.getText(), true);
+                if (impalaDistribution == null) {
+                    return;
+                }
+
+                IHDistributionVersion impalaVersion = impalaDistribution.getHDVersion(newVersionDisplayName, true);
+
+                if (impalaVersion != null && !impalaVersion.getVersion().equals(originalVersionName)) {
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION,
-                            newVersion4Drivers.getVersionValue());
+                            impalaVersion.getVersion());
                     fillDefaultsWhenImpalaVersionChanged();
                     checkFieldsValue();
                 }
@@ -4625,7 +4657,7 @@ public class DatabaseForm extends AbstractForm {
      * @return
      */
     private boolean isGeneralJDBC() {
-        return dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName());
+        return EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName().equals(dbTypeCombo.getText());
     }
 
     /**
@@ -4937,7 +4969,7 @@ public class DatabaseForm extends AbstractForm {
         if (isContextMode()) {
             s = DBConnectionContextUtils.getUrlConnectionString(connectionItem, true);
         } else {
-            if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+            if (isHiveDBConnSelected()) {
                 String template = null;
                 if (doSupportHive2()
                         && HiveServerVersionInfo.HIVE_SERVER_2.getDisplayName().equals(hiveServerVersionCombo.getText())) {
@@ -4951,7 +4983,7 @@ public class DatabaseForm extends AbstractForm {
                 } else {
                     s = template;
                 }
-            } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbTypeCombo.getText())) {
+            } else if (isImpalaDBConnSelected()) {
                 String template = DbConnStrForHive.URL_HIVE_2_TEMPLATE;
                 s = DatabaseConnStrUtil.getImpalaString(getConnection(), getConnection().getServerName(), getConnection()
                         .getPort(), getConnection().getSID(), template);
@@ -5108,7 +5140,7 @@ public class DatabaseForm extends AbstractForm {
             // For bug TDI-25424, the Database text widget is missing.
             if (template != null) {
                 EDatabaseVersion4Drivers version = null;
-                if (EDatabaseTypeName.HIVE.getDisplayName().equals(dbTypeCombo.getText())) {
+                if (isHiveDBConnSelected()) {
                     boolean isEmbeddedMode = isHiveEmbeddedMode();
                     if (doSupportHive2()) {
                         if (isEmbeddedMode) {

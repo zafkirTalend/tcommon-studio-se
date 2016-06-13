@@ -57,6 +57,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.connection.manager.ImpalaConnectionManager;
 import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.model.DBConnectionFillerImpl;
@@ -143,25 +144,20 @@ public class MetadataConnectionUtils {
                 rc.setOk(true);
                 rc.setObject(createConnection);
                 rc.setMessage("Check hive connection successful!"); //$NON-NLS-1$
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 rc.setOk(false);
                 rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
                 CommonExceptionHandler.process(e);
-            } catch (InstantiationException e) {
+            }
+        } else if (EDatabaseTypeName.IMPALA.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
+            try {
+                java.sql.Connection createConnection = ImpalaConnectionManager.getInstance().createConnection(metadataBean);
+                rc.setOk(true);
+                rc.setObject(createConnection);
+                rc.setMessage("Check Impala connection successful!"); //$NON-NLS-1$
+            } catch (Exception e) {
                 rc.setOk(false);
-                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
-                CommonExceptionHandler.process(e);
-            } catch (IllegalAccessException e) {
-                rc.setOk(false);
-                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
-                CommonExceptionHandler.process(e);
-            } catch (SQLException e) {
-                rc.setOk(false);
-                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
-                CommonExceptionHandler.process(e);
-            } catch (RuntimeException e) {
-                rc.setOk(false);
-                rc.setMessage("Check hive connection failed!"); //$NON-NLS-1$
+                rc.setMessage("Check Impala connection failed!"); //$NON-NLS-1$
                 CommonExceptionHandler.process(e);
             }
         } else if (EDatabaseTypeName.HBASE.getXmlName().equalsIgnoreCase(metadataBean.getDbType())) {
