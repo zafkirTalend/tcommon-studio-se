@@ -1127,19 +1127,42 @@ public class DeleteAction extends AContextualAction {
 
         return list;
     }
+    
 
-    private boolean isTestCasesLocked(RepositoryNode node) {
-        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-        for (IRepositoryNode child : node.getChildren()) {
-            IRepositoryViewObject nodeObject = child.getObject();
-            if (nodeObject != null && nodeObject.getProperty() != null && nodeObject.getProperty().getItem() != null) {
-                if (!factory.getRepositoryContext().isEditableAsReadOnly()) {
-                    if (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
-                            || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER) {
-                        return true;
-                    }
+    private boolean isTestCasesLocked(IRepositoryNode node) {
+        if(node.getObject()==null){
+            return false;
+        }
+        if(node.getObject().getProperty()==null){
+            return false;
+        }
+        Item item = node.getObject().getProperty().getItem();
+        if(item instanceof FolderItem){
+            for(IRepositoryNode child : node.getChildren()){
+                if(isTestCasesLocked(child)){
+                    return true;
                 }
             }
+        }else if(item instanceof ProcessItem){
+            ProcessItem processItem = (ProcessItem) item;
+            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                        .getDefault().getService(ITestContainerProviderService.class);
+                if (testContainerService != null) {
+                    List<IRepositoryViewObject> objectList =  testContainerService.listExistingTestCases(processItem.getProperty().getId());
+                    for (IRepositoryViewObject nodeObject : objectList) {
+                        if (nodeObject != null && nodeObject.getProperty() != null && nodeObject.getProperty().getItem() != null) {
+                            if (!factory.getRepositoryContext().isEditableAsReadOnly()) {
+                                if (nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_OTHER
+                                        || nodeObject.getRepositoryStatus() == ERepositoryStatus.LOCK_BY_USER) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }   
         }
         return false;
     }

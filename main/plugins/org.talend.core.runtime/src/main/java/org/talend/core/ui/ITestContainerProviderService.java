@@ -89,7 +89,7 @@ public interface ITestContainerProviderService extends IService {
 
     public String getOriginalID(Object curNode);
 
-    public List<IRepositoryViewObject> listExistingTestCases();
+    public List<IRepositoryViewObject> listExistingTestCases(String originalParentID);
 
     public boolean isDuplicateTestCaseOptionSelected();
 
