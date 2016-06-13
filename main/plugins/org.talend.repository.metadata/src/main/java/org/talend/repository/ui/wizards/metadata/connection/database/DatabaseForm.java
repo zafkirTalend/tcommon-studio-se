@@ -3153,6 +3153,15 @@ public class DatabaseForm extends AbstractForm {
                     return managerConnection.checkHiveConnection(metadataConn);
                 }
             };
+        } else if (isImpalaDBConnSelected()) {
+            final IMetadataConnection metadataConn = ConvertionHelper.convert(connectionItem.getConnection(), true);
+            checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
+
+                @Override
+                protected Boolean runWithCancel(IProgressMonitor monitor) throws Throwable {
+                    return managerConnection.checkImpalaConnection(metadataConn);
+                }
+            };
         } else {
             // check the connection
             checkingDialog = new AProgressMonitorDialogWithCancel<Boolean>(getShell()) {
