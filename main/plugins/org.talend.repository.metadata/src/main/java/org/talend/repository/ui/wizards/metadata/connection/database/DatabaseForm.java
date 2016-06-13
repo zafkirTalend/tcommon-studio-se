@@ -1210,7 +1210,8 @@ public class DatabaseForm extends AbstractForm {
         maprTUsernameForHiveTxt = new LabelledText(authenticationUserPassComForHive,
                 Messages.getString("DatabaseForm.hive.MaprTUsernameTxt.label"), 2); //$NON-NLS-1$
         maprTPasswordForHiveTxt = new LabelledText(authenticationUserPassComForHive,
-                Messages.getString("DatabaseForm.hive.MaprTPasswordTxt.label"), 2, SWT.PASSWORD); //$NON-NLS-1$
+                Messages.getString("DatabaseForm.hive.MaprTPasswordTxt.label"), 2, SWT.PASSWORD | SWT.BORDER | SWT.SINGLE); //$NON-NLS-1$
+        maprTPasswordForHiveTxt.getTextControl().setEchoChar('*');
 
         maprTClusterForHiveTxt = new LabelledText(authenticationMaprTComForHive,
                 Messages.getString("DatabaseForm.hive.MaprTClusterTxt.label"), 2); //$NON-NLS-1$
@@ -1292,7 +1293,8 @@ public class DatabaseForm extends AbstractForm {
         maprTUsernameForHBaseTxt = new LabelledText(authenticationUserPassComForHBase,
                 Messages.getString("DatabaseForm.hbaseMaprTUsernameTxt.label"), 2); //$NON-NLS-1$
         maprTPasswordForHBaseTxt = new LabelledText(authenticationUserPassComForHBase,
-                Messages.getString("DatabaseForm.hbaseMaprTPasswordTxt.label"), 2, SWT.PASSWORD); //$NON-NLS-1$
+                Messages.getString("DatabaseForm.hbaseMaprTPasswordTxt.label"), 2, SWT.PASSWORD | SWT.BORDER | SWT.SINGLE); //$NON-NLS-1$
+        maprTPasswordForHBaseTxt.getTextControl().setEchoChar('*');
 
         maprTClusterForHBaseTxt = new LabelledText(authenticationMaprTComForHBase,
                 Messages.getString("DatabaseForm.hbaseMaprTClusterTxt.label"), 2); //$NON-NLS-1$
