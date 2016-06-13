@@ -815,7 +815,7 @@ public class ModulesNeededProvider {
      * @return the list uninstalled modules
      */
     public static List<ModuleNeeded> getUnistalledModulesNeeded() {
-        List<ModuleNeeded> modulesNeeded = getModulesNeeded();
+        List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>(getModulesNeeded());
         List<ModuleNeeded> uninstalledModules = new ArrayList<ModuleNeeded>(modulesNeeded.size());
         for (ModuleNeeded module : modulesNeeded) {
             if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED) {
