@@ -51,6 +51,7 @@ public class AnimatableZoomManager
      */
     public AnimatableZoomManager(ScalableFigure pane, Viewport viewport) {
         super(pane, viewport);
+        currentZoom = 1.0;
     }
 
     /**
