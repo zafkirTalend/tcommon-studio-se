@@ -9,7 +9,6 @@
     </parent>
 	<artifactId>studio-components-dependencies</artifactId>
 	<packaging>pom</packaging>
-	<name>Components dependencies</name>
 	<properties>
 		<components.version>0.12.0-SNAPSHOT</components.version>
 	</properties>

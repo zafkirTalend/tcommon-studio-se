@@ -9,7 +9,6 @@
     </parent>
     <artifactId>studio-maven-repository-zip</artifactId>
     <packaging>pom</packaging>
-    <name>Default Maven Repository for the studio</name>
     <build>
         <plugins>
             <plugin>

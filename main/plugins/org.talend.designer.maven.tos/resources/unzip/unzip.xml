@@ -9,7 +9,6 @@
     </parent>
     <artifactId>studio-maven-repository-unzip</artifactId>
     <packaging>pom</packaging>
-    <name>Default Maven Repository for the studio</name>
     <repositories>
         <repository>
             <id>Talend OpenSource Release</id>

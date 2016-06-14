@@ -9,7 +9,6 @@
     </parent>
 	<artifactId>studio-surefire-dependencies</artifactId>
 	<packaging>pom</packaging>
-	<name>Salesforce dependencies</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven.surefire</groupId>
