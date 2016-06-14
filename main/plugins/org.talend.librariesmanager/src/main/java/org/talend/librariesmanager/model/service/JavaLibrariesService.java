@@ -168,7 +168,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     @Override
     public void checkInstalledLibraries() {
         // check and install system jars for routines
-        repositoryBundleService.deployModules(ModulesNeededProvider.getCodesModuleNeededs(ERepositoryObjectType.ROUTINES) , null);
+        repositoryBundleService.deployModules(ModulesNeededProvider.getCodesModuleNeededs(ERepositoryObjectType.ROUTINES,true) , null);
         Set<String> existLibraries = repositoryBundleService.list();
         List<String> modulesNeededNames = ModulesNeededProvider.getModulesNeededNames();
         ModulesNeededProvider.getUnUsedModules().clear();

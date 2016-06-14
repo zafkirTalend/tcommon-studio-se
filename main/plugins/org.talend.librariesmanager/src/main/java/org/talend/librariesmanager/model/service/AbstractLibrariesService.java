@@ -307,7 +307,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     @Override
     public Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
-        return ModulesNeededProvider.getCodesModuleNeededs(type);
+        return ModulesNeededProvider.getCodesModuleNeededs(type, false);
     }
 
 }

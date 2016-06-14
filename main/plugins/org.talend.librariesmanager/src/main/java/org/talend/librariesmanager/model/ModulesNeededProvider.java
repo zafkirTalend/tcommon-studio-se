@@ -887,13 +887,13 @@ public class ModulesNeededProvider {
     public static Set<ModuleNeeded> getRunningModules() {
         Set<ModuleNeeded> runningModules = new HashSet<ModuleNeeded>();
 
-        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.ROUTINES));
-        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.getType("BEANS"))); //$NON-NLS-1$
-        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.PIG_UDF));
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.ROUTINES, true));
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.getType("BEANS"), true)); //$NON-NLS-1$
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.PIG_UDF, true));
         return runningModules;
     }
 
-    public static Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
+    public static Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type, boolean systemOnly) {
         if (type == null) {
             return Collections.emptySet();
         }
@@ -902,7 +902,9 @@ public class ModulesNeededProvider {
         if (type.equals(ERepositoryObjectType.ROUTINES)) {
             // add the system routines modules
             codesModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
-        } else {
+            
+        }
+        if (!systemOnly || !type.equals(ERepositoryObjectType.ROUTINES)){
             codesModules.addAll(getModulesNeededForRoutines(type));
         }
         return codesModules;
