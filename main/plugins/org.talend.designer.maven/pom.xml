@@ -9,35 +9,4 @@
 	</parent>
 	<artifactId>org.talend.designer.maven</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.8</version>
-				<executions>
-					<execution>
-						<id>copy-maven-repository</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.talend.studio</groupId>
-									<artifactId>studio-maven-repository</artifactId>
-									<version>6.2.0-SNAPSHOT</version>
-									<type>zip</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.basedir}/resources/repository</outputDirectory>
-									<destFileName>maven_repository.zip</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 </project>

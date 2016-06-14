@@ -89,7 +89,7 @@ public interface ITestContainerProviderService extends IService {
 
     public String getOriginalID(Object curNode);
 
-    public List<IRepositoryViewObject> listExistingTestCases();
+    public List<IRepositoryViewObject> listExistingTestCases(String originalParentID);
 
     public boolean isDuplicateTestCaseOptionSelected();
 
@@ -113,4 +113,6 @@ public interface ITestContainerProviderService extends IService {
     public ProcessType loadRemoteTestContainer(Item item, IProcess2 loadedProcess, Property loadProperty);
 
     public ERepositoryObjectType getTestCaseObjectType();
+    
+    public String getParentVersion(Item item);
 }

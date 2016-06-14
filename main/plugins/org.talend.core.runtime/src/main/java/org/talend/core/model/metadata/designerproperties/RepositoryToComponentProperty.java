@@ -1487,7 +1487,7 @@ public class RepositoryToComponentProperty {
             if (impalaVersion != null) {
                 // The value for IMPALA_CDH5 is wrong for a long time, so need to change it manaully, so can avoid to
                 // add migration task
-                if (EDatabaseVersion4Drivers.IMPALA_CDH5.getVersionValue().equals(impalaVersion)) {
+                if ("CLOUDERA_5".equals(impalaVersion)) {
                     impalaVersion = "Cloudera_CDH5_1";
                 }
             }

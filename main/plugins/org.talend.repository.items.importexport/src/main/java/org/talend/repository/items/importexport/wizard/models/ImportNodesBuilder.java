@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IPath;
@@ -83,17 +84,17 @@ public class ImportNodesBuilder {
 
     public void addItems(List<ImportItem> items) {
         if (items != null) {
-        	 if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-        		 Map<ImportItem, List<ImportItem>> itemMap = getTestCaseItemMap(items);
-                 for (ImportItem ir : itemMap.keySet()) {
-                     List<ImportItem> children = itemMap.get(ir);
-                     addItem(ir, children);
-                 }
-        	 }else{
-        		 for (ImportItem ir : items) {
-             		addItem(ir);
-             	}
-        	 }
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+                Map<ImportItem, List<ImportItem>> itemMap = getTestCaseItemMap(items);
+                for (ImportItem ir : itemMap.keySet()) {
+                    List<ImportItem> children = itemMap.get(ir);
+                    addItem(ir, children);
+                }
+            } else {
+                for (ImportItem ir : items) {
+                    addItem(ir);
+                }
+            }
         }
     }
 
@@ -105,33 +106,38 @@ public class ImportNodesBuilder {
                     ITestContainerProviderService.class);
         }
         if (items != null && testContainerService != null) {
+            Map<String, ImportItem> itemMap = new HashMap<String, ImportItem>();
             for (ImportItem ir : items) {
-                Item item = ir.getItem();
+                if (ir.getItem()!=null && !testContainerService.isTestContainerItem(ir.getItem())) {
+                    itemMap.put(ir.getProperty().getId(), ir);
+                    map.put(ir, new ArrayList<ImportItem>());
+                }
+            }
+            Set<String> keys = itemMap.keySet();
+            for (String key : keys) {
+                Item item = itemMap.get(key).getItem();
                 if (item == null) {
                     continue;
                 }
-                boolean isTestContainer = testContainerService.isTestContainerItem(item);
-                if (!isTestContainer) {
-                    List<ImportItem> children = new ArrayList<ImportItem>();
-                    for (ImportItem child : items) {
-                        Item childItem = child.getItem();
-                        if (childItem == null) {
-                            continue;
-                        }
-                        isTestContainer = testContainerService.isTestContainerItem(childItem);
-                        if (isTestContainer) {
-                            String path = childItem.getState().getPath();
-                            if (path != null && path.contains("/")) {
-                                int index = path.indexOf("/");
-                                path = path.substring(index + 1);
-                                if (path.equals(item.getProperty().getId())) {
-                                    children.add(child);
-                                }
+                List<ImportItem> children = new ArrayList<ImportItem>();
+                for (ImportItem child : items) {
+                    Item childItem = child.getItem();
+                    if (childItem == null) {
+                        continue;
+                    }
+                    boolean isTestContainer = testContainerService.isTestContainerItem(childItem);
+                    if (isTestContainer) {
+                        String path = childItem.getState().getPath();
+                        if (path != null && path.contains("/")) {
+                            int index = path.indexOf("/");
+                            path = path.substring(index + 1);
+                            if (path.equals(item.getProperty().getId())) {
+                                children.add(child);
                             }
                         }
                     }
-                    map.put(ir, children);
                 }
+                map.put(itemMap.get(key), children);
             }
         }
         return map;
