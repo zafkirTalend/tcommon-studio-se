@@ -217,20 +217,40 @@ public class RelationshipItemBuilder {
      * @return
      */
     public List<Relation> getItemsHaveRelationWith(String itemId) {
-        return getItemsHaveRelationWith(itemId, true);
-    }
-
-    public List<Relation> getItemsHaveRelationWith(String itemId, boolean includeTestCase) {
-
         if (!loaded) {
             loadRelations();
         }
         Set<Relation> relations = new HashSet<Relation>();
-        Set<Relation> itemsRelations = getItemsHaveRelationWith(currentProjectItemsRelations, itemId, includeTestCase);
+        Set<Relation> itemsRelations = getItemsHaveRelationWith(currentProjectItemsRelations, itemId);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
-        itemsRelations = getItemsHaveRelationWith(referencesItemsRelations, itemId, includeTestCase);
+        itemsRelations = getItemsHaveRelationWith(referencesItemsRelations, itemId);
+        if (itemsRelations != null) {
+            relations.addAll(itemsRelations);
+        }
+        return new ArrayList<Relation>(relations);
+
+    }
+
+    /**
+     * Look for every linked items who use the selected id as subjob
+     * 
+     * @param itemId
+     * @param version
+     * @param relationType
+     * @return
+     */
+    public List<Relation> getItemsHaveRelationWithJob(String itemId, String version) {
+        if (!loaded) {
+            loadRelations();
+        }
+        Set<Relation> relations = new HashSet<Relation>();
+        Set<Relation> itemsRelations = getItemsHaveRelationWithJob(currentProjectItemsRelations, itemId, version);
+        if (itemsRelations != null) {
+            relations.addAll(itemsRelations);
+        }
+        itemsRelations = getItemsHaveRelationWithJob(referencesItemsRelations, itemId, version);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
@@ -254,8 +274,7 @@ public class RelationshipItemBuilder {
         return new ArrayList<Relation>(relations);
     }
 
-    private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId,
-            boolean includeTestCase) {
+    private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId) {
 
         Set<Relation> relations = new HashSet<Relation>();
 
@@ -275,12 +294,38 @@ public class RelationshipItemBuilder {
                         tmpRelatedItem = relatedItem;
                     }
                     if (tmpRelatedItem != null && itemId.equals(id)) {
-                        if (!includeTestCase && TEST_RELATION.equals(tmpRelatedItem.getType())) {
-                            continue;
-                        }
                         relations.add(baseItem);
                         break;
                     }
+                }
+            }
+        }
+
+        return relations;
+    }
+
+    private Set<Relation> getItemsHaveRelationWithJob(Map<Relation, Set<Relation>> itemsRelations, String itemId, String version) {
+        Set<Relation> relations = new HashSet<Relation>();
+
+        for (Relation baseItem : itemsRelations.keySet()) {
+            for (Relation relatedItem : itemsRelations.get(baseItem)) {
+                String id = relatedItem.getId();
+                if (relatedItem.getType().equals(JOB_RELATION) && itemId.equals(id)) {
+                    if ("Latest".equals(relatedItem.getVersion())) {
+                        try {
+                            IRepositoryViewObject latest = getProxyRepositoryFactory().getLastVersion(id);
+                            if (!latest.getVersion().equals(version)) {
+                                continue;
+                            }
+                        } catch (PersistenceException e) {
+                            continue;
+                        }
+                    } else if (!relatedItem.getVersion().equals(version)) {
+                        continue;
+                    }
+
+                    relations.add(baseItem);
+                    break;
                 }
             }
         }
