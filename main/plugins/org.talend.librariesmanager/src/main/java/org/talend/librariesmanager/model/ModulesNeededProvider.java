@@ -489,12 +489,12 @@ public class ModulesNeededProvider {
                 libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                         ILibraryManagerUIService.class);
             }
-            //
-//            if (!systemRoutines.isEmpty() && libUiService != null) {
-//                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true, type);
-//                importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
-//            }
-            //
+            
+            if (!systemRoutines.isEmpty() && libUiService != null) {
+                List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true, type);
+                importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
+            }
+            
             if (!userRoutines.isEmpty() && libUiService != null) {
                 List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines(userRoutines, false, type);
                 importNeedsList.addAll(collectModuleNeeded(collectUserRoutines, userRoutines, false));
