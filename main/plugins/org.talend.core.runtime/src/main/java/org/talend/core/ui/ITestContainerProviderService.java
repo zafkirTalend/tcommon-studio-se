@@ -113,4 +113,6 @@ public interface ITestContainerProviderService extends IService {
     public ProcessType loadRemoteTestContainer(Item item, IProcess2 loadedProcess, Property loadProperty);
 
     public ERepositoryObjectType getTestCaseObjectType();
+    
+    public String getParentVersion(Item item);
 }
