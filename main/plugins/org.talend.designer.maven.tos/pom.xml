@@ -10,12 +10,29 @@
 	</parent>
 	<artifactId>org.talend.designer.maven.tos</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<dependencies>
-		<dependency>
-			<groupId>org.talend.studio</groupId>
-			<artifactId>studio-maven-repository-tos</artifactId>
-			<version>${project.version}</version>
-			<type>pom</type>
-		</dependency>
-	</dependencies>
-</project>
+    <dependencies>
+        <dependency>
+            <groupId>org.talend.studio</groupId>
+            <artifactId>studio-maven-repository-unzip</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.talend.studio</groupId>
+            <artifactId>studio-components-dependencies</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.talend.studio</groupId>
+            <artifactId>studio-surefire-dependencies</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.talend.studio</groupId>
+            <artifactId>studio-maven-repository-zip</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies></project>
