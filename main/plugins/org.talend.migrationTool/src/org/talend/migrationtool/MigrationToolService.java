@@ -189,21 +189,22 @@ public class MigrationToolService implements IMigrationToolService {
             }
         }
 
-        // force to redo the migration task for the relations only if user ask for "clean" or if relations is empty
-        // or if there is at least another migration to do.
-        if (!beforeLogon
-                && (!RelationshipItemBuilder.INDEX_VERSION.equals(project.getEmfProject().getItemsRelationVersion()) || nbMigrationsToDo > 0)) {
-            // force to redo this migration task, to make sure the relationship is done correctly
-            // done.remove(RELATION_TASK);
-            MigrationUtil.removeMigrationTaskById(done, RELATION_TASK);
-            RelationshipItemBuilder.getInstance().unloadRelations();
-            nbMigrationsToDo++;
-        }
-        if (nbMigrationsToDo == 0) {
-            return;
-        }
-
-        // force execute migration in case user copy-past items with diffrent path on the file system and refresh
+		// force to redo the migration task for the relations only if user ask
+		// for "clean" or if relations is empty
+		// or if there is at least another migration to do.
+		if (!beforeLogon) {
+			// force to redo this migration task, to make sure the relationship
+			// is done correctly
+			// done.remove(RELATION_TASK);
+			MigrationUtil.removeMigrationTaskById(done, RELATION_TASK);
+			RelationshipItemBuilder.getInstance().unloadRelations();
+			nbMigrationsToDo++;
+		}
+		if (nbMigrationsToDo == 0) {
+			return;
+		}
+		
+		// force execute migration in case user copy-past items with diffrent path on the file system and refresh
         // the studio,it may cause bug TDI-19229
         MigrationUtil.removeMigrationTaskById(done, "org.talend.repository.model.migration.FixProjectResourceLink");
 
