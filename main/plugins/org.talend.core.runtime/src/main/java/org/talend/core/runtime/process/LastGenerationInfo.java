@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.core.model.runprocess;
+package org.talend.core.runtime.process;
 
 import java.util.HashMap;
 import java.util.HashSet;

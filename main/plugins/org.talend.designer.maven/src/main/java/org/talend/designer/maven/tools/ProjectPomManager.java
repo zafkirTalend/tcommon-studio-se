@@ -149,10 +149,14 @@ public class ProjectPomManager {
         }
 
         if (processor != null) {
+            String mainPom = PomUtil.getPomFileName(processor.getProperty().getLabel(), processor.getProperty().getVersion());
             for (JobInfo childJob : processor.getBuildChildrenJobs()) {
-                modulesList.add(PomUtil.getPomFileName(childJob.getJobName(), childJob.getJobVersion()));
+                String childPom = PomUtil.getPomFileName(childJob.getJobName(), childJob.getJobVersion());
+                if (!childPom.equals(mainPom)) {
+                    modulesList.add(childPom);
+                }
             }
-            modulesList.add(PomUtil.getPomFileName(processor.getProperty().getLabel(), processor.getProperty().getVersion()));
+            modulesList.add(mainPom);
         }
         // check the modules
         List<String> modules = projectModel.getModules();
@@ -211,7 +215,7 @@ public class ProjectPomManager {
             Iterator<Dependency> iterator = withoutChildrenJobDependencies.iterator();
             while (iterator.hasNext()) {
                 Dependency d = iterator.next();
-                if (d.getGroupId().startsWith(jobGroupPrefix)||d.getGroupId().startsWith(testGroupPrefix)) {
+                if (d.getGroupId().startsWith(jobGroupPrefix) || d.getGroupId().startsWith(testGroupPrefix)) {
                     // remove the children job's dependencies
                     iterator.remove();
                 }
