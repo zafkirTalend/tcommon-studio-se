@@ -71,10 +71,10 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.job.JobResource;
 import org.talend.core.model.repository.job.JobResourceManager;
-import org.talend.core.model.runprocess.LastGenerationInfo;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.model.utils.PerlResourcesHelper;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
+import org.talend.core.runtime.process.LastGenerationInfo;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.process.TalendProcessOptionConstants;
 import org.talend.core.services.ISVNProviderService;
@@ -905,9 +905,7 @@ public class ProcessorUtilities {
         // set the last jobinfos to be able to set check the errors in the problems view (errors of compilations
         // only)
         // here we recreate a new JobInfo, to be sure to don't have link in memory to Emf or IProcess
-        JobInfo generatedJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
-        generatedJobInfo.setJobName(currentProcess.getName());
-        generatedJobInfo.setTestContainer(jobInfo.isTestContainer());
+        JobInfo generatedJobInfo = cloneJobInfo(jobInfo);
         String projectFolderName;
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             projectFolderName = JavaResourcesHelper.getProjectFolderName(selectedProcessItem);
@@ -919,6 +917,22 @@ public class ProcessorUtilities {
         if (isMainJob) {
             LastGenerationInfo.getInstance().setLastMainJob(generatedJobInfo);
         }
+    }
+
+    /**
+     * DOC nrousseau Comment method "cloneJobInfo".
+     * @param jobInfo
+     * @return
+     */
+    private static JobInfo cloneJobInfo(JobInfo jobInfo) {
+        if (jobInfo == null) {
+            return null;
+        }
+        JobInfo generatedJobInfo = new JobInfo(jobInfo.getJobId(), jobInfo.getContextName(), jobInfo.getJobVersion());
+        generatedJobInfo.setJobName(jobInfo.getJobName());
+        generatedJobInfo.setTestContainer(jobInfo.isTestContainer());
+        generatedJobInfo.setFatherJobInfo(cloneJobInfo(jobInfo.getFatherJobInfo()));
+        return generatedJobInfo;
     }
 
     private static void generateNodeInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean properties,
@@ -982,28 +996,30 @@ public class ProcessorUtilities {
                             }
 
                             subJobInfo.setJobVersion(processItem.getProperty().getVersion());
+                            subJobInfo.setJobName(processItem.getProperty().getLabel());
 
-                            if (!isNeedLoadmodules) {
-                                LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
-                                        subJobInfo.getJobVersion(), Collections.<ModuleNeeded> emptySet());
-                            }
-
-                            if (jobInfo.isApplyContextToChildren()) {
-                                subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                                // see bug 0003862: Export job with the flag "Apply to children" if the child don't have
-                                // the
-                                // same context fails.
-                                if (checkIfContextExisted(processItem, selectedContextName)) {
-                                    subJobInfo.setContextName(selectedContextName);
-                                } else {
-                                    // use the default context of subjob
-                                    String defaultContext = processItem.getProcess().getDefaultContext();
-                                    node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext); //$NON-NLS-1$
-                                    subJobInfo.setContextName(defaultContext);
-                                }
-                            }
                             subJobInfo.setFatherJobInfo(jobInfo);
                             if (!jobList.contains(subJobInfo)) {
+                                if (!isNeedLoadmodules) {
+                                    LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(subJobInfo.getJobId(),
+                                            subJobInfo.getJobVersion(), Collections.<ModuleNeeded> emptySet());
+                                }
+
+                                if (jobInfo.isApplyContextToChildren()) {
+                                    subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
+                                    // see bug 0003862: Export job with the flag "Apply to children" if the child don't have
+                                    // the
+                                    // same context fails.
+                                    if (checkIfContextExisted(processItem, selectedContextName)) {
+                                        subJobInfo.setContextName(selectedContextName);
+                                    } else {
+                                        // use the default context of subjob
+                                        String defaultContext = processItem.getProcess().getDefaultContext();
+                                        node.getElementParameter("PROCESS_TYPE_CONTEXT").setValue(defaultContext); //$NON-NLS-1$
+                                        subJobInfo.setContextName(defaultContext);
+                                    }
+                                }
+
                                 int subJobOption = GENERATE_ALL_CHILDS;
                                 if (BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
                                     subJobOption = GENERATE_MAIN_ONLY;
@@ -1019,37 +1035,37 @@ public class ProcessorUtilities {
                                 if (!BitwiseOptionUtils.containOption(option, GENERATE_WITH_FIRST_CHILD)) {
                                     currentProcess.setNeedRegenerateCode(true);
                                 }
-                            }
-                            LastGenerationInfo
-                                    .getInstance()
-                                    .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                    .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
-                                            subJobInfo.getJobId(), subJobInfo.getJobVersion()));
-                            LastGenerationInfo
-                                    .getInstance()
-                                    .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                    .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
-                                            subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getModulesNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getPigudfNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getPigudfNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                            LastGenerationInfo
-                                    .getInstance()
-                                    .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
-                                    .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
-                                            subJobInfo.getJobId(), subJobInfo.getJobVersion()));
+                                LastGenerationInfo
+                                        .getInstance()
+                                        .getRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion())
+                                        .addAll(LastGenerationInfo.getInstance().getRoutinesNeededWithSubjobPerJob(
+                                                subJobInfo.getJobId(), subJobInfo.getJobVersion()));
 
-                            if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
-                                LastGenerationInfo.getInstance().setUseDynamic(
-                                        jobInfo.getJobId(),
-                                        jobInfo.getJobVersion(),
-                                        LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
-                                                subJobInfo.getJobVersion()));
-                            }
-                            if (!LastGenerationInfo.getInstance().isUsePigUDFs(jobInfo.getJobId(), jobInfo.getJobVersion())) {
-                                LastGenerationInfo.getInstance().setUsePigUDFs(
-                                        jobInfo.getJobId(),
-                                        jobInfo.getJobVersion(),
-                                        LastGenerationInfo.getInstance().isUsePigUDFs(subJobInfo.getJobId(),
-                                                subJobInfo.getJobVersion()));
+                                if (!LastGenerationInfo.getInstance().isUseDynamic(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+                                    LastGenerationInfo.getInstance().setUseDynamic(
+                                            jobInfo.getJobId(),
+                                            jobInfo.getJobVersion(),
+                                            LastGenerationInfo.getInstance().isUseDynamic(subJobInfo.getJobId(),
+                                                    subJobInfo.getJobVersion()));
+                                }
+                                if (!LastGenerationInfo.getInstance().isUsePigUDFs(jobInfo.getJobId(), jobInfo.getJobVersion())) {
+                                    LastGenerationInfo.getInstance().setUsePigUDFs(
+                                            jobInfo.getJobId(),
+                                            jobInfo.getJobVersion(),
+                                            LastGenerationInfo.getInstance().isUsePigUDFs(subJobInfo.getJobId(),
+                                                    subJobInfo.getJobVersion()));
+                                }
                             }
                         }
                     }
