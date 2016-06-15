@@ -23,6 +23,8 @@ public interface IDistributionsManager {
      */
     IHDistribution[] getDistributions();
 
+    String[] getDistributionsDisplay(boolean withCustom);
+
     /**
      * 
      * Find the name of distribution.

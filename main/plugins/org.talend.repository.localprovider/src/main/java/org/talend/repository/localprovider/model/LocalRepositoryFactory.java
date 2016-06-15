@@ -62,7 +62,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
@@ -70,7 +69,6 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
-import org.talend.commons.ui.runtime.exception.ExceptionMessageDialog;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
@@ -353,7 +351,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                 property = xmiResourceManager.loadProperty(current);
                             } catch (Exception e) {
                                 // property will be null
-                                throw new PersistenceException(Messages.getString("LocalRepositoryFactory.Property_File_Broken",current.getName()), e);
+                                throw new PersistenceException(Messages.getString("LocalRepositoryFactory.Property_File_Broken",
+                                        current.getName()), e);
                                 // no log anymore here since we add the log.error, it should be enough
                             }
                             if (property != null) {
@@ -1734,9 +1733,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             for (IRepositoryViewObject obj : allVersionToMove) {
                 allRepositoryViewObject.add(obj);
                 Item currentItem = obj.getProperty().getItem();
-                if (currentItem.getParent() instanceof FolderItem) {
-                    ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
-                }
+                /*
+                 * FIXME: Comment below codes because when calling getSerializableFromFolder() method it will readd the
+                 * removed items again. (TDI-36429)
+                 */
+                // if (currentItem.getParent() instanceof FolderItem) {
+                // ((FolderItem) currentItem.getParent()).getChildren().remove(currentItem);
+                // }
                 FolderItem newFolderItem = getFolderItem(project, objToMove.getRepositoryObjectType(), newPath);
                 newFolderItem.getChildren().add(currentItem);
                 currentItem.setParent(newFolderItem);

@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.connection.hive.HiveModeInfo;
 import org.talend.core.repository.model.connection.ConnectionStatus;
 import org.talend.core.repository.model.provider.IDBMetadataProvider;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.connection.manager.ImpalaConnectionManager;
 import org.talend.repository.ProjectManager;
 
 /**
@@ -161,6 +162,22 @@ public class ManagerConnection {
     public boolean checkHiveConnection(IMetadataConnection metadataConn) {
         try {
             HiveConnectionManager.getInstance().checkConnection(metadataConn);
+            isValide = true;
+            messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
+        } catch (Exception e) {
+            isValide = false;
+            exception = e;
+            messageException = ExceptionUtils.getFullStackTrace(e);
+            if (!(e instanceof WarningSQLException)) {
+                CommonExceptionHandler.process(e);
+            }
+        }
+        return isValide;
+    }
+
+    public boolean checkImpalaConnection(IMetadataConnection metadataConn) {
+        try {
+            ImpalaConnectionManager.getInstance().checkConnection(metadataConn);
             isValide = true;
             messageException = Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"); //$NON-NLS-1$ 
         } catch (Exception e) {

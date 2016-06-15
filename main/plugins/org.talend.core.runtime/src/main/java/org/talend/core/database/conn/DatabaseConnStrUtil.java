@@ -322,7 +322,7 @@ public class DatabaseConnStrUtil {
     }
 
     private static String getImpalaURLString(boolean supportContext, String server, String port, String sid, String Principal) {
-        String s = EDatabaseConnTemplate.IMPALA.getUrlTemplate(EDatabaseVersion4Drivers.IMPALA_CDH5);
+        String s = EDatabaseConnTemplate.IMPALA.getUrlTemplate(null);
         String standardURlString = getImpalaURlString(s, supportContext, server, port, sid);
         String principalSuffix = "principal="; //$NON-NLS-1$
         boolean hasPrinc = false;

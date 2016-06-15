@@ -134,10 +134,12 @@ public class ModulesNeededProvider {
          * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForJobs");
          */
         if (componentImportNeedsList.isEmpty()) {
+            componentImportNeedsList.addAll(getModulesNeededForRoutines(ERepositoryObjectType.ROUTINES));
             // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
             componentImportNeedsList.addAll(getRunningModules());
             //            TimeMeasure.step(Messages.getString("ModulesNeededProvider.1"), "ModulesNeededProvider.getModulesNeededForRoutines"); //$NON-NLS-1$ //$NON-NLS-2$
-
+            
+            
             // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
             componentImportNeedsList.addAll(getModulesNeededForApplication());
             if (PluginChecker.isMetadataPluginLoaded()) {
@@ -487,12 +489,12 @@ public class ModulesNeededProvider {
                 libUiService = (ILibraryManagerUIService) GlobalServiceRegister.getDefault().getService(
                         ILibraryManagerUIService.class);
             }
-            //
+            
             if (!systemRoutines.isEmpty() && libUiService != null) {
                 List<IRepositoryViewObject> systemRoutineItems = libUiService.collectRelatedRoutines(systemRoutines, true, type);
                 importNeedsList.addAll(collectModuleNeeded(systemRoutineItems, systemRoutines, true));
             }
-            //
+            
             if (!userRoutines.isEmpty() && libUiService != null) {
                 List<IRepositoryViewObject> collectUserRoutines = libUiService.collectRelatedRoutines(userRoutines, false, type);
                 importNeedsList.addAll(collectModuleNeeded(collectUserRoutines, userRoutines, false));
@@ -594,7 +596,22 @@ public class ModulesNeededProvider {
             }
         }
 
-        return importNeedsList;
+        Set<String> dedupModulesList = new HashSet<String>();
+        Iterator<ModuleNeeded> it = importNeedsList.iterator();
+        while (it.hasNext()) {
+            ModuleNeeded module = it.next();
+            // try to keep only real files (with extension, no matter be jar or other)
+            // in some case it's not a real library, but just a text.
+            if (!module.getModuleName().contains(".")) { //$NON-NLS-1$
+                it.remove();
+            } else if (dedupModulesList.contains(module.getModuleName())) {
+                it.remove();
+            } else {
+                dedupModulesList.add(module.getModuleName());
+            }
+        }
+
+        return new ArrayList<ModuleNeeded>(importNeedsList);
     }
 
     private static List<ModuleNeeded> createModuleNeededFromRoutine(RoutineItem routine) {
@@ -815,7 +832,7 @@ public class ModulesNeededProvider {
      * @return the list uninstalled modules
      */
     public static List<ModuleNeeded> getUnistalledModulesNeeded() {
-        List<ModuleNeeded> modulesNeeded = getModulesNeeded();
+        List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>(getModulesNeeded());
         List<ModuleNeeded> uninstalledModules = new ArrayList<ModuleNeeded>(modulesNeeded.size());
         for (ModuleNeeded module : modulesNeeded) {
             if (module.getStatus() == ELibraryInstallStatus.NOT_INSTALLED) {
@@ -870,23 +887,25 @@ public class ModulesNeededProvider {
     public static Set<ModuleNeeded> getRunningModules() {
         Set<ModuleNeeded> runningModules = new HashSet<ModuleNeeded>();
 
-        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.ROUTINES));
-        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.getType("BEANS"))); //$NON-NLS-1$
-        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.PIG_UDF));
-
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.ROUTINES, true));
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.getType("BEANS"), true)); //$NON-NLS-1$
+        runningModules.addAll(getCodesModuleNeededs(ERepositoryObjectType.PIG_UDF, true));
         return runningModules;
     }
 
-    public static Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
+    public static Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type, boolean systemOnly) {
         if (type == null) {
             return Collections.emptySet();
         }
         Set<ModuleNeeded> codesModules = new HashSet<ModuleNeeded>();
-        codesModules.addAll(getModulesNeededForRoutines(type));
 
         if (type.equals(ERepositoryObjectType.ROUTINES)) {
             // add the system routines modules
             codesModules.addAll(collectModuleNeeded(new ArrayList<IRepositoryViewObject>(), new HashSet<String>(), true));
+            
+        }
+        if (!systemOnly || !type.equals(ERepositoryObjectType.ROUTINES)){
+            codesModules.addAll(getModulesNeededForRoutines(type));
         }
         return codesModules;
     }
