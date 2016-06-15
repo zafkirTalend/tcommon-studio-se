@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.librariesmanager.utils;
 
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
@@ -112,14 +111,10 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
 
                     // deploy to index as snapshot
                     installedModules.add(module.getName());
-                } catch (SocketTimeoutException e) {
-                    downloadFailed.add(module.getName());
-                    connectionTimeOut = true;
-                    MessageBoxExceptionHandler.process(e);
-                    continue;
                 } catch (Exception e) {
                     downloadFailed.add(module.getName());
-                    MessageBoxExceptionHandler.process(e);
+                    connectionTimeOut = true;
+                    MessageBoxExceptionHandler.process(new Exception("Download " + module.getName() + " failed!"));
                     continue;
                 }
                 accepted = false;
