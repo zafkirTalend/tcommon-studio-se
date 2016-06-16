@@ -12,11 +12,21 @@
 // ============================================================================
 package org.talend.repository.viewer.content;
 
+import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.IMemento;
+import org.eclipse.ui.internal.navigator.ContributorTrackingSet;
+import org.eclipse.ui.internal.navigator.NavigatorContentService;
+import org.eclipse.ui.internal.navigator.extensions.NavigatorContentDescriptor;
+import org.eclipse.ui.internal.navigator.extensions.NavigatorContentExtension;
+import org.eclipse.ui.internal.navigator.extensions.SafeDelegateTreeContentProvider;
+import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
+import org.eclipse.ui.navigator.INavigatorContentDescriptor;
+import org.eclipse.ui.navigator.INavigatorContentService;
 import org.eclipse.ui.navigator.IPipelinedTreeContentProvider;
 import org.eclipse.ui.navigator.PipelinedShapeModification;
 import org.eclipse.ui.navigator.PipelinedViewerUpdate;
@@ -46,15 +56,16 @@ import org.eclipse.ui.navigator.PipelinedViewerUpdate;
  * */
 public class EmptyContentProvider implements IPipelinedTreeContentProvider {
 
+    private Viewer viewer;
+
     @Override
     public void dispose() {
-        // left empty on purpose
+        this.viewer = null;
     }
 
     @Override
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        // left empty on purpose
-
+        this.viewer = viewer;
     }
 
     @Override
@@ -118,7 +129,54 @@ public class EmptyContentProvider implements IPipelinedTreeContentProvider {
      */
     @Override
     public void getPipelinedChildren(Object aParent, Set theCurrentChildren) {
+        removeResourceVisitorForOverride(theCurrentChildren);
         theCurrentChildren.clear();
+    }
+
+    @SuppressWarnings({ "restriction", "rawtypes" })
+    private void removeResourceVisitorForOverride(Set theCurrentChildren) {
+        if (this.viewer instanceof CommonViewer && theCurrentChildren instanceof ContributorTrackingSet) {
+            INavigatorContentService navigatorContentService = ((CommonViewer) this.viewer).getNavigatorContentService();
+            if (navigatorContentService instanceof NavigatorContentService) {
+                ContributorTrackingSet contributorTrackingSet = (ContributorTrackingSet) theCurrentChildren;
+
+                // have override
+                INavigatorContentDescriptor firstClassContributor = contributorTrackingSet.getFirstClassContributor();
+                if (!firstClassContributor.hasOverridingExtensions()) {
+                    return;
+                }
+
+                // check override
+                boolean isOverride = false;
+                INavigatorContentDescriptor descriptor = contributorTrackingSet.getContributor();
+                NavigatorContentDescriptor overridingDescriptor;
+                for (Iterator contentDescriptorsItr = firstClassContributor.getOverriddingExtensions().iterator(); contentDescriptorsItr
+                        .hasNext();) {
+                    overridingDescriptor = (NavigatorContentDescriptor) contentDescriptorsItr.next();
+                    if (overridingDescriptor.getId().equals(descriptor.getId())) {
+                        isOverride = true;
+                    }
+                }
+                if (!isOverride) {
+                    return;
+                }
+
+                // remove ResourceVisitor
+                NavigatorContentExtension firstClassExtension = ((NavigatorContentService) navigatorContentService)
+                        .getExtension(firstClassContributor);
+                if (firstClassExtension != null) {
+                    SafeDelegateTreeContentProvider internalGetContentProvider = firstClassExtension.internalGetContentProvider();
+                    if (internalGetContentProvider != null) {
+                        ITreeContentProvider delegateContentProvider = internalGetContentProvider.getDelegateContentProvider();
+                        if (delegateContentProvider instanceof FolderListenerSingleTopContentProvider) {
+                            // try to remove the ResourceVisitor of FolderListenerSingleTopContentProvider
+                            delegateContentProvider.dispose();
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     /*
@@ -128,6 +186,7 @@ public class EmptyContentProvider implements IPipelinedTreeContentProvider {
      */
     @Override
     public void getPipelinedElements(Object anInput, Set theCurrentElements) {
+        removeResourceVisitorForOverride(theCurrentElements);
         theCurrentElements.clear();
     }
 
