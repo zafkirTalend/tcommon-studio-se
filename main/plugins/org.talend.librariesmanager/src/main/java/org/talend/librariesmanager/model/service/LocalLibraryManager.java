@@ -399,12 +399,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     }
                 }
             }
-        } catch (IOException e) {
-            CommonExceptionHandler.process(e);
-        } catch (RuntimeException e) {
-            CommonExceptionHandler.process(e);
         } catch (Exception e) {
-            CommonExceptionHandler.process(e);
+            CommonExceptionHandler.process(new Exception(getClass().getSimpleName() + " resolve " + mavenUri + " failed !"));
         }
         try {
             if (jarFile == null) {
