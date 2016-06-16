@@ -243,13 +243,13 @@ public abstract class FolderListenerSingleTopContentProvider extends SingleTopLe
                 CommonNavigator commonNavigator = ((RepoViewCommonViewer) this.viewer).getCommonNavigator();
                 if (commonNavigator instanceof RepoViewCommonNavigator) {
                     ((RepoViewCommonNavigator) commonNavigator).removeVisitor(this.visitor);
+                    this.visitor = null;
                 }
             }
         }
 
         // to help garbage collection
         topLevelNodeToPathMap.clear();
-        topLevelNodeToPathMap = null;
         super.dispose();
     }
 }
