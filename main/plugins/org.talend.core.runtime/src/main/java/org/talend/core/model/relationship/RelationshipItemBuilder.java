@@ -401,12 +401,17 @@ public class RelationshipItemBuilder {
                     return o1.getType().compareTo(o2.getType());
                 }
             });
-            out:for (Relation relatedItem : relationItemsList) {
+            for (Relation relatedItem : relationItemsList) {
                 List<ItemRelation> relationList = new ArrayList<ItemRelation>(itemRelations.getRelatedItems());
+               boolean found = false; 
                 for(ItemRelation item : relationList){
                     if(item.getId().equals(relatedItem.getId())){
-                        continue out;
+                        found = true;
+                        break;
                     }
+                }
+                if(found){
+                    continue;
                 }
                 ItemRelation emfRelatedItem = PropertiesFactory.eINSTANCE.createItemRelation();
                 emfRelatedItem.setId(relatedItem.getId());
