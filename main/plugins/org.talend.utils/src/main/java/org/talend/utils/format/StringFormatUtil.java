@@ -26,12 +26,11 @@ public final class StringFormatUtil {
 
     public static final int PERCENT = 0;
 
-    public static final int NUMBER = 1;
+    public static final int INT_NUMBER = 1;
+
+    public static final int DOUBLE_NUMBER = 2;
 
     public static final int OTHER = 99999;
-
-    private StringFormatUtil() {
-    }
 
     /**
      * Method "padString".
@@ -41,14 +40,14 @@ public final class StringFormatUtil {
      * @return the given string completed with white spaces up the the given size.
      */
     public static String padString(String stringToPad, int size) {
-        return String.format("%" + size + "s", stringToPad);
+        return String.format("%" + size + "s", stringToPad); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
      * DOC Zqin Comment method "format".
      * 
      * @param input the object that was formated.
-     * @param style the style of formated, it should be 0, 1, 99999.
+     * @param style the style of formated, it should be 0, 1,2,99999.
      * @return the formated object.
      */
     public static Object format(Object input, int style) {
@@ -64,29 +63,37 @@ public final class StringFormatUtil {
                 BigDecimal max = new BigDecimal(9999 * 10E-5);
                 boolean isUseScientific = false;
                 switch (style) {
-                case 0:
+                case PERCENT:
                     if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
                         isUseScientific = true;
                     } else if (temp.compareTo(max) == 1 && temp.compareTo(new BigDecimal(1)) == -1) {
                         input = max.toString();
                     }
                     format = (DecimalFormat) DecimalFormat.getPercentInstance(Locale.ENGLISH);
-                    format.applyPattern("0.00%");
+                    format.applyPattern("0.00%"); //$NON-NLS-1$
                     break;
-                case 1:
+                case INT_NUMBER:
                     min = new BigDecimal(10E-3);
                     if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
                         isUseScientific = true;
                     }
                     format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
-                    format.applyPattern("0.00");
+                    format.applyPattern("0"); //$NON-NLS-1$
+                    break;
+                case DOUBLE_NUMBER:
+                    min = new BigDecimal(10E-3);
+                    if (temp.compareTo(min) == -1 && temp.compareTo(zero) == 1) {
+                        isUseScientific = true;
+                    }
+                    format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
+                    format.applyPattern("0.00"); //$NON-NLS-1$
                     break;
                 default:
                     format = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
                     return format.parse(input.toString());
                 }
                 if (isUseScientific) {
-                    format.applyPattern("0.###E0%");
+                    format.applyPattern("0.###E0%"); //$NON-NLS-1$
                 }
 
                 return format.format(new Double(input.toString()));
@@ -109,7 +116,7 @@ public final class StringFormatUtil {
         if (checkInput(input)) {
             Double db = new Double(input.toString());
             DecimalFormat format = (DecimalFormat) DecimalFormat.getPercentInstance(Locale.ENGLISH);
-            format.applyPattern("0.00%");
+            format.applyPattern("0.00%"); //$NON-NLS-1$
             return format.format(db);
         }
 
@@ -127,7 +134,7 @@ public final class StringFormatUtil {
         if (checkInput(input)) {
             Double db = new Double(input.toString());
             DecimalFormat format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
-            format.applyPattern("0.00");
+            format.applyPattern("0.00"); //$NON-NLS-1$
             return Double.valueOf(format.format(db));
         }
 
@@ -145,7 +152,7 @@ public final class StringFormatUtil {
         if (checkInput(input)) {
             Double db = new Double(input.toString());
             DecimalFormat format = (DecimalFormat) DecimalFormat.getNumberInstance(Locale.ENGLISH);
-            format.applyPattern("0.0000");
+            format.applyPattern("0.0000"); //$NON-NLS-1$
             return Double.valueOf(format.format(db));
         }
 
@@ -181,7 +188,7 @@ public final class StringFormatUtil {
      * @return true if the input is valid, else false;
      */
     private static boolean checkInput(Object input) {
-        if (input == null || "".equals(input)) {
+        if (input == null || "".equals(input)) { //$NON-NLS-1$
             return false;
         } else {
             Double db = new Double(input.toString());
@@ -196,7 +203,7 @@ public final class StringFormatUtil {
     public static Double formatPercentDecimalDouble(Object input) {
         if (checkInput(input)) {
             BigDecimal bd1 = new BigDecimal(input.toString());
-            BigDecimal bd2 = new BigDecimal("100");
+            BigDecimal bd2 = new BigDecimal("100"); //$NON-NLS-1$
             return bd1.multiply(bd2).doubleValue();
         }
         return null;
