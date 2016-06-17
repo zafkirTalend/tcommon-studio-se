@@ -736,6 +736,14 @@ public class LocalLibraryManagerTest {
             fail("Test not possible since Nexus is not setup");
         }
 
+        String localJarPath = localLibraryManager.getJarPathFromMaven(uri);
+        // force to delete the jar to have a valid test
+        if (localJarPath != null) {
+            org.talend.utils.io.FilesUtils.deleteFolder(new File(localJarPath).getParentFile(), true);
+        }
+        // jar should not exist anymore
+        assertNull(localLibraryManager.getJarPathFromMaven(uri));
+
         String testJarName = "test.jar";
         File jarFile = new File(getTmpFolder(), testJarName);
         FileUtils.writeStringToFile(jarFile, "Hello");
@@ -745,7 +753,6 @@ public class LocalLibraryManagerTest {
         localLibraryManager.deploy(jarFile.toURI(), null);
         assertTrue(localLibraryManager.isLocalJarSameAsNexus(manager, customNexusServer, testJarName));
 
-        String localJarPath = localLibraryManager.getJarPathFromMaven(uri);
         File localJarFile = new File(localJarPath);
         FileUtils.writeStringToFile(localJarFile, "Talend");
         assertFalse(localLibraryManager.isLocalJarSameAsNexus(manager, customNexusServer, testJarName));

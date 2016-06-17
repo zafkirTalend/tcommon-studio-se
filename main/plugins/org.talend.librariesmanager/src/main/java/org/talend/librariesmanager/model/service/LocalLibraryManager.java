@@ -1479,7 +1479,10 @@ public class LocalLibraryManager implements ILibraryManagerService {
         if (manager == null || customNexusServer == null || jarUri == null) {
             return false;
         }
-        String mavenUri = MavenUrlHelper.generateMvnUrlForJarName(jarUri);
+        String mavenUri = jarUri;
+        if (!MavenUrlHelper.isMvnUrl(mavenUri)) {
+            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(mavenUri);
+        }
         MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mavenUri);
         String remoteSha1 = null;
         try {
@@ -1495,8 +1498,13 @@ public class LocalLibraryManager implements ILibraryManagerService {
             if (remoteSha1 != null) {
                 String localFilePath = getJarPathFromMaven(mavenUri);
                 if (localFilePath != null) {
-                    String localSha1 = getSha1OfFile(new File(localFilePath));
-                    return StringUtils.equalsIgnoreCase(remoteSha1, localSha1);
+                    File localFile = new File(localFilePath);
+                    String localSha1 = getSha1OfFile(localFile);
+                    boolean isSha1Same = StringUtils.equalsIgnoreCase(remoteSha1, localSha1);
+                    if (!isSha1Same) {
+                        org.talend.utils.io.FilesUtils.deleteFolder(localFile.getParentFile(), true);
+                    }
+                    return isSha1Same;
                 }
             }
         } catch (Exception e) {
