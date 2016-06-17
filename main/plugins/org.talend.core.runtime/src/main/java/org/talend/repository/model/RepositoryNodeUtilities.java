@@ -323,17 +323,26 @@ public class RepositoryNodeUtilities {
                     folderChild.add(node);
                 } else if (hadoopClusterService != null && hadoopClusterService.isHadoopClusterNode(node)) {
                     if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
-                        return node;
+                        if (isSameProject(curNode, node)) {
+                            return node;
+                        }
                     } else {
                         folderChild.add(node);
                     }
                 } else if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
-                    return node;
+                    if (isSameProject(curNode, node)) {
+                        return node;
+                    }
                 }
 
             }
             for (IRepositoryNode folderNode : folderChild) {
-                final RepositoryNode repositoryNode = getRepositoryNode(folderNode, curNode, monitor);
+                RepositoryNode repositoryNode = getRepositoryNode(folderNode, curNode, monitor);
+                if (repositoryNode == null && folderNode instanceof IProjectRepositoryNode) {
+                    IRepositoryNode typeNode = ((IProjectRepositoryNode) folderNode)
+                            .getRootRepositoryNode(curNode.getRepositoryObjectType());
+                    repositoryNode = getRepositoryNode(typeNode, curNode, monitor);
+                }
                 if (repositoryNode != null) {
                     return repositoryNode;
                 }
@@ -341,6 +350,19 @@ public class RepositoryNodeUtilities {
         }
 
         return null;
+    }
+
+    private static boolean isSameProject(IRepositoryViewObject repViewObject, RepositoryNode repNode) {
+        String viewObjProjectLabel = repViewObject.getProjectLabel();
+        IProjectRepositoryNode projRepNode = repNode.getRoot();
+        String repNodeProjectLabel = ""; //$NON-NLS-1$
+        if (projRepNode != null) {
+            Project project = projRepNode.getProject();
+            if (project != null) {
+                repNodeProjectLabel = project.getLabel();
+            }
+        }
+        return repNodeProjectLabel.equals(viewObjProjectLabel);
     }
 
     private static RepositoryNode getRepositoryNode(IRepositoryNode rootNode, IRepositoryViewObject curNode,

@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -976,14 +977,30 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public List<IRepositoryViewObject> getAllVersion(String id) throws PersistenceException {
-        List<IRepositoryViewObject> allVersion = getAllRefVersion(projectManager.getCurrentProject(), id);
+        Project project = null;
+
+        // 1. try to get the corresponding project
+        project = getProjectFromItemId(id);
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+
+        // 2. try to get the pure item id which not contains the project label
+        String pureItemId = getPureItemId(id);
+
+        List<IRepositoryViewObject> allVersion = getAllRefVersion(project, pureItemId);
         return allVersion;
     }
 
     @Override
     public List<IRepositoryViewObject> getAllVersion(String id, String folderPath, ERepositoryObjectType type)
             throws PersistenceException {
-        List<IRepositoryViewObject> allVersion = getAllRefVersion(projectManager.getCurrentProject(), id, folderPath, type);
+        String pureId = getPureItemId(id);
+        Project project = getProjectFromItemId(id);
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+        List<IRepositoryViewObject> allVersion = getAllRefVersion(project, pureId, folderPath, type);
         return allVersion;
     }
 
@@ -1027,23 +1044,56 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public IRepositoryViewObject getLastVersion(Project project, String id) throws PersistenceException {
-        return this.repositoryFactoryFromProvider.getLastVersion(project, id);
+        String pureId = getPureItemId(id);
+        String projectLabel = getProjectLabelFromItemId(id);
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            if (!projectLabel.equals(project.getLabel())) {
+                org.talend.commons.exception.ExceptionHandler
+                        .process(new Exception("Project names are different: " + project.getLabel() + "<>" + projectLabel),
+                                Priority.WARN);
+            }
+        }
+        return this.repositoryFactoryFromProvider.getLastVersion(project, pureId);
     }
 
     @Override
     public IRepositoryViewObject getLastVersion(Project project, String id, String folderPath, ERepositoryObjectType type)
             throws PersistenceException {
-        return this.repositoryFactoryFromProvider.getLastVersion(project, id, folderPath, type);
+        String pureId = getPureItemId(id);
+        String projectLabel = getProjectLabelFromItemId(id);
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            if (!projectLabel.equals(project.getLabel())) {
+                org.talend.commons.exception.ExceptionHandler.process(
+                        new Exception("Project names are different: " + project.getLabel() + "<>" + projectLabel), Priority.WARN);
+            }
+        }
+        return this.repositoryFactoryFromProvider.getLastVersion(project, pureId, folderPath, type);
     }
 
     public IRepositoryViewObject getLastVersion(String id, String folderPath, ERepositoryObjectType type)
             throws PersistenceException {
-        return this.repositoryFactoryFromProvider.getLastVersion(projectManager.getCurrentProject(), id, folderPath, type);
+        String pureId = getPureItemId(id);
+        Project project = getProjectFromItemId(id);
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+        return this.repositoryFactoryFromProvider.getLastVersion(project, pureId, folderPath, type);
     }
 
     @Override
     public IRepositoryViewObject getLastVersion(String id) throws PersistenceException {
-        IRepositoryViewObject lastRefVersion = getLastRefVersion(projectManager.getCurrentProject(), id);
+        Project project = null;
+
+        // 1. try to get the corresponding project
+        project = getProjectFromItemId(id);
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+
+        // 2. try to get the pure item id which not contains the project label
+        String pureItemId = getPureItemId(id);
+
+        IRepositoryViewObject lastRefVersion = getLastRefVersion(project, pureItemId);
         return lastRefVersion;
 
     }
@@ -2022,7 +2072,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public IRepositoryViewObject getSpecificVersion(Project project, String id, String version, boolean avoidSaveProject)
             throws PersistenceException {
-        List<IRepositoryViewObject> objList = getAllVersion(project, id, avoidSaveProject);
+        String pureId = getPureItemId(id);
+        String projectLabel = getProjectLabelFromItemId(id);
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            if (!projectLabel.equals(project.getLabel())) {
+                org.talend.commons.exception.ExceptionHandler.process(
+                        new Exception("Project names are different: " + project.getLabel() + "<>" + projectLabel), Priority.WARN);
+            }
+        }
+
+        List<IRepositoryViewObject> objList = getAllVersion(project, pureId, avoidSaveProject);
         for (IRepositoryViewObject obj : objList) {
             if (obj.getVersion().equals(version)) {
                 return obj;
@@ -2046,7 +2105,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public IRepositoryViewObject getSpecificVersion(String id, String version, boolean avoidSaveProject)
             throws PersistenceException {
-        return getSpecificVersion(projectManager.getCurrentProject(), id, version, avoidSaveProject);
+        String pureId = getPureItemId(id);
+        Project project = getProjectFromItemId(id);
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+        return getSpecificVersion(project, pureId, version, avoidSaveProject);
     }
 
     public void checkAvailability() throws PersistenceException {
@@ -2269,4 +2333,54 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         return repositoryFactoryFromProvider.getAllRemoteLocks();
     }
 
+    @Override
+    public String getProjectItemIdSeperator() {
+        return " / "; //$NON-NLS-1$
+    }
+
+    /**
+     * @param itemId would be like this: PROJECT_NAME/&lt;item id&gt;, so try to split it firstly
+     */
+    @Override
+    public String getProjectLabelFromItemId(String itemId) {
+        /**
+         * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
+         */
+        String[] projectItemId = itemId.split(getProjectItemIdSeperator());
+        if (1 < projectItemId.length) {
+            return projectItemId[0];
+        }
+        return null;
+    }
+
+    public Project getProjectFromItemId(String itemId) {
+        Project project = null;
+        String projectLabel = getProjectLabelFromItemId(itemId);
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            project = projectManager.getProjectFromProjectLabel(projectLabel);
+            if (project == null) {
+                org.talend.commons.exception.ExceptionHandler.process(
+                        new Exception("Can't get project object of [" + projectLabel + "], will use current project"), //$NON-NLS-1$//$NON-NLS-2$
+                        Priority.WARN);
+            }
+        }
+        return project;
+    }
+
+    /**
+     * @param itemId would be like this: PROJECT_NAME/&lt;item id&gt;, so try to split it firstly
+     */
+    @Override
+    public String getPureItemId(String itemId) {
+        /**
+         * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
+         */
+        String[] projectItemId = itemId.split(getProjectItemIdSeperator());
+        return projectItemId[projectItemId.length - 1];
+    }
+
+    @Override
+    public String generateItemIdWithProjectLabel(String projectLabel, String pureItemId) {
+        return projectLabel + getProjectItemIdSeperator() + pureItemId;
+    }
 }

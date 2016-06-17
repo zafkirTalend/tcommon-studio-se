@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -25,6 +26,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IProxyRepositoryService;
 
 /**
  * Class to review, no cache anymore here.
@@ -62,8 +64,17 @@ public class ItemCacheManager {
     }
 
     public static ProcessItem getProcessItem(String processId) {
+        String projectLabel = getProjectLabel(processId);
         ProjectManager instance = ProjectManager.getInstance();
-        ProcessItem processItem = getRefProcessItem(instance.getCurrentProject(), processId);
+        Project project = null;
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            project = instance.getProjectFromProjectLabel(projectLabel);
+        }
+        if (project == null) {
+            project = instance.getCurrentProject();
+        }
+        String pureItemId = getPureItemId(processId);
+        ProcessItem processItem = getRefProcessItem(project, pureItemId);
         return processItem;
     }
 
@@ -82,8 +93,45 @@ public class ItemCacheManager {
         return processItem;
     }
 
+    private static String getProjectLabel(String itemId) {
+        IProxyRepositoryFactory repFactory = getProxyRepositoryFactory();
+        if (repFactory != null) {
+            return repFactory.getProjectLabelFromItemId(itemId);
+        }
+        return itemId;
+    }
+
+    private static String getPureItemId(String itemId) {
+        IProxyRepositoryFactory repFactory = getProxyRepositoryFactory();
+        if (repFactory != null) {
+            return repFactory.getPureItemId(itemId);
+        }
+        return itemId;
+    }
+
+    private static IProxyRepositoryFactory getProxyRepositoryFactory() {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
+            IProxyRepositoryService proxyRepositoryService = (IProxyRepositoryService) GlobalServiceRegister.getDefault()
+                    .getService(IProxyRepositoryService.class);
+            if (proxyRepositoryService != null) {
+                return proxyRepositoryService.getProxyRepositoryFactory();
+            }
+        }
+        return null;
+    }
+
     public static ProcessItem getProcessItem(String processId, String version) {
-        ProcessItem refProcessItem = getRefProcessItem(ProjectManager.getInstance().getCurrentProject(), processId, version);
+        String projectLabel = getProjectLabel(processId);
+        ProjectManager instance = ProjectManager.getInstance();
+        Project project = null;
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            project = instance.getProjectFromProjectLabel(projectLabel);
+        }
+        if (project == null) {
+            project = instance.getCurrentProject();
+        }
+        String pureItemId = getPureItemId(processId);
+        ProcessItem refProcessItem = getRefProcessItem(project, pureItemId, version);
         return refProcessItem;
     }
 
@@ -158,11 +206,20 @@ public class ItemCacheManager {
 
     public static JobletProcessItem getJobletProcessItem(String jobletId) {
         ProjectManager projectManager = ProjectManager.getInstance();
-        JobletProcessItem jobletProcessItem = getJobletProcessItem(projectManager.getCurrentProject(), jobletId);
+        String projectLabel = getProjectLabel(jobletId);
+        Project project = null;
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            project = projectManager.getProjectFromProjectLabel(projectLabel);
+        }
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+        String pureJobletId = getPureItemId(jobletId);
+        JobletProcessItem jobletProcessItem = getJobletProcessItem(project, pureJobletId);
 
         if (jobletProcessItem == null) {
             for (Project p : projectManager.getReferencedProjects()) {
-                jobletProcessItem = getJobletProcessItem(p, jobletId);
+                jobletProcessItem = getJobletProcessItem(p, pureJobletId);
                 if (jobletProcessItem != null) {
                     break;
                 }
@@ -200,11 +257,20 @@ public class ItemCacheManager {
 
     public static JobletProcessItem getJobletProcessItem(String jobletId, String version) {
         ProjectManager projectManager = ProjectManager.getInstance();
-        JobletProcessItem jobletProcessItem = getJobletProcessItem(projectManager.getCurrentProject(), jobletId, version);
+        String projectLabel = getProjectLabel(jobletId);
+        Project project = null;
+        if (projectLabel != null && !projectLabel.trim().isEmpty()) {
+            project = projectManager.getProjectFromProjectLabel(projectLabel);
+        }
+        if (project == null) {
+            project = projectManager.getCurrentProject();
+        }
+        String pureJobletId = getPureItemId(jobletId);
+        JobletProcessItem jobletProcessItem = getJobletProcessItem(project, pureJobletId, version);
 
         if (jobletProcessItem == null) {
             for (Project p : projectManager.getReferencedProjects()) {
-                jobletProcessItem = getJobletProcessItem(p, jobletId, version);
+                jobletProcessItem = getJobletProcessItem(p, pureJobletId, version);
                 if (jobletProcessItem != null) {
                     break;
                 }

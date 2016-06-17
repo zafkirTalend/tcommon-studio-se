@@ -515,4 +515,18 @@ public interface IProxyRepositoryFactory {
     public void unloadResources(Property property) throws PersistenceException;
 
     public Object getXmiResourceManager();
+
+    public String getProjectItemIdSeperator();
+
+    /**
+     * @param itemId would be like this: PROJECT_NAME/&lt;item id&gt;, so try to split it firstly
+     */
+    public String getProjectLabelFromItemId(String itemId);
+
+    /**
+     * @param itemId would be like this: PROJECT_NAME/&lt;item id&gt;, so try to split it firstly
+     */
+    public String getPureItemId(String itemId);
+
+    public String generateItemIdWithProjectLabel(String projectLabel, String pureItemId);
 }

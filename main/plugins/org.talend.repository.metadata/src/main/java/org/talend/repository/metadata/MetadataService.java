@@ -33,18 +33,21 @@ import org.talend.core.model.metadata.designerproperties.ComponentToRepositoryPr
 import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.LinkRulesItem;
+import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RulesItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryContentHandler;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.seeker.RepositorySeekerManager;
 import org.talend.core.ui.IHeaderFooterProviderService;
 import org.talend.core.ui.IMDMProviderService;
 import org.talend.core.ui.metadata.celleditor.EProcessTypeForRule;
 import org.talend.core.ui.rule.AbstractRlueOperationChoice;
 import org.talend.metadata.managment.ui.wizard.RepositoryWizard;
+import org.talend.repository.ProjectManager;
 import org.talend.repository.metadata.ui.actions.metadata.AbstractCreateTableAction;
 import org.talend.repository.metadata.ui.actions.metadata.CreateTableAction;
 import org.talend.repository.metadata.ui.dialog.RuleOperationChoiceDialog;
@@ -118,7 +121,17 @@ public class MetadataService implements IMetadataService {
     @Override
     public void openMetadataConnection(IRepositoryViewObject o, INode node) {
         if (o != null && o.getProperty() != null) {
-            IRepositoryNode realNode = RepositorySeekerManager.getInstance().searchRepoViewNode(o.getProperty().getId());
+            String pureItemId = o.getProperty().getId();
+            String itemId = pureItemId;
+            String projectName = null;
+            Project project = ProjectManager.getInstance().getProject(o.getProperty());
+            if (project != null) {
+                projectName = project.getLabel();
+            }
+            if (projectName != null && !projectName.trim().isEmpty()) {
+                itemId = ProxyRepositoryFactory.getInstance().generateItemIdWithProjectLabel(projectName, pureItemId);
+            }
+            IRepositoryNode realNode = RepositorySeekerManager.getInstance().searchRepoViewNode(itemId);
             openMetadataConnection(false, realNode, node);
         }
     }

@@ -36,6 +36,7 @@ import org.talend.core.model.properties.ItemRelations;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -259,6 +260,20 @@ public class RelationshipItemBuilder {
 
     }
 
+    public List<Relation> getItemsRelatedTo(Property property, String relationType) {
+        String itemId = property.getId();
+        String projectLabel = null;
+        org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
+        if (project != null) {
+            projectLabel = project.getLabel();
+        } else {
+            projectLabel = getAimProject().getLabel();
+        }
+        itemId = generateItemIdWithProjectLabel(projectLabel, itemId);
+
+        return getItemsRelatedTo(itemId, property.getVersion(), relationType);
+    }
+
     public List<Relation> getItemsRelatedTo(String itemId, String version, String relationType) {
         if (!loaded) {
             loadRelations();
@@ -339,7 +354,7 @@ public class RelationshipItemBuilder {
 
         Relation itemToTest = new Relation();
 
-        itemToTest.setId(itemId);
+        itemToTest.setId(getPureItemId(itemId));
         itemToTest.setType(relationType);
         itemToTest.setVersion(version);
         if (itemsRelations.containsKey(itemToTest)) {
@@ -353,19 +368,34 @@ public class RelationshipItemBuilder {
                 String id = relatedItem.getId();
                 if (id != null) {
                     Relation tmpRelatedItem = null;
-                    if (id.indexOf(" - ") != -1) { //$NON-NLS-1$
-                        try {
-                            tmpRelatedItem = (Relation) relatedItem.clone();
+                    try {
+                        tmpRelatedItem = (Relation) relatedItem.clone();
+                        if (id.indexOf(" - ") != -1) { //$NON-NLS-1$
                             tmpRelatedItem.setId(id.split(" - ")[0]); //$NON-NLS-1$
                             tmpRelatedItem.setType(relationType);
-                        } catch (CloneNotSupportedException e) {
-                            log.error(e);
                         }
-                    } else {
-                        tmpRelatedItem = relatedItem;
+                        tmpRelatedItem.setId(getPureItemId(tmpRelatedItem.getId()));
+                    } catch (CloneNotSupportedException e) {
+                        log.error(e);
                     }
                     if (tmpRelatedItem != null && tmpRelatedItem.equals(itemToTest)) {
-                        relations.add(baseItem);
+                        boolean shouldAdd = false;
+                        String relatedItemProjectLabel = getProjectLabelFromItemId(id);
+                        if (relatedItemProjectLabel == null || relatedItemProjectLabel.trim().isEmpty()) {
+                            shouldAdd = true;
+                        } else {
+                            String itemProjectLabel = getProjectLabelFromItemId(itemId);
+                            if (itemProjectLabel == null || itemProjectLabel.trim().isEmpty()) {
+                                itemProjectLabel = getAimProject().getLabel();
+                            }
+                            if (relatedItemProjectLabel.trim().equals(itemProjectLabel)) {
+                                shouldAdd = true;
+                            }
+                        }
+                        if (shouldAdd) {
+                            relations.add(baseItem);
+                        }
+
                         break;
                     }
                 }
@@ -924,5 +954,17 @@ public class RelationshipItemBuilder {
 
     public Map<Relation, Set<Relation>> getCurrentProjectItemsRelations() {
         return this.currentProjectItemsRelations;
+    }
+
+    private String getPureItemId(String itemId) {
+        return getProxyRepositoryFactory().getPureItemId(itemId);
+    }
+
+    private String getProjectLabelFromItemId(String itemId) {
+        return getProxyRepositoryFactory().getProjectLabelFromItemId(itemId);
+    }
+
+    private String generateItemIdWithProjectLabel(String projectLabel, String pureItemId) {
+        return getProxyRepositoryFactory().generateItemIdWithProjectLabel(projectLabel, pureItemId);
     }
 }

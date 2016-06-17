@@ -18,9 +18,11 @@ import java.util.List;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProjectRepositoryNode;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryNode.ENodeType;
@@ -143,7 +145,24 @@ public abstract class AbstractRepoViewSeeker implements IRepositorySeeker<IRepos
     }
 
     protected boolean validNode(IRepositoryNode node, String itemId, ERepositoryObjectType itemType) {
-        if (node != null && itemType != null && node.getId().equals(itemId) && itemType.equals(node.getObjectType())) {
+        ProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
+        String pureItemId = repFactory.getPureItemId(itemId);
+        String projectLabel = repFactory.getProjectLabelFromItemId(itemId);
+        boolean isSameProject = true;
+        if (node != null && projectLabel != null && !projectLabel.trim().isEmpty()) {
+            IProjectRepositoryNode projectRepNode = node.getRoot();
+            if (projectRepNode != null) {
+                Project project = projectRepNode.getProject();
+                if (project != null) {
+                    String projectLabelOfNode = project.getLabel();
+                    if (projectLabelOfNode != null && !projectLabelOfNode.trim().isEmpty()) {
+                        isSameProject = projectLabelOfNode.trim().equals(projectLabel.trim());
+                    }
+                }
+            }
+        }
+        if (node != null && itemType != null && isSameProject && node.getId().equals(pureItemId)
+                && itemType.equals(node.getObjectType())) {
             return true;
         }
         return false;
