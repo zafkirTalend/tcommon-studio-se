@@ -34,7 +34,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.PasswordEncryptUtil;
 import org.talend.core.database.EDatabase4DriverClassName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.HiveConfKeysForTalend;
@@ -184,6 +183,9 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
         Long desiredTicketDurInSecs = 86400L;
         if (mapRTicketDuration != null && StringUtils.isNotBlank(mapRTicketDuration)) {
+            if (mapRTicketDuration.endsWith("L")) {//$NON-NLS-1$ 
+                mapRTicketDuration = mapRTicketDuration.substring(0, mapRTicketDuration.length() - 1);
+            }
             desiredTicketDurInSecs = Long.parseLong(mapRTicketDuration);
         }
         try {
@@ -194,12 +196,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 ReflectionUtils.invokeMethod(mapRClientConfig,
                         "getMapRCredentialsViaKerberos", new Object[] { mapRTicketCluster, desiredTicketDurInSecs }); //$NON-NLS-1$
             } else {
-                String decryptedPassword = PasswordEncryptUtil.encryptPassword(mapRTicketPassword);
                 ReflectionUtils.invokeMethod(mapRClientConfig, "setCheckUGI", new Object[] { false }, boolean.class);//$NON-NLS-1$
                 ReflectionUtils
                         .invokeMethod(
                                 mapRClientConfig,
-                                "getMapRCredentialsViaPassword", new Object[] { mapRTicketCluster, mapRTicketUsername, decryptedPassword, desiredTicketDurInSecs }); //$NON-NLS-1$
+                                "getMapRCredentialsViaPassword", new Object[] { mapRTicketCluster, mapRTicketUsername, mapRTicketPassword, desiredTicketDurInSecs }); //$NON-NLS-1$
             }
         } catch (Exception e) {
             throw new SQLException(e);
