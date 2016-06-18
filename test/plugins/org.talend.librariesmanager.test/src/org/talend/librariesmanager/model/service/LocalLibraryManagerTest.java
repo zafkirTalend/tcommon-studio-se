@@ -30,7 +30,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -46,7 +48,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.CommonExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.conn.version.EDatabaseVersion4Drivers;
@@ -54,6 +58,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.Project;
 import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.nexus.NexusServerUtils;
 import org.talend.core.nexus.TalendLibsServerManager;
@@ -64,11 +69,14 @@ import org.talend.librariesmanager.emf.librariesindex.LibrariesIndex;
 import org.talend.librariesmanager.maven.ArtifactsDeployer;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
+import org.talend.repository.ProjectManager;
 
 /**
  * DOC hwang class global comment. Detailled comment
  */
 public class LocalLibraryManagerTest {
+
+    private ILibraryManagerService localLibraryManager;
 
     private List<String> notDilivers = new ArrayList<String>();
 
@@ -79,6 +87,7 @@ public class LocalLibraryManagerTest {
      */
     @Before
     public void setUp() throws Exception {
+        localLibraryManager = new LocalLibraryManager();
         notDilivers.add("nzjdbc.jar");
         notDilivers.add("sas.svc.connection.jar");
         notDilivers.add("sas.core.jar");
@@ -701,6 +710,67 @@ public class LocalLibraryManagerTest {
 
     private String getSha1(String file) throws IOException {
         return getSha1(new File(file));
+    }
+
+    @Test
+    public void testIsJarExistInLibFolder() throws IOException {
+        File testJarFile = File.createTempFile("testLM", "jar");
+        testJarFile.deleteOnExit();
+        assertFalse(localLibraryManager.isJarExistInLibFolder(testJarFile));
+
+        String librariesPath = LibrariesManagerUtils.getLibrariesPath(ECodeLanguage.JAVA);
+        File storageDir = new File(librariesPath);
+        FileUtils.copyFileToDirectory(testJarFile, storageDir);
+        assertTrue(localLibraryManager.isJarExistInLibFolder(testJarFile));
+
+        FileUtils.writeStringToFile(testJarFile, "Hello");
+        assertFalse(localLibraryManager.isJarExistInLibFolder(testJarFile));
+    }
+
+    @Test
+    public void testIsLocalJarSameAsNexus() throws IOException {
+        String uri = "mvn:org.talend.libraries/test/6.0.0-SNAPSHOT/jar";
+        TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+        final NexusServerBean customNexusServer = manager.getCustomNexusServer();
+        if (customNexusServer == null) {
+            fail("Test not possible since Nexus is not setup");
+        }
+
+        String localJarPath = localLibraryManager.getJarPathFromMaven(uri);
+        // force to delete the jar to have a valid test
+        if (localJarPath != null) {
+            org.talend.utils.io.FilesUtils.deleteFolder(new File(localJarPath).getParentFile(), true);
+        }
+        // jar should not exist anymore
+        assertNull(localLibraryManager.getJarPathFromMaven(uri));
+
+        String testJarName = "test.jar";
+        File jarFile = new File(getTmpFolder(), testJarName);
+        FileUtils.writeStringToFile(jarFile, "Hello");
+        assertFalse(localLibraryManager.isLocalJarSameAsNexus(manager, customNexusServer, testJarName));
+
+        // deploy jar on local + nexus
+        localLibraryManager.deploy(jarFile.toURI(), null);
+        assertTrue(localLibraryManager.isLocalJarSameAsNexus(manager, customNexusServer, testJarName));
+
+        File localJarFile = new File(localJarPath);
+        FileUtils.writeStringToFile(localJarFile, "Talend");
+        assertFalse(localLibraryManager.isLocalJarSameAsNexus(manager, customNexusServer, testJarName));
+    }
+
+    private File getTmpFolder() {
+        Project project = ProjectManager.getInstance().getCurrentProject();
+        IProject physProject;
+        String tmpFolderPath = System.getProperty("user.dir"); //$NON-NLS-1$
+        try {
+            physProject = ResourceUtils.getProject(project.getTechnicalLabel());
+            tmpFolderPath = physProject.getFolder("temp").getLocation().toPortableString(); //$NON-NLS-1$
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        tmpFolderPath = tmpFolderPath + "/testLib"; //$NON-NLS-1$
+
+        return new File(tmpFolderPath);
     }
 
 }

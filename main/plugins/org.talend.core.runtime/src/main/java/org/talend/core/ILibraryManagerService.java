@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core;
 
+import java.io.File;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
@@ -19,6 +20,8 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.nexus.NexusServerBean;
+import org.talend.core.nexus.TalendLibsServerManager;
 
 /**
  * DOC ycbai class global comment. Detailled comment
@@ -135,6 +138,11 @@ public interface ILibraryManagerService extends IService {
     public void forceListUpdate();
 
     /**
+     * @return true if svn share lib folder are set, otherwise return false.
+     */
+    public boolean isSvnLibSetup();
+
+    /**
      * deploy jars from lib/java to local maven if any jar already exist in maven and need update , for jars that not
      * exist in maven won't be deploy by this funciton , those jars should be deploy when it is needed Comment method
      * "synToLocalMaven".
@@ -142,5 +150,41 @@ public interface ILibraryManagerService extends IService {
     public void synToLocalMaven();
 
     public String getMavenUriFromIndex(String jarName);
+
+    /**
+     * DOC ycbai Comment method "isJarExistInLibFolder".
+     * <p>
+     * Estimate if the jar is exist in talend lib folder(and same content).
+     * </p>
+     * 
+     * @param jarFile
+     * @return
+     */
+    public boolean isJarExistInLibFolder(File jarFile);
+
+    /**
+     * DOC ycbai Comment method "isLocalJarSameAsNexus".
+     * <p>
+     * Estimate if the local jar is same as the one in Nexus by comparing the Sha1.
+     * </p>
+     * 
+     * @param manager
+     * @param customNexusServer
+     * @param jarUri
+     * @return
+     */
+    public boolean isLocalJarSameAsNexus(TalendLibsServerManager manager, final NexusServerBean customNexusServer, String jarUri);
+
+    /**
+     * DOC ycbai Comment method "isJarNeedToBeDeployed".
+     * <p>
+     * Estimate if need to deploy the jar file. If the jar is not exist in svn lib folder or not same as the one in
+     * Nexus will need to deploy it.
+     * </p>
+     * 
+     * @param jarFile
+     * @return
+     */
+    public boolean isJarNeedToBeDeployed(File jarFile);
 
 }

@@ -315,7 +315,8 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     }
 
-    private boolean isSvnLibSetup() {
+    @Override
+    public boolean isSvnLibSetup() {
         if (PluginChecker.isSVNProviderPluginLoaded()) {
             try {
                 Context ctx = CoreRuntimePlugin.getInstance().getContext();
@@ -400,7 +401,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                 }
             }
         } catch (Exception e) {
-            CommonExceptionHandler.process(new Exception(getClass().getSimpleName() + " resolve " + mavenUri + " failed !"));
+            CommonExceptionHandler.process(e);
         }
         try {
             if (jarFile == null) {
@@ -462,32 +463,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     public File resolveJar(TalendLibsServerManager manager, final NexusServerBean customNexusServer, String uri)
             throws Exception, IOException {
-        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(uri);
-        String remoteSha1 = null;
-        if (artifact != null) {
-            String repositoryId = customNexusServer.getRepositoryId();
-            if (artifact.getVersion() != null && artifact.getVersion().endsWith(MavenConstants.SNAPSHOT)) {
-                repositoryId = customNexusServer.getSnapshotRepId();
-            }
-            remoteSha1 = manager.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
-                    customNexusServer.getPassword(), repositoryId, artifact.getGroupId(), artifact.getArtifactId(),
-                    artifact.getVersion(), artifact.getType());
-        }
         File resolvedFile = null;
-        if (remoteSha1 != null) {
-            String localFilePath = getJarPathFromMaven(uri);
-            if (localFilePath != null) {
-                File localFile = new File(localFilePath);
-                FileInputStream fis = new FileInputStream(localFile);
-                String localSha1 = DigestUtils.shaHex(fis);
-                fis.close();
-                if (!StringUtils.equalsIgnoreCase(remoteSha1, localSha1)) {
-                    org.talend.utils.io.FilesUtils.deleteFolder(localFile.getParentFile(), true);
-                    resolvedFile = manager.getMavenResolver().resolve(uri);
-                }
-            } else {
-                resolvedFile = manager.getMavenResolver().resolve(uri);
-            }
+        if (!isLocalJarSameAsNexus(manager, customNexusServer, uri)) {
+            resolvedFile = manager.getMavenResolver().resolve(uri);
         }
         if (resolvedFile != null) {
             // reset module status
@@ -1439,6 +1417,105 @@ public class LocalLibraryManager implements ILibraryManagerService {
     public String getMavenUriFromIndex(String jarName) {
         EMap<String, String> jarsToMavenuri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
         return jarsToMavenuri.get(jarName);
+    }
+
+    @Override
+    public boolean isJarExistInLibFolder(File jarFile) {
+        if (jarFile == null) {
+            return false;
+        }
+        File jarInLib = null;
+        try {
+            List<File> jarFiles = FilesUtils.getJarFilesFromFolder(getStorageDirectory(), null);
+            for (File file : jarFiles) {
+                if (file.getName().equals(jarFile.getName())) {
+                    jarInLib = file;
+                    break;
+                }
+            }
+        } catch (MalformedURLException e) {
+            CommonExceptionHandler.process(e);
+        }
+        return isSameFile(jarFile, jarInLib);
+    }
+
+    private boolean isSameFile(File f1, File f2) {
+        if (f1 == null || f2 == null) {
+            return false;
+        }
+        String f1Sha1 = getSha1OfFile(f1);
+        String f2Sha1 = getSha1OfFile(f2);
+        return StringUtils.equalsIgnoreCase(f1Sha1, f2Sha1);
+    }
+
+    private String getSha1OfFile(File file) {
+        String sha1 = null;
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            sha1 = DigestUtils.shaHex(fileInputStream);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace(); // Just print the exception for debug.
+                }
+            }
+        }
+        return sha1;
+    }
+
+    private boolean isLocalJarSameAsNexus(String jarUri) {
+        TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+        final NexusServerBean customNexusServer = manager.getCustomNexusServer();
+        return isLocalJarSameAsNexus(manager, customNexusServer, jarUri);
+    }
+
+    @Override
+    public boolean isLocalJarSameAsNexus(TalendLibsServerManager manager, final NexusServerBean customNexusServer, String jarUri) {
+        if (manager == null || customNexusServer == null || jarUri == null) {
+            return false;
+        }
+        String mavenUri = jarUri;
+        if (!MavenUrlHelper.isMvnUrl(mavenUri)) {
+            mavenUri = MavenUrlHelper.generateMvnUrlForJarName(mavenUri);
+        }
+        MavenArtifact artifact = MavenUrlHelper.parseMvnUrl(mavenUri);
+        String remoteSha1 = null;
+        try {
+            if (artifact != null) {
+                String repositoryId = customNexusServer.getRepositoryId();
+                if (artifact.getVersion() != null && artifact.getVersion().endsWith(MavenConstants.SNAPSHOT)) {
+                    repositoryId = customNexusServer.getSnapshotRepId();
+                }
+                remoteSha1 = manager.resolveSha1(customNexusServer.getServer(), customNexusServer.getUserName(),
+                        customNexusServer.getPassword(), repositoryId, artifact.getGroupId(), artifact.getArtifactId(),
+                        artifact.getVersion(), artifact.getType());
+            }
+            if (remoteSha1 != null) {
+                String localFilePath = getJarPathFromMaven(mavenUri);
+                if (localFilePath != null) {
+                    File localFile = new File(localFilePath);
+                    String localSha1 = getSha1OfFile(localFile);
+                    boolean isSha1Same = StringUtils.equalsIgnoreCase(remoteSha1, localSha1);
+                    if (!isSha1Same) {
+                        org.talend.utils.io.FilesUtils.deleteFolder(localFile.getParentFile(), true);
+                    }
+                    return isSha1Same;
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isJarNeedToBeDeployed(File jarFile) {
+        return isSvnLibSetup() && !isJarExistInLibFolder(jarFile) || !isLocalJarSameAsNexus(jarFile.getName());
     }
 
 }
