@@ -23,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
@@ -40,7 +41,7 @@ public class ImportNodesBuilder {
      */
     private Map<String, ProjectImportNode> projectNodesMap = new HashMap<String, ProjectImportNode>();
 
-    private Map<String, StandardJobImportNode> jobNodesMap = new HashMap<String, StandardJobImportNode>();
+    private Map<String, StandardJobImportNode> standardNodesMap = new HashMap<String, StandardJobImportNode>();
 
     private List<ImportItem> allImportItemRecords = new ArrayList<ImportItem>();
 
@@ -79,7 +80,7 @@ public class ImportNodesBuilder {
         this.allImportItemNode.clear();
         this.allImportItemRecords.clear();
         this.projectNodesMap.clear();
-        this.jobNodesMap.clear();
+        this.standardNodesMap.clear();
     }
 
     public void addItems(List<ImportItem> items) {
@@ -108,7 +109,7 @@ public class ImportNodesBuilder {
         if (items != null && testContainerService != null) {
             Map<String, ImportItem> itemMap = new HashMap<String, ImportItem>();
             for (ImportItem ir : items) {
-                if (ir.getItem()!=null && !testContainerService.isTestContainerItem(ir.getItem())) {
+                if (ir.getItem() != null && !testContainerService.isTestContainerItem(ir.getItem())) {
                     itemMap.put(ir.getProperty().getId(), ir);
                     map.put(ir, new ArrayList<ImportItem>());
                 }
@@ -171,47 +172,36 @@ public class ImportNodesBuilder {
             // set for type
             ImportNode typeImportNode = findAndCreateParentTypeNode(projectImportNode, itemType);
 
-            if (ERepositoryObjectType.PROCESS.equals(itemType) && ERepositoryObjectType.findParentType(itemType) == null) {
-                // handle the standard job and create a standard node floder
+            // set for type
+            ImportNode parentImportNode = typeImportNode; // by default, in under type node.
+            if (parentImportNode == null) {
+                parentImportNode = projectImportNode;
+            }
+
+            if (ERepositoryObjectType.PROCESS.equals(itemType) && ERepositoryObjectType.findParentType(itemType) == null
+                    && PluginChecker.isTIS()) { // if tos, no standard node
+                // handle the standard job and create a standard node folder
                 // set for type
-                StandardJobImportNode standJobImportNode = this.jobNodesMap.get(itemType.getLabel());
+                StandardJobImportNode standJobImportNode = this.standardNodesMap.get(technicalLabel);
                 if (standJobImportNode == null) {
                     standJobImportNode = new StandardJobImportNode(itemType);
-                    this.jobNodesMap.put(itemType.getLabel(), standJobImportNode);
+                    this.standardNodesMap.put(technicalLabel, standJobImportNode);
                     typeImportNode.addChild(standJobImportNode);
                 }
-                ImportNode parentImportNode = standJobImportNode; // by default, in under type node.
-                String path = item.getState().getPath();
-                if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
-                    parentImportNode = findAndCreateFolderNode(standJobImportNode, new Path(path));
-                }
-                ItemImportNode itemNode = new ItemImportNode(itemRecord);
-                parentImportNode.addChild(itemNode);
-                allImportItemNode.add(itemNode);//
-                if (children != null) {
-                    for (ImportItem childRecord : children) {
-                        ItemImportNode childNode = new ItemImportNode(childRecord);
-                        itemNode.addChild(childNode);
-                    }
-                }
-            } else {
-                // set for type
-                ImportNode parentImportNode = typeImportNode; // by default, in under type node.
-                if (parentImportNode == null) {
-                    parentImportNode = projectImportNode;
-                }
-                String path = item.getState().getPath();
-                if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
-                    parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
-                }
-                ItemImportNode itemNode = new ItemImportNode(itemRecord);
-                parentImportNode.addChild(itemNode);
-                allImportItemNode.add(itemNode);
-                if (children != null) {
-                    for (ImportItem childRecord : children) {
-                        ItemImportNode childNode = new ItemImportNode(childRecord);
-                        itemNode.addChild(childNode);
-                    }
+                parentImportNode = standJobImportNode;
+
+            }
+            String path = item.getState().getPath();
+            if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
+                parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
+            }
+            ItemImportNode itemNode = new ItemImportNode(itemRecord);
+            parentImportNode.addChild(itemNode);
+            allImportItemNode.add(itemNode);
+            if (children != null) {
+                for (ImportItem childRecord : children) {
+                    ItemImportNode childNode = new ItemImportNode(childRecord);
+                    itemNode.addChild(childNode);
                 }
             }
         }
