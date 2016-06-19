@@ -16,12 +16,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.prefs.BackingStoreException;
-import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.IService;
+import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.properties.User;
+import org.talend.core.model.process.INode;
 import org.talend.core.updatesite.IUpdateSiteBean;
 
 /**
@@ -31,7 +31,7 @@ public interface ICoreTisService extends IService {
 
     public void drawWelcomeLogo(String version);
 
-    public boolean isSupportDynamicType(String componentName);
+    public boolean isSupportDynamicType(INode node);
 
     public boolean validProject(Project project, boolean flag) throws PersistenceException;
 
