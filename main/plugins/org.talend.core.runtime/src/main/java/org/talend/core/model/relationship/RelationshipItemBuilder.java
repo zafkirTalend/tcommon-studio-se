@@ -858,4 +858,7 @@ public class RelationshipItemBuilder {
         }
     }
 
+    public Map<Relation, Set<Relation>> getCurrentProjectItemsRelations(){
+        return this.currentProjectItemsRelations;
+    }
 }
