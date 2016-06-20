@@ -893,7 +893,7 @@ public class ProcessorUtilities {
                 ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
                         .getDefault().getService(ITestContainerProviderService.class);
                 if (testContainerService != null) {
-                    List<ProcessItem> testsItems = testContainerService.getAllTestContainers(jobInfo.getProcessItem());
+                    List<ProcessItem> testsItems = testContainerService.getTestContainersByVersion(jobInfo.getProcessItem());
                     for (ProcessItem testItem : testsItems) {
                         JobInfo subJobInfo = new JobInfo(testItem, testItem.getProcess().getDefaultContext());
                         subJobInfo.setTestContainer(true);
@@ -1579,7 +1579,7 @@ public class ProcessorUtilities {
             ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
                     .getDefault().getService(ITestContainerProviderService.class);
             if (testContainerService != null) {
-                List<ProcessItem> testsItems = testContainerService.getAllTestContainers(parentJobInfo.getProcessItem());
+                List<ProcessItem> testsItems = testContainerService.getTestContainersByVersion(parentJobInfo.getProcessItem());
                 for (ProcessItem testItem : testsItems) {
                     ProcessType testProcess = testContainerService.getTestContainerProcess(testItem);
                     if (testItem.getProcess() == null) {
