@@ -26,6 +26,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.general.Project;
@@ -500,17 +501,30 @@ public class RelationshipItemBuilder {
             return;
         }
         Project currentProject = getAimProject();
-        currentProject.getEmfProject().getItemsRelations().clear();
-
+        List<ItemRelations> oldRelations = new ArrayList<ItemRelations>(currentProject.getEmfProject().getItemsRelations());
+        List<ItemRelations> usedList = new ArrayList<ItemRelations>();
         for (Relation relation : currentProjectItemsRelations.keySet()) {
-            ItemRelations itemRelations = PropertiesFactory.eINSTANCE.createItemRelations();
+            ItemRelations itemRelations = null;
+            boolean exist = false;
+            for(ItemRelations relations  : oldRelations){
+                if(relations.getBaseItem().getId().equals(relation.getId())){
+                    usedList.add(relations);
+                    itemRelations = relations;
+                    exist = true;
+                    break;
+                }
+            }
+            if(itemRelations == null){
+                itemRelations = PropertiesFactory.eINSTANCE.createItemRelations();
 
-            ItemRelation baseItem = PropertiesFactory.eINSTANCE.createItemRelation();
-            itemRelations.setBaseItem(baseItem);
+                ItemRelation baseItem = PropertiesFactory.eINSTANCE.createItemRelation();
+                itemRelations.setBaseItem(baseItem);
 
-            baseItem.setId(relation.getId());
-            baseItem.setType(relation.getType());
-            baseItem.setVersion(relation.getVersion());
+                baseItem.setId(relation.getId());
+                baseItem.setType(relation.getType());
+                baseItem.setVersion(relation.getVersion());
+            }
+            
             // sort by type
             List<Relation> relationItemsList = new ArrayList<Relation>(currentProjectItemsRelations.get(relation));
             Collections.sort(relationItemsList, new Comparator<Relation>() {
@@ -521,14 +535,29 @@ public class RelationshipItemBuilder {
                 }
             });
             for (Relation relatedItem : relationItemsList) {
+                List<ItemRelation> relationList = new ArrayList<ItemRelation>(itemRelations.getRelatedItems());
+               boolean found = false; 
+                for(ItemRelation item : relationList){
+                    if(item.getId().equals(relatedItem.getId())){
+                        found = true;
+                        break;
+                    }
+                }
+                if(found){
+                    continue;
+                }
                 ItemRelation emfRelatedItem = PropertiesFactory.eINSTANCE.createItemRelation();
                 emfRelatedItem.setId(relatedItem.getId());
                 emfRelatedItem.setType(relatedItem.getType());
                 emfRelatedItem.setVersion(relatedItem.getVersion());
                 itemRelations.getRelatedItems().add(emfRelatedItem);
             }
-            currentProject.getEmfProject().getItemsRelations().add(itemRelations);
+            if(!exist){
+                currentProject.getEmfProject().getItemsRelations().add(itemRelations);
+            }
         }
+        oldRelations.removeAll(usedList);
+        currentProject.getEmfProject().getItemsRelations().removeAll(oldRelations);
         try {
             getProxyRepositoryFactory().saveProject(currentProject);
         } catch (PersistenceException e) {
@@ -829,4 +858,7 @@ public class RelationshipItemBuilder {
         }
     }
 
+    public Map<Relation, Set<Relation>> getCurrentProjectItemsRelations(){
+        return this.currentProjectItemsRelations;
+    }
 }
