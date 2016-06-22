@@ -151,12 +151,16 @@ public class JavaResourcesHelper {
         return getGroupName(projectName) + '.' + getJobFolderName(itemName, null);
     }
 
+    public static String getSimpleClassName(IProcess process) {
+        if(ProcessUtils.isTestContainer(process)){
+            return process.getName() + "Test"; //$NON-NLS-1$
+        }
+        return process.getName();
+    }
+
     public static String getJobClassName(IProcess2 process) {
         Item processItem = process.getProperty().getItem();
-        if(ProcessUtils.isTestContainer(process)){
-        	return getJobClassPackageName(processItem, true) + "." + process.getLabel() + "Test";
-        }
-        return getJobClassPackageName(processItem) + "." + process.getLabel();
+        return getJobClassPackageName(processItem) + "." + getSimpleClassName(process); //$NON-NLS-1$
     }
 
     /**
