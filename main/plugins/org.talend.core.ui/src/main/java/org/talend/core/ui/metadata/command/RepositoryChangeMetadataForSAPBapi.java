@@ -222,10 +222,9 @@ public class RepositoryChangeMetadataForSAPBapi extends Command {
                 }
             }
         }
-        // if there is no parameter named "SINGLE_PARAM_TABLE_NAME" in the paramData, then means this param is added by
-        // Studio
-        if (ISAPConstant.SINGLE_PARAM_TABLE_NAME.equals(table.getTableName())) {
-            return ISAPConstant.PARAM_TABLE.toUpperCase();
+
+        if (!isInput && ISAPConstant.SINGLE_PARAM_TABLE_NAME.equals(table.getTableName())) {
+            return ISAPConstant.PARAM_SINGLE.toUpperCase();
         }
         return null;
     }
