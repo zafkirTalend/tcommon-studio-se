@@ -350,9 +350,7 @@ public class StringUtils {
                 } else {
                     // regex != null && src != null && replacement != null
                     if (entirelyMatch) {
-                        String upperSrc = caseSensitive ? src : src.toUpperCase();
-                        String upperSearch = caseSensitive ? search : search.toUpperCase();
-                        return upperSrc.equals(upperSearch) ? replacement : src;
+                        return caseSensitive ? src.equals(search) : src.equalsIgnoreCase(search);
                     } else {
                         int flag = caseSensitive ? Pattern.LITERAL : Pattern.LITERAL | Pattern.CASE_INSENSITIVE;
                         return Pattern.compile(search, flag).matcher(src).replaceAll(Matcher.quoteReplacement(replacement));
