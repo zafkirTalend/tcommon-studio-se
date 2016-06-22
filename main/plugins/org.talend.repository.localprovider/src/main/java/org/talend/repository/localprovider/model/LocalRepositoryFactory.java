@@ -3129,7 +3129,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder folder = ResourceUtils.getFolder(project, folderPathString, false);
         unloadUnlockedResources();
         List<IRepositoryViewObject> serializableFromFolder = getSerializableFromFolder(baseProject, folder, null, type, true,
-                false, false, false);
+                false, true, false);
         for (IRepositoryViewObject repositoryObject : serializableFromFolder) {
             ItemState state = repositoryObject.getProperty().getItem().getState();
             state.setPath(getItemStatePath(type, targetPath).toString());
