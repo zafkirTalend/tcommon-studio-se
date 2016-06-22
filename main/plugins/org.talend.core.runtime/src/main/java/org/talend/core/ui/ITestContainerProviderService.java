@@ -115,4 +115,6 @@ public interface ITestContainerProviderService extends IService {
     public ERepositoryObjectType getTestCaseObjectType();
     
     public String getParentVersion(Item item);
+    
+    public List<ProcessItem> getTestContainersByVersion(ProcessItem item);
 }
