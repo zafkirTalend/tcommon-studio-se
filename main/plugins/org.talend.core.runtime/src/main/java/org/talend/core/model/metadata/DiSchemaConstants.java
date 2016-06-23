@@ -78,7 +78,7 @@ public interface DiSchemaConstants {
     public final static String TALEND6_COLUMN_DEFAULT = SchemaConstants.TALEND_COLUMN_DEFAULT;
 
     /** cf TDKN-36. to link to the custom fields of the studio */
-    public final static String TALEND6_COLUMN_CUSTOM = "di.column.custom"; //$NON-NLS-1$
+    public final static String TALEND6_COLUMN_CUSTOM = SchemaConstants.TALEND_FIELD_GENERATED;
 
     public final static String TALEND6_COLUMN_ORIGINAL_DB_COLUMN_NAME = SchemaConstants.TALEND_COLUMN_DB_COLUMN_NAME;
 
