@@ -44,6 +44,10 @@ public class PropertiesTableView extends AbstractDataTableEditorView<Map<String,
 
     public static final String DEFAULT_VALUE_NAME = "VALUE"; //$NON-NLS-1$
 
+    public static final String DEFAULT_KEY_COLUMN_NAME = "Property"; //$NON-NLS-1$
+
+    public static final String DEFAULT_VALUE_COLUMN_NAME = "Value"; //$NON-NLS-1$
+
     public PropertiesTableView(Composite parent, PropertiesFieldModel model) {
         super(parent, SWT.NONE, model, false, true, false);
     }
@@ -71,7 +75,10 @@ public class PropertiesTableView extends AbstractDataTableEditorView<Map<String,
 
     private TableViewerCreatorColumn createValueColumn(TableViewerCreator<Map<String, Object>> tableViewerCreator) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Value"); //$NON-NLS-1$
+        column.setTitle(getValueColumnName());
+        if (getHideColumns().contains(column.getTitle())) {
+            return null;
+        }
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<Map<String, Object>, String>() {
 
             @Override
@@ -96,7 +103,10 @@ public class PropertiesTableView extends AbstractDataTableEditorView<Map<String,
 
     private TableViewerCreatorColumn createKeyColumn(TableViewerCreator<Map<String, Object>> tableViewerCreator) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Property"); //$NON-NLS-1$
+        column.setTitle(getKeyColumnName());
+        if (getHideColumns().contains(column.getTitle())) {
+            return null;
+        }
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<Map<String, Object>, String>() {
 
             @Override
@@ -117,6 +127,10 @@ public class PropertiesTableView extends AbstractDataTableEditorView<Map<String,
         column.setMinimumWidth(50);
         column.setDefaultInternalValue(""); //$NON-NLS-1$
         return column;
+    }
+
+    public List<String> getHideColumns() {
+        return new ArrayList<>();
     }
 
     public PropertiesFieldModel getModel() {
@@ -173,12 +187,20 @@ public class PropertiesTableView extends AbstractDataTableEditorView<Map<String,
         };
     }
 
-    protected String getKeyName() {
+    public String getKeyName() {
         return DEFAULT_KEY_NAME;
     }
 
-    protected String getValueName() {
+    public String getValueName() {
         return DEFAULT_VALUE_NAME;
+    }
+
+    public String getKeyColumnName() {
+        return DEFAULT_KEY_COLUMN_NAME;
+    }
+
+    public String getValueColumnName() {
+        return DEFAULT_VALUE_COLUMN_NAME;
     }
 
 }
