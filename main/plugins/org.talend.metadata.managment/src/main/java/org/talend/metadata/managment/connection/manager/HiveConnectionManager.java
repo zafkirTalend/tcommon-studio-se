@@ -205,7 +205,7 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                                 "getMapRCredentialsViaPassword", new Object[] { mapRTicketCluster, mapRTicketUsername, mapRTicketPassword, desiredTicketDurInSecs }); //$NON-NLS-1$
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SQLException(e);
         }
     }
 
