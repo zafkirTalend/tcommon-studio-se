@@ -160,12 +160,27 @@ public class PropertiesDialog extends TitleAreaDialog {
         if (hadoopProperties == null || hadoopProperties.size() == 0) {
             statusLabel.setText(Messages.getString("PropertiesDialog.statusLabel.empty")); //$NON-NLS-1$
         } else {
+            List<String> hidePropertyColumns = getHidePropertyColumns();
+            String keyColumnName = getPropertiesKeyColumnName();
+            String valueColumnName = getPropertiesValueColumnName();
+            boolean hideKeyColumn = hidePropertyColumns.contains(keyColumnName);
+            boolean hideValueClolumn = hidePropertyColumns.contains(valueColumnName);
             StringBuffer propsBuffer = new StringBuffer();
             propsBuffer.append("("); //$NON-NLS-1$
             for (Map<String, Object> propMap : hadoopProperties) {
-                String key = String.valueOf(propMap.get("PROPERTY")); //$NON-NLS-1$
-                String value = String.valueOf(propMap.get("VALUE")); //$NON-NLS-1$
-                String propStr = key + "=" + value + ";"; //$NON-NLS-1$ //$NON-NLS-2$
+                String key = hideKeyColumn ? null : String.valueOf(propMap.get(getPropertiesKeyName()));
+                String value = hideValueClolumn ? null : String.valueOf(propMap.get(getPropertiesValueName()));
+                String propStr = ""; //$NON-NLS-1$
+                if (key != null) {
+                    propStr += key;
+                    if (value != null) {
+                        propStr += "="; //$NON-NLS-1$
+                    }
+                }
+                if (value != null) {
+                    propStr += value;
+                }
+                propStr += ";"; //$NON-NLS-1$
                 propsBuffer.append(propStr);
             }
             if (propsBuffer.length() > 0) {
@@ -181,28 +196,20 @@ public class PropertiesDialog extends TitleAreaDialog {
         statusLabel.setFont(FontLib.ITALIC_FONT);
     }
 
-    /**
-     * <p>
-     * Get the key name of property key which is "PROPERTY" by default.
-     * </p>
-     * DOC ycbai Comment method "getPropertiesKeyName".
-     * 
-     * @return
-     */
-    protected String getPropertiesKeyName() {
+    public String getPropertiesKeyName() {
         return PropertiesTableView.DEFAULT_KEY_NAME;
     }
 
-    /**
-     * <p>
-     * Get the key name of property value which is "VALUE" by default.
-     * </p>
-     * DOC ycbai Comment method "getPropertiesValueName".
-     * 
-     * @return
-     */
-    protected String getPropertiesValueName() {
+    public String getPropertiesValueName() {
         return PropertiesTableView.DEFAULT_VALUE_NAME;
+    }
+
+    public String getPropertiesKeyColumnName() {
+        return PropertiesTableView.DEFAULT_KEY_COLUMN_NAME;
+    }
+
+    public String getPropertiesValueColumnName() {
+        return PropertiesTableView.DEFAULT_VALUE_COLUMN_NAME;
     }
 
     /**
@@ -287,14 +294,30 @@ public class PropertiesDialog extends TitleAreaDialog {
         PropertiesTableView propertiesTable = new PropertiesTableView(compositeTable, model) {
 
             @Override
-            protected String getKeyName() {
+            public String getKeyName() {
                 return getPropertiesKeyName();
             }
 
             @Override
-            protected String getValueName() {
+            public String getValueName() {
                 return getPropertiesValueName();
             }
+
+            @Override
+            public String getKeyColumnName() {
+                return getPropertiesKeyColumnName();
+            }
+
+            @Override
+            public String getValueColumnName() {
+                return getPropertiesValueColumnName();
+            }
+
+            @Override
+            public List<String> getHideColumns() {
+                return getHidePropertyColumns();
+            }
+
         };
         propertiesTable.setReadOnly(readonly);
         Composite fieldTableEditorComposite = propertiesTable.getMainComposite();
@@ -313,6 +336,10 @@ public class PropertiesDialog extends TitleAreaDialog {
         item.setExpanded(expanded);
 
         return propertiesTable;
+    }
+
+    protected List<String> getHidePropertyColumns() {
+        return new ArrayList<>();
     }
 
     private void updateExpandItems() {
@@ -338,11 +365,6 @@ public class PropertiesDialog extends TitleAreaDialog {
         this.initProperties = initProperties;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.dialogs.Dialog#close()
-     */
     @Override
     public boolean close() {
         if (italicFont != null) {
