@@ -80,7 +80,8 @@ public class RepositoryNodeUtilities {
             return new Path(""); //$NON-NLS-1$
         }
         String systemNodelabel = node.getLabel();
-        if (node.getType() == ENodeType.STABLE_SYSTEM_FOLDER && systemNodelabel.equals("system")) {
+        if (node.getType() == ENodeType.STABLE_SYSTEM_FOLDER
+                && (RepositoryConstants.SYSTEM_DIRECTORY.equalsIgnoreCase(systemNodelabel))) {
             return new Path(systemNodelabel);
         }
         if ((node.getType() == ENodeType.STABLE_SYSTEM_FOLDER && node.getContentType() != ERepositoryObjectType.JOB_DOC && node
