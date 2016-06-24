@@ -228,8 +228,10 @@ public final class ProcessUtils {
     private static void updateRepositoryObjects(List<IRepositoryViewObject> repositoryObjects, IRepositoryViewObject obj) {
         if (!repositoryObjects.contains(obj)) {
             repositoryObjects.add(obj);
-            checkAllVerSionLatest(repositoryObjects, obj);
+            // TDQ-12162,should call 'checkItemDependencies(...)' first. for example,"sub job C->sub job B->main job A->Rule"
+            // export script C,if call 'checkAllVerSionLatest(...)' first,the dependency X won't be added.
             checkItemDependencies(obj.getProperty().getItem(), repositoryObjects);
+            checkAllVerSionLatest(repositoryObjects, obj);
         }
     }
 
