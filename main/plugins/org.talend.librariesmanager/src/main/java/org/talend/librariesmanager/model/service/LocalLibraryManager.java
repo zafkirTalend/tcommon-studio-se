@@ -475,6 +475,28 @@ public class LocalLibraryManager implements ILibraryManagerService {
             mavenJarInstalled.put(uri, resolvedFile.getAbsolutePath());
         }
         updateLastResolveDate(uri);
+        // resolve the pom
+        if (resolvedFile != null) {
+            try {
+                String pomPath = resolvedFile.getParent();
+                String name = resolvedFile.getName();
+                int indexOf = name.lastIndexOf(".");
+                if (indexOf != -1) {
+                    pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
+                } else {
+                    pomPath = pomPath + name + "." + MavenConstants.PACKAGING_POM;
+                }
+                File pomFile = new File(pomPath);
+                if (!pomFile.exists()) {
+                    MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(uri);
+                    File generatedPom = new File(PomUtil.generatePom(parseMvnUrl));
+                    FilesUtils.copyFile(generatedPom, pomFile);
+                }
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
+
         return resolvedFile;
     }
 
