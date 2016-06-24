@@ -38,6 +38,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -165,6 +166,19 @@ public abstract class ShareLibrareisHelper {
                             if (artifact == null) {
                                 continue;
                             }
+
+                            // make sure each module have the pom file to fix TUP-4921
+                            int indexOf = name.lastIndexOf(".");
+                            if (indexOf != -1) {
+                                pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
+                            } else {
+                                pomPath = pomPath + name + "." + MavenConstants.PACKAGING_POM;
+                            }
+                            File pomFile = new File(pomPath);
+                            if (!pomFile.exists()) {
+                                File generatedPom = new File(PomUtil.generatePom(artifact));
+                                FilesUtils.copyFile(generatedPom, pomFile);
+                            }
                             boolean eixst = false;
                             for (MavenArtifact remoteAtifact : searchResults) {
                                 String groupId = artifact.getGroupId();
@@ -183,17 +197,11 @@ public abstract class ShareLibrareisHelper {
                                 continue;
                             }
                             mainSubMonitor.setTaskName(Messages.getString("ShareLibsJob.sharingLibraries", name));
-                            int indexOf = name.lastIndexOf(".");
-                            if (indexOf != -1) {
-                                pomPath = pomPath + "/" + name.substring(0, indexOf) + "." + MavenConstants.PACKAGING_POM;
-                            }
+
                             try {
                                 deployToLocalMaven(deployer, file, next);
                                 deployer.installToRemote(file, artifact, artifact.getType());
-                                File pomFile = new File(pomPath);
-                                if (pomFile.exists()) {
-                                    deployer.installToRemote(pomFile, artifact, MavenConstants.PACKAGING_POM);
-                                }
+                                deployer.installToRemote(pomFile, artifact, MavenConstants.PACKAGING_POM);
                                 mainSubMonitor.worked(1);
                             } catch (Exception e) {
                                 ExceptionHandler.process(new Exception("Share libraries :" + name + " failed !", e));
