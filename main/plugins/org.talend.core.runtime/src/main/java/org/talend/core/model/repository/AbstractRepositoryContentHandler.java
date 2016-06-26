@@ -313,4 +313,12 @@ public abstract class AbstractRepositoryContentHandler implements IRepositoryCon
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#hasDynamicIcon()
+     */
+    @Override
+    public boolean hasDynamicIcon() {
+        return false;
+    }
+
 }

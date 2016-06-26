@@ -376,4 +376,13 @@ public class ExampleDemoRepositoryHandler implements IRepositoryContentHandler {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#hasDynamicIcon()
+     */
+    @Override
+    public boolean hasDynamicIcon() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

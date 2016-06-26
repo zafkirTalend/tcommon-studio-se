@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -24,29 +25,27 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Display;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryPrefConstants;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.constants.Constant;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.runtime.CoreRuntimePlugin;
-import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.IRepositoryService;
 import org.talend.repository.model.RepositoryNode;
@@ -61,8 +60,6 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
     private Project project;
 
     private IPropertyChangeListener mergeRefListener;
-
-    private ServiceRegistration lockService;
 
     private final class DeletedFolderListener extends AdapterImpl {
 
@@ -172,7 +169,6 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         // register a listener to refresh when merge items is activated
 
         registerMergeRefListener();
-        registerLockUnlockServiceListener();
     }
 
     /**
@@ -213,132 +209,7 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         }
 
     }
-
-    /**
-     * DOC sgandon Comment method "registerLockUnlockServiceListener".
-     */
-    private void registerLockUnlockServiceListener() {
-        Bundle bundle = FrameworkUtil.getBundle(ProjectRepoAbstractContentProvider.class);
-        if (lockService == null) {
-            this.lockService = bundle.getBundleContext().registerService(
-                    EventHandler.class.getName(),
-                    new EventHandler() {
-
-                        @Override
-                        public void handleEvent(Event event) {
-                            if (event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY) != null) {
-                                Item item = (Item) event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY);
-                                refreshContentIfNecessary(item);
-                            } else if (event.getProperty(Constant.FILE_LIST_EVENT_PROPERTY_KEY) != null) {
-                                Collection<String> fileList = (Collection<String>) event
-                                        .getProperty(Constant.FILE_LIST_EVENT_PROPERTY_KEY);
-                                refreshContentIfNecessary(fileList);
-
-                            }
-                        }
-                    },
-                    new Hashtable<String, String>(Collections.singletonMap(EventConstants.EVENT_TOPIC,
-                            Constant.REPOSITORY_ITEM_EVENT_PREFIX + "*"))); //$NON-NLS-1$
-        }// else already unlock service listener already registered
-    }
-
-    /**
-     * DOC sgandon Comment method "refreshContentIfNecessary".
-     * 
-     * @param item
-     */
-    protected void refreshContentIfNecessary(Item item) {
-        Resource propFileResouce = item.getProperty() != null ? item.getProperty().eResource() : null;
-        if (propFileResouce != null) {
-            URI uri = propFileResouce.getURI();
-            ITestContainerProviderService testContainerService = null;
-            boolean isTestContainer = false;
-            if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
-                testContainerService = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(
-                        ITestContainerProviderService.class);
-                if (testContainerService != null) {
-                    isTestContainer = testContainerService.isTestContainerItem(item);
-                }
-            }
-
-            Path itemPath = new Path(uri.toPlatformString(false));
-            Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
-            for (final RepositoryNode repoNode : topLevelNodes) {
-                IPath workspaceTopNodePath = null;
-                if (isTestContainer && testContainerService != null) {
-                    workspaceTopNodePath = testContainerService.getWorkspaceTopNodePath(repoNode);
-                } else {
-                    workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
-                }
-
-                if ((workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath))
-                        || isLinkedTopNode(repoNode, item)) {
-                    Display.getDefault().asyncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            if (repoNode != null && viewer != null && !viewer.getTree().isDisposed()) {
-                                viewer.refresh(repoNode, true);
-                            }
-
-                        }
-                    });
-
-                }// else not an item handled by this content provider so ignore it.
-            }
-        }
-
-    }
-
-    private RepositoryNode findFolder(String path, RepositoryNode repoNode) {
-        for (IRepositoryNode childNode : repoNode.getChildren()) {
-            if (childNode.getObject() instanceof Folder) {
-                String startingPath = "/" + childNode.getLabel(); //$NON-NLS-1$
-                if (path.startsWith(startingPath)) {
-                    return findFolder(path.replace(startingPath, ""), (RepositoryNode) childNode); //$NON-NLS-1$
-                }
-            }
-        }
-        return repoNode;
-    }
-
-    protected void refreshContentIfNecessary(Collection<String> fileList) {
-        String workspace = ResourcesPlugin.getWorkspace().getRoot().getLocation().toPortableString();
-        for (String file : fileList) {
-            Path itemPath = new Path(file.replace(workspace, "")); //$NON-NLS-1$
-            Set<RepositoryNode> topLevelNodes = getTopLevelNodes();
-            for (final RepositoryNode repoNode : topLevelNodes) {
-
-                IPath workspaceTopNodePath = getWorkspaceTopNodePath(repoNode);
-                if (workspaceTopNodePath != null && workspaceTopNodePath.isPrefixOf(itemPath)) {
-                    RepositoryNode folderToUpdate = findFolder(
-                            itemPath.toPortableString().replace(workspaceTopNodePath.toPortableString(), ""), repoNode); //$NON-NLS-1$
-                    if (folderToUpdate == null) {
-                        continue;
-                    }
-                    for (IRepositoryNode childNode : new ArrayList<IRepositoryNode>(folderToUpdate.getChildren())) {
-                        if (childNode == null || childNode.getObject() == null) {
-                            continue;
-                        }
-                        childNode.getObject().getProperty(); // only update the property, this will update everything
-                                                             // automatically.
-                    }
-                    Display.getDefault().asyncExec(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            if (repoNode != null && viewer != null && !viewer.getTree().isDisposed()) {
-                                viewer.refresh(repoNode, true);
-                            }
-
-                        }
-                    });
-
-                }// else not an item handled by this content provider so ignore it.
-            }
-        }
-    }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -358,10 +229,6 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             }
             mergeRefListener = null;
         }
-        if (lockService != null) {
-            lockService.unregister();
-            lockService = null;
-        }// else service already unregistered or not event instanciated
         super.dispose();
     }
 

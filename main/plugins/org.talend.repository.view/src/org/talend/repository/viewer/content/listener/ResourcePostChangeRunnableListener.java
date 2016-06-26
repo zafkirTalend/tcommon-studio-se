@@ -18,14 +18,23 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.navigator.CommonViewer;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.model.properties.Property;
+import org.talend.core.model.repository.Folder;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -33,11 +42,11 @@ import org.talend.repository.model.RepositoryNode;
  */
 public class ResourcePostChangeRunnableListener implements IResourceChangeListener {
 
-    private final Viewer viewer;
+    private final CommonViewer viewer;
 
     private List<IResourceDeltaVisitor> resourcevisitors = new ArrayList<IResourceDeltaVisitor>();
 
-    public ResourcePostChangeRunnableListener(Viewer v) {
+    public ResourcePostChangeRunnableListener(CommonViewer v) {
         super();
         this.viewer = v;
     }
@@ -74,10 +83,14 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
         }
 
         // visit
-        final Collection<Runnable> runnables = new HashSet<Runnable>();
+        final Collection<Runnable> runnables = new HashSet<>();
+        final Collection<ResourceNode> pathToRefresh = new HashSet<>();
         for (IResourceDeltaVisitor visitor : resourcevisitors) {
             if (visitor instanceof RunnableResourceVisitor) {
                 ((RunnableResourceVisitor) visitor).setRunnables(runnables);
+            }
+            if (visitor instanceof ResourceCollectorVisitor) {
+                ((ResourceCollectorVisitor) visitor).setRunnables(pathToRefresh);
             }
 
             try {
@@ -112,6 +125,48 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
                     }
                 });
             }
+        }
+
+        if (!pathToRefresh.isEmpty()) {
+            Display.getDefault().asyncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    for (ResourceNode resourceNode : pathToRefresh) {
+                        XmiResourceManager xrm = new XmiResourceManager();
+                        if (xrm.isPropertyFile(resourceNode.getPath())) {
+                            List<IRepositoryNode> nodes = new ArrayList<>();
+                            for (Object object : viewer.getExpandedElements()) {
+                                if (object instanceof IRepositoryNode) {
+                                    nodes.add((IRepositoryNode) object);
+                                }
+                            }
+                            IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceNode.getPath()));
+                            Property property = xrm.loadProperty(file);
+                            IRepositoryNode itemNode = findItemNode(property.getId(), nodes);
+                            if (itemNode != null) {
+                                IRepositoryViewObject object = itemNode.getObject();
+                                if (object != null) {
+                                    // force a refresh
+                                    object.getProperty();
+                                }
+                                if (itemNode != null && viewer != null && !viewer.getTree().isDisposed()) {
+                                    viewer.refresh(itemNode, true);
+                                }
+                            }
+                        } else {
+                            String folder = resourceNode.getPath().replace(resourceNode.getTopNodePath(), ""); //$NON-NLS-1$
+                            IRepositoryNode nodeToRefresh = findFolder(folder, resourceNode.getTopNode());
+                            if (nodeToRefresh != null) {
+                                if (nodeToRefresh != null && viewer != null && !viewer.getTree().isDisposed()) {
+                                    viewer.refresh(nodeToRefresh, false);
+                                }
+
+                            }
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -178,4 +233,34 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
         return newRunnables;
     }
 
+    /**
+     * DOC nrousseau Comment method "findItemNode".
+     * 
+     * @param id
+     * @return
+     */
+    private IRepositoryNode findItemNode(String id, List<IRepositoryNode> nodes) {
+        for (IRepositoryNode node : nodes) {
+            if (id.equals(node.getId())) {
+                return node;
+            }
+            IRepositoryNode childNode = findItemNode(id, node.getChildren());
+            if (childNode != null) {
+                return childNode;
+            }
+        }
+        return null;
+    }
+
+    private IRepositoryNode findFolder(String path, IRepositoryNode repoNode) {
+        for (IRepositoryNode childNode : repoNode.getChildren()) {
+            if (childNode.getObject() instanceof Folder) {
+                String startingPath = "/" + childNode.getLabel(); //$NON-NLS-1$
+                if (path.startsWith(startingPath)) {
+                    return findFolder(path.replace(startingPath, ""), childNode); //$NON-NLS-1$
+                }
+            }
+        }
+        return repoNode;
+    }
 }

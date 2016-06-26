@@ -925,10 +925,16 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     @Override
     public boolean lock(Item item) throws PersistenceException, LoginException {
         boolean locked = false;
+        boolean alreadyLockedBefore = false;
+        boolean toLock = getStatus(item).isPotentiallyEditable();
+        if (!toLock) {
+            alreadyLockedBefore = getStatus(item).equals(ERepositoryStatus.LOCK_BY_USER);
+        }
+       
         // even if item is already locked, force to call the method to ensure the item is still locked
-        if (getStatus(item).isPotentiallyEditable() || getStatus(item).equals(ERepositoryStatus.LOCK_BY_USER)) {
+        if (toLock || alreadyLockedBefore) {
             locked = this.repositoryFactoryFromProvider.lock(item);
-            if (locked) {
+            if (locked && !alreadyLockedBefore) {
                 notifyLock(item, true);
             }
             String str[] = new String[] { item.toString(), getRepositoryContext().getUser().toString() };

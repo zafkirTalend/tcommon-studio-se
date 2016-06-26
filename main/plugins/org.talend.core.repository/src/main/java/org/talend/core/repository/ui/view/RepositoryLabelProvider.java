@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.repository.ui.view;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -161,9 +162,6 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT || node.getType() == ENodeType.SIMPLE_FOLDER) {
             IRepositoryViewObject object = node.getObject();
             String label = ""; //$NON-NLS-1$
-            if (!(object instanceof MetadataTableRepositoryObject)) {
-                object.getProperty();
-            }
             if (object.isModified()) {
                 label = "> "; //$NON-NLS-1$
             }
@@ -211,8 +209,6 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
             }
             if (repositoryObjectType == ERepositoryObjectType.JOB_DOC || repositoryObjectType == ERepositoryObjectType.JOBLET_DOC
                     || repositoryObjectType == ERepositoryObjectType.valueOf(ERepositoryObjectType.class, "ROUTE_DOC")) {
-                // TDI-31655:documention node need to update property for its structure to get the correct text
-                object.getProperty();
                 if (object.isModified()) {
                     label = "> "; //$NON-NLS-1$
                 }
@@ -237,24 +233,27 @@ public class RepositoryLabelProvider extends LabelProvider implements IColorProv
     public Image getImage(IRepositoryViewObject object) {
         // Item item = property.getItem();
         ERepositoryObjectType itemType = object.getRepositoryObjectType();
-        Property property = object.getProperty();
         // must get the property here before if/else ,otherwise can not get the correct document(link) icon.
         Image img = null;
         if (object instanceof RepositoryViewObject && ((RepositoryViewObject) object).getCustomImage() != null) {
             img = ((RepositoryViewObject) object).getCustomImage();
         } else {
-            if (property == null) {
-                // means item has been deleted or is not available for display now, so just return null
-                return null;
-            }
             // MOD sizhaoliu 2011-10-14
             // TDQ-3356 enable different icons of extension points under a same repository node
-            Item item = property.getItem();
             boolean isExtensionPoint = false;
             for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
                 isExtensionPoint = handler.isRepObjType(itemType);
                 if (isExtensionPoint) {
-                    IImage icon = handler.getIcon(item);
+                    IImage icon = handler.getIcon(itemType);
+                    if (handler.hasDynamicIcon()) {
+                        Property property = object.getProperty();
+                        if (property == null) {
+                            // means item has been deleted or is not available for display now, so just return null
+                            return null;
+                        }
+                        Item item = property.getItem();
+                        icon = handler.getIcon(item);
+                    }
                     if (icon != null) {
                         img = ImageProvider.getImage(icon);
                         break;
