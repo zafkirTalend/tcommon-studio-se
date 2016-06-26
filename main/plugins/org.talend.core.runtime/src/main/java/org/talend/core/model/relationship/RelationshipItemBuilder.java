@@ -405,7 +405,7 @@ public class RelationshipItemBuilder {
                 List<ItemRelation> relationList = new ArrayList<ItemRelation>(itemRelations.getRelatedItems());
                boolean found = false; 
                 for(ItemRelation item : relationList){
-                    if(item.getId().equals(relatedItem.getId())){
+                    if(item.getId() != null && item.getId().equals(relatedItem.getId())){
                         found = true;
                         break;
                     }
