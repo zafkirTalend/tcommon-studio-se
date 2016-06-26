@@ -88,7 +88,7 @@ import org.talend.repository.ui.properties.StatusHelper;
  * $Id: PropertiesWizardPage.java 914 2006-12-08 08:28:53 +0000 (������, 08 ʮ���� 2006) bqian $
  * 
  */
-public abstract class PropertiesWizardPage extends WizardPage {
+public abstract class PropertiesWizardPage extends AbstractNamedWizardPage {
 
     /** Name text. */
     protected Text nameText;
@@ -124,13 +124,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected Text pathText;
 
-    protected IStatus nameStatus;
-
     protected IStatus purposeStatus;
 
     protected IStatus commentStatus;
-
-    protected boolean nameModifiedByUser = false;
 
     private boolean update = false;
 
@@ -145,10 +141,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
     protected StatusHelper statusHelper = null;
 
     protected boolean editPath = true;
-
-    private List<IRepositoryViewObject> listExistingObjects;
-
-    protected boolean retrieveNameFinished = false;
 
     protected static final boolean NEED_CANCEL_BUTTON = true;
 
@@ -194,7 +186,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this.readOnly = readOnly;
         this.editPath = editPath;
 
-        nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
         commentStatus = createOkStatus();
 
@@ -1139,35 +1130,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     }
 
-    //
-    // /**
-    // * Registers a listener for convert button. Added by Marvin Wang on Jan 14, 2013.
-    // */
-    // protected void regConvertBtnListener() {
-    // convertBtn.addSelectionListener(new SelectionAdapter() {
-    //
-    // @Override
-    // public void widgetSelected(SelectionEvent e) {
-    // try {
-    // doConvert();
-    // } catch (PersistenceException e1) {
-    // e1.printStackTrace();
-    // // TODO Auto-generated catch block
-    // e1.printStackTrace();
-    // } catch (BusinessException e2) {
-    // e2.printStackTrace();
-    // }
-    // }
-    // });
-    // }
-    //
-    // protected void doConvert() throws PersistenceException, BusinessException {
-    // IWizard wizard = this.getWizard();
-    // if (wizard instanceof PropertiesWizard) {
-    // processConverter.doConvert(null);
-    // }
-    // }
-
     protected void evaluateFields() {
         evaluateTextField();
     }
@@ -1179,101 +1141,14 @@ public abstract class PropertiesWizardPage extends WizardPage {
         if (nameText == null || nameText.isDisposed()) {
             return;
         }
-        if (nameText.getText().length() == 0) {
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
-        } else if (nameText.getText().startsWith(" ")
-                || !Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())
-                || nameText.getText().trim().contains(" ")) { //$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
-        } else if (isKeywords(nameText.getText()) || "java".equalsIgnoreCase(nameText.getText())) {//$NON-NLS-1$
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
-        } else if (nameText.getText().equalsIgnoreCase(ProjectManager.getInstance().getCurrentProject().getLabel())) {
-            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.SameAsProjectname"));//$NON-NLS-1$
-        } else if (nameModifiedByUser) {
-            if (retrieveNameFinished) {
-                if (!isValid(nameText.getText())) {
-                    nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
-                } else {
-                    nameStatus = createOkStatus();
-                }
-            } else {
-                nameStatus = createStatus(IStatus.ERROR, "Looking for current items name list"); //$NON-NLS-1$
-            }
-        } else {
-            nameStatus = createOkStatus();
-        }
-        if (property != null && nameStatus.getSeverity() == IStatus.OK) {
-            property.setLabel(getPropertyLabel(StringUtils.trimToNull(nameText.getText())));
-            property.setDisplayName(StringUtils.trimToNull(nameText.getText()));
-            property.setModificationDate(new Date());
-        }
+        evaluateName(nameText.getText());
         updatePageStatus();
     }
 
-    protected String getPropertyLabel(String name) {
-        return name;
-    }
-
+    @Override
     protected IStatus[] getStatuses() {
         return new IStatus[] { nameStatus, purposeStatus, commentStatus };
     }
-
-    protected static IStatus createOkStatus() {
-        return new Status(IStatus.OK, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, "", null); //$NON-NLS-1$
-    }
-
-    protected static IStatus createStatus(int severity, String message) {
-        return new Status(severity, CoreRepositoryPlugin.PLUGIN_ID, IStatus.OK, message, null);
-    }
-
-    protected void updatePageStatus() {
-        setMessage(findMostSevere());
-        updatePageComplete();
-    }
-
-    protected void updatePageComplete() {
-        setMessage(findMostSevere());
-        setPageComplete(findMostSevere().getSeverity() != IStatus.ERROR);
-    }
-
-    protected IStatus findMostSevere() {
-        IStatus[] statuses = getStatuses();
-        IStatus severeStatus = statuses[0];
-        for (IStatus status : statuses) {
-            if (status.getSeverity() > severeStatus.getSeverity()) {
-                severeStatus = status;
-            }
-        }
-        return severeStatus;
-    }
-
-    protected void setMessage(IStatus status) {
-        if (IStatus.ERROR == status.getSeverity()) {
-            setErrorMessage(status.getMessage());
-            // setMessage(""); //$NON-NLS-1$
-        } else {
-            if (StringUtils.isNotEmpty(status.getMessage())) {
-                setMessage(status.getMessage(), status.getSeverity());
-            } else {
-                setMessage(getDescription());
-            }
-            setErrorMessage(null);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public boolean isValid(String itemName) {
-
-        IProxyRepositoryFactory repositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        try {
-            return repositoryFactory.isNameAvailable(property.getItem(), getPropertyLabel(itemName), listExistingObjects);
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
-            return false;
-        }
-    }
-
-    public abstract ERepositoryObjectType getRepositoryObjectType();
 
     public IPath getPathForSaveAsGenericSchema() {
         if (this.path != null && path.length() > 0) {
@@ -1289,24 +1164,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     }
 
-    /**
-     * 
-     * DOC ggu Comment method "isKeywords".
-     * 
-     * @param itemName
-     * @return
-     */
-    protected boolean isKeywords(String itemName) {
-        if (property != null) {
-            Item item = property.getItem();
-            // see bug 0004157: Using specific name for (main) tream
-            if (item instanceof ProcessItem || item instanceof JobletProcessItem || item instanceof RoutineItem) {
-                return KeywordsValidator.isKeyword(itemName);
-            }
-        }
-        return false;
-    }
-
+    @Override
     public Property getProperty() {
         return property;
     }
@@ -1429,53 +1287,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
     public void setConverter(IProcessConvertService converter) {
         this.converter = converter;
     }
-
-    // /**
-    // * Getter for convertBtn.
-    // *
-    // * @return the convertBtn
-    // */
-    // public Button getConvertBtn() {
-    // return this.convertBtn;
-    // }
-    //
-    // /**
-    // * Sets the convertBtn.
-    // *
-    // * @param convertBtn the convertBtn to set
-    // */
-    // public void setConvertBtn(Button convertBtn) {
-    // this.convertBtn = convertBtn;
-    // }
-    //
-    // /**
-    // * Getter for processConverter.
-    // *
-    // * @return the processConverter
-    // */
-    // public IProcessConverter getProcessConverter() {
-    // return this.processConverter;
-    // }
-    //
-    // /**
-    // * Sets the processConverter.
-    // *
-    // * @param processConverter the processConverter to set
-    // */
-    // public void setProcessConverter(IProcessConverter processConverter) {
-    // this.processConverter = processConverter;
-    // // fireConvertBtnStatusChange();
-    // }
-    //
-    // protected void fireConvertBtnStatusChange() {
-    // if (this.processConverter == null) {
-    // convertBtn.setEnabled(false);
-    // convertBtn.setVisible(false);
-    // } else {
-    // convertBtn.setEnabled(processConverter.isNeedConvert());
-    // convertBtn.setVisible(processConverter.isNeedConvert());
-    // }
-    // }
 
     protected List<IRepositoryViewObject> loadRepViewObjectWithOtherTypes(ERepositoryObjectType type) throws PersistenceException {
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
