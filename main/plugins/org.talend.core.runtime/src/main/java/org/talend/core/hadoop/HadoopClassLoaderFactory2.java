@@ -72,6 +72,10 @@ public class HadoopClassLoaderFactory2 {
                 .build(customJars, true);
     }
 
+    public static ClassLoader getHCatalogClassLoader(String relatedClusterId, String distribution, String version, boolean useKrb) {
+        return getClassLoader(relatedClusterId, EHadoopCategory.HCATALOG, distribution, version, useKrb);
+    }
+
     /**
      * DOC ycbai Comment method "builder".
      * 
