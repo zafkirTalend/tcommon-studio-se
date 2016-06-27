@@ -658,21 +658,23 @@ public class RemoteModulesHelper {
      * 
      */
     public void collectModulesWithJarName(List<ModuleToInstall> toInstall) {
-        // TODO????? if one jar with all mvnuris are on nexus server ,we will download all versions in background.
-        // there might be problem of display on dialog when some version of mvnuri can't download, example :
-        // groupid/jarA/6.1.0 --- on offical server -- show with download button
-        // groupid/jarA/6.1.0 --- not on server -- it will show as DOWNLOAD_MANUAL
+        // fix for TUP-4942 incase the jar appear many times in the dialog
         List<ModuleToInstall> manualInstall = new ArrayList<ModuleToInstall>();
         Map<String, ModuleToInstall> nameAndModuleMap = new HashMap<String, ModuleToInstall>();
         for (ModuleToInstall module : toInstall) {
+            ModuleToInstall moduleToInstall = nameAndModuleMap.get(module.getName());
+            if (!MavenConstants.DOWNLOAD_MANUAL.equals(module.getDistribution()) && module.getMavenUri() != null) {
+                if (moduleToInstall == null) {
+                    moduleToInstall = module;
+                    nameAndModuleMap.put(module.getName(), module);
+                }
+                moduleToInstall.getMavenUris().add(module.getMavenUri());
+            }
+        }
+        for (ModuleToInstall module : toInstall) {
             if (MavenConstants.DOWNLOAD_MANUAL.equals(module.getDistribution())) {
-                manualInstall.add(module);
-            } else if (module.getMavenUri() != null) {
-                final ModuleToInstall moduleToInstall = nameAndModuleMap.get(module.getName());
-                if (moduleToInstall != null) {
-                    moduleToInstall.getMavenUris().add(module.getMavenUri());
-                } else {
-                    module.getMavenUris().add(module.getMavenUri());
+                ModuleToInstall moduleToInstall = nameAndModuleMap.get(module.getName());
+                if (moduleToInstall == null) {
                     nameAndModuleMap.put(module.getName(), module);
                 }
             }
