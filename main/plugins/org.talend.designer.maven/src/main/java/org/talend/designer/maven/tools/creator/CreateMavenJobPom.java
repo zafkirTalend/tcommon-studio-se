@@ -393,9 +393,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                 break;
             }
         }    
-        if (fatherJobInfo != null) {
-            fatherJobInfo = fatherJobInfo.getFatherJobInfo();
-        }
         while (fatherJobInfo != null) {
             if (fatherJobInfo.getJobId().equals(jobInfo.getJobId()) && fatherJobInfo.getJobVersion().equals(jobInfo.getJobVersion())) {
                 return false;
