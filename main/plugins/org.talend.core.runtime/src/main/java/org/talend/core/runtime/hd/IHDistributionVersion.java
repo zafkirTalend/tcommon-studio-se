@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.core.runtime.hd;
 
+import java.util.List;
+
+import org.talend.core.model.general.ModuleNeeded;
+
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -24,4 +28,6 @@ public interface IHDistributionVersion {
     String getDisplayVersion();
 
     String getDefaultConfig(String... keys);
+
+    List<ModuleNeeded> getModulesNeeded();
 }

@@ -227,4 +227,9 @@ public class LibrariesService implements ILibrariesService {
     public Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type) {
         return getLibrariesService().getCodesModuleNeededs(type);
     }
+
+    @Override
+    public List<ModuleNeeded> getModuleNeeded(String id, boolean isGroup) {
+        return getLibrariesService().getModuleNeeded(id, isGroup);
+    }
 }

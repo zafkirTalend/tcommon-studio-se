@@ -366,6 +366,16 @@ public class ManagerConnection {
                     testConnection.setResult(false);
                     log.error(Messages.getString("CommonWizard.exception") + "\n" + e.toString()); //$NON-NLS-1$ //$NON-NLS-2$
                 }
+            } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(metadataConnection.getDbType())) {
+                testConnection = new ConnectionStatus();
+                testConnection.setResult(false);
+                try {
+                    ImpalaConnectionManager.getInstance().checkConnection(metadataConnection);
+                    testConnection.setResult(true);
+                } catch (Exception e) {
+                    testConnection.setResult(false);
+                    log.error(Messages.getString("CommonWizard.exception") + "\n" + e.toString()); //$NON-NLS-1$ //$NON-NLS-2$
+                }
             } else {
                 testConnection = ExtractMetaDataFromDataBase.testConnection(metadataConnection.getDbType(),
                         metadataConnection.getUrl(), metadataConnection.getUsername(), metadataConnection.getPassword(),
