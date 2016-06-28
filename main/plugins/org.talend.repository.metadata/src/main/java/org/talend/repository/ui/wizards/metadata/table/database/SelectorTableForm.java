@@ -73,7 +73,7 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
 import org.eclipse.ui.dialogs.SearchPattern;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.commons.ui.swt.formtools.UtilsButton;
@@ -109,6 +109,7 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.connection.manager.ImpalaConnectionManager;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.model.ProjectNodeHelper;
@@ -1020,15 +1021,26 @@ public class SelectorTableForm extends AbstractForm {
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
                 dbInstance.fillSchemas(dbConn, dm, metadataConnection,
                         MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
             }
+        } else if (EDatabaseTypeName.IMPALA.getDisplayName().equals(dbType)) {
+            Connection conn = null;
+            try {
+                conn = ImpalaConnectionManager.getInstance().createConnection(metadataConnection);
+                DatabaseMetaData dm = conn.getMetaData();
+                dbInstance.fillCatalogs(dbConn, dm, metadataConnection,
+                        MetadataConnectionUtils.getPackageFilter(dbConn, dm, true));
+                dbInstance.fillSchemas(dbConn, dm, metadataConnection,
+                        MetadataConnectionUtils.getPackageFilter(dbConn, dm, false));
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            } finally {
+                if (sqlConn != null) {
+                    ConnectionUtils.closeConnection(sqlConn);
+                }
+            }
+
         } else {
             List list = MetadataConnectionUtils.getConnection(metadataconnection);
             for (int i = 0; i < list.size(); i++) {
