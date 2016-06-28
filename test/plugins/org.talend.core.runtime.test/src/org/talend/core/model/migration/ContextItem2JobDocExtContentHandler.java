@@ -187,4 +187,13 @@ public class ContextItem2JobDocExtContentHandler implements IRepositoryContentHa
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.core.model.repository.IRepositoryContentHandler#hasDynamicIcon()
+     */
+    @Override
+    public boolean hasDynamicIcon() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

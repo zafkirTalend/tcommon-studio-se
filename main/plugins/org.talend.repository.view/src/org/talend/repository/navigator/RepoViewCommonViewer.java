@@ -14,11 +14,18 @@ package org.talend.repository.navigator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -28,14 +35,25 @@ import org.eclipse.swt.dnd.DragSourceAdapter;
 import org.eclipse.swt.dnd.DragSourceEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.INavigatorContentService;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.CoreRepositoryPlugin;
+import org.talend.core.repository.constants.Constant;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.ui.view.RepositoryDropAdapter;
+import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.viewer.content.listener.IRefreshNodePerspectiveListener;
@@ -56,6 +74,8 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
     private Listener dragDetectListener;
 
     private List<IRefreshNodePerspectiveListener> refreshNodeLisenters;
+    
+    private ServiceRegistration lockService;
 
     /**
      * Getter for repViewCommonNavigator.
@@ -79,7 +99,7 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
     @Override
     protected void init() {
         super.init();
-        // updateNavigatorContentState();
+        registerLockUnlockServiceListener();
     }
 
     // @SuppressWarnings("restriction")
@@ -254,4 +274,123 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
         Arrays.sort(nodesArray, myComparator);
         return nodesArray;
     }
+    
+    /**
+     * DOC sgandon Comment method "registerLockUnlockServiceListener".
+     */
+    private void registerLockUnlockServiceListener() {
+        if (lockService == null) {
+            BundleContext bundleContext = CoreRepositoryPlugin.getDefault().getBundle().getBundleContext();
+            lockService = bundleContext.registerService(
+                    EventHandler.class.getName(),
+                    new EventHandler() {
+
+                        @Override
+                        public void handleEvent(Event event) {
+                            if (event.getProperty(Constant.ITEM_EVENT_PROPERTY_KEY) != null) {
+                                org.talend.core.model.properties.Item item = (org.talend.core.model.properties.Item) event
+                                        .getProperty(Constant.ITEM_EVENT_PROPERTY_KEY);
+                                refreshContentIfNecessary(item);
+                            } else if (event.getProperty(Constant.FILE_LIST_EVENT_PROPERTY_KEY) != null) {
+                                Collection<String> fileList = (Collection<String>) event
+                                        .getProperty(Constant.FILE_LIST_EVENT_PROPERTY_KEY);
+                                refreshContentIfNecessary(fileList);
+                            }
+                        }
+                    },
+                    new Hashtable<String, String>(Collections.singletonMap(EventConstants.EVENT_TOPIC,
+                            Constant.REPOSITORY_ITEM_EVENT_PREFIX + "*"))); //$NON-NLS-1$
+        }// else already unlock service listener already registered
+    }
+
+    /**
+     * DOC sgandon Comment method "refreshContentIfNecessary".
+     * 
+     * @param item
+     */
+    private void refreshContentIfNecessary(final org.talend.core.model.properties.Item item) {
+        Resource propFileResouce = item.getProperty() != null ? item.getProperty().eResource() : null;
+        if (propFileResouce != null) {
+            Display.getDefault().asyncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                    refreshNodeFromProperty(item.getProperty());
+                }
+            });
+        }
+    }
+
+    private void refreshNodeFromProperty(org.talend.core.model.properties.Property property) {
+        List<IRepositoryNode> nodes = new ArrayList<>();
+        for (Object object : getExpandedElements()) {
+            if (object instanceof IRepositoryNode) {
+                nodes.add((IRepositoryNode) object);
+            }
+        }
+        IRepositoryNode itemNode = findItemNode(property.getId(), nodes);
+        if (itemNode != null) {
+            IRepositoryViewObject object = itemNode.getObject();
+            if (object != null) {
+                // force a refresh
+                object.getProperty();
+            }
+            if (itemNode != null && !getTree().isDisposed()) {
+                refresh(itemNode, true);
+            }
+        }
+    }
+
+    /**
+     * DOC nrousseau Comment method "findItemNode".
+     * 
+     * @param id
+     * @return
+     */
+    private IRepositoryNode findItemNode(String id, List<IRepositoryNode> nodes) {
+        for (IRepositoryNode node : nodes) {
+            if (id.equals(node.getId())) {
+                return node;
+            }
+            IRepositoryNode childNode = findItemNode(id, node.getChildren());
+            if (childNode != null) {
+                return childNode;
+            }
+        }
+        return null;
+    }
+
+    protected void refreshContentIfNecessary(final Collection<String> fileList) {
+        Display.getDefault().asyncExec(new Runnable() {
+
+            @Override
+            public void run() {
+                for (String fileUpdated : fileList) {
+                    XmiResourceManager xrm = new XmiResourceManager();
+                    if (xrm.isPropertyFile(fileUpdated)) {
+                        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileUpdated));
+                        if (file != null && file.isAccessible()) {
+                            Property property = xrm.loadProperty(file);
+                            refreshNodeFromProperty(property);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.navigator.CommonViewer#dispose()
+     */
+    @Override
+    public void dispose() {
+        if (lockService != null) {
+            lockService.unregister();
+            lockService = null;
+        }// else service already unregistered or not event instanciated
+        super.dispose();
+    }
+
 }
