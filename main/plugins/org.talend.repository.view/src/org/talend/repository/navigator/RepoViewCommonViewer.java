@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSourceAdapter;
@@ -322,7 +323,15 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
             if (id.equals(node.getId())) {
                 return node;
             }
-            IRepositoryNode childNode = findItemNode(id, node.getChildren());
+            ITreeContentProvider contentProvider = (ITreeContentProvider) getContentProvider();
+            Object[] childrensObject = contentProvider.getElements(node);
+            List<IRepositoryNode> childrens = new ArrayList<>();
+            for (Object o : childrensObject) {
+                if (o instanceof IRepositoryNode) {
+                    childrens.add((IRepositoryNode) o);
+                }
+            }
+            IRepositoryNode childNode = findItemNode(id, childrens);
             if (childNode != null) {
                 return childNode;
             }
