@@ -98,6 +98,8 @@ public interface ILibrariesService extends IService {
 
     Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type);
 
+    List<ModuleNeeded> getModuleNeeded(String id, boolean isGroup);
+
     /**
      * Listener used to fire that libraries status has been changed (new lib or new check install).
      * 

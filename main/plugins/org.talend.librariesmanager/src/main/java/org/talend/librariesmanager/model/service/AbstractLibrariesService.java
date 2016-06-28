@@ -50,6 +50,7 @@ import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.librariesmanager.i18n.Messages;
+import org.talend.librariesmanager.model.ExtensionModuleManager;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.prefs.LibrariesManagerUtils;
 import org.talend.repository.ProjectManager;
@@ -310,4 +311,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         return ModulesNeededProvider.getCodesModuleNeededs(type, false);
     }
 
+    @Override
+    public List<ModuleNeeded> getModuleNeeded(String id, boolean isGroup) {
+        return ExtensionModuleManager.getInstance().getModuleNeeded(id, isGroup);
+    }
 }
