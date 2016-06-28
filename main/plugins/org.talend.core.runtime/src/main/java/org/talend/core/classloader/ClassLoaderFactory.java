@@ -32,9 +32,11 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.database.conn.ConnParameterKeys;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.runtime.hd.IHDistribution;
+import org.talend.core.runtime.hd.IHDistributionVersion;
 import org.talend.core.runtime.hd.hive.HiveMetadataHelper;
 import org.talend.repository.ProjectManager;
 import org.talend.utils.io.FilesUtils;
@@ -51,6 +53,8 @@ public class ClassLoaderFactory {
     private static Map<String, DynamicClassLoader> classLoadersMap = null;
 
     public final static String SEPARATOR = ";"; //$NON-NLS-1$
+
+    public final static String KEY_SEPARATOR = ":"; //$NON-NLS-1$
 
     private final static String PATH_SEPARATOR = "/"; //$NON-NLS-1$
 
@@ -307,7 +311,7 @@ public class ClassLoaderFactory {
             String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
             moduleList = jarsStr.split(";"); //$NON-NLS-1$
         } else {
-            String index = "HIVE" + ":" + distroKey + ":" + distroVersion + ":" + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 
+            String index = "HIVE" + KEY_SEPARATOR + distroKey + KEY_SEPARATOR + distroVersion + KEY_SEPARATOR + hiveModel; //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$ //$NON-NLS-4$ 
             moduleList = getDriverModuleList(index);
         }
         return moduleList;
@@ -327,5 +331,17 @@ public class ClassLoaderFactory {
             }
         }
         return null;
+    }
+
+    public static DynamicClassLoader getClassLoader(IHDistributionVersion hdVersion) {
+        String index = "HadoopModules" + KEY_SEPARATOR + hdVersion.getDistribution().getName() + KEY_SEPARATOR
+                + hdVersion.getVersion();
+        List<ModuleNeeded> modulesNeeded = hdVersion.getModulesNeeded();
+        Set<String> libraries = new HashSet<String>();
+        for (ModuleNeeded m : modulesNeeded) {
+            libraries.add(m.getModuleName());
+        }
+        DynamicClassLoader hdClassLoader = getCustomClassLoader(index, libraries);
+        return hdClassLoader;
     }
 }

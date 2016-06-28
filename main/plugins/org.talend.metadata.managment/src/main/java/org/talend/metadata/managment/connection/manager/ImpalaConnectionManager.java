@@ -82,10 +82,11 @@ public class ImpalaConnectionManager extends DataBaseConnectionManager {
 
             IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager().getDistribution(distribution, false);
             if (impalaDistribution != null) {
-                String impalaIndex = EDatabaseTypeName.IMPALA.getProduct() + ':' + impalaDistribution.getName();
+                String impalaIndex = EDatabaseTypeName.IMPALA.getProduct() + ClassLoaderFactory.KEY_SEPARATOR
+                        + impalaDistribution.getName();
                 if (impalaDistribution.useCustom()) {
                     String jarsStr = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CUSTOM_JARS);
-                    String index = "CustomImpala:" + impalaIndex + ':' + metadataConn.getId(); //$NON-NLS-1$
+                    String index = "CustomImpala" + ClassLoaderFactory.KEY_SEPARATOR + impalaIndex + ClassLoaderFactory.KEY_SEPARATOR + metadataConn.getId(); //$NON-NLS-1$
                     DynamicClassLoader classLoader = ClassLoaderFactory.getCustomClassLoader(index, jarsStr);
                     if (classLoader != null) {
                         return classLoader;
@@ -93,13 +94,19 @@ public class ImpalaConnectionManager extends DataBaseConnectionManager {
                 } else {
                     IHDistributionVersion impalaVersion = impalaDistribution.getHDVersion(version, false);
                     if (impalaVersion != null) {
-                        DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(impalaIndex + ':'
-                                + impalaVersion.getVersion());
+                        DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(impalaIndex
+                                + ClassLoaderFactory.KEY_SEPARATOR + impalaVersion.getVersion());
+
+                        // if not work for extension point, try modules from hadoop distribution
+                        if (classLoader == null) {
+                            classLoader = ClassLoaderFactory.getClassLoader(impalaVersion);
+                        }
                         if (classLoader != null) {
                             return classLoader;
                         }
                     }
                 }
+
             }
 
         }
