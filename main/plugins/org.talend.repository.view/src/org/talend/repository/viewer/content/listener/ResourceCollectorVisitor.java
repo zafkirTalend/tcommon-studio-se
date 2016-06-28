@@ -50,8 +50,17 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
     protected abstract Set<RepositoryNode> getTopNodes();
 
     protected abstract IPath getTopLevelNodePath(RepositoryNode repoNode);
+    
 
-    private IRepositoryNode getTopNode(IResourceDelta delta) {
+    protected IPath getTopLevelNodePathForRefresh(RepositoryNode repoNode) {
+        return getTopLevelNodePath(repoNode);
+    }
+
+    protected boolean isValidResourceDelta(IResourceDelta delta) {
+        return getTopNodeFromResourceDelta(delta) != null;
+    }
+
+    protected IRepositoryNode getTopNodeFromResourceDelta(IResourceDelta delta) {
         VisitResourceHelper visitHelper = new VisitResourceHelper(delta);
         boolean merged = ProjectRepositoryNode.getInstance().getMergeRefProject();
         Set<RepositoryNode> topLevelNodes = getTopNodes();
@@ -63,7 +72,6 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
         }
         // this visitor doesn't handle the current folder
         return null;
-
     }
 
     protected boolean visit(IResourceDelta delta, Collection<ResourceNode> pathToRefresh) {
@@ -88,20 +96,17 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
             if (FilesUtils.isSVNFolder(resource)) {
                 return false;
             }
-            IRepositoryNode topNode = getTopNode(delta);
-            if (topNode == null) {
+            if (!isValidResourceDelta(delta)) {
                 return false;
             }
-            ResourceNode resourceNode = new ResourceNode();
-            resourceNode.setPath(resource.getParent().getFullPath().toPortableString());
-            resourceNode.setTopNode(topNode);
-            resourceNode.setTopNodePath(getTopLevelNodePath((RepositoryNode)topNode).toPortableString());
             if (delta.getKind() == IResourceDelta.ADDED) {
                 // new folder added, need to refresh the parent.
+                ResourceNode resourceNode = getParentResourceNode(delta, resource);
                 pathToRefresh.add(resourceNode);
                 return false;
             } else if (delta.getKind() == IResourceDelta.REMOVED) {
                 // folder deleted, need to refresh the parent.
+                ResourceNode resourceNode = getParentResourceNode(delta, resource);
                 pathToRefresh.add(resourceNode);
                 return false;
             }
@@ -110,14 +115,14 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
         }
 
         if (resource.getType() == IResource.FILE) {
-            IRepositoryNode topNode = getTopNode(delta);
-            if (topNode == null) {
+            if (!isValidResourceDelta(delta)) {
                 return false;
             }
+            IRepositoryNode topNode = getTopNodeFromResourceDelta(delta);
             ResourceNode resourceNode = new ResourceNode();
             resourceNode.setPath(resource.getParent().getFullPath().toPortableString());
             resourceNode.setTopNode(topNode);
-            resourceNode.setTopNodePath(getTopLevelNodePath((RepositoryNode)topNode).toPortableString());
+            resourceNode.setTopNodePath(getTopLevelNodePathForRefresh((RepositoryNode)topNode).toPortableString());
             if (delta.getKind() == IResourceDelta.ADDED) {
                 // new file added, need to refresh the parent.
                 pathToRefresh.add(resourceNode);
@@ -149,6 +154,22 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
         }
 
         return false;
+    }
+
+    /**
+     * DOC nrousseau Comment method "getParentResourceNode".
+     * @param delta
+     * @param resource
+     * @return
+     */
+    private ResourceNode getParentResourceNode(IResourceDelta delta, IResource resource) {
+        IRepositoryNode topNode = getTopNodeFromResourceDelta(delta);
+        ResourceNode resourceNode = new ResourceNode();
+        resourceNode.setPath(resource.getParent().getFullPath().toPortableString());
+        resourceNode.setTopNode(topNode);
+        resourceNode.setTopNodePath(getTopLevelNodePathForRefresh((RepositoryNode)topNode).toPortableString());
+        ((RepositoryNode)topNode).setInitialized(false);
+        return resourceNode;
     }
 
 }

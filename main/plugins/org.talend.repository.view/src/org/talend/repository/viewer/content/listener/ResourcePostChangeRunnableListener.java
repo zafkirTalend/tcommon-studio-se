@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.navigator.CommonViewer;
@@ -143,19 +144,27 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
                             }
                             IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceNode.getPath()));
                             Property property = xrm.loadProperty(file);
-                            IRepositoryNode itemNode = findItemNode(property.getId(), nodes);
-                            if (itemNode != null) {
-                                IRepositoryViewObject object = itemNode.getObject();
-                                if (object != null) {
-                                    // force a refresh
-                                    object.getProperty();
-                                }
-                                if (itemNode != null && viewer != null && !viewer.getTree().isDisposed()) {
-                                    viewer.refresh(itemNode, true);
+                            if (property != null) {
+                                IRepositoryNode itemNode = findItemNode(property.getId(), nodes);
+                                if (itemNode != null) {
+                                    IRepositoryViewObject object = itemNode.getObject();
+                                    if (object != null) {
+                                        // force a refresh
+                                        object.getProperty();
+                                    }
+                                    if (itemNode != null && viewer != null && !viewer.getTree().isDisposed()) {
+                                        viewer.refresh(itemNode, true);
+                                    }
                                 }
                             }
                         } else {
-                            String folder = resourceNode.getPath().replace(resourceNode.getTopNodePath(), ""); //$NON-NLS-1$
+                            String folder = null;
+                            if (resourceNode.getPath().startsWith(resourceNode.getTopNodePath())) {
+                                folder = resourceNode.getPath().replace(resourceNode.getTopNodePath(), ""); //$NON-NLS-1$
+                            } else {
+                                // refresh from the root node
+                                folder = "";
+                            }
                             IRepositoryNode nodeToRefresh = findFolder(folder, resourceNode.getTopNode());
                             if (nodeToRefresh != null) {
                                 if (nodeToRefresh != null && viewer != null && !viewer.getTree().isDisposed()) {
@@ -244,7 +253,15 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
             if (id.equals(node.getId())) {
                 return node;
             }
-            IRepositoryNode childNode = findItemNode(id, node.getChildren());
+            ITreeContentProvider contentProvider = (ITreeContentProvider)viewer.getContentProvider();
+            Object[] childrensObject = contentProvider.getElements(node);
+            List<IRepositoryNode> childrens = new ArrayList<>();
+            for (Object o : childrensObject) {
+                if (o instanceof IRepositoryNode) {
+                    childrens.add((IRepositoryNode)o);
+                }
+            }
+            IRepositoryNode childNode = findItemNode(id,  node.getChildren());
             if (childNode != null) {
                 return childNode;
             }
