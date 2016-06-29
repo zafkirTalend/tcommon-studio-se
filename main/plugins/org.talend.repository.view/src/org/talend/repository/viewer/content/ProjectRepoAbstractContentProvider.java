@@ -61,6 +61,8 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
 
     private IPropertyChangeListener mergeRefListener;
 
+    private ServiceRegistration projectReloadService;
+
     private final class DeletedFolderListener extends AdapterImpl {
 
         @Override
@@ -94,6 +96,7 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         // this is called only if element is of type ProjectRepositoryNode
         ProjectRepositoryNode projRepo = getProjectRepositoryNode(element);
         setupDeleteFolderListener(projRepo);
+        registerProjectReloadServiceListener();
         return getTopLevelNodeFromProjectRepositoryNode(projRepo);
     }
 
@@ -108,11 +111,48 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             // add a lister for the removed folders.
             if (deleteFolderListener == null) {
                 project = projRepo.getProject().getEmfProject();
-                deleteFolderListener = new DeletedFolderListener();
-                project.eAdapters().add(deleteFolderListener);
+                project.eAdapters().add(getDeleteListener());
             }// else listener already attached
         }// no project set so no need to listen
 
+    }
+    
+    private AdapterImpl getDeleteListener() {
+        if (deleteFolderListener == null) {
+            deleteFolderListener = new DeletedFolderListener();
+        }
+        return deleteFolderListener;
+    }
+
+    /**
+     * DOC sgandon Comment method "registerLockUnlockServiceListener".
+     */
+    private void registerProjectReloadServiceListener() {
+        if (projectReloadService == null) {
+            BundleContext bundleContext = CoreRepositoryPlugin.getDefault().getBundle().getBundleContext();
+            projectReloadService = bundleContext.registerService(
+                    EventHandler.class.getName(),
+                    new EventHandler() {
+
+                        @Override
+                        public void handleEvent(Event event) {
+                            if (event.getProperty(Constant.PROJECT_RELOAD_PROPERTY_KEY) != null) {
+                                org.talend.core.model.properties.Project newProjectInstance = (org.talend.core.model.properties.Project) event
+                                        .getProperty(Constant.PROJECT_RELOAD_PROPERTY_KEY);
+                                // remove the listener on the old project instance
+                                if (getProject() != null) {
+                                    getProject().eAdapters().remove(getDeleteListener());
+                                }
+
+                                // set the new project instance and re-attach the listener
+                                setProject(newProjectInstance);
+                                getProject().eAdapters().add(getDeleteListener());
+                            }
+                        }
+                    },
+                    new Hashtable<String, String>(Collections.singletonMap(EventConstants.EVENT_TOPIC,
+                            Constant.REPOSITORY_ITEM_EVENT_PREFIX + "*"))); //$NON-NLS-1$
+        }// else already unlock service listener already registered
     }
 
     /**
@@ -209,7 +249,7 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
         }
 
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -230,6 +270,24 @@ public abstract class ProjectRepoAbstractContentProvider extends FolderListenerS
             mergeRefListener = null;
         }
         super.dispose();
+    }
+
+    /**
+     * Getter for project.
+     * 
+     * @return the project
+     */
+    protected Project getProject() {
+        return this.project;
+    }
+
+    /**
+     * Sets the project.
+     * 
+     * @param project the project to set
+     */
+    protected void setProject(Project project) {
+        this.project = project;
     }
 
 }

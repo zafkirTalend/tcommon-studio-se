@@ -34,18 +34,6 @@ public abstract class EmptyTopNodeContentProvider extends ProjectRepoDirectChild
      * (non-Javadoc)
      * 
      * @see
-     * org.talend.repository.viewer.content.ProjectRepoAbstractContentProvider#setupDeleteFolderListener(org.talend.
-     * repository.model.ProjectRepositoryNode)
-     */
-    @Override
-    protected void setupDeleteFolderListener(ProjectRepositoryNode projRepo) {
-        // do nothing caus no need to refresh anything
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
      * org.talend.repository.viewer.content.FolderListenerSingleTopContentProvider#inputChanged(org.eclipse.jface.viewers
      * .Viewer, java.lang.Object, java.lang.Object)
      */
