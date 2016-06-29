@@ -39,6 +39,7 @@ import org.talend.core.repository.model.provider.AbstractMetadataExtractorViewPr
 import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
+import org.talend.metadata.managment.connection.manager.ImpalaConnectionManager;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.utils.sql.ConnectionUtils;
 
@@ -100,14 +101,14 @@ public class SelectorTreeViewerProvider extends AbstractMetadataExtractorViewPro
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(metadataConn.getDbType())) {
             try {
                 dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConn);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        } else if (EDatabaseTypeName.IMPALA.getDisplayName().equalsIgnoreCase(metadataConn.getDbType())) {
+            try {
+                dbMetaData = ImpalaConnectionManager.getInstance().createConnection(metadataConn).getMetaData();
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
             }
         } else {
             List list = extractMeta.getConnectionList(metadataConn);
