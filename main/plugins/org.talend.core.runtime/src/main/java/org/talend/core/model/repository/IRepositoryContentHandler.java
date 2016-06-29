@@ -91,6 +91,14 @@ public interface IRepositoryContentHandler {
 
     public void addContents(Collection<EObject> collection, Resource resource);
 
+    
+    /**
+     * Returns true if the function getIcon(Item) is implemented.
+     * This will avoid to load property for nothing on the repository (slow)
+     * @return
+     */
+    public boolean hasDynamicIcon();
+    
     public IImage getIcon(Item item);
 
     /**
