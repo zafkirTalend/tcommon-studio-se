@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +64,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.LoginException;
@@ -133,6 +140,8 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryContentManager;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.repository.RepositoryViewObject;
+import org.talend.core.repository.CoreRepositoryPlugin;
+import org.talend.core.repository.constants.Constant;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.core.repository.model.FolderHelper;
@@ -1250,14 +1259,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String completePath = new Path(ERepositoryObjectType.getFolderName(type)).append(path).toString();
 
         // Getting the folder :
-        IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
-        // changed by hqzhang for TDI-20600, FolderHelper.deleteFolder will fire the DeletedFolderListener in
-        // ProjectRepoAbstractContentProvider class to refresh the node, if don't delete resource first, the deleted
-        // foler display in repository view
-        deleteResource(folder);
-        getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
-        if (!fromEmptyRecycleBin) {
-            saveProject(project);
+        try {
+            IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
+            // changed by hqzhang for TDI-20600, FolderHelper.deleteFolder will fire the DeletedFolderListener in
+            // ProjectRepoAbstractContentProvider class to refresh the node, if don't delete resource first, the deleted
+            // foler display in repository view
+            deleteResource(folder);
+        } finally {
+            // even if the folder do not exist anymore, clean the list on the project
+            getFolderHelper(project.getEmfProject()).deleteFolder(completePath);
+            if (!fromEmptyRecycleBin) {
+                saveProject(project);
+            }
         }
     }
 
@@ -3226,7 +3239,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public void reloadProject(Project project) throws PersistenceException {
         IProject pproject = getPhysicalProject(project);
-        project.setEmfProject(xmiResourceManager.loadProject(pproject));
+        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(pproject);
+        project.setEmfProject(emfProject);
+        if (project.isMainProject()) {
+            notifyProjectReload(emfProject);
+        }
     }
 
     @Override
@@ -3367,5 +3384,25 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void loadProjectAndSetContext(IProject eclipseProject) throws PersistenceException {
         // nothing to do
 
+    }
+
+    protected void notifyProjectReload(org.talend.core.model.properties.Project project) {
+        Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+        if (bundle != null) {
+            BundleContext bundleContext = CoreRepositoryPlugin.getDefault().getBundle().getBundleContext();
+            ServiceReference ref = bundleContext != null ? bundleContext.getServiceReference(EventAdmin.class.getName()) : null;
+            if (ref != null) {
+                @SuppressWarnings("null")
+                EventAdmin eventAdmin = (EventAdmin) bundleContext.getService(ref);
+
+                Dictionary<String, Object> properties = new Hashtable<String, Object>();
+                properties.put(Constant.PROJECT_RELOAD_PROPERTY_KEY, project);
+
+                Event lockEvent = new Event(Constant.REPOSITORY_ITEM_EVENT_PREFIX + Constant.PROJECT_RELOAD_EVENT_SUFFIX,
+                        properties);
+
+                eventAdmin.sendEvent(lockEvent);
+            }
+        }// else no bundle for this, should never happend.
     }
 }

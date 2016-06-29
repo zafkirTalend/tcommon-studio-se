@@ -142,9 +142,10 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
                     // no refresh needed if something else than a .properties is modified                    
                     pathToRefresh.add(resourceNode);
                     
-                    ResourceNode fileResourceNode = new ResourceNode();
-                    fileResourceNode.setPath(resource.getFullPath().toPortableString());
-                    pathToRefresh.add(fileResourceNode);
+//                    ResourceNode fileResourceNode = new ResourceNode();
+//                    fileResourceNode.setPath(resource.getFullPath().toPortableString());
+//                    fileResourceNode.setTopNode(topNode);
+//                    pathToRefresh.add(fileResourceNode);
                     ((RepositoryNode)topNode).setInitialized(false);
                     topNode.getChildren().clear();
 

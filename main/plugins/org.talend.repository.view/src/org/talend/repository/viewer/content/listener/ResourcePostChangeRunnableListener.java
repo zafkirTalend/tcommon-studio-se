@@ -129,7 +129,7 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
         }
 
         if (!pathToRefresh.isEmpty()) {
-            Display.getDefault().asyncExec(new Runnable() {
+            Display.getDefault().syncExec(new Runnable() {
 
                 @Override
                 public void run() {
@@ -137,11 +137,7 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
                         XmiResourceManager xrm = new XmiResourceManager();
                         if (xrm.isPropertyFile(resourceNode.getPath())) {
                             List<IRepositoryNode> nodes = new ArrayList<>();
-                            for (Object object : viewer.getExpandedElements()) {
-                                if (object instanceof IRepositoryNode) {
-                                    nodes.add((IRepositoryNode) object);
-                                }
-                            }
+                            nodes.add(resourceNode.getTopNode());
                             IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceNode.getPath()));
                             Property property = xrm.loadProperty(file);
                             if (property != null) {
@@ -253,15 +249,15 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
             if (id.equals(node.getId())) {
                 return node;
             }
-            ITreeContentProvider contentProvider = (ITreeContentProvider)viewer.getContentProvider();
+            ITreeContentProvider contentProvider = (ITreeContentProvider) viewer.getContentProvider();
             Object[] childrensObject = contentProvider.getElements(node);
             List<IRepositoryNode> childrens = new ArrayList<>();
             for (Object o : childrensObject) {
                 if (o instanceof IRepositoryNode) {
-                    childrens.add((IRepositoryNode)o);
+                    childrens.add((IRepositoryNode) o);
                 }
             }
-            IRepositoryNode childNode = findItemNode(id,  node.getChildren());
+            IRepositoryNode childNode = findItemNode(id, node.getChildren());
             if (childNode != null) {
                 return childNode;
             }

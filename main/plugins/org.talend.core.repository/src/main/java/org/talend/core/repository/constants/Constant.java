@@ -51,4 +51,15 @@ public final class Constant {
      */
     public static final String FILE_LIST_EVENT_PROPERTY_KEY = "fileList"; //$NON-NLS-1$
 
+    /**
+     * suffix used when issuing an event on the OSGI event bus when the main project is reloaded.
+     */
+    public static final String PROJECT_RELOAD_EVENT_SUFFIX = "project"; //$NON-NLS-1$
+
+
+    /**
+     * key used to get/set the property of an event related to a list of files modified in the repository
+     * (REPOSITORY_ITEM_EVENT_PREFIX). The value is the Collection of String (list of all files modified).
+     */
+    public static final String PROJECT_RELOAD_PROPERTY_KEY = "project"; //$NON-NLS-1$
 }
