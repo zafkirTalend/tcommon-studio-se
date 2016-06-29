@@ -473,7 +473,7 @@ public class ProcessorUtilities {
             checkUsePigUDFs(currentProcess, jobInfo);
         }
         Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                .getNeededLibrariesForProcess(currentProcess, false);
+                .getNeededLibrariesForProcess(currentProcess, true);
         if (neededLibraries != null) {
             LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                     neededLibraries);
@@ -829,7 +829,7 @@ public class ProcessorUtilities {
             }
 
             Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                    .getNeededLibrariesForProcess(currentProcess, false);
+                    .getNeededLibrariesForProcess(currentProcess, true);
             if (neededLibraries != null) {
                 if (isNeedLoadmodules) {
                     LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
@@ -921,6 +921,7 @@ public class ProcessorUtilities {
 
     /**
      * DOC nrousseau Comment method "cloneJobInfo".
+     * 
      * @param jobInfo
      * @return
      */
@@ -1007,9 +1008,8 @@ public class ProcessorUtilities {
 
                                 if (jobInfo.isApplyContextToChildren()) {
                                     subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                                    // see bug 0003862: Export job with the flag "Apply to children" if the child don't have
-                                    // the
-                                    // same context fails.
+                                    // see bug 0003862: Export job with the flag "Apply to children" if the child don't
+                                    // have the same context fails.
                                     if (checkIfContextExisted(processItem, selectedContextName)) {
                                         subJobInfo.setContextName(selectedContextName);
                                     } else {
