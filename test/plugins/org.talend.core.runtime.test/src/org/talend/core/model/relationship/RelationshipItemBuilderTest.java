@@ -12,16 +12,10 @@
 // ============================================================================
 package org.talend.core.model.relationship;
 
-import static org.mockito.Mockito.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -122,10 +116,12 @@ public class RelationshipItemBuilderTest {
 
         assert (project == relationshipItemBuilder.getAimProject());
 
-        assert (ProjectManager.getInstance().getCurrentProject() == RelationshipItemBuilder.getInstance().getAimProject());
-
         Project project2 = new Project(projectName);
         project2.setTechnicalLabel(projectName);
-        assert (project2 == RelationshipItemBuilder.getInstance().getAimProject());
+        assert (relationshipItemBuilder == RelationshipItemBuilder.getInstance(project2, true));
+        assert (relationshipItemBuilder.getAimProject() == project2);
+
+        assert (ProjectManager.getInstance().getCurrentProject() == RelationshipItemBuilder.getInstance().getAimProject());
+
     }
 }
