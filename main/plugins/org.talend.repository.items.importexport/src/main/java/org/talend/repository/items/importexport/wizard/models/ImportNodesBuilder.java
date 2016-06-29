@@ -189,6 +189,7 @@ public class ImportNodesBuilder {
                     typeImportNode.addChild(standJobImportNode);
                 }
                 parentImportNode = standJobImportNode;
+                typeImportNode = standJobImportNode;
 
             }
             String path = item.getState().getPath();
