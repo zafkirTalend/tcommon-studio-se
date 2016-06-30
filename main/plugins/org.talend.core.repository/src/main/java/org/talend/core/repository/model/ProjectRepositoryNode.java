@@ -2000,7 +2000,17 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     }
 
     public void cleanup() {
-        // reset it
-        defaultProjRepoNode = null;
+        if (defaultProjRepoNode == null) {
+            return;
+        }
+        // reinitialize every children
+        for (IRepositoryNode childNode : defaultProjRepoNode.getChildren()) {
+            if (childNode instanceof RepositoryNode) {
+                RepositoryNode node = (RepositoryNode) childNode;
+                node.setInitialized(false);
+                node.getChildren().clear();
+            }
+        }
+        
     }
 }
