@@ -19,6 +19,7 @@ import org.talend.core.model.metadata.builder.database.manager.dbs.GeneralJDBCEx
 import org.talend.core.model.metadata.builder.database.manager.dbs.HSQLDBExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.dbs.HiveExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.dbs.IBMDB2ExtractManager;
+import org.talend.core.model.metadata.builder.database.manager.dbs.ImpalaExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.dbs.JAVADBExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.dbs.MSSQLExtractManager;
 import org.talend.core.model.metadata.builder.database.manager.dbs.MySQLExtractManager;
@@ -57,6 +58,8 @@ public final class ExtractManagerFactory {
             return new GeneralJDBCExtractManager();
         case HIVE:
             return new HiveExtractManager();
+        case IMPALA:
+            return new ImpalaExtractManager();
         case HSQLDB:
         case HSQLDB_SERVER:
         case HSQLDB_WEBSERVER:

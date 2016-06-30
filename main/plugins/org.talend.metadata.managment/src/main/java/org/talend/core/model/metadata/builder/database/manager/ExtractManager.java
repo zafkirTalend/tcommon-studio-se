@@ -350,36 +350,11 @@ public class ExtractManager {
         List<TdColumn> metadataColumns = new ArrayList<TdColumn>();
         boolean needCreateAndClose = dontCreateClose.length == 0 || !dontCreateClose[0];
 
-        DriverShim wapperDriver = null;
-        String dbType = "";
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         try {
             // WARNING Schema equals sid or database
-            dbType = metadataConnection.getDbType();
-            DatabaseMetaData dbMetaData = null;
-            // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
-            if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
-                dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
-            } else {
-                if (needCreateAndClose || extractMeta.getConn() == null || extractMeta.getConn().isClosed()) {
-                    List list = extractMeta.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
-                            metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
-                            metadataConnection.getSchema(), metadataConnection.getDriverClass(),
-                            metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
-                            metadataConnection.getAdditionalParams());
-                    if (list != null && list.size() > 0) {
-                        for (int i = 0; i < list.size(); i++) {
-                            if (list.get(i) instanceof DriverShim) {
-                                wapperDriver = (DriverShim) list.get(i);
-                            }
-                        }
-                    }
-                }
-                dbMetaData = extractMeta.getDatabaseMetaData(extractMeta.getConn(), dbType, metadataConnection.isSqlMode(),
-                        metadataConnection.getDatabase());
-            }
+            DatabaseMetaData dbMetaData = createDatabaseMetaData(metadataConnection, needCreateAndClose);
 
-            String tableLabel = tableNode.getValue();
             TableNode newNode = tableNode;
             String name = newNode.getItemType();
 
@@ -391,7 +366,7 @@ public class ExtractManager {
                 }
                 fillSynonyms(metadataConnection, metadataColumns, table, tableName, dbMetaData);
             } else {
-                EDatabaseTypeName currentEDatabaseType = EDatabaseTypeName.getTypeFromDbType(dbType);
+                EDatabaseTypeName currentEDatabaseType = EDatabaseTypeName.getTypeFromDbType(metadataConnection.getDbType());
                 metadataColumns = MetadataFillFactory.getDBInstance(currentEDatabaseType).fillColumns(table, metadataConnection,
                         dbMetaData, null);
             }
@@ -414,6 +389,29 @@ public class ExtractManager {
         }
 
         return metadataColumns;
+    }
+
+    protected DatabaseMetaData createDatabaseMetaData(IMetadataConnection metadataConnection, boolean needCreateAndClose)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        DatabaseMetaData dbMetaData = null;
+        String dbType = metadataConnection.getDbType();
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+
+        // Added by Marvin Wang on Mar. 13, 2013 for loading hive jars dynamically, refer to TDI-25072.
+        if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(dbType)) {
+            dbMetaData = HiveConnectionManager.getInstance().extractDatabaseMetaData(metadataConnection);
+        } else {
+            if (needCreateAndClose || extractMeta.getConn() == null || extractMeta.getConn().isClosed()) {
+                extractMeta.getConnection(metadataConnection.getDbType(), metadataConnection.getUrl(),
+                        metadataConnection.getUsername(), metadataConnection.getPassword(), metadataConnection.getDatabase(),
+                        metadataConnection.getSchema(), metadataConnection.getDriverClass(),
+                        metadataConnection.getDriverJarPath(), metadataConnection.getDbVersionString(),
+                        metadataConnection.getAdditionalParams());
+            }
+            dbMetaData = extractMeta.getDatabaseMetaData(extractMeta.getConn(), dbType, metadataConnection.isSqlMode(),
+                    metadataConnection.getDatabase());
+        }
+        return dbMetaData;
     }
 
     /**
