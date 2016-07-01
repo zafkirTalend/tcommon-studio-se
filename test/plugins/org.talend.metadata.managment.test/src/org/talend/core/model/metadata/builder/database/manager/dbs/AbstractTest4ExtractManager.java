@@ -12,9 +12,18 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database.manager.dbs;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -511,8 +520,8 @@ public class AbstractTest4ExtractManager {
     protected void verifyTableNode4ReturnColumns4DontCreateConnection(TableNode tableNode) {
         verify(tableNode).getType();
         verify(tableNode).getTable();
-        verify(tableNode).getValue();
-        Assert.assertEquals(tableNode.getValue(), "/table1"); //$NON-NLS-1$
+        // verify(tableNode).getValue();
+        //        Assert.assertEquals(tableNode.getValue(), "/table1"); //$NON-NLS-1$
         verify(tableNode).getItemType();
     }
 
@@ -521,8 +530,14 @@ public class AbstractTest4ExtractManager {
         Assert.assertTrue(tdTable.getOwnedElement().isEmpty());
     }
 
-    protected void verifyMeatadataConnection4ReturnColumns4DontCreateConnection(IMetadataConnection metadataConn) {
+    protected void verifyMeatadataConnection4ReturnColumns4DontCreateConnection_Synonym(IMetadataConnection metadataConn) {
         verify(metadataConn).getDbType();
+        verify(metadataConn).isSqlMode();
+        verify(metadataConn).getDatabase();
+    }
+
+    protected void verifyMeatadataConnection4ReturnColumns4DontCreateConnection(IMetadataConnection metadataConn) {
+        verify(metadataConn, times(2)).getDbType();
         verify(metadataConn).isSqlMode();
         verify(metadataConn).getDatabase();
     }
@@ -575,7 +590,7 @@ public class AbstractTest4ExtractManager {
         // verify
         verifyTableNode4ReturnColumns2TableTypeSynonym(tableNode);
         // verifyTdTable4ReturnColumns4DontCreateConnection(tdTable);
-        verifyMeatadataConnection4ReturnColumns4DontCreateConnection(metadataConn);
+        verifyMeatadataConnection4ReturnColumns4DontCreateConnection_Synonym(metadataConn);
         verifyConnection4ReturnColumns4DontCreateConnection(conn);
         // verifyDbMetadata4ReturnColumns4DontCreateConnection(dbMetadata);
         // verifyColumnsResultSet4ReturnColumns4DontCreateConnection(getColumnsResultSet);
@@ -603,7 +618,7 @@ public class AbstractTest4ExtractManager {
     protected void verifyTableNode4ReturnColumns2TableTypeSynonym(TableNode tableNode) {
         verify(tableNode).getType();
         verify(tableNode).getTable();
-        verify(tableNode, times(2)).getValue();
+        verify(tableNode, times(1)).getValue();
         Assert.assertEquals(tableNode.getValue(), "/table2"); //$NON-NLS-1$
         verify(tableNode).getItemType();
     }
