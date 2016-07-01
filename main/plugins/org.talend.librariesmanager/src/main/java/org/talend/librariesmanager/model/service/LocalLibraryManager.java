@@ -123,7 +123,6 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     public LocalLibraryManager() {
         super();
-        deployer = new ArtifactsDeployer();
     }
 
     @Override
@@ -208,7 +207,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             sourceAndMavenUri.put(snapshotMavenUri, jarFile.getAbsolutePath());
                         }
                     }
-                    deployer.deployToLocalMaven(sourceAndMavenUri);
+                    getDeployer().deployToLocalMaven(sourceAndMavenUri);
                 }
             } else {
                 Map<String, String> sourceAndMavenUri = new HashMap<String, String>();
@@ -230,7 +229,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     sourceAndMavenUri.put(snapshotMavenUri, file.getAbsolutePath());
                 }
 
-                deployer.deployToLocalMaven(sourceAndMavenUri, updateRemoteJar);
+                getDeployer().deployToLocalMaven(sourceAndMavenUri, updateRemoteJar);
             }
 
         } catch (IOException e) {
@@ -1378,7 +1377,7 @@ public class LocalLibraryManager implements ILibraryManagerService {
                             String svnLibMD5 = DigestUtils.md5Hex(new FileInputStream(svnLibFile));
                             // check the md5 to see if jar is updated
                             if (mavenLibMD5 != null && !mavenLibMD5.equals(svnLibMD5)) {
-                                deployer.deployToLocalMaven(svnLibFile.getAbsolutePath(), mvnUri);
+                            	getDeployer().deployToLocalMaven(svnLibFile.getAbsolutePath(), mvnUri);
                             }
                             // System.out.println("mavenLibMD5 : " + mavenLibMD5);
                             // System.out.println("svnLibMD5 : " + svnLibMD5);
@@ -1405,5 +1404,12 @@ public class LocalLibraryManager implements ILibraryManagerService {
         EMap<String, String> jarsToMavenuri = LibrariesIndexManager.getInstance().getMavenLibIndex().getJarsToRelativePath();
         return jarsToMavenuri.get(jarName);
     }
+
+	public ArtifactsDeployer getDeployer() {
+		if (deployer == null) {
+	        deployer = new ArtifactsDeployer();
+		}
+		return deployer;
+	}
 
 }
