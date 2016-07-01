@@ -12,7 +12,10 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,7 +98,7 @@ public class MetadataFillFactoryTest {
         assertSame(metadataConnection.getDatabase(), parameterMap.get("dbName"));
         assertSame(metadataConnection.getDescription(), parameterMap.get("description"));
         assertTrue(parameterMap.get("retrieveAllMetadata") == null
-                || metadataConnection.equals(parameterMap.get("retrieveAllMetadata")));
+                || Boolean.toString(metadataConnection.isRetrieveAllMetadata()).equals(parameterMap.get("retrieveAllMetadata")));
         assertSame(metadataConnection.getUrl(), parameterMap.get("jdbcUrl"));
         assertNotNull("Product is not null", metadataConnection.getProduct());
         assertNull("Mapping is null", metadataConnection.getMapping());
