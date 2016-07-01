@@ -63,6 +63,24 @@ public class ResourceNode {
     protected void setTopNode(IRepositoryNode topNode) {
         this.topNode = topNode;
     }
+    
+    /**
+     * Getter for topNodePath.
+     * @return the topNodePath
+     */
+    protected String getTopNodePath() {
+        return this.topNodePath;
+    }
+
+
+    
+    /**
+     * Sets the topNodePath.
+     * @param topNodePath the topNodePath to set
+     */
+    protected void setTopNodePath(String topNodePath) {
+        this.topNodePath = topNodePath;
+    }
 
 
     /* (non-Javadoc)
@@ -73,6 +91,7 @@ public class ResourceNode {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.path == null) ? 0 : this.path.hashCode());
+        result = prime * result + ((this.topNodePath == null) ? 0 : this.topNodePath.hashCode());
         return result;
     }
 
@@ -94,26 +113,11 @@ public class ResourceNode {
                 return false;
         } else if (!this.path.equals(other.path))
             return false;
+        if (this.topNodePath == null) {
+            if (other.topNodePath != null)
+                return false;
+        } else if (!this.topNodePath.equals(other.topNodePath))
+            return false;
         return true;
-    }
-
-
-    
-    /**
-     * Getter for topNodePath.
-     * @return the topNodePath
-     */
-    protected String getTopNodePath() {
-        return this.topNodePath;
-    }
-
-
-    
-    /**
-     * Sets the topNodePath.
-     * @param topNodePath the topNodePath to set
-     */
-    protected void setTopNodePath(String topNodePath) {
-        this.topNodePath = topNodePath;
     }
 }
