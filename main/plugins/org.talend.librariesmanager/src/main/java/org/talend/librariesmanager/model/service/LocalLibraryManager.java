@@ -807,7 +807,20 @@ public class LocalLibraryManager implements ILibraryManagerService {
 
     @Override
     public boolean contains(String jarName) {
-        return list().contains(jarName);
+        Set<String> list = list();
+        boolean contained = list.contains(jarName);
+        if (!contained) {
+            try {
+                File jarFile = getJarFile(jarName);
+                if (jarFile != null) {
+                    list.add(jarName);
+                    contained = true;
+                }
+            } catch (MalformedURLException e) {
+                contained = false;
+            }
+        }
+        return contained;
     }
 
     /*
