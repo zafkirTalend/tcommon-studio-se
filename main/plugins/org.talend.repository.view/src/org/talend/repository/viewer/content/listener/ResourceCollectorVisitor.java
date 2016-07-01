@@ -170,6 +170,7 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
         resourceNode.setTopNode(topNode);
         resourceNode.setTopNodePath(getTopLevelNodePathForRefresh((RepositoryNode)topNode).toPortableString());
         ((RepositoryNode)topNode).setInitialized(false);
+        topNode.getChildren().clear();
         return resourceNode;
     }
 
