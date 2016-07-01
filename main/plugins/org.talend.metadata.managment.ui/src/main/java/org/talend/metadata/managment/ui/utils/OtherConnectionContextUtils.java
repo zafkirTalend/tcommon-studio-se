@@ -13,6 +13,7 @@
 package org.talend.metadata.managment.ui.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.ContextUtils;
@@ -745,6 +747,14 @@ public final class OtherConnectionContextUtils {
         cloneConn.setPassword(cloneConn.getValue(pass, true));
         cloneConn.setSystemNumber(sysNumber);
         cloneConn.setLanguage(language);
+        if (fileConn.getAdditionalProperties() != null && !fileConn.getAdditionalProperties().isEmpty()) {
+            Collection<AdditionalConnectionProperty> addtionalProperties = EcoreUtil.copyAll(fileConn.getAdditionalProperties());
+            cloneConn.getAdditionalProperties().addAll(addtionalProperties);
+            for (AdditionalConnectionProperty prop : cloneConn.getAdditionalProperties()) {
+                String propValue = ConnectionContextHelper.getOriginalValue(contextType, prop.getValue());
+                prop.setValue(propValue);
+            }
+        }
         ConnectionContextHelper.cloneConnectionProperties(fileConn, cloneConn);
 
         return cloneConn;
