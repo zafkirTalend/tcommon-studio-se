@@ -243,7 +243,15 @@ public class RepositoryNodeUtilities {
         if (view == null) {
             return null;
         }
-        return getRepositoryNode((IRepositoryNode) view.getRoot(), curNode, view, expanded);
+        RepositoryNode node = null;
+        IRepositoryNode nodeFromType = view.getRoot().getRootRepositoryNode(curNode.getRepositoryObjectType());
+        if (nodeFromType != null) {
+            node = getRepositoryNode(nodeFromType, curNode, view, expanded);
+        }
+        if (node == null) {
+            node = getRepositoryNode((IRepositoryNode) view.getRoot(), curNode, view, expanded);
+        }
+        return node;
     }
 
     private static IRepositoryNode viewRootNode;
