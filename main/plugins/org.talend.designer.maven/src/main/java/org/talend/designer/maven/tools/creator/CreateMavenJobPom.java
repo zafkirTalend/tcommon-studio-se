@@ -304,9 +304,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                     String value = contextParamType.getRawValue();
                     if (value == null) {
                         contextParamPart.append((String) null);
-                    } else if (value.contains(" ")) { //$NON-NLS-1$
-                        contextParamPart.append(TalendQuoteUtils.addQuotesIfNotExist(value));
                     } else {
+                        value = TalendQuoteUtils.addPairQuotesIfNotExist(value);
                         contextParamPart.append(value);
                     }
                 }
@@ -388,13 +387,15 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     protected boolean validChildrenJob(JobInfo jobInfo) {
         JobInfo fatherJobInfo = null;
         for (JobInfo lastGeneratedJobInfo : LastGenerationInfo.getInstance().getLastGeneratedjobs()) {
-            if (lastGeneratedJobInfo.getJobId().equals(getJobProcessor().getProperty().getId()) && lastGeneratedJobInfo.getJobVersion().equals(getJobProcessor().getProperty().getVersion())) {
+            if (lastGeneratedJobInfo.getJobId().equals(getJobProcessor().getProperty().getId())
+                    && lastGeneratedJobInfo.getJobVersion().equals(getJobProcessor().getProperty().getVersion())) {
                 fatherJobInfo = lastGeneratedJobInfo;
                 break;
             }
-        }    
+        }
         while (fatherJobInfo != null) {
-            if (fatherJobInfo.getJobId().equals(jobInfo.getJobId()) && fatherJobInfo.getJobVersion().equals(jobInfo.getJobVersion())) {
+            if (fatherJobInfo.getJobId().equals(jobInfo.getJobId())
+                    && fatherJobInfo.getJobVersion().equals(jobInfo.getJobVersion())) {
                 return false;
             }
             fatherJobInfo = fatherJobInfo.getFatherJobInfo();
@@ -450,7 +451,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     @Override
     protected void afterCreate(IProgressMonitor monitor) throws Exception {
         setPomForHDLight(monitor);
-        
+
         PomJobExtensionRegistry.getInstance().updatePom(monitor, getPomFile());
 
         generateAssemblyFile(monitor);
@@ -570,7 +571,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();
         // main job built, should never be in the children list, even if recursive
         clonedChildrenJobInfors.remove(LastGenerationInfo.getInstance().getLastMainJob());
-        
+
         for (JobInfo child : clonedChildrenJobInfors) {
             if (child.getFatherJobInfo() != null) {
 
