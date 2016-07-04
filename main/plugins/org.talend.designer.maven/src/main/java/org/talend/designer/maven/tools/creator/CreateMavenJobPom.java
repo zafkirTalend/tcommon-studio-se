@@ -48,7 +48,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.process.IContext;
-import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
@@ -294,9 +293,8 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                     String value = contextParamType.getRawValue();
                     if (value == null) {
                         contextParamPart.append((String) null);
-                    } else if (value.contains(" ")) { //$NON-NLS-1$
-                        contextParamPart.append(TalendQuoteUtils.addQuotesIfNotExist(value));
                     } else {
+                        value = TalendQuoteUtils.addPairQuotesIfNotExist(value);
                         contextParamPart.append(value);
                     }
                 }
@@ -439,7 +437,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     }
 
     private void setPomForHDLight(IProgressMonitor monitor) {
-        if(ProcessUtils.isHDInsight()) {
+        if (ProcessUtils.isHDInsight()) {
             try {
                 Model model = MODEL_MANAGER.readMavenModel(getPomFile());
                 List<Plugin> plugins = new ArrayList<Plugin>(model.getBuild().getPlugins());
@@ -455,7 +453,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                                     Xpp3Dom includeNode = new Xpp3Dom("include"); //$NON-NLS-1$
                                     includeNode.setValue("${talend.job.path}/contexts/*.properties"); //$NON-NLS-1$
                                     includesNode.addChild(includeNode);
-                                    
+
                                     model.getBuild().setPlugins(plugins);
                                     PomUtil.savePom(monitor, model, getPomFile());
                                     break out;
