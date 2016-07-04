@@ -126,6 +126,31 @@ public final class TalendQuoteUtils {
         return text;
     }
 
+    public static String addPairQuotesIfNotExist(String text) {
+        return addPairQuotesIfNotExist(text, QUOTATION_MARK);
+    }
+
+    /**
+     * DOC ycbai Comment method "addPairQuotesIfNotExist".
+     * <p>
+     * Add pair of quotes(begin and end of the text) if the text is not surrounded with them.
+     * </p>
+     * 
+     * @param text
+     * @param quote
+     * @return
+     */
+    public static String addPairQuotesIfNotExist(String text, String quote) {
+        String newText = text;
+        if (newText == null || quote == null) {
+            return null;
+        }
+        if (!text.startsWith(quote) || !text.endsWith(quote)) {
+            newText = addQuotes(newText);
+        }
+        return newText;
+    }
+
     public static String addQuotes(String text, String quoteStyle) {
         String newString;
 
