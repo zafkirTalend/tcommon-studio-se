@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
@@ -145,7 +146,10 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
                 .getProject(ProjectManager.getInstance().getProject(routineItem).getTechnicalLabel());
             IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(ERepositoryObjectType
                 .getItemType(routineItem)));
-            final String folderPath = RepositoryNodeUtilities.getPath(routineItem.getProperty().getId()).toString();
+            IPath ipath = RepositoryNodeUtilities.getPath(routineItem.getProperty().getId());
+            if (ipath == null)
+                return null;
+            final String folderPath = ipath.toString();
             if (folderPath != null && !folderPath.trim().isEmpty()) {
                 folder = folder.getFolder(folderPath);
             }
