@@ -22,11 +22,14 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
@@ -314,5 +317,25 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     @Override
     public List<ModuleNeeded> getModuleNeeded(String id, boolean isGroup) {
         return ExtensionModuleManager.getInstance().getModuleNeeded(id, isGroup);
+    }
+    
+    @Override
+    public void deployProjectLibrary(File source) throws IOException {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibraryManagerService.class)) {
+            ILibraryManagerService librairesService = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                    .getService(ILibraryManagerService.class);
+            if (librairesService != null) {
+                File sourceFile = new File(librairesService.getJarPath(source.getName()));
+                if (sourceFile.exists()) {
+                    IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation().append(JavaUtils.JAVA_EXTENSION)
+                            .append(JavaUtils.JAVA_LIB_DIRECTORY).append(source.getName());
+                    File targetFile = path.toFile();
+                    if (targetFile.exists()) {
+                        return;
+                    }
+                    FilesUtils.copyFile(sourceFile, targetFile);
+                }
+            }
+        }
     }
 }
