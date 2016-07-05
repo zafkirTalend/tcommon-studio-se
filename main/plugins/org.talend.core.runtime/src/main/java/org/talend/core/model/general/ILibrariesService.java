@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -99,6 +100,8 @@ public interface ILibrariesService extends IService {
     Set<ModuleNeeded> getCodesModuleNeededs(ERepositoryObjectType type);
 
     List<ModuleNeeded> getModuleNeeded(String id, boolean isGroup);
+    
+    public void deployProjectLibrary(File source) throws IOException;
 
     /**
      * Listener used to fire that libraries status has been changed (new lib or new check install).

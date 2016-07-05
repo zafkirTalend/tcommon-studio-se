@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.librariesmanager.model.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -232,4 +233,10 @@ public class LibrariesService implements ILibrariesService {
     public List<ModuleNeeded> getModuleNeeded(String id, boolean isGroup) {
         return getLibrariesService().getModuleNeeded(id, isGroup);
     }
+    
+    @Override
+    public void deployProjectLibrary(File source) throws IOException{
+       this.getLibrariesService().deployProjectLibrary(source);
+    }
+
 }
