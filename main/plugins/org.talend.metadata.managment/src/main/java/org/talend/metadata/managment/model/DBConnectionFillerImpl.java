@@ -165,6 +165,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         .getDatabaseProductName();
                 String productVersion = dbMetadata.getDatabaseProductVersion() == null ? PluginConstant.EMPTY_STRING : dbMetadata
                         .getDatabaseProductVersion();
+                // TDI-35419 TDQ-11853: make sure the redshift connection save the productName is redshift, not use the
+                // postgresql.becauses we use this value to create dbmslauguage
+                boolean isRedshift = dbconn.getDatabaseType().equals(EDatabaseTypeName.REDSHIFT.getDisplayName());
+                if (isRedshift) {
+                    productName = EDatabaseTypeName.REDSHIFT.getDisplayName();
+                }
+                // ~
                 TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
                 TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
 
