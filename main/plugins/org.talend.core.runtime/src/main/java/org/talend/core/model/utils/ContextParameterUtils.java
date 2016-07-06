@@ -42,9 +42,9 @@ import org.talend.repository.model.RepositoryConstants;
 
 /**
  * Utilities to work with IContextParamet objects. <br/>
- * 
+ *
  * $Id: ContextParameterUtils.java 38013 2010-03-05 14:21:59Z mhirt $
- * 
+ *
  */
 public final class ContextParameterUtils {
 
@@ -72,7 +72,7 @@ public final class ContextParameterUtils {
 
     /**
      * Script code used to invoque a context parameter in a given language.
-     * 
+     *
      * @param parameter Context parameter used in script.
      * @param language Language of the script.
      * @return Script code invoquing the context parameter.
@@ -205,7 +205,7 @@ public final class ContextParameterUtils {
 
     /**
      * DOC qzhang Comment method "containoldContext".
-     * 
+     *
      * @param code
      * @return
      */
@@ -216,7 +216,7 @@ public final class ContextParameterUtils {
 
     /**
      * DOC qzhang Comment method "containoldContext".
-     * 
+     *
      * @param code
      * @return
      */
@@ -229,9 +229,9 @@ public final class ContextParameterUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "getNewScriptCode".
-     * 
+     *
      * example: context.var1 for java, $_context{var1} for perl.
      */
     public static String getNewScriptCode(final String name, ECodeLanguage language) {
@@ -242,9 +242,9 @@ public final class ContextParameterUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "getVariableFromCode".
-     * 
+     *
      * only for new script code and the first variables. and if there is no variable in code, return null.
      */
     public static String getVariableFromCode(String code) {
@@ -298,9 +298,9 @@ public final class ContextParameterUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "containContextVariables".
-     * 
+     *
      * check the string contain context, or not.
      */
     public static boolean containContextVariables(String str) {
@@ -313,9 +313,9 @@ public final class ContextParameterUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "checkAndHideParameter".
-     * 
+     *
      * hide the value. if the type is password
      */
     public static String checkAndHideValue(IContextParameter parameter) {
@@ -331,10 +331,10 @@ public final class ContextParameterUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "isPasswordType".
-     * 
-     * 
+     *
+     *
      */
     public static boolean isPasswordType(IContextParameter parameter) {
         if (parameter == null) {
@@ -399,6 +399,16 @@ public final class ContextParameterUtils {
         return value;
     }
 
+    /**
+     * DOC ycbai Comment method "isContextParamOfContextType".
+     *
+     * <p>
+     * Estimate if the context parameter exists in the context type.
+     *
+     * @param contextType
+     * @param value
+     * @return
+     */
     public static boolean isContextParamOfContextType(ContextType contextType, String value) {
         if (contextType == null || value == null) {
             return false;
@@ -445,11 +455,11 @@ public final class ContextParameterUtils {
 
     /**
      * DOC ycbai Comment method "getValidParameterName".
-     * 
+     *
      * <p>
      * Get a valid context parameter name which revise the invalid characters.
      * </p>
-     * 
+     *
      * @param name
      * @return
      */

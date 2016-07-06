@@ -68,7 +68,7 @@ public final class DBConnectionContextUtils {
     private static final ECodeLanguage LANGUAGE = LanguageManager.getCurrentLanguage();
 
     /**
-     * 
+     *
      */
     public enum EDBParamName implements IConnParamName {
         Login,
@@ -550,9 +550,9 @@ public final class DBConnectionContextUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "setManagerConnectionValues".
-     * 
+     *
      * set the ManagerConnection parameter and return the url string connection.
      */
     public static String setManagerConnectionValues(ManagerConnection managerConnection, ConnectionItem connectionItem,
@@ -609,9 +609,9 @@ public final class DBConnectionContextUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "getUrlConnectionString".
-     * 
+     *
      * if display is false, the string connection will be returned by default context.
      */
     public static String getUrlConnectionString(ConnectionItem connectionItem, boolean defaultContext) {
@@ -678,9 +678,9 @@ public final class DBConnectionContextUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "cloneOriginalValueConnection".
-     * 
+     *
      * perhaps, if connection is in context mode, will open dialog to choose context sets.
      */
     public static DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn) {
@@ -688,11 +688,11 @@ public final class DBConnectionContextUtils {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "cloneOriginalValueConnection".
-     * 
+     *
      * only clone the properties of connection.
-     * 
+     *
      * @param selectedContext
      */
     public static DatabaseConnection cloneOriginalValueConnection(DatabaseConnection dbConn, boolean defaultContext,
@@ -768,7 +768,7 @@ public final class DBConnectionContextUtils {
         // cloneConn.getTables().addAll(dbConn.getTables());
         /*
          * mustn't be set, is flag for method convert in class ConvertionHelper.
-         * 
+         *
          * working for sql builder especially.
          */
         // cloneConn.setContextId(dbConn.getContextId());
@@ -818,7 +818,7 @@ public final class DBConnectionContextUtils {
             String keytab = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
                     getOriginalValue(hadoopClusterContextType, contextType, keytab));
-            
+
             String jdbcPropertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES,
                     HadoopRepositoryUtil.getOriginalValueOfProperties(jdbcPropertiesString, contextType));
@@ -910,18 +910,18 @@ public final class DBConnectionContextUtils {
         ContextType hadoopClusterContextType = null;
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
-            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
-                    IHadoopClusterService.class);
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
+                    .getService(IHadoopClusterService.class);
         }
         if (hadoopClusterService != null) {
             EMap<String, String> parameters = dbConn.getParameters();
             if (parameters != null && parameters.size() > 0) {
-                ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService.getHadoopClusterItemById(parameters
-                        .get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID));
+                ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService
+                        .getHadoopClusterItemById(parameters.get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID));
                 if (hadoopClusterItem != null) {
                     Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
-                    hadoopClusterContextType = ConnectionContextHelper.getContextTypeForContextMode(null,
-                            hadoopClusterConnection, hadoopClusterConnection.getContextName(), useDefaultContext);
+                    hadoopClusterContextType = ConnectionContextHelper.getContextTypeForContextMode(null, hadoopClusterConnection,
+                            hadoopClusterConnection.getContextName(), useDefaultContext);
                 }
             }
         }
@@ -930,7 +930,7 @@ public final class DBConnectionContextUtils {
 
     /**
      * Clones other parameters from the original parameters. Added by Marvin Wang on Aug 13, 2012.
-     * 
+     *
      * @param dbConn
      * @param cloneConn
      */
@@ -1082,7 +1082,7 @@ public final class DBConnectionContextUtils {
 
     /**
      * revert the name of Catalog or schema
-     * 
+     *
      * @param conn the target which need to revert
      * @param contextType the type of Context
      */
@@ -1165,12 +1165,12 @@ public final class DBConnectionContextUtils {
     }
 
     /**
-     * 
+     *
      * DOC zshen Comment method "setDatabaseConnectionParameter".
-     * 
+     *
      * @param conn
      * @param metadataConnection
-     * 
+     *
      * set parameter from metadataConnection to DatabaseConnection
      */
     public static void setDatabaseConnectionParameter(DatabaseConnection conn, IMetadataConnection metadataConnection) {

@@ -707,6 +707,7 @@ public final class ConnectionContextHelper {
                     Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
                     ContextItem hadoopClusterContextItem = ContextUtils.getContextItemById2(hadoopClusterConnection
                             .getContextId());
+                    Set<String> hcNeededVars = retrieveContextVar(elementParameters, hadoopClusterConnection, category);
                     List<ContextItem> contextItems = new ArrayList<>();
                     if (contextItem != null || hadoopClusterContextItem != null) {
                         // find added variables
@@ -718,7 +719,7 @@ public final class ConnectionContextHelper {
                             contextItems.add(contextItem);
                         }
                         if (hadoopClusterContextItem != null) {
-                            hcAddedVars = checkAndAddContextVariables(hadoopClusterContextItem, neededVars,
+                            hcAddedVars = checkAndAddContextVariables(hadoopClusterContextItem, hcNeededVars,
                                     process.getContextManager(), false);
                             contextItems.add(hadoopClusterContextItem);
                         }
@@ -737,7 +738,7 @@ public final class ConnectionContextHelper {
                             }
                         }
                         if (hcAddedVars != null && !hcAddedVars.isEmpty()
-                                && !isAddContextVar(hadoopClusterContextItem, process.getContextManager(), neededVars)) {
+                                && !isAddContextVar(hadoopClusterContextItem, process.getContextManager(), hcNeededVars)) {
                             if (ignoreContextMode) {
                                 addContextVarForJob(process, hadoopClusterContextItem, hcAddedVars);
                                 added = true;
