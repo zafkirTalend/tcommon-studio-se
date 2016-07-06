@@ -243,6 +243,8 @@ public class MetadataConnectionUtils {
      */
     public static TypedReturnCode<java.sql.Connection> createConnection(DatabaseConnection databaseConnection,
             boolean closeConnection) {
+
+        // TODO: can we reuse the ConvertionHelper.convert method to get a metadataConnection
         IMetadataConnection metadataConnection;
         if (EDatabaseTypeName.HIVE.getXmlName().equalsIgnoreCase(databaseConnection.getDatabaseType())) {
             metadataConnection = ConvertionHelper.convert(databaseConnection);
@@ -297,6 +299,9 @@ public class MetadataConnectionUtils {
             metadataConnection.setUsername(userName);
             metadataConnection.setPassword(password);
             metadataConnection.setUrl(dbUrl);
+
+            // TDQ-12299: transfer the OtherParameters to metadataConnection, because create impala connection use that values
+            ConvertionHelper.convertOtherParameters(metadataConnection, databaseConnection);
         }
         return createConnection(metadataConnection, closeConnection);
     }

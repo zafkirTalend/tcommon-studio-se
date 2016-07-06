@@ -47,7 +47,6 @@ import org.talend.core.utils.KeywordsValidator;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.SAPBWTableHelper;
 import org.talend.model.bridge.ReponsitoryContextBridge;
-
 import orgomg.cwm.objectmodel.core.TaggedValue;
 
 /**
@@ -246,7 +245,7 @@ public final class ConvertionHelper {
      * @param result
      * @param connection
      */
-    static void convertOtherParameters(IMetadataConnection result, DatabaseConnection connection) {
+    public static void convertOtherParameters(IMetadataConnection result, DatabaseConnection connection) {
         EMap<String, String> otherParameters = connection.getParameters();
 
         if (otherParameters != null && otherParameters.size() > 0) {
