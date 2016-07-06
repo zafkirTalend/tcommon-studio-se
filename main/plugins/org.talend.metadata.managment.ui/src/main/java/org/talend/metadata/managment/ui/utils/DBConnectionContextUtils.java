@@ -24,11 +24,13 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EMap;
 import org.talend.commons.ui.utils.PathUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
 import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
+import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.hadoop.repository.HadoopRepositoryUtil;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -36,6 +38,7 @@ import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.connection.hive.HiveServerVersionInfo;
@@ -813,49 +816,50 @@ public final class DBConnectionContextUtils {
         // cloneConn.setContextId(dbConn.getContextId());
         // cloneConn.setContextMode(dbConn.isContextMode()); // if use context
 
+        ContextType hadoopClusterContextType = getHadoopClusterContextType(dbConn, defaultContext);
+
         // for hive :
         if (EDatabaseTypeName.HIVE.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
-
             String hadoopUserName = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
-                    ContextParameterUtils.getOriginalValue(contextType, hadoopUserName));
+                    getOriginalValue(hadoopClusterContextType, contextType, hadoopUserName));
             String jobTracker = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_JOB_TRACKER_URL,
-                    ContextParameterUtils.getOriginalValue(contextType, jobTracker));
+                    getOriginalValue(hadoopClusterContextType, contextType, jobTracker));
             String nameNode = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_NAME_NODE_URL,
-                    ContextParameterUtils.getOriginalValue(contextType, nameNode));
+                    getOriginalValue(hadoopClusterContextType, contextType, nameNode));
             String hivePrincipal = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
             cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA,
-                    ContextParameterUtils.getOriginalValue(contextType, hivePrincipal));
+                    getOriginalValue(hadoopClusterContextType, contextType, hivePrincipal));
 
             String hiveMetadata = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL);
             cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_METASTOREURL,
-                    ContextParameterUtils.getOriginalValue(contextType, hiveMetadata));
+                    getOriginalValue(hadoopClusterContextType, contextType, hiveMetadata));
 
             String driverPath = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH);
             cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERJAR_PATH,
-                    ContextParameterUtils.getOriginalValue(contextType, driverPath));
+                    getOriginalValue(hadoopClusterContextType, contextType, driverPath));
 
             String driverClass = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS);
             cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_DRIVERCLASS,
-                    ContextParameterUtils.getOriginalValue(contextType, driverClass));
+                    getOriginalValue(hadoopClusterContextType, contextType, driverClass));
 
             String hiveUserName = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME);
             cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_USERNAME,
-                    ContextParameterUtils.getOriginalValue(contextType, hiveUserName));
+                    getOriginalValue(hadoopClusterContextType, contextType, hiveUserName));
 
             String hivePassword = cloneConn.getParameters().get(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD);
             cloneConn.getParameters().put(ConnParameterKeys.HIVE_AUTHENTICATION_PASSWORD,
-                    ContextParameterUtils.getOriginalValue(contextType, hivePassword));
+                    getOriginalValue(hadoopClusterContextType, contextType, hivePassword));
 
             String ktPrincipal = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
-                    ContextParameterUtils.getOriginalValue(contextType, ktPrincipal));
+                    getOriginalValue(hadoopClusterContextType, contextType, ktPrincipal));
 
             String keytab = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
-                    ContextParameterUtils.getOriginalValue(contextType, keytab));
+                    getOriginalValue(hadoopClusterContextType, contextType, keytab));
 
             String jdbcPropertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES,
@@ -864,7 +868,7 @@ public final class DBConnectionContextUtils {
             String additionalJDBCSettings = cloneConn.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS,
-                    ContextParameterUtils.getOriginalValue(contextType, additionalJDBCSettings));
+                    getOriginalValue(hadoopClusterContextType, contextType, additionalJDBCSettings));
 
             String propertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES,
@@ -873,7 +877,7 @@ public final class DBConnectionContextUtils {
             String trustStorePath = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
             if (trustStorePath != null) {
                 cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH,
-                        ContextParameterUtils.getOriginalValue(contextType, trustStorePath));
+                        getOriginalValue(hadoopClusterContextType, contextType, trustStorePath));
             }
 
             String trustStorePassword = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
@@ -881,7 +885,7 @@ public final class DBConnectionContextUtils {
                 cloneConn.getParameters().put(
                         ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
                         cloneConn.getValue(cloneConn.getValue(
-                                ContextParameterUtils.getOriginalValue(contextType, trustStorePassword), false), true));
+                                getOriginalValue(hadoopClusterContextType, contextType, trustStorePassword), false), true));
             }
 
             String template = null;
@@ -908,19 +912,19 @@ public final class DBConnectionContextUtils {
             String hbaseMasterPrin = cloneConn.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL,
-                    ContextParameterUtils.getOriginalValue(contextType, hbaseMasterPrin));
+                    getOriginalValue(hadoopClusterContextType, contextType, hbaseMasterPrin));
 
             String hbaseRegionPrin = cloneConn.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
-                    ContextParameterUtils.getOriginalValue(contextType, hbaseRegionPrin));
+                    getOriginalValue(hadoopClusterContextType, contextType, hbaseRegionPrin));
             String hbaseKeyTabPrin = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
-                    ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTabPrin));
+                    getOriginalValue(hadoopClusterContextType, contextType, hbaseKeyTabPrin));
 
             String hbaseKeyTab = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
-                    ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTab));
+                    getOriginalValue(hadoopClusterContextType, contextType, hbaseKeyTab));
 
         }
 
@@ -952,6 +956,34 @@ public final class DBConnectionContextUtils {
             cloneConn.setURL(newURL);
         }
         return cloneConn;
+    }
+
+    private static String getOriginalValue(ContextType parentContextType, ContextType contextType, final String value) {
+        ContextType ct = contextType;
+        boolean isContextParam = ContextParameterUtils.isContextParamOfContextType(ct, value);
+        if (!isContextParam && parentContextType != null) {
+            ct = parentContextType;
+        }
+        return ContextParameterUtils.getOriginalValue(ct, value);
+    }
+
+    private static ContextType getHadoopClusterContextType(DatabaseConnection dbConn, boolean useDefaultContext) {
+        ContextType hadoopClusterContextType = null;
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
+                    IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService.getHadoopClusterItemById(dbConn
+                    .getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID));
+            if (hadoopClusterItem != null) {
+                Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
+                hadoopClusterContextType = ConnectionContextHelper.getContextTypeForContextMode(null, hadoopClusterConnection,
+                        hadoopClusterConnection.getContextName(), useDefaultContext);
+            }
+        }
+        return hadoopClusterContextType;
     }
 
     /**
