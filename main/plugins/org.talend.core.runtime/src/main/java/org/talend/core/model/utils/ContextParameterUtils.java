@@ -399,6 +399,35 @@ public final class ContextParameterUtils {
         return value;
     }
 
+    /**
+     * DOC ycbai Comment method "isContextParamOfContextType".
+     * 
+     * <p>
+     * Estimate if the context parameter exists in the context type.
+     * 
+     * @param contextType
+     * @param value
+     * @return
+     */
+    public static boolean isContextParamOfContextType(ContextType contextType, String value) {
+        if (contextType == null || value == null) {
+            return false;
+        }
+        ContextParameterType param = null;
+        if (ContextParameterUtils.isContainContextParam(value)) {
+            String var = ContextParameterUtils.getVariableFromCode(value);
+            if (var != null) {
+                for (ContextParameterType paramType : (List<ContextParameterType>) contextType.getContextParameter()) {
+                    if (var.equals(paramType.getName())) {
+                        param = paramType;
+                        break;
+                    }
+                }
+            }
+        }
+        return param != null;
+    }
+
     public static boolean isValidParameterName(String name) {
         if (name != null) {
             // for java, the var name not be named with java keywords.
