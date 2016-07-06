@@ -12,8 +12,13 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 
 /**
  * created by ggu on Aug 20, 2014 Detailled comment
@@ -113,4 +118,28 @@ public class ContextParameterUtilsTest {
         Assert.assertEquals("abc", var);
 
     }
+
+    @Test
+    public void testIsContextParamOfContextType() {
+        ContextType contextType = createContextType("TEST");
+        contextType.getContextParameter().add(createContextParameterType("conn_Login", "talend"));
+        contextType.getContextParameter().add(createContextParameterType("conn_Passwd", "123"));
+        assertTrue(ContextParameterUtils.isContextParamOfContextType(contextType, "context.conn_Login"));
+        assertTrue(ContextParameterUtils.isContextParamOfContextType(contextType, "context.conn_Passwd"));
+        assertFalse(ContextParameterUtils.isContextParamOfContextType(contextType, "context.conn_Name"));
+    }
+
+    private ContextType createContextType(String name) {
+        ContextType contextType = TalendFileFactory.eINSTANCE.createContextType();
+        contextType.setName(name);
+        return contextType;
+    }
+
+    private ContextParameterType createContextParameterType(String name, String value) {
+        ContextParameterType contextParameterType = TalendFileFactory.eINSTANCE.createContextParameterType();
+        contextParameterType.setName(name);
+        contextParameterType.setValue(value);
+        return contextParameterType;
+    }
+
 }
