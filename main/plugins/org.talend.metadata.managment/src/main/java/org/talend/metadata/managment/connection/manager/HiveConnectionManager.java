@@ -140,11 +140,6 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
             ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
             if (useKerberos) {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
-            }
-            if (useMaprTicket) {
-                setMaprTicketConfig(metadataConn, hiveClassLoader, useKerberos);
-            }
-            if (useKerberos) {
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
                 String keytabPath = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
                 boolean useKeytab = Boolean
@@ -157,6 +152,9 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                         throw new SQLException(e);
                     }
                 }
+            }
+            if (useMaprTicket) {
+                setMaprTicketConfig(metadataConn, hiveClassLoader, useKerberos);
             }
             if (connURL.startsWith(DatabaseConnConstants.HIVE_2_URL_FORMAT)) {
                 hiveStandaloneConn = createHive2StandaloneConnection(metadataConn);
