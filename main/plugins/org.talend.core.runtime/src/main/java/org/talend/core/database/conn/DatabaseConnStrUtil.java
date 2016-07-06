@@ -384,6 +384,15 @@ public class DatabaseConnStrUtil {
         return DatabaseConnConstants.EMPTY;
     }
 
+    /**
+     * analyse URL. (note: when the url is context mode, this method is NOT suitable. for example: the url is
+     * jdbc:mysql://context.TdqContext_Host:context.TdqContext_Port/context.TdqContext_DbName?characterEncoding=UTF8)
+     * 
+     * @param currentDbType
+     * @param dbVersion
+     * @param url
+     * @return
+     */
     public static String[] analyseURL(String currentDbType, String dbVersion, String url) {
         String[] s = { currentDbType, DatabaseConnConstants.EMPTY, DatabaseConnConstants.EMPTY, DatabaseConnConstants.EMPTY,
                 DatabaseConnConstants.EMPTY, DatabaseConnConstants.EMPTY };
