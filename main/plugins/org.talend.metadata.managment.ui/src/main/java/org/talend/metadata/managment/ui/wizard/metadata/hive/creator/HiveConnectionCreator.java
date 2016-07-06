@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.metadata.managment.hive.creator;
+package org.talend.metadata.managment.ui.wizard.metadata.hive.creator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +27,7 @@ import org.talend.core.hadoop.conf.EHadoopConfProperties;
 import org.talend.core.hadoop.conf.EHadoopConfs;
 import org.talend.core.hadoop.conf.EHadoopProperties;
 import org.talend.core.hadoop.conf.HadoopDefaultConfsManager;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.connection.hive.HiveConnUtils;
@@ -38,6 +39,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.metadata.managment.creator.AbstractHadoopDBConnectionCreator;
+import org.talend.metadata.managment.ui.utils.ConnectionContextHelper;
 
 /**
  * created by ycbai on 2015年6月29日 Detailled comment
@@ -75,6 +77,12 @@ public class HiveConnectionCreator extends AbstractHadoopDBConnectionCreator {
         super.retrieveCommonParameters(paramsMap);
         paramsMap.put(ConnParameterKeys.CONN_PARA_KEY_DB_TYPE, EDatabaseConnTemplate.HIVE.getDBTypeName());
         paramsMap.put(ConnParameterKeys.CONN_PARA_KEY_DB_PRODUCT, EDatabaseTypeName.HIVE.getProduct());
+        String userName = paramsMap.get(ConnParameterKeys.CONN_PARA_KEY_USERNAME);
+        if (userName != null && relativeHadoopClusterItem != null) {
+            Connection connection = ((ConnectionItem) relativeHadoopClusterItem).getConnection();
+            paramsMap.put(ConnParameterKeys.CONN_PARA_KEY_USERNAME,
+                    ConnectionContextHelper.getParamValueOffContext(connection, userName));
+        }
     }
 
     private void retrieveConnParameters(Map<String, Map<String, String>> initParams, Map<String, String> paramsMap) {
