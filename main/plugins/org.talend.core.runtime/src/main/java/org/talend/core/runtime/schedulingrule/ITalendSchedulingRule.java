@@ -23,4 +23,6 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 public interface ITalendSchedulingRule extends ISchedulingRule {
 
     public Thread getRuleThread();
+
+    public void setRuleThread(Thread thread);
 }
