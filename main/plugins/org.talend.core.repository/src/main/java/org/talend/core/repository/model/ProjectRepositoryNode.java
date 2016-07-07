@@ -475,7 +475,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
             if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
                 Project p = refProject.getReferencedProject();
-                //no need caching
+                // no need caching
                 /*
                  * List<Project> list = nodeAndProject.get(parent); if (list == null) { list = new ArrayList<Project>();
                  * nodeAndProject.put(parent, list); } if (list.contains(p)) { return; } else { list.add(p); }
@@ -602,7 +602,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     public void buildDeletedItemsTree(RepositoryNode rootNode) {
         // build deleted folders
-        //need to use the current project to avoid the cache influence
+        // need to use the current project to avoid the cache influence
         List<String> folders = RecycleBinManager.getInstance()
                 .getDeletedFolders(ProjectManager.getInstance().getCurrentProject());
         Collections.sort(folders);
@@ -720,7 +720,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 }
             } else if (node.getType() == ENodeType.SIMPLE_FOLDER) {
                 RepositoryNode pNode = getTestCaseParent(node.getChildren(), originalID);
-                if(pNode!=null){
+                if (pNode != null) {
                     return pNode;
                 }
             }
@@ -1196,10 +1196,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         if (parent.getType().equals(ENodeType.SYSTEM_FOLDER)) {
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
                 String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
-                // if not a DB ref project, modified by nma, order 12519
-                if (refProject.getReferencedProject().getUrl() != null
-                        && refProject.getReferencedProject().getUrl().startsWith("teneo") //$NON-NLS-1$
-                        || (refProject.getBranch() != null && refProject.getBranch().equals(parentBranch))) {
+                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch)) {
                     Project emfProject = refProject.getReferencedProject();
                     ProjectRepositoryNode referencedProjectNode = new ProjectRepositoryNode(
                             new org.talend.core.model.general.Project(emfProject), null, parent, this,
@@ -2017,6 +2014,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 node.getChildren().clear();
             }
         }
-        
+
     }
 }

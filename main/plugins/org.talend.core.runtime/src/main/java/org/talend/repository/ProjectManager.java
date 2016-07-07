@@ -121,7 +121,7 @@ public final class ProjectManager {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
+                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch)) {
                         resolveRefProject(pr.getReferencedProject()); // only to resolve all
                     }
                 }
@@ -135,7 +135,7 @@ public final class ProjectManager {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || parentBranch.equals(pr.getBranch())) {
+                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch)) {
                         Project project = new Project(pr.getReferencedProject(), false);
                         allReferencedprojects.add(project);
                         resolveSubRefProject(pr.getReferencedProject(), allReferencedprojects); // only to resolve all
@@ -251,7 +251,7 @@ public final class ProjectManager {
 
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
+                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch)) {
                     refProjects.add(new Project(refProject.getReferencedProject(), false));
                 }
             }
