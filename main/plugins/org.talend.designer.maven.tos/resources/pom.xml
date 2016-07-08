@@ -10,9 +10,9 @@
 	<artifactId>studio-maven-repository-tos</artifactId>
 	<packaging>pom</packaging>
     <modules>
-        <module>unzip/unzip.xml</module>
-        <module>components/components.xml</module>
-        <module>surefire/surefire.xml</module>
-        <module>zip/zip.xml</module>
+        <module>unzip/pom.xml</module>
+        <module>components/pom.xml</module>
+        <module>surefire/pom.xml</module>
+        <module>zip/pom.xml</module>
     </modules>
 </project>
