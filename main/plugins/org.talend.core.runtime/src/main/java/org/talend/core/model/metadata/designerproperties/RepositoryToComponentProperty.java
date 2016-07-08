@@ -973,9 +973,9 @@ public class RepositoryToComponentProperty {
                 return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
             } else if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
                 return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
-            }else if(EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(databaseType)){
+            } else if (EDatabaseTypeName.GENERAL_JDBC.getDisplayName().equals(databaseType)) {
                 return dbVersionString;
-            }else {
+            } else {
                 String driverValue = EDatabaseVersion4Drivers.getDriversStr(databaseType, dbVersionString);
                 if (EDatabaseConnTemplate.ORACLE_OCI.getDBDisplayName().equals(databaseType)
                         || EDatabaseConnTemplate.ORACLE_CUSTOM.getDBDisplayName().equals(databaseType)
@@ -1197,11 +1197,7 @@ public class RepositoryToComponentProperty {
                 useMaprTValue = connection.getParameters()
                         .get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET);
             }
-            if (useMaprTValue == null) {
-                return useMaprTValue;
-            } else {
-                return Boolean.parseBoolean(useMaprTValue);
-            }
+            return Boolean.parseBoolean(useMaprTValue);
         }
         if (value.equals("USERNAME")) {
             String hbaseUsername = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
@@ -1241,6 +1237,25 @@ public class RepositoryToComponentProperty {
             } else if (EDatabaseTypeName.HIVE.getDisplayName().equals(databaseType)) {
                 return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
             }
+        }
+
+        if (value.equals("SET_MAPR_HOME_DIR")) {
+            String setMapRHomeDir = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_SETMAPRHOMEDIR);
+            return Boolean.parseBoolean(setMapRHomeDir);
+        }
+        if (value.equals("MAPR_HOME_DIR")) {
+            String mapRHomeDir = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHOMEDIR);
+            return getAppropriateValue(connection, mapRHomeDir);
+        }
+
+        if (value.equals("SET_HADOOP_LOGIN")) {
+            String setMapRHadoopLogin = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_SETMAPRHADOOPLOGIN);
+            return Boolean.parseBoolean(setMapRHadoopLogin);
+        }
+        if (value.equals("HADOOP_LOGIN")) {
+            String mapRHadoopLogin = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHOMEDIR);
+            return getAppropriateValue(connection, mapRHadoopLogin);
         }
 
         if (value.equals("HIVE_SERVER")) {
