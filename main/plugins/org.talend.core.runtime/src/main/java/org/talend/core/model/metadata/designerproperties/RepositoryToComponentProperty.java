@@ -1254,7 +1254,7 @@ public class RepositoryToComponentProperty {
             return Boolean.parseBoolean(setMapRHadoopLogin);
         }
         if (value.equals("HADOOP_LOGIN")) {
-            String mapRHadoopLogin = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHOMEDIR);
+            String mapRHadoopLogin = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHADOOPLOGIN);
             return getAppropriateValue(connection, mapRHadoopLogin);
         }
 
