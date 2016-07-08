@@ -138,6 +138,9 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                     .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USE_MAPRTICKET));
             String hivePrincipal = (String) metadataConn.getParameter(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA);
             ClassLoader hiveClassLoader = HiveClassLoaderFactory.getInstance().getClassLoader(metadataConn);
+            if (useMaprTicket) {
+                setMaprTicketPropertiesConfig(metadataConn);
+            }
             if (useKerberos) {
                 System.setProperty(HiveConfKeysForTalend.HIVE_CONF_KEY_HIVE_METASTORE_KERBEROS_PRINCIPAL.getKey(), hivePrincipal);
                 String principal = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
@@ -168,11 +171,21 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
         return hiveStandaloneConn;
     }
 
-    private void setMaprTicketConfig(IMetadataConnection metadataConn, ClassLoader classLoader, boolean useKerberos)
-            throws SQLException {
+    protected void setMaprTicketPropertiesConfig(IMetadataConnection metadataConn) {
+        boolean setMapRHomeDir = Boolean.valueOf((String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_SETMAPRHOMEDIR));
+        String mapRHomeDir = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHOMEDIR);
+        boolean setMapRHadoopLogin = Boolean.valueOf((String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_SETMAPRHADOOPLOGIN));
+        String mapRHadoopLogin = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHADOOPLOGIN);
         System.setProperty("pname", "MapRLogin");//$NON-NLS-1$ //$NON-NLS-2$
         System.setProperty("https.protocols", "TLSv1.2");//$NON-NLS-1$ //$NON-NLS-2$
-        System.setProperty("mapr.home.dir", "/opt/mapr");//$NON-NLS-1$ //$NON-NLS-2$
+        System.setProperty("mapr.home.dir", setMapRHomeDir ? mapRHomeDir : "/opt/mapr");//$NON-NLS-1$ //$NON-NLS-2$
+        System.setProperty("hadoop.login", setMapRHadoopLogin ? mapRHadoopLogin : "kerberos");//$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    private void setMaprTicketConfig(IMetadataConnection metadataConn, ClassLoader classLoader, boolean useKerberos)
+            throws SQLException {
         String mapRTicketUsername = (String) metadataConn
                 .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
         String mapRTicketPassword = (String) metadataConn
@@ -181,6 +194,9 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
         String mapRTicketDuration = (String) metadataConn
                 .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+        boolean setMapRHadoopLogin = Boolean.valueOf((String) metadataConn
+                .getParameter(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_SETMAPRHADOOPLOGIN));
+        String mapRHadoopLogin = (String) metadataConn.getParameter(ConnParameterKeys.CONN_PARA_KEY_MAPRTICKET_MAPRHADOOPLOGIN);
         Long desiredTicketDurInSecs = 86400L;
         if (mapRTicketDuration != null && StringUtils.isNotBlank(mapRTicketDuration)) {
             if (mapRTicketDuration.endsWith("L")) {//$NON-NLS-1$ 
@@ -198,7 +214,11 @@ public class HiveConnectionManager extends DataBaseConnectionManager {
                 ReflectionUtils.invokeMethod(mapRClientConfig,
                         "getMapRCredentialsViaKerberos", new Object[] { mapRTicketCluster, desiredTicketDurInSecs }); //$NON-NLS-1$
             } else {
-                ReflectionUtils.invokeMethod(mapRClientConfig, "setCheckUGI", new Object[] { false }, boolean.class);//$NON-NLS-1$
+                if (setMapRHadoopLogin) {
+                    System.setProperty("hadoop.login", mapRHadoopLogin);//$NON-NLS-1$
+                } else {
+                    ReflectionUtils.invokeMethod(mapRClientConfig, "setCheckUGI", new Object[] { false }, boolean.class);//$NON-NLS-1$
+                }
                 ReflectionUtils
                         .invokeMethod(
                                 mapRClientConfig,
