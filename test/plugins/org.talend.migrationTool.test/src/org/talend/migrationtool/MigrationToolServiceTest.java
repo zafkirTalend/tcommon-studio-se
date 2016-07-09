@@ -13,11 +13,11 @@
 package org.talend.migrationtool;
 
 import static org.mockito.Mockito.*;
-import junit.framework.Assert;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -6,3 +6,4 @@ Bundle-Version: 6.3.0.qualifier
 Fragment-Host: org.talend.migrationTool
 Bundle-Vendor: .Talend SA.
 Require-Bundle: org.talend.testutils
+Export-Package: org.talend.migrationtool

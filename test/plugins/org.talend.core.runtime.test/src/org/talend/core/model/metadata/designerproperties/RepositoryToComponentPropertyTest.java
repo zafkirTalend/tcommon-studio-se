@@ -27,10 +27,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -47,8 +43,6 @@ import org.talend.core.model.utils.ContextParameterUtils;
 /**
  * DOC ycbai class global comment. Detailled comment
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ ContextParameterUtils.class, JavaTypesManager.class })
 public class RepositoryToComponentPropertyTest {
 
     private static final String QUOTES = "\""; //$NON-NLS-1$
@@ -163,8 +157,6 @@ public class RepositoryToComponentPropertyTest {
     public void testGetValueOfHive() {
         DatabaseConnection dbConnection = mock(DatabaseConnection.class);
         when(dbConnection.isContextMode()).thenReturn(true);
-        PowerMockito.mockStatic(ContextParameterUtils.class);
-        when(ContextParameterUtils.isContainContextParam(anyString())).thenReturn(true);
         EMap<String, String> paramMap = new BasicEMap<>();
         paramMap.put(ConnParameterKeys.HIVE_AUTHENTICATION_HIVEPRINCIPLA, "hive_principal"); //$NON-NLS-1$
         paramMap.put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL, "keytab_principal"); //$NON-NLS-1$
@@ -172,9 +164,9 @@ public class RepositoryToComponentPropertyTest {
         paramMap.put(ConnParameterKeys.CONN_PARA_KEY_USE_DATANODE_HOSTNAME, null); //$NON-NLS-1$
         when(dbConnection.getParameters()).thenReturn(paramMap);
 
-        checkIfWithoutQuotes(dbConnection, "HIVE_PRINCIPAL"); //$NON-NLS-1$
-        checkIfWithoutQuotes(dbConnection, "PRINCIPAL"); //$NON-NLS-1$
-        checkIfWithoutQuotes(dbConnection, "KEYTAB_PATH"); //$NON-NLS-1$
+        checkIfWithoutQuotes(dbConnection, "context.hiveprincipal"); //$NON-NLS-1$
+        checkIfWithoutQuotes(dbConnection, "context.principal"); //$NON-NLS-1$
+        checkIfWithoutQuotes(dbConnection, "context.keytab_path"); //$NON-NLS-1$
         Object result = RepositoryToComponentProperty.getValue(dbConnection, "USE_DATANODE_HOSTNAME", null); //$NON-NLS-1$
         assertTrue(result == null);
     }
