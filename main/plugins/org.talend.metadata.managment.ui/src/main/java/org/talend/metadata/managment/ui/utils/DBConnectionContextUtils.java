@@ -863,7 +863,7 @@ public final class DBConnectionContextUtils {
 
             String jdbcPropertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES,
-                    HadoopRepositoryUtil.getOriginalValueOfProperties(contextType, jdbcPropertiesString));
+                    HadoopRepositoryUtil.getOriginalValueOfProperties(jdbcPropertiesString, contextType));
 
             String additionalJDBCSettings = cloneConn.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_HIVE_ADDITIONAL_JDBC_SETTINGS);
@@ -872,7 +872,7 @@ public final class DBConnectionContextUtils {
 
             String propertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_PROPERTIES,
-                    HadoopRepositoryUtil.getOriginalValueOfProperties(contextType, propertiesString));
+                    HadoopRepositoryUtil.getOriginalValueOfProperties(propertiesString, contextType));
 
             String trustStorePath = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PATH);
             if (trustStorePath != null) {
