@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.talend.commons.exception.ExceptionHandler;
@@ -134,6 +135,11 @@ public class HadoopRepositoryUtil {
      */
     public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
             boolean includeQuotes) {
+        return getHadoopPropertiesFullList(connection, propertiesJsonStr, null, null, includeQuotes);
+    }
+    
+    public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
+            ContextType clusterContextType, ContextType contextType, boolean includeQuotes) {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
@@ -143,11 +149,11 @@ public class HadoopRepositoryUtil {
         if (hadoopClusterService != null) {
             Connection hadoopClusterConnection = hadoopClusterService.getHadoopClusterConnectionBySubConnection(connection);
             if (hadoopClusterConnection != null) {
-                parentProperties = getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(connection),
-                        hadoopClusterConnection.isContextMode(), true);
+                parentProperties = getHadoopPropertiesWithOriginalValue(
+                        hadoopClusterService.getHadoopClusterProperties(connection), clusterContextType, includeQuotes);
             }
         }
-        List<Map<String, Object>> properties = getHadoopPropertiesList(propertiesJsonStr, connection.isContextMode(), true);
+        List<Map<String, Object>> properties = getHadoopPropertiesWithOriginalValue(propertiesJsonStr, contextType, includeQuotes);
         Map<String, Map<String, Object>> propertiesMap = new HashMap<String, Map<String, Object>>();
         for (Map<String, Object> proMap : properties) {
             String property = String.valueOf(proMap.get("PROPERTY")); //$NON-NLS-1$
@@ -165,7 +171,7 @@ public class HadoopRepositoryUtil {
 
         return properties;
     }
-    
+
     public static boolean useClouderaNavi(Connection hadoopSubConnection) {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
@@ -274,36 +280,62 @@ public class HadoopRepositoryUtil {
         return false;
     }
 
-    public static String getOriginalValueOfProperties(ContextType contextType, String propertiesStrings) {
+    public static String getOriginalValueOfProperties(String propertiesStrings, ContextType contextType) {
+        return getOriginalValueOfProperties(propertiesStrings, contextType, false);
+    }
+
+    public static String getOriginalValueOfProperties(String propertiesStrings, ContextType contextType, boolean includeQuotes) {
         String originalValueOfProperties = propertiesStrings;
         if (propertiesStrings != null && !propertiesStrings.isEmpty()) {
-            List<Map<String, Object>> jdbcPropertiesList = HadoopRepositoryUtil.getHadoopPropertiesList(propertiesStrings);
-            if (jdbcPropertiesList != null && !jdbcPropertiesList.isEmpty()) {
-                List<Map<String, Object>> newJdbcPropertiesList = new ArrayList<Map<String, Object>>(jdbcPropertiesList.size());
-                Iterator<Map<String, Object>> iter = jdbcPropertiesList.iterator();
-                while (iter.hasNext()) {
-                    Map<String, Object> map = iter.next();
-                    if (map != null && !map.isEmpty()) {
-                        Map<String, Object> newMap = new HashMap<String, Object>();
-                        Iterator<Map.Entry<String, Object>> mapEntryIter = map.entrySet().iterator();
-                        while (mapEntryIter.hasNext()) {
-                            Map.Entry<String, Object> entry = mapEntryIter.next();
-                            if (entry != null) {
-                                Object obj = entry.getValue();
-                                Object newValue = null;
-                                if (obj != null) {
-                                    newValue = ContextParameterUtils.getOriginalValue(contextType, obj.toString());
-                                }
-                                newMap.put(entry.getKey(), newValue);
-                            }
-                        }
-                        newJdbcPropertiesList.add(newMap);
-                    }
-
-                }
-                originalValueOfProperties = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(newJdbcPropertiesList);
+            List<Map<String, Object>> propertiesList = getHadoopPropertiesWithOriginalValue(propertiesStrings, contextType,
+                    includeQuotes);
+            if (propertiesList != null && !propertiesList.isEmpty()) {
+                originalValueOfProperties = getHadoopPropertiesJsonStr(propertiesList);
             }
         }
         return originalValueOfProperties;
     }
+
+    /**
+     * DOC ycbai Comment method "getHadoopPropertiesWithOriginalValue".
+     * 
+     * <p>
+     * Get hadoop properties list which convert conext value to original value if needed.
+     * </p>
+     * 
+     * @param propertiesStrings
+     * @param contextType
+     * @param includeQuotes
+     * @return
+     */
+    public static List<Map<String, Object>> getHadoopPropertiesWithOriginalValue(String propertiesStrings,
+            ContextType contextType, boolean includeQuotes) {
+        boolean isContextMode = contextType == null ? false : true;
+        List<Map<String, Object>> propertiesList = getHadoopPropertiesList(propertiesStrings, isContextMode,
+                includeQuotes);
+        if (!isContextMode) {
+            return propertiesList;
+        }
+
+        List<Map<String, Object>> newPropertiesList = new ArrayList<>();
+        for (Map<String, Object> propMap : propertiesList) {
+            Map<String, Object> newPropMap = new HashMap<>();
+            Iterator<Map.Entry<String, Object>> propMapEntryIter = propMap.entrySet().iterator();
+            while (propMapEntryIter.hasNext()) {
+                Entry<String, Object> propMapEntry = propMapEntryIter.next();
+                String propKey = propMapEntry.getKey();
+                Object propValue = propMapEntry.getValue();
+                if (propKey != null && propValue != null) {
+                    String newValue = ContextParameterUtils.getOriginalValue(contextType, String.valueOf(propValue));
+                    newPropMap.put(propKey, newValue);
+                }
+            }
+            if (!newPropMap.isEmpty()) {
+                newPropertiesList.add(newPropMap);
+            }
+        }
+
+        return newPropertiesList;
+    }
+
 }

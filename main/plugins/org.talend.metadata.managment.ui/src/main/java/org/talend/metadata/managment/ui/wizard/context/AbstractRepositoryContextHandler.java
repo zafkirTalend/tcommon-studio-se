@@ -63,7 +63,7 @@ public abstract class AbstractRepositoryContextHandler implements IRepositoryCon
         for (Map<String, Object> propertyMap : hadoopPropertiesList) {
             String propertyKey = (String) propertyMap.get(HADOOP_PROPERTY);
             String propertyValue = (String) propertyMap.get(HADOOP_VALUE);
-            String keyWithPrefix = prefixName + ConnectionContextHelper.LINE + getValidHadoopContextName(propertyKey);
+            String keyWithPrefix = prefixName + ConnectionContextHelper.LINE + ContextParameterUtils.getValidParameterName(propertyKey);
             ConnectionContextHelper.createParameters(varList, keyWithPrefix, propertyValue);
         }
     }
@@ -75,7 +75,7 @@ public abstract class AbstractRepositoryContextHandler implements IRepositoryCon
             propertyMap.put(
                     HADOOP_VALUE,
                     ContextParameterUtils.getNewScriptCode(prefixName + ConnectionContextHelper.LINE
-                            + getValidHadoopContextName(propertyKey), LANGUAGE));
+                            + ContextParameterUtils.getValidParameterName(propertyKey), LANGUAGE));
         }
         return hadoopPropertiesList;
     }
@@ -99,16 +99,6 @@ public abstract class AbstractRepositoryContextHandler implements IRepositoryCon
             propertyMap.put(HADOOP_VALUE, contextPropertyValue);
         }
         return hadoopPropertiesList;
-    }
-
-    private String getValidHadoopContextName(String originalName) {
-        String finalStr = originalName;
-        if (originalName.contains(ConnectionContextHelper.DOT)) {
-            finalStr = originalName.replace(ConnectionContextHelper.DOT, ConnectionContextHelper.LINE);
-        } else if (originalName.contains(" ")) {
-            finalStr = originalName.replace(" ", ConnectionContextHelper.LINE);
-        }
-        return finalStr;
     }
 
     protected Set<String> getConAdditionProperties(List<Map<String, Object>> propertiesList) {
