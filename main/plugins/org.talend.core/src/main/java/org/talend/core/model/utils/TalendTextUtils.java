@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 
 import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
-import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.metadata.QueryUtil;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.utils.KeywordsValidator;
@@ -479,17 +478,11 @@ public class TalendTextUtils {
     public static String hidePassword(final String password) {
 
         if (password == null) {
-            return "**"; // Means two quote //$NON-NLS-1$
+            return PASS_COVER + PASS_COVER; // Means two quote
         }
 
-        // don't hide password if it is valid pure context
-        String testPassword = password.trim();
-        if (testPassword.startsWith(ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX)) {
-            String variableName = testPassword.substring(ContextParameterUtils.JAVA_NEW_CONTEXT_PREFIX.length(),
-                    testPassword.length());
-            if (!ContextUtils.isJavaKeyWords(variableName)) {
-                return password;
-            }
+        if (ContextParameterUtils.containContextVariables(password)) {
+            return password;
         }
 
         int length = password.length() + 2;
