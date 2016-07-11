@@ -100,4 +100,10 @@ public interface IMetadataTable {
     public String getTableType();
 
     public void setTableType(String tableType);
+
+    public void setOriginalColumns(List<String> originalColumns);
+
+    public List<String> getOriginalColumns();
+
+    public boolean isRepository();
 }
