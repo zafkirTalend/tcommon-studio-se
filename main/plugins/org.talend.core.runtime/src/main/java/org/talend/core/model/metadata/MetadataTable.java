@@ -35,6 +35,8 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     private List<IMetadataColumn> unusedColumns = new ArrayList<IMetadataColumn>();
 
+    private List<String> originalColumns;
+
     private IMetadataConnection parent;
 
     private boolean readOnly = false;
@@ -151,6 +153,17 @@ public class MetadataTable implements IMetadataTable, Cloneable {
             List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
             temp.addAll(this.listColumns);
             temp.addAll(this.unusedColumns);
+            if (isRepository && originalColumns != null) {
+                Collections.sort(temp, new Comparator<IMetadataColumn>() {
+
+                    @Override
+                    public int compare(IMetadataColumn o1, IMetadataColumn o2) {
+                        int index1 = originalColumns.indexOf(o1.getLabel());
+                        int index2 = originalColumns.indexOf(o2.getLabel());
+                        return index1 - index2;
+                    }
+                });
+            }
             return temp;
         }
         return this.listColumns;
@@ -208,6 +221,11 @@ public class MetadataTable implements IMetadataTable, Cloneable {
             clonedMetadata.setUnusedColumns(clonedMetaUnusedColumns);
             for (int i = 0; i < unusedColumns.size(); i++) {
                 clonedMetaColumns.add(unusedColumns.get(i).clone(withCustoms));
+            }
+            if (originalColumns != null) {
+                List<String> clonedOriginalColumns = new ArrayList<String>(originalColumns);
+                clonedMetadata.setOriginalColumns(clonedOriginalColumns);
+
             }
             clonedMetadata.setTableName(this.getTableName());
             clonedMetadata.setLabel(this.getLabel());
@@ -335,8 +353,9 @@ public class MetadataTable implements IMetadataTable, Cloneable {
 
     @Override
     public IMetadataColumn getColumn(String columnName) {
-        for (int i = 0; i < getListColumns(true).size(); i++) {
-            IMetadataColumn column = getListColumns(true).get(i);
+        List<IMetadataColumn> withUnusedList = getListColumns(true);
+        for (int i = 0; i < withUnusedList.size(); i++) {
+            IMetadataColumn column = withUnusedList.get(i);
             if (column.getLabel().equals(columnName)) {
                 return column;
             }
@@ -458,6 +477,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
         this.additionalProperties = additionalProperties;
     }
 
+    @Override
     public boolean isRepository() {
         return this.isRepository;
     }
@@ -484,5 +504,25 @@ public class MetadataTable implements IMetadataTable, Cloneable {
     @Override
     public void setTableType(String tableType) {
         this.tableType = tableType;
+    }
+
+    /**
+     * Sets the originalColumns.
+     * 
+     * @param originalColumns the originalColumns to set
+     */
+    @Override
+    public void setOriginalColumns(List<String> originalColumns) {
+        this.originalColumns = originalColumns;
+    }
+
+    /**
+     * Getter for originalColumns.
+     * 
+     * @return the originalColumns
+     */
+    @Override
+    public List<String> getOriginalColumns() {
+        return this.originalColumns;
     }
 }
