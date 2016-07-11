@@ -142,4 +142,26 @@ public class ContextParameterUtilsTest {
         return contextParameterType;
     }
 
+    @Test
+    public void testIsValidParameterName() {
+        assertTrue(ContextParameterUtils.isValidParameterName("abc"));
+        assertTrue(ContextParameterUtils.isValidParameterName("abc123"));
+        assertTrue(ContextParameterUtils.isValidParameterName("abc_123"));
+        assertTrue(ContextParameterUtils.isValidParameterName("abc_de_123"));
+        assertTrue(ContextParameterUtils.isValidParameterName("_abc"));
+        assertFalse(ContextParameterUtils.isValidParameterName("abc-de"));
+        assertFalse(ContextParameterUtils.isValidParameterName("abc%de"));
+        assertFalse(ContextParameterUtils.isValidParameterName("a*&^e"));
+        assertFalse(ContextParameterUtils.isValidParameterName("123abc"));
+    }
+
+    @Test
+    public void testGetValidParameterName() {
+        assertNull(ContextParameterUtils.getValidParameterName(null));
+        assertNull(ContextParameterUtils.getValidParameterName(""));
+        assertEquals("abc_de", ContextParameterUtils.getValidParameterName("abc_de"));
+        assertEquals("abc_de", ContextParameterUtils.getValidParameterName("abc-de"));
+        assertEquals("_int", ContextParameterUtils.getValidParameterName("int"));
+    }
+
 }
