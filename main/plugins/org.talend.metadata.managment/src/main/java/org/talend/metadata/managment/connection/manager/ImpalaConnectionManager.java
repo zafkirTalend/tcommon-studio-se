@@ -94,7 +94,8 @@ public class ImpalaConnectionManager extends DataBaseConnectionManager {
                 } else {
                     IHDistributionVersion impalaVersion = impalaDistribution.getHDVersion(version, false);
                     if (impalaVersion != null) {
-                        boolean isKeb = false;
+                        boolean isKeb = Boolean.valueOf((String) metadataConn
+                                .getParameter(ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
                         DynamicClassLoader classLoader = ClassLoaderFactory.getClassLoader(impalaIndex
                                 + ClassLoaderFactory.KEY_SEPARATOR + impalaVersion.getVersion() + (isKeb ? "?USE_KRB" : ""));//$NON-NLS-1$//$NON-NLS-2$
 

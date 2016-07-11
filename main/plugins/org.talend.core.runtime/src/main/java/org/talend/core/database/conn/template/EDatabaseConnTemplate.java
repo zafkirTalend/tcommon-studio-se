@@ -81,7 +81,7 @@ public enum EDatabaseConnTemplate {
             "jdbc:odbc:<datasource>")), //$NON-NLS-1$
 
     ACCESS(new DbConnStr(EDatabaseTypeName.ACCESS, //
-            "jdbc:ucanaccess://<filename>;<property>",null,"memory=false")), //$NON-NLS-1$
+            "jdbc:ucanaccess://<filename>;<property>", null, "memory=false")), //$NON-NLS-1$
 
     SYBASEASE(new DbConnStr(EDatabaseTypeName.SYBASEASE, //
             "jdbc:sybase:Tds:<host>:<port>/<sid>?<property>", //$NON-NLS-1$ 
@@ -193,7 +193,7 @@ public enum EDatabaseConnTemplate {
     //
     //    HIVE2_STANDALONE(new DbConnStr(EDatabaseTypeName.HIVE, "jdbc:hive2://<host>:<port>/<sid>")), //$NON-NLS-1$
 
-    IMPALA(new DbConnStr(EDatabaseTypeName.IMPALA, "jdbc:hive2://<host>:<port>/<sid>;auth=noSasl", //
+    IMPALA(new DbConnStr(EDatabaseTypeName.IMPALA, "jdbc:hive2://<host>:<port>/<sid>", //$NON-NLS-1$
             "21050")), //$NON-NLS-1$  
 
     HBASE(new DbConnStr(EDatabaseTypeName.HBASE, "127.0.0.1", //$NON-NLS-1$
