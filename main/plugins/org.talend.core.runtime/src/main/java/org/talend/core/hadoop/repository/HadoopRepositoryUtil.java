@@ -17,13 +17,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.utils.TalendQuoteUtils;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
@@ -132,6 +135,11 @@ public class HadoopRepositoryUtil {
      */
     public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
             boolean includeQuotes) {
+        return getHadoopPropertiesFullList(connection, propertiesJsonStr, null, null, includeQuotes);
+    }
+    
+    public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
+            ContextType clusterContextType, ContextType contextType, boolean includeQuotes) {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
@@ -141,11 +149,11 @@ public class HadoopRepositoryUtil {
         if (hadoopClusterService != null) {
             Connection hadoopClusterConnection = hadoopClusterService.getHadoopClusterConnectionBySubConnection(connection);
             if (hadoopClusterConnection != null) {
-                parentProperties = getHadoopPropertiesList(hadoopClusterService.getHadoopClusterProperties(connection),
-                        hadoopClusterConnection.isContextMode(), true);
+                parentProperties = getHadoopPropertiesWithOriginalValue(
+                        hadoopClusterService.getHadoopClusterProperties(connection), clusterContextType, includeQuotes);
             }
         }
-        List<Map<String, Object>> properties = getHadoopPropertiesList(propertiesJsonStr, connection.isContextMode(), true);
+        List<Map<String, Object>> properties = getHadoopPropertiesWithOriginalValue(propertiesJsonStr, contextType, includeQuotes);
         Map<String, Map<String, Object>> propertiesMap = new HashMap<String, Map<String, Object>>();
         for (Map<String, Object> proMap : properties) {
             String property = String.valueOf(proMap.get("PROPERTY")); //$NON-NLS-1$
@@ -162,6 +170,64 @@ public class HadoopRepositoryUtil {
         }
 
         return properties;
+    }
+
+    public static String getOriginalValueOfProperties(String propertiesStrings, ContextType contextType) {
+        return getOriginalValueOfProperties(propertiesStrings, contextType, false);
+    }
+
+    public static String getOriginalValueOfProperties(String propertiesStrings, ContextType contextType, boolean includeQuotes) {
+        String originalValueOfProperties = propertiesStrings;
+        if (propertiesStrings != null && !propertiesStrings.isEmpty()) {
+            List<Map<String, Object>> propertiesList = getHadoopPropertiesWithOriginalValue(propertiesStrings, contextType,
+                    includeQuotes);
+            if (propertiesList != null && !propertiesList.isEmpty()) {
+                originalValueOfProperties = getHadoopPropertiesJsonStr(propertiesList);
+            }
+        }
+        return originalValueOfProperties;
+    }
+
+    /**
+     * DOC ycbai Comment method "getHadoopPropertiesWithOriginalValue".
+     * 
+     * <p>
+     * Get hadoop properties list which convert conext value to original value if needed.
+     * </p>
+     * 
+     * @param propertiesStrings
+     * @param contextType
+     * @param includeQuotes
+     * @return
+     */
+    public static List<Map<String, Object>> getHadoopPropertiesWithOriginalValue(String propertiesStrings,
+            ContextType contextType, boolean includeQuotes) {
+        boolean isContextMode = contextType == null ? false : true;
+        List<Map<String, Object>> propertiesList = getHadoopPropertiesList(propertiesStrings, isContextMode,
+                includeQuotes);
+        if (!isContextMode) {
+            return propertiesList;
+        }
+
+        List<Map<String, Object>> newPropertiesList = new ArrayList<>();
+        for (Map<String, Object> propMap : propertiesList) {
+            Map<String, Object> newPropMap = new HashMap<>();
+            Iterator<Map.Entry<String, Object>> propMapEntryIter = propMap.entrySet().iterator();
+            while (propMapEntryIter.hasNext()) {
+                Entry<String, Object> propMapEntry = propMapEntryIter.next();
+                String propKey = propMapEntry.getKey();
+                Object propValue = propMapEntry.getValue();
+                if (propKey != null && propValue != null) {
+                    String newValue = ContextParameterUtils.getOriginalValue(contextType, String.valueOf(propValue));
+                    newPropMap.put(propKey, newValue);
+                }
+            }
+            if (!newPropMap.isEmpty()) {
+                newPropertiesList.add(newPropMap);
+            }
+        }
+
+        return newPropertiesList;
     }
 
 }

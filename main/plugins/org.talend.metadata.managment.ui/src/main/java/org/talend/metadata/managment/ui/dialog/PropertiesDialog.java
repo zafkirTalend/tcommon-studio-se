@@ -97,6 +97,7 @@ public class PropertiesDialog extends TitleAreaDialog {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
+                setInitProperties(getLatestInitProperties());
                 if (propertiesDialog.open() == IDialogConstants.OK_ID) {
                     applyProperties(properties);
                     updateStatusLabel(properties);
@@ -105,7 +106,6 @@ public class PropertiesDialog extends TitleAreaDialog {
         });
         statusLabel = new Label(propComposite, SWT.NONE);
         statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        updateStatusLabel(initProperties);
     }
 
     public void updatePropertiesFields(boolean isEdiable) {
@@ -204,6 +204,10 @@ public class PropertiesDialog extends TitleAreaDialog {
     protected String getPropertiesValueName() {
         return PropertiesTableView.DEFAULT_VALUE_NAME;
     }
+    
+    protected List<Map<String, Object>> getLatestInitProperties() {
+        return initProperties;
+    }
 
     /**
      * <p>
@@ -265,6 +269,8 @@ public class PropertiesDialog extends TitleAreaDialog {
         propertiesTableView = createPropertiesTable(propertiesBar, tableIndex, getTitle(), initProperties, false, true);
         updateExpandItems();
 
+        updateStatusLabel(initProperties);
+        
         return parent;
     }
 

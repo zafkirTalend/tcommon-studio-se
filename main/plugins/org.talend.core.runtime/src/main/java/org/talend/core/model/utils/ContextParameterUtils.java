@@ -58,7 +58,11 @@ public final class ContextParameterUtils {
 
     private static final String JAVA_ENDWITH = "\"))"; //$NON-NLS-1$
 
+    private static final String LINE = "_"; //$NON-NLS-1$
+
     private static final String EMPTY = ""; //$NON-NLS-1$
+
+    private static final String NON_CONTEXT_PATTERN = "[^a-zA-Z0-9_]"; //$NON-NLS-1$
 
     /**
      * Constructs a new ContextParameterUtils.
@@ -418,6 +422,30 @@ public final class ContextParameterUtils {
             return true;
         }
         return false;
+    }
+
+    /**
+     * DOC ycbai Comment method "getValidParameterName".
+     * 
+     * <p>
+     * Get a valid context parameter name which revise the invalid characters.
+     * </p>
+     * 
+     * @param name
+     * @return
+     */
+    public static String getValidParameterName(String name) {
+        if (name == null || name.isEmpty()) {
+            return null;
+        }
+        if (isValidParameterName(name)) {
+            return name;
+        }
+        String newName = name.replaceAll(NON_CONTEXT_PATTERN, LINE);
+        if (ContextUtils.isJavaKeyWords(newName)) {
+            newName = LINE + name;
+        }
+        return newName;
     }
 
 }
