@@ -20,16 +20,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Test;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 
 /**
  * created by ycbai on 2016年2月18日 Detailled comment
  *
  */
+@SuppressWarnings("nls")
 public class HadoopRepositoryUtilTest {
 
-    private static final String QUOTE = "\""; //$NON-NLS-1$
+    private static final String QUOTE = "\"";
 
-    private final static String PROPERTY_VALUE = "VALUE"; //$NON-NLS-1$
+    private final static String PROPERTY_VALUE = "VALUE";
 
     @Test
     public void testGetHadoopPropertiesList() {
@@ -72,6 +76,40 @@ public class HadoopRepositoryUtilTest {
 
     private boolean isContainsQuotes(String str) {
         return str != null && str.length() > 1 && str.startsWith(QUOTE) && str.endsWith(QUOTE);
+    }
+
+    @Test
+    public void testGetHadoopPropertiesWithOriginalValue() {
+        // If it is not context mode then return the same properties.
+        String propertiesJsonStr = "[{\"PROPERTY\":\"prop.login\",\"VALUE\":\"context.conn_Login\"},{\"PROPERTY\":\"prop.password\",\"VALUE\":\"context.conn_Passwd\"}]"; //$NON-NLS-1$
+        List<Map<String, Object>> hadoopProperties = HadoopRepositoryUtil.getHadoopPropertiesWithOriginalValue(propertiesJsonStr,
+                null, false);
+        for (Map<String, Object> properties : hadoopProperties) {
+            Object value = properties.get(PROPERTY_VALUE);
+            assertTrue("context.conn_Login".equals(value) || "context.conn_Passwd".equals(value));
+        }
+        // If it is context mode then return the original properties value.
+        ContextType contextType = createContextType("TEST");
+        contextType.getContextParameter().add(createContextParameterType("conn_Login", "talend"));
+        contextType.getContextParameter().add(createContextParameterType("conn_Passwd", "123"));
+        hadoopProperties = HadoopRepositoryUtil.getHadoopPropertiesWithOriginalValue(propertiesJsonStr, contextType, false);
+        for (Map<String, Object> properties : hadoopProperties) {
+            Object value = properties.get(PROPERTY_VALUE);
+            assertTrue("talend".equals(value) || "123".equals(value));
+        }
+    }
+
+    private ContextType createContextType(String name) {
+        ContextType contextType = TalendFileFactory.eINSTANCE.createContextType();
+        contextType.setName(name);
+        return contextType;
+    }
+
+    private ContextParameterType createContextParameterType(String name, String value) {
+        ContextParameterType contextParameterType = TalendFileFactory.eINSTANCE.createContextParameterType();
+        contextParameterType.setName(name);
+        contextParameterType.setValue(value);
+        return contextParameterType;
     }
 
 }
