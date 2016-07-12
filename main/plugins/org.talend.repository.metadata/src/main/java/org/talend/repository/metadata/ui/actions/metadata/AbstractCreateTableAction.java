@@ -1011,7 +1011,8 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                             if (!metadataConnection.getDbType().equals(EDatabaseConnTemplate.GODBC.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.ACCESS.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(
-                                            EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
+                                            EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())
+                                    && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.IMPALA.getDBDisplayName())) {
                                 // TODO 1. To identify if it is hive connection.
                                 String hiveMode = (String) metadataConnection
                                         .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
