@@ -100,7 +100,7 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
 
     private void createDescription(Composite parent) {
         Text descriptionText = new Text(parent, SWT.BORDER | SWT.WRAP);
-        descriptionText.setText(Messages.getString("ContextAdaptConectionSelectPage.selectOrCustomVariable")); //$NON-NLS-1$
+        descriptionText.setText(Messages.getString("ContextAdaptConectionSelectPage.selectOrCustomVariableNew")); //$NON-NLS-1$
         descriptionText.setEditable(false);
         GridData gd = new GridData(GridData.FILL_BOTH);
         gd.widthHint = 100;
@@ -244,7 +244,7 @@ public class ContextAdaptConectionSelectPage extends WizardPage {
                 }
             }
             if (contextVariableNumber < connectionFieldNumber) {
-                errorMessage = Messages.getString("ContextAdaptConectionSelectPage.errorMsg"); //$NON-NLS-1$
+                errorMessage = Messages.getString("ContextAdaptConectionSelectPage.errorMsgNew"); //$NON-NLS-1$
                 hasError = true;
             } else {
                 out: for (int i = 0; i < adaptModels.size(); i++) {
