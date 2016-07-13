@@ -178,7 +178,8 @@ public enum EDatabaseVersion4Drivers {
             "hadoop-yarn-api-2.6.0-cdh5.5.0.jar", "hadoop-yarn-client-2.6.0-cdh5.5.0.jar",
             "hadoop-yarn-common-2.6.0-cdh5.5.0.jar", "hadoop-yarn-server-web-proxy-2.6.0-cdh5.5.0.jar", "commons-io-2.4.jar",
             "commons-codec-1.9.jar", "htrace-core-3.2.0-incubating.jar", "jackson-mapper-asl-1.8.8.jar",
-            "jackson-core-asl-1.8.8.jar", "jackson-jaxrs-1.8.8.jar", "jackson-xc-1.8.8.jar", "jersey-client-1.9.jar" })),
+            "jackson-core-asl-1.8.8.jar", "jackson-jaxrs-1.8.8.jar", "jackson-xc-1.8.8.jar", "jersey-client-1.9.jar",
+            "hadoop-conf-kerberos.jar" })),
 
     REDSHIFT(new DbVersion4Drivers(EDatabaseTypeName.REDSHIFT, "paraccel-jdbc.jar")), //$NON-NLS-1$
 
