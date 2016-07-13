@@ -1095,7 +1095,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      */
     private String getTableComment(DatabaseMetaData dbJDBCMetadata, ResultSet tables, String tableName, String catalogName,
             String schemaPattern) {
-        String tableComment = getStringFromResultSet(tables, GetTable.REMARKS.name());
+        String tableComment = getRemarksFromResultSet(tables);
         try {
             String productName = dbJDBCMetadata.getDatabaseProductName();
             if (StringUtils.isBlank(tableComment)) {
@@ -1123,7 +1123,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
      */
     private String getColumnComment(DatabaseMetaData dbJDBCMetadata, ResultSet columns, String tableName, String columnName,
             String schemaPattern) {
-        String columnComment = getStringFromResultSet(columns, GetColumn.REMARKS.name());
+        String columnComment = getRemarksFromResultSet(columns);
         try {
             if (StringUtils.isBlank(columnComment) && MetadataConnectionUtils.isOracle(dbJDBCMetadata)) {
                 String selectRemarkOnTable = "SELECT COMMENTS FROM ALL_COL_COMMENTS WHERE TABLE_NAME='" + tableName //$NON-NLS-1$
@@ -1322,6 +1322,16 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             valueOfString = resultSet.getString(nameOfString);
         } catch (SQLException e) {
             log.warn(e, e);
+        }
+        return valueOfString;
+    }
+    
+    private String getRemarksFromResultSet(ResultSet resultSet) {
+        String valueOfString = null;
+        try {
+            valueOfString = resultSet.getString(GetColumn.REMARKS.name());
+        } catch (SQLException e) {
+            //do nothing
         }
         return valueOfString;
     }
