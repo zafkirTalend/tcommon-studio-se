@@ -975,12 +975,15 @@ public final class DBConnectionContextUtils {
                     IHadoopClusterService.class);
         }
         if (hadoopClusterService != null) {
-            ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService.getHadoopClusterItemById(dbConn
-                    .getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID));
-            if (hadoopClusterItem != null) {
-                Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
-                hadoopClusterContextType = ConnectionContextHelper.getContextTypeForContextMode(null, hadoopClusterConnection,
-                        hadoopClusterConnection.getContextName(), useDefaultContext);
+            EMap<String, String> parameters = dbConn.getParameters();
+            if (parameters != null && parameters.size() > 0) {
+                ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService.getHadoopClusterItemById(parameters
+                        .get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID));
+                if (hadoopClusterItem != null) {
+                    Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
+                    hadoopClusterContextType = ConnectionContextHelper.getContextTypeForContextMode(null,
+                            hadoopClusterConnection, hadoopClusterConnection.getContextName(), useDefaultContext);
+                }
             }
         }
         return hadoopClusterContextType;
