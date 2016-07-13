@@ -79,41 +79,38 @@ public class PropertiesDialog extends TitleAreaDialog {
         properties = cloneProperties(initProperties);
     }
 
-	public void createPropertiesFields(Composite parent) {
-		propComposite = new Composite(parent, SWT.NONE);
-		GridLayout propCompLayout = new GridLayout(3, false);
-		propCompLayout.marginWidth = getMarginWidth();
-		propCompLayout.marginHeight = getMarginHeight();
-		propComposite.setLayout(propCompLayout);
-		propComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    public void createPropertiesFields(Composite parent) {
+        propComposite = new Composite(parent, SWT.NONE);
+        GridLayout propCompLayout = new GridLayout(3, false);
+        propCompLayout.marginWidth = getMarginWidth();
+        propCompLayout.marginHeight = getMarginHeight();
+        propComposite.setLayout(propCompLayout);
+        propComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		Label propLabel = new Label(propComposite, SWT.NONE);
-		propLabel.setText(getTitle());
-		Button propertyButton = new Button(propComposite, SWT.NONE);
-		final PropertiesDialog propertiesDialog = this;
-		propertyButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
-		propertyButton.setLayoutData(new GridData(30, 25));
-		propertyButton.addSelectionListener(new SelectionAdapter() {
+        Label propLabel = new Label(propComposite, SWT.NONE);
+        propLabel.setText(getTitle());
+        Button propertyButton = new Button(propComposite, SWT.NONE);
+        final PropertiesDialog propertiesDialog = this;
+        propertyButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
+        propertyButton.setLayoutData(new GridData(30, 25));
+        propertyButton.addSelectionListener(new SelectionAdapter() {
 
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				setInitProperties(getLatestInitProperties());
-				if (propertiesDialog.open() == IDialogConstants.OK_ID) {
-					applyProperties(properties);
-					updateStatusLabel(properties);
-				}
-			}
-		});
-		statusLabel = new Label(propComposite, SWT.NONE);
-		statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		updateStatusLabel(initProperties);
-	}
-
-	public void updatePropertiesFields(boolean isEdiable) {
-		if (propComposite != null && !propComposite.isDisposed()) {
-			propComposite.setEnabled(isEdiable);
-		}
-	}
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (propertiesTableView != null && !propertiesTableView.getTable().isDisposed()) {
+                    propertiesTableView.setReadOnly(isReadOnly());
+                }
+                setInitProperties(getLatestInitProperties());
+                if (propertiesDialog.open() == IDialogConstants.OK_ID) {
+                    applyProperties(properties);
+                    updateStatusLabel(properties);
+                }
+            }
+        });
+        statusLabel = new Label(propComposite, SWT.NONE);
+        statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        updateStatusLabel(initProperties);
+    }
 
     @Override
     protected void okPressed() {
@@ -140,6 +137,10 @@ public class PropertiesDialog extends TitleAreaDialog {
 
     protected int getMarginHeight() {
         return 5;
+    }
+
+    protected boolean isReadOnly() {
+        return false;
     }
 
     private List<Map<String, Object>> cloneProperties(List<Map<String, Object>> originalProperties) {
@@ -274,7 +275,7 @@ public class PropertiesDialog extends TitleAreaDialog {
             parentPropertiesTable = createPropertiesTable(propertiesBar, 0, getParentTitle(), initPropertiesOfParent, true, false);
         }
         int tableIndex = parentPropertiesTable == null ? 0 : 1;
-        propertiesTableView = createPropertiesTable(propertiesBar, tableIndex, getTitle(), initProperties, false, true);
+        propertiesTableView = createPropertiesTable(propertiesBar, tableIndex, getTitle(), initProperties, isReadOnly(), true);
         updateExpandItems();
 
         return parent;
@@ -287,7 +288,7 @@ public class PropertiesDialog extends TitleAreaDialog {
     }
 
     private PropertiesTableView createPropertiesTable(ExpandBar bar, int index, String title,
-            List<Map<String, Object>> theProperties, boolean readonly, boolean expanded) {
+            List<Map<String, Object>> theProperties, boolean readOnly, boolean expanded) {
         Composite compositeTable = new Composite(bar, SWT.NONE);
         GridLayout compositeTableLayout = new GridLayout(1, false);
         compositeTableLayout.marginWidth = 0;
@@ -324,7 +325,7 @@ public class PropertiesDialog extends TitleAreaDialog {
             }
 
         };
-        propertiesTable.setReadOnly(readonly);
+        propertiesTable.setReadOnly(readOnly);
         Composite fieldTableEditorComposite = propertiesTable.getMainComposite();
         fieldTableEditorComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
         propertiesTable.getTable().addControlListener(new ControlAdapter() {

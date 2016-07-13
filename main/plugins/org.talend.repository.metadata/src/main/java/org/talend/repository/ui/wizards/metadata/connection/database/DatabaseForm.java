@@ -2039,6 +2039,17 @@ public class DatabaseForm extends AbstractForm {
         hadoopPropertiesDialog = new HadoopPropertiesDialog(getShell(), hadoopClusterPropertiesList, hadoopPropertiesList) {
 
             @Override
+            protected boolean isReadOnly() {
+                return readOnly || isContextMode();
+            }
+
+            @Override
+            protected List<Map<String, Object>> getLatestInitProperties() {
+                refreshHadoopProperties();
+                return hadoopPropertiesList;
+            }
+
+            @Override
             protected void applyProperties(List<Map<String, Object>> hdProperties) {
                 updateHdProperties(hdProperties);
             }
@@ -2105,6 +2116,17 @@ public class DatabaseForm extends AbstractForm {
         hiveJDBCPropertiesComposite.setLayoutData(hivePropGridData);
 
         hiveJDBCPropertiesDialog = new HiveJDBCPropertiesDialog(getShell(), hiveJDBCPropertiesList) {
+
+            @Override
+            protected boolean isReadOnly() {
+                return readOnly || isContextMode();
+            }
+
+            @Override
+            protected List<Map<String, Object>> getLatestInitProperties() {
+                initHiveJDBCProperties();
+                return hiveJDBCPropertiesList;
+            }
 
             @Override
             protected void applyProperties(List<Map<String, Object>> hdProperties) {
@@ -2354,11 +2376,9 @@ public class DatabaseForm extends AbstractForm {
 
     private void updatePropertiesFileds(boolean isEditable) {
         if (hadoopPropertiesDialog != null) {
-            hadoopPropertiesDialog.updatePropertiesFields(isEditable);
             hadoopPropertiesDialog.updateStatusLabel(hadoopPropertiesList);
         }
         if (hiveJDBCPropertiesDialog != null) {
-            hiveJDBCPropertiesDialog.updatePropertiesFields(isEditable);
             hiveJDBCPropertiesDialog.updateStatusLabel(hiveJDBCPropertiesList);
         }
     }
