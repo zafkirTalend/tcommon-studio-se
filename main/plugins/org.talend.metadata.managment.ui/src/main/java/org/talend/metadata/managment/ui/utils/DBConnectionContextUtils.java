@@ -114,12 +114,12 @@ public final class DBConnectionContextUtils {
         }
 
         List<IContextParameter> varList = new ArrayList<IContextParameter>();
-        prefixName = prefixName + ConnectionContextHelper.LINE;
+        String paramPrefix = prefixName + ConnectionContextHelper.LINE;
         String paramName = null;
         for (IConnParamName param : paramSet) {
             if (param instanceof EDBParamName) {
                 EDBParamName dbParam = (EDBParamName) param;
-                paramName = prefixName + dbParam;
+                paramName = paramPrefix + dbParam;
                 switch (dbParam) {
                 case AdditionalParams:
                     ConnectionContextHelper.createParameters(varList, paramName, conn.getAdditionalParams());
@@ -286,23 +286,14 @@ public final class DBConnectionContextUtils {
         return hiveJdbcPropertiesList;
     }
 
-    static String getValidContextVariableName(String originalName) {
-        String correctName = originalName;
-        if (originalName.contains(ConnectionContextHelper.DOT)) {
-            correctName = originalName.replace(ConnectionContextHelper.DOT, ConnectionContextHelper.LINE);
-        } else if (originalName.contains(" ")) {
-            correctName = originalName.replace(" ", ConnectionContextHelper.LINE);
-        }
-        return correctName;
-    }
-
     static void createAdditionalContextParameters(String prefixName, List<IContextParameter> varList,
             List<Map<String, Object>> additionalProperteisHiveJdbcPros) {
         if (!additionalProperteisHiveJdbcPros.isEmpty()) {
             for (Map<String, Object> propertyMap : additionalProperteisHiveJdbcPros) {
                 String propertyKey = (String) propertyMap.get("PROPERTY");
                 String propertyValue = (String) propertyMap.get("VALUE");
-                String keyWithPrefix = prefixName + ConnectionContextHelper.LINE + getValidContextVariableName(propertyKey);
+                String keyWithPrefix = prefixName + ConnectionContextHelper.LINE
+                        + ContextParameterUtils.getValidParameterName(propertyKey);
                 ConnectionContextHelper.createParameters(varList, keyWithPrefix, propertyValue);
             }
         }
@@ -313,12 +304,12 @@ public final class DBConnectionContextUtils {
         if (conn == null || contextItem == null || prefixName == null || paramSet == null || paramSet.isEmpty()) {
             return;
         }
-        prefixName = prefixName + ConnectionContextHelper.LINE;
+        String paramPrefix = prefixName + ConnectionContextHelper.LINE;
         String originalVariableName = null;
         for (IConnParamName param : paramSet) {
             if (param instanceof EDBParamName) {
                 EDBParamName dbParam = (EDBParamName) param;
-                originalVariableName = prefixName + dbParam;
+                originalVariableName = paramPrefix + dbParam;
                 if (map != null && map.size() > 0) {
                     for (Map.Entry<String, String> entry : map.entrySet()) {
                         if (originalVariableName.equals(entry.getValue())) {
@@ -348,7 +339,7 @@ public final class DBConnectionContextUtils {
                 propertyMap.put(
                         "VALUE",
                         ContextParameterUtils.getNewScriptCode(prefixName + ConnectionContextHelper.LINE
-                                + getValidContextVariableName(propertyKey), LANGUAGE));
+                                        + ContextParameterUtils.getValidParameterName(propertyKey), LANGUAGE));
             }
             finalContextPropertiesJson = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(additionalProperties);
         }
