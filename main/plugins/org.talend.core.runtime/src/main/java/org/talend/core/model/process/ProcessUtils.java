@@ -180,6 +180,9 @@ public final class ProcessUtils {
 
         List<Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
                 RelationshipItemBuilder.JOB_RELATION);
+        // TDQ-12325 should contain joblet related dependencies.
+        relations.addAll(builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
+                RelationshipItemBuilder.JOBLET_RELATION));
         for (Relation relation : relations) {
             IRepositoryViewObject obj = null;
             try {
