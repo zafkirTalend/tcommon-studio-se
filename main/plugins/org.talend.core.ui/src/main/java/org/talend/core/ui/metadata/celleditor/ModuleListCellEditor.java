@@ -21,6 +21,8 @@ import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
@@ -46,6 +48,8 @@ public class ModuleListCellEditor extends DialogCellEditor {
 
     private Text defaultLabel;
 
+    private String oldValue;
+
     public ModuleListCellEditor(Composite parent, IElementParameter param, IElementParameter tableParam) {
         super(parent, SWT.NONE);
         this.param = param;
@@ -57,6 +61,25 @@ public class ModuleListCellEditor extends DialogCellEditor {
         defaultLabel = new Text(cell, SWT.LEFT);
         defaultLabel.setFont(cell.getFont());
         defaultLabel.setBackground(cell.getBackground());
+        defaultLabel.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String newValue = defaultLabel.getText();
+                if (newValue == null || newValue.trim().equals("")) { //$NON-NLS-1$
+                    defaultLabel.setText(oldValue);
+                    return;
+                }
+                if (newValue.equals(oldValue)) {
+                    return;
+                }
+                boolean newValidState = isCorrect(newValue);
+                if (newValidState) {
+                    doSetValue(newValue);
+                    setModuleValue(newValue);
+                }
+            }
+        });
         return defaultLabel;
     }
 
@@ -70,6 +93,7 @@ public class ModuleListCellEditor extends DialogCellEditor {
         if (value != null) {
             text = value.toString();
         }
+        oldValue = text;
         defaultLabel.setText(text);
     }
 
@@ -132,27 +156,35 @@ public class ModuleListCellEditor extends DialogCellEditor {
         if (dialog.open() == Window.OK) {
             String selecteModule = dialog.getSelecteModule();
             if (selecteModule != null && (value == null || !value.equals(selecteModule))) {
-                int index = 0;
-                if (getTableViewer() != null) {
-                    index = getTableViewer().getTable().getSelectionIndex();
-                }
-                // enable to refresh component setting after change modules.
-                IElement element = this.tableParam.getElement();
-                if (element != null) {
-                    IElementParameter updateComponentsParam = element.getElementParameter("UPDATE_COMPONENTS"); //$NON-NLS-1$
-                    if (updateComponentsParam != null) {
-                        updateComponentsParam.setValue(Boolean.TRUE);
-                    }
-                }
-                //
-                executeCommand(new ModelChangeCommand(tableParam, param.getName(), selecteModule, index));
-                if (getTableViewer() != null) {
-                    getTableViewer().refresh(true);
-                }
+                setModuleValue(selecteModule);
                 return selecteModule;
             }
         }
         return null;
+    }
+
+    private void setModuleValue(String newValue) {
+        int index = 0;
+        if (getTableViewer() != null) {
+            if (getTableViewer().getTable() != null && !getTableViewer().getTable().isDisposed())
+                index = getTableViewer().getTable().getSelectionIndex();
+        } else {
+            return;
+        }
+        // enable to refresh component setting after change modules.
+        IElement element = this.tableParam.getElement();
+        if (element != null) {
+            IElementParameter updateComponentsParam = element.getElementParameter("UPDATE_COMPONENTS"); //$NON-NLS-1$
+            if (updateComponentsParam != null) {
+                updateComponentsParam.setValue(Boolean.TRUE);
+            }
+        }
+        //
+        executeCommand(new ModelChangeCommand(tableParam, param.getName(), newValue, index));
+        oldValue = newValue;
+        if (getTableViewer() != null) {
+            getTableViewer().refresh(true);
+        }
     }
 
     /**
