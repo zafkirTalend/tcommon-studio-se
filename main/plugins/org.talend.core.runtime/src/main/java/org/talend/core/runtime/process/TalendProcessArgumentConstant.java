@@ -73,6 +73,8 @@ public interface TalendProcessArgumentConstant {
 
     static final String CMD_ARG_TRACE_PORT = "--" + CMD_ARG_TRACE_PORT_PARAM + "=";
 
-    static final String CMD_ARG_WATCH = "--watch";
+    static final String CMD_ARG_WATCH_PARAM = "watch";
+
+    static final String CMD_ARG_WATCH = "--" + CMD_ARG_WATCH_PARAM;
 
 }
