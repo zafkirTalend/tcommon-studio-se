@@ -106,6 +106,7 @@ public class PropertiesDialog extends TitleAreaDialog {
         });
         statusLabel = new Label(propComposite, SWT.NONE);
         statusLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        updateStatusLabel(initProperties);
     }
 
     public void updatePropertiesFields(boolean isEdiable) {
@@ -269,8 +270,6 @@ public class PropertiesDialog extends TitleAreaDialog {
         propertiesTableView = createPropertiesTable(propertiesBar, tableIndex, getTitle(), initProperties, false, true);
         updateExpandItems();
 
-        updateStatusLabel(initProperties);
-        
         return parent;
     }
 
