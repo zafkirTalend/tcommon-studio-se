@@ -125,6 +125,8 @@ public abstract class AbstractForm extends Composite {
     protected IMetadataConnection metadataconnection;
 
     protected IContextManager contextManager;
+    
+    private boolean revertingContext;
 
     /**
      * DOC ocarbone AbstractForm constructor comment.
@@ -513,10 +515,10 @@ public abstract class AbstractForm extends Composite {
                 ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(getShell(),
                         connectionItem.getConnection(), true);
                 if (contextType != null) { // choose
-
+                    revertingContext = true;
                     ConnectionContextHelper.revertPropertiesForContextMode(connectionItem, contextType);
-
                     adaptContextModeToReversion();
+                    revertingContext = false;
                 }
             } else {
                 ConnectionContextHelper.openOutConetxtModeDialog();
@@ -531,6 +533,10 @@ public abstract class AbstractForm extends Composite {
         if (revertContextBtn != null) {
             revertContextBtn.setEnabled(isContextMode());
         }
+    }
+    
+    protected boolean isNeedFillDefaults() {
+        return !isContextMode() && revertingContext == false;
     }
 
     protected void adaptFormToEditable() {

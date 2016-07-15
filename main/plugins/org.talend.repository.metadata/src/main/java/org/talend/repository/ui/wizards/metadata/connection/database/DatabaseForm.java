@@ -5731,7 +5731,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void fillDefaultsWhenHiveVersionChanged() {
-        if (isCreation) {
+        if (isCreation && isNeedFillDefaults()) {
             String distribution = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_DISTRIBUTION);
             String version = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_VERSION);
             if (distribution == null) {
@@ -5784,7 +5784,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void fillDefaultsWhenHBaseVersionChanged() {
-        if (isCreation) {
+        if (isCreation && isNeedFillDefaults()) {
             String distribution = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
             String version = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
             if (distribution == null) {
@@ -5805,7 +5805,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void fillDefaultsWhenImpalaVersionChanged() {
-        if (isCreation) {
+        if (isCreation && isNeedFillDefaults()) {
             String distribution = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_DISTRIBUTION);
             String version = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_IMPALA_VERSION);
             if (distribution == null) {
@@ -6053,7 +6053,7 @@ public class DatabaseForm extends AbstractForm {
     }
 
     private void fillDefaultsWhenHiveModeChanged(boolean isEmbeddedMode) {
-        if (isCreation) {
+        if (isCreation && isNeedFillDefaults()) {
             int distributionIndex = distributionCombo.getSelectionIndex();
             String distribution = HiveConnUtils.getDistributionObj(distributionIndex).getKey();
             if (distribution == null) {
