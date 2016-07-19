@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +27,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
@@ -72,6 +72,8 @@ public class RelationshipItemBuilder {
     private static Logger log = Logger.getLogger(RelationshipItemBuilder.class);
 
     public static final String JOB_RELATION = "job"; //$NON-NLS-1$
+
+    public static final String TEST_RELATION = "test_case"; //$NON-NLS-1$
 
     public static final String JOBLET_RELATION = "joblet"; //$NON-NLS-1$
 
@@ -147,8 +149,8 @@ public class RelationshipItemBuilder {
     }
 
     /**
-     * Look for every linked items who use the selected id, no matter the version.
-     * Usefull when want to delete an item since it will delete every versions.
+     * Look for every linked items who use the selected id, no matter the version. Usefull when want to delete an item
+     * since it will delete every versions.
      * 
      * @param itemId
      * @param version
@@ -186,13 +188,13 @@ public class RelationshipItemBuilder {
         }
         return new ArrayList<Relation>(relations);
     }
-    
+
     private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId) {
 
         Set<Relation> relations = new HashSet<Relation>();
 
         for (Relation baseItem : itemsRelations.keySet()) {
-            for (Relation relatedItem : itemsRelations.get(baseItem)) {            	
+            for (Relation relatedItem : itemsRelations.get(baseItem)) {
                 String id = relatedItem.getId();
                 if (id != null) {
                     Relation tmpRelatedItem = null;
@@ -302,6 +304,58 @@ public class RelationshipItemBuilder {
         referencesItemsRelations = new HashMap<Relation, Set<Relation>>();
     }
 
+    public void cleanTypeRelations(String baseType, String relationType, boolean save) {
+        if (!loaded) {
+            loadRelations();
+        }
+        // because only save for current project
+        modified = cleanTypeRelations(currentProjectItemsRelations, baseType, relationType);
+        cleanTypeRelations(referencesItemsRelations, baseType, relationType);
+
+        if (save) {
+            saveRelations();
+        }
+    }
+
+    private boolean cleanTypeRelations(Map<Relation, Set<Relation>> projectRelations, String baseType, String relationType) {
+        if (projectRelations == null) {
+            return false;
+        }
+        boolean modified = false;
+        // clean up base type first
+        if (baseType != null) {
+            List<Relation> cleanupItems = new ArrayList<Relation>();
+            for (Relation base : projectRelations.keySet()) {
+                if (baseType.equals(base.getType())) {
+                    cleanupItems.add(base);
+                }
+            }
+            modified = !cleanupItems.isEmpty();
+            //
+            for (Relation r : cleanupItems) {
+                projectRelations.remove(r);
+            }
+        }
+
+        // deal with the left for relation type
+        if (relationType != null) {
+            for (Relation base : projectRelations.keySet()) {
+                Set<Relation> relation = projectRelations.get(base);
+                if (relation != null) {
+                    Iterator<Relation> iterator = relation.iterator();
+                    while (iterator.hasNext()) {
+                        Relation r = iterator.next();
+                        if (relationType.equals(r.getType())) {
+                            iterator.remove();
+                            modified = true;
+                        }
+                    }
+                }
+            }
+        }
+        return modified;
+    }
+
     private void loadRelations() {
         if (loading) {
             return;
@@ -373,15 +427,15 @@ public class RelationshipItemBuilder {
         for (Relation relation : currentProjectItemsRelations.keySet()) {
             ItemRelations itemRelations = null;
             boolean exist = false;
-            for(ItemRelations relations  : oldRelations){
-                if(relations.getBaseItem().getId().equals(relation.getId())){
+            for (ItemRelations relations : oldRelations) {
+                if (relations.getBaseItem().getId().equals(relation.getId())) {
                     usedList.add(relations);
                     itemRelations = relations;
                     exist = true;
                     break;
                 }
             }
-            if(itemRelations == null){
+            if (itemRelations == null) {
                 itemRelations = PropertiesFactory.eINSTANCE.createItemRelations();
 
                 ItemRelation baseItem = PropertiesFactory.eINSTANCE.createItemRelation();
@@ -391,7 +445,7 @@ public class RelationshipItemBuilder {
                 baseItem.setType(relation.getType());
                 baseItem.setVersion(relation.getVersion());
             }
-            
+
             // sort by type
             List<Relation> relationItemsList = new ArrayList<Relation>(currentProjectItemsRelations.get(relation));
             Collections.sort(relationItemsList, new Comparator<Relation>() {
@@ -403,14 +457,14 @@ public class RelationshipItemBuilder {
             });
             for (Relation relatedItem : relationItemsList) {
                 List<ItemRelation> relationList = new ArrayList<ItemRelation>(itemRelations.getRelatedItems());
-               boolean found = false; 
-                for(ItemRelation item : relationList){
-                    if(item.getId() != null && item.getId().equals(relatedItem.getId())){
+                boolean found = false;
+                for (ItemRelation item : relationList) {
+                    if (item.getId() != null && item.getId().equals(relatedItem.getId())) {
                         found = true;
                         break;
                     }
                 }
-                if(found){
+                if (found) {
                     continue;
                 }
                 ItemRelation emfRelatedItem = PropertiesFactory.eINSTANCE.createItemRelation();
@@ -419,7 +473,7 @@ public class RelationshipItemBuilder {
                 emfRelatedItem.setVersion(relatedItem.getVersion());
                 itemRelations.getRelatedItems().add(emfRelatedItem);
             }
-            if(!exist){
+            if (!exist) {
                 currentProject.getEmfProject().getItemsRelations().add(itemRelations);
             }
         }

@@ -230,6 +230,15 @@ public class MigrationToolService implements IMigrationToolService {
 			// done.remove(RELATION_TASK);
 			MigrationUtil.removeMigrationTaskById(done, RELATION_TASK);
 			RelationshipItemBuilder.getInstance().unloadRelations();
+			
+			 // because will update for PROCESS and JOBLET
+            RelationshipItemBuilder.getInstance().cleanTypeRelations(RelationshipItemBuilder.JOB_RELATION,
+                    RelationshipItemBuilder.JOB_RELATION, false);
+            RelationshipItemBuilder.getInstance().cleanTypeRelations(RelationshipItemBuilder.JOBLET_RELATION,
+                    RelationshipItemBuilder.JOBLET_RELATION, true);
+            // reset
+            RelationshipItemBuilder.getInstance().unloadRelations();
+            
 			nbMigrationsToDo++;
 		}
 		if (nbMigrationsToDo == 0) {
