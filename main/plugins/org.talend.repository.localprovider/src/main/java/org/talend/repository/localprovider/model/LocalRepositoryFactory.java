@@ -739,15 +739,35 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public Project createProject(Project projectInfor) throws PersistenceException {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-
+        IProgressMonitor monitor = new NullProgressMonitor();
         String technicalLabel = Project.createTechnicalName(projectInfor.getLabel());
         IProject prj = root.getProject(technicalLabel);
 
         final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 
         try {
+            // existed infor in .metadata, but not exist the .project
+            if (prj.exists() && !prj.getFile(IProjectDescription.DESCRIPTION_FILE_NAME).getLocation().toFile().exists()) {
+                File projectFolder = prj.getLocation().toFile();
+                File bakFolder = new File(projectFolder.getParentFile(), technicalLabel + "_bak");
+                boolean renamed = false;
+                try {
+                    renamed = projectFolder.renameTo(bakFolder);
+                    if (renamed) {
+                        prj.delete(true, monitor);// remove first, and will re-create later.
+                    }
+                } finally {
+                    if (renamed) {// rename back
+                        bakFolder.renameTo(projectFolder);
+                    }
+                }
+            }
+            
             IProjectDescription desc = null;
             if (prj.exists()) {
+                if (!prj.isOpen()) {
+                    prj.open(monitor);
+                }
                 desc = prj.getDescription();
             } else {
                 desc = workspace.newProjectDescription(projectInfor.getLabel());
@@ -756,10 +776,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             desc.setComment(projectInfor.getDescription());
 
             if (!prj.exists()) {
-                prj.create(desc, null);
+                prj.create(desc, monitor);
             }
-            prj.open(IResource.NONE, null);
-            prj.setDefaultCharset("UTF-8", null); //$NON-NLS-1$
+            prj.open(IResource.NONE, monitor);
+            prj.setDefaultCharset("UTF-8", monitor); //$NON-NLS-1$
         } catch (CoreException e) {
             throw new PersistenceException(e);
         }
@@ -3083,7 +3103,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) getRepositoryContext().getProject().getEmfProject()
                 .getReferencedProjects()) {
-            if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
+            if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch)) {
                 refProjectList.add(refProject.getReferencedProject());
             }
         }

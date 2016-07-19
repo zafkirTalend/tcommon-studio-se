@@ -74,6 +74,8 @@ public class RelationshipItemBuilder {
 
     public static final String JOBLET_RELATION = "joblet"; //$NON-NLS-1$
 
+    public static final String TEST_RELATION = "test_case"; //$NON-NLS-1$
+
     public static final String SERVICES_RELATION = "services"; //$NON-NLS-1$
 
     public static final String PROPERTY_RELATION = "property"; //$NON-NLS-1$
@@ -146,8 +148,8 @@ public class RelationshipItemBuilder {
     }
 
     /**
-     * Look for every linked items who use the selected id, no matter the version.
-     * Usefull when want to delete an item since it will delete every versions.
+     * Look for every linked items who use the selected id, no matter the version. Usefull when want to delete an item
+     * since it will delete every versions.
      * 
      * @param itemId
      * @param version
@@ -185,13 +187,13 @@ public class RelationshipItemBuilder {
         }
         return new ArrayList<Relation>(relations);
     }
-    
+
     private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId) {
 
         Set<Relation> relations = new HashSet<Relation>();
 
         for (Relation baseItem : itemsRelations.keySet()) {
-            for (Relation relatedItem : itemsRelations.get(baseItem)) {            	
+            for (Relation relatedItem : itemsRelations.get(baseItem)) {
                 String id = relatedItem.getId();
                 if (id != null) {
                     Relation tmpRelatedItem = null;
@@ -299,6 +301,58 @@ public class RelationshipItemBuilder {
         loaded = false;
         currentProjectItemsRelations = new HashMap<Relation, Set<Relation>>();
         referencesItemsRelations = new HashMap<Relation, Set<Relation>>();
+    }
+
+    public void cleanTypeRelations(String baseType, String relationType, boolean save) {
+        if (!loaded) {
+            loadRelations();
+        }
+        // because only save for current project
+        modified = cleanTypeRelations(currentProjectItemsRelations, baseType, relationType);
+        cleanTypeRelations(referencesItemsRelations, baseType, relationType);
+
+        if (save) {
+            saveRelations();
+        }
+    }
+
+    private boolean cleanTypeRelations(Map<Relation, Set<Relation>> projectRelations, String baseType, String relationType) {
+        if (projectRelations == null) {
+            return false;
+        }
+        boolean modified = false;
+        // clean up base type first
+        if (baseType != null) {
+            List<Relation> cleanupItems = new ArrayList<Relation>();
+            for (Relation base : projectRelations.keySet()) {
+                if (baseType.equals(base.getType())) {
+                    cleanupItems.add(base);
+                }
+            }
+            modified = !cleanupItems.isEmpty();
+            //
+            for (Relation r : cleanupItems) {
+                projectRelations.remove(r);
+            }
+        }
+
+        // deal with the left for relation type
+        if (relationType != null) {
+            for (Relation base : projectRelations.keySet()) {
+                Set<Relation> relation = projectRelations.get(base);
+                if (relation != null) {
+                    Iterator<Relation> iterator = relation.iterator();
+                    while (iterator.hasNext()) {
+                        Relation r = iterator.next();
+                        if (relationType.equals(r.getType())) {
+                            iterator.remove();
+                            modified = true;
+                        }
+                    }
+                }
+            }
+        }
+        return modified;
     }
 
     private void loadRelations() {
