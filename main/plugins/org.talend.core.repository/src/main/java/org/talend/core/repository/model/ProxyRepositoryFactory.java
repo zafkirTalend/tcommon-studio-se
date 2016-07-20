@@ -127,6 +127,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.io.FilesUtils;
 import org.talend.utils.json.JSONArray;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -1968,6 +1969,11 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         // getRepositoryContext().setProject(null);
         repositoryFactoryFromProvider.logOffProject();
         fullLogonFinished = false;
+        ProjectRepositoryNode root = ProjectRepositoryNode.getInstance();
+        if (root != null) {
+            root.setEnableDisposed(true);
+            root.dispose();
+        }
     }
 
     public boolean setAuthorByLogin(Item item, String login) throws PersistenceException {
