@@ -173,6 +173,19 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             defaultProjRepoNode = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
             defaultProjRepoNode.initialize(null);
         }
+        if (defaultProjRepoNode.isDisposed) {
+            synchronized (defaultProjRepoNode) {
+                /**
+                 * check again
+                 */
+                if (defaultProjRepoNode.isDisposed) {
+                    defaultProjRepoNode.isDisposed = false;
+                    defaultProjRepoNode.project = ProjectManager.getInstance().getCurrentProject();
+                    defaultProjRepoNode.setRoot(defaultProjRepoNode);
+                    defaultProjRepoNode.initialize(defaultProjRepoNode.currentPerspective);
+                }
+            }
+        }
         return defaultProjRepoNode;
     }
 
@@ -1982,6 +1995,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 f.setAccessible(true);
                 try {
                     final Object object = f.get(this);
+                    if (object == defaultProjRepoNode) {
+                        continue;
+                    }
                     if (object instanceof RepositoryNode) {
                         f.set(this, null);
                     }
@@ -2000,6 +2016,12 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         if (defaultProjRepoNode == null) {
             return;
         }
+
+        /**
+         * to make sure defaultProjRepoNode is initialized
+         */
+        getInstance();
+
         // reinitialize every children
         for (IRepositoryNode childNode : defaultProjRepoNode.getChildren()) {
             if (childNode instanceof RepositoryNode) {
