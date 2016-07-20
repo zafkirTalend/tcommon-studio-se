@@ -26,8 +26,8 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -160,8 +160,13 @@ public class DeleteAction extends AContextualAction {
 
     @Override
     protected void doRun() {
+        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        if (factory.isUserReadOnlyOnCurrentProject() || factory.getRepositoryContext().isOffline()
+                || factory.getRepositoryContext().isEditableAsReadOnly()) {
+            return;
+        }
+
         final ISelection selection = getSelection();
-        final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         final DeleteActionCache deleteActionCache = DeleteActionCache.getInstance();
         deleteActionCache.setGetAlways(false);
         deleteActionCache.setDocRefresh(false);
@@ -1127,30 +1132,30 @@ public class DeleteAction extends AContextualAction {
 
         return list;
     }
-    
 
     private boolean isTestCasesLocked(IRepositoryNode node) {
-        if(node.getObject()==null){
+        if (node.getObject() == null) {
             return false;
         }
-        if(node.getObject().getProperty()==null){
+        if (node.getObject().getProperty() == null) {
             return false;
         }
         Item item = node.getObject().getProperty().getItem();
-        if(item instanceof FolderItem){
-            for(IRepositoryNode child : node.getChildren()){
-                if(isTestCasesLocked(child)){
+        if (item instanceof FolderItem) {
+            for (IRepositoryNode child : node.getChildren()) {
+                if (isTestCasesLocked(child)) {
                     return true;
                 }
             }
-        }else if(item instanceof ProcessItem){
+        } else if (item instanceof ProcessItem) {
             ProcessItem processItem = (ProcessItem) item;
             IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
                 ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
                         .getDefault().getService(ITestContainerProviderService.class);
                 if (testContainerService != null) {
-                    List<IRepositoryViewObject> objectList =  testContainerService.listExistingTestCases(processItem.getProperty().getId());
+                    List<IRepositoryViewObject> objectList = testContainerService.listExistingTestCases(processItem.getProperty()
+                            .getId());
                     for (IRepositoryViewObject nodeObject : objectList) {
                         if (nodeObject != null && nodeObject.getProperty() != null && nodeObject.getProperty().getItem() != null) {
                             if (!factory.getRepositoryContext().isEditableAsReadOnly()) {
@@ -1162,7 +1167,7 @@ public class DeleteAction extends AContextualAction {
                         }
                     }
                 }
-            }   
+            }
         }
         return false;
     }
@@ -1442,7 +1447,7 @@ public class DeleteAction extends AContextualAction {
             }
             return;
         }
-        if(ERepositoryObjectType.TEST_CONTAINER==null){
+        if (ERepositoryObjectType.TEST_CONTAINER == null) {
             return;
         }
         IPath path = new Path(currentJobNode.getObjectType().getFolder());
@@ -1450,14 +1455,14 @@ public class DeleteAction extends AContextualAction {
         RootContainer<String, IRepositoryViewObject> junitObjects = ProxyRepositoryFactory.getInstance().getObjectFromFolder(
                 ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.TEST_CONTAINER, path.toOSString(),
                 IRepositoryFactory.OPTION_ONLY_LAST_VERSION | IRepositoryFactory.OPTION_DYNAMIC_OBJECTS);
-        if (junitObjects.isEmpty()||junitObjects.getMembers().isEmpty()) {
+        if (junitObjects.isEmpty() || junitObjects.getMembers().isEmpty()) {
             return;
         }
         for (IRepositoryViewObject viewNode : junitObjects.getMembers()) {
             if (viewNode.isDeleted()) {
                 continue;
             }
-            RepositoryNode node = new RepositoryNode(viewNode, (RepositoryNode)currentJobNode, ENodeType.REPOSITORY_ELEMENT);
+            RepositoryNode node = new RepositoryNode(viewNode, (RepositoryNode) currentJobNode, ENodeType.REPOSITORY_ELEMENT);
             node.setProperties(EProperties.CONTENT_TYPE, ERepositoryObjectType.TEST_CONTAINER);
             node.setProperties(EProperties.LABEL, viewNode.getLabel());
             deleteElements(factory, deleteActionCache, node, confirm);
