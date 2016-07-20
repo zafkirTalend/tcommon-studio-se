@@ -59,7 +59,7 @@ public class RepositoryNode implements IRepositoryNode, IActionFilter {
 
     private boolean initialized = false;
 
-    private boolean isDisposed = false;
+    protected volatile boolean isDisposed = false;
 
     private boolean enableDisposed = false;
 
