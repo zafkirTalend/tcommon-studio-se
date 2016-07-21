@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Schema Enforcer Plug-in
-Bundle-SymbolicName: org.talend.libraries.enforcer;singleton:=true
+Bundle-SymbolicName: org.talend.schema.enforcer;singleton:=true
 Bundle-Version: 6.3.0.qualifier
 Bundle-Localization: plugin
 Bundle-Vendor: .Talend SA.

@@ -7,6 +7,6 @@
     <version>6.3.0-SNAPSHOT</version>
     <relativePath>../../../</relativePath>
   </parent>
-  <artifactId>org.talend.libraries.enforcer</artifactId>
+  <artifactId>org.talend.schema.enforcer</artifactId>
   <packaging>eclipse-plugin</packaging>
 </project>
