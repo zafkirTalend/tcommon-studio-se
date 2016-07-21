@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.enforcer;
+package org.talend.schema.enforcer;
 
 import org.apache.avro.Schema;
 import org.talend.daikon.avro.SchemaConstants;
