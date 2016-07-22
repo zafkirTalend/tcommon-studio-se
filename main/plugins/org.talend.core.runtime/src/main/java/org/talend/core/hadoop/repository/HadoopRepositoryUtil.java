@@ -25,6 +25,7 @@ import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.service.IMetadataManagmentUiService;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.utils.json.JSONArray;
@@ -135,11 +136,11 @@ public class HadoopRepositoryUtil {
      */
     public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
             boolean includeQuotes) {
-        return getHadoopPropertiesFullList(connection, propertiesJsonStr, null, null, includeQuotes);
+        return getHadoopPropertiesFullList(connection, propertiesJsonStr, includeQuotes, false);
     }
     
     public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
-            ContextType clusterContextType, ContextType contextType, boolean includeQuotes) {
+            boolean includeQuotes, boolean useOriginalValue) {
         IHadoopClusterService hadoopClusterService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
@@ -149,11 +150,12 @@ public class HadoopRepositoryUtil {
         if (hadoopClusterService != null) {
             Connection hadoopClusterConnection = hadoopClusterService.getHadoopClusterConnectionBySubConnection(connection);
             if (hadoopClusterConnection != null) {
-                parentProperties = getHadoopPropertiesWithOriginalValue(
-                        hadoopClusterService.getHadoopClusterProperties(connection), clusterContextType, includeQuotes);
+                String hadoopClusterPropertiesStrs = hadoopClusterService.getHadoopClusterProperties(connection);
+                parentProperties = getHadoopProperties(hadoopClusterConnection, hadoopClusterPropertiesStrs, includeQuotes,
+                        useOriginalValue);
             }
         }
-        List<Map<String, Object>> properties = getHadoopPropertiesWithOriginalValue(propertiesJsonStr, contextType, includeQuotes);
+        List<Map<String, Object>> properties = getHadoopProperties(connection, propertiesJsonStr, includeQuotes, useOriginalValue);
         Map<String, Map<String, Object>> propertiesMap = new HashMap<String, Map<String, Object>>();
         for (Map<String, Object> proMap : properties) {
             String property = String.valueOf(proMap.get("PROPERTY")); //$NON-NLS-1$
@@ -169,6 +171,26 @@ public class HadoopRepositoryUtil {
             }
         }
 
+        return properties;
+    }
+
+    private static List<Map<String, Object>> getHadoopProperties(Connection connection, String propertiesJsonStr,
+            boolean includeQuotes, boolean useOriginalValue) {
+        List<Map<String, Object>> properties = null;
+        IMetadataManagmentUiService mmUIService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
+            mmUIService = (IMetadataManagmentUiService) GlobalServiceRegister.getDefault().getService(
+                    IMetadataManagmentUiService.class);
+        }
+        ContextType contextType = null;
+        if (mmUIService != null) {
+            contextType = mmUIService.getContextTypeForContextMode(connection);
+        }
+        if (useOriginalValue && contextType != null) {
+            properties = getHadoopPropertiesWithOriginalValue(propertiesJsonStr, contextType, includeQuotes);
+        } else {
+            properties = getHadoopPropertiesList(propertiesJsonStr, contextType != null, includeQuotes);
+        }
         return properties;
     }
 
