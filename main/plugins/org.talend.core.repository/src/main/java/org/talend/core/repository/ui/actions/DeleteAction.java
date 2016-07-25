@@ -160,7 +160,7 @@ public class DeleteAction extends AContextualAction {
 
     @Override
     protected void doRun() {
-        IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+        final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
         if (factory.isUserReadOnlyOnCurrentProject() || factory.getRepositoryContext().isOffline()
                 || factory.getRepositoryContext().isEditableAsReadOnly()) {
             return;
