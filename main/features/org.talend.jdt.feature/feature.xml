@@ -197,7 +197,7 @@
          id="org.eclipse.jdt.groovy.core"
          download-size="0"
          install-size="0"
-         version="2.9.1.xx-201411061335-e44-RELEASE"
+         version="2.9.2.xx-201509250011-e44"
          unpack="false"/>
 
    <plugin
