@@ -127,6 +127,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.io.FilesUtils;
 import org.talend.utils.json.JSONArray;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 
 /**
@@ -1967,6 +1968,17 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     public void logOffProject() {
         // getRepositoryContext().setProject(null);
         repositoryFactoryFromProvider.logOffProject();
+
+        /**
+         * If intergrate TUP-5048, should add those codes upon the [fullLogonFinished = false], since the gitHandler
+         * refactor is after fixed TUP-5048, I changed the order
+         */
+        // ProjectRepositoryNode root = ProjectRepositoryNode.getInstance();
+        // if (root != null) {
+        // root.setEnableDisposed(true);
+        // root.dispose();
+        // }
+
         fullLogonFinished = false;
     }
 

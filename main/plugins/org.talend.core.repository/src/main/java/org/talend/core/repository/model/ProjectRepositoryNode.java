@@ -126,6 +126,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     private static ProjectRepositoryNode defaultProjRepoNode;
 
+    private static ProjectRepositoryNode dummyProjRepoNode = new ProjectRepositoryNode(null, null,
+            ENodeType.STABLE_SYSTEM_FOLDER);
+
     private final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
     private org.talend.core.model.general.Project project;
@@ -169,6 +172,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     }
 
     public static ProjectRepositoryNode getInstance() {
+        if (!ProxyRepositoryFactory.getInstance().isFullLogonFinished()) {
+            return dummyProjRepoNode;
+        }
         if (defaultProjRepoNode == null) {
             defaultProjRepoNode = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
             defaultProjRepoNode.initialize(null);
