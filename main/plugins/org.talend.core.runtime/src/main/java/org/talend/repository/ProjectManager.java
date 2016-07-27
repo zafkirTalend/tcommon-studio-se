@@ -490,14 +490,6 @@ public final class ProjectManager {
 
     public String getMainProjectBranch(org.talend.core.model.properties.Project project) {
         String branchForMainProject = project != null ? getMainProjectBranch(project.getTechnicalLabel()) : null;
-        if (branchForMainProject != null) {
-            if (!branchForMainProject.contains(SVNConstant.NAME_TAGS)
-                    && !branchForMainProject.contains(SVNConstant.NAME_BRANCHES)
-                    && !branchForMainProject.contains(SVNConstant.NAME_TRUNK)
-                    && !branchForMainProject.contains(SVNConstant.NAME_MASTER)) {
-                branchForMainProject = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchForMainProject;
-            }
-        }
         return branchForMainProject;
     }
 
@@ -509,16 +501,23 @@ public final class ProjectManager {
      * @return
      */
     public String getMainProjectBranch(String technicalLabel) {
+        String branchForMainProject = null;
         Map<String, String> fields = getRepositoryContextFields();
         if (fields == null || technicalLabel == null) {
-            return null;
+            return branchForMainProject;
         }
         String branchKey = IProxyRepositoryFactory.BRANCH_SELECTION + SVNConstant.UNDER_LINE_CHAR + technicalLabel;
         if (fields.containsKey(branchKey)) {
-            String branchForMainProject = fields.get(branchKey);
-            return branchForMainProject;
+            branchForMainProject = fields.get(branchKey);
         }
-        return null;
+        if (branchForMainProject != null) {
+            if (!branchForMainProject.contains(SVNConstant.NAME_TAGS) && !branchForMainProject.contains(SVNConstant.NAME_BRANCHES)
+                    && !branchForMainProject.contains(SVNConstant.NAME_TRUNK)
+                    && !branchForMainProject.contains(SVNConstant.NAME_MASTER)) {
+                branchForMainProject = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchForMainProject;
+            }
+        }
+        return branchForMainProject;
     }
 
     /**
