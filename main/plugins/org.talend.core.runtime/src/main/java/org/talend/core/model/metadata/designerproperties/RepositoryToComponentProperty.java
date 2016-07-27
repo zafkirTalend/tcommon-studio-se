@@ -2326,7 +2326,7 @@ public class RepositoryToComponentProperty {
         }
     }
 
-    private static List<Map<String, Object>> getColumnMappingValue(Connection connection, IMetadataTable metaTable) {
+    public static List<Map<String, Object>> getColumnMappingValue(Connection connection, IMetadataTable metaTable) {
         if (connection == null || metaTable == null) {
             return null;
         }
