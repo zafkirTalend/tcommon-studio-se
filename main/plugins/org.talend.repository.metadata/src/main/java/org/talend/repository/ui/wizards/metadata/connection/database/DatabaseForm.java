@@ -6409,6 +6409,25 @@ public class DatabaseForm extends AbstractForm {
                 sidOrDatabaseText.setText(defaultDatabase);
                 getConnection().setSID(defaultDatabase);
             }
+            // default values for mapr ticket
+            String maprticket_Cluster = getConnection().getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            String defaultMaprticket_Cluster = hiveVersion.getDefaultConfig(distribution,
+                    EHadoopProperties.MAPRTICKET_CLUSTER.getName());
+            if (StringUtils.isNotEmpty(maprticket_Cluster)) {
+                maprTClusterForHiveTxt.setText(maprticket_Cluster);
+            } else if (defaultMaprticket_Cluster != null) {
+                maprTClusterForHiveTxt.setText(defaultMaprticket_Cluster);
+            }
+            String maprticket_Duration = getConnection().getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+            String defaultMaprticket_Duration = hiveVersion.getDefaultConfig(distribution,
+                    EHadoopProperties.MAPRTICKET_DURATION.getName());
+            if (StringUtils.isNotEmpty(maprticket_Duration)) {
+                maprTDurationForHiveTxt.setText(maprticket_Duration);
+            } else if (defaultMaprticket_Duration != null) {
+                maprTDurationForHiveTxt.setText(defaultMaprticket_Duration);
+            }
         }
     }
 
@@ -6416,6 +6435,10 @@ public class DatabaseForm extends AbstractForm {
         if (isCreation && isNeedFillDefaults()) {
             String distribution = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_DISTRIBUTION);
             String version = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
+            String hbaseMasterPrincipal = getConnection().getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
+            String hbaseRSPrincipal = getConnection().getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
             if (distribution == null) {
                 return;
             }
@@ -6437,6 +6460,42 @@ public class DatabaseForm extends AbstractForm {
             if (defaultPort != null && !isContextMode()) {
                 getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
+            }
+
+            String defaultHbaseMasterPrincipal = hbaseVersion.getDefaultConfig(distribution, EHadoopCategory.HBASE.getName(),
+                    EHadoopProperties.HBASE_MASTER_PRINCIPAL.getName());
+            if (StringUtils.isNotEmpty(hbaseMasterPrincipal)) {
+                hbaseMasterPrincipalTxt.setText(hbaseMasterPrincipal);
+            } else if (defaultHbaseMasterPrincipal != null) {
+                hbaseMasterPrincipalTxt.setText(defaultHbaseMasterPrincipal);
+            }
+
+            String defaultHbaseRSPrincipal = hbaseVersion.getDefaultConfig(distribution, EHadoopCategory.HBASE.getName(),
+                    EHadoopProperties.HBASE_REGIONSERVER_PRINCIPAL.getName());
+            if (StringUtils.isNotEmpty(hbaseRSPrincipal)) {
+                hbaseRSPrincipalTxt.setText(hbaseRSPrincipal);
+            } else if (defaultHbaseRSPrincipal != null) {
+                hbaseRSPrincipalTxt.setText(defaultHbaseRSPrincipal);
+            }
+
+            // default values for mapr ticket
+            String maprticket_Cluster = getConnection().getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            String defaultMaprticket_Cluster = hbaseVersion.getDefaultConfig(distribution,
+                    EHadoopProperties.MAPRTICKET_CLUSTER.getName());
+            if (StringUtils.isNotEmpty(maprticket_Cluster)) {
+                maprTClusterForHBaseTxt.setText(maprticket_Cluster);
+            } else if (defaultMaprticket_Cluster != null) {
+                maprTClusterForHBaseTxt.setText(defaultMaprticket_Cluster);
+            }
+            String maprticket_Duration = getConnection().getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+            String defaultMaprticket_Duration = hbaseVersion.getDefaultConfig(distribution,
+                    EHadoopProperties.MAPRTICKET_DURATION.getName());
+            if (StringUtils.isNotEmpty(maprticket_Duration)) {
+                maprTDurationForHBaseTxt.setText(maprticket_Duration);
+            } else if (defaultMaprticket_Duration != null) {
+                maprTDurationForHBaseTxt.setText(defaultMaprticket_Duration);
             }
         }
     }
