@@ -624,6 +624,10 @@ public class MigrationToolService implements IMigrationToolService {
 		ProductVersion topTaskVersion = new ProductVersion(0, 0, 0);
 		ProductVersion topTaskBreaks = new ProductVersion(0, 0, 0);
 		for (MigrationTask task : migrationTasks) {
+		    IProjectMigrationTask productMigrationTask = GetTasksHelper.getInstance().getProjectTask(task.getId());
+            if (productMigrationTask != null) { // If the the migration task already applyed before, ignore it.
+                continue;
+            }
 			String version = task.getVersion();
 			if (version == null) {
 				log.warn(Messages.getString(
