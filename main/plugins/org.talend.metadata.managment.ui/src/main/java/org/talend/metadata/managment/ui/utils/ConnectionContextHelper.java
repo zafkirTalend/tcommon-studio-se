@@ -707,7 +707,7 @@ public final class ConnectionContextHelper {
                     Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
                     ContextItem hadoopClusterContextItem = ContextUtils.getContextItemById2(hadoopClusterConnection
                             .getContextId());
-                    Set<String> hcNeededVars = retrieveContextVar(elementParameters, hadoopClusterConnection, category);
+                    Set<String> hcNeededVars = retrieveContextVar(elementParameters, hadoopClusterConnection, category, true);
                     List<ContextItem> contextItems = new ArrayList<>();
                     if (contextItem != null || hadoopClusterContextItem != null) {
                         // find added variables
@@ -986,12 +986,20 @@ public final class ConnectionContextHelper {
 
     public static Set<String> retrieveContextVar(List<? extends IElementParameter> elementParameters, Connection connection,
             EComponentCategory category) {
+        return retrieveContextVar(elementParameters, connection, category, false);
+    }
+
+    public static Set<String> retrieveContextVar(List<? extends IElementParameter> elementParameters, Connection connection,
+            EComponentCategory category, boolean onlyConsiderShowedParam) {
         if (elementParameters == null || connection == null) {
             return null;
         }
         Set<String> addedVars = new HashSet<String>();
         String var = null;
         for (IElementParameter param : elementParameters) {
+            if (onlyConsiderShowedParam && !param.isShow(elementParameters)) {
+                continue;
+            }
             if (category == null || category == param.getCategory()) {
                 String repositoryValue = param.getRepositoryValue();
                 if (repositoryValue != null) {
