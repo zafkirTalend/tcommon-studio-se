@@ -114,6 +114,8 @@ public final class DBConnectionContextUtils {
         Maprticket_Password,
         Maprticket_Cluster,
         Maprticket_Duration,
+        // impala
+        ImpalaPrincipal,
     }
 
     static List<IContextParameter> getDBVariables(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet) {
@@ -270,6 +272,10 @@ public final class DBConnectionContextUtils {
                     break;
                 case HbaseKeyTab:
                     value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case ImpalaPrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA);
                     ConnectionContextHelper.createParameters(varList, paramName, value);
                     break;
                 default:
@@ -563,6 +569,10 @@ public final class DBConnectionContextUtils {
             break;
         case HbaseKeyTab:
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case ImpalaPrincipal:
+            conn.getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
                     ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
             break;
         default:
