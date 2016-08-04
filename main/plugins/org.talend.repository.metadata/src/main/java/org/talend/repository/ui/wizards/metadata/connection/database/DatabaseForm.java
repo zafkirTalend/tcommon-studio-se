@@ -4955,6 +4955,7 @@ public class DatabaseForm extends AbstractForm {
     private void collectContextParams() {
         collectHiveContextParams();
         collectHBaseContextParams();
+        collectImpalaContextParams();
     }
 
     private void collectHiveContextParams() {
@@ -4999,6 +5000,16 @@ public class DatabaseForm extends AbstractForm {
         return isHiveEmbeddedMode() && isCurrentDbSupportAuthentication() && useKerberos.getSelection();
     }
 
+    private void collectImpalaContextParams() {
+        // recollect context params for impala
+        if (isImpalaDBConnSelected()) {
+            getConetxtParams().clear();
+            addContextParams(EDBParamName.Server, true);
+            addContextParams(EDBParamName.Port, true);
+            addContextParams(EDBParamName.Database, true);
+            addContextParams(EDBParamName.ImpalaPrincipal, useKerberosForImpala.getSelection());
+        }
+    }
     private boolean useHadoopRepositoryParam() {
         String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
         return hcId == null && isHiveEmbeddedMode();
