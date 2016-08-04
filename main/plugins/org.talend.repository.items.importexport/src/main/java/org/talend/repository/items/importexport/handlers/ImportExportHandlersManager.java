@@ -67,6 +67,7 @@ import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -257,13 +258,27 @@ public class ImportExportHandlersManager {
                     }
                     for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
                         ERepositoryObjectType objectType = (ERepositoryObjectType) type;
-                        if (objectType.isResouce()) {
+                        String[] products = objectType.getProducts();
+                        boolean isDI = false;
+                        for (String product : products) {
+                            if (ERepositoryObjectType.PROD_DI.equals(product)) {
+                                isDI = true;
+                                break;
+                            }
+                        }
+                        if (isDI && objectType.isResouce()) {
                             if (folderPathToCheck.toPortableString().startsWith(objectType.getFolder() + "/")) {
                                 folderType = objectType;
                                 ERepositoryObjectType fromChildrenType = getTypeFromChildren(objectType.getChildrenTypesArray(),
                                         folderPathToCheck.toPortableString());
                                 if (fromChildrenType != null) {
                                     folderType = fromChildrenType;
+                                }
+                                if (folderType == ERepositoryObjectType.SQLPATTERNS
+                                        && folderPathToCheck.removeTrailingSeparator().toPortableString()
+                                                .endsWith(RepositoryConstants.USER_DEFINED)
+                                        || folderType == ERepositoryObjectType.TEST_CONTAINER) {
+                                    folderType = null;
                                 }
                                 if (folderPathToCheck.removeTrailingSeparator().toPortableString().equals(objectType.getFolder())) {
                                     // don't import if it is system folder
