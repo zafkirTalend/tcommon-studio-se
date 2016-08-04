@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -62,6 +61,7 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
      * 
      * @exception java.io.IOException
      */
+    @Override
     public void finished() throws IOException {
     }
 
@@ -73,6 +73,7 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
      * @exception java.io.IOException
      * @exception org.eclipse.core.runtime.CoreException
      */
+    @Override
     public void write(String resource, String destinationPath) throws IOException, CoreException {
         Path path = new Path(destinationPath);
         if (path.segmentCount() == 1) {
@@ -128,8 +129,8 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
             String rootName = fileResource.getDirectoryName();
 
             Set<String> paths = fileResource.getRelativePathList();
-            for (Iterator iter = paths.iterator(); iter.hasNext();) {
-                String relativePath = (String) iter.next();
+            for (Object element : paths) {
+                String relativePath = (String) element;
                 Set<URL> resource = fileResource.getResourcesByRelativePath(relativePath);
                 for (URL url : resource) {
                     String currentResource = url.getPath();
@@ -173,6 +174,7 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
             try {
                 children = file.listFiles(new FileFilter() {
 
+                    @Override
                     public boolean accept(File pathname) {
 
                         boolean result = true;
@@ -190,10 +192,20 @@ public class FileSystemExporterFullPath implements IFileExporterFullPath {
             } catch (Exception e) {
                 // this should never happen because an #isAccessible check is done before #members is invoked
             }
-            for (int i = 0; i < children.length; i++) {
-                exportResource(rootName, directory + file.getName() + separator, children[i].getPath(), leadupDepth + 1);
+            for (File element : children) {
+                exportResource(rootName, directory + file.getName() + separator, element.getPath(), leadupDepth + 1);
             }
 
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.export.IFileExporterFullPath#writeFolder(java.lang.String)
+     */
+    @Override
+    public void writeFolder(String destinationPath) throws IOException, CoreException {
+        createFolder(destinationPath);
     }
 }

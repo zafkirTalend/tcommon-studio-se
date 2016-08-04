@@ -66,6 +66,7 @@ public class ProviderManager extends AbstractImportResourcesManager {
             Object child = childrenEnum.next();
             if (provider.isFolder(child)) {
                 doCollectItemFiles(child, level + 1);
+                addFolder(provider.getFullPath(child));
             } else {
                 add(provider.getFullPath(child), child);
             }
