@@ -1916,6 +1916,11 @@ public class DatabaseForm extends AbstractForm {
         keytabForHBaseTxt.setEditable(!isContextMode());
     }
 
+    private void adaptImpalaHadoopPartEditable() {
+        useKerberosForImpala.setEnabled(!isContextMode());
+        impalaPrincipalTxt.setEditable(!isContextMode());
+    }
+
     private void updateHadoopProperties(boolean isEditable) {
         refreshHadoopProperties();
         refreshHiveJdbcProperties();
@@ -5246,6 +5251,10 @@ public class DatabaseForm extends AbstractForm {
         }
         if (isHBaseDBConnSelected()) {
             adaptHbaseHadoopPartEditable();
+            updateHadoopProperties(!isContextMode());
+        }
+        if (isImpalaDBConnSelected()) {
+            adaptImpalaHadoopPartEditable();
             updateHadoopProperties(!isContextMode());
         }
     }
