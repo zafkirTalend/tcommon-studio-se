@@ -25,6 +25,8 @@ public interface SVNConstant {
 
     public static final String NAME_TAGS = "tags"; //$NON-NLS-1$
 
+    public static final String NAME_ORIGIN = "origin"; //$NON-NLS-1$
+
     /*
      * 
      */
