@@ -549,13 +549,20 @@ public final class ProjectManager {
             branchForMainProject = fields.get(branchKey);
         }
         if (branchForMainProject != null) {
-            if (!branchForMainProject.contains(SVNConstant.NAME_TAGS) && !branchForMainProject.contains(SVNConstant.NAME_BRANCHES)
-                    && !branchForMainProject.contains(SVNConstant.NAME_TRUNK)
-                    && !branchForMainProject.contains(SVNConstant.NAME_MASTER)) {
-                branchForMainProject = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchForMainProject;
-            }
+            branchForMainProject = getFormatedBranchName(branchForMainProject);
         }
         return branchForMainProject;
+    }
+
+    public String getFormatedBranchName(String branchName) {
+        String formatedBranchName = branchName;
+        if (!branchName.startsWith(SVNConstant.NAME_TAGS + SVNConstant.SEP_CHAR)
+                && !branchName.startsWith(SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR)
+                && !branchName.startsWith(SVNConstant.NAME_ORIGIN + SVNConstant.NAME_MASTER)
+                && !branchName.equals(SVNConstant.NAME_TRUNK) && !branchName.equals(SVNConstant.NAME_MASTER)) {
+            formatedBranchName = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchName;
+        }
+        return formatedBranchName;
     }
 
     /**
