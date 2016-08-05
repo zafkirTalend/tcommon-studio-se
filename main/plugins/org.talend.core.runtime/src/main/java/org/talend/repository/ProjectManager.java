@@ -558,7 +558,7 @@ public final class ProjectManager {
         String formatedBranchName = branchName;
         if (!branchName.startsWith(SVNConstant.NAME_TAGS + SVNConstant.SEP_CHAR)
                 && !branchName.startsWith(SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR)
-                && !branchName.startsWith(SVNConstant.NAME_ORIGIN + SVNConstant.NAME_MASTER)
+                && !branchName.startsWith(SVNConstant.NAME_ORIGIN + SVNConstant.SEP_CHAR)
                 && !branchName.equals(SVNConstant.NAME_TRUNK) && !branchName.equals(SVNConstant.NAME_MASTER)) {
             formatedBranchName = SVNConstant.NAME_BRANCHES + SVNConstant.SEP_CHAR + branchName;
         }
