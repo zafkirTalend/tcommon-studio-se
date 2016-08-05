@@ -1273,6 +1273,12 @@ public final class DBConnectionContextUtils {
                     ContextParameterUtils.getOriginalValue(contextType, maprticket_Duration));
 
         }
+        // for Impala
+        if (EDatabaseTypeName.IMPALA.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
+            String impalaPrin = conn.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA);
+            conn.getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
+                    ContextParameterUtils.getOriginalValue(contextType, impalaPrin));
+        }
         // revert the context value in the hadoop properties dialog if it is hive or hbase
         String hadoopPropertiesJson = transformContextModeToOriginal(getHiveOrHbaseHadoopProperties(conn), contextType);
         setAdditionalHadoopProperties(conn, hadoopPropertiesJson);
