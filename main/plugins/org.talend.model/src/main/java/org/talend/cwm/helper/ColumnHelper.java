@@ -241,6 +241,9 @@ public final class ColumnHelper {
      */
     public static MetadataTable getColumnOwnerAsMetadataTable(MetadataColumn column) {
         assert column != null;
+        if (column.getOwner() == null) {
+            return null;
+        }
         return SwitchHelpers.METADATA_TABLE_SWITCH.doSwitch(column.getOwner());
     }
 
@@ -691,6 +694,9 @@ public final class ColumnHelper {
     public static boolean checkSameTable(ModelElement[] columns) {
         Set<MetadataTable> tableSet = new HashSet<MetadataTable>();
         for (ModelElement column : columns) {
+            if (column == null) {
+                continue;
+            }
             MetadataTable metadataTable = getColumnOwnerAsMetadataTable(column);
             if (metadataTable == null) {
                 continue;
