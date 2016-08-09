@@ -114,6 +114,8 @@ public final class DBConnectionContextUtils {
         Maprticket_Password,
         Maprticket_Cluster,
         Maprticket_Duration,
+        // impala
+        ImpalaPrincipal,
     }
 
     static List<IContextParameter> getDBVariables(String prefixName, DatabaseConnection conn, Set<IConnParamName> paramSet) {
@@ -272,6 +274,42 @@ public final class DBConnectionContextUtils {
                     value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
                     ConnectionContextHelper.createParameters(varList, paramName, value);
                     break;
+                case ImpalaPrincipal:
+                    value = conn.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case Username:
+                    String key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME;
+                    if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                        key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME;
+                    }
+                    value = conn.getParameters().get(key);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case Maprticket_Password:
+                    key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD;
+                    if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                        key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD;
+                    }
+                    value = conn.getParameters().get(key);
+                    ConnectionContextHelper.createParameters(varList, paramName, value, JavaTypesManager.PASSWORD);
+                    break;
+                case Maprticket_Cluster:
+                    key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER;
+                    if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                        key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER;
+                    }
+                    value = conn.getParameters().get(key);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case Maprticket_Duration:
+                    key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION;
+                    if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                        key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION;
+                    }
+                    value = conn.getParameters().get(key);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
                 default:
                 }
             }
@@ -359,7 +397,8 @@ public final class DBConnectionContextUtils {
                 String propertyKey = (String) propertyMap.get("PROPERTY");
                 propertyMap.put(
                         "VALUE",
-                        ContextParameterUtils.getNewScriptCode(prefixName + ConnectionContextHelper.LINE
+                        ContextParameterUtils.getNewScriptCode(
+                                prefixName + ConnectionContextHelper.LINE
                                         + ContextParameterUtils.getValidParameterName(propertyKey), LANGUAGE));
             }
             finalContextPropertiesJson = HadoopRepositoryUtil.getHadoopPropertiesJsonStr(additionalProperties);
@@ -563,6 +602,38 @@ public final class DBConnectionContextUtils {
             break;
         case HbaseKeyTab:
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Username:
+            String key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME;
+            }
+            conn.getParameters().put(key, ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Maprticket_Password:
+            key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD;
+            }
+            conn.getParameters().put(key, ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Maprticket_Cluster:
+            key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER;
+            }
+            conn.getParameters().put(key, ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Maprticket_Duration:
+            key = ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION;
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(conn.getDatabaseType())) {
+                key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION;
+            }
+            conn.getParameters().put(key, ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case ImpalaPrincipal:
+            conn.getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
                     ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
             break;
         default:
@@ -852,6 +923,26 @@ public final class DBConnectionContextUtils {
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
                     getOriginalValue(hadoopClusterContextType, contextType, keytab));
 
+            String maprticket_Username = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Username));
+
+            String maprticket_Password = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Password));
+
+            String maprticket_Cluster = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Cluster));
+
+            String maprticket_Duration = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Duration));
+
             String jdbcPropertiesString = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_JDBC_PROPERTIES,
                     HadoopRepositoryUtil.getOriginalValueOfProperties(jdbcPropertiesString, contextType));
@@ -916,6 +1007,26 @@ public final class DBConnectionContextUtils {
             String hbaseKeyTab = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
                     getOriginalValue(hadoopClusterContextType, contextType, hbaseKeyTab));
+
+            String maprticket_Username = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Username));
+
+            String maprticket_Password = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Password));
+
+            String maprticket_Cluster = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Cluster));
+
+            String maprticket_Duration = cloneConn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION,
+                    getOriginalValue(hadoopClusterContextType, contextType, maprticket_Duration));
 
         }
 
@@ -1103,6 +1214,25 @@ public final class DBConnectionContextUtils {
             String sslTrustStorePassword = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD,
                     conn.getValue(ContextParameterUtils.getOriginalValue(contextType, sslTrustStorePassword), true));
+
+            String maprticket_Username = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_USERNAME,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Username));
+
+            String maprticket_Password = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_PASSWORD,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Password));
+
+            String maprticket_Cluster = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_CLUSTER,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Cluster));
+
+            String maprticket_Duration = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HIVE_AUTHENTICATION_MAPRTICKET_DURATION,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Duration));
         }
         // for Hbase
         if (EDatabaseTypeName.HBASE.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
@@ -1123,6 +1253,31 @@ public final class DBConnectionContextUtils {
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB,
                     ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTab));
 
+            String maprticket_Username = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Username));
+
+            String maprticket_Password = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_PASSWORD,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Password));
+
+            String maprticket_Cluster = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_CLUSTER,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Cluster));
+
+            String maprticket_Duration = conn.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION,
+                    ContextParameterUtils.getOriginalValue(contextType, maprticket_Duration));
+
+        }
+        // for Impala
+        if (EDatabaseTypeName.IMPALA.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {
+            String impalaPrin = conn.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA);
+            conn.getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
+                    ContextParameterUtils.getOriginalValue(contextType, impalaPrin));
         }
         // revert the context value in the hadoop properties dialog if it is hive or hbase
         String hadoopPropertiesJson = transformContextModeToOriginal(getHiveOrHbaseHadoopProperties(conn), contextType);

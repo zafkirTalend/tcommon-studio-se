@@ -2345,8 +2345,10 @@ public class DatabaseForm extends AbstractForm {
 
         if (isContextMode()) {
             trustStorePassword.getTextControl().setEchoChar('\0');
+            maprTPasswordForHiveTxt.getTextControl().setEchoChar('\0');
         } else {
             trustStorePassword.getTextControl().setEchoChar('*');
+            maprTPasswordForHiveTxt.getTextControl().setEchoChar('*');
         }
     }
 
@@ -2366,6 +2368,17 @@ public class DatabaseForm extends AbstractForm {
         maprTPasswordForHBaseTxt.setEditable(!isContextMode());
         maprTClusterForHBaseTxt.setEditable(!isContextMode());
         maprTDurationForHBaseTxt.setEditable(!isContextMode());
+
+        if (isContextMode()) {
+            maprTPasswordForHBaseTxt.getTextControl().setEchoChar('\0');
+        } else {
+            maprTPasswordForHBaseTxt.getTextControl().setEchoChar('*');
+        }
+    }
+
+    private void adaptImpalaHadoopPartEditable() {
+        useKerberosForImpala.setEnabled(!isContextMode());
+        impalaPrincipalTxt.setEditable(!isContextMode());
     }
 
     private void updateHadoopProperties(boolean isEditable) {
@@ -5483,6 +5496,7 @@ public class DatabaseForm extends AbstractForm {
     private void collectContextParams() {
         collectHiveContextParams();
         collectHBaseContextParams();
+        collectImpalaContextParams();
     }
 
     private void collectHiveContextParams() {
@@ -5510,6 +5524,11 @@ public class DatabaseForm extends AbstractForm {
             boolean addSSLEncryptionContext = isSupportHiveEncryption() && isSupportHiveTrustStore();
             addContextParams(EDBParamName.hiveSSLTrustStorePath, addSSLEncryptionContext);
             addContextParams(EDBParamName.hiveSSLTrustStorePassword, addSSLEncryptionContext);
+
+            addContextParams(EDBParamName.Username, !useKerberos.getSelection() && useMaprTForHive.getSelection());
+            addContextParams(EDBParamName.Maprticket_Password, !useKerberos.getSelection() && useMaprTForHive.getSelection());
+            addContextParams(EDBParamName.Maprticket_Cluster, useMaprTForHive.getSelection());
+            addContextParams(EDBParamName.Maprticket_Duration, useMaprTForHive.getSelection());
         }
     }
 
@@ -5533,6 +5552,16 @@ public class DatabaseForm extends AbstractForm {
         }
     }
 
+    private void collectImpalaContextParams() {
+        // recollect context params for impala
+        if (isImpalaDBConnSelected()) {
+            getConetxtParams().clear();
+            addContextParams(EDBParamName.Server, true);
+            addContextParams(EDBParamName.Port, true);
+            addContextParams(EDBParamName.Database, true);
+            addContextParams(EDBParamName.ImpalaPrincipal, useKerberosForImpala.getSelection());
+        }
+    }
     private boolean useHadoopRepositoryParam() {
         String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
         return hcId == null && isHiveEmbeddedMode();
@@ -5769,6 +5798,10 @@ public class DatabaseForm extends AbstractForm {
         }
         if (isHBaseDBConnSelected()) {
             adaptHbaseHadoopPartEditable();
+            updateHadoopProperties(!isContextMode());
+        }
+        if (isImpalaDBConnSelected()) {
+            adaptImpalaHadoopPartEditable();
             updateHadoopProperties(!isContextMode());
         }
     }

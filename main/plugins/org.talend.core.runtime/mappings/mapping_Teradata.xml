@@ -78,9 +78,9 @@
 					<dbType type="LONG VARCHAR"/>
 				</talendType>
 				<talendType type="id_Date">
-					<dbType type="DATE" default="true" />
+					<dbType type="TIMESTAMP" default="true" />
 					<dbType type="DA"/>
-					<dbType type="TIMESTAMP"/>
+					<dbType type="DATE"/>
 					<dbType type="TIME"/>					
 				</talendType>
 				<talendType type="id_BigDecimal">
@@ -264,8 +264,8 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="SMALLINT">
-					<talendType type="id_Integer" default="true"/>
-					<talendType type="id_Short"/>
+					<talendType type="id_Short" default="true"/>
+					<talendType type="id_Integer"/>
 				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="id_Long"/>
