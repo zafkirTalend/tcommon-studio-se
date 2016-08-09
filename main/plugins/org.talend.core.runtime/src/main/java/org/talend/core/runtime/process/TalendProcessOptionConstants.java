@@ -30,6 +30,8 @@ public interface TalendProcessOptionConstants {
 
     public static final int GENERATE_WITHOUT_COMPILING = 1 << 5;
 
+    public static final int GENERATE_WITHOUT_FORMAT = 1 << 6;
+
     /**
      * clean options
      */
