@@ -19,8 +19,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -51,19 +54,29 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.osgi.framework.Bundle;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.utils.ResourceModelHelper;
 import org.talend.core.model.utils.XSDValidater;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.metadata.managment.ui.MetadataManagmentUiPlugin;
 import org.talend.metadata.managment.ui.dialog.MappingFileCheckViewerDialog;
 import org.talend.metadata.managment.ui.i18n.Messages;
+import org.talend.repository.ProjectManager;
+import org.talend.repository.RepositoryWorkUnit;
 
 /**
  * bqian. MetadataTalendType Editor<br/>
@@ -550,8 +563,17 @@ public class MetadataTalendTypeEditor extends FieldEditor {
      * (non-Javadoc) Method declared on FieldEditor.
      */
     protected void doLoadDefault() {
-        tmpFileManager.reload();
-        doLoad();
+        MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
+                Messages.getString("MetadataTalendTypeEditor.confirmTitle"), //$NON-NLS-1$
+                Messages.getString("MetadataTalendTypeEditor.confirmMessage")); //$NON-NLS-1$
+        ICoreService coreService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+            coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+            coreService.syncMappingsFileFromSystemToProject();
+            tmpFileManager.reload();
+            coreService.synchronizeMapptingXML();
+        }
+        super.load();
     }
 
     /*
@@ -588,6 +610,27 @@ public class MetadataTalendTypeEditor extends FieldEditor {
      */
     @Override
     protected void doStore() {
+        RepositoryWorkUnit workUnit = new RepositoryWorkUnit("Store mapping files") { //$NON-NLS-1$
+
+            @Override
+            protected void run() {
+                applyChange();
+            }
+        };
+        workUnit.setAvoidUnloadResources(true);
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(workUnit);
+    }
+
+    private void applyChange() {
+        IFolder mappingFolder = null;
+        try {
+            mappingFolder = ResourceUtils.getFolder(
+                    ResourceModelHelper.getProject(ProjectManager.getInstance().getCurrentProject()),
+                    MetadataTalendType.PROJECT_MAPPING_FOLDER, false);
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
+
         boolean needReload = false;
 
         List<FileInfo> tempFiles = tmpFileManager.getTempFiles();
@@ -595,9 +638,14 @@ public class MetadataTalendTypeEditor extends FieldEditor {
 
         // delete the removed files
         for (File file : realFiles) {
-            if (!tmpFileManager.contains(file)) {
-                file.delete();
-                needReload = true;
+            if (!tmpFileManager.contains(file.getName())) {
+                IFile iFile = mappingFolder.getFile(file.getName());
+                try {
+                    iFile.delete(true, null);
+                    needReload = true;
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
             }
         }
 
@@ -630,9 +678,17 @@ public class MetadataTalendTypeEditor extends FieldEditor {
                 }
             }
         }
-
+        try {
+            mappingFolder.refreshLocal(IResource.DEPTH_ONE, null);
+        } catch (CoreException e) {
+            e.printStackTrace();
+        }
         if (needReload) {
             tmpFileManager.reload();
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                coreService.synchronizeMapptingXML();
+            }
         }
     }
 
@@ -657,15 +713,12 @@ public class MetadataTalendTypeEditor extends FieldEditor {
      * Import the selected file into talend.
      * 
      * @param xmlFile
+     * @throws SystemException 
      */
-    private File importFileIntoTalend(File xmlFile) throws IOException {
+    private File importFileIntoTalend(File xmlFile) throws IOException, SystemException {
         String fileName = xmlFile.getName();
 
-        IPath filePath = new Path(MetadataTalendType.INTERNAL_MAPPINGS_FOLDER);
-
-        Bundle b = Platform.getBundle("org.talend.core.runtime"); //$NON-NLS-1$
-        URL url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
-
+        URL url = MetadataTalendType.getProjectForderURLOfMappingsFile();
         File targetFile = new File(url.getPath(), fileName);
 
         FilesUtils.copyFile(xmlFile, targetFile);

@@ -31,6 +31,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -38,6 +40,9 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ICoreService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -46,6 +51,7 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.i18n.Messages;
+import org.talend.repository.ProjectManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -65,6 +71,8 @@ public final class MetadataTalendType {
      * 
      */
     public static final String INTERNAL_MAPPINGS_FOLDER = "mappings"; //$NON-NLS-1$
+
+    public static final String PROJECT_MAPPING_FOLDER = ".settings/mappings"; //$NON-NLS-1$
 
     private static ECodeLanguage codeLanguage;
 
@@ -440,33 +448,40 @@ public final class MetadataTalendType {
         Arrays.sort(list);
         return list;
     }
-
-    public static URL getFolderURLOfMappingsFile() throws SystemException {
+    
+    public static URL getSystemForderURLOfMappingsFile() throws SystemException {
         String dirPath = "/" + INTERNAL_MAPPINGS_FOLDER; //$NON-NLS-1$
-
+        URL url = null;
         Path filePath = new Path(dirPath);
-        Bundle b = null;
-        ECodeLanguage codeLanguage = MetadataTalendType.getCodeLanguage();
-        if (codeLanguage == ECodeLanguage.JAVA) {
-            b = Platform.getBundle(CoreRuntimePlugin.PLUGIN_ID);
-        } else if (codeLanguage == ECodeLanguage.PERL) {
-            b = Platform.getBundle("org.talend.core.perl"); //$NON-NLS-1$
-        }
-        URL url;
-        try {
-            if (b != null) {
+        Bundle b = Platform.getBundle(CoreRuntimePlugin.PLUGIN_ID);
+        if (b != null) {
+            try {
                 url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
-            } else {
-                // for testing only, see org.talend.core\src\test\java\mappings for test files
-                url = MetadataTalendType.class.getResource(dirPath);
-                IPath path = new Path(url.getPath());
-                path = path.removeLastSegments(2);
-                url = new URL("file:/" + path.toPortableString() + dirPath); //$NON-NLS-1$
+            } catch (IOException e) {
+                throw new SystemException(e);
             }
-        } catch (IOException e) {
-            throw new SystemException(e);
         }
         return url;
+    }
+    
+    public static URL getProjectForderURLOfMappingsFile() throws SystemException {
+        try {
+            String dirPath = "/" + INTERNAL_MAPPINGS_FOLDER; //$NON-NLS-1$
+            IProject project = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject());
+            IPath settingPath = new ProjectScope(project).getLocation();
+            IPath mappingPath = settingPath.append(dirPath);
+            File mappingFolder = mappingPath.toFile();
+            if (!mappingFolder.exists() || mappingFolder.listFiles().length < 1) {
+                ICoreService service = null;
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                    service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                    service.syncMappingsFileFromSystemToProject();
+                }
+            }
+            return mappingFolder.toURL();
+        } catch (Exception e) {
+            throw new SystemException(e);
+        }
     }
 
     /**
@@ -476,7 +491,7 @@ public final class MetadataTalendType {
      * @throws SystemException
      */
     public static void loadCommonMappings() throws SystemException {
-        URL url = getFolderURLOfMappingsFile();
+        URL url = getProjectForderURLOfMappingsFile();
         File dir = new File(url.getPath());
         metadataMappingFiles = new ArrayList<File>();
         dbmsSet.clear();
@@ -491,7 +506,7 @@ public final class MetadataTalendType {
         }
 
     }
-
+    
     private static void loadMapping(File file) throws SystemException {
         MappingFileLoader mappingFileLoader = new MappingFileLoader();
         mappingFileLoader.load(file);

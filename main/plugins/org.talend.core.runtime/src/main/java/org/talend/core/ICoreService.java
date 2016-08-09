@@ -122,5 +122,7 @@ public interface ICoreService extends IService {
     public boolean isOpenedItemInEditor(IRepositoryViewObject object);
 
     public IMetadataTable convert(MetadataTable originalTable);
+    
+    public void syncMappingsFileFromSystemToProject();
 
 }
