@@ -252,8 +252,9 @@ public class ImportExportHandlersManager {
                         continue;
                     }
                     IPath folderPathToCheck = folder.removeFirstSegments(1);
-                    if (folderPathToCheck.removeTrailingSeparator().toPortableString().startsWith("documentations/generated")
-                            || folderPathToCheck.removeTrailingSeparator().toPortableString().startsWith("documentations/doc")) {
+                    String generatedPath = ERepositoryObjectType.DOCUMENTATION.getFolder() + "/"
+                            + RepositoryConstants.DOCUMENTATION_GENERATED_PATH;
+                    if (folderPathToCheck.removeTrailingSeparator().toPortableString().startsWith(generatedPath)) {
                         continue;
                     }
                     for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
@@ -311,6 +312,7 @@ public class ImportExportHandlersManager {
                         createFolderItem.setState(createStatus);
                         items.add(folderItem);
                         folderItem.setProperty(property);
+                        folderType = null;
                     }
                 }
 
