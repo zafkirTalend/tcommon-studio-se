@@ -420,6 +420,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
             if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
                 ICoreService coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
                 coreService.synchronizeMapptingXML();
+                coreService.syncLog4jSettings();
             }
         }
         // rules

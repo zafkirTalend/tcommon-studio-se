@@ -409,6 +409,9 @@ public class CoreService implements ICoreService {
                     File sysMappingfolder = new File(MetadataTalendType.getSystemForderURLOfMappingsFile().getPath());
                     IFolder projectMappingFolder = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject())
                             .getFolder(MetadataTalendType.PROJECT_MAPPING_FOLDER);
+                    if (!projectMappingFolder.exists()) {
+                        projectMappingFolder.create(true, true, null);
+                    }
                     for (File in : sysMappingfolder.listFiles()) {
                         IFile out = projectMappingFolder.getFile(in.getName());
                         copyFile(in, out);
@@ -422,7 +425,7 @@ public class CoreService implements ICoreService {
         ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(workUnit);
     }
     
-    private String getTargetName(File file) {
+    public String getTargetName(File file) {
         String targetName = file.getName();
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder analyser;
@@ -494,7 +497,7 @@ public class CoreService implements ICoreService {
     @Override
     public void syncLog4jSettings() {
         Project project = ProjectManager.getInstance().getCurrentProject();
-        String log = ".."; //$NON-NLS-1$ 
+        String log = "Sync log4j settings"; //$NON-NLS-1$ 
         final RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(project, log) {
 
             @Override

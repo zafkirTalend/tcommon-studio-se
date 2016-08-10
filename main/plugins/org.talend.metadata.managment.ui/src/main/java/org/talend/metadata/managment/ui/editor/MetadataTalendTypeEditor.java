@@ -681,7 +681,7 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         try {
             mappingFolder.refreshLocal(IResource.DEPTH_ONE, null);
         } catch (CoreException e) {
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         }
         if (needReload) {
             tmpFileManager.reload();
