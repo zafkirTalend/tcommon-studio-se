@@ -414,17 +414,28 @@ public final class FilesUtils {
         return completePath.getParent();
     }
 
-    public static long getChecksumAlder32(File file) throws IOException {
-
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-
-        // Compute Adler-32 checksum
-        CheckedInputStream cis = new CheckedInputStream(bufferedInputStream, new Adler32());
-        byte[] tempBuf = new byte[128];
-        while (cis.read(tempBuf) >= 0) {
-            // do nothing
+    public static long getChecksumAlder32(File file) throws IOException{
+        BufferedInputStream bufferedInputStream = null;
+        CheckedInputStream cis = null;
+        try {
+            bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+            // Compute Adler-32 checksum
+            cis = new CheckedInputStream(bufferedInputStream, new Adler32());
+            byte[] tempBuf = new byte[128];
+            while (cis.read(tempBuf) >= 0) {
+                // do nothing
+            }
+            return cis.getChecksum().getValue();
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (bufferedInputStream != null) {
+                bufferedInputStream.close();
+            }
+            if (cis != null) {
+                cis.close();
+            }
         }
-        return cis.getChecksum().getValue();
     }
 
     /**

@@ -27,7 +27,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -43,6 +45,7 @@ import org.talend.commons.exception.SystemException;
 import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.ui.runtime.image.OverlayImageProvider;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.LibraryInfo;
 import org.talend.core.model.general.Project;
@@ -355,7 +358,7 @@ public class CoreService implements ICoreService {
     @Override
     public void synchronizeMapptingXML() {
         try {
-            URL url = MetadataTalendType.getFolderURLOfMappingsFile();
+            URL url = MetadataTalendType.getProjectForderURLOfMappingsFile();
             if (url != null && GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
                 IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                         IRunProcessService.class);
@@ -395,8 +398,34 @@ public class CoreService implements ICoreService {
             ExceptionHandler.process(e);
         }
     }
+    
+    @Override
+    public void syncMappingsFileFromSystemToProject() {
+        RepositoryWorkUnit workUnit = new RepositoryWorkUnit("Sync mapping files from system to project") { //$NON-NLS-1$
 
-    private String getTargetName(File file) {
+            @Override
+            protected void run() throws LoginException, PersistenceException {
+                try {
+                    File sysMappingfolder = new File(MetadataTalendType.getSystemForderURLOfMappingsFile().getPath());
+                    IFolder projectMappingFolder = ResourceUtils.getProject(ProjectManager.getInstance().getCurrentProject())
+                            .getFolder(MetadataTalendType.PROJECT_MAPPING_FOLDER);
+                    if (!projectMappingFolder.exists()) {
+                        projectMappingFolder.create(true, true, null);
+                    }
+                    for (File in : sysMappingfolder.listFiles()) {
+                        IFile out = projectMappingFolder.getFile(in.getName());
+                        copyFile(in, out);
+                    }
+                } catch (SystemException | CoreException | IOException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        };
+        workUnit.setAvoidUnloadResources(true);
+        ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(workUnit);
+    }
+    
+    public String getTargetName(File file) {
         String targetName = file.getName();
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder analyser;
@@ -441,11 +470,10 @@ public class CoreService implements ICoreService {
     }
 
     public void copyFile(File in, IFile out) throws CoreException, IOException {
-        if (out.exists()) {
-            out.delete(true, null);
-        }
         FileInputStream fis = new FileInputStream(in);
-        if (!out.exists()) {
+        if (out.exists()) {
+            out.setContents(fis, true, false, null);
+        } else {
             out.create(fis, true, null);
         }
         fis.close();
@@ -469,7 +497,7 @@ public class CoreService implements ICoreService {
     @Override
     public void syncLog4jSettings() {
         Project project = ProjectManager.getInstance().getCurrentProject();
-        String log = ".."; //$NON-NLS-1$ 
+        String log = "Sync log4j settings"; //$NON-NLS-1$ 
         final RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(project, log) {
 
             @Override
