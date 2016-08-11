@@ -995,6 +995,8 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                             final ManagerConnection managerConnection = new ManagerConnection();
 
                             DatabaseConnection connection = (DatabaseConnection) item.getConnection();
+                            boolean useKrb = Boolean.valueOf(connection.getParameters().get(
+                                    ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
                             // TUP-596 : Update the context name in connection when the user does a context switch in DI
                             String oldContextName = connection.getContextName();
                             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, null);
@@ -1011,8 +1013,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                             if (!metadataConnection.getDbType().equals(EDatabaseConnTemplate.GODBC.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.ACCESS.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(
-                                            EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())
-                                    && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.IMPALA.getDBDisplayName())) {
+                                            EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
                                 // TODO 1. To identify if it is hive connection.
                                 String hiveMode = (String) metadataConnection
                                         .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
@@ -1029,14 +1030,15 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                                 .getCurrentConnection());
                                     }
                                 } else {
-
                                     String genUrl = DatabaseConnStrUtil.getURLString(metadataConnection.getDbType(),
                                             metadataConnection.getDbVersionString(), metadataConnection.getServerName(),
                                             metadataConnection.getUsername(), metadataConnection.getPassword(),
                                             metadataConnection.getPort(), metadataConnection.getDatabase(),
                                             metadataConnection.getFileFieldName(), metadataConnection.getDataSourceName(),
                                             metadataConnection.getDbRootPath(), metadataConnection.getAdditionalParams());
-                                    metadataConnection.setUrl(genUrl);
+                                    if (!(metadataConnection.getDbType().equals(EDatabaseConnTemplate.IMPALA.getDBDisplayName()) && useKrb)) {
+                                        metadataConnection.setUrl(genUrl);
+                                    }
                                 }
 
                             }
