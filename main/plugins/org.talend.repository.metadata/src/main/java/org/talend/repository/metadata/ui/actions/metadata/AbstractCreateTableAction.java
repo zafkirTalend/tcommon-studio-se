@@ -995,6 +995,8 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                             final ManagerConnection managerConnection = new ManagerConnection();
 
                             DatabaseConnection connection = (DatabaseConnection) item.getConnection();
+                            boolean useKrb = Boolean.valueOf(connection.getParameters().get(
+                                    ConnParameterKeys.CONN_PARA_KEY_USE_KRB));
                             // TUP-596 : Update the context name in connection when the user does a context switch in DI
                             String oldContextName = connection.getContextName();
                             IMetadataConnection metadataConnection = ConvertionHelper.convert(connection, false, null);
@@ -1012,7 +1014,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                     && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.ACCESS.getDBDisplayName())
                                     && !metadataConnection.getDbType().equals(
                                             EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())
-                                    && !metadataConnection.getDbType().equals(EDatabaseConnTemplate.IMPALA.getDBDisplayName())) {
+                                    && (metadataConnection.getDbType().equals(EDatabaseConnTemplate.IMPALA.getDBDisplayName()) && !useKrb)) {
                                 // TODO 1. To identify if it is hive connection.
                                 String hiveMode = (String) metadataConnection
                                         .getParameter(ConnParameterKeys.CONN_PARA_KEY_HIVE_MODE);
