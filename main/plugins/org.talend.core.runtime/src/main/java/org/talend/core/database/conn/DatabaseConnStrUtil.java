@@ -288,7 +288,7 @@ public class DatabaseConnStrUtil {
             }
         } else {
             if (Principal != null) {
-                standardURlString = standardURlString.concat(SEMICOLON).concat(principalSuffix).concat(Principal);
+                standardURlString = urlArray[0].concat(SEMICOLON).concat(principalSuffix).concat(Principal);
             }
         }
 
