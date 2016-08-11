@@ -473,7 +473,7 @@ public class ProcessorUtilities {
             checkUsePigUDFs(currentProcess, jobInfo);
         }
         Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                .getNeededLibrariesForProcess(currentProcess, true);
+                .getNeededLibrariesForProcess(currentProcess, false);
         if (neededLibraries != null) {
             LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                     neededLibraries);
@@ -500,7 +500,7 @@ public class ProcessorUtilities {
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
         generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                currentJobName, processor);
+                currentJobName, processor, isMainJob);
 
         // for testContainer dataSet
         generateDataSet(currentProcess, processor);
@@ -627,6 +627,10 @@ public class ProcessorUtilities {
                     throw new ProcessorException(e);
                 }
                 processor.syntaxCheck();
+
+                // TDI-36930, just after compile, need check the compile errors first.
+                CorePlugin.getDefault().getRunProcessService().checkLastGenerationHasCompilationError(true);
+
             }
             needContextInCurrentGeneration = true;
             retrievedJarsForCurrentBuild.clear();
@@ -636,7 +640,7 @@ public class ProcessorUtilities {
 
     private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
-            IProcessor processor) throws ProcessorException {
+            IProcessor processor, boolean isMain) throws ProcessorException {
         if (isCodeGenerationNeeded(jobInfo, statistics, trace)) {
             codeModified = true;
             if ((currentProcess instanceof IProcess2) && exportConfig) {
@@ -674,7 +678,12 @@ public class ProcessorUtilities {
 
             processor.setContext(currentContext);
             // main job will use stats / traces
-            processor.generateCode(statistics, trace, true);
+            int option = TalendProcessOptionConstants.GENERATE_WITHOUT_FORMAT;
+            if (isMain) {
+                // only format for main job
+                option = 0;
+            }
+            processor.generateCode(statistics, trace, true, option);
             if (currentProcess instanceof IProcess2 && ((IProcess2) currentProcess).getProperty() != null) {
                 designerCoreService.getLastGeneratedJobsDateMap().put(currentProcess.getId(),
                         ((IProcess2) currentProcess).getProperty().getModificationDate());
@@ -829,7 +838,7 @@ public class ProcessorUtilities {
             }
 
             Set<ModuleNeeded> neededLibraries = CorePlugin.getDefault().getDesignerCoreService()
-                    .getNeededLibrariesForProcess(currentProcess, true);
+                    .getNeededLibrariesForProcess(currentProcess, false);
             if (neededLibraries != null) {
                 if (isNeedLoadmodules) {
                     LastGenerationInfo.getInstance().setModulesNeededWithSubjobPerJob(jobInfo.getJobId(),
@@ -865,7 +874,7 @@ public class ProcessorUtilities {
             processor.setArguments(argumentsMap);
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                    currentJobName, processor);
+                    currentJobName, processor, isMainJob);
 
             // for testContainer dataSet
             generateDataSet(currentProcess, processor);
