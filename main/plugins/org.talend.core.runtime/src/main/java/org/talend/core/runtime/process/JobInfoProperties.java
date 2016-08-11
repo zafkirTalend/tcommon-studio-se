@@ -114,7 +114,7 @@ public class JobInfoProperties extends Properties {
         if (CommonsPlugin.isHeadless()) {
             setProperty(ADD_STATIC_CODE, String.valueOf(addStat));
         } else {
-            setProperty(ADD_STATIC_CODE, Boolean.FALSE.toString()); // TDI-23641, in studio, false always.
+            setProperty(ADD_STATIC_CODE, Boolean.TRUE.toString()); // TDI-23641, in studio, false always.
         }
         setProperty(COMMANDLINE_VERSION, VersionUtils.getVersion());
 
