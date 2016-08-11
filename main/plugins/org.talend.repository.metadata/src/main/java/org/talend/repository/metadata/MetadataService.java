@@ -129,7 +129,7 @@ public class MetadataService implements IMetadataService {
                 projectName = project.getLabel();
             }
             if (projectName != null && !projectName.trim().isEmpty()) {
-                itemId = ProxyRepositoryFactory.getInstance().generateItemIdWithProjectLabel(projectName, pureItemId);
+                itemId = ProxyRepositoryFactory.getInstance().generateFullId(projectName, pureItemId);
             }
             IRepositoryNode realNode = RepositorySeekerManager.getInstance().searchRepoViewNode(itemId);
             openMetadataConnection(false, realNode, node);

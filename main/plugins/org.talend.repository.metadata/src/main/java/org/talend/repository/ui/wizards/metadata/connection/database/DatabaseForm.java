@@ -2285,7 +2285,7 @@ public class DatabaseForm extends AbstractForm {
                 RepositoryNode node = CoreRuntimePlugin.getInstance().getRepositoryService()
                         .getRepNodeFromRepReviewDialog(getShell(), ERepositoryObjectType.METADATA, "HADOOPCLUSTER"); //$NON-NLS-1$
                 if (node != null) {
-                    String id = node.getObject().getId();
+                    String id = ProxyRepositoryFactory.getInstance().getFullId(node.getObject());
                     updateHCRelatedParameters(id);
                     updateHCRelatedParts();
                     refreshHadoopProperties();

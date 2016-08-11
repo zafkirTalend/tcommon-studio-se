@@ -1048,9 +1048,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         String projectLabel = getProjectLabelFromItemId(id);
         if (projectLabel != null && !projectLabel.trim().isEmpty()) {
             if (!projectLabel.equals(project.getLabel())) {
-                org.talend.commons.exception.ExceptionHandler
-                        .process(new Exception("Project names are different: " + project.getLabel() + "<>" + projectLabel),
-                                Priority.WARN);
+                org.talend.commons.exception.ExceptionHandler.process(
+                        new Exception("Project names are different: " + project.getLabel() + "<>" + projectLabel), Priority.WARN);
             }
         }
         return this.repositoryFactoryFromProvider.getLastVersion(project, pureId);
@@ -2380,7 +2379,25 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     @Override
-    public String generateItemIdWithProjectLabel(String projectLabel, String pureItemId) {
+    public String generateFullId(String projectLabel, String pureItemId) {
         return projectLabel + getProjectItemIdSeperator() + pureItemId;
+    }
+
+    @Override
+    public String getFullId(IRepositoryViewObject repViewObject) {
+        Property property = repViewObject.getProperty();
+        org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
+        String projectLabel = project.getLabel();
+
+        // NOTE: DON'T use repViewObject.getId()
+        String pureItemId = property.getId();
+
+        return generateFullId(projectLabel, pureItemId);
+    }
+
+    @Override
+    public String getFullId(Property property) {
+        org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
+        return generateFullId(project.getLabel(), property.getId());
     }
 }

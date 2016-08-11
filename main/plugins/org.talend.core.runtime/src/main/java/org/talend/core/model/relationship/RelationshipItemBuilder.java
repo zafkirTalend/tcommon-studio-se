@@ -965,6 +965,6 @@ public class RelationshipItemBuilder {
     }
 
     private String generateItemIdWithProjectLabel(String projectLabel, String pureItemId) {
-        return getProxyRepositoryFactory().generateItemIdWithProjectLabel(projectLabel, pureItemId);
+        return getProxyRepositoryFactory().generateFullId(projectLabel, pureItemId);
     }
 }

@@ -528,5 +528,17 @@ public interface IProxyRepositoryFactory {
      */
     public String getPureItemId(String itemId);
 
-    public String generateItemIdWithProjectLabel(String projectLabel, String pureItemId);
+    /**
+     * Generate the item full id: &lt;Project label&gt; / &lt;Pure item id&gt; </br>
+     * The full id specified the item is from which project, and specified it's pure id in the project
+     * 
+     * @param projectLabel
+     * @param pureItemId
+     * @return
+     */
+    public String generateFullId(String projectLabel, String pureItemId);
+
+    public String getFullId(IRepositoryViewObject repViewObject);
+
+    public String getFullId(Property property);
 }
