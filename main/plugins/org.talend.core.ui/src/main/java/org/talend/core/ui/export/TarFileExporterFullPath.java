@@ -21,9 +21,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.eclipse.core.runtime.CoreException;
-import org.apache.tools.tar.TarOutputStream;
 import org.apache.tools.tar.TarEntry;
+import org.apache.tools.tar.TarOutputStream;
+import org.eclipse.core.runtime.CoreException;
 
 /**
  * Exports resources to a .tar.gz file.
@@ -57,6 +57,7 @@ public class TarFileExporterFullPath implements IFileExporterFullPath {
      * 
      * @exception java.io.IOException
      */
+    @Override
     public void finished() throws IOException {
         outputStream.close();
         if (gzipOutputStream != null) {
@@ -107,9 +108,25 @@ public class TarFileExporterFullPath implements IFileExporterFullPath {
      * @exception java.io.IOException
      * @exception org.eclipse.core.runtime.CoreException
      */
+    @Override
     public void write(String resource, String destinationPath) throws IOException, CoreException {
-
         TarEntry newEntry = new TarEntry(destinationPath);
         write(newEntry, resource);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.export.IFileExporterFullPath#writeFolder(java.lang.String)
+     */
+    @Override
+    public void writeFolder(String destinationPath) throws IOException, CoreException {
+        TarEntry newEntry = new TarEntry(destinationPath);
+        if (!newEntry.isDirectory()) {
+            newEntry = new TarEntry(destinationPath + "/");
+        }
+        outputStream.putNextEntry(newEntry);
+        outputStream.closeEntry();
+
     }
 }

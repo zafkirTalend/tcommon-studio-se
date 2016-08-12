@@ -152,8 +152,9 @@ public class FileResourcesUnityManager extends FilesManager {
                     }
                 }
             }
+            this.getEmptyFolders().addAll(archiveProviderManager.getEmptyFolders());
         }
-        collectPath2Object(tmpWorkFolder, interruptable);
+        collectPath2Object(originalFile, tmpWorkFolder, tmpWorkFolder, interruptable);
         return this;
     }
 

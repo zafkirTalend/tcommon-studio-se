@@ -14,7 +14,11 @@ package org.talend.repository.items.importexport.manager;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +31,8 @@ public abstract class ResourcesManager {
 
     protected Map<IPath, Object> path2Object = new HashMap<IPath, Object>();
 
+    protected List<IPath> emptyFolders = new ArrayList<IPath>();
+
     public void add(String path, Object object) {
         path2Object.put(new Path(path), object);
     }
@@ -36,6 +42,36 @@ public abstract class ResourcesManager {
     }
 
     public abstract InputStream getStream(IPath path) throws IOException;
+
+    public boolean isContainsPath(IPath path) {
+        return getPaths().contains(path);
+    }
+
+    public void addFolder(String path) {
+        boolean isEmptyFolder = true;
+        for (IPath objectPath : path2Object.keySet()) {
+            if (objectPath.toPortableString().contains(path)) {
+                isEmptyFolder = false;
+                break;
+            }
+        }
+        if (isEmptyFolder) {
+            Path newPath = new Path(path);
+            emptyFolders.add(newPath);
+        }
+    }
+
+    public List<IPath> getEmptyFolders() {
+        Collections.sort(emptyFolders, new Comparator<IPath>() {
+
+            @Override
+            public int compare(IPath o1, IPath o2) {
+                return o1.segmentCount() - o2.segmentCount();
+            }
+        });
+        return emptyFolders;
+
+    }
 
     public abstract boolean collectPath2Object(Object root);
 
