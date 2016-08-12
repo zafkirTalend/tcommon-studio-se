@@ -15,6 +15,8 @@ package org.talend.repository.items.importexport.wizard.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.repository.items.importexport.handlers.model.ImportItem;
+
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -27,6 +29,8 @@ public abstract class ImportNode implements Comparable<ImportNode> {
     private List<ImportNode> children = new ArrayList<ImportNode>();
 
     private boolean visible;
+
+    protected ImportItem itemRecord;
 
     public ImportNode() {
         super();
@@ -172,6 +176,19 @@ public abstract class ImportNode implements Comparable<ImportNode> {
             return 1;
         }
         return label.compareTo(label2);
+    }
+
+    public ImportItem getItemRecord() {
+        return this.itemRecord;
+    }
+
+    /**
+     * Sets the itemRecord.
+     * 
+     * @param itemRecord the itemRecord to set
+     */
+    public void setItemRecord(ImportItem itemRecord) {
+        this.itemRecord = itemRecord;
     }
 
 }

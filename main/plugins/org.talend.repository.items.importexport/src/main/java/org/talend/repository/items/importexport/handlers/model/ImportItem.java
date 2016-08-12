@@ -39,7 +39,7 @@ public class ImportItem {
 
     private Property property;
 
-    private IPath path;
+    protected IPath path;
 
     private List<String> errors = new ArrayList<String>();
 
@@ -53,11 +53,11 @@ public class ImportItem {
 
     private boolean imported = false;
 
-    private String label;
+    protected String label;
 
     private IRepositoryViewObject existingItemWithSameId;
 
-    private ERepositoryObjectType repositoryType;
+    protected ERepositoryObjectType repositoryType;
 
     private String itemId;
 
@@ -225,8 +225,8 @@ public class ImportItem {
     public String getLabel(boolean checkVersion) {
         if (label == null && property != null) {
             if (checkVersion) {
-                IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault()
-                        .getService(IBrandingService.class);
+                IBrandingService brandingService = (IBrandingService) GlobalServiceRegister.getDefault().getService(
+                        IBrandingService.class);
                 boolean allowVerchange = brandingService.getBrandingConfiguration().isAllowChengeVersion();
                 if (allowVerchange && property.getItem().isNeedVersion()) {
                     label = property.getLabel() + " " + property.getVersion(); //$NON-NLS-1$

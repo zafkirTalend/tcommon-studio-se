@@ -29,6 +29,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.ui.ITestContainerProviderService;
+import org.talend.repository.items.importexport.handlers.model.EmptyFolderImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 
 /**
@@ -191,17 +192,24 @@ public class ImportNodesBuilder {
                 parentImportNode = standJobImportNode;
 
             }
-            String path = item.getState().getPath();
-            if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
-                parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
-            }
-            ItemImportNode itemNode = new ItemImportNode(itemRecord);
-            parentImportNode.addChild(itemNode);
-            allImportItemNode.add(itemNode);
-            if (children != null) {
-                for (ImportItem childRecord : children) {
-                    ItemImportNode childNode = new ItemImportNode(childRecord);
-                    itemNode.addChild(childNode);
+            if (itemRecord instanceof EmptyFolderImportItem) {
+                IPath path = new Path(item.getState().getPath());
+                path = path.append(itemRecord.getLabel());
+                parentImportNode = findAndCreateFolderNode(typeImportNode, path);
+                parentImportNode.setItemRecord(itemRecord);
+            } else {
+                String path = item.getState().getPath();
+                if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
+                    parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
+                }
+                ItemImportNode itemNode = new ItemImportNode(itemRecord);
+                parentImportNode.addChild(itemNode);
+                allImportItemNode.add(itemNode);
+                if (children != null) {
+                    for (ImportItem childRecord : children) {
+                        ItemImportNode childNode = new ItemImportNode(childRecord);
+                        itemNode.addChild(childNode);
+                    }
                 }
             }
         }
