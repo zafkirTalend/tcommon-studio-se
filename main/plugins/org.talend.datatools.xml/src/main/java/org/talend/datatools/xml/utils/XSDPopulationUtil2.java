@@ -48,11 +48,12 @@ import org.eclipse.xsd.XSDTypeDefinition;
 import org.eclipse.xsd.impl.XSDNamedComponentImpl;
 import org.eclipse.xsd.util.XSDConstants;
 import org.eclipse.xsd.util.XSDResourceImpl;
+import org.talend.core.utils.IXSDPopulationUtil;
 
 /**
  * DOC ycbai class global comment. Detailled comment
  */
-public class XSDPopulationUtil2 {
+public class XSDPopulationUtil2 implements IXSDPopulationUtil {
 
     public static final String CHOICE = "(choice)"; //$NON-NLS-1$
 
@@ -74,9 +75,10 @@ public class XSDPopulationUtil2 {
 
     private Map<XSDElementDeclaration, ATreeNode> particleToTreeNode = new HashMap<XSDElementDeclaration, ATreeNode>();
 
-    ResourceSet resourceSet = new ResourceSetImpl();
+    protected ResourceSet resourceSet;
 
     public XSDPopulationUtil2() {
+        resourceSet = new ResourceSetImpl();
     }
 
     public XSDSchema getXSDSchema(String fileName) throws URISyntaxException, MalformedURLException {
@@ -196,7 +198,7 @@ public class XSDPopulationUtil2 {
         return rootNodes;
     }
 
-    private XSDSchema getXSDSchemaFromNamespace(String namespace) {
+    public XSDSchema getXSDSchemaFromNamespace(String namespace) {
         for (Resource resource : resourceSet.getResources()) {
             if (resource instanceof XSDResourceImpl) {
                 XSDResourceImpl xsdResource = (XSDResourceImpl) resource;
@@ -758,4 +760,14 @@ public class XSDPopulationUtil2 {
     public void setIncludeAbsSubs(boolean includeAbsSubs) {
         this.includeAbsSubs = includeAbsSubs;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.utils.IXSDPopulationUtil#loadWSDL(java.lang.String)
+     */
+    @Override
+    public void loadWSDL(String wsdlFile) throws IOException {
+    }
+
 }
