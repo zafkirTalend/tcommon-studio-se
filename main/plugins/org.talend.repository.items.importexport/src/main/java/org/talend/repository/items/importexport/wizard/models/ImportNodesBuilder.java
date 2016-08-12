@@ -195,12 +195,12 @@ public class ImportNodesBuilder {
             if (itemRecord instanceof EmptyFolderImportItem) {
                 IPath path = new Path(item.getState().getPath());
                 path = path.append(itemRecord.getLabel());
-                parentImportNode = findAndCreateFolderNode(typeImportNode, path);
+                parentImportNode = findAndCreateFolderNode(parentImportNode, path);
                 parentImportNode.setItemRecord(itemRecord);
             } else {
                 String path = item.getState().getPath();
                 if (StringUtils.isNotEmpty(path)) { // if has path, will find the real path node.
-                    parentImportNode = findAndCreateFolderNode(typeImportNode, new Path(path));
+                    parentImportNode = findAndCreateFolderNode(parentImportNode, new Path(path));
                 }
                 ItemImportNode itemNode = new ItemImportNode(itemRecord);
                 parentImportNode.addChild(itemNode);
