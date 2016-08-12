@@ -352,7 +352,7 @@ public class RepositoryNodeUtilities {
         return null;
     }
 
-    private static boolean isSameProject(IRepositoryViewObject repViewObject, RepositoryNode repNode) {
+    private static boolean isSameProject(IRepositoryViewObject repViewObject, IRepositoryNode repNode) {
         String viewObjProjectLabel = repViewObject.getProjectLabel();
         IProjectRepositoryNode projRepNode = repNode.getRoot();
         String repNodeProjectLabel = ""; //$NON-NLS-1$
@@ -387,12 +387,16 @@ public class RepositoryNodeUtilities {
                     folderChild.add(node);
                 } else if (isHadoopClusterNode(node)) {
                     if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
-                        return node;
+                        if (isSameProject(curNode, node)) {
+                            return node;
+                        }
                     } else {
                         folderChild.add(node);
                     }
                 } else if (node.getId().equals(curNode.getId()) && node.getObjectType() == curNode.getRepositoryObjectType()) {
-                    return node;
+                    if (isSameProject(curNode, node)) {
+                        return node;
+                    }
                 } else {
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
                         ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
@@ -400,7 +404,9 @@ public class RepositoryNodeUtilities {
                         if (testContainerService != null) {
                             String originalID = testContainerService.getOriginalID(curNode);
                             if (originalID != null && node.getId().equals(originalID)) {
-                                testCaseFather.add(node);
+                                if (isSameProject(curNode, node)) {
+                                    testCaseFather.add(node);
+                                }
                             }
                         }
                     }
@@ -455,7 +461,9 @@ public class RepositoryNodeUtilities {
 
                 } else if (childNode.getId().equals(curNode.getId())
                         && childNode.getObjectType() == curNode.getRepositoryObjectType()) {
-                    return (RepositoryNode) childNode;
+                    if (isSameProject(curNode, childNode)) {
+                        return (RepositoryNode) childNode;
+                    }
                 }
 
             }
@@ -847,10 +855,8 @@ public class RepositoryNodeUtilities {
         if (needRebuild){
             RelationshipItemBuilder.getInstance().addOrUpdateItem(item, true);
         }
-        List<Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
-                RelationshipItemBuilder.JOB_RELATION);
-        relations.addAll(builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
-                RelationshipItemBuilder.JOBLET_RELATION));
+        List<Relation> relations = builder.getItemsRelatedTo(item.getProperty(), RelationshipItemBuilder.JOB_RELATION);
+        relations.addAll(builder.getItemsRelatedTo(item.getProperty(), RelationshipItemBuilder.JOBLET_RELATION));
         try {
             for (Relation relation : relations) {
                 IRepositoryViewObject obj = null;
@@ -919,7 +925,11 @@ public class RepositoryNodeUtilities {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
         if (object.getRepositoryNode() != null) {
-            List<Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
+            String fullId = factory.getFullId(object);
+            if (fullId == null || fullId.isEmpty()) {
+                fullId = object.getId();
+            }
+            List<Relation> relations = builder.getItemsJobRelatedTo(fullId, object.getVersion(),
                     RelationshipItemBuilder.JOB_RELATION);
             for (Relation relation : relations) {
                 try {

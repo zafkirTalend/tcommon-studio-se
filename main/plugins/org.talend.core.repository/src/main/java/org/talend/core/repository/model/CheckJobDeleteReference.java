@@ -69,7 +69,8 @@ public class CheckJobDeleteReference extends AbstractCheckDeleteItemReference im
                 if (!(item instanceof ProcessItem)) {
                     return list;
                 }
-                List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsHaveRelationWith(property.getId());
+                List<Relation> relations = RelationshipItemBuilder.getInstance()
+                        .getItemsHaveRelationWith(factory.getFullId(property));
                 if (relations.isEmpty()) {
                     return list;
                 }

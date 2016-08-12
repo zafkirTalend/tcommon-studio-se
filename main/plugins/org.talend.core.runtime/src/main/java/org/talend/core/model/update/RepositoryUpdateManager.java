@@ -1342,8 +1342,7 @@ public abstract class RepositoryUpdateManager {
      */
     public static boolean updateDBConnection(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
@@ -1374,7 +1373,7 @@ public abstract class RepositoryUpdateManager {
     public static boolean updateServices(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.SERVICES_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
@@ -1426,7 +1425,7 @@ public abstract class RepositoryUpdateManager {
      * if show is false, will work for context menu action.
      */
     public static boolean updateFileConnection(ConnectionItem connectionItem, boolean show, boolean onlySimpleShow) {
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
@@ -1469,7 +1468,7 @@ public abstract class RepositoryUpdateManager {
     public static boolean updateValidationRuleConnection(ConnectionItem connectionItem, boolean show, boolean onlySimpleShow) {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.VALIDATION_RULE_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
@@ -1741,7 +1740,7 @@ public abstract class RepositoryUpdateManager {
             Map<String, EUpdateResult> deletedOrReselectTablesMap, boolean show, boolean onlySimpleShow) {
 
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo((connItem).getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connItem.getProperty(),
                 ItemCacheManager.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
         /*
@@ -1750,7 +1749,8 @@ public abstract class RepositoryUpdateManager {
          * RelationshipItemBuilder.PROPERTY_RELATION,it can't find
          */
         if (connItem instanceof GenericSchemaConnectionItem) {
-            String id = (connItem).getProperty().getId();
+            IProxyRepositoryFactory repFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+            String id = repFactory.getFullId(connItem.getProperty());
             if (table instanceof MetadataTable) {
                 id = id + " - " + ((MetadataTable) table).getLabel();
             }
@@ -1822,7 +1822,7 @@ public abstract class RepositoryUpdateManager {
     public static boolean updateWSDLConnection(ConnectionItem connectionItem, boolean show, final boolean onlySimpleShow) {
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connectionItem.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(connectionItem, relations) {
@@ -1997,7 +1997,7 @@ public abstract class RepositoryUpdateManager {
             boolean show, boolean onlySimpleShow) {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         List<IRepositoryViewObject> updateList = new ArrayList<IRepositoryViewObject>();
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo((connItem).getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(connItem.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.PROPERTY_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(table, relations) {
@@ -2081,9 +2081,8 @@ public abstract class RepositoryUpdateManager {
         Item item = node.getObject().getProperty().getItem();
         List<Relation> relations = null;
         if (parameter instanceof Query) {
-            String id = item.getProperty().getId();
-            relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(id, RelationshipItemBuilder.LATEST_VERSION,
-                    RelationshipItemBuilder.QUERY_RELATION);
+            relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty(),
+                    RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.QUERY_RELATION);
         }
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(parameter, relations) {
@@ -2126,7 +2125,7 @@ public abstract class RepositoryUpdateManager {
 
     private static boolean updateContext(JobContextManager repositoryContextManager, ContextItem item, boolean show,
             boolean onlySimpleShow) {
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.CONTEXT_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, relations) {
@@ -2269,7 +2268,7 @@ public abstract class RepositoryUpdateManager {
     }
 
     public static boolean updateJoblet(JobletProcessItem item, boolean show, boolean onlySimpleShow) {
-        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty().getId(),
+        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(item.getProperty(),
                 RelationshipItemBuilder.LATEST_VERSION, RelationshipItemBuilder.JOBLET_RELATION);
 
         RepositoryUpdateManager repositoryUpdateManager = new RepositoryUpdateManager(item, relations) {

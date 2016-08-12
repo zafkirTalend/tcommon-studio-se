@@ -2342,6 +2342,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public String getProjectLabelFromItemId(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
         /**
          * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
          */
@@ -2353,6 +2356,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
     }
 
     public Project getProjectFromItemId(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
         Project project = null;
         String projectLabel = getProjectLabelFromItemId(itemId);
         if (projectLabel != null && !projectLabel.trim().isEmpty()) {
@@ -2371,6 +2377,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public String getPureItemId(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
         /**
          * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
          */
@@ -2380,12 +2389,24 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public String generateFullId(String projectLabel, String pureItemId) {
+        if (pureItemId == null) {
+            return null;
+        }
+        if (projectLabel == null || projectLabel.isEmpty()) {
+            return pureItemId;
+        }
         return projectLabel + getProjectItemIdSeperator() + pureItemId;
     }
 
     @Override
     public String getFullId(IRepositoryViewObject repViewObject) {
+        if (repViewObject == null) {
+            return null;
+        }
         Property property = repViewObject.getProperty();
+        if (property == null) {
+            return null;
+        }
         org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
         String projectLabel = project.getLabel();
 
@@ -2397,6 +2418,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public String getFullId(Property property) {
+        if (property == null) {
+            return null;
+        }
         org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
         return generateFullId(project.getLabel(), property.getId());
     }

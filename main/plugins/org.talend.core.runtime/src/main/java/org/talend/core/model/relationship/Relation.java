@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.core.model.relationship;
 
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.model.IProxyRepositoryFactory;
+
 /**
  * DOC ggu class global comment. Detailled comment
  */
@@ -69,7 +72,31 @@ public class Relation implements Cloneable {
             if (other.id != null) {
                 return false;
             }
-        } else if (!id.equals(other.id)) {
+        }
+        if (other.id == null) {
+            return false;
+        }
+
+        /**
+         * Make sure the new id is compatible with the old project
+         */
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        boolean isSelfFullId = true;
+        if (factory.getProjectLabelFromItemId(id) == null) {
+            isSelfFullId = false;
+        }
+        boolean isOtherFullId = true;
+        if (factory.getProjectLabelFromItemId(other.id) == null) {
+            isOtherFullId = false;
+        }
+        boolean isIdEqual = false;
+        if (isSelfFullId && isOtherFullId) {
+            isIdEqual = id.equals(other.id);
+        } else {
+            isIdEqual = factory.getPureItemId(id).equals(factory.getPureItemId(other.id));
+        }
+
+        if (!isIdEqual) {
             return false;
         }
         if (type == null) {

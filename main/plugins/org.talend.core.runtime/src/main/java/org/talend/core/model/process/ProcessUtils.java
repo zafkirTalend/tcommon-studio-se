@@ -180,11 +180,9 @@ public final class ProcessUtils {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
 
-        List<Relation> relations = builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
-                RelationshipItemBuilder.JOB_RELATION);
+        List<Relation> relations = builder.getItemsRelatedTo(item.getProperty(), RelationshipItemBuilder.JOB_RELATION);
         // TDQ-12325 should contain joblet related dependencies.
-        relations.addAll(builder.getItemsRelatedTo(item.getProperty().getId(), item.getProperty().getVersion(),
-                RelationshipItemBuilder.JOBLET_RELATION));
+        relations.addAll(builder.getItemsRelatedTo(item.getProperty(), RelationshipItemBuilder.JOBLET_RELATION));
         for (Relation relation : relations) {
             IRepositoryViewObject obj = null;
             try {
@@ -281,7 +279,11 @@ public final class ProcessUtils {
     private static void checkAllVerSionLatest(List<IRepositoryViewObject> repositoryObjects, IRepositoryViewObject object) {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
-        List<Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
+        String fullId = factory.getFullId(object);
+        if (fullId == null || fullId.isEmpty()) {
+            fullId = object.getId();
+        }
+        List<Relation> relations = builder.getItemsJobRelatedTo(fullId, object.getVersion(),
                 RelationshipItemBuilder.JOB_RELATION);
         for (Relation relation : relations) {
             try {
