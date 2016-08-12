@@ -27,9 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import metadata.managment.i18n.Messages;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -59,6 +56,7 @@ import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.JavaSqlFactory;
 import org.talend.core.model.metadata.builder.database.PluginConstant;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
+import org.talend.core.model.metadata.builder.database.manager.ExtractManager;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.TalendCWMService;
 import org.talend.core.utils.TalendQuoteUtils;
@@ -89,6 +87,8 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
+
+import metadata.managment.i18n.Messages;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -1393,133 +1393,138 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
-                String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
-                TdColumn column = ColumnHelper.createTdColumn(columnName);
 
-                String label = column.getLabel();
-                label = ManagementTextUtils.filterSpecialChar(label);
-                String label2 = label;
-                ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
-                if (coreService != null && coreService.isKeyword(label)) {
-                    label = "_" + label; //$NON-NLS-1$
-                }
+                String fetchTableName = extractMeta.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
+                fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName);
+                if (fetchTableName.equals(tablePattern)) {
+                    String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
+                    TdColumn column = ColumnHelper.createTdColumn(columnName);
 
-                label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
-                column.setLabel(label);
-                column.setOriginalField(label2);
-
-                int dataType = 0;
-
-                if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
-                    dataType = getIntFromResultSet(columns, GetColumn.DATA_TYPE.name());
-                }
-                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
-                // data type it is null and results in a NPE
-                typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
-                typeName = typeName.toUpperCase().trim();
-                typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
-                    typeName = "TIMESTAMP"; //$NON-NLS-1$
-                }
-                typeName = MetadataToolHelper.validateValueForDBType(typeName);
-                String pattern = null;
-                if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
-                    if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
-                        dataType = 91;
-                        pattern = TalendQuoteUtils.addQuotes("dd-MM-yyyy");
-                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                        // the sql
-                        // data type it is null and results in a NPE
-                    } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
-                        dataType = 92;
-                        pattern = TalendQuoteUtils.addQuotes("HH:mm:ss");
-                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
-                        // the sql
-                        // data type it is null and results in a NPE
+                    String label = column.getLabel();
+                    label = ManagementTextUtils.filterSpecialChar(label);
+                    String label2 = label;
+                    ICoreService coreService = CoreRuntimePlugin.getInstance().getCoreService();
+                    if (coreService != null && coreService.isKeyword(label)) {
+                        label = "_" + label; //$NON-NLS-1$
                     }
-                }
-                try {
-                    int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
-                    column.setLength(column_size);
-                    decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
-                    column.setPrecision(decimalDigits);
-                    // Teradata SQL Mode no need this column
-                    if (!MetadataConnectionUtils.isTeradataSQLMode(iMetadataConnection)) {
-                        numPrecRadix = getIntFromResultSet(columns, GetColumn.NUM_PREC_RADIX.name());
+
+                    label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
+                    column.setLabel(label);
+                    column.setOriginalField(label2);
+
+                    int dataType = 0;
+
+                    if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
+                        dataType = getIntFromResultSet(columns, GetColumn.DATA_TYPE.name());
                     }
-                } catch (Exception e1) {
-                    log.warn(e1, e1);
-                }
-
-                // SqlDataType
-                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
-                        numPrecRadix);
-                column.setSqlDataType(sqlDataType);
-                if (pattern != null) {
-                    column.setPattern(pattern);
-                }
-
-                // Null able
-                if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
-                    int nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
-                    column.getSqlDataType().setNullable(NullableType.get(nullable));
-                }
-                // Default value
-                String defaultValue = getStringFromResultSet(columns, GetColumn.COLUMN_DEF.name());
-
-                // TdExpression
-                Object defaultValueObject = null;
-                try {
-                    defaultValueObject = columns.getObject(GetColumn.COLUMN_DEF.name());
-                } catch (Exception e1) {
-                    log.warn(e1, e1);
-                }
-                String defaultStr = (defaultValueObject != null) ? String.valueOf(defaultValueObject) : defaultValue;
-                defaultStr = ManagementTextUtils.filterSpecialChar(defaultStr);
-                TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
-                column.setInitialValue(defExpression);
-
-                DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
-                String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
-                if (dbmsId != null) {
-                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
-                    if (mappingTypeRetriever == null) {
-                        @SuppressWarnings("null")
-                        EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbConnection.getDatabaseType(), false);
-                        if (dbType != null) {
-                            mappingTypeRetriever = MetadataTalendType.getMappingTypeRetrieverByProduct(dbType.getProduct());
+                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
+                    // data type it is null and results in a NPE
+                    typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
+                    typeName = typeName.toUpperCase().trim();
+                    typeName = ManagementTextUtils.filterSpecialChar(typeName);
+                    if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$
+                        typeName = "TIMESTAMP"; //$NON-NLS-1$
+                    }
+                    typeName = MetadataToolHelper.validateValueForDBType(typeName);
+                    String pattern = null;
+                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
+                        if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
+                            dataType = 91;
+                            pattern = TalendQuoteUtils.addQuotes("dd-MM-yyyy");
+                            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
+                            // the sql
+                            // data type it is null and results in a NPE
+                        } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
+                            dataType = 92;
+                            pattern = TalendQuoteUtils.addQuotes("HH:mm:ss");
+                            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously
+                            // the sql
+                            // data type it is null and results in a NPE
                         }
                     }
-                    if (mappingTypeRetriever != null) {
-                        String talendType = mappingTypeRetriever
-                                .getDefaultSelectedTalendType(
-                                        typeName,
-                                        extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                                        "DECIMAL_DIGITS")); //$NON-NLS-1$
-                        column.setTalendType(talendType);
-                        String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
-                        column.setSourceType(defaultSelectedDbType);
+                    try {
+                        int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
+                        column.setLength(column_size);
+                        decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
+                        column.setPrecision(decimalDigits);
+                        // Teradata SQL Mode no need this column
+                        if (!MetadataConnectionUtils.isTeradataSQLMode(iMetadataConnection)) {
+                            numPrecRadix = getIntFromResultSet(columns, GetColumn.NUM_PREC_RADIX.name());
+                        }
+                    } catch (Exception e1) {
+                        log.warn(e1, e1);
                     }
-                }
-                try {
-                    column.setNullable("YES".equals(getStringFromResultSet(columns, GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
-                } catch (Exception e) {
-                    // do nothing
-                }
 
-                // Comment, getColumnComment() method should be called at the end of this loop, because if the database
-                // type is oracle 12c, when call this method will close the stream of the columns ResultSet which create
-                // by dbJDBCMetadata.getColumns()
-                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
-                colComment = ManagementTextUtils.filterSpecialChar(colComment);
-                column.setComment(colComment);
-                ColumnHelper.setComment(colComment, column);
+                    // SqlDataType
+                    TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
+                            numPrecRadix);
+                    column.setSqlDataType(sqlDataType);
+                    if (pattern != null) {
+                        column.setPattern(pattern);
+                    }
 
-                extractMeta.handleDefaultValue(column, dbJDBCMetadata);
-                returnColumns.add(column);
-                columnLabels.add(column.getLabel());
-                columnMap.put(columnName, column);
-                index++;
+                    // Null able
+                    if (!extractMeta.needFakeDatabaseMetaData(iMetadataConnection)) {
+                        int nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
+                        column.getSqlDataType().setNullable(NullableType.get(nullable));
+                    }
+                    // Default value
+                    String defaultValue = getStringFromResultSet(columns, GetColumn.COLUMN_DEF.name());
+
+                    // TdExpression
+                    Object defaultValueObject = null;
+                    try {
+                        defaultValueObject = columns.getObject(GetColumn.COLUMN_DEF.name());
+                    } catch (Exception e1) {
+                        log.warn(e1, e1);
+                    }
+                    String defaultStr = (defaultValueObject != null) ? String.valueOf(defaultValueObject) : defaultValue;
+                    defaultStr = ManagementTextUtils.filterSpecialChar(defaultStr);
+                    TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
+                    column.setInitialValue(defExpression);
+
+                    DatabaseConnection dbConnection = (DatabaseConnection) ConnectionHelper.getConnection(colSet);
+                    String dbmsId = dbConnection == null ? null : dbConnection.getDbmsId();
+                    if (dbmsId != null) {
+                        MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbmsId);
+                        if (mappingTypeRetriever == null) {
+                            @SuppressWarnings("null")
+                            EDatabaseTypeName dbType = EDatabaseTypeName.getTypeFromDbType(dbConnection.getDatabaseType(), false);
+                            if (dbType != null) {
+                                mappingTypeRetriever = MetadataTalendType.getMappingTypeRetrieverByProduct(dbType.getProduct());
+                            }
+                        }
+                        if (mappingTypeRetriever != null) {
+                            String talendType = mappingTypeRetriever
+                                    .getDefaultSelectedTalendType(
+                                            typeName,
+                                            extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                                            "DECIMAL_DIGITS")); //$NON-NLS-1$
+                            column.setTalendType(talendType);
+                            String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
+                            column.setSourceType(defaultSelectedDbType);
+                        }
+                    }
+                    try {
+                        column.setNullable("YES".equals(getStringFromResultSet(columns, GetColumn.IS_NULLABLE.name()))); //$NON-NLS-1$
+                    } catch (Exception e) {
+                        // do nothing
+                    }
+
+                    // Comment, getColumnComment() method should be called at the end of this loop, because if the database
+                    // type is oracle 12c, when call this method will close the stream of the columns ResultSet which create
+                    // by dbJDBCMetadata.getColumns()
+                    String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
+                    colComment = ManagementTextUtils.filterSpecialChar(colComment);
+                    column.setComment(colComment);
+                    ColumnHelper.setComment(colComment, column);
+
+                    extractMeta.handleDefaultValue(column, dbJDBCMetadata);
+                    returnColumns.add(column);
+                    columnLabels.add(column.getLabel());
+                    columnMap.put(columnName, column);
+                    index++;
+                }
             }
             columns.close();
             if (isLinked()) {
@@ -1580,121 +1585,126 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
-                String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
-                TdColumn column = ColumnHelper.createTdColumn(columnName);
 
-                int dataType = 0;
-                try {
-                    // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the
-                    // sql
-                    // data type it is null and results in a NPE
-                    typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
-                    typeName = typeName.toUpperCase().trim();
-                    typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                    if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
-                        typeName = "TIMESTAMP"; //$NON-NLS-1$
-                    }
-                    typeName = MetadataToolHelper.validateValueForDBType(typeName);
-                    if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata) {
-                        // MOD klliu bug TDQ-1164 2011-09-26
-                        dataType = Java2SqlType.getJavaTypeBySqlType(typeName);
-                        decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
-                        // ~
-                    } else if (dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
-                        // dataType = columns.getInt(GetColumn.TYPE_NAME.name());
-                        dataType = Java2SqlType.getTeradataJavaTypeBySqlTypeAsInt(typeName);
-                        typeName = Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
-                    } else {
-                        dataType = getIntFromResultSet(columns, GetColumn.DATA_TYPE.name());
-                        if (!isOdbcTeradata) {
-                            numPrecRadix = getIntFromResultSet(columns, GetColumn.NUM_PREC_RADIX.name());
+                String fetchTableName = extractMeta.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
+                fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName);
+                if (fetchTableName.equals(tablePattern)) {
+                    String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
+                    TdColumn column = ColumnHelper.createTdColumn(columnName);
+
+                    int dataType = 0;
+                    try {
+                        // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the
+                        // sql
+                        // data type it is null and results in a NPE
+                        typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
+                        typeName = typeName.toUpperCase().trim();
+                        typeName = ManagementTextUtils.filterSpecialChar(typeName);
+                        if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$
+                            typeName = "TIMESTAMP"; //$NON-NLS-1$
+                        }
+                        typeName = MetadataToolHelper.validateValueForDBType(typeName);
+                        if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata) {
+                            // MOD klliu bug TDQ-1164 2011-09-26
+                            dataType = Java2SqlType.getJavaTypeBySqlType(typeName);
                             decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
+                            // ~
+                        } else if (dbJDBCMetadata instanceof TeradataDataBaseMetadata) {
+                            // dataType = columns.getInt(GetColumn.TYPE_NAME.name());
+                            dataType = Java2SqlType.getTeradataJavaTypeBySqlTypeAsInt(typeName);
+                            typeName = Java2SqlType.getTeradataJavaTypeBySqlTypeAsString(typeName);
+                        } else {
+                            dataType = getIntFromResultSet(columns, GetColumn.DATA_TYPE.name());
+                            if (!isOdbcTeradata) {
+                                numPrecRadix = getIntFromResultSet(columns, GetColumn.NUM_PREC_RADIX.name());
+                                decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
+                            }
                         }
-                    }
-                    if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
-                        if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
-                            dataType = 91;
-                            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
-                            // obviously
-                            // the sql
-                            // data type it is null and results in a NPE
-                        } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
-                            dataType = 92;
-                            // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
-                            // obviously
-                            // the sql
-                            // data type it is null and results in a NPE
+                        if (MetadataConnectionUtils.isMssql(dbJDBCMetadata)) {
+                            if (typeName.toLowerCase().equals("date")) { //$NON-NLS-1$
+                                dataType = 91;
+                                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
+                                // obviously
+                                // the sql
+                                // data type it is null and results in a NPE
+                            } else if (typeName.toLowerCase().equals("time")) { //$NON-NLS-1$
+                                dataType = 92;
+                                // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because
+                                // obviously
+                                // the sql
+                                // data type it is null and results in a NPE
+                            }
                         }
+
+                        if (!isOdbcTeradata) {
+                            int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
+                            column.setLength(column_size);
+                        }
+
+                    } catch (Exception e1) {
+                        log.warn(e1, e1);
                     }
 
-                    if (!isOdbcTeradata) {
-                        int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
-                        column.setLength(column_size);
+                    // SqlDataType
+                    TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
+                            numPrecRadix);
+                    column.setSqlDataType(sqlDataType);
+
+                    // Null able
+                    int nullable = 0;
+                    if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata
+                            || dbJDBCMetadata instanceof EmbeddedHiveDataBaseMetadata) {
+                        String isNullable = getStringFromResultSet(columns, "IS_NULLABLE");//$NON-NLS-1$
+                        if (!isNullable.equals("Y")) { //$NON-NLS-1$
+                            nullable = 1;
+                        }
+                    } else {
+                        nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
+                    }
+                    column.getSqlDataType().setNullable(NullableType.get(nullable));
+
+                    // TdExpression
+                    Object defaultvalue = null;
+                    try {
+                        if (!isOdbcTeradata) {
+                            defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
+                        }
+                    } catch (Exception e1) {
+                        log.warn(e1, e1);
+                    }
+                    String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
+                    TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
+                    column.setInitialValue(defExpression);
+                    extractMeta.handleDefaultValue(column, dbJDBCMetadata);
+
+                    if (mappingTypeRetriever != null) {
+                        String talendType = mappingTypeRetriever
+                                .getDefaultSelectedTalendType(
+                                        typeName,
+                                        extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
+                                                "DECIMAL_DIGITS")); //$NON-NLS-1$
+                        column.setTalendType(talendType);
+                        String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
+                        column.setSourceType(defaultSelectedDbType);
                     }
 
-                } catch (Exception e1) {
-                    log.warn(e1, e1);
-                }
+                    // Comment
+                    // MOD msjian TDQ-8546: fix the oracle type database column's comment is wrong
+                    // getColumnComment() method should be called at the end of this loop, because if the database type is
+                    // oracle 12c, when call this method will close the stream of the columns ResultSet which create by
+                    // dbJDBCMetadata.getColumns()
+                    String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
+                    ColumnHelper.setComment(colComment, column);
 
-                // SqlDataType
-                TdSqlDataType sqlDataType = MetadataConnectionUtils.createDataType(dataType, typeName, decimalDigits,
-                        numPrecRadix);
-                column.setSqlDataType(sqlDataType);
-
-                // Null able
-                int nullable = 0;
-                if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata
-                        || dbJDBCMetadata instanceof EmbeddedHiveDataBaseMetadata) {
-                    String isNullable = getStringFromResultSet(columns, "IS_NULLABLE");//$NON-NLS-1$
-                    if (!isNullable.equals("Y")) { //$NON-NLS-1$ 
-                        nullable = 1;
+                    try {
+                        column.setNullable(nullable == 1);
+                    } catch (Exception e) {
+                        // do nothing
                     }
-                } else {
-                    nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
+
+                    returnColumns.add(column);
+                    columnMap.put(columnName, column);
                 }
-                column.getSqlDataType().setNullable(NullableType.get(nullable));
-
-                // TdExpression
-                Object defaultvalue = null;
-                try {
-                    if (!isOdbcTeradata) {
-                        defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
-                    }
-                } catch (Exception e1) {
-                    log.warn(e1, e1);
-                }
-                String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
-                TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
-                column.setInitialValue(defExpression);
-                extractMeta.handleDefaultValue(column, dbJDBCMetadata);
-
-                if (mappingTypeRetriever != null) {
-                    String talendType = mappingTypeRetriever
-                            .getDefaultSelectedTalendType(
-                                    typeName,
-                                    extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                                            "DECIMAL_DIGITS")); //$NON-NLS-1$
-                    column.setTalendType(talendType);
-                    String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
-                    column.setSourceType(defaultSelectedDbType);
-                }
-
-                // Comment
-                // MOD msjian TDQ-8546: fix the oracle type database column's comment is wrong
-                // getColumnComment() method should be called at the end of this loop, because if the database type is
-                // oracle 12c, when call this method will close the stream of the columns ResultSet which create by
-                // dbJDBCMetadata.getColumns()
-                String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
-                ColumnHelper.setComment(colComment, column);
-
-                try {
-                    column.setNullable(nullable == 1);
-                } catch (Exception e) {
-                    // do nothing
-                }
-
-                returnColumns.add(column);
-                columnMap.put(columnName, column);
             }
             columns.close();
             if (isLinked()) {
