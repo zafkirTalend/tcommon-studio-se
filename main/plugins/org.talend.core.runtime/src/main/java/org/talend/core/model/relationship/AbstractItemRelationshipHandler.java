@@ -18,11 +18,22 @@ import java.util.Map;
 import java.util.Set;
 
 import org.talend.core.model.properties.Item;
+import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public abstract class AbstractItemRelationshipHandler implements IItemRelationshipHandler {
+
+    private static IProxyRepositoryFactory repFactory;
+
+    protected IProxyRepositoryFactory getProxyRepositoryFactory() {
+        if (repFactory == null) {
+            repFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        }
+        return repFactory;
+    }
 
     /**
      * If not valid, no relations to return
@@ -56,7 +67,7 @@ public abstract class AbstractItemRelationshipHandler implements IItemRelationsh
             Map<Relation, Set<Relation>> relationsMap = new HashMap<Relation, Set<Relation>>();
 
             Relation relation = new Relation();
-            relation.setId(baseItem.getProperty().getId());
+            relation.setId(getProxyRepositoryFactory().getFullId(baseItem.getProperty()));
             relation.setType(getBaseItemType(baseItem));
             relation.setVersion(baseItem.getProperty().getVersion());
             relationsMap.put(relation, collections);

@@ -23,6 +23,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IProxyRepositoryService;
@@ -48,7 +49,7 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
     }
 
     public Folder(Property property, ERepositoryObjectType type) {
-        super(property.getId(), property.getLabel());
+        super(CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getFullId(property), property.getLabel());
         FolderItem folderItem = PropertiesFactory.eINSTANCE.createFolderItem();
         folderItem.setProperty(super.getProperty());
         super.getProperty().setItem(folderItem);

@@ -424,4 +424,10 @@ public interface IRepositoryFactory {
     public JSONArray getAllRemoteLocks();
 
     public void loadProjectAndSetContext(IProject eclipseProject) throws PersistenceException;
+
+    public String getProjectItemIdSeperator();
+
+    public String getPureItemId(String itemId);
+
+    public String getProjectLabelFromItemId(String itemId);
 }

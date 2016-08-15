@@ -925,11 +925,7 @@ public class RepositoryNodeUtilities {
         IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RelationshipItemBuilder builder = RelationshipItemBuilder.getInstance();
         if (object.getRepositoryNode() != null) {
-            String fullId = factory.getFullId(object);
-            if (fullId == null || fullId.isEmpty()) {
-                fullId = object.getId();
-            }
-            List<Relation> relations = builder.getItemsJobRelatedTo(fullId, object.getVersion(),
+            List<Relation> relations = builder.getItemsJobRelatedTo(object.getId(), object.getVersion(),
                     RelationshipItemBuilder.JOB_RELATION);
             for (Relation relation : relations) {
                 try {

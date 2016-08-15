@@ -37,6 +37,7 @@ import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.cwm.helper.ConnectionHelper;
 import org.talend.cwm.helper.PackageHelper;
 import org.talend.repository.ProjectManager;
@@ -126,7 +127,7 @@ public class RepositoryObject implements IRepositoryObject {
 
     @Override
     public String getId() {
-        return this.property.getId();
+        return CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getFullId(this.property);
     }
 
     @Override
@@ -216,13 +217,14 @@ public class RepositoryObject implements IRepositoryObject {
 
     @SuppressWarnings("unchecked")
     public RepositoryObject cloneNewObject() {
+        IProxyRepositoryFactory repFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         RepositoryObject object = new RepositoryObject();
         try {
             Property connectionProperty = PropertiesFactory.eINSTANCE.createProperty();
             connectionProperty.setAuthor(getAuthor());
             connectionProperty.setCreationDate(getCreationDate());
             connectionProperty.setDescription(getDescription());
-            connectionProperty.setId(getId());
+            connectionProperty.setId(repFactory.getPureItemId(getId()));
             connectionProperty.setLabel(getLabel());
             connectionProperty.setDisplayName(getDisplayName());
             connectionProperty.setModificationDate(getModificationDate());

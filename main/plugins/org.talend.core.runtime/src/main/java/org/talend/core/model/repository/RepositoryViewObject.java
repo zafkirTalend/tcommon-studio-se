@@ -52,6 +52,7 @@ import org.talend.core.model.properties.LinkDocumentationItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.images.RepositoryImageProvider;
 import org.talend.cwm.helper.ConnectionHelper;
@@ -120,7 +121,8 @@ public class RepositoryViewObject implements IRepositoryViewObject {
     private boolean avoidGuiInfos;
 
     public RepositoryViewObject(Property property, boolean avoidGuiInfos) {
-        this.id = property.getId();
+        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        this.id = factory.getFullId(property);
         this.author = property.getAuthor();
         this.creationDate = property.getCreationDate();
         this.description = property.getDescription();
@@ -142,15 +144,11 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             setFramework(null);
         }
 
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IProxyRepositoryService.class)) {
-            IProxyRepositoryService service = (IProxyRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IProxyRepositoryService.class);
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            repositoryStatus = factory.getStatus(property.getItem());
-            InformationLevel informationLevel = property.getMaxInformationLevel();
-            informationStatus = factory.getStatus(informationLevel);
-            modified = factory.isModified(property);
-        }
+        repositoryStatus = factory.getStatus(property.getItem());
+        InformationLevel informationLevel = property.getMaxInformationLevel();
+        informationStatus = factory.getStatus(informationLevel);
+        modified = factory.isModified(property);
+
         this.avoidGuiInfos = avoidGuiInfos;
         if (!avoidGuiInfos) {
             if (type == ERepositoryObjectType.JOBLET) {
@@ -311,7 +309,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
             this.customImage = null;
             Property property = object.getProperty();
             modified = factory.isModified(property);
-            this.id = property.getId();
+            this.id = factory.getFullId(property);
             this.author = property.getAuthor();
             this.creationDate = property.getCreationDate();
             this.description = property.getDescription();
@@ -352,7 +350,7 @@ public class RepositoryViewObject implements IRepositoryViewObject {
                         if (component != null) {
                             try {
                                 Property tProperty = jobletservice.getJobletComponentItem(component);
-                                if (!tProperty.getId().equals(this.id)) {
+                                if (!factory.getFullId(tProperty).equals(this.id)) {
                                     informationStatus = ERepositoryStatus.WARN;
                                     property.setDescription(TIP);
                                 }
@@ -418,12 +416,13 @@ public class RepositoryViewObject implements IRepositoryViewObject {
 
     public RepositoryViewObject cloneNewObject() {
         RepositoryViewObject object = null;
+        IProxyRepositoryFactory repFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
         try {
             Property connectionProperty = PropertiesFactory.eINSTANCE.createProperty();
             connectionProperty.setAuthor(getAuthor());
             connectionProperty.setCreationDate(getCreationDate());
             connectionProperty.setDescription(getDescription());
-            connectionProperty.setId(getId());
+            connectionProperty.setId(repFactory.getPureItemId(getId()));
             connectionProperty.setLabel(getLabel());
             connectionProperty.setModificationDate(getModificationDate());
             connectionProperty.setPurpose(getPurpose());

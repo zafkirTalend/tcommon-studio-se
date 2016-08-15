@@ -2334,7 +2334,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public String getProjectItemIdSeperator() {
-        return " / "; //$NON-NLS-1$
+        return repositoryFactoryFromProvider.getProjectItemIdSeperator();
     }
 
     /**
@@ -2342,17 +2342,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public String getProjectLabelFromItemId(String itemId) {
-        if (itemId == null) {
-            return null;
-        }
-        /**
-         * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
-         */
-        String[] projectItemId = itemId.split(getProjectItemIdSeperator());
-        if (1 < projectItemId.length) {
-            return projectItemId[0];
-        }
-        return null;
+        return repositoryFactoryFromProvider.getProjectLabelFromItemId(itemId);
     }
 
     public Project getProjectFromItemId(String itemId) {
@@ -2377,14 +2367,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
      */
     @Override
     public String getPureItemId(String itemId) {
-        if (itemId == null) {
-            return null;
-        }
-        /**
-         * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
-         */
-        String[] projectItemId = itemId.split(getProjectItemIdSeperator());
-        return projectItemId[projectItemId.length - 1];
+        return repositoryFactoryFromProvider.getPureItemId(itemId);
     }
 
     @Override
@@ -2394,6 +2377,12 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
         if (projectLabel == null || projectLabel.isEmpty()) {
             return pureItemId;
+        }
+        String oldProjectLabel = getProjectLabelFromItemId(pureItemId);
+        if (oldProjectLabel != null) {
+            pureItemId = getPureItemId(pureItemId);
+            org.talend.commons.exception.ExceptionHandler.process(
+                    new Exception("Project in id is changed: " + oldProjectLabel + " -> " + projectLabel), Priority.WARN); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return projectLabel + getProjectItemIdSeperator() + pureItemId;
     }
@@ -2421,7 +2410,15 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         if (property == null) {
             return null;
         }
+        String projectLabel = null;
         org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
-        return generateFullId(project.getLabel(), property.getId());
+        if (project == null) {
+            projectLabel = ProjectManager.getInstance().getCurrentProject().getLabel();
+            org.talend.commons.exception.ExceptionHandler
+                    .process(new Exception("Can't get project for property: " + property.toString()), Priority.WARN); //$NON-NLS-1$
+        } else {
+            projectLabel = project.getLabel();
+        }
+        return generateFullId(projectLabel, property.getId());
     }
 }

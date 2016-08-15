@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Priority;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -166,18 +167,28 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         lastRepositoryTypeForItemMap.put(id, itemType);
     }
 
-    protected List<IRepositoryViewObject> getSerializable(Project project, String id, boolean allVersion, boolean avoidSaveProject)
-            throws PersistenceException {
+    protected List<IRepositoryViewObject> getSerializable(Project project, String id, boolean allVersion,
+            boolean avoidSaveProject) throws PersistenceException {
         List<IRepositoryViewObject> toReturn = new ArrayList<IRepositoryViewObject>();
+        String pureId = getPureItemId(id);
+        String projectLabel = getProjectLabelFromItemId(id);
+        if (projectLabel != null && !projectLabel.isEmpty() && project != null) {
+            String passinProjectLabel = project.getLabel();
+            if (passinProjectLabel != null && !passinProjectLabel.isEmpty() && !passinProjectLabel.equals(projectLabel)) {
+                org.talend.commons.exception.ExceptionHandler
+                        .process(new Exception("Project retrieved from id is different with the input one: " + projectLabel + "<>" //$NON-NLS-1$ //$NON-NLS-2$
+                                + passinProjectLabel), Priority.WARN);
+            }
+        }
 
-        if (lastFolderForItemMap.containsKey(id)) {
-            ERepositoryObjectType itemType = lastRepositoryTypeForItemMap.get(id);
-            String currentPath = lastFolderForItemMap.get(id);
+        if (lastFolderForItemMap.containsKey(pureId)) {
+            ERepositoryObjectType itemType = lastRepositoryTypeForItemMap.get(pureId);
+            String currentPath = lastFolderForItemMap.get(pureId);
             Object fullFolder = getFullFolder(project, itemType, currentPath);
 
             try {
                 if (fullFolder != null && (fullFolder instanceof FolderItem || ((IFolder) fullFolder).exists())) {
-                    List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, fullFolder, id, itemType,
+                    List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, fullFolder, pureId, itemType,
                             allVersion, false, true, avoidSaveProject);
                     if (!itemsFound.isEmpty()) { // add for items in recycle-bin
                         toReturn.addAll(itemsFound);
@@ -197,10 +208,10 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             }
             Object folder = getFolder(project, repositoryObjectType);
             if (folder != null) {
-                List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, folder, id, repositoryObjectType,
+                List<IRepositoryViewObject> itemsFound = getSerializableFromFolder(project, folder, pureId, repositoryObjectType,
                         allVersion, true, true, avoidSaveProject);
                 if (!itemsFound.isEmpty()) {
-                    addToHistory(id, repositoryObjectType, itemsFound.get(0).getProperty().getItem().getState().getPath());
+                    addToHistory(pureId, repositoryObjectType, itemsFound.get(0).getProperty().getItem().getState().getPath());
                     toReturn.addAll(itemsFound);
                     // all items from the same id are always in the same folder
                     // as we shouldn't find any other item with the same id in another folder.
@@ -1028,5 +1039,37 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
     @Override
     public void afterLogon() {
         // do nothing by default
+    }
+
+    @Override
+    public String getProjectItemIdSeperator() {
+        return " / "; //$NON-NLS-1$
+    }
+
+    @Override
+    public String getPureItemId(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
+        /**
+         * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
+         */
+        String[] projectItemId = itemId.split(getProjectItemIdSeperator());
+        return projectItemId[projectItemId.length - 1];
+    }
+
+    @Override
+    public String getProjectLabelFromItemId(String itemId) {
+        if (itemId == null) {
+            return null;
+        }
+        /**
+         * id would be like this: PROJECT_NAME/<item id>, so try to split it firstly
+         */
+        String[] projectItemId = itemId.split(getProjectItemIdSeperator());
+        if (1 < projectItemId.length) {
+            return projectItemId[0];
+        }
+        return null;
     }
 }

@@ -104,6 +104,7 @@ import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -334,6 +335,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
      * check the item is valid or not。
      */
     public boolean checkItem(ResourcesManager resManager, ImportItem importItem, boolean overwrite) {
+        IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         try {
             Item item = importItem.getItem();
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(item);
@@ -385,7 +387,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                             isSameRepositoryType = false;
                         }
                     }
-                    if (property.getId() != null && property.getId().equals(current.getId())) {
+                    if (property.getId() != null && property.getId().equals(repFactory.getPureItemId(current.getId()))) {
                         itemWithSameIdObj = current;
                     }
                 }
