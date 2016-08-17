@@ -55,12 +55,16 @@ public class IODataComponentContainer {
 
     public IODataComponent getDataComponent(IConnection connection) {
         for (IODataComponent current : inputs) {
-            if (current.getUniqueName().equals(connection.getUniqueName())) {
+            if (current.getUniqueName().equals(connection.getUniqueName())
+                    && current.getConnection().getSource().getUniqueName().equals(connection.getSource().getUniqueName())
+                    && current.getConnection().getTarget().getUniqueName().equals(connection.getTarget().getUniqueName())) {
                 return current;
             }
         }
         for (IODataComponent current : ouputs) {
-            if (current.getUniqueName().equals(connection.getUniqueName())) {
+            if (current.getUniqueName().equals(connection.getUniqueName())
+                    && current.getConnection().getSource().getUniqueName().equals(connection.getSource().getUniqueName())
+                    && current.getConnection().getTarget().getUniqueName().equals(connection.getTarget().getUniqueName())) {
                 return current;
             }
         }
