@@ -33,6 +33,7 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.services.IDesignerCoreUIService;
@@ -314,9 +315,10 @@ public final class UpdateRunJobComponentContextHelper {
         if (id == null) {
             return;
         }
+        IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         boolean changed = false;
         for (ProcessItem processItem : refProcesses) {
-            if (processItem.getProperty().getId().equals(id)) {
+            if (repFactory.getFullId(processItem.getProperty()).equals(id)) {
                 continue;
             }
 

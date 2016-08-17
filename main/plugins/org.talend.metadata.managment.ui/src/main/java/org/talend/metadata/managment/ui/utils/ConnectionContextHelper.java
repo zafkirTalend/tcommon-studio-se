@@ -656,7 +656,7 @@ public final class ConnectionContextHelper {
                         } else {
                             // show
                             Map<String, Set<String>> addedVarsMap = new HashMap<String, Set<String>>();
-                            addedVarsMap.put(connItem.getProperty().getId(), addedVars);
+                            addedVarsMap.put(ProxyRepositoryFactory.getInstance().getFullId(connItem.getProperty()), addedVars);
                             if (showContextdialog(process, contextItem, process.getContextManager(), addedVarsMap, addedVars)) {
                                 added = true;
                             }
@@ -702,8 +702,8 @@ public final class ConnectionContextHelper {
                 Set<String> neededVars = retrieveContextVar(elementParameters, connection, category);
                 if (neededVars != null && !neededVars.isEmpty()) {
                     ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
-                    ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService.getHadoopClusterBySubitemId(connItem
-                            .getProperty().getId());
+                    ConnectionItem hadoopClusterItem = (ConnectionItem) hadoopClusterService
+                            .getHadoopClusterBySubitemId(ProxyRepositoryFactory.getInstance().getFullId(connItem.getProperty()));
                     Connection hadoopClusterConnection = hadoopClusterItem.getConnection();
                     ContextItem hadoopClusterContextItem = ContextUtils.getContextItemById2(hadoopClusterConnection
                             .getContextId());
@@ -733,7 +733,8 @@ public final class ConnectionContextHelper {
                                 addContextVarForJob(process, contextItem, connAddedVars);
                                 added = true;
                             } else {
-                                addedVarsMap.put(connItem.getProperty().getId(), connAddedVars);
+                                addedVarsMap.put(ProxyRepositoryFactory.getInstance().getFullId(connItem.getProperty()),
+                                        connAddedVars);
                                 contextToVars.put(contextItem, connAddedVars);
                             }
                         }
@@ -743,7 +744,8 @@ public final class ConnectionContextHelper {
                                 addContextVarForJob(process, hadoopClusterContextItem, hcAddedVars);
                                 added = true;
                             } else {
-                                addedVarsMap.put(hadoopClusterItem.getProperty().getId(), hcAddedVars);
+                                addedVarsMap.put(ProxyRepositoryFactory.getInstance().getFullId(hadoopClusterItem.getProperty()),
+                                        hcAddedVars);
                                 contextToVars.put(hadoopClusterContextItem, hcAddedVars);
                             }
                         }
@@ -1059,7 +1061,7 @@ public final class ConnectionContextHelper {
      */
     public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final IContextManager ctxManager) {
         addContextVarForJob(process, contextItem.getContext(), contextItem.getDefaultContext(),
-                contextItem.getProperty().getId(), ctxManager);
+                ProxyRepositoryFactory.getInstance().getFullId(contextItem.getProperty()), ctxManager);
     }
 
     /**
@@ -1104,7 +1106,7 @@ public final class ConnectionContextHelper {
     @SuppressWarnings("unchecked")
     public static void addContextVarForJob(IProcess2 process, final ContextItem contextItem, final Set<String> addedVars) {
         addContextVarForJob(process, contextItem.getContext(), contextItem.getDefaultContext(),
-                contextItem.getProperty().getId(), addedVars);
+                ProxyRepositoryFactory.getInstance().getFullId(contextItem.getProperty()), addedVars);
     }
 
     /**
@@ -1449,8 +1451,8 @@ public final class ConnectionContextHelper {
         // };
 
         MergeContextVariablesCommand cmd = new MergeContextVariablesCommand(contextItem.getContext(),
-                contextItem.getDefaultContext(), contextItem.getProperty().getId(), ctxManager, addedVars, contextGoupNameSet,
-                false);
+                contextItem.getDefaultContext(), ProxyRepositoryFactory.getInstance().getFullId(contextItem.getProperty()),
+                ctxManager, addedVars, contextGoupNameSet, false);
 
         boolean executed = false;
         if (process instanceof IGEFProcess) {

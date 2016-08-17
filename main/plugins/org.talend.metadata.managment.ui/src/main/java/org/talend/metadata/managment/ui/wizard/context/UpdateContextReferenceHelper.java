@@ -79,6 +79,7 @@ public final class UpdateContextReferenceHelper {
             return;
         }
 
+        IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         IEditorReference[] reference = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
         List<IProcess2> processes = CoreRuntimePlugin.getInstance().getDesignerCoreService().getOpenedProcess(reference);
         for (IProcess2 process : processes) {
@@ -133,8 +134,8 @@ public final class UpdateContextReferenceHelper {
             }
             if (modified) {
                 // update tRunJob component reference
-                UpdateRunJobComponentContextHelper.updateOpenedJobRunJobComponentReference(processes, realRenamedVarMap, process
-                        .getProperty().getId(), null);
+                UpdateRunJobComponentContextHelper.updateOpenedJobRunJobComponentReference(processes, realRenamedVarMap,
+                        repFactory.getFullId(process.getProperty()), null);
                 // update parameter for current job and nodes in it. for 2608
                 // UpdateContextVariablesHelper.updateProcessForRenamed(process, realRenamedVarMap);
 

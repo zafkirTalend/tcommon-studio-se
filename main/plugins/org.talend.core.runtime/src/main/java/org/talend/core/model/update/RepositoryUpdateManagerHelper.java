@@ -277,7 +277,7 @@ public class RepositoryUpdateManagerHelper {
             Item item = process.getProperty().getItem();
             boolean found = false;
             for (IProcess2 open : openedProcessList) {
-                if (open.getId().equals(item.getProperty().getId())) {
+                if (open.getId().equals(factory.getFullId(item.getProperty()))) {
                     found = true;
                 }
             }

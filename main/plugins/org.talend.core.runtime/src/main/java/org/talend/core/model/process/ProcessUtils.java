@@ -89,8 +89,9 @@ public final class ProcessUtils {
     private static void createFakeProcesses(Collection<Item> items) {
         IDesignerCoreService designerCoreService = CoreRuntimePlugin.getInstance().getDesignerCoreService();
         if (items != null) {
+            IProxyRepositoryFactory repFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             for (Item item : items) {
-                if (item == null || existedFakeProcess(item.getProperty().getId())) {
+                if (item == null || existedFakeProcess(repFactory.getFullId(item.getProperty()))) {
                     continue;
                 }
                 IProcess process = null;
@@ -121,8 +122,9 @@ public final class ProcessUtils {
         createFakeProcesses(items);
         if (items != null) {
             List<String> ids = new ArrayList<String>();
+            IProxyRepositoryFactory repFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
             for (Item item : items) {
-                String id = item.getProperty().getId();
+                String id = repFactory.getFullId(item.getProperty());
                 if (!ids.contains(id)) {
                     for (IProcess p : fakeProcesses) {
                         if (p != null && p.getId().equals(id)) {

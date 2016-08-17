@@ -541,4 +541,6 @@ public interface IProxyRepositoryFactory {
     public String getFullId(IRepositoryViewObject repViewObject);
 
     public String getFullId(Property property);
+
+    public boolean isIdEqual(String leftId, String rightId);
 }

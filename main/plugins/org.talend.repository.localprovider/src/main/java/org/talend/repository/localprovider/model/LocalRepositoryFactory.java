@@ -165,6 +165,7 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.json.JSONArray;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -273,6 +274,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     @Override
     public synchronized <K, T> void addFolderMembers(Project project, ERepositoryObjectType type, Container<K, T> toReturn,
             Object objectFolder, int options) throws PersistenceException {
+        IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         FolderHelper folderHelper = getFolderHelper(project.getEmfProject());
         FolderItem currentFolderItem = null;
         IFolder physicalFolder;
@@ -308,7 +310,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             subFolder.setParent(currentFolderItem);
 
                             cont.setProperty(property);
-                            cont.setId(property.getId());
+                            cont.setId(repFactory.getFullId(property));
                             if (!hasOption(options, OPTION_NOT_INCLUDE_CHILDRENS)) {
                                 addFolderMembers(project, type, cont, curItem, options);
                             }
@@ -327,7 +329,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             propertyFounds.add(property.eResource().getURI().lastSegment());
                             addItemToContainer(toReturn, currentObject, hasOption(options, OPTION_ONLY_LAST_VERSION));
 
-                            addToHistory(property.getId(), type, property.getItem().getState().getPath());
+                            addToHistory(repFactory.getFullId(property), type, property.getItem().getState().getPath());
                         } else {
                             invalidItems.add(curItem);
                         }
@@ -424,7 +426,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             Container<K, T> cont = toReturn.addSubContainer(current.getName());
 
                             cont.setProperty(property);
-                            cont.setId(property.getId());
+                            cont.setId(repFactory.getFullId(property));
                             if (!hasOption(options, OPTION_NOT_INCLUDE_CHILDRENS)) {
                                 addFolderMembers(project, type, cont, current, options);
                             }
@@ -476,7 +478,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     while (it.hasNext()) {
                         IRepositoryViewObject object = it.next();
                         if (object.getLabel().equals(item.getProperty().getLabel())
-                                && object.getId().equals(item.getProperty().getId())
+                                && object.getId().equals(repFactory.getFullId(item.getProperty()))
                                 && object.getVersion().equals(item.getProperty().getVersion())) {
                             it.remove();
                         }
@@ -595,7 +597,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     avoidSaveProject, true));
                         } else if (!(curItem instanceof FolderItem)) {
                             if (property.eResource() != null) {
-                                if (id == null || property.getId().equals(id)) {
+                                if (id == null || ProxyRepositoryFactory.getInstance().getFullId(property).equals(id)) {
                                     if (withDeleted || !property.getItem().getState().isDeleted()) {
                                         toReturn.add(new RepositoryObject(property));
                                     }
@@ -644,8 +646,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                         }
                                         continue;
                                     }
-                                    addToHistory(property.getId(), type, property.getItem().getState().getPath());
-                                    if (id == null || property.getId().equals(id)) {
+                                    addToHistory(ProxyRepositoryFactory.getInstance().getFullId(property), type,
+                                            property.getItem().getState().getPath());
+                                    if (id == null || ProxyRepositoryFactory.getInstance().getFullId(property).equals(id)) {
                                         if (withDeleted || !property.getItem().getState().isDeleted()) {
                                             toReturn.add(new RepositoryObject(property));
                                         }
@@ -727,7 +730,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         while (it.hasNext()) {
                             IRepositoryViewObject object = it.next();
                             if (object.getLabel().equals(item.getProperty().getLabel())
-                                    && object.getId().equals(item.getProperty().getId())
+                                    && object.getId().equals(ProxyRepositoryFactory.getInstance().getFullId(item.getProperty()))
                                     && object.getVersion().equals(item.getProperty().getVersion())) {
                                 it.remove();
                             }

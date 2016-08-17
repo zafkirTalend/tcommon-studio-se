@@ -219,7 +219,8 @@ public class DocumentationHelper {
                     IProxyRepositoryFactory proxyFactory = CorePlugin.getDefault().getRepositoryService()
                             .getProxyRepositoryFactory();
                     try {
-                        List<IRepositoryViewObject> objects = proxyFactory.getAllVersion(object.getProperty().getId());
+                        List<IRepositoryViewObject> objects = proxyFactory
+                                .getAllVersion(proxyFactory.getFullId(object.getProperty()));
                         for (IRepositoryViewObject curObj : objects) {
                             RepositoryNode repNode = new RepositoryNode(curObj, node, ((RepositoryNode) node2).getType());
                             addTreeNode(repNode, nodePath + curObj.getProperty().getLabel() + "_" //$NON-NLS-1$

@@ -19,11 +19,9 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.util.LocalSelectionTransfer;
@@ -46,13 +44,14 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.CoreRepositoryPlugin;
 import org.talend.core.repository.constants.Constant;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.ui.actions.MoveObjectAction;
 import org.talend.core.repository.ui.view.RepositoryDropAdapter;
 import org.talend.core.repository.utils.XmiResourceManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.view.sorter.IRepositoryNodeSorter;
@@ -293,13 +292,14 @@ public class RepoViewCommonViewer extends CommonViewer implements INavigatorCont
     }
 
     private void refreshNodeFromProperty(org.talend.core.model.properties.Property property) {
+        IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         List<IRepositoryNode> nodes = new ArrayList<>();
         for (Object object : getExpandedElements()) {
             if (object instanceof IRepositoryNode) {
                 nodes.add((IRepositoryNode) object);
             }
         }
-        IRepositoryNode itemNode = findItemNode(property.getId(), nodes);
+        IRepositoryNode itemNode = findItemNode(repFactory.getFullId(property), nodes);
         if (itemNode != null) {
             IRepositoryViewObject object = itemNode.getObject();
             if (object != null) {

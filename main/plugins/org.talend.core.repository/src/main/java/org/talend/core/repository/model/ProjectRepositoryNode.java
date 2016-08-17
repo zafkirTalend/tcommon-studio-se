@@ -692,10 +692,17 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             testContainerService = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(
                     ITestContainerProviderService.class);
         }
+        IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
         for (IRepositoryViewObject currentObject : elements) {
             if (testContainerService != null && testContainerService.isTestContainerType(currentObject.getRepositoryObjectType())) {
-                String originalID = testContainerService.getOriginalID(currentObject);
-                RepositoryNode parentNode = getTestCaseParent(rootNodes, originalID);
+                String originalFullID = null;
+                Project projectForCurObj = ProjectManager.getInstance().getProject(currentObject.getProperty());
+                String projectLabel = null;
+                if (projectForCurObj != null) {
+                    projectLabel = projectForCurObj.getLabel();
+                }
+                originalFullID = repFactory.generateFullId(projectLabel, testContainerService.getOriginalID(currentObject));
+                RepositoryNode parentNode = getTestCaseParent(rootNodes, originalFullID);
                 if (parentNode == null) {
                     parentNode = rootNode;
                 }
@@ -881,7 +888,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         } else if (item.getState() != null && item.getState().isDeleted()) {
             try {
                 IRepositoryViewObject lastVersion = ProxyRepositoryFactory.getInstance().getLastVersion(newProject,
-                        item.getProperty().getId());
+                        ProxyRepositoryFactory.getInstance().getFullId(item.getProperty()));
                 if (lastVersion != null && item.getProperty().getVersion().equals(lastVersion.getVersion())) {
                     RepositoryNode repNode = new RepositoryNode(new RepositoryViewObject(item.getProperty()), currentParentNode,
                             ENodeType.REPOSITORY_ELEMENT);

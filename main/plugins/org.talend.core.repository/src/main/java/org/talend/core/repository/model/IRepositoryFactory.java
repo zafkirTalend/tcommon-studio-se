@@ -430,4 +430,6 @@ public interface IRepositoryFactory {
     public String getPureItemId(String itemId);
 
     public String getProjectLabelFromItemId(String itemId);
+
+    public String generateFullId(String projectLabel, String pureItemId);
 }

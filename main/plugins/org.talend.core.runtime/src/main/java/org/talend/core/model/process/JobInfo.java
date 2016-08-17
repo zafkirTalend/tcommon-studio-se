@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.runprocess.IProcessor;
 
@@ -78,7 +79,7 @@ public class JobInfo {
      */
     public JobInfo(ProcessItem processItem, String contextName) {
         this.processItem = processItem;
-        jobId = processItem.getProperty().getId();
+        jobId = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getFullId(processItem.getProperty());
         jobName = processItem.getProperty().getLabel();
         this.contextName = contextName;
         jobVersion = processItem.getProperty().getVersion();
@@ -100,7 +101,7 @@ public class JobInfo {
 
     public JobInfo(ProcessItem processItem, Property property, String contextName) {
         this.processItem = processItem;
-        jobId = property.getId();
+        jobId = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getFullId(property);
         jobName = property.getLabel();
         this.contextName = contextName;
         jobVersion = property.getVersion();
@@ -128,7 +129,7 @@ public class JobInfo {
      */
     public JobInfo(ProcessItem processItem, String contextName, String processVersion) {
         this.processItem = processItem;
-        jobId = processItem.getProperty().getId();
+        jobId = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory().getFullId(processItem.getProperty());
         jobName = processItem.getProperty().getLabel();
         this.contextName = contextName;
         jobVersion = processVersion;

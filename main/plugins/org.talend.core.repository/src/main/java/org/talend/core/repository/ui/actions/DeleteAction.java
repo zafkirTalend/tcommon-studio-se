@@ -1451,7 +1451,7 @@ public class DeleteAction extends AContextualAction {
             return;
         }
         IPath path = new Path(currentJobNode.getObjectType().getFolder());
-        path = path.append(currentJobNode.getId());
+        path = path.append(ProxyRepositoryFactory.getInstance().getPureItemId(currentJobNode.getId()));
         RootContainer<String, IRepositoryViewObject> junitObjects = ProxyRepositoryFactory.getInstance().getObjectFromFolder(
                 ProjectManager.getInstance().getCurrentProject(), ERepositoryObjectType.TEST_CONTAINER, path.toOSString(),
                 IRepositoryFactory.OPTION_ONLY_LAST_VERSION | IRepositoryFactory.OPTION_DYNAMIC_OBJECTS);

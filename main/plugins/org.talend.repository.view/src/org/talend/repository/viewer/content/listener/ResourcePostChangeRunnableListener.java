@@ -33,8 +33,10 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryViewObject;
+import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.XmiResourceManager;
 import org.talend.repository.ProjectManager;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.model.RepositoryNode;
 
@@ -133,6 +135,7 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
 
                 @Override
                 public void run() {
+                    IProxyRepositoryFactory repFactory = ProxyRepositoryFactory.getInstance();
                     for (ResourceNode resourceNode : pathToRefresh) {
                         XmiResourceManager xrm = new XmiResourceManager();
                         if (xrm.isPropertyFile(resourceNode.getPath())) {
@@ -141,7 +144,7 @@ public class ResourcePostChangeRunnableListener implements IResourceChangeListen
                             IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceNode.getPath()));
                             Property property = xrm.loadProperty(file);
                             if (property != null) {
-                                IRepositoryNode itemNode = findItemNode(property.getId(), nodes);
+                                IRepositoryNode itemNode = findItemNode(repFactory.getFullId(property), nodes);
                                 if (itemNode != null) {
                                     IRepositoryViewObject object = itemNode.getObject();
                                     if (object != null) {

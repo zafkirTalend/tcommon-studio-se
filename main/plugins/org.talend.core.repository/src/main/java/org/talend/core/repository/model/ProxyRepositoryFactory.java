@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.eclipse.core.internal.resources.Workspace;
@@ -2372,19 +2373,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
 
     @Override
     public String generateFullId(String projectLabel, String pureItemId) {
-        if (pureItemId == null) {
-            return null;
-        }
-        if (projectLabel == null || projectLabel.isEmpty()) {
-            return pureItemId;
-        }
-        String oldProjectLabel = getProjectLabelFromItemId(pureItemId);
-        if (oldProjectLabel != null) {
-            pureItemId = getPureItemId(pureItemId);
-            org.talend.commons.exception.ExceptionHandler.process(
-                    new Exception("Project in id is changed: " + oldProjectLabel + " -> " + projectLabel), Priority.WARN); //$NON-NLS-1$ //$NON-NLS-2$
-        }
-        return projectLabel + getProjectItemIdSeperator() + pureItemId;
+        return repositoryFactoryFromProvider.generateFullId(projectLabel, pureItemId);
     }
 
     @Override
@@ -2421,4 +2410,23 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
         return generateFullId(projectLabel, property.getId());
     }
+
+    @Override
+    public boolean isIdEqual(String leftId, String rightId) {
+        if (leftId == null || rightId == null) {
+            if (leftId == null && rightId == null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        String leftProjectLabel = getProjectLabelFromItemId(leftId);
+        String rightProjectLabel = getProjectLabelFromItemId(rightId);
+        if (leftProjectLabel == null || rightProjectLabel == null) {
+            return StringUtils.equals(getPureItemId(leftId), getPureItemId(rightId));
+        } else {
+            return StringUtils.equals(leftId, rightId);
+        }
+    }
+
 }

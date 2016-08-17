@@ -139,14 +139,14 @@ public class RecycleBinManager {
         loadRecycleBin(project);
         boolean contains = false;
         for (TalendItem deletedItem : projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems()) {
-            if (item.getProperty().getId().equals(deletedItem.getId())) {
+            if (ProxyRepositoryFactory.getInstance().getFullId(item.getProperty()).equals(deletedItem.getId())) {
                 contains = true;
                 break;
             }
         }
         if (!contains) {
             TalendItem recBinItem = RecycleBinFactory.eINSTANCE.createTalendItem();
-            recBinItem.setId(item.getProperty().getId());
+            recBinItem.setId(ProxyRepositoryFactory.getInstance().getFullId(item.getProperty()));
             recBinItem.setPath(item.getState().getPath());
             recBinItem.setType(ERepositoryObjectType.getItemType(item).getType());
             projectRecyclebins.get(project.getTechnicalLabel()).getDeletedItems().add(recBinItem);
