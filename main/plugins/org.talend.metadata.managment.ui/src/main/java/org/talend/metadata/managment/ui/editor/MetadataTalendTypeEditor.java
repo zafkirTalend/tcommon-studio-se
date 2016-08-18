@@ -563,17 +563,19 @@ public class MetadataTalendTypeEditor extends FieldEditor {
      * (non-Javadoc) Method declared on FieldEditor.
      */
     protected void doLoadDefault() {
-        MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
+        boolean confirm = MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
                 Messages.getString("MetadataTalendTypeEditor.confirmTitle"), //$NON-NLS-1$
                 Messages.getString("MetadataTalendTypeEditor.confirmMessage")); //$NON-NLS-1$
-        ICoreService coreService = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
-            coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-            coreService.syncMappingsFileFromSystemToProject();
-            tmpFileManager.reload();
-            coreService.synchronizeMapptingXML();
+        if (confirm) {
+            ICoreService coreService = null;
+            if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
+                coreService = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
+                coreService.syncMappingsFileFromSystemToProject();
+                tmpFileManager.reload();
+                coreService.synchronizeMapptingXML();
+            }
+            super.load();
         }
-        super.load();
     }
 
     /*
