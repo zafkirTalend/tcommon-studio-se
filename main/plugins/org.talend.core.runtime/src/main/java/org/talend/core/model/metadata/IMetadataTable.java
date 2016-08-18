@@ -106,4 +106,6 @@ public interface IMetadataTable {
     public List<String> getOriginalColumns();
 
     public boolean isRepository();
+
+    public void setRepository(boolean isRepository);
 }
