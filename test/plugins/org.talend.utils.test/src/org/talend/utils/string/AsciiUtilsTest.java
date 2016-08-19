@@ -12,18 +12,14 @@
 // ============================================================================
 package org.talend.utils.string;
 
-import static org.junit.Assert.*;
-
 import java.util.Random;
 
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.time.TimeTracer;
 
-/**
- * DOC scorreia class global comment. Detailled comment
- */
 public class AsciiUtilsTest {
 
     private static final boolean TRACE = false;
@@ -55,7 +51,8 @@ public class AsciiUtilsTest {
      * Test method for {@link org.talend.utils.string.AsciiUtils#unaccent(java.lang.String)}.
      */
     @Test
-    public void testUnaccent() {
+    @Ignore("ignore this performance test")
+    public void testUnaccentPerformance() {
         int nbStrings = 1000000;
         int nbChars = 150;
         TimeTracer tt = new TimeTracer("unaccent", null);
@@ -73,22 +70,23 @@ public class AsciiUtilsTest {
         tt.start();
         for (String string : generatedStrings) {
             if (TRACE) {
-                System.out.println(removeDiacriticalMark(string));
+                System.out.println(AsciiUtils.removeDiacriticalMarks(string));
             } else {
-                removeDiacriticalMark(string);
+                AsciiUtils.removeDiacriticalMarks(string);
             }
         }
-        tt.end("MURAL time for removing accents in " + nbStrings + " strings");
+        tt.end("MURAL ENH time for removing accents in " + nbStrings + " strings");
+        
 
         tt.start();
         for (String string : generatedStrings) {
             if (TRACE) {
-                System.out.println(enhremoveDiacriticalMark(string));
+                System.out.println(StringUtils.stripAccents(string));
             } else {
-                enhremoveDiacriticalMark(string);
+                StringUtils.stripAccents(string);
             }
         }
-        tt.end("MURAL ENH time for removing accents in " + nbStrings + " strings");
+        tt.end("COMMONS LANG time for removing accents in " + nbStrings + " strings");
 
     }
 
@@ -98,113 +96,29 @@ public class AsciiUtilsTest {
      * .
      */
     @Test
-    @Ignore("is not yet implemeneted")
     public void testReplaceCharacters() {
-        fail("Not yet implemented");
+        String toReplace = AsciiUtils.UNICODE;
+        Assert.assertEquals(AsciiUtils.PLAIN_ASCII, AsciiUtils.replaceCharacters(toReplace,AsciiUtils.UNICODE,AsciiUtils.PLAIN_ASCII));
+
+        String remove = "&@:;%^~£$€'\"\\/ ";
+        String replacement = "EACSPHTLDEQDBS_";
+        Assert.assertEquals(replacement,AsciiUtils.replaceCharacters(remove, remove, replacement) );
     }
+    
 
     /**
-     * Removes diacritical mark from a character
-     * 
-     * @param ch a character
-     * @return the same input character without the diacritical mark if any.
+     * Test method for
+     * {@link org.talend.utils.string.AsciiUtils#removeDiacriticalMarks(java.lang.String)}
+     * .
      */
-    public static char removeDiacriticalMark(char c) {
-
-        if (c < 192) {
-            return c;
+    @Test
+    public void testRemoveDiacriticalMarks() {
+        String toReplace = AsciiUtils.UNICODE;
+        StringBuilder sb= new StringBuilder();
+        for (int i = (int)'\u00D0'; i <= (int)'\u024F';i++){
+            sb.append((char)i);
         }
-        if (c >= 192 && c <= 197) {
-            return 'A';
-        }
-        if (c == 199) {
-            return 'C';
-        }
-        if (c >= 200 && c <= 203) {
-            return 'E';
-        }
-        if (c >= 204 && c <= 207) {
-            return 'I';
-        }
-        if (c == 208) {
-            return 'D';
-        }
-        if (c == 209) {
-            return 'N';
-        }
-        if ((c >= 210 && c <= 214) || c == 216) {
-            return 'O';
-        }
-        if (c >= 217 && c <= 220) {
-            return 'U';
-        }
-        if (c == 221) {
-            return 'Y';
-        }
-        if (c >= 224 && c <= 229) {
-            return 'a';
-        }
-        if (c == 231) {
-            return 'c';
-        }
-        if (c >= 232 && c <= 235) {
-            return 'e';
-        }
-        if (c >= 236 && c <= 239) {
-            return 'i';
-        }
-        if (c == 240) {
-            return 'd';
-        }
-        if (c == 241) {
-            return 'n';
-        }
-        if ((c >= 242 && c <= 246) || c == 248) {
-            return 'o';
-        }
-        if (c >= 249 && c <= 252) {
-            return 'u';
-        }
-        if (c == 253 || c == 255) {
-            return 'y';
-        }
-
-        return c;
-    }
-
-    /**
-     * Removes diacritical mark from a string
-     * 
-     * @param st a string
-     * @return the same input string without the diacritical mark if any.
-     */
-    public static String removeDiacriticalMark(String st) {
-
-        int len = st.length();
-        String tempS = new String(st);
-
-        for (int i = 0; i < len; i++) {
-            char ch = tempS.charAt(i);
-            tempS = tempS.replace(ch, removeDiacriticalMark(ch));
-        }
-        return tempS;
-    }
-
-    /**
-     * Removes diacritical mark from a string
-     * 
-     * @param st a string
-     * @return the same input string without the diacritical mark if any.
-     */
-    public static String enhremoveDiacriticalMark(String st) {
-
-        int len = st.length();
-        StringBuffer tempS = new StringBuffer();
-
-        for (int i = 0; i < len; i++) {
-            tempS.append(removeDiacriticalMark(st.charAt(i)));
-        }
-        return tempS.toString();
+        Assert.assertEquals(AsciiUtils.PLAIN_ASCII, AsciiUtils.removeDiacriticalMarks(toReplace));
     }
 
 }
