@@ -55,6 +55,7 @@ public final class AsciiUtils {
      * 
      * @deprecated use {@link AsciiUtils.removeDiacriticalMark()} instead for better performance
      */
+    @Deprecated
     public static String unaccent(final String s) {
         return replaceCharacters(s, UNICODE, PLAIN_ASCII);
     }

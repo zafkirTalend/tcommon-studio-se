@@ -64,7 +64,6 @@ import org.talend.metadata.managment.model.DBConnectionFillerImpl;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.utils.exceptions.MissingDriverException;
 import org.talend.utils.sql.ConnectionUtils;
-import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
@@ -85,9 +84,9 @@ public class MetadataConnectionUtils {
 
     private static final SimpleDateFormat SMPL_DATE_FMT = new SimpleDateFormat("yyyyMMddhhmmss"); //$NON-NLS-1$
 
-    private static final String CHARS_TO_REMOVE = "/"; //$NON-NLS-1$
+    private static final char CHAR_TO_REMOVE = '/'; //$NON-NLS-1$
 
-    private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
+    private static final char REPLACEMENT_CHAR = '_'; //$NON-NLS-1$
 
     private static final String DRIVER_EXTENSION_POINT_ID = "org.talend.metadata.managment.DBDriver_extension"; //$NON-NLS-1$
 
@@ -864,7 +863,7 @@ public class MetadataConnectionUtils {
             String b64 = new String(Base64.encodeBase64(functionalName.getBytes()), "UTF-8"); //$NON-NLS-1$
             // replace special characters
             String date = SMPL_DATE_FMT.format(new Date(System.currentTimeMillis()));
-            techname = AsciiUtils.replaceCharacters(b64, CHARS_TO_REMOVE, REPLACEMENT_CHARS) + date;
+            techname = b64.replace(CHAR_TO_REMOVE, REPLACEMENT_CHAR) + date;
         } catch (UnsupportedEncodingException e) {
             log.error(e, e);
         } // .replaceAll(B64ID, PREFIX);

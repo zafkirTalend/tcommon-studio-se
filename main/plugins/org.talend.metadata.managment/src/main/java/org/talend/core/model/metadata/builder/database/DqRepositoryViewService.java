@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
 import metadata.managment.i18n.Messages;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
@@ -51,7 +51,6 @@ import org.talend.cwm.xml.TdXmlElementType;
 import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sql.ConnectionUtils;
-import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.TypedReturnCode;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.objectmodel.core.TaggedValue;
@@ -83,9 +82,9 @@ public final class DqRepositoryViewService {
     private DqRepositoryViewService() {
     }
 
-    private static final String CHARS_TO_REMOVE = "/"; //$NON-NLS-1$
+    private static final char CHAR_TO_REMOVE = '/'; //$NON-NLS-1$
 
-    private static final String REPLACEMENT_CHARS = "_"; //$NON-NLS-1$
+    private static final char REPLACEMENT_CHAR = '_'; //$NON-NLS-1$
 
     public static final String[] TABLE_TYPES = new String[] { ETableTypes.TABLETYPE_TABLE.getName(),
             ETableTypes.EXTERNAL_TABLE.getName(), ETableTypes.MANAGED_TABLE.getName(), ETableTypes.INDEX_TABLE.getName(),
@@ -115,7 +114,7 @@ public final class DqRepositoryViewService {
             String b64 = new String(Base64.encodeBase64(functionalName.getBytes()), "UTF-8"); //$NON-NLS-1$
             // replace special characters
             String date = SMPL_DATE_FMT.format(new Date(System.currentTimeMillis()));
-            techname = AsciiUtils.replaceCharacters(b64, CHARS_TO_REMOVE, REPLACEMENT_CHARS) + date;
+            techname = b64.replace(CHAR_TO_REMOVE, REPLACEMENT_CHAR) + date;
         } catch (UnsupportedEncodingException e) {
             log.error(e, e);
         } // .replaceAll(B64ID, PREFIX);
