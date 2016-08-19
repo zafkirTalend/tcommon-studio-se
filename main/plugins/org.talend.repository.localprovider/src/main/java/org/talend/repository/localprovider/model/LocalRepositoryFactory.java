@@ -2083,6 +2083,20 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // itemResource.getContents().add(item.getConnection());
         MetadataManager.addContents(item, itemResource); // hywang 13221
 
+        // add to the current resource all Document and Description instances because they are not reference in
+        // containment references.
+        Map<EObject, Collection<Setting>> externalCrossref = EcoreUtil.ExternalCrossReferencer.find(item.getConnection());
+        Collection<Object> documents = EcoreUtil.getObjectsByType(externalCrossref.keySet(),
+                BusinessinformationPackage.Literals.DOCUMENT);
+        for (Object doc : documents) {
+            itemResource.getContents().add((EObject) doc);
+        }
+        Collection<Object> descriptions = EcoreUtil.getObjectsByType(externalCrossref.keySet(),
+                BusinessinformationPackage.Literals.DESCRIPTION);
+        for (Object doc : descriptions) {
+            itemResource.getContents().add((EObject) doc);
+        }
+
         return itemResource;
     }
 
