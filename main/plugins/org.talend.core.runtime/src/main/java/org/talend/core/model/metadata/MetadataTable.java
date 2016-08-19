@@ -153,7 +153,7 @@ public class MetadataTable implements IMetadataTable, Cloneable {
             List<IMetadataColumn> temp = new ArrayList<IMetadataColumn>();
             temp.addAll(this.listColumns);
             temp.addAll(this.unusedColumns);
-            if (originalColumns != null) {
+            if (isRepository && originalColumns != null) {
                 Collections.sort(temp, new Comparator<IMetadataColumn>() {
 
                     @Override
