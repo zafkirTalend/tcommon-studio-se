@@ -278,7 +278,7 @@ public class ModuleNeeded {
         final ELibraryInstallStatus eLibraryInstallStatus = ModuleStatusProvider.getStatusMap().get(mvnUriStatusKey);
         if (eLibraryInstallStatus != null) {
             return eLibraryInstallStatus;
-        } else {
+        } else if (mvnUriStatusKey != null) {
             // compute the status of the lib.
             // first use the Library manager service
             ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
@@ -300,7 +300,7 @@ public class ModuleNeeded {
         final ELibraryInstallStatus eLibraryDeployStatus = ModuleStatusProvider.getDeployStatusMap().get(mvnUriStatusKey);
         if (eLibraryDeployStatus != null) {
             return eLibraryDeployStatus;
-        } else {
+        } else if (mvnUriStatusKey != null) {
             resolveStatusLocally(mvnUriStatusKey);
         }
         return this.installStatus;
