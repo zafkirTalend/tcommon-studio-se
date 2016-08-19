@@ -1,3 +1,4 @@
+package org.talend.utils;
 // ============================================================================
 //
 // Copyright (C) 2006-2016 Talend Inc. - www.talend.com

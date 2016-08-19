@@ -10,7 +10,7 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package cache;
+package org.talend.utils.cache;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;

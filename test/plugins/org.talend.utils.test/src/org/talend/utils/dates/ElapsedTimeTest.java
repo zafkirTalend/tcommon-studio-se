@@ -13,7 +13,7 @@
 /*
  * Created on 20 janv. 2005 by S. Correia
  */
-package dates;
+package org.talend.utils.dates;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
