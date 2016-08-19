@@ -870,7 +870,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
                     toDeploy.add(mvnUri);
                 }
             } else {
-                toDeploy.add(module.getMavenUri(true));
+                if (module.getMavenUri(true) != null) {
+                    toDeploy.add(module.getMavenUri(true));
+                }
             }
             for (String mavenUri : toDeploy) {
                 if (checkJarInstalledInMaven(mavenUri)) {
@@ -980,6 +982,9 @@ public class LocalLibraryManager implements ILibraryManagerService {
      */
     @Override
     public String getJarPathFromMaven(String jarNameOrMavenUri) {
+        if (jarNameOrMavenUri == null) {
+            return null;
+        }
         String libPath = null;
         Set<String> mvnUris = new HashSet<String>();
         if (MavenUrlHelper.isMvnUrl(jarNameOrMavenUri)) {
