@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -236,10 +237,14 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                     if (tdqRepositoryService != null && needUpdateAnalysis) {
                         tdqRepositoryService.updateImpactOnAnalysis(connectionItem);
                     }
-
-                    RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
-                    closeLockStrategy();
-
+                    Display.getDefault().asyncExec(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            RepositoryUpdateManager.updateMultiSchema(connectionItem, oldMetadataTable, oldTableMap);
+                            closeLockStrategy();
+                        }
+                    });
                     List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
                     list.add(repositoryObject);
                     CoreRuntimePlugin.getInstance().getRepositoryService().notifySQLBuilder(list);
