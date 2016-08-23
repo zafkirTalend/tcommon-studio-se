@@ -62,6 +62,7 @@ import org.talend.metadata.managment.mdm.AbsMdmConnectionHelper;
 import org.talend.metadata.managment.mdm.S60MdmConnectionHelper;
 import org.talend.metadata.managment.model.DBConnectionFillerImpl;
 import org.talend.metadata.managment.model.MetadataFillFactory;
+import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.utils.exceptions.MissingDriverException;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.ReturnCode;
@@ -905,14 +906,23 @@ public class MetadataConnectionUtils {
                         }
                     }
                 } else {
+                    String uiSchema = null;
                     if (dbMetaData.supportsSchemasInIndexDefinitions()) {
-                        String uiSchema = dbConnection.getUiSchema();
+                        uiSchema = dbConnection.getUiSchema();
                         if (origValueConn != null) {
                             uiSchema = origValueConn.getUiSchema();
                         }
-                        if (!StringUtils.isEmpty(uiSchema) && !packageFilter.contains(uiSchema)) {
-                            packageFilter.add(uiSchema);
-                        }
+
+                    }
+                    // TDQ-12219 consider the schema from SID or Database.
+                    if (uiSchema == null
+                            && ManagerConnection.isSchemaFromSidOrDatabase(EDatabaseTypeName.getTypeFromDbType(dbConnection
+                                    .getDatabaseType()))) {
+                        uiSchema = dbConnection.getSID();
+                        dbConnection.setUiSchema(uiSchema);
+                    }
+                    if (!StringUtils.isEmpty(uiSchema) && !packageFilter.contains(uiSchema)) {
+                        packageFilter.add(uiSchema);
                     }
                 }
             }

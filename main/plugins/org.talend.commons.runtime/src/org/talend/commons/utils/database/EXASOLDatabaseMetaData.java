@@ -68,6 +68,7 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
         if (list.isEmpty()) {
             // get the tables and views in the same way from the metadata API
             StringBuilder sql = new StringBuilder();
+            sql.append("select * from(\n");
             sql.append("select\n");
             sql.append(" a.TABLE_SCHEMA as TABLE_SCHEM,\n");
             sql.append(" a.TABLE_NAME,\n");
@@ -86,6 +87,11 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
             sql.append("from SYS.EXA_ALL_VIEWS a");
             if (schemaPattern != null && !"".equals(schemaPattern)) {
                 sql.append("\nwhere a.VIEW_SCHEMA = '" + schemaPattern + "'");
+            }
+            sql.append("\n)"); //$NON-NLS-1$
+            if (types.length > 0) {
+                // TDQ-12219 need to judge if it belongs to these types.
+                sql.append(addTypesToSql(sql.toString(), types, " where")); //$NON-NLS-1$
             }
             ResultSet rs = null;
             PreparedStatement stmt = null;
@@ -113,6 +119,24 @@ public class EXASOLDatabaseMetaData extends PackageFakeDatabaseMetadata {
         tableResultSet.setMetadata(TABLE_META);
         tableResultSet.setData(list);
         return tableResultSet;
+    }
+
+    private String addTypesToSql(String sql, String[] types, String and) {
+        String result = sql;
+        if (types != null && types.length > 0) {
+            String typeClause = ""; //$NON-NLS-1$
+            int len = types.length;
+            for (int i = 0; i < len; ++i) {
+                String comma = ""; //$NON-NLS-1$
+                if (i > 0) {
+                    comma = " or  "; //$NON-NLS-1$
+                }
+                typeClause = typeClause + comma + " TABLE_TYPE=" + "'" + types[i] + "'";//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            }
+            typeClause = typeClause + ""; //$NON-NLS-1$
+            result = and + typeClause;
+        }
+        return result;
     }
 
     private List<String[]> getTableList(ResultSet rs) throws SQLException {
