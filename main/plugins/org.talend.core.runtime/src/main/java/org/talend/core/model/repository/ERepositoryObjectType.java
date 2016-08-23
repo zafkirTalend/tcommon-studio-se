@@ -837,6 +837,8 @@ public class ERepositoryObjectType extends DynaEnum<ERepositoryObjectType> {
             return "components";
         } else if (type.getType().equals("SERVICES")) {
             return "Services";
+        } else if (type.getType().equals("TEST_CONTAINER")) {
+            return "test case";
         } else if (GlobalServiceRegister.getDefault().isServiceRegistered(ICamelDesignerCoreService.class)) {
             ICamelDesignerCoreService camelService = (ICamelDesignerCoreService) GlobalServiceRegister.getDefault().getService(
                     ICamelDesignerCoreService.class);
