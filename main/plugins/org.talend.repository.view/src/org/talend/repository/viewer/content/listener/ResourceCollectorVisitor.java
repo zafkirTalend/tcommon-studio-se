@@ -82,7 +82,7 @@ public abstract class ResourceCollectorVisitor implements IResourceDeltaVisitor 
         // if not under talend project. ignore
         try {
             if (resource.getType() == IResource.PROJECT) {
-                if (resource.getProject().hasNature(TalendNature.ID)) {
+                if (resource.getProject().isOpen() && resource.getProject().hasNature(TalendNature.ID)) {
                     return true;
                 }
                 return false; // if not talend project, ignore.
