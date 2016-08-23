@@ -107,7 +107,7 @@ public class MDMConnectionFillerImpl extends MetadataFillerImpl<MDMConnection> {
                     regex, "getWsDataModelPKs");
             String techXSDFolderName = getTechXSDFolderName();
             for (String pk : pks) {
-                if (isCreateElement(schemaFilter, pk)) {
+                if (isCreateElement(schemaFilter, pk, false)) {
                     adaptToCWMDocument(connectionHelper, xmlDocs, stub, pk, techXSDFolderName, mdmConn);
                 }
             }
