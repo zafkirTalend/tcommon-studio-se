@@ -76,6 +76,7 @@ import org.talend.cwm.relational.TdTable;
 import org.talend.cwm.relational.TdView;
 import org.talend.metadata.managment.connection.manager.HiveConnectionManager;
 import org.talend.metadata.managment.hive.EmbeddedHiveDataBaseMetadata;
+import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.utils.DatabaseConstant;
 import org.talend.metadata.managment.utils.ManagementTextUtils;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
@@ -309,12 +310,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         }
                     }
 
+                    EDatabaseTypeName dbTypeName = EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType());
                     if ((!StringUtils.isEmpty(uiSchemaOnConnWizard) && !isNullUiSchema(dbConn)) && dbConn != null) {
                         // If the UiSchema on ui is not empty, the schema name should be same to this UiSchema name.
                         Schema schema = SchemaHelper.createSchema(TalendCWMService.getReadableName(dbConn, uiSchemaOnConnWizard));
                         returnSchemas.add(schema);
                         break;
-                    } else if (isCreateElement(schemaFilter, schemaName)) {
+                    } else if (isCreateElement(schemaFilter, schemaName, ManagerConnection.isSchemaCaseSensitive(dbTypeName))) {
                         Schema schema = SchemaHelper.createSchema(schemaName);
                         returnSchemas.add(schema);
                     }
@@ -475,7 +477,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                             postFillCatalog(catalogList, catalogFilter, schemaFilterList,
                                     TalendCWMService.getReadableName(dbConn, databaseOnConnWizard), dbConn);
                             break;
-                        } else if (isCreateElement(catalogFilter, catalogName)) {
+                        } else if (isCreateElement(catalogFilter, catalogName, false)) {
                             postFillCatalog(catalogList, catalogFilter, schemaFilterList, catalogName, dbConn);
                         }
                     }
@@ -843,6 +845,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         continue;
                     }
 
+                    EDatabaseTypeName dbTypeName = EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType());
                     // MOD mzhao bug 9606 filter duplicated schemas.
                     if (!schemaNameCacheTmp.contains(schemaName) && !MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                         if (dbConn != null && !isNullUiSchema(dbConn)) {
@@ -850,7 +853,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                             Schema createByUiSchema = createSchemaByUiSchema(dbConn);
                             schemaList.add(createByUiSchema);
                             break;
-                        } else if (isCreateElement(schemaFilter, schemaName)) {
+                        } else if (isCreateElement(schemaFilter, schemaName, ManagerConnection.isSchemaCaseSensitive(dbTypeName))) {
                             Schema schema = SchemaHelper.createSchema(schemaName);
                             schemaList.add(schema);
                             schemaNameCacheTmp.add(schemaName);
@@ -978,7 +981,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 // for special db. teradata_sql_model/db2_zos/as400
                 temptableType = convertSpecialTableType(temptableType);
                 // for
-                if (!isCreateElement(tableFilter, tableName)) {
+                if (!isCreateElement(tableFilter, tableName, false)) {
                     continue;
                 }
                 if (tableName == null || tablesToFilter.contains(tableName)) {
@@ -1217,7 +1220,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 }
 
                 // for
-                if (!isCreateElement(tableFilter, tableName)) {
+                if (!isCreateElement(tableFilter, tableName, false)) {
                     continue;
                 }
 
@@ -1283,7 +1286,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 String type = getStringFromResultSet(tables, GetTable.TABLE_TYPE.name());
                 // for special db. teradata_sql_model/db2_zos/as400
                 type = convertSpecialTableType(type);
-                if (!isCreateElement(viewFilter, tableName)) {
+                if (!isCreateElement(viewFilter, tableName, false)) {
                     continue;
                 }
                 // common
