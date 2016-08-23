@@ -64,7 +64,7 @@ public class SybaseConnectionFillerImpl extends DBConnectionFillerImpl {
                             Schema createByUiSchema = createSchemaByUiSchema(dbConn);
                             schemaList.add(createByUiSchema);
                             break;
-                        } else if (isCreateElement(schemaFilter, schemaName)) {
+                        } else if (isCreateElement(schemaFilter, schemaName, true)) {
                             Schema schema = SchemaHelper.createSchema(schemaName);
                             schemaList.add(schema);
                             schemaNameCacheTmp.add(schemaName);

@@ -428,14 +428,15 @@ public abstract class MetadataFillerImpl<T extends Connection> implements IMetad
      * 
      * @param filterList
      * @param elementName
+     * @param isCaseSensitive some Schemas are CaseSensitive
      * @return true if there is no filter set on UI, or the currently elementName is included in this filter list.
      */
-    protected boolean isCreateElement(List<String> filterList, String elementName) {
+    protected boolean isCreateElement(List<String> filterList, String elementName, boolean isCaseSensitive) {
         if (filterList == null || filterList.isEmpty()) {
             return true;
         }
         for (String name : filterList) {
-            if (elementName.equalsIgnoreCase(name)) {
+            if ((isCaseSensitive && elementName.equals(name)) || (!isCaseSensitive && elementName.equalsIgnoreCase(name))) {
                 return true;
             }
         }
