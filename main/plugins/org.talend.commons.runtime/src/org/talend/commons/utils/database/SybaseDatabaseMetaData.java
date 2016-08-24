@@ -163,7 +163,8 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
      */
     @Override
     public ResultSet getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) throws SQLException {
-        ResultSet sybaseRS = super.getTables(catalog, schemaPattern, tableNamePattern, NEEDED_TYPES);
+        String[] neededTypes = getNeededTypes(types);
+        ResultSet sybaseRS = super.getTables(catalog, schemaPattern, tableNamePattern, neededTypes);
         List<String[]> list = new ArrayList<String[]>();
         while (sybaseRS.next()) {
             String name = sybaseRS.getString("TABLE_NAME"); //$NON-NLS-1$
@@ -178,7 +179,7 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
                 // nothing
             }
 
-            if (ArrayUtils.contains(NEEDED_TYPES, type)) {
+            if (ArrayUtils.contains(neededTypes, type)) {
                 // check if the type is contained is in the types needed.
                 // since sybase can return some system views as "SYSTEM VIEW" instead of "VIEW/TABLE" from the request.
                 String[] r = new String[] { id, schema, name, type, remarks };
@@ -189,5 +190,17 @@ public class SybaseDatabaseMetaData extends PackageFakeDatabaseMetadata {
         tableResultSet.setMetadata(TABLE_META);
         tableResultSet.setData(list);
         return tableResultSet;
+    }
+
+    private String[] getNeededTypes(String[] types) {
+        List<String> list = new ArrayList<String>();
+        if (types != null && types.length > 0) {
+            for (String type : types) {
+                if (ArrayUtils.contains(NEEDED_TYPES, type)) {
+                    list.add(type);
+                }
+            }
+        }
+        return list.toArray(new String[list.size()]);
     }
 }
