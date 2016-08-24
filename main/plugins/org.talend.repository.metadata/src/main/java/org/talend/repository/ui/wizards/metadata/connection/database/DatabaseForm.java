@@ -5398,8 +5398,11 @@ public class DatabaseForm extends AbstractForm {
                 /* hbase no need username and password */
                 usernameText.show();
                 passwordText.show();
-                if (isHbase || isImpala) {
+                if (isHbase) {
                     usernameText.hide();
+                    passwordText.hide();
+                } else if (isImpala) {
+                    // usernameText.hide();
                     passwordText.hide();
                 } else if (isHiveDBConnSelected()) {
                     if (isHiveEmbeddedMode()) {
