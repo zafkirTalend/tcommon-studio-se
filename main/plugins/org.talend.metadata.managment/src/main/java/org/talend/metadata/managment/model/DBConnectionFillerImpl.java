@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -1399,7 +1400,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
 
                 String fetchTableName = extractMeta.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
                 fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName);
-                if (fetchTableName.equals(tablePattern)) {
+                String databaseType = iMetadataConnection.getDbType();
+                if (fetchTableName.equals(tablePattern) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
                     TdColumn column = ColumnHelper.createTdColumn(columnName);
 
@@ -1591,7 +1593,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
 
                 String fetchTableName = extractMeta.getStringMetaDataInfo(columns, ExtractManager.TABLE_NAME, null);
                 fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName);
-                if (fetchTableName.equals(tablePattern)) {
+                String databaseType = dbConnection.getDatabaseType();
+                if (fetchTableName.equals(tablePattern) || databaseType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
                     String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
                     TdColumn column = ColumnHelper.createTdColumn(columnName);
 
