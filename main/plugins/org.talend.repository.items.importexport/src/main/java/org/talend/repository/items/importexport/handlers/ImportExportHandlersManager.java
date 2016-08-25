@@ -378,7 +378,7 @@ public class ImportExportHandlersManager {
             // cache
             importCacheHelper.beforeImportItems();
 
-            if (resManager == null || checkedItemRecords.isEmpty()) {
+            if (resManager == null || checkedItemRecords.isEmpty() && checkedFolders.isEmpty()) {
                 return;
             }
             progressMonitor.beginTask(
