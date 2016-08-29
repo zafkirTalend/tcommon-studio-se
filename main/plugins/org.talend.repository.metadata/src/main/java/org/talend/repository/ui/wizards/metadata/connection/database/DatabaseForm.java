@@ -485,6 +485,12 @@ public class DatabaseForm extends AbstractForm {
 
     private static final String ADDIPARASYMBOL = "?"; //$NON-NLS-1$
 
+    private Group znodeparentGrp;
+
+    private Button set_znode_parent;
+
+    private LabelledText znode_parent;
+
     /**
      * wheather the db properties group visible
      */
@@ -569,6 +575,7 @@ public class DatabaseForm extends AbstractForm {
                 initializeGeneralJDBC();
             } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
                 initHBaseSettings();
+                initZnodeParent();
             } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                 initImpalaSettings();
                 initImpalaInfo();
@@ -1027,12 +1034,30 @@ public class DatabaseForm extends AbstractForm {
         createHadoopUIContentsForHiveEmbedded(typeDbCompositeParent);
         createMetastoreUIContentsForHiveEmbedded(typeDbCompositeParent);
         createEncryptionGroupForHive(typeDbCompositeParent);
+        createZnodeParent(typeDbCompositeParent);
         createAuthenticationForHive(typeDbCompositeParent);
         createAuthenticationForImpala(typeDbCompositeParent);
         createAuthenticationForHBase(typeDbCompositeParent);
         createExecutionFieldsForHive(typeDbCompositeParent);
         createHadoopPropertiesFields(typeDbCompositeParent);
         createHivePropertiesFields(typeDbCompositeParent);
+    }
+
+    private void createZnodeParent(Composite parent) {
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
+        znodeparentGrp = new Group(parent, SWT.NONE);
+        znodeparentGrp.setText(Messages.getString("DatabaseForm.ZnodeParent.group")); //$NON-NLS-1$
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
+                .applyTo(znodeparentGrp);
+        GridLayout znodeparentLayout = new GridLayout(4, false);
+        znodeparentLayout.marginHeight = 0;
+        znodeparentGrp.setLayout(znodeparentLayout);
+
+        set_znode_parent = new Button(znodeparentGrp, SWT.CHECK);
+        set_znode_parent.setText(Messages.getString("DatabaseForm.ZnodeParent.checkBtn")); //$NON-NLS-1$
+        znode_parent = new LabelledText(znodeparentGrp, "", 1); //$NON-NLS-1$
+        addListenerForZnodeParent();
+        initZnodeParent();
     }
 
     private void createAuthenticationForImpala(Composite parent) {
@@ -1339,6 +1364,21 @@ public class DatabaseForm extends AbstractForm {
         });
     }
 
+    private void initZnodeParent() {
+        DatabaseConnection connection = getConnection();
+        boolean isHbase = connection != null
+                && EDatabaseConnTemplate.HBASE.getDBDisplayName().equals(getConnection().getDatabaseType());
+        hideControl(znodeparentGrp, !isHbase);
+        String setZnodeParentStr = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_ZNODE_PARENT);
+        String znodeParent = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT);
+        boolean selected_Znode_Parent = Boolean.valueOf(setZnodeParentStr);
+        set_znode_parent.setSelection(selected_Znode_Parent);
+        if (selected_Znode_Parent) {
+            znode_parent.setText(StringUtils.trimToEmpty(znodeParent));
+        }
+        znode_parent.setVisible(set_znode_parent.getSelection());
+    }
+
     private void hideHiveExecutionFields(boolean hide) {
         GridData hadoopData = (GridData) hiveExecutionGrp.getLayoutData();
         hadoopData.exclude = hide;
@@ -1385,17 +1425,17 @@ public class DatabaseForm extends AbstractForm {
             setHidAuthenticationForHive(true);
         }
     }
-    
+
     private void hideControlForKerbTickt() {
-     	hideControl(useKerberos, !doSupportKerb());
- 	    hideControl(authenticationCom, !(doSupportKerb() && useKerberos.getSelection()));
- 	    hideControl(useKeyTab, !doSupportKerb());
- 	    hideControl(keyTabComponent, !(doSupportKerb() && useKeyTab.getSelection()));
-     	hideControl(useMaprTForHive, !doSupportTicket());
- 	    hideControl(authenticationMaprTComForHive, !(useMaprTForHive.getSelection() && doSupportTicket()));
+        hideControl(useKerberos, !doSupportKerb());
+        hideControl(authenticationCom, !(doSupportKerb() && useKerberos.getSelection()));
+        hideControl(useKeyTab, !doSupportKerb());
+        hideControl(keyTabComponent, !(doSupportKerb() && useKeyTab.getSelection()));
+        hideControl(useMaprTForHive, !doSupportTicket());
+        hideControl(authenticationMaprTComForHive, !(useMaprTForHive.getSelection() && doSupportTicket()));
         hideControl(authenticationUserPassComForHive, doSupportKerb() && useKerberos.getSelection() && doSupportTicket());
     }
-    
+
     private void showIfAdditionalJDBCSettings() {
         setHidAdditionalJDBCSettings(!isSupportHiveAdditionalSettings());
     }
@@ -1505,6 +1545,38 @@ public class DatabaseForm extends AbstractForm {
             urlConnectionStringText.setText(url);
             getConnection().setURL(url);
         }
+    }
+
+    private void addListenerForZnodeParent() {
+        set_znode_parent.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (set_znode_parent.getSelection()) {
+                    znode_parent.setVisible(true);
+                    znodeparentGrp.layout();
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_ZNODE_PARENT,
+                            Boolean.TRUE.toString());
+                } else {
+                    znode_parent.setVisible(false);
+                    znodeparentGrp.layout();
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_ZNODE_PARENT,
+                            Boolean.FALSE.toString());
+                }
+            }
+
+        });
+
+        znode_parent.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT,
+                            znode_parent.getText());
+                }
+            }
+        });
     }
 
     private void addListenerForImpalaAuthentication() {
@@ -2379,6 +2451,9 @@ public class DatabaseForm extends AbstractForm {
         maprTPasswordForHBaseTxt.setEditable(!isContextMode());
         maprTClusterForHBaseTxt.setEditable(!isContextMode());
         maprTDurationForHBaseTxt.setEditable(!isContextMode());
+
+        set_znode_parent.setEnabled(!isContextMode());
+        znode_parent.setEditable(!isContextMode());
 
         if (isContextMode()) {
             maprTPasswordForHBaseTxt.getTextControl().setEchoChar('\0');
@@ -3872,7 +3947,9 @@ public class DatabaseForm extends AbstractForm {
                     initHiveInfo();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
                     hideControl(authenticationCom, true);
+                    hideControl(znodeparentGrp, false);
                     initHBaseSettings();
+                    // initZnodeParent();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                     hideControl(authenticationCom, true);
                     hideControl(authenticationComForHBase, true);
@@ -4121,6 +4198,7 @@ public class DatabaseForm extends AbstractForm {
 
     private void resetControls() {
         hideControl(authenticationGrpForHBase, true);
+        hideControl(znodeparentGrp, true);
     }
 
     private void clearFiledsForDiffDbTypes() {
@@ -4150,6 +4228,7 @@ public class DatabaseForm extends AbstractForm {
             initHiveInfo();
         } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
             initHBaseSettings();
+            initZnodeParent();
         } else {
             if (urlConnectionStringText != null) {
                 urlConnectionStringText.setText(""); //$NON-NLS-1$
@@ -5550,6 +5629,7 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.Server, true);
             addContextParams(EDBParamName.Port, true);
             addContextParams(EDBParamName.Schema, true);
+            addContextParams(EDBParamName.Znode_Parent, set_znode_parent.getSelection());
             addContextParams(EDBParamName.MasterPrincipal, useKerberosForHBase.getSelection());
             addContextParams(EDBParamName.RegionPrincipal, useKerberosForHBase.getSelection());
             addContextParams(EDBParamName.HbaseKeyTabPrincipal, useKeyTabForHBase.getSelection());
@@ -5573,6 +5653,7 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.ImpalaPrincipal, useKerberosForImpala.getSelection());
         }
     }
+
     private boolean useHadoopRepositoryParam() {
         String hcId = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HADOOP_CLUSTER_ID);
         return hcId == null && isHiveEmbeddedMode();
@@ -7185,12 +7266,12 @@ public class DatabaseForm extends AbstractForm {
     private boolean doSupportSecurity() {
         return doSupportKerb() || doSupportTicket();
     }
- 
+
     private boolean doSupportKerb() {
         return HiveMetadataHelper.doSupportSecurity(hiveDistributionCombo.getText(), hiveVersionCombo.getText(),
                 hiveModeCombo.getText(), hiveServerVersionCombo.getText(), true);
     }
-  
+
     private boolean doSupportTicket() {
         boolean doSupportMapRTicket = false;
         IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
@@ -7199,11 +7280,11 @@ public class DatabaseForm extends AbstractForm {
         }
         IHadoopDistributionService hadoopService = getHadoopDistributionService();
         if (hadoopService != null && hiveDistribution != null) {
-            doSupportMapRTicket = hadoopService
-                    .doSupportMapRTicket(hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true));
+            doSupportMapRTicket = hadoopService.doSupportMapRTicket(hiveDistribution.getHDVersion(hiveVersionCombo.getText(),
+                    true));
         }
         return doSupportMapRTicket;
-     }
+    }
 
     private boolean doSupportTez() {
         if (isHiveDBConnSelected()) {

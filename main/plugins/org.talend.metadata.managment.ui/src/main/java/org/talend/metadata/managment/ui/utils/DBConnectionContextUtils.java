@@ -114,6 +114,7 @@ public final class DBConnectionContextUtils {
         Maprticket_Password,
         Maprticket_Cluster,
         Maprticket_Duration,
+        Znode_Parent,
         // impala
         ImpalaPrincipal,
     }
@@ -264,6 +265,10 @@ public final class DBConnectionContextUtils {
                     break;
                 case RegionPrincipal:
                     value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    break;
+                case Znode_Parent:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT);
                     ConnectionContextHelper.createParameters(varList, paramName, value);
                     break;
                 case HbaseKeyTabPrincipal:
@@ -594,6 +599,10 @@ public final class DBConnectionContextUtils {
             break;
         case RegionPrincipal:
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+            break;
+        case Znode_Parent:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT,
                     ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
             break;
         case HbaseKeyTabPrincipal:
@@ -1000,6 +1009,11 @@ public final class DBConnectionContextUtils {
                     ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
                     getOriginalValue(hadoopClusterContextType, contextType, hbaseRegionPrin));
+
+            String znodeParent = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT,
+                    getOriginalValue(hadoopClusterContextType, contextType, znodeParent));
+
             String hbaseKeyTabPrin = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
                     getOriginalValue(hadoopClusterContextType, contextType, hbaseKeyTabPrin));
@@ -1245,6 +1259,9 @@ public final class DBConnectionContextUtils {
                     ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_REGIONSERVERPRINCIPAL,
                     ContextParameterUtils.getOriginalValue(contextType, hbaseRegionPrin));
+            String znode_Parent = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT,
+                    ContextParameterUtils.getOriginalValue(contextType, znode_Parent));
             String hbaseKeyTabPrin = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL);
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_KEYTAB_PRINCIPAL,
                     ContextParameterUtils.getOriginalValue(contextType, hbaseKeyTabPrin));
