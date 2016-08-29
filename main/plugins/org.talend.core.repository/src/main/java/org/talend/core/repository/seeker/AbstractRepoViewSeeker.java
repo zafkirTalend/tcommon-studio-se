@@ -179,7 +179,7 @@ public abstract class AbstractRepoViewSeeker implements IRepositorySeeker<IRepos
                 if (preExpandTypes != null) {
                     for (ERepositoryObjectType preExpandType : preExpandTypes) {
                         IRepositoryNode preExpandNode = root.getRootRepositoryNode(preExpandType);
-                        if (preExpandNode != null) {
+                        if (preExpandNode != null && viewer != null) {
                             viewer.expandToLevel(preExpandNode, expandLevel);
                         }
                     }
