@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xsd.XSDSchema;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.runtime.xml.XmlUtil;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.context.Context;
@@ -132,15 +133,13 @@ public final class XsdMetadataUtils {
      * @param fileForInnerContent
      * @param populationUtil
      * @throws IOException
+     * @throws URISyntaxException
      */
     public static void createMetadataFromXSD(QName parameter, String connectionLabel, String portTypeName, String operationName,
             Collection<XmlFileConnectionItem> selectItems, File fileForInnerContent, XSDPopulationUtil2 populationUtil)
             throws IOException {
         String targetNameSpace = parameter.getNamespaceURI();
-        XSDSchema xsdSchema = populationUtil.getXSDSchemaFromNamespace(targetNameSpace);
-        if (xsdSchema == null) {
-            return;
-        }
+
         String name = /* componentName + "_"+ */parameter.getLocalPart();
         XmlFileConnection connection = null;
         Property connectionProperty = null;
@@ -192,6 +191,15 @@ public final class XsdMetadataUtils {
         connection.setXmlFilePath(fileForInnerContent.getName());
         connection.setTargetNameSpace(targetNameSpace);
         try {
+            XSDSchema xsdSchema = null;
+            if (XmlUtil.isWSDLFile(fileForInnerContent.getName())) {
+                xsdSchema = populationUtil.getXSDSchemaFromNamespace(targetNameSpace);
+            } else {
+                xsdSchema = populationUtil.getXSDSchema(fileForInnerContent.getAbsolutePath());
+            }
+            if (xsdSchema == null) {
+                return;
+            }
             List<ATreeNode> rootNodes = populationUtil.getAllRootNodes(xsdSchema);
             ATreeNode node = null;
             // try to find the root element needed from XSD file.
@@ -240,6 +248,8 @@ public final class XsdMetadataUtils {
             fillRootInfo(connection, node, "", !haveElement); //$NON-NLS-1$
         } catch (OdaException e) {
             ExceptionHandler.process(e);
+        } catch (URISyntaxException e1) {
+            ExceptionHandler.process(e1);
         }
         // save
         IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
