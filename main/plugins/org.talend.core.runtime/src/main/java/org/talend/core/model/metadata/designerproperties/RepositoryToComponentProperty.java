@@ -1446,6 +1446,15 @@ public class RepositoryToComponentProperty {
             return getAppropriateValue(connection, connection.getPort());
         }
 
+        if (value.equals("SET_ZNODE_PARENT")) {
+            return Boolean.valueOf(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_ZNODE_PARENT));
+        }
+
+        if (value.equals("ZNODE_PARENT")) {
+            String znodeParent = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_ZNODE_PARENT);
+            return getAppropriateValue(connection, znodeParent);
+        }
+
         if (value.equals("COLUMN_MAPPING")) { //$NON-NLS-1$
             return getColumnMappingValue(connection, table);
         }
