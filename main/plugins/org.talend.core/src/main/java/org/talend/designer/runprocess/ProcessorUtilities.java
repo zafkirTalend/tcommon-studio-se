@@ -368,20 +368,20 @@ public class ProcessorUtilities {
             return null;
         }
         boolean isMainJob = false;
-        boolean isAutoBuild = false;
         if (jobInfo.getFatherJobInfo() == null) {
 
             // In order to avoid eclipse to compile the code at each change in the workspace, we deactivate the
             // auto-build feature during the whole build time.
             // It will be reactivated at the end if the auto-build is activated in the workspace preferences.
-            isAutoBuild = ResourcesPlugin.getWorkspace().getDescription().isAutoBuilding();
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            IWorkspaceDescription desc = workspace.getDescription();
-            desc.setAutoBuilding(false);
-            try {
-                workspace.setDescription(desc);
-            } catch (CoreException e) {
-                CommonExceptionHandler.warn(e.getMessage());
+            final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+            final IWorkspaceDescription wsDescription = workspace.getDescription();
+            if (wsDescription.isAutoBuilding()) { // only do it when enabled
+                try {
+                    wsDescription.setAutoBuilding(false); // set to false always
+                    workspace.setDescription(wsDescription);
+                } catch (CoreException e) {
+                    CommonExceptionHandler.warn(e.getMessage());
+                }
             }
 
             isMainJob = true;
@@ -512,19 +512,6 @@ public class ProcessorUtilities {
          * libraries.
          */
         generateBuildInfo(jobInfo, progressMonitor, isMainJob, currentProcess, currentJobName, processor, option);
-
-        // If the auto-build is activated in the workspace preferences, we reactivate the feature since it's been
-        // deactivated at the beginning of the build time.
-        if (isAutoBuild) {
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            IWorkspaceDescription desc = workspace.getDescription();
-            desc.setAutoBuilding(true);
-            try {
-                workspace.setDescription(desc);
-            } catch (CoreException e) {
-                CommonExceptionHandler.warn(e.getMessage());
-            }
-        }
 
         return processor;
     }
@@ -921,6 +908,7 @@ public class ProcessorUtilities {
 
     /**
      * DOC nrousseau Comment method "cloneJobInfo".
+     * 
      * @param jobInfo
      * @return
      */
@@ -1007,7 +995,8 @@ public class ProcessorUtilities {
 
                                 if (jobInfo.isApplyContextToChildren()) {
                                     subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
-                                    // see bug 0003862: Export job with the flag "Apply to children" if the child don't have
+                                    // see bug 0003862: Export job with the flag "Apply to children" if the child don't
+                                    // have
                                     // the
                                     // same context fails.
                                     if (checkIfContextExisted(processItem, selectedContextName)) {
