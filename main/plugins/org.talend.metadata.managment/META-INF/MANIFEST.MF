@@ -8,7 +8,6 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.collections,
  org.apache.commons.lang,
  org.apache.axis,
- org.talend.libraries.mdm;resolution:=optional,
  org.talend.common.ui.runtime,
  org.talend.core.runtime,
  org.talend.model,
@@ -34,7 +33,8 @@ Export-Package: metadata.managment.i18n,
  org.talend.metadata.managment.model,
  org.talend.metadata.managment.repository,
  org.talend.metadata.managment.utils
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/mdm_webservice_tomcat.jar
 Bundle-Vendor: .Talend SA.
 
 
