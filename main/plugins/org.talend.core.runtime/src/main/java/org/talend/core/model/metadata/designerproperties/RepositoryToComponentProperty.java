@@ -82,7 +82,6 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.repository.DragAndDropManager;
 import org.talend.core.model.update.UpdatesConstants;
-import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.IDragAndDropServiceHandler;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.service.IMetadataManagmentService;
@@ -1440,12 +1439,13 @@ public class RepositoryToComponentProperty {
     }
 
     private static boolean isContextMode(Connection connection, String value) {
-        if (connection == null || value == null) {
-            return false;
+        IMetadataManagmentUiService mmService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
+            mmService = (IMetadataManagmentUiService) GlobalServiceRegister.getDefault()
+                    .getService(IMetadataManagmentUiService.class);
         }
-
-        if (connection.isContextMode() && ContextParameterUtils.isContainContextParam(value)) {
-            return true;
+        if (mmService != null) {
+            return mmService.isContextMode(connection, value);
         }
         return false;
     }
