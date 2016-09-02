@@ -697,8 +697,8 @@ public final class ConnectionContextHelper {
                     IHadoopClusterService.class);
         }
         if (hadoopClusterService != null) {
-            if (hadoopClusterService.isInContextMode(connItem)) {
-                Connection connection = connItem.getConnection();
+            Connection connection = connItem.getConnection();
+            if (hadoopClusterService.isInContextMode(connection)) {
                 Set<String> neededVars = retrieveContextVar(elementParameters, connection, category);
                 if (neededVars != null && !neededVars.isEmpty()) {
                     ContextItem contextItem = ContextUtils.getContextItemById2(connection.getContextId());
@@ -1940,6 +1940,40 @@ public final class ConnectionContextHelper {
             realValue = TalendQuoteUtils.removeQuotes(ContextParameterUtils.getOriginalValue(contextType, value));
         }
         return realValue;
+    }
+
+    public static boolean isContextMode(Connection connection, String value) {
+        if (connection == null || value == null) {
+            return false;
+        }
+
+        if (isContextedConnection(connection) && ContextParameterUtils.isContainContextParam(value)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isContextedConnection(Connection connection) {
+        IHadoopClusterService hadoopClusterService = getHadoopClusterService(connection);
+        return isHadoopSubConnection(hadoopClusterService, connection) ? hadoopClusterService.isInContextMode(connection)
+                : connection.isContextMode();
+    }
+
+    private static boolean isHadoopSubConnection(IHadoopClusterService hadoopClusterService, Connection connection) {
+        return hadoopClusterService == null ? false
+                : hadoopClusterService.getHadoopClusterConnectionBySubConnection(connection) != null;
+    }
+
+    private static IHadoopClusterService getHadoopClusterService(Connection connection) {
+        IHadoopClusterService hadoopClusterService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(IHadoopClusterService.class)) {
+            hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault()
+                    .getService(IHadoopClusterService.class);
+        }
+        if (hadoopClusterService != null) {
+            return hadoopClusterService;
+        }
+        return null;
     }
 
 }
