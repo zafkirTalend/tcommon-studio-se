@@ -56,6 +56,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.model.IConnParamName;
 import org.talend.model.bridge.ReponsitoryContextBridge;
+
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -885,6 +886,14 @@ public final class DBConnectionContextUtils {
                     username, password, port, database, filePath.toLowerCase(), datasource, dbRootPath, additionParam);
             cloneConn.setURL(newURL);
             return cloneConn;
+        }
+
+        if (EDatabaseTypeName.IMPALA.equals(EDatabaseTypeName.getTypeFromDbType(dbConn.getDatabaseType()))) {
+            String impalaAuthPrinciple = cloneConn.getParameters().get(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA);
+            if (impalaAuthPrinciple != null) {
+                cloneConn.getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
+                        ContextParameterUtils.getOriginalValue(contextType, impalaAuthPrinciple));
+            }
         }
 
         // Added 20130311 TDQ-7000, when it is context mode and not general jdbc, reset the url.

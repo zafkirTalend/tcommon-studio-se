@@ -2616,8 +2616,20 @@ public class DatabaseForm extends AbstractForm {
 
         if (isContextMode()) { // context mode
             selectedContextType = ConnectionContextHelper.getContextTypeForContextMode(connectionItem.getConnection());
-            String urlStr = DBConnectionContextUtils.setManagerConnectionValues(managerConnection, connectionItem,
-                    selectedContextType, dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()), dbTypeCombo.getSelectionIndex());
+            String urlStr = null;
+            urlStr = DBConnectionContextUtils.setManagerConnectionValues(managerConnection, connectionItem, selectedContextType,
+                    dbTypeCombo.getItem(dbTypeCombo.getSelectionIndex()), dbTypeCombo.getSelectionIndex());
+            if (isImpalaDBConnSelected()) {
+                String contextName = getConnection().getContextName();
+                DatabaseConnection cloneDBConn = null;
+                if (contextName == null) {
+                    cloneDBConn = DBConnectionContextUtils.cloneOriginalValueConnection(getConnection(), true, null);
+                }
+                cloneDBConn = DBConnectionContextUtils.cloneOriginalValueConnection(getConnection(), false, contextName);
+                urlStr = DatabaseConnStrUtil.getImpalaString(cloneDBConn, cloneDBConn.getServerName(), cloneDBConn.getPort(),
+                        cloneDBConn.getSID(), DbConnStrForHive.URL_HIVE_2_TEMPLATE);
+                managerConnection.setUrlConnectionString(urlStr);
+            }
             if (urlStr == null || isHiveDBConnSelected()) {
                 if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
                     DatabaseConnection dbConn = (DatabaseConnection) connectionItem.getConnection();
