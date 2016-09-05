@@ -106,7 +106,7 @@ public enum EDatabaseVersion4Drivers {
     PARACCEL(new DbVersion4Drivers(EDatabaseTypeName.PARACCEL, "paraccel-jdbc.jar")), //$NON-NLS-1$
     VECTORWISE(new DbVersion4Drivers(EDatabaseTypeName.VECTORWISE, "iijdbc.jar")), //$NON-NLS-1$
 
-    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "exajdbc.jar")), //$NON-NLS-1$ 
+    EXASOL(new DbVersion4Drivers(EDatabaseTypeName.EXASOL, "exajdbc-5.0.12.jar")), //$NON-NLS-1$
     MAXDB(new DbVersion4Drivers(EDatabaseTypeName.MAXDB, "sapdbc.jar")), //$NON-NLS-1$
 
     INGRES(new DbVersion4Drivers(EDatabaseTypeName.INGRES, "iijdbc.jar")), //$NON-NLS-1$
