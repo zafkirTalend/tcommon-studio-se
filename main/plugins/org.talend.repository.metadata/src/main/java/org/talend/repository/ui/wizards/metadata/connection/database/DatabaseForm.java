@@ -2626,9 +2626,11 @@ public class DatabaseForm extends AbstractForm {
                     cloneDBConn = DBConnectionContextUtils.cloneOriginalValueConnection(getConnection(), true, null);
                 }
                 cloneDBConn = DBConnectionContextUtils.cloneOriginalValueConnection(getConnection(), false, contextName);
-                urlStr = DatabaseConnStrUtil.getImpalaString(cloneDBConn, cloneDBConn.getServerName(), cloneDBConn.getPort(),
-                        cloneDBConn.getSID(), DbConnStrForHive.URL_HIVE_2_TEMPLATE);
+                urlStr = cloneDBConn.getURL();
                 managerConnection.setUrlConnectionString(urlStr);
+                String versionStr = EImpalaDistribution4Versions.indexOfByVersionDisplay(impalaVersionCombo.getText())
+                        .getVersionValue();
+                managerConnection.setDbVersionString(versionStr);
             }
             if (urlStr == null || isHiveDBConnSelected()) {
                 if (dbTypeCombo.getText().equals(EDatabaseConnTemplate.GENERAL_JDBC.getDBDisplayName())) {
