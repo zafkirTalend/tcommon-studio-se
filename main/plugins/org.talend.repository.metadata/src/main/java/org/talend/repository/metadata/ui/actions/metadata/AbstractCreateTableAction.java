@@ -37,7 +37,6 @@ import org.talend.core.IRepositoryContextService;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.database.conn.ConnParameterKeys;
 import org.talend.core.database.conn.DatabaseConnStrUtil;
-import org.talend.core.database.conn.template.DbConnStrForHive;
 import org.talend.core.database.conn.template.EDatabaseConnTemplate;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
@@ -1042,9 +1041,7 @@ public abstract class AbstractCreateTableAction extends AbstractCreateAction {
                                                 .cloneOriginalValueConnection(connection, false, null);
                                     }
                                     if (originalValueConnection != null) {
-                                        metadataConnection.setUrl(DatabaseConnStrUtil.getImpalaString(originalValueConnection,
-                                                originalValueConnection.getServerName(), originalValueConnection.getPort(),
-                                                originalValueConnection.getSID(), DbConnStrForHive.URL_HIVE_2_TEMPLATE));
+                                        metadataConnection.setUrl(originalValueConnection.getURL());
                                     }
                                 } else {
                                     String genUrl = DatabaseConnStrUtil.getURLString(metadataConnection.getDbType(),
