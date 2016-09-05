@@ -126,8 +126,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
 
     private static ProjectRepositoryNode defaultProjRepoNode;
 
-    private static ProjectRepositoryNode dummyProjRepoNode = new ProjectRepositoryNode(null, null,
-            ENodeType.STABLE_SYSTEM_FOLDER);
+    private static ProjectRepositoryNode dummyProjRepoNode = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
 
     private final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
@@ -475,16 +474,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
             if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
                 Project p = refProject.getReferencedProject();
-                List<Project> list = nodeAndProject.get(parent);
-                if (list == null) {
-                    list = new ArrayList<Project>();
-                    nodeAndProject.put(parent, list);
-                }
-                if (list.contains(p)) {
-                    return;
-                } else {
-                    list.add(p);
-                }
                 initializeChildren(new org.talend.core.model.general.Project(p), parent);
                 intitializeRefProject(p, parent);
             }
@@ -1991,6 +1980,6 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 node.getChildren().clear();
             }
         }
-        
+
     }
 }
