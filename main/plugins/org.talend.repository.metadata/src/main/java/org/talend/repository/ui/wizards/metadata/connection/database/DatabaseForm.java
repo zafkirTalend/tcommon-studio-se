@@ -3204,8 +3204,18 @@ public class DatabaseForm extends AbstractForm {
                 cloneDBConn = DBConnectionContextUtils.cloneOriginalValueConnection(getConnection(), false, contextName);
                 urlStr = cloneDBConn.getURL();
                 managerConnection.setUrlConnectionString(urlStr);
-                String versionStr = EImpalaDistribution4Versions.indexOfByVersionDisplay(impalaVersionCombo.getText())
-                        .getVersionValue();
+                String versionStr = ""; //$NON-NLS-1$
+                IHadoopDistributionService hadoopService = getHadoopDistributionService();
+                if (hadoopService != null) {
+                    IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager()
+                            .getDistribution(impalaDistributionCombo.getText(), true);
+                    if (impalaDistribution != null && !impalaDistribution.useCustom()) {
+                        IHDistributionVersion impalaVersion = impalaDistribution.getHDVersion(impalaVersionCombo.getText(), true);
+                        if (impalaVersion != null) {
+                            versionStr = impalaVersion.getVersion();
+                        }
+                    }
+                }
                 managerConnection.setDbVersionString(versionStr);
             }
             if (urlStr == null || isHiveDBConnSelected()) {
