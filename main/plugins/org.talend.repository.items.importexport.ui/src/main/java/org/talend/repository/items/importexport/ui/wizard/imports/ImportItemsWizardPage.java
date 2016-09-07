@@ -76,6 +76,7 @@ import org.talend.core.service.IExchangeService;
 import org.talend.core.ui.advanced.composite.FilteredCheckboxTree;
 import org.talend.repository.items.importexport.handlers.ImportExportHandlersManager;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
+import org.talend.repository.items.importexport.handlers.model.EmptyFolderImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.items.importexport.ui.dialog.ShowErrorsDuringImportItemsDialog;
@@ -86,6 +87,8 @@ import org.talend.repository.items.importexport.ui.wizard.imports.providers.Impo
 import org.talend.repository.items.importexport.ui.wizard.imports.providers.ImportItemsViewerFilter;
 import org.talend.repository.items.importexport.ui.wizard.imports.providers.ImportItemsViewerLabelProvider;
 import org.talend.repository.items.importexport.ui.wizard.imports.providers.ImportItemsViewerSorter;
+import org.talend.repository.items.importexport.wizard.models.FolderImportNode;
+import org.talend.repository.items.importexport.wizard.models.ImportNode;
 import org.talend.repository.items.importexport.wizard.models.ImportNodesBuilder;
 import org.talend.repository.items.importexport.wizard.models.ItemImportNode;
 import org.talend.repository.model.ERepositoryStatus;
@@ -801,27 +804,45 @@ public class ImportItemsWizardPage extends WizardPage {
 
     private List<ImportItem> getCheckedElements() {
         // add this if user use filter
-        Set<ItemImportNode> checkedElements = new HashSet<ItemImportNode>();
+        Set<ImportNode> checkedElements = new HashSet<ImportNode>();
         for (Object obj : filteredCheckboxTree.getCheckedLeafNodes()) {
-            if (obj instanceof ItemImportNode) {
-                checkedElements.add((ItemImportNode) obj);
+            if (obj instanceof ImportNode) {
+                checkedElements.add((ImportNode) obj);
             }
         }
         // add this if user does not use filter
         for (Object obj : filteredCheckboxTree.getViewer().getCheckedElements()) {
-            if (obj instanceof ItemImportNode) {
-                checkedElements.add((ItemImportNode) obj);
+            if (obj instanceof ImportNode) {
+                checkedElements.add((ImportNode) obj);
             }
         }
         // sort the item
-        List<ItemImportNode> list = new ArrayList<ItemImportNode>(checkedElements);
+        List<ImportNode> list = new ArrayList<ImportNode>(checkedElements);
         Collections.sort(list);
 
         List<ImportItem> items = new ArrayList<ImportItem>(list.size());
-        for (ItemImportNode node : list) {
-            items.add(node.getItemRecord());
+        for (ImportNode node : list) {
+            if (node.getItemRecord() != null) {
+                items.add(node.getItemRecord());
+            }
         }
         return items;
+    }
+
+    private List<EmptyFolderImportItem> getCheckedFolders() {
+        List<EmptyFolderImportItem> checkedEmptyFolder = new ArrayList<EmptyFolderImportItem>();
+
+        // add this if user does not use filter
+        for (Object obj : filteredCheckboxTree.getViewer().getCheckedElements()) {
+            if (obj instanceof FolderImportNode) {
+                ImportItem itemRecord = ((FolderImportNode) obj).getItemRecord();
+                if (itemRecord instanceof EmptyFolderImportItem) {
+                    checkedEmptyFolder.add((EmptyFolderImportItem) itemRecord);
+                }
+            }
+        }
+
+        return checkedEmptyFolder;
     }
 
     /**
@@ -846,6 +867,9 @@ public class ImportItemsWizardPage extends WizardPage {
         String errorMessage = null;
         HashMap<String, ImportItem> duplicateCheckMap = new HashMap<String, ImportItem>();
         for (ImportItem itRecord : checkedElements) {
+            if (itRecord instanceof EmptyFolderImportItem) {
+                continue;
+            }
             ImportItem otherRecord = duplicateCheckMap.put(itRecord.getProperty().getId() + itRecord.getProperty().getVersion(),
                     itRecord);
             if (otherRecord != null) {
@@ -892,13 +916,13 @@ public class ImportItemsWizardPage extends WizardPage {
 
     public boolean performFinish() {
         final List<ImportItem> checkedItemRecords = getCheckedElements();
+        final IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
 
         /*
          * ?? prepare to do import, unlock the existed one, and make sure the overwrite to work well.
          */
         for (ImportItem itemRecord : checkedItemRecords) {
             Item item = itemRecord.getProperty().getItem();
-            IProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
             if (item.getState().isLocked()) {
                 try {
                     factory.unlock(item);
@@ -945,6 +969,7 @@ public class ImportItemsWizardPage extends WizardPage {
 
                     importManager.importItemRecords(monitor, resManager, checkedItemRecords, overwrite,
                             nodesBuilder.getAllImportItemRecords(), destinationPath);
+
                 }
             };
 

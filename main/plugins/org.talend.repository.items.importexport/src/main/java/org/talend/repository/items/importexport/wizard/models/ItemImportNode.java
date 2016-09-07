@@ -20,8 +20,6 @@ import org.talend.repository.items.importexport.handlers.model.ImportItem;
  */
 public class ItemImportNode extends ImportNode {
 
-    private final ImportItem itemRecord;
-
     public ItemImportNode(ImportItem itemRecord) {
         super();
         this.itemRecord = itemRecord;
@@ -55,10 +53,6 @@ public class ItemImportNode extends ImportNode {
     @Override
     public String getDisplayLabel() {
         return getItemRecord().getLabel();
-    }
-
-    public ImportItem getItemRecord() {
-        return this.itemRecord;
     }
 
 }

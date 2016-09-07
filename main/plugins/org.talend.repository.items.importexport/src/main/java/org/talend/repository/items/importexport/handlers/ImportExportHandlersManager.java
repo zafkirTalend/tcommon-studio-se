@@ -31,6 +31,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
@@ -42,7 +43,13 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
+import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.Project;
+import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.repository.DynaEnum;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
@@ -54,11 +61,13 @@ import org.talend.repository.items.importexport.handlers.imports.IImportResource
 import org.talend.repository.items.importexport.handlers.imports.ImportBasicHandler;
 import org.talend.repository.items.importexport.handlers.imports.ImportCacheHelper;
 import org.talend.repository.items.importexport.handlers.imports.ImportExportHandlersRegistryReader;
+import org.talend.repository.items.importexport.handlers.model.EmptyFolderImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -183,6 +192,81 @@ public final class ImportExportHandlersManager {
                 monitor.worked(1);
             }
 
+            // add empty folders for TUP-2716
+            List<IPath> emptyFolders = resManager.getEmptyFolders();
+            if (!emptyFolders.isEmpty()) {
+                DynaEnum<? extends DynaEnum<?>>[] values = ERepositoryObjectType.values();
+                ERepositoryObjectType folderType = null;
+                for (IPath folder : emptyFolders) {
+                    if (folder.segmentCount() < 1) {
+                        continue;
+                    }
+                    IPath folderPathToCheck = folder.removeFirstSegments(1);
+                    String generatedPath = ERepositoryObjectType.DOCUMENTATION.getFolder() + "/"
+                            + RepositoryConstants.DOCUMENTATION_GENERATED_PATH;
+                    if (folderPathToCheck.removeTrailingSeparator().toPortableString().startsWith(generatedPath)) {
+                        continue;
+                    }
+                    for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
+                        ERepositoryObjectType objectType = (ERepositoryObjectType) type;
+                        String[] products = objectType.getProducts();
+                        boolean isDI = false;
+                        for (String product : products) {
+                            if (ERepositoryObjectType.PROD_DI.equals(product)) {
+                                isDI = true;
+                                break;
+                            }
+                        }
+                        if (isDI && objectType.isResouce()) {
+                            if (folderPathToCheck.toPortableString().startsWith(objectType.getFolder() + "/")) {
+                                folderType = objectType;
+                                ERepositoryObjectType fromChildrenType = getTypeFromChildren(objectType.getChildrenTypesArray(),
+                                        folderPathToCheck.toPortableString());
+                                if (fromChildrenType != null) {
+                                    folderType = fromChildrenType;
+                                }
+                                if (folderType == ERepositoryObjectType.SQLPATTERNS
+                                        && folderPathToCheck.removeTrailingSeparator().toPortableString()
+                                                .endsWith(RepositoryConstants.USER_DEFINED)) {
+                                    folderType = null;
+                                }
+                                if (folderPathToCheck.removeTrailingSeparator().toPortableString().equals(objectType.getFolder())) {
+                                    // don't import if it is system folder
+                                    folderType = null;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if (folderType != null) {
+                        IPath typePath = new Path(folderType.getFolder());
+                        IPath folderPath = folder.removeFirstSegments(1 + typePath.segmentCount()).removeLastSegments(1)
+                                .removeTrailingSeparator();
+                        String folderLabel = folder.lastSegment();
+
+                        EmptyFolderImportItem folderItem = new EmptyFolderImportItem(folderPath);
+                        folderItem.setRepositoryType(folderType);
+                        folderItem.setLabel(folderLabel);
+                        Project project = PropertiesFactory.eINSTANCE.createProject();
+                        project.setTechnicalLabel(folder.segment(0));
+                        project.setLabel(folder.segment(0));
+                        folderItem.setItemProject(project);
+
+                        Property property = PropertiesFactory.eINSTANCE.createProperty();
+                        property.setId(ProxyRepositoryFactory.getInstance().getNextId());
+                        FolderItem createFolderItem = PropertiesFactory.eINSTANCE.createFolderItem();
+                        ItemState createStatus = PropertiesFactory.eINSTANCE.createItemState();
+                        property.setItem(createFolderItem);
+                        createStatus.setPath(folderPath.toPortableString());
+                        createFolderItem.setState(createStatus);
+                        items.add(folderItem);
+                        folderItem.setProperty(property);
+                        folderType = null;
+                    }
+                }
+
+            }
+
             // post populate
             postPopulate(monitor, resManager, items.toArray(new ImportItem[0]));
 
@@ -199,6 +283,27 @@ public final class ImportExportHandlersManager {
 
     }
 
+    private ERepositoryObjectType getTypeFromChildren(ERepositoryObjectType[] types, String folderPath) {
+        ERepositoryObjectType objectType = null;
+        for (ERepositoryObjectType type : types) {
+            if (folderPath.startsWith(type.getFolder() + "/")) {
+                objectType = type;
+                ERepositoryObjectType[] childrenTypesArray = objectType.getChildrenTypesArray();
+                if (childrenTypesArray.length > 0) {
+                    objectType = getTypeFromChildren(childrenTypesArray, folderPath);
+                }
+                break;
+            }
+
+        }
+        return objectType;
+    }
+
+    protected ImportHandlerHelper createImportHandlerHelper() {
+        // TODO Auto-generated method stub
+        return new ImportHandlerHelper();
+    }
+
     public void importItemRecords(final IProgressMonitor progressMonitor, final ResourcesManager resManager,
             final List<ImportItem> checkedItemRecords, final boolean overwrite, final ImportItem[] allImportItemRecords,
             final IPath destinationPath) throws InvocationTargetException {
@@ -206,6 +311,14 @@ public final class ImportExportHandlersManager {
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
         TimeMeasure.begin("importItemRecords"); //$NON-NLS-1$
+
+        final List<EmptyFolderImportItem> checkedFolders = new ArrayList<EmptyFolderImportItem>();
+        for (ImportItem importItem : checkedItemRecords) {
+            if (importItem instanceof EmptyFolderImportItem) {
+                checkedFolders.add((EmptyFolderImportItem) importItem);
+            }
+        }
+        checkedItemRecords.removeAll(checkedFolders);
 
         /*
          * Re-order the import items according to the priority of extension point.
@@ -234,7 +347,7 @@ public final class ImportExportHandlersManager {
             // cache
             importCacheHelper.beforeImportItems();
 
-            if (resManager == null || checkedItemRecords.isEmpty()) {
+            if (resManager == null || checkedItemRecords.isEmpty() && checkedFolders.isEmpty()) {
                 return;
             }
             progressMonitor.beginTask(
@@ -276,6 +389,8 @@ public final class ImportExportHandlersManager {
                         public void run(final IProgressMonitor monitor) throws CoreException {
                             // pre import
                             preImport(monitor, resManager, checkedItemRecords.toArray(new ImportItem[0]), allImportItemRecords);
+
+                            final IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
 
                             // bug 10520
                             final Set<String> overwriteDeletedItems = new HashSet<String>();
@@ -341,8 +456,6 @@ public final class ImportExportHandlersManager {
                                 // saved
                                 // with relations
                                 try {
-                                    final IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance()
-                                            .getProxyRepositoryFactory();
                                     factory.saveProject(ProjectManager.getInstance().getCurrentProject());
                                 } catch (PersistenceException e) {
                                     if (Platform.inDebugMode()) {
@@ -353,6 +466,41 @@ public final class ImportExportHandlersManager {
                                             Messages.getString("ImportExportHandlersManager_importingItemsError"), e)); //$NON-NLS-1$
                                 }
                                 TimeMeasure.step("importItemRecords", "save project"); //$NON-NLS-1$//$NON-NLS-2$
+                            }
+
+                            // import empty folders
+                            if (!checkedFolders.isEmpty()) {
+                                for (EmptyFolderImportItem folder : checkedFolders) {
+                                    boolean exist = false;
+                                    ERepositoryObjectType repositoryType = folder.getRepositoryType();
+                                    IPath path = folder.getPath();
+                                    if (destinationPath != null) {
+                                        IPath desPath = destinationPath.makeRelativeTo(new Path(repositoryType.getFolder()));
+                                        path = desPath.append(folder.getPath());
+                                    }
+                                    String label = folder.getLabel();
+                                    FolderItem getFolderItem = factory.getFolderItem(ProjectManager.getInstance()
+                                            .getCurrentProject(), repositoryType, path);
+                                    if (getFolderItem != null) {
+                                        for (Object obj : getFolderItem.getChildren()) {
+                                            if (obj instanceof FolderItem) {
+                                                FolderItem existFolder = (FolderItem) obj;
+                                                if (label.equals(existFolder.getProperty().getLabel())) {
+                                                    exist = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (!exist) {
+                                        try {
+                                            factory.createFolder(repositoryType, path, label);
+                                        } catch (PersistenceException e) {
+                                            ExceptionHandler.process(e);
+                                        }
+                                    }
+
+                                }
                             }
 
                             // post import

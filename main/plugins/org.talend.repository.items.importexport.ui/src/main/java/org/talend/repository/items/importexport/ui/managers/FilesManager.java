@@ -14,12 +14,15 @@ package org.talend.repository.items.importexport.ui.managers;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
+import org.talend.core.repository.constants.FileConstants;
 import org.talend.utils.io.FilesUtils;
 
 /**
@@ -33,10 +36,14 @@ public class FilesManager extends AbstractImportResourcesManager {
 
     @Override
     public boolean collectPath2Object(Object root) {
-        return doCollectItemFiles((File) root);
+        return doCollectItemFiles((File) root, (File) root, (File) root);
     }
 
-    private boolean doCollectItemFiles(File directory) {
+    public boolean collectPath2Object(File original, File root, File current) {
+        return doCollectItemFiles(original, root, current);
+    }
+
+    private boolean doCollectItemFiles(File original, File root, File directory) {
         File[] contents = directory.listFiles();
 
         if (contents != null) {
@@ -48,12 +55,51 @@ public class FilesManager extends AbstractImportResourcesManager {
                 }
                 if (file.isDirectory()) {
                     if ((!FilesUtils.isSVNFolder(file))) {
-                        collectPath2Object(content);
+                        doCollectItemFiles(original, root, content);
+                        IPath folderPath = getFolderPath(original, root, file);
+                        if (folderPath != null) {
+                            addFolder(folderPath.toPortableString());
+                        }
                     }
                 }
             }
         }
         return true;
+    }
+
+    private IPath getFolderPath(File original, File tempDirectoryRoot, File directory) {
+        File projectFile = findProjectFile(directory);
+        if (projectFile != null) {
+            String projectName = "";
+            if (tempDirectoryRoot.getAbsolutePath().equals(projectFile.getParentFile().getAbsolutePath())) {
+                projectName = original.getName();
+            }
+            IPath currentPath = new Path(directory.getAbsolutePath());
+            IPath basePath = new Path(tempDirectoryRoot.getAbsolutePath());
+            IPath absPath = currentPath.makeRelativeTo(basePath);
+
+            IPath folderPath = new Path(projectName);
+            folderPath = folderPath.append(absPath);
+            return folderPath;
+        }
+        return null;
+    }
+
+    private File findProjectFile(File directory) {
+        File parentFile = directory.getParentFile();
+        File[] listFiles = parentFile.listFiles(new FileFilter() {
+
+            @Override
+            public boolean accept(File pathname) {
+                return FileConstants.LOCAL_PROJECT_FILENAME.equals(pathname.getName());
+            }
+        });
+        if (listFiles.length == 1) {
+            return listFiles[0];
+        } else if (parentFile.getParentFile() != null) {
+            return findProjectFile(parentFile);
+        }
+        return null;
     }
 
     /*

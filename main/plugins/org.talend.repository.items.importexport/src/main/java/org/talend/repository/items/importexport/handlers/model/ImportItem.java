@@ -39,7 +39,7 @@ public class ImportItem {
 
     private Property property;
 
-    private IPath path;
+    protected IPath path;
 
     private List<String> errors = new ArrayList<String>();
 
@@ -53,11 +53,11 @@ public class ImportItem {
 
     private boolean imported = false;
 
-    private String label;
+    protected String label;
 
     private IRepositoryViewObject existingItemWithSameId;
 
-    private ERepositoryObjectType repositoryType;
+    protected ERepositoryObjectType repositoryType;
 
     private String itemId;
 
