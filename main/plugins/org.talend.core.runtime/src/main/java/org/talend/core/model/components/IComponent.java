@@ -33,6 +33,10 @@ import org.talend.core.model.temp.ECodePart;
 public interface IComponent {
 
     String JOBLET_PID = "org.talend.designer.joblet"; //$NON-NLS-1$
+    
+    String SPARK_JOBLET_PID = "org.talend.designer.sparkjoblet"; //$NON-NLS-1$
+    
+    String SPARK_JOBLET_STREAMING_PID = "org.talend.designer.sparkstreamingjoblet"; //$NON-NLS-1$
 
     String PROP_NAME = "NAME"; //$NON-NLS-1$
 
@@ -46,7 +50,11 @@ public interface IComponent {
 
     String PROP_HELP = "HELP"; //$NON-NLS-1$
 
-    String FAMILY = "Joblets"; //$NON-NLS-1$
+    String JOBLET_FAMILY = "Joblets"; //$NON-NLS-1$
+    
+    String SPARK_JOBLET_FAMILY = "Spark Joblets"; //$NON-NLS-1$
+    
+    String SPARK_STREAMING_JOBLET_FAMILY = "Spark Streaming Joblets"; //$NON-NLS-1$
 
     public String getName();
 
