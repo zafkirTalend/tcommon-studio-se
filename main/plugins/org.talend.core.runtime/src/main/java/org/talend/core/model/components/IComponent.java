@@ -110,7 +110,18 @@ public interface IComponent {
 
     public boolean isVisible(String family);
 
+    
+    /**
+     * Get the default modules needed for the component.
+     * @return
+     */
     public List<ModuleNeeded> getModulesNeeded();
+
+    /**
+     * Get the modules needed according the setup of a defined component.
+     * @return
+     */
+    public List<ModuleNeeded> getModulesNeeded(INode node);
 
     public String getPathSource();
 
