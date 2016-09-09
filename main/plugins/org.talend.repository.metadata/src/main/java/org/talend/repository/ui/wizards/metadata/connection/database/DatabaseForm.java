@@ -4572,7 +4572,7 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                handleHadoopCustomVersion(ECustomVersionType.ALL);
+                handleHadoopCustomVersion(ECustomVersionType.HIVE);
             }
         });
     }
