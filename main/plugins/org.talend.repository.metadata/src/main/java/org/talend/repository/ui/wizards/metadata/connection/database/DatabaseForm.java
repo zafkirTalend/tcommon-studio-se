@@ -5334,7 +5334,7 @@ public class DatabaseForm extends AbstractForm {
             urlConnectionStringText.setEditable(!visible);
             // schemaText.hide();
             boolean schemaTextIsShow = true;
-            if (template == EDatabaseConnTemplate.MSSQL) {
+            if (template == EDatabaseConnTemplate.MSSQL || template == EDatabaseConnTemplate.MSSQL_PROPRIETARY) {
                 schemaText.show();
                 schemaText.setEditable(true);
                 addContextParams(EDBParamName.Schema, true);

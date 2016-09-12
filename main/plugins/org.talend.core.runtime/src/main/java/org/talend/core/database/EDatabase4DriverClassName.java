@@ -46,6 +46,7 @@ public enum EDatabase4DriverClassName {
     MSODBC(EDatabaseTypeName.MSODBC, "sun.jdbc.odbc.JdbcOdbcDriver"), //$NON-NLS-1$
     MSSQL(EDatabaseTypeName.MSSQL, "net.sourceforge.jtds.jdbc.Driver"), //$NON-NLS-1$
     MSSQL2(EDatabaseTypeName.MSSQL05_08, "com.microsoft.sqlserver.jdbc.SQLServerDriver"), //$NON-NLS-1$
+    MSSQL_PROPRIETARY(EDatabaseTypeName.MSSQL_PROPRIETARY, "com.microsoft.sqlserver.jdbc.SQLServerDriver"), //$NON-NLS-1$
 
     MYSQL(EDatabaseTypeName.MYSQL, "org.gjt.mm.mysql.Driver"), //$NON-NLS-1$
     MYSQL2(EDatabaseTypeName.MYSQL, "com.mysql.jdbc.Driver"), //$NON-NLS-1$

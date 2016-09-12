@@ -73,6 +73,10 @@ public enum EDatabaseConnTemplate {
     MSSQL05_08(new DbConnStr(EDatabaseTypeName.MSSQL05_08, //
             "jdbc:sqlserver://<host>:<port>;DatabaseName=<sid>", //$NON-NLS-1$
             "1433")), //$NON-NLS-1$         
+    MSSQL_PROPRIETARY(new DbConnStr(EDatabaseTypeName.MSSQL_PROPRIETARY, 
+            "jdbc:sqlserver://<host>:<port>;DatabaseName=<sid>;<property>", //$NON-NLS-1$
+            "1433")),
+
 
     GODBC(new DbConnStr(EDatabaseTypeName.GODBC, //
             "jdbc:odbc:<datasource>")), //$NON-NLS-1$
@@ -345,6 +349,7 @@ public enum EDatabaseConnTemplate {
         if (template != null) {
             switch (template) {
             case MSSQL:
+            case MSSQL_PROPRIETARY:
             case INFORMIX:
             case MYSQL:
             case AMAZON_AURORA:
@@ -378,6 +383,7 @@ public enum EDatabaseConnTemplate {
             case INGRES:
             case INTERBASE:
             case MSSQL:
+            case MSSQL_PROPRIETARY:
             case INFORMIX:
             case TERADATA:
             case AS400:

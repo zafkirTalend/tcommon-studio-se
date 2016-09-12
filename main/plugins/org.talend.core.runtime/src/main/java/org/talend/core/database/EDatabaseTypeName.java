@@ -61,6 +61,8 @@ public enum EDatabaseTypeName {
           "MSSQL", "Microsoft SQL Server", Boolean.TRUE, "SQL_SERVER", "MSSQL", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
     MSSQL05_08(
                "MSSQL", "Microsoft SQL Server 2005/2008", Boolean.TRUE, "SQL_SERVER", "MSSQL", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    MSSQL_PROPRIETARY(
+            "MSSQL_PROPRIETARY", "Microsoft SQL Server(Proprietary Driver)", Boolean.TRUE, "SQL_SERVER", "MSSQL_PROPRIETARY", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.Schema),
     // this don't use in Branch 2.0
     HSQLDB("HSQLDB", "HSQLDB", Boolean.FALSE, "HSQLDB", EDatabaseSchemaOrCatalogMapping.Sid, EDatabaseSchemaOrCatalogMapping.None), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     HSQLDB_SERVER(
