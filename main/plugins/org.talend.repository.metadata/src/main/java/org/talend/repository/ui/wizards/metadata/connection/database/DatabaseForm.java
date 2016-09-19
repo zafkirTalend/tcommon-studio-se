@@ -5681,6 +5681,7 @@ public class DatabaseForm extends AbstractForm {
         // recollect context params for impala
         if (isImpalaDBConnSelected()) {
             getConetxtParams().clear();
+            addContextParams(EDBParamName.Login, true);
             addContextParams(EDBParamName.Server, true);
             addContextParams(EDBParamName.Port, true);
             addContextParams(EDBParamName.Database, true);
