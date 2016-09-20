@@ -186,6 +186,8 @@ public enum ECoreImage implements IImage {
     PALETTE_OK_ICON("/icons1/palette_ok.png"), //$NON-NLS-1$
     PALETTE_CLEAR_ICON("/icons1/clear_toolbox.png"), //$NON-NLS-1$
     JOBLET_COMPONENT_ICON("/icons1/joblet_component.png"), //$NON-NLS-1$
+    SPARK_JOBLET_COMPONENT_ICON("/icons1/spark_joblet_component.png"), //$NON-NLS-1$
+    SPARK_STREAMING_JOBLET_COMPONENT_ICON("/icons1/spark_streaming_joblet_component.png"), //$NON-NLS-1$
     UNKNOWN(),
     PROGRESSBAR("/icons1/progressBar.gif"), //$NON-NLS-1$
     PROGRESSBARBlACK("/icons1/progressBar2.gif"), //$NON-NLS-1$

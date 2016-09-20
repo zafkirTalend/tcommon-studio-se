@@ -64,6 +64,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -150,6 +151,7 @@ import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.model.VersionList;
 import org.talend.core.repository.recyclebin.RecycleBinManager;
+import org.talend.core.repository.ui.view.RepositoryLabelProvider;
 import org.talend.core.repository.utils.AbstractResourceChangesService;
 import org.talend.core.repository.utils.ResourceFilenameHelper;
 import org.talend.core.repository.utils.RoutineUtils;
@@ -2260,8 +2262,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         itemResource.getContents().add(item.getJobletProcess());
         if (item.getIcon() == null) {
             item.setIcon(PropertiesFactory.eINSTANCE.createByteArray());
-            ImageDescriptor imageDesc = ImageProvider.getImageDesc(ECoreImage.JOBLET_COMPONENT_ICON);
-            item.getIcon().setInnerContent(ImageUtils.saveImageToData(imageDesc));
+            Image image = RepositoryLabelProvider.getJobletCustomIcon(item.getProperty());
+            item.getIcon().setInnerContent(ImageUtils.saveImageToData(image));
         }
         if (item.getIcon() != null) {
             itemResource.getContents().add(item.getIcon());
