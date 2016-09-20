@@ -293,7 +293,7 @@ public final class ConnectionContextHelper {
         } else if (conn instanceof GenericSchemaConnection) {
             //
         } else if (conn instanceof MDMConnection) {
-            varList = OtherConnectionContextUtils.getMDMSchemaVariables(label, (MDMConnection) conn);
+            varList = OtherConnectionContextUtils.getMDMConnectionVariables(label, (MDMConnection) conn);
         } else if (conn instanceof FTPConnection) {
             varList = OtherConnectionContextUtils.getFTPSChemaVariables(label, (FTPConnection) conn);
         } else if (conn instanceof SAPConnection) {
@@ -404,6 +404,9 @@ public final class ConnectionContextHelper {
         } else if (conn instanceof SAPConnection) {
             OtherConnectionContextUtils.setSAPConnectionPropertiesForContextMode(defaultContextName, (SAPConnection) conn,
                     paramSet);
+        } else if (conn instanceof MDMConnection) {
+            OtherConnectionContextUtils.setMDMConnectionPropertiesForContextMode(defaultContextName, (MDMConnection) conn,
+                    paramSet);
         } else {
             ExtendedNodeConnectionContextUtils.setConnectionPropertiesForContextMode(defaultContextName, conn, paramSet);
         }
@@ -444,6 +447,8 @@ public final class ConnectionContextHelper {
                     modelMap);
         } else if (conn instanceof SAPConnection) {
             OtherConnectionContextUtils.setSAPConnectionPropertiesForExistContextMode((SAPConnection) conn, paramSet, modelMap);
+        } else if (conn instanceof MDMConnection) {
+            OtherConnectionContextUtils.setMDMConnectionPropertiesForExistContextMode((MDMConnection) conn, paramSet, modelMap);
         } else {
             ExtendedNodeConnectionContextUtils.setConnectionPropertiesForExistContextMode(conn, paramSet, modelMap);
         }
@@ -1882,6 +1887,8 @@ public final class ConnectionContextHelper {
             OtherConnectionContextUtils.revertSalesforcePropertiesForContextMode((SalesforceSchemaConnection) conn, contextType);
         } else if (conn instanceof SAPConnection) {
             OtherConnectionContextUtils.revertSAPPropertiesForContextMode((SAPConnection) conn, contextType);
+        } else if (conn instanceof MDMConnection) {
+            OtherConnectionContextUtils.revertMDMConnectionPropertiesForContextMode((MDMConnection) conn, contextType);
         } else if (conn instanceof GenericSchemaConnection) {
             //
         } else {
