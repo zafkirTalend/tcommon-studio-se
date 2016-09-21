@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.metadata.managment.ui.wizard.context;
 
+import java.util.List;
+
+import org.apache.avro.Schema;
 import org.talend.commons.runtime.model.components.IComponentConstants;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.utils.ContextParameterUtils;
@@ -34,6 +37,13 @@ public class MetadataContextPropertyValueEvaluator extends AbstractPropertyValue
 
     @Override
     public Object evaluate(Property property, Object storedValue) {
+        if (storedValue == null) {
+            return storedValue;
+        }
+        if (storedValue instanceof Schema || storedValue instanceof List || storedValue instanceof Enum
+                || storedValue instanceof Boolean) {
+            return storedValue;
+        }
         boolean isPropertySupportContext = false;
         if (Boolean.valueOf(String.valueOf(property.getTaggedValue(IComponentConstants.SUPPORT_CONTEXT)))) {
             isPropertySupportContext = true;
