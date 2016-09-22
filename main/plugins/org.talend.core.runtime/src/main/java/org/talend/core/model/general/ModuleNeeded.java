@@ -272,7 +272,7 @@ public class ModuleNeeded {
         final ELibraryInstallStatus eLibraryInstallStatus = ModuleStatusProvider.getStatusMap().get(mvnUriStatusKey);
         if (eLibraryInstallStatus != null) {
             return eLibraryInstallStatus;
-        } else {
+        } else if (mvnUriStatusKey != null) {
             // compute the status of the lib.
             // first use the Library manager service
             ILibraryManagerService libManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
@@ -556,8 +556,8 @@ public class ModuleNeeded {
                 // set jar by default
                 parseMvnUrl.setType(MavenConstants.TYPE_JAR);
             }
-            uri = MavenUrlHelper.generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(),
-                    parseMvnUrl.getVersion(), parseMvnUrl.getType(), parseMvnUrl.getClassifier());
+            uri = MavenUrlHelper.generateMvnUrl(parseMvnUrl.getGroupId(), parseMvnUrl.getArtifactId(), parseMvnUrl.getVersion(),
+                    parseMvnUrl.getType(), parseMvnUrl.getClassifier());
         }
         return uri;
     }
