@@ -14,6 +14,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.URIUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
@@ -144,7 +145,8 @@ public class InitializeMissingJarHandler implements IStartup, Observer {
                                     URI uri = new URI(moduleLocation);
                                     URL url = FileLocator.toFileURL(uri.toURL());
                                     if ("file".equals(url.getProtocol())) { //$NON-NLS-1$
-                                        libraryManagerService.deploy(url.toURI(), null);
+                                        // TUP-4968 using 'URIUtil.toURI(url)' supports a path with special chars(like as space).
+                                        libraryManagerService.deploy(URIUtil.toURI(url), null);
                                         installed = true;
                                     }// else not a file so keep going
                                     break;
