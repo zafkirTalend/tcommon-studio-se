@@ -63,7 +63,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -77,8 +76,6 @@ import org.talend.commons.exception.LoginException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
-import org.talend.commons.ui.runtime.image.ECoreImage;
-import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.ImageUtils;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
@@ -597,7 +594,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                                     avoidSaveProject, true));
                         } else if (!(curItem instanceof FolderItem)) {
                             if (property.eResource() != null) {
-                                if (id == null || property.getId().equals(id)) {
+                                if (id == null || id.equals(property.getId())) {
                                     if (withDeleted || !property.getItem().getState().isDeleted()) {
                                         toReturn.add(new RepositoryObject(property));
                                     }
@@ -1098,8 +1095,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     /**
-     * @see org.talend.core.model.repository.factories.IRepositoryFactory#readProject(java.lang.String,
-     * java.lang.String, java.lang.String)
+     * @see org.talend.core.model.repository.factories.IRepositoryFactory#readProject(java.lang.String, java.lang.String,
+     * java.lang.String)
      */
     @Override
     public Project[] readProject() throws PersistenceException {
