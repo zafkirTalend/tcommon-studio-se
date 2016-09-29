@@ -62,6 +62,8 @@ public class AbstractPropertyValueEvaluatorTest {
         assertEquals(1, value);
         value = evalutor.getTypedValue(props.integerProp, "str"); //$NON-NLS-1$
         assertEquals(0, value);
+        value = evalutor.getTypedValue(props.integerProp, ""); //$NON-NLS-1$
+        assertEquals(null, value);
 
         // Test Enum type
         value = evalutor.getTypedValue(props.enumProp, "str"); //$NON-NLS-1$
