@@ -34,7 +34,10 @@ public abstract class AbstractPropertyValueEvaluator implements PropertyValueEva
         if (GenericTypeUtils.isBooleanType(property)) {
             return new Boolean(stringValue);
         }
-        if (GenericTypeUtils.isIntegerType(property) && rawValue != null && !stringValue.isEmpty()) {
+        if (GenericTypeUtils.isIntegerType(property) && rawValue != null) {
+            if (stringValue.isEmpty()) { // regard empty value as null for Integer type.
+                return null;
+            }
             try {
                 return Integer.valueOf(stringValue);
             } catch (Exception e) {
