@@ -140,6 +140,8 @@ public interface IRunProcessService extends IService {
     public IProcess getActiveProcess();
 
     public boolean checkExportProcess(IStructuredSelection selection, boolean isJob);
+    
+    public void checkLastGenerationHasCompilationError(boolean updateProblemsView) throws ProcessorException;
 
     /**
      * DOC ycbai Comment method "getResourceFilePath".
