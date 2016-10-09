@@ -375,7 +375,7 @@ public final class DqRepositoryViewService {
      * 
      * @return
      */
-    private static boolean isComeFromRefrenceProject(Connection dataProvider) {
+    public static boolean isComeFromRefrenceProject(Connection dataProvider) {
         String currentResourceProjectName = dataProvider.eResource().getURI().segment(1);
         RepositoryContext repositoryContext = (RepositoryContext) org.talend.core.runtime.CoreRuntimePlugin.getInstance()
                 .getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
