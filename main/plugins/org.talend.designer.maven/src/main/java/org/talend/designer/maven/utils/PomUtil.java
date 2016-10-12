@@ -340,14 +340,6 @@ public class PomUtil {
         if (templateRootContainer == null || !templateRootContainer.exists() || fileName == null || fileName.length() == 0) {
             return null;
         }
-        try {
-            if (!templateRootContainer.isSynchronized(IResource.DEPTH_INFINITE)) {
-                templateRootContainer.refreshLocal(IResource.DEPTH_INFINITE, null);
-            }
-        } catch (CoreException e) {
-            //
-        }
-
         IContainer baseContainer = templateRootContainer; // support found the file in current base container.
         boolean hasPath = templateRelativePath != null && !templateRelativePath.isEmpty();
         if (hasPath) {

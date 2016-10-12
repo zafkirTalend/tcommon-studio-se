@@ -66,8 +66,8 @@ public class MavenPomSynchronizer {
      */
     public void syncRoutinesPom(boolean overwrite) throws Exception {
         // pom_routines.xml
-        IFile routinesPomFile = codeProject.getProject().getFile(
-                PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
+        IFile routinesPomFile = codeProject.getProject()
+                .getFile(PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_ROUTINES_ARTIFACT_ID));
         // generate new one
         CreateMavenBundleTemplatePom createTemplatePom = new CreateMavenRoutinePom(routinesPomFile);
         createTemplatePom.setOverwrite(overwrite);
@@ -76,8 +76,8 @@ public class MavenPomSynchronizer {
 
     public void syncBeansPom(boolean overwrite) throws Exception {
         // pom_beans.xml
-        IFile beansPomFile = codeProject.getProject().getFile(
-                PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID));
+        IFile beansPomFile = codeProject.getProject()
+                .getFile(PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_BEANS_ARTIFACT_ID));
         // generate new one
         CreateMavenBeanPom createTemplatePom = new CreateMavenBeanPom(beansPomFile);
         createTemplatePom.setOverwrite(overwrite);
@@ -86,8 +86,8 @@ public class MavenPomSynchronizer {
 
     public void syncPigUDFsPom(boolean overwrite) throws Exception {
         // pom_pigudfs.xml
-        IFile beansPomFile = codeProject.getProject().getFile(
-                PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID));
+        IFile beansPomFile = codeProject.getProject()
+                .getFile(PomUtil.getPomFileName(TalendMavenConstants.DEFAULT_PIGUDFS_ARTIFACT_ID));
         // generate new one
         CreateMavenPigUDFPom createTemplatePom = new CreateMavenPigUDFPom(beansPomFile);
         createTemplatePom.setOverwrite(overwrite);
@@ -112,8 +112,6 @@ public class MavenPomSynchronizer {
         MavenTemplateManager.saveContent(shFile, shContent, overwrite);
         MavenTemplateManager.saveContent(batFile, batContent, overwrite);
         MavenTemplateManager.saveContent(infoFile, jobInfoContent, overwrite);
-
-        templateFolder.refreshLocal(IResource.DEPTH_ONE, null);
     }
 
     /**
@@ -161,8 +159,6 @@ public class MavenPomSynchronizer {
             // save pom.
             PomUtil.savePom(null, projModel, projectPomFile);
         }
-        // refresh
-        codeProject.getProject().refreshLocal(IResource.DEPTH_ONE, null);
     }
 
     /**
@@ -208,8 +204,8 @@ public class MavenPomSynchronizer {
 
         //
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
-            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault().getService(
-                    ILibrariesService.class);
+            ILibrariesService libService = (ILibrariesService) GlobalServiceRegister.getDefault()
+                    .getService(ILibrariesService.class);
             libService.addChangeLibrariesListener(new ILibrariesService.IChangedLibrariesListener() {
 
                 @Override
