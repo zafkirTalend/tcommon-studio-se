@@ -181,9 +181,9 @@ public final class MetadataToolAvroHelper {
                 || JavaTypesManager.CHARACTER.getId().equals(tt) || JavaTypesManager.PASSWORD.getId().equals(tt)) {
             type = AvroUtils._string();
         }
-
-        // Types with unknown elements, store as binary
-        if (JavaTypesManager.OBJECT.getId().equals(tt)) {
+        
+        // Types with Document/Unknown elements, store as binary
+        if ("id_Document".equals(tt) || JavaTypesManager.OBJECT.getId().equals(tt)) {
             type = AvroUtils._string();
         }
 
