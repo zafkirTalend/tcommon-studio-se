@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -466,14 +468,18 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     protected void afterCreate(IProgressMonitor monitor) throws Exception {
         setPomForHDLight(monitor);
 
-        PomJobExtensionRegistry.getInstance().updatePom(monitor, getPomFile());
+        final IProcess process = getJobProcessor().getProcess();
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put(IPomJobExtension.KEY_PROCESS, process);
+
+        PomJobExtensionRegistry.getInstance().updatePom(monitor, getPomFile(), args);
 
         generateAssemblyFile(monitor);
 
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
         pomSync.setArgumentsMap(getArgumentsMap());
-        pomSync.syncCodesPoms(monitor, getJobProcessor().getProcess(), true);
+        pomSync.syncCodesPoms(monitor, process, true);
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 
