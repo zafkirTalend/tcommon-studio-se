@@ -94,12 +94,6 @@ public class PomUtil {
             throw new NullPointerException("the output file is null.");
         }
 
-        // pomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
-        // if (pomFile.exists()) {
-        // pomFile.delete(true, monitor);
-        // }
-        // MavenPlugin.getMavenModelManager().createMavenModel(pomFile, model);
-
         /*
          * copied the codes from createMavenModel of MavenModelManager
          */
@@ -354,12 +348,6 @@ public class PomUtil {
         if (templateRootContainer == null || !templateRootContainer.exists() || fileName == null || fileName.length() == 0) {
             return null;
         }
-        try {
-            templateRootContainer.refreshLocal(IResource.DEPTH_INFINITE, null);
-        } catch (CoreException e) {
-            //
-        }
-
         IContainer baseContainer = templateRootContainer; // support found the file in current base container.
         boolean hasPath = templateRelativePath != null && !templateRelativePath.isEmpty();
         if (hasPath) {
