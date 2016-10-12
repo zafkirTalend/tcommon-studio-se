@@ -2383,7 +2383,8 @@ public class RepositoryToComponentProperty {
         if (connection instanceof DatabaseConnection) {
             DatabaseConnection dbConn = (DatabaseConnection) connection;
             String databaseType = dbConn.getDatabaseType();
-            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
+            if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)
+                    || EDatabaseTypeName.MAPRDB.getDisplayName().equals(databaseType)) {
                 for (IMetadataColumn column : columns) {
                     Map<String, Object> row = new HashMap<String, Object>();
                     row.put("SCHEMA_COLUMN", column.getLabel()); //$NON-NLS-1$
