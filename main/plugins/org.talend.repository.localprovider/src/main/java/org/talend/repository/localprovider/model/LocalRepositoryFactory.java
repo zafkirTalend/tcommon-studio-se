@@ -2483,6 +2483,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             } else {
                 newItem = copyFromResource(createResource, newItemLabel);
             }
+            copyIcon(originalItem, newItem);
             // *need to create all referenece files when copy the item*//
             copyReferenceFiles(originalItem, newItem);
             create(getRepositoryContext().getProject(), newItem, path);
@@ -2504,6 +2505,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     xmlResource.setID(connectionItem.getConnection(), EcoreUtil.generateUUID());
                 }
             }
+            
             return newItem;
         } catch (IOException e) {
             // e.printStackTrace();
@@ -2525,6 +2527,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
             newItem.getReferenceResources().add(newRefItem);
             newRefItem.setContent(byarray);
+        }
+    }
+    
+    private void copyIcon(Item originalItem, Item newItem) throws PersistenceException {
+        if (!(newItem instanceof JobletProcessItem)) {
+            return;
+        }
+        for (IRepositoryContentHandler handler : RepositoryContentManager.getHandlers()) {
+            handler.copyIcon(originalItem, newItem);
         }
     }
 
