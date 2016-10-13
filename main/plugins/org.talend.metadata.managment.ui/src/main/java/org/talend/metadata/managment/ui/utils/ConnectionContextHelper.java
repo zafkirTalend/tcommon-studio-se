@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -654,24 +655,37 @@ public final class ConnectionContextHelper {
                             false);
                     if (addedVars != null && !addedVars.isEmpty()
                             && !isAddContextVar(contextItem, process.getContextManager(), neededVars)) {
-                        boolean added = false;
+                        AtomicBoolean added = new AtomicBoolean();
                         if (ignoreContextMode) {
                             addContextVarForJob(process, contextItem, addedVars);
-                            added = true;
+                            added.set(true);
                         } else {
                             // show
                             Map<String, Set<String>> addedVarsMap = new HashMap<String, Set<String>>();
                             addedVarsMap.put(connItem.getProperty().getId(), addedVars);
-                            if (showContextdialog(process, contextItem, process.getContextManager(), addedVarsMap, addedVars)) {
-                                added = true;
-                            }
+                            PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    if (showContextdialog(process, contextItem, process.getContextManager(), addedVarsMap,
+                                            addedVars)) {
+                                        added.set(true);
+                                    }
+                                }
+                            });
                         }
                         // refresh context view
-                        if (added) {
+                        if (added.get()) {
                             if (GlobalServiceRegister.getDefault().isServiceRegistered(IDesignerCoreService.class)) {
                                 IDesignerCoreService service = (IDesignerCoreService) GlobalServiceRegister.getDefault()
                                         .getService(IDesignerCoreService.class);
-                                service.switchToCurContextsView();
+                                PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        service.switchToCurContextsView();
+                                    }
+                                });
                             }
                         }
                     }
