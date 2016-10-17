@@ -17,6 +17,36 @@
             name="metrics-core-3.0.2.jar" mvn_uri="mvn:org.talend.libraries/metrics-core-3.0.2/6.0.0" 
             required="true">
       </libraryNeeded>
+      <libraryNeeded
+            context="plugin:org.talend.libraries.apache.cassandra"
+            id="spark-cassandra-connector-13"
+            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-java-assembly-1.3.1-patched-20161017/6.3.0"
+            name="spark-cassandra-connector-java-assembly-1.3.1-patched-20161017.jar">
+      </libraryNeeded>
+      <libraryNeeded
+            context="plugin:org.talend.libraries.apache.cassandra"
+            id="spark-cassandra-connector-14"
+            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-java-assembly-1.4.3-patched-20161017/6.3.0"
+            name="spark-cassandra-connector-java-assembly-1.4.3-patched-20161017.jar">
+      </libraryNeeded>
+      <libraryNeeded
+            context="plugin:org.talend.libraries.apache.cassandra"
+            id="spark-cassandra-connector-15"
+            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-java-assembly-1.5.0-patched-20161017/6.3.0"
+            name="spark-cassandra-connector-java-assembly-1.5.0-patched-20161017.jar">
+      </libraryNeeded>
+      <libraryNeeded
+            context="plugin:org.talend.libraries.apache.cassandra"
+            id="spark-cassandra-connector-16"
+            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-assembly-1.6.2-patched-20161017/6.3.0"
+            name="spark-cassandra-connector-assembly-1.6.2-patched-20161017.jar">
+      </libraryNeeded>
+      <libraryNeeded
+            context="plugin:org.talend.libraries.apache.cassandra"
+            id="spark-cassandra-connector-20"
+            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-assembly-2.0.0-M3-patched-20161017/6.3.0"
+            name="spark-cassandra-connector-assembly-2.0.0-M3-patched-20161017.jar">
+      </libraryNeeded>
    </extension>
 
 </plugin>
