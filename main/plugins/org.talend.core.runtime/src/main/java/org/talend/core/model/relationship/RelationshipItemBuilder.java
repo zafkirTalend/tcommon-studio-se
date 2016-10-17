@@ -567,7 +567,9 @@ public class RelationshipItemBuilder {
             ItemRelations itemRelations = null;
             boolean exist = false;
             for (ItemRelations relations : oldRelations) {
-                if (relations.getBaseItem().getId().equals(relation.getId())) {
+                boolean isIdSame = relations.getBaseItem().getId().equals(relation.getId());
+                boolean isVersionSame = StringUtils.equals(relations.getBaseItem().getVersion(), relation.getVersion());
+                if (isIdSame && isVersionSame) {
                     usedList.add(relations);
                     itemRelations = relations;
                     exist = true;
@@ -598,7 +600,16 @@ public class RelationshipItemBuilder {
                 List<ItemRelation> relationList = new ArrayList<ItemRelation>(itemRelations.getRelatedItems());
                 boolean found = false;
                 for (ItemRelation item : relationList) {
-                    if (item.getId() != null && item.getId().equals(relatedItem.getId())) {
+                    boolean isIdSame = false;
+                    String itemId = item.getId();
+                    if (itemId != null) {
+                        isIdSame = itemId.equals(relatedItem.getId());
+                    }
+                    boolean isVersionSame = false;
+                    if (isIdSame) {
+                        isVersionSame = StringUtils.equals(item.getVersion(), relatedItem.getVersion());
+                    }
+                    if (isIdSame && isVersionSame) {
                         found = true;
                         break;
                     }
