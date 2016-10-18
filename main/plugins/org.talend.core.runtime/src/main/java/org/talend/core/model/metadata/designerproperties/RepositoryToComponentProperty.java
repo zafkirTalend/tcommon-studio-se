@@ -932,9 +932,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("DATASOURCE")) { //$NON-NLS-1$
             return getAppropriateValue(connection, connection.getDatasourceName());
         }
-        if (value.equals("USERNAME")) { //$NON-NLS-1$
-            return getAppropriateValue(connection, connection.getUsername());
-        }
+        // if (value.equals("USERNAME")) { //$NON-NLS-1$
+        // return getAppropriateValue(connection, connection.getUsername());
+        // }
         if (value.equals("PASSWORD")) { //$NON-NLS-1$
             return getAppropriateValue(connection, connection.getValue(connection.getPassword(), false));
         }
@@ -1224,13 +1224,15 @@ public class RepositoryToComponentProperty {
             return Boolean.parseBoolean(useMaprTValue);
         }
         if (value.equals("USERNAME")) {
-            String hbaseUsername = null;
+            String connUserName = null;
             if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {
-                hbaseUsername = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
+                connUserName = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_USERNAME);
             } else if (EDatabaseTypeName.MAPRDB.getDisplayName().equals(databaseType)) {
-                hbaseUsername = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRDB_AUTHENTICATION_USERNAME);
+                connUserName = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRDB_AUTHENTICATION_USERNAME);
+            } else {
+                connUserName = connection.getUsername();
             }
-            return getAppropriateValue(connection, hbaseUsername);
+            return getAppropriateValue(connection, connUserName);
         }
         if (value.equals("MAPRTICKET_USERNAME")) {
             String maprticket_Username = connection.getParameters().get(
