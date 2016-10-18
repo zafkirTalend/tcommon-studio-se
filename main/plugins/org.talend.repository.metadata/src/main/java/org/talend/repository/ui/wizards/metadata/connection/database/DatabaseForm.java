@@ -1593,6 +1593,8 @@ public class DatabaseForm extends AbstractForm {
                     authenticationGrpForImpala.layout();
                     authenticationGrpForImpala.getParent().layout();
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, Boolean.TRUE.toString());
+                    getConnection().getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,impalaPrincipalTxt.getText());
+                    urlConnectionStringText.setText(getStringConnection());
                 } else {
                     GridData hadoopData = (GridData) authenticationComForImpala.getLayoutData();
                     hadoopData.exclude = true;
@@ -1612,7 +1614,7 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                if (!isContextMode()) {
+                if (!isContextMode()&&impalaPrincipalTxt.isVisiable()) {
                     getConnection().getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
                             impalaPrincipalTxt.getText());
                     urlConnectionStringText.setText(getStringConnection());
@@ -5987,7 +5989,7 @@ public class DatabaseForm extends AbstractForm {
             authenticationComForImpala.layout();
             authenticationComForImpala.getParent().layout();
         }
-        impalaPrincipalTxt.setText(impalaPrincipla == null ? "" : impalaPrincipla); //$NON-NLS-1$
+        impalaPrincipalTxt.setText(impalaPrincipla == null ? "impala/_HOST@EXAMPLE.COM" : impalaPrincipla); //$NON-NLS-1$
 
     }
 
@@ -6664,6 +6666,7 @@ public class DatabaseForm extends AbstractForm {
             if (template != null) {
                 portText.setText(template.getDefaultPort());
             }
+            initImpalaInfo();
         }
     }
 
