@@ -633,7 +633,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             ERepositoryObjectType currentType = null;
             for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
                 ERepositoryObjectType objectType = (ERepositoryObjectType) type;
-                if (objectType.isResouce() && comparePath.equals(objectType.getFolder())) {
+                if ((objectType.isResouce() && comparePath.equals(objectType.getFolder())) || (objectType.isResouce()
+                        && comparePath.equals("metadata") && fullPath.startsWith(objectType.getFolder()))) {
                     path = fullPath.substring(objectType.getFolder().length() + 1);
                     currentType = objectType;
                     break;
