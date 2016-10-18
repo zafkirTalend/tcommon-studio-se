@@ -5825,6 +5825,7 @@ public class DatabaseForm extends AbstractForm {
         boolean isHbase = visible && asHbaseVersionEnable();
         boolean isMaprdb = visible && asMaprdbVersionEnable();
         boolean isImpala = visible && ImpalaVersionEnable();
+        boolean isHive = visible && hiveVersionEnable();
         boolean isMsSQL = visible && asMsSQLVersionEnable();
 
         dbVersionCombo
@@ -5976,7 +5977,13 @@ public class DatabaseForm extends AbstractForm {
                     if (isImpala) {
                         String serverName = getConnection().getServerName();
                         if (serverName == null || "".equals(serverName)) { //$NON-NLS-1$
-                            serverText.setText("");
+                            serverText.setText(EDatabaseConnTemplate.IMPALA.getDefaultServer(null));
+                        }
+                    }
+                    if(isHive){
+                        String serverName = getConnection().getServerName();
+                        if (serverName == null || "".equals(serverName)) { //$NON-NLS-1$
+                            serverText.setText(EDatabaseConnTemplate.HIVE.getDefaultServer(EDatabaseVersion4Drivers.HIVE));
                         }
                     }
                     addContextParams(EDBParamName.Server, visible);
@@ -6335,6 +6342,15 @@ public class DatabaseForm extends AbstractForm {
         }
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null && (template == EDatabaseConnTemplate.IMPALA);
+    }
+    
+    private boolean hiveVersionEnable() {
+
+        if (dbTypeCombo == null) {
+            return false;
+        }
+        EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
+        return template != null && (template == EDatabaseConnTemplate.HIVE);
     }
 
     /**
@@ -7221,6 +7237,10 @@ public class DatabaseForm extends AbstractForm {
             } else if (defaultMaprticket_Duration != null) {
                 maprTDurationForHiveTxt.setText(defaultMaprticket_Duration);
             }
+            EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
+            if (template != null) {
+                serverText.setText(template.getDefaultServer(null));
+            }
         }
     }
 
@@ -7372,6 +7392,8 @@ public class DatabaseForm extends AbstractForm {
             EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(getConnection().getDatabaseType());
             if (template != null) {
                 portText.setText(template.getDefaultPort());
+                serverText.setText(template.getDefaultServer(null));
+                sidOrDatabaseText.setText(template.getDefaultDB(null));
             }
         }
     }
