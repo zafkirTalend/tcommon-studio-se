@@ -165,6 +165,7 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.json.JSONArray;
+
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1655,20 +1656,27 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if ("".equals(version)) { //$NON-NLS-1$
             version = null; // for all version
         }
-        if (objToDelete.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
-                || objToDelete.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
-            if (coreSerivce.isAlreadyBuilt(project)) {
-                if (objToDelete.getProperty() != null) {
-                    coreSerivce.removeItemRelations(objToDelete.getProperty().getItem());
-                }
-            }
-        }
-
         // can only delete in the main project
         List<IRepositoryViewObject> allVersionToDelete = getAllVersion(project, objToDelete.getId(), false);
+
         for (IRepositoryViewObject currentVersion : allVersionToDelete) {
             String currentVersionValue = currentVersion.getVersion();
             if (version == null || currentVersionValue.equals(version)) {
+                /**
+                 * 1. Remove the relationship for current version
+                 */
+                if (currentVersion.getRepositoryObjectType() == ERepositoryObjectType.PROCESS
+                        || currentVersion.getRepositoryObjectType() == ERepositoryObjectType.JOBLET) {
+                    if (coreSerivce.isAlreadyBuilt(project)) {
+                        if (currentVersion.getProperty() != null) {
+                            coreSerivce.removeItemRelations(currentVersion.getProperty().getItem());
+                        }
+                    }
+                }
+
+                /**
+                 * 2. Delete the physical file(s) for current version
+                 */
                 Property currentProperty = currentVersion.getProperty();
                 Item currentItem = currentProperty.getItem();
                 if (currentItem.getParent() instanceof FolderItem) {
