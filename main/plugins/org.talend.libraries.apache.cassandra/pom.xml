@@ -13,7 +13,7 @@
     <talend.groupid>org.talend.libraries</talend.groupid>
     <talend.version.630>6.3.0</talend.version.630>
   </properties>
-  <build>
+  <!--build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -67,5 +67,5 @@
       <id>talend_nexus</id>
       <url>https://talend-update.talend.com/nexus/content/repositories/libraries</url>
     </repository>
-  </repositories>
+  </repositories-->
 </project>
