@@ -381,7 +381,10 @@ public abstract class PropertiesWizardPage extends AbstractNamedWizardPage {
      * @return the destinationPath
      */
     public IPath getDestinationPath() {
-        String pathStr = pathText.getText();
+        String pathStr = ""; //$NON-NLS-1$
+        if (pathText != null) {
+            pathStr = pathText.getText();
+        }
         if (pathStr.contains("(default)")) {//$NON-NLS-1$
             int index = pathStr.indexOf(")");//$NON-NLS-1$
             if (pathStr.length() > index + 1) {
