@@ -98,6 +98,14 @@ public interface IGenericWizardService extends IService {
             boolean isCompactView);
 
     /**
+     * Refresh the <code>composite</code> if it is a instance of
+     * <code>org.talend.repository.generic.ui.DynamicComposite</code>
+     * 
+     * @param composite
+     */
+    public void refreshDynamicComposite(Composite composite);
+
+    /**
      * Update component schema for node metadata table of node.
      * 
      * @param componentProperties
