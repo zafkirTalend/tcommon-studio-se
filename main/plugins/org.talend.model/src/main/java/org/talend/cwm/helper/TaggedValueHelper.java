@@ -187,6 +187,12 @@ public final class TaggedValueHelper {
 
     public static final String PREVIEW_ROW_NUMBER = "PREVIEW_ROW_NUMBER"; //$NON-NLS-1$
 
+    // Added zshen TDQ-12581
+
+    public static final String IS_USE_SAMPLE_DATA = "Is Use Sample Data"; //$NON-NLS-1$
+
+    public static final String IS_SQL_ENGIN_BEFORE_CHECK = "false"; //$NON-NLS-1$
+
     private TaggedValueHelper() {
     }
 

@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SafeRunner;
@@ -620,32 +621,27 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                 .getDeletedFolders(ProjectManager.getInstance().getCurrentProject());
         Collections.sort(folders);
         for (String fullPath : folders) {
-            String path = null;
-            
-            String comparePath = fullPath;
-            if(fullPath!=null){
-                String[] paths = fullPath.split("/");
-                if(paths.length>0){
-                    comparePath = paths[0];
-                }
-            }
-            
+            String folderPath = null;
+            final IPath fPath = new Path(fullPath);
             ERepositoryObjectType currentType = null;
             for (DynaEnum<? extends DynaEnum<?>> type : ERepositoryObjectType.values()) {
                 ERepositoryObjectType objectType = (ERepositoryObjectType) type;
-                if (objectType.isResouce() && comparePath.equals(objectType.getFolder())) {
-                    path = fullPath.substring(objectType.getFolder().length() + 1);
-                    currentType = objectType;
-                    break;
+                if (objectType.isResouce()) {
+                    IPath typePath = new Path(objectType.getFolder());
+                    if (typePath.isPrefixOf(fPath)) {
+                        folderPath = fPath.makeRelativeTo(typePath).toString();
+                        currentType = objectType;
+                        break;
+                    }
                 }
             }
+
             if (currentType != null) {
-                buildFolders(rootNode, currentType, path, rootNode);
+                buildFolders(rootNode, currentType, folderPath, rootNode);
             }
         }
         addDeletedElements(rootNode, rootNode.getChildren());
     }
-
     /**
      * DOC nrousseau Comment method "addDeletedElements".
      * 
