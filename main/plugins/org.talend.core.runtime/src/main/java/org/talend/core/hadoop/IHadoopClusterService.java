@@ -252,4 +252,6 @@ public interface IHadoopClusterService extends IService {
     
     public boolean clouderaNaviDieOnError(Connection hadoopSubConnection);
 
+    public String getRelHadoopClusterId(String repositoryId);
+
 }
