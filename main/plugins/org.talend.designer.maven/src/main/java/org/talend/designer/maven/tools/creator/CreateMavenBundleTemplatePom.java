@@ -173,9 +173,6 @@ public class CreateMavenBundleTemplatePom extends CreateMaven {
         MODEL_MANAGER.createMavenModel(curPomFile, model);
 
         afterCreate(monitor);
-
-        curPomFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
-
     }
 
     protected void checkCreatingFile(IProgressMonitor monitor, IFile currentFile) throws Exception {
