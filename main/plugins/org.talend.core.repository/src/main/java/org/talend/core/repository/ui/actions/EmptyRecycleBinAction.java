@@ -134,7 +134,7 @@ public class EmptyRecycleBinAction extends AContextualAction {
                 .getUnDeleteItems(childrenNeedToDelete, null);
 
         if (unDeleteItems.size() > 0) {
-            boolean isForceDelete[] = new boolean[1];
+            final boolean isForceDelete[] = new boolean[1];
             Display.getDefault().syncExec(new Runnable() {
 
                 @Override
