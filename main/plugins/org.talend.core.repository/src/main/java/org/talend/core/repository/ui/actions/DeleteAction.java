@@ -193,7 +193,7 @@ public class DeleteAction extends AContextualAction {
                 final List<ItemReferenceBean> unDeleteItems = RepositoryNodeDeleteManager.getInstance().getUnDeleteItems(
                         selectNodes, deleteActionCache);
                 if (unDeleteItems.size() > 0) {
-                    boolean isForceDelete[] = new boolean[1];
+                    final boolean isForceDelete[] = new boolean[1];
                     Display.getDefault().syncExec(new Runnable() {
 
                         @Override
