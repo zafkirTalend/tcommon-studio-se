@@ -59,9 +59,13 @@ public class TypeConvert {
         public ConvertTypeIllegalArgumentException(String s, Throwable cause) {
             super(s, cause);
         }
+        
+        static ConvertTypeIllegalArgumentException forInputArgument(Object argument) {
+            return new ConvertTypeIllegalArgumentException("For input argument: \"" + argument + "\""); //$NON-NLS-1$ //$NON-NLS-2$
+        }
 
         static ConvertTypeIllegalArgumentException forInputArgument(Object argument,String type) {
-            return new ConvertTypeIllegalArgumentException("For input argument: Cannot convert \"" + argument + "\" to "+type ); //$NON-NLS-1$ //$NON-NLS-2$
+            return new ConvertTypeIllegalArgumentException("Cannot convert \"" + argument + "\" to "+type ); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         static ConvertTypeIllegalArgumentException forInputArgument(Object argument, Throwable cause) {
