@@ -225,9 +225,11 @@ public final class ConnectionUtils {
         return url != null && url.startsWith("jdbc:teradata"); //$NON-NLS-1$
     }
 
-    public static boolean isVertica(String url) { 
- 	    return url != null && url.startsWith("jdbc:vertica"); //$NON-NLS-1$ 
- 	}     /**
+    public static boolean isVertica(String url) {
+        return url != null && url.startsWith("jdbc:vertica"); //$NON-NLS-1$ 
+    }
+
+    /**
      * Method "isValid".
      * 
      * @param connection the connection to test
@@ -378,6 +380,32 @@ public final class ConnectionUtils {
             result = true;
         }
         return result;
+    }
+
+    public static boolean isOracleForSid(DatabaseMetaData metadata, String oracleProduct) throws SQLException {
+        if (metadata != null && metadata.getDatabaseProductName() != null
+                && metadata.getDatabaseProductName().indexOf(oracleProduct) > -1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * DOC Comment method "isExasol".
+     * 
+     * @param metadata
+     * @return
+     * @throws SQLException
+     */
+    public static boolean isExasol(DatabaseMetaData metadata) throws SQLException {
+        if (metadata != null && metadata.getDriverName() != null
+                && metadata.getDriverName().toLowerCase().startsWith("exasol") //$NON-NLS-1$
+                && metadata.getDatabaseProductName() != null
+                && metadata.getDatabaseProductName().toLowerCase().startsWith("exasol")) { //$NON-NLS-1$
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -217,7 +217,9 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
         ResultSet schemas = null;
         // teradata use db name to filter schema
-        if (dbConn != null && EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId())) {
+        if (dbConn != null
+                && (EDatabaseTypeName.TERADATA.getProduct().equals(((DatabaseConnection) dbConn).getProductId()) || EDatabaseTypeName.EXASOL
+                        .getProduct().equals(((DatabaseConnection) dbConn).getProductId()))) {
             if (!dbConn.isContextMode()) {
                 String sid = ((DatabaseConnection) dbConn).getSID();
                 if (sid != null && sid.length() > 0) {
@@ -380,12 +382,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         try {
-            if (dbJDBCMetadata.getDatabaseProductName() != null
-                    && dbJDBCMetadata.getDatabaseProductName().indexOf(EDatabaseTypeName.ORACLEFORSID.getProduct()) > -1) {
-                return catalogList;
-            }
-            // ODBC teradata dosen't support 'dbJDBCMetadata.getCatalogs()',return at here.
-            if (ConnectionUtils.isOdbcTeradata(dbJDBCMetadata)) {
+            if (!isDbSupportCatalogNames(dbJDBCMetadata)) {
                 return catalogList;
             }
             ResultSet catalogNames = null;
@@ -556,6 +553,15 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl {
         }
 
         return catalogList;
+    }
+
+    private boolean isDbSupportCatalogNames(DatabaseMetaData dbJDBCMetadata) throws SQLException {
+        // Now here that OracleForSid,OdbcTeradata,Exasol dosen't support the catalog name.
+        if (ConnectionUtils.isOracleForSid(dbJDBCMetadata, EDatabaseTypeName.ORACLEFORSID.getProduct())
+                || ConnectionUtils.isOdbcTeradata(dbJDBCMetadata) || ConnectionUtils.isExasol(dbJDBCMetadata)) {
+            return false;
+        }
+        return true;
     }
 
     /**
