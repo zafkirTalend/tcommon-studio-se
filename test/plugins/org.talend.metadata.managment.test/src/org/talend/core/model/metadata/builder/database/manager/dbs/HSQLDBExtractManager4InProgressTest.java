@@ -62,6 +62,6 @@ public class HSQLDBExtractManager4InProgressTest extends HSQLDBExtractManagerTes
     @Override
     protected void verifyConnection4ReturnColumns4DontCreateConnection(Connection conn) throws SQLException {
         verify(conn, times(2)).isClosed();
-        verify(conn).close();
+        verify(conn, never()).close();
     }
 }
