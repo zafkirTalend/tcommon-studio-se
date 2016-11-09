@@ -314,7 +314,7 @@ public final class DBConnectionContextUtils {
                         key = ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION;
                     }
                     value = conn.getParameters().get(key);
-                    ConnectionContextHelper.createParameters(varList, paramName, value);
+                    ConnectionContextHelper.createParameters(varList, paramName, value, JavaTypesManager.LONG);
                     break;
                 default:
                 }
