@@ -112,13 +112,6 @@
          version="1.5.0.20140606-0033"/>
 
    <plugin
-         id="org.eclipse.m2e.discovery"
-         download-size="75"
-         install-size="165"
-         version="1.5.0.20140606-0033"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.m2e.core.ui"
          download-size="750"
          install-size="1585"
