@@ -4089,7 +4089,8 @@ public class DatabaseForm extends AbstractForm {
 
                         index = 3;
                         if (s[index] != "") { //$NON-NLS-1$
-                            if (selection.equals(EDatabaseConnTemplate.AS400.getDBDisplayName())) {
+                            if (selection.equals(EDatabaseConnTemplate.AS400.getDBDisplayName()) 
+                                    || selection.equals(EDatabaseConnTemplate.REDSHIFT.getDBDisplayName())) {
                                 sidOrDatabaseText.setText(s[index]);
                                 getConnection().setSID(s[index]);
                             }
