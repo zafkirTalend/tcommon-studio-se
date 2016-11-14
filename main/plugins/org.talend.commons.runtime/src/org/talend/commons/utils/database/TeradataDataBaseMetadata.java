@@ -174,11 +174,11 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         // end
         String sql = null;
         if (types != null && types.length > 0) {
-            sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+            sql = "SELECT * from DBC.TABLESV WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
                     + "') AND tablekind " + addTypesToSql(types); //$NON-NLS-1$
         } else {
             // When the types is empty, all the tables and views will be retrieved.
-            sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+            sql = "SELECT * from DBC.TABLESV WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
                     + "') AND (tablekind = 'T' or tablekind = 'V')"; //$NON-NLS-1$
         }
 
