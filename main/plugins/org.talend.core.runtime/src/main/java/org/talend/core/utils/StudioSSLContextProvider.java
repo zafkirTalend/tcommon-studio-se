@@ -19,6 +19,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.core.prefs.SSLPreferenceConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.daikon.security.SSLContextProvider;
 import org.talend.utils.security.CryptoHelper;
 
 /**
