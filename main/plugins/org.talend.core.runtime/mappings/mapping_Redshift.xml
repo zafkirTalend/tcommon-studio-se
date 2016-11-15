@@ -6,14 +6,15 @@
             <dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
             <dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
             <dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
-            <dbType type="DECIMAL" ignoreLen="true" />
-            <dbType type="REAL" ignoreLen="true" />
-            <dbType type="DOUBLE PRECISION" ignoreLen="true" />
+            <dbType type="DECIMAL" ignoreLen="false" ignorePre="false" />
+            <dbType type="REAL" ignoreLen="true" ignorePre="true" />
+            <dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true" />
             <dbType type="BOOLEAN" ignoreLen="true" ignorePre="true" />
-            <dbType type="CHAR" ignoreLen="true" ignorePre="true" />
-            <dbType type="VARCHAR" ignorePre="true" />
+            <dbType type="CHAR" ignoreLen="false" ignorePre="true" />
+            <dbType type="VARCHAR" ignoreLen="false" ignorePre="true" />
             <dbType type="DATE" ignoreLen="true" ignorePre="true" />
             <dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
+            <dbType type="TIMESTAMPTZ" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 		<language name="java">
             <talendToDbTypes>
@@ -27,10 +28,13 @@
                 <talendType type="id_byte[]">
                 </talendType>
                 <talendType type="id_Character">
+                	<dbType type="CHAR" default="true" />
+					<dbType type="VARCHAR" />
                 </talendType>
                 <talendType type="id_Date">
                     <dbType type="DATE" default="true" />
                     <dbType type="TIMESTAMP" />
+                    <dbType type="TIMESTAMPTZ" />
                 </talendType>
                 <talendType type="id_BigDecimal">
                     <dbType type="DECIMAL" default="true" />
@@ -41,6 +45,7 @@
                     <dbType type="REAL" />
                 </talendType>
                 <talendType type="id_Float">
+                    <dbType type="REAL" default="true"/>
                 </talendType>
                 <talendType type="id_Integer">
                     <dbType type="INTEGER" default="true" />
@@ -49,10 +54,12 @@
                 <talendType type="id_Long">
                     <dbType type="BIGINT" default="true" />
                     <dbType type="INTEGER" />
+                    <dbType type="SMALLINT" />
                 </talendType>
                 <talendType type="id_Object">
                 </talendType>    
                 <talendType type="id_Short">
+                	<dbType type="SMALLINT" default="true"/>
                 </talendType>
                 <talendType type="id_String">
                     <dbType type="VARCHAR" default="true" />
@@ -62,6 +69,7 @@
             <dbToTalendTypes>
                 <dbType type="SMALLINT">
                     <talendType type="id_Integer" default="true" />
+                    <talendType type="id_Short" />
                 </dbType>
                 <dbType type="INTEGER">
                     <talendType type="id_Integer" default="true" />
@@ -75,7 +83,8 @@
                     <talendType type="id_BigDecimal" default="true" />
                 </dbType>
                 <dbType type="REAL">
-                    <talendType type="id_Double" default="true" />
+                	<talendType type="id_Double" default="true" />
+                    <talendType type="id_Float" />
                 </dbType>
                 <dbType type="DOUBLE PRECISION">
                     <talendType type="id_Double" default="true" />
@@ -93,6 +102,9 @@
                     <talendType type="id_Date" default="true" />
                 </dbType>
                 <dbType type="TIMESTAMP">
+                    <talendType type="id_Date" default="true" />
+                </dbType>
+                <dbType type="TIMESTAMPTZ">
                     <talendType type="id_Date" default="true" />
                 </dbType>
             </dbToTalendTypes>		  
