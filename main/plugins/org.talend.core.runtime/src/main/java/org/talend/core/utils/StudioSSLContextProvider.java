@@ -17,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.prefs.SSLPreferenceConstants;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.daikon.security.SSLContextProvider;
@@ -60,6 +61,10 @@ public class StudioSSLContextProvider {
         CryptoHelper cryptoHelper = CryptoHelper.getDefault();
         keypass = cryptoHelper.decrypt(keypass);
         trustpass = cryptoHelper.decrypt(trustpass);
-        context = SSLContextProvider.buildContext(algorithm, keypath, keypass, keytype, trustpath, trustpass, trusttype);
+        try {
+            context = SSLContextProvider.buildContext(algorithm, keypath, keypass, keytype, trustpath, trustpass, trusttype);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
     }
 }
