@@ -723,7 +723,6 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
         applyMigrationTasks(selectedImportItem, monitor);
         TimeMeasure.step("importItemRecords", "applyMigrationTasks: " + label); //$NON-NLS-1$//$NON-NLS-2$
-
     }
 
     protected void doImportItem(IProgressMonitor monitor, ResourcesManager resManager, ImportItem selectedImportItem,
@@ -1000,6 +999,10 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         // nothing to do
     }
 
+    protected void afterApplyMigrationTasks(ImportItem selectedImportItem) throws Exception {
+        // do nothing by default
+    }
+
     protected boolean copyReferenceFiles(ResourcesManager manager, ImportItem selectedImportItem) throws IOException {
         OutputStream os = null;
         InputStream is = null;
@@ -1220,6 +1223,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 importItem.setExistingItemWithSameId(null);
                 // importItem.clear();
                 importItem.setProperty(item.getProperty());
+
+                afterApplyMigrationTasks(importItem);
             } catch (Exception e) {
                 logError(e);
             }
