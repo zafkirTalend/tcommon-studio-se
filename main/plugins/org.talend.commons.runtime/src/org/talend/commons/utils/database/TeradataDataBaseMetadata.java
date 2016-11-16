@@ -94,21 +94,33 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
      */
     @Override
     public ResultSet getPrimaryKeys(String catalog, String schema, String table) throws SQLException {
+        int dbMajorVersion = connection.getMetaData().getDatabaseMajorVersion();
         String sql = "HELP COLUMN \"" + schema + "\".\"" + table + "\".* ";//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-
         ResultSet rs = null;
         Statement stmt = null;
+        String columnName = null;
         List<String[]> list = new ArrayList<String[]>();
         try {
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                String columnName = rs.getString("Column Name").trim(); //$NON-NLS-1$
-                String pk = rs.getString("Primary?");//$NON-NLS-1$
-                String[] r = new String[] { columnName, pk };
-                list.add(r);
+            if (dbMajorVersion > 12) {
+                sql = "SELECT * from DBC.INDICESV WHERE UPPER(databasename) = UPPER('" + schema //$NON-NLS-1$
+                        + "') AND UPPER(tablename) = UPPER('" + table + "') AND UPPER(UniqueFlag) = UPPER('Y')"; //$NON-NLS-1$//$NON-NLS-2$
+                rs = getResultSet(catalog, schema, table, sql);
+                while (rs.next()) {
+                    columnName = rs.getString("ColumnName").trim(); //$NON-NLS-1$
+                    String indexType = rs.getString("IndexType");//$NON-NLS-1$
+                    String[] r = new String[] { columnName, indexType };
+                    list.add(r);
+                }
+            } else {
+                stmt = connection.createStatement();
+                rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    columnName = rs.getString("Column Name").trim(); //$NON-NLS-1$
+                    String pk = rs.getString("Primary?");//$NON-NLS-1$
+                    String[] r = new String[] { columnName, pk };
+                    list.add(r);
+                }
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -122,6 +134,18 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         tableResultSet.setMetadata(PK_META);
         tableResultSet.setData(list);
         return tableResultSet;
+    }
+
+    public ResultSet getResultSet(String catalog, String schema, String table, String sql) throws SQLException {
+        ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rs;
     }
 
     /*
@@ -173,12 +197,17 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
         }
         // end
         String sql = null;
+        int dbMajorVersion = connection.getMetaData().getDatabaseMajorVersion();
+        String sysTable = "DBC.TABLES";//$NON-NLS-1$
+        if (dbMajorVersion > 12) {
+            sysTable = "DBC.TABLESV";//$NON-NLS-1$
+        }
         if (types != null && types.length > 0) {
-            sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+            sql = "SELECT * from " + sysTable + " WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$//$NON-NLS-2$
                     + "') AND tablekind " + addTypesToSql(types); //$NON-NLS-1$
         } else {
             // When the types is empty, all the tables and views will be retrieved.
-            sql = "SELECT * from DBC.TABLES WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+            sql = "SELECT * from " + sysTable + " WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$//$NON-NLS-2$
                     + "') AND (tablekind = 'T' or tablekind = 'V')"; //$NON-NLS-1$
         }
 
@@ -287,15 +316,25 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
     @Override
     public ResultSet getColumns(String catalog, String database, String tableNamePattern, String columnNamePattern)
             throws SQLException {
-        // for real
-
-        String sql;
+        // for real sql
+        if (databaseName != null && !databaseName.trim().isEmpty()) {
+            database = databaseName;
+        }
+        // all the columns of this table will be retrieved.
+        String sql = null;
+        int dbMajorVersion = connection.getMetaData().getDatabaseMajorVersion();
         if (!StringUtils.isEmpty(database)) {
             sql = "HELP COLUMN \"" + database + "\".\"" + tableNamePattern + "\".* ";//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+            if (dbMajorVersion > 12) {
+                sql = "SELECT * from DBC.COLUMNSV WHERE UPPER(databasename) = UPPER('" + database //$NON-NLS-1$
+                        + "') AND UPPER(tablename) = UPPER('" + tableNamePattern + "')" + " Order by tablename "; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+            }
         } else {
             sql = "HELP COLUMN \"" + tableNamePattern + "\".* ";//$NON-NLS-1$//$NON-NLS-2$
+            if (dbMajorVersion > 12) {
+                sql = "SELECT * from DBC.COLUMNSV WHERE UPPER(tablename) = UPPER('" + tableNamePattern + "')" + " Order by tablename "; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+            }
         }
-
         ResultSet rs = null;
         Statement stmt = null;
         List<String[]> list = new ArrayList<String[]>();
@@ -304,15 +343,33 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 String tableName = tableNamePattern;
-                String columnName = rs.getString("Column Name").trim(); //$NON-NLS-1$
-                String typeName = rs.getString("Type"); //$NON-NLS-1$
-                String columnSize = rs.getString("Max Length"); //$NON-NLS-1$
-                String decimalDigits = rs.getString("Decimal Fractional Digits"); //$NON-NLS-1$
+                String columnName = null;
+                String typeName = null;
+                String columnSize = null;
+                String decimalDigits = null;
+                if (dbMajorVersion > 12) {
+                    columnName = rs.getString("ColumnName").trim(); //$NON-NLS-1$
+                    typeName = rs.getString("ColumnType"); //$NON-NLS-1$
+                    columnSize = rs.getString("ColumnLength"); //$NON-NLS-1$
+                    decimalDigits = rs.getString("DecimalFractionalDigits"); //$NON-NLS-1$
+                } else {
+                    columnName = rs.getString("Column Name").trim(); //$NON-NLS-1$
+                    typeName = rs.getString("Type"); //$NON-NLS-1$
+                    columnSize = rs.getString("Max Length"); //$NON-NLS-1$
+                    decimalDigits = rs.getString("Decimal Fractional Digits"); //$NON-NLS-1$
+                }
                 String isNullable;
                 if ("Y".equals(rs.getString("Nullable"))) { //$NON-NLS-1$ //$NON-NLS-2$
                     isNullable = "YES"; //$NON-NLS-1$
                 } else {
                     isNullable = rs.getString("Nullable"); //$NON-NLS-1$
+                }
+                // fill default value if null
+                if (typeName == null) {
+                    typeName = "CV"; //$NON-NLS-1$
+                }
+                if (columnSize == null) {
+                    columnSize = "255";//$NON-NLS-1$
                 }
                 if (decimalDigits == null) {
                     decimalDigits = "0";//$NON-NLS-1$
@@ -324,7 +381,6 @@ public class TeradataDataBaseMetadata extends FakeDatabaseMetaData {
                         columnDef };
                 list.add(r);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
