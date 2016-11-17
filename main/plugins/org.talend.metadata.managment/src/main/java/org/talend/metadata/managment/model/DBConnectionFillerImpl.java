@@ -1506,8 +1506,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                                             extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, //$NON-NLS-1$
                                                             "DECIMAL_DIGITS")); //$NON-NLS-1$
                             column.setTalendType(talendType);
-                            String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
-                            column.setSourceType(defaultSelectedDbType);
+                            column.setSourceType(typeName);
                         }
                     }
                     try {
