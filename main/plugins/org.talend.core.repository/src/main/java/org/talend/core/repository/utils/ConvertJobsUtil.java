@@ -500,7 +500,7 @@ public class ConvertJobsUtil {
                 if(!(item instanceof ProcessItem)){
                   return;
                 }
-                testContainerService.copyTestCase(newItem, (ProcessItem)item, getTestCasePath(newItem,jobTypeValue), null, true);
+                testContainerService.copyTestCase(newItem, (ProcessItem)item, getTestCasePath(newItem,jobTypeValue), null, false);
             }
         }
     }

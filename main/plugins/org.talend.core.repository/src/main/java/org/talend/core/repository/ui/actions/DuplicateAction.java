@@ -335,7 +335,7 @@ public class DuplicateAction extends AContextualAction {
     }
 
     private void duplicateTestCases(Item newItem, final CopyObjectAction copyObjectAction) {
-        if (!copyObjectAction.isAllowedToCopyTestCase(newItem, sourceNode) || !isAllowDuplicateTest) {
+        if (!copyObjectAction.isAllowedToCopyTestCase(newItem, sourceNode)) {
             return;
         }
         final IPath path = copyObjectAction.getTestCasePath(newItem, sourceNode);
