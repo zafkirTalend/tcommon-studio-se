@@ -1187,6 +1187,11 @@ public class RepositoryToComponentProperty {
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
         }
 
+        if (value.equals("TABLE_NS_MAPPING")) {
+            return getAppropriateValue(connection,
+                    connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRDB_TABLE_NS_MAPPING));
+        }
+
         if (value.equals("HBASE_MASTER_PRINCIPAL")) {
             String hbaseMasterPrinc = null;
             if (EDatabaseTypeName.HBASE.getDisplayName().equals(databaseType)) {

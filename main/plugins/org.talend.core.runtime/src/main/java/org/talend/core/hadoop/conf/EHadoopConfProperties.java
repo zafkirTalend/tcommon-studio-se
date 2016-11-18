@@ -107,6 +107,8 @@ public enum EHadoopConfProperties {
 
     MAPRDB_ZOOKEEPER_PROPERTY_CLIENTPORT("hbase.zookeeper.property.clientPort", 2181), //$NON-NLS-1$
 
+    MAPRDB_TABLE_NS_MAPPING("hbase.table.namespace.mappings", "*:/tables"), //$NON-NLS-1$//$NON-NLS-2$
+
     MAPRDB_MASTER_KERBEROS_PRINCIPAL("hbase.master.kerberos.principal", "mapr/_HOST@EXAMPLE.COM"), //$NON-NLS-1$//$NON-NLS-2$
 
     MAPRDB_REGIONSERVER_KERBEROS_PRINCIPAL("hbase.regionserver.kerberos.principal", "mapr/_HOST@EXAMPLE.COM"), //$NON-NLS-1$//$NON-NLS-2$

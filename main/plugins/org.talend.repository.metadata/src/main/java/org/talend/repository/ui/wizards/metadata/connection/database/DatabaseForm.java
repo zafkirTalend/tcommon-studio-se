@@ -532,6 +532,10 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledText znode_parent;
 
+    private Composite tableInfoPartOfMapRDBComp;
+
+    private LabelledText tableNSMappingOfMapRDBTxt;
+
     /**
      * wheather the db properties group visible
      */
@@ -619,6 +623,7 @@ public class DatabaseForm extends AbstractForm {
                 initZnodeParent();
             } else if (isDBTypeSelected(EDatabaseConnTemplate.MAPRDB)) {
                 initMaprdbSettings();
+                initTableInfoPartOfMapRDB();
                 initZnodeParent();
             } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                 initImpalaSettings();
@@ -1082,6 +1087,7 @@ public class DatabaseForm extends AbstractForm {
         createHadoopUIContentsForHiveEmbedded(typeDbCompositeParent);
         createMetastoreUIContentsForHiveEmbedded(typeDbCompositeParent);
         createEncryptionGroupForHive(typeDbCompositeParent);
+        createTableInfoPartForMaprdb(typeDbCompositeParent);
         createZnodeParent(typeDbCompositeParent);
         createAuthenticationForHive(typeDbCompositeParent);
         createAuthenticationForImpala(typeDbCompositeParent);
@@ -1107,6 +1113,44 @@ public class DatabaseForm extends AbstractForm {
         znode_parent = new LabelledText(znodeparentGrp, "", 1); //$NON-NLS-1$
         addListenerForZnodeParent();
         initZnodeParent();
+    }
+
+    private void createTableInfoPartForMaprdb(Composite parent) {
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
+        tableInfoPartOfMapRDBComp = new Composite(parent, SWT.NONE);
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
+                .applyTo(tableInfoPartOfMapRDBComp);
+        GridLayout tableInfoPartLayout = new GridLayout(3, false);
+        tableInfoPartLayout.marginHeight = 0;
+        tableInfoPartOfMapRDBComp.setLayout(tableInfoPartLayout);
+        tableNSMappingOfMapRDBTxt = new LabelledText(tableInfoPartOfMapRDBComp,
+                Messages.getString("DatabaseForm.maprdb.tableInfo.tableNSMapping.label"), 2); //$NON-NLS-1$
+        addListenerForTableInfoPartOfMapRDB();
+        initTableInfoPartOfMapRDB();
+    }
+
+    private void addListenerForTableInfoPartOfMapRDB() {
+        tableNSMappingOfMapRDBTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_MAPRDB_TABLE_NS_MAPPING,
+                            tableNSMappingOfMapRDBTxt.getText());
+                }
+            }
+        });
+    }
+
+    private void initTableInfoPartOfMapRDB() {
+        DatabaseConnection connection = getConnection();
+        boolean isShow = connection != null
+                && EDatabaseConnTemplate.MAPRDB.getDBDisplayName().equals(getConnection().getDatabaseType());
+        hideControl(tableInfoPartOfMapRDBComp, !isShow);
+        if (connection != null) {
+            String tableNSMapping = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRDB_TABLE_NS_MAPPING);
+            tableNSMappingOfMapRDBTxt.setText(StringUtils.trimToEmpty(tableNSMapping));
+        }
     }
 
     private void createAuthenticationForImpala(Composite parent) {
@@ -2784,6 +2828,7 @@ public class DatabaseForm extends AbstractForm {
         hcPropertyTypeCombo.setReadOnly(isContextMode());
         maprdbDistributionCombo.setReadOnly(isContextMode());
         maprdbVersionCombo.setReadOnly(isContextMode());
+        tableNSMappingOfMapRDBTxt.setEditable(!isContextMode());
         useKerberosForMaprdb.setEnabled(!isContextMode());
         useKeyTabForMaprdb.setEnabled(!isContextMode());
         maprdbMasterPrincipalTxt.setEditable(!isContextMode());
@@ -4487,6 +4532,7 @@ public class DatabaseForm extends AbstractForm {
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.MAPRDB)) {
                     hideControl(authenticationCom, true);
                     hideControl(znodeparentGrp, false);
+                    hideControl(tableInfoPartOfMapRDBComp, false);
                     initMaprdbSettings();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                     hideControl(authenticationCom, true);
@@ -4740,6 +4786,7 @@ public class DatabaseForm extends AbstractForm {
         hideControl(authenticationGrpForHBase, true);
         hideControl(authenticationGrpForMaprdb, true);
         hideControl(znodeparentGrp, true);
+        hideControl(tableInfoPartOfMapRDBComp, true);
     }
 
     private void clearFiledsForDiffDbTypes() {
@@ -6313,6 +6360,7 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.Server, true);
             addContextParams(EDBParamName.Port, true);
             addContextParams(EDBParamName.Schema, true);
+            addContextParams(EDBParamName.TableNSMapping, true);
             addContextParams(EDBParamName.Znode_Parent, set_znode_parent.getSelection());
             addContextParams(EDBParamName.MasterPrincipal, useKerberosForMaprdb.getSelection());
             addContextParams(EDBParamName.RegionPrincipal, useKerberosForMaprdb.getSelection());
@@ -7399,6 +7447,15 @@ public class DatabaseForm extends AbstractForm {
             if (defaultPort != null && !isContextMode()) {
                 getConnection().setPort(defaultPort);
                 portText.setText(defaultPort);
+            }
+
+            String tableNSMapping = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_MAPRDB_TABLE_NS_MAPPING);
+            String defaultTableNSMapping = maprdbVersion.getDefaultConfig(distribution, EHadoopCategory.MAPRDB.getName(),
+                    EHadoopProperties.MAPRDB_TABLE_NS_MAPPING.getName());
+            if (StringUtils.isNotEmpty(tableNSMapping)) {
+                tableNSMappingOfMapRDBTxt.setText(tableNSMapping);
+            } else if (defaultTableNSMapping != null) {
+                tableNSMappingOfMapRDBTxt.setText(defaultTableNSMapping);
             }
 
             String defaultHbaseMasterPrincipal = maprdbVersion.getDefaultConfig(distribution, EHadoopCategory.MAPRDB.getName(),
