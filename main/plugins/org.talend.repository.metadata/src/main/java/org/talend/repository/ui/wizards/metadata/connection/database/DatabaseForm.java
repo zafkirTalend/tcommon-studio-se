@@ -4016,6 +4016,7 @@ public class DatabaseForm extends AbstractForm {
             @Override
             public void modifyText(final ModifyEvent e) {
                 getConnection().getParameters().clear();
+                getConnection().setDbVersionString(null);
                 resetControls();
                 urlConnectionStringText.setEditable(false);
                 authenticationGrpForImpala.setVisible(false);
