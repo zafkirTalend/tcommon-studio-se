@@ -212,6 +212,15 @@ public class ContextOrderProperties extends Properties {
         keys.add(key);
         this.setProperty(key, value);
     }
+    
+    
+
+    @Override
+    public synchronized Object setProperty(String key, String value) {
+        this.commentMap.put(key, "");
+        keys.add(key);
+        return super.setProperty(key, value);
+    }
 
     @Override
     public void store(OutputStream out, String comments) throws IOException {
