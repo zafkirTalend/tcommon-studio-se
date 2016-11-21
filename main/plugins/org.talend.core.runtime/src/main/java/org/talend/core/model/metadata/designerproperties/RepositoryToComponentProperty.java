@@ -1177,6 +1177,15 @@ public class RepositoryToComponentProperty {
             return connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_VERSION);
         }
 
+        if (value.equals("SET_TABLE_NS_MAPPING")) {
+            return Boolean.valueOf(connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_TABLE_NS_MAPPING));
+        }
+
+        if (value.equals("TABLE_NS_MAPPING")) {
+            return getAppropriateValue(connection,
+                    connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING));
+        }
+
         if (value.equals("HBASE_MASTER_PRINCIPAL")) {
             String hbaseMasterPrinc = connection.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
@@ -1579,8 +1588,8 @@ public class RepositoryToComponentProperty {
     private static boolean isContextMode(Connection connection, String value) {
         IMetadataManagmentUiService mmService = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IMetadataManagmentUiService.class)) {
-            mmService = (IMetadataManagmentUiService) GlobalServiceRegister.getDefault()
-                    .getService(IMetadataManagmentUiService.class);
+            mmService = (IMetadataManagmentUiService) GlobalServiceRegister.getDefault().getService(
+                    IMetadataManagmentUiService.class);
         }
         if (mmService != null) {
             return mmService.isContextMode(connection, value);

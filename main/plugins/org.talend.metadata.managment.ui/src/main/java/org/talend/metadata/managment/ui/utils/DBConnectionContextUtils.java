@@ -56,7 +56,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.metadata.managment.repository.ManagerConnection;
 import org.talend.metadata.managment.ui.model.IConnParamName;
 import org.talend.model.bridge.ReponsitoryContextBridge;
-
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.Schema;
@@ -109,6 +108,7 @@ public final class DBConnectionContextUtils {
         // hbase
         MasterPrincipal,
         RegionPrincipal,
+        TableNSMapping,
         HbaseKeyTabPrincipal,
         HbaseKeyTab,
         Username,
@@ -259,6 +259,10 @@ public final class DBConnectionContextUtils {
                     value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SSL_TRUST_STORE_PASSWORD);
                     value = conn.getValue(value, false);
                     ConnectionContextHelper.createParameters(varList, paramName, value, JavaTypesManager.PASSWORD);
+                    break;
+                case TableNSMapping:
+                    value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING);
+                    ConnectionContextHelper.createParameters(varList, paramName, value);
                     break;
                 case MasterPrincipal:
                     value = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL);
@@ -596,6 +600,9 @@ public final class DBConnectionContextUtils {
             break;
         case MasterPrincipal:
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MASTERPRINCIPAL,
+                    ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
+        case TableNSMapping:
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING,
                     ContextParameterUtils.getNewScriptCode(originalVariableName, LANGUAGE));
             break;
         case RegionPrincipal:
@@ -1043,6 +1050,9 @@ public final class DBConnectionContextUtils {
             cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION,
                     getOriginalValue(hadoopClusterContextType, contextType, maprticket_Duration));
 
+            String tableNSMapping = cloneConn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING);
+            cloneConn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING,
+                    getOriginalValue(hadoopClusterContextType, contextType, tableNSMapping));
         }
 
         // TDI-28124:tdb2input can't guess schema from join sql on system table
@@ -1304,6 +1314,9 @@ public final class DBConnectionContextUtils {
             conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_AUTHENTICATION_MAPRTICKET_DURATION,
                     ContextParameterUtils.getOriginalValue(contextType, maprticket_Duration));
 
+            String maprdbTableNSMapping = conn.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING);
+            conn.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING,
+                    ContextParameterUtils.getOriginalValue(contextType, maprdbTableNSMapping));
         }
         // for Impala
         if (EDatabaseTypeName.IMPALA.equals(EDatabaseTypeName.getTypeFromDbType(conn.getDatabaseType()))) {

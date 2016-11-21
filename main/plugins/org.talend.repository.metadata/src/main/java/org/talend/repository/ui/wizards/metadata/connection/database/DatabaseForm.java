@@ -491,6 +491,12 @@ public class DatabaseForm extends AbstractForm {
 
     private LabelledText znode_parent;
 
+    private Composite tableInfoPartOfHbaseComp;
+
+    private Button set_table_ns_mapping;
+
+    private LabelledText tableNSMappingOfHbaseTxt;
+
     /**
      * wheather the db properties group visible
      */
@@ -575,6 +581,7 @@ public class DatabaseForm extends AbstractForm {
                 initializeGeneralJDBC();
             } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
                 initHBaseSettings();
+                initTableInfoPartOfHbase();
                 initZnodeParent();
             } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
                 initImpalaSettings();
@@ -1034,6 +1041,7 @@ public class DatabaseForm extends AbstractForm {
         createHadoopUIContentsForHiveEmbedded(typeDbCompositeParent);
         createMetastoreUIContentsForHiveEmbedded(typeDbCompositeParent);
         createEncryptionGroupForHive(typeDbCompositeParent);
+        createTableInfoPartForHbase(typeDbCompositeParent);
         createZnodeParent(typeDbCompositeParent);
         createAuthenticationForHive(typeDbCompositeParent);
         createAuthenticationForImpala(typeDbCompositeParent);
@@ -1058,6 +1066,71 @@ public class DatabaseForm extends AbstractForm {
         znode_parent = new LabelledText(znodeparentGrp, "", 1); //$NON-NLS-1$
         addListenerForZnodeParent();
         initZnodeParent();
+    }
+
+    private void createTableInfoPartForHbase(Composite parent) {
+        GridLayout parentLayout = (GridLayout) parent.getLayout();
+        tableInfoPartOfHbaseComp = new Composite(parent, SWT.NONE);
+        GridDataFactory.fillDefaults().span(parentLayout.numColumns, 1).align(SWT.FILL, SWT.BEGINNING).grab(true, false)
+                .applyTo(tableInfoPartOfHbaseComp);
+        GridLayout tableInfoPartLayout = new GridLayout(4, false);
+        tableInfoPartLayout.marginHeight = 0;
+        tableInfoPartOfHbaseComp.setLayout(tableInfoPartLayout);
+        set_table_ns_mapping = new Button(tableInfoPartOfHbaseComp, SWT.CHECK);
+        set_table_ns_mapping.setText(Messages.getString("DatabaseForm.set_table_ns_mapping.checkBtn")); //$NON-NLS-1$
+        tableNSMappingOfHbaseTxt = new LabelledText(tableInfoPartOfHbaseComp, "", 2); //$NON-NLS-1$
+        addListenerForTableInfoPartOfHbase();
+        initTableInfoPartOfHbase();
+    }
+
+    private void addListenerForTableInfoPartOfHbase() {
+        set_table_ns_mapping.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                if (set_table_ns_mapping.getSelection()) {
+                    tableNSMappingOfHbaseTxt.setVisible(true);
+                    tableInfoPartOfHbaseComp.layout();
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_TABLE_NS_MAPPING,
+                            Boolean.TRUE.toString());
+                } else {
+                    tableNSMappingOfHbaseTxt.setVisible(false);
+                    tableInfoPartOfHbaseComp.layout();
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_TABLE_NS_MAPPING,
+                            Boolean.FALSE.toString());
+                }
+            }
+
+        });
+        tableNSMappingOfHbaseTxt.getTextControl().addModifyListener(new ModifyListener() {
+
+            @Override
+            public void modifyText(ModifyEvent e) {
+                if (!isContextMode()) {
+                    getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING,
+                            tableNSMappingOfHbaseTxt.getText());
+                }
+            }
+        });
+    }
+
+    private void initTableInfoPartOfHbase() {
+        DatabaseConnection connection = getConnection();
+        boolean isShow = connection != null
+                && EDatabaseConnTemplate.HBASE.getDBDisplayName().equals(getConnection().getDatabaseType())
+                && doSupportMaprTicketForHbase();
+        hideControl(tableInfoPartOfHbaseComp, !isShow);
+        if (connection != null) {
+            String setTableNSMappingStr = connection.getParameters().get(
+                    ConnParameterKeys.CONN_PARA_KEY_HBASE_SET_TABLE_NS_MAPPING);
+            String tableNSMapping = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING);
+            boolean check = Boolean.valueOf(setTableNSMappingStr);
+            set_table_ns_mapping.setSelection(check);
+            if (check) {
+                tableNSMappingOfHbaseTxt.setText(StringUtils.trimToEmpty(tableNSMapping));
+            }
+            tableNSMappingOfHbaseTxt.setVisible(set_table_ns_mapping.getSelection());
+        }
     }
 
     private void createAuthenticationForImpala(Composite parent) {
@@ -1593,7 +1666,8 @@ public class DatabaseForm extends AbstractForm {
                     authenticationGrpForImpala.layout();
                     authenticationGrpForImpala.getParent().layout();
                     getConnection().getParameters().put(ConnParameterKeys.CONN_PARA_KEY_USE_KRB, Boolean.TRUE.toString());
-                    getConnection().getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,impalaPrincipalTxt.getText());
+                    getConnection().getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
+                            impalaPrincipalTxt.getText());
                     urlConnectionStringText.setText(getStringConnection());
                 } else {
                     GridData hadoopData = (GridData) authenticationComForImpala.getLayoutData();
@@ -1614,7 +1688,7 @@ public class DatabaseForm extends AbstractForm {
 
             @Override
             public void modifyText(ModifyEvent e) {
-                if (!isContextMode()&&impalaPrincipalTxt.isVisiable()) {
+                if (!isContextMode() && impalaPrincipalTxt.isVisiable()) {
                     getConnection().getParameters().put(ConnParameterKeys.IMPALA_AUTHENTICATION_PRINCIPLA,
                             impalaPrincipalTxt.getText());
                     urlConnectionStringText.setText(getStringConnection());
@@ -2454,6 +2528,8 @@ public class DatabaseForm extends AbstractForm {
         maprTClusterForHBaseTxt.setEditable(!isContextMode());
         maprTDurationForHBaseTxt.setEditable(!isContextMode());
 
+        set_table_ns_mapping.setEnabled(!isContextMode());
+        tableNSMappingOfHbaseTxt.setEditable(!isContextMode());
         set_znode_parent.setEnabled(!isContextMode());
         znode_parent.setEditable(!isContextMode());
 
@@ -3209,8 +3285,8 @@ public class DatabaseForm extends AbstractForm {
                 String versionStr = ""; //$NON-NLS-1$
                 IHadoopDistributionService hadoopService = getHadoopDistributionService();
                 if (hadoopService != null) {
-                    IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager()
-                            .getDistribution(impalaDistributionCombo.getText(), true);
+                    IHDistribution impalaDistribution = hadoopService.getImpalaDistributionManager().getDistribution(
+                            impalaDistributionCombo.getText(), true);
                     if (impalaDistribution != null && !impalaDistribution.useCustom()) {
                         IHDistributionVersion impalaVersion = impalaDistribution.getHDVersion(impalaVersionCombo.getText(), true);
                         if (impalaVersion != null) {
@@ -3582,7 +3658,7 @@ public class DatabaseForm extends AbstractForm {
 
                         index = 3;
                         if (s[index] != "") { //$NON-NLS-1$
-                            if (selection.equals(EDatabaseConnTemplate.AS400.getDBDisplayName()) 
+                            if (selection.equals(EDatabaseConnTemplate.AS400.getDBDisplayName())
                                     || selection.equals(EDatabaseConnTemplate.REDSHIFT.getDBDisplayName())) {
                                 sidOrDatabaseText.setText(s[index]);
                                 getConnection().setSID(s[index]);
@@ -3975,6 +4051,7 @@ public class DatabaseForm extends AbstractForm {
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.HBASE)) {
                     hideControl(authenticationCom, true);
                     hideControl(znodeparentGrp, false);
+                    hideControl(tableInfoPartOfHbaseComp, !doSupportMaprTicketForHbase());
                     initHBaseSettings();
                     // initZnodeParent();
                 } else if (isDBTypeSelected(EDatabaseConnTemplate.IMPALA)) {
@@ -4226,6 +4303,7 @@ public class DatabaseForm extends AbstractForm {
     private void resetControls() {
         hideControl(authenticationGrpForHBase, true);
         hideControl(znodeparentGrp, true);
+        hideControl(tableInfoPartOfHbaseComp, true);
     }
 
     private void clearFiledsForDiffDbTypes() {
@@ -4454,6 +4532,7 @@ public class DatabaseForm extends AbstractForm {
                 if (hadoopService != null && newDistribution != null) {
                     doSupportMapRTicket = hadoopService.doSupportMapRTicket(newDistribution.getDefaultVersion());
                 }
+                hideControl(tableInfoPartOfHbaseComp, !doSupportMapRTicket);
                 hideControl(useMaprTForHBase, !doSupportMapRTicket);
                 hideControl(authenticationMaprTComForHBase, !(useMaprTForHBase.getSelection() && doSupportMapRTicket));
                 hideControl(authenticationUserPassComForHBase, useKerberosForHBase.getSelection() && doSupportMapRTicket);
@@ -5395,7 +5474,7 @@ public class DatabaseForm extends AbstractForm {
                             serverText.setText(EDatabaseConnTemplate.IMPALA.getDefaultServer(null));
                         }
                     }
-                    if(isHive){
+                    if (isHive) {
                         String serverName = getConnection().getServerName();
                         if (serverName == null || "".equals(serverName)) { //$NON-NLS-1$
                             serverText.setText(EDatabaseConnTemplate.HIVE.getDefaultServer(EDatabaseVersion4Drivers.HIVE));
@@ -5666,6 +5745,7 @@ public class DatabaseForm extends AbstractForm {
             addContextParams(EDBParamName.Server, true);
             addContextParams(EDBParamName.Port, true);
             addContextParams(EDBParamName.Schema, true);
+            addContextParams(EDBParamName.TableNSMapping, set_table_ns_mapping.getSelection());
             addContextParams(EDBParamName.Znode_Parent, set_znode_parent.getSelection());
             addContextParams(EDBParamName.MasterPrincipal, useKerberosForHBase.getSelection());
             addContextParams(EDBParamName.RegionPrincipal, useKerberosForHBase.getSelection());
@@ -5735,7 +5815,7 @@ public class DatabaseForm extends AbstractForm {
         EDatabaseConnTemplate template = EDatabaseConnTemplate.indexOfTemplate(dbTypeCombo.getText());
         return template != null && (template == EDatabaseConnTemplate.IMPALA);
     }
-    
+
     private boolean hiveVersionEnable() {
 
         if (dbTypeCombo == null) {
@@ -6638,6 +6718,15 @@ public class DatabaseForm extends AbstractForm {
                 portText.setText(defaultPort);
             }
 
+            String tableNSMapping = getConnection().getParameters().get(ConnParameterKeys.CONN_PARA_KEY_HBASE_TABLE_NS_MAPPING);
+            String defaultTableNSMapping = hbaseVersion.getDefaultConfig(distribution, EHadoopCategory.HBASE.getName(),
+                    EHadoopProperties.HBASE_TABLE_NS_MAPPING.getName());
+            if (StringUtils.isNotEmpty(tableNSMapping)) {
+                tableNSMappingOfHbaseTxt.setText(tableNSMapping);
+            } else if (defaultTableNSMapping != null) {
+                tableNSMappingOfHbaseTxt.setText(defaultTableNSMapping);
+            }
+
             String defaultHbaseMasterPrincipal = hbaseVersion.getDefaultConfig(distribution, EHadoopCategory.HBASE.getName(),
                     EHadoopProperties.HBASE_MASTER_PRINCIPAL.getName());
             if (StringUtils.isNotEmpty(hbaseMasterPrincipal)) {
@@ -7336,6 +7425,19 @@ public class DatabaseForm extends AbstractForm {
         if (hadoopService != null && hiveDistribution != null) {
             doSupportMapRTicket = hadoopService.doSupportMapRTicket(hiveDistribution.getHDVersion(hiveVersionCombo.getText(),
                     true));
+        }
+        return doSupportMapRTicket;
+    }
+
+    private boolean doSupportMaprTicketForHbase() {
+        boolean doSupportMapRTicket = false;
+        IHDistribution newDistribution = getHBaseDistribution(hbaseDistributionCombo.getText(), true);
+        if (newDistribution == null) {
+            return false;
+        }
+        IHadoopDistributionService hadoopService = getHadoopDistributionService();
+        if (hadoopService != null && newDistribution != null) {
+            doSupportMapRTicket = hadoopService.doSupportMapRTicket(newDistribution.getDefaultVersion());
         }
         return doSupportMapRTicket;
     }
