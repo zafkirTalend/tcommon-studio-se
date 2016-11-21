@@ -153,14 +153,14 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
                 if ((e1 instanceof ExtraFeature) && ((ExtraFeature) e1).mustBeInstalled()) {
                     return -1;
                 }
-                return ((ExtraFeature)e1).getName().compareTo(((ExtraFeature)e2).getName());
+                return ((ExtraFeature) e1).getName().compareTo(((ExtraFeature) e2).getName());
             }
         });
         tree = checkboxTreeViewer.getTree();
         tree.setSize(400, 155);
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
-        
+
         TreeColumn featureNameColumn = new TreeColumn(tree, SWT.NONE);
         featureNameColumn.setText(Messages.getString("SelectExtraFeaturesToInstallWizardPage.feature.column.name.name")); //$NON-NLS-1$
         friendsColumnLayout.setColumnData(featureNameColumn, new ColumnWeightData(3, true));
@@ -177,56 +177,58 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
         GridData gd_featureDescriptionText = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
         gd_featureDescriptionText.heightHint = 61;
         featureDescriptionText.setLayoutData(gd_featureDescriptionText);
-        
+
         final IObservableFactory setFactory = new IObservableFactory() {
+
             public IObservable createObservable(final Object target) {
                 if (target instanceof WritableSet) {
                     return (IObservableSet) target;
                 }
                 if (target instanceof FeatureCategory) {
                     WritableSet set = new WritableSet();
-                    set.addAll(((FeatureCategory)target).getChildren());
+                    set.addAll(((FeatureCategory) target).getChildren());
                     return set;
                 }
                 return null;
             }
         };
 
-        ObservableSetTreeContentProvider contentProvider = new ObservableSetTreeContentProvider(
-                setFactory, null);
+        ObservableSetTreeContentProvider contentProvider = new ObservableSetTreeContentProvider(setFactory, null);
 
         checkboxTreeViewer.setContentProvider(contentProvider);
         checkboxTreeViewer.addCheckStateListener(new ICheckStateListener() {
-            
+
             @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 if (event.getElement() instanceof FeatureCategory) {
                     if (event.getChecked()) {
-                        updateWizardModel.selectedExtraFeatures.addAll(((FeatureCategory)event.getElement()).getChildren());
+                        updateWizardModel.selectedExtraFeatures.addAll(((FeatureCategory) event.getElement()).getChildren());
                     } else {
-                        updateWizardModel.selectedExtraFeatures.removeAll(((FeatureCategory)event.getElement()).getChildren());
+                        updateWizardModel.selectedExtraFeatures.removeAll(((FeatureCategory) event.getElement()).getChildren());
                     }
-                } else if (event.getElement() instanceof P2ExtraFeature) {
+                } else if (event.getElement() instanceof P2ExtraFeature
+                        && ((P2ExtraFeature) event.getElement()).getParentCategory() != null) {
                     if (event.getChecked()) {
-                        updateWizardModel.selectedExtraFeatures.add(((P2ExtraFeature)event.getElement()).getParentCategory());
+                        updateWizardModel.selectedExtraFeatures.add(((P2ExtraFeature) event.getElement()).getParentCategory());
                     } else {
                         boolean containFeature = false;
-                        for (ExtraFeature ef : ((P2ExtraFeature)event.getElement()).getParentCategory().getChildren()) {
+                        for (ExtraFeature ef : ((P2ExtraFeature) event.getElement()).getParentCategory().getChildren()) {
                             if (!ef.equals(event.getElement()) && updateWizardModel.selectedExtraFeatures.contains(ef)) {
                                 containFeature = true;
                                 break;
                             }
                         }
                         if (!containFeature) {
-                            updateWizardModel.selectedExtraFeatures.remove(((P2ExtraFeature)event.getElement()).getParentCategory());
+                            updateWizardModel.selectedExtraFeatures
+                                    .remove(((P2ExtraFeature) event.getElement()).getParentCategory());
                         }
                     }
                 }
             }
         });
-        
-        checkboxTreeViewer.setLabelProvider(new ObservableMapLabelProvider(Properties
-                .observeEach(contentProvider.getKnownElements(),
+
+        checkboxTreeViewer
+                .setLabelProvider(new ObservableMapLabelProvider(Properties.observeEach(contentProvider.getKnownElements(),
                         new IValueProperty[] { PojoProperties.value(ExtraFeature.class, "name"), //$NON-NLS-1$
                                 PojoProperties.value(ExtraFeature.class, "version") }))); //$NON-NLS-1$
 
@@ -242,7 +244,7 @@ public class SelectExtraFeaturesToInstallWizardPage extends WizardPage {
         // bind selecting of the check boxes to the selected extra features set in the model
         dbc.bindSet(ViewersObservables.observeCheckedElements(checkboxTreeViewer, ExtraFeature.class),
                 updateWizardModel.selectedExtraFeatures);
-        
+
         // bind the table selection desctiption to the text field
         IObservableValue selectedFeature = ViewersObservables.observeSingleSelection(checkboxTreeViewer);
         dbc.bindValue(SWTObservables.observeText(featureDescriptionText),
