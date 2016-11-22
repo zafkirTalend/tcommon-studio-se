@@ -96,7 +96,8 @@ public class ImportExternalJarAction extends Action {
                     File file = new File(path + File.separatorChar + fileName);
                     File tempFile = null;
                     try {
-                        if (fileNames.length == 1 && !file.isDirectory() && !file.getName().equals(moduleName)) {
+                        if (moduleName != null && fileNames.length == 1 && !file.isDirectory()
+                                && !file.getName().equals(moduleName)) {
                             Project project = ProjectManager.getInstance().getCurrentProject();
                             IProject fsProject = ResourceUtils.getProject(project);
                             IFolder tmpFolder = fsProject.getFolder("temp");
