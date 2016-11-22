@@ -13,6 +13,7 @@
 package org.talend.core.service;
 
 import org.talend.core.IService;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
@@ -22,4 +23,12 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 public interface INOSQLService extends IService {
 
     public ERepositoryObjectType getNOSQLRepositoryType();
+
+    public boolean isNoSQLConnection(Connection connection);
+    
+    public boolean isUseReplicaSet(Connection connection);
+
+    public String getMongoDBReplicaSets(Connection connection);
+    
+
 }
