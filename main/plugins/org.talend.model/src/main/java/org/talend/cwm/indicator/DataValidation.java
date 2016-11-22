@@ -20,11 +20,32 @@ public interface DataValidation {
 
     /**
      * 
-     * When MapDB is used some different indicator maybe used same data file.then indicator need to implements it then
-     * we can know what data is for it
+     * When MapDB is used some different indicator maybe used same data file.then the indicator need to implements it let me know
+     * what data is for it
      * 
      * @param inputData
      * @return
      */
     boolean isValid(Object inputData);
+
+    /**
+     * 
+     * MapDB is will keep key and value this method is uesed to judge which one should be check
+     * 
+     * 
+     * @param inputData
+     * @return
+     */
+    boolean isCheckKey();
+
+    /**
+     * 
+     * MapDB is will keep key and value this method is uesed to setting which one should be check
+     * 
+     * 
+     * @param inputData
+     * @return
+     */
+    void setCheckKey(boolean checkKey);
+
 }
