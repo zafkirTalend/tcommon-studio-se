@@ -34,9 +34,9 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.runtime.model.repository.ERepositoryStatus;
-import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.hadoop.IHadoopClusterService;
 import org.talend.core.language.LanguageManager;
@@ -80,6 +80,7 @@ import org.talend.core.model.utils.CloneConnectionUtils;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.service.INOSQLService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.context.ContextManagerHelper;
 import org.talend.core.ui.context.SelectRepositoryContextGroupDialog;
@@ -108,6 +109,8 @@ import org.talend.repository.UpdateRepositoryUtils;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNodeUtilities;
+import org.talend.utils.json.JSONArray;
+import org.talend.utils.json.JSONException;
 
 /**
  * ggu class global comment. Detailled comment
@@ -344,7 +347,30 @@ public final class ConnectionContextHelper {
     private static void collectConnVariablesOfAdditionalTable(Set<String> varList, ConnectionItem connectionItem) {
         Connection currentConnection = connectionItem.getConnection();
         // TODO:Maybe later has other type support context for the additional table.Now only sap
-        if (currentConnection instanceof SAPConnection) {
+        INOSQLService service = null;
+        if(GlobalServiceRegister.getDefault().isServiceRegistered(INOSQLService.class)) {
+            service = (INOSQLService) GlobalServiceRegister.getDefault().getService(INOSQLService.class);
+        }
+        if (service.isUseReplicaSet(currentConnection)) {
+            String replicaSets = service.getMongoDBReplicaSets(currentConnection);
+            try {
+                JSONArray jsa = new JSONArray(replicaSets);
+                for (int i = 0; i < jsa.length(); i++) {
+                    int paramNum = i + 1;
+                    String hostParamName = ExtendedNodeConnectionContextUtils.getReplicaParamName(EHadoopParamName.ReplicaHost,
+                            paramNum);
+                    String portParamName = ExtendedNodeConnectionContextUtils.getReplicaParamName(EHadoopParamName.ReplicaPort,
+                            paramNum);
+                    varList.add(hostParamName);
+                    varList.add(portParamName);
+                }
+                if (varList.contains(EHadoopParamName.ReplicaSets.name())) {
+                    varList.remove(EHadoopParamName.ReplicaSets.name());
+                }
+            } catch (JSONException e) {
+                ExceptionHandler.process(e);
+            }
+        } else if (currentConnection instanceof SAPConnection) {
             SAPConnection sapConn = (SAPConnection) currentConnection;
             for (AdditionalConnectionProperty sapProperty : sapConn.getAdditionalProperties()) {
                 varList.add(sapProperty.getPropertyName());
