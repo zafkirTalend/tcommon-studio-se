@@ -123,7 +123,7 @@ public class ImportExportHandlersManager {
             boolean enableProductChecking, boolean checkBuiltIn) {
         for (IImportItemsHandler handler : getImportHandlers()) {
             handler.setEnableProductChecking(enableProductChecking);
-            boolean isValid = handler.valid(importItem) && handler.valid(resManager, path);
+            boolean isValid = handler.valid(importItem);
             if (!isValid && !checkBuiltIn) {
                 // if don't care builtin/system item, then just use this value
                 isValid = handler.isValidSystemItem(importItem);
