@@ -119,10 +119,11 @@ public class ImportExportHandlersManager {
         return null;
     }
 
-    private IImportItemsHandler findValidImportHandler(ImportItem importItem, boolean enableProductChecking, boolean checkBuiltIn) {
+    private IImportItemsHandler findValidImportHandler(ResourcesManager resManager, IPath path, ImportItem importItem,
+            boolean enableProductChecking, boolean checkBuiltIn) {
         for (IImportItemsHandler handler : getImportHandlers()) {
             handler.setEnableProductChecking(enableProductChecking);
-            boolean isValid = handler.valid(importItem);
+            boolean isValid = handler.valid(importItem) && handler.valid(resManager, path);
             if (!isValid && !checkBuiltIn) {
                 // if don't care builtin/system item, then just use this value
                 isValid = handler.isValidSystemItem(importItem);
@@ -225,7 +226,8 @@ public class ImportExportHandlersManager {
                 // process the "*.properties"
                 ImportItem importItem = importHandlerHelper.computeImportItem(monitor, resManager, path, overwrite);
                 if (importItem != null) {
-                    IImportItemsHandler importHandler = findValidImportHandler(importItem, enableProductChecking, needCheck);
+                    IImportItemsHandler importHandler = findValidImportHandler(resManager, path, importItem,
+                            enableProductChecking, needCheck);
                     if (importHandler != null) {
                         if (importHandler instanceof ImportBasicHandler) {
                             // save as the createImportItem of ImportBasicHandler
@@ -476,8 +478,8 @@ public class ImportExportHandlersManager {
                                                     // just try to reuse the id of the item which will be overwrited
                                                     IRepositoryViewObject object = itemRecord.getExistingItemWithSameName();
                                                     if (object != null) {
-                                                        if (ProjectManager.getInstance()
-                                                                .isInCurrentMainProject(object.getProperty())) {
+                                                        if (ProjectManager.getInstance().isInCurrentMainProject(
+                                                                object.getProperty())) {
                                                             // in case it is in reference project
                                                             id = object.getId();
                                                         }
@@ -493,8 +495,9 @@ public class ImportExportHandlersManager {
                                                  */
                                                 id = EcoreUtil.generateUUID();
                                             }
-                                            nameToIdMap.put(itemRecord.getProperty().getLabel() + ERepositoryObjectType
-                                                    .getItemType(itemRecord.getProperty().getItem()).toString(), id);
+                                            nameToIdMap.put(itemRecord.getProperty().getLabel()
+                                                    + ERepositoryObjectType.getItemType(itemRecord.getProperty().getItem())
+                                                            .toString(), id);
                                         }
                                         String oldId = itemRecord.getProperty().getId();
                                         itemRecord.getProperty().setId(id);
@@ -611,14 +614,14 @@ public class ImportExportHandlersManager {
                                     continue; // have imported
                                 }
                                 if ((ERepositoryObjectType.JOBLET == itemRecord.getRepositoryType())
-                                        ||(ERepositoryObjectType.SPARK_JOBLET == itemRecord.getRepositoryType())
-                                        ||(ERepositoryObjectType.SPARK_STREAMING_JOBLET == itemRecord.getRepositoryType())) {
+                                        || (ERepositoryObjectType.SPARK_JOBLET == itemRecord.getRepositoryType())
+                                        || (ERepositoryObjectType.SPARK_STREAMING_JOBLET == itemRecord.getRepositoryType())) {
                                     hasJoblet = true;
                                 }
                                 if (hasJoblet) {
-                                    if (ERepositoryObjectType.JOBLET != itemRecord.getRepositoryType() &&
-                                            ERepositoryObjectType.SPARK_JOBLET != itemRecord.getRepositoryType()&&
-                                            ERepositoryObjectType.SPARK_STREAMING_JOBLET != itemRecord.getRepositoryType()) {
+                                    if (ERepositoryObjectType.JOBLET != itemRecord.getRepositoryType()
+                                            && ERepositoryObjectType.SPARK_JOBLET != itemRecord.getRepositoryType()
+                                            && ERepositoryObjectType.SPARK_STREAMING_JOBLET != itemRecord.getRepositoryType()) {
                                         // fix for TUP-3032 load joblet process before import job in order to build
                                         // items relationship
                                         reloadJoblet = true;
@@ -653,7 +656,7 @@ public class ImportExportHandlersManager {
                                         } catch (Exception e) {
                                             ExceptionHandler.process(e);
                                         }
-                                        
+
                                         // will import
                                         importHandler.doImport(monitor, manager, itemRecord, overwriting, destinationPath,
                                                 overwriteDeletedItems, idDeletedBeforeImport);
