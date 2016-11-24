@@ -102,6 +102,10 @@ public interface TalendMavenConstants {
 
     static final String PROFILE_PACKAGING_AND_ASSEMBLY = "packaging-and-assembly";
 
+    static final String PROFILE_INCLUDE_MICROSERVICE_CONFIGS = "include-microservice-configs";
+    
+    static final String PROFILE_INCLUDE_MICROSERVICE_RUNNING_CONFIGS = "include-microservice-running-configs";
+
     /**
      * argments
      */
