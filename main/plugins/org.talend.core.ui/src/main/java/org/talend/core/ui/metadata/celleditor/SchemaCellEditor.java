@@ -512,11 +512,10 @@ public class SchemaCellEditor extends DialogCellEditor {
                 copySAPOutputMetadata(node, tableToEdit);
             } else {
                 MetadataDialog dialog = new MetadataDialog(cellEditorWindow.getShell(), tableToEdit.clone(), node, null);
-                dialog.setSingleAndStruct(false);
                 dialog.setInputReadOnly(metaReadonly);
                 dialog.setOutputReadOnly(metaReadonly);
                 if (isSAPNode(node) && type != null && (type.equals(SINGLE) || type.equals(STRUCTURE)) && hasParentRow) {
-                    dialog.setSingleAndStruct(true);
+                    MetadataDialog.setSingleAndStruct(true);
                 }
                 final IMetadataTable oldTable = tableToEdit;
                 if (dialog.open() == MetadataDialog.OK) {
