@@ -56,6 +56,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.swt.proposal.IShowInvisibleCellEditorMethods;
 import org.talend.commons.ui.runtime.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.runtime.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.runtime.swt.tableviewer.behavior.DefaultTableLabelProvider;
@@ -399,6 +400,21 @@ public class TableViewerCreatorNotModifiable<B> {
 
         // new TableEditor(table);
         tableViewer = new TableViewer(table) {
+
+            @Override
+            protected void handleDispose(DisposeEvent event) {
+                if(this.isCellEditorActive()){
+                    CellEditor[] cellEditors = this.getCellEditors();
+                    for (int i = 0; i < cellEditors.length; i++) {
+                    CellEditor cellEditor = cellEditors[i];
+                    if (cellEditor != null && cellEditor.isActivated()
+                             && cellEditor instanceof IShowInvisibleCellEditorMethods) {
+                        ((IShowInvisibleCellEditorMethods)cellEditor).fireApplyEditorValue();
+                    }
+                }
+              }
+                super.handleDispose(event);
+            }
 
             /*
              * (non-Javadoc)
