@@ -2269,19 +2269,21 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
             IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
             ITalendProcessJavaProject project = runProcessService.getTalendProcessJavaProject();
-            IFolder src = project.getSrcFolder();
-            try {
-                IResource[] childrenResources = src.members();
-                for (IResource child : childrenResources) {
-                    Object folderName = child.getName();
-                    if ("routines".equals(folderName) //$NON-NLS-1$
-                            || "pigudf".equals(folderName) //$NON-NLS-1$
-                            || "beans".equals(folderName)) { //$NON-NLS-1$
-                        child.delete(true, null);
+            if (project != null) {
+                IFolder src = project.getSrcFolder();
+                try {
+                    IResource[] childrenResources = src.members();
+                    for (IResource child : childrenResources) {
+                        Object folderName = child.getName();
+                        if ("routines".equals(folderName) //$NON-NLS-1$
+                                || "pigudf".equals(folderName) //$NON-NLS-1$
+                                || "beans".equals(folderName)) { //$NON-NLS-1$
+                            child.delete(true, null);
+                        }
                     }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
                 }
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
             }
         }
     }
