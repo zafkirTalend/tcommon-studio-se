@@ -46,10 +46,14 @@ public abstract class AbstractRepositoryContextHandler implements IRepositoryCon
     protected static final ECodeLanguage LANGUAGE = LanguageManager.getCurrentLanguage();
 
     protected String getCorrectVariableName(ContextItem contextItem, String originalVariableName, EHadoopParamName noSqlParam) {
+        return getCorrectVariableName(contextItem, originalVariableName, noSqlParam.name());
+    }
+    
+    protected String getCorrectVariableName(ContextItem contextItem, String originalVariableName, String noSqlParam) {
         Set<String> contextVarNames = ContextUtils.getContextVarNames(contextItem);
         if (contextVarNames != null && !contextVarNames.contains(originalVariableName)) {
             for (String varName : contextVarNames) {
-                if (varName.endsWith(noSqlParam.name())) {
+                if (varName.endsWith(noSqlParam)) {
                     return varName;
                 }
             }

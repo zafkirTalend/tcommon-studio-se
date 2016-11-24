@@ -42,6 +42,9 @@ public class ExtendedNodeConnectionContextUtils {
         UserName,
         Password,
         ServerUrl,
+        ReplicaSets,
+        ReplicaHost,
+        ReplicaPort,
 
         // Hadoop standard param
         NameNodeUri,
@@ -160,4 +163,12 @@ public class ExtendedNodeConnectionContextUtils {
         }
         return varList;
     }
+    
+    public static String getReplicaParamName(EHadoopParamName param, int number) {
+        if (param == EHadoopParamName.ReplicaHost || param == EHadoopParamName.ReplicaPort) {
+            return param.name() + ConnectionContextHelper.LINE + number;
+        }
+        return null;
+    }
+    
 }
