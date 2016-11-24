@@ -139,6 +139,7 @@ public class MetadataDialog extends Dialog {
         super(parent);
         this.inputMetaTable = inputMetaTable;
         this.inputNode = inputNode;
+        isSingleAndStruct = false;
         if (inputNode != null) {
             this.titleInput = inputMetaTable.getTableName() + " (Input)"; //$NON-NLS-1$
             INodeConnector connector = inputNode.getConnectorFromName(inputMetaTable.getAttachedConnector());
@@ -772,22 +773,8 @@ public class MetadataDialog extends Dialog {
         }
     }
 
-    /**
-     * Getter for isSingle.
-     * 
-     * @return the isSingle
-     */
-    public boolean isSingleAndStruct() {
-        return this.isSingleAndStruct;
-    }
-
-    /**
-     * Sets the isSingle.
-     * 
-     * @param isSingle the isSingle to set
-     */
-    public void setSingleAndStruct(boolean isSingle) {
-        this.isSingleAndStruct = isSingle;
+    public static void setSingleAndStruct(boolean isSingle) {
+        isSingleAndStruct = isSingle;
     }
 
     private static boolean isRedShiftNode(INode node) {
