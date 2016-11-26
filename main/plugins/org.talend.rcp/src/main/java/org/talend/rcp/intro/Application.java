@@ -39,7 +39,9 @@ import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.runtime.helper.LocalComponentInstallHelper;
 import org.talend.commons.runtime.helper.PatchComponentHelper;
+import org.talend.commons.runtime.service.ComponentsInstallComponent;
 import org.talend.commons.runtime.service.PatchComponent;
 import org.talend.commons.ui.runtime.update.PreferenceKeys;
 import org.talend.commons.ui.swt.dialogs.ErrorDialogWidthDetailArea;
@@ -164,6 +166,14 @@ public class Application implements IApplication {
                         setRelaunchData();
                         return IApplication.EXIT_RELAUNCH;
                     }
+                }
+            }
+            final ComponentsInstallComponent component = LocalComponentInstallHelper.getComponent();
+            if (component != null) {
+                // install component silently
+                if (component.install() && component.needRelaunch()) {
+                    setRelaunchData();
+                    return IApplication.EXIT_RELAUNCH;
                 }
             }
 
