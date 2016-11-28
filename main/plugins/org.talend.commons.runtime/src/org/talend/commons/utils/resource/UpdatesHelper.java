@@ -28,9 +28,27 @@ public class UpdatesHelper {
 
     public static final String FILE_CONTENT = "content.xml";
 
+    public static final String FILE_JAR_ARTIFACTS = "artifacts.jar";
+
+    public static final String FILE_JAR_CONTENT = "content.jar";
+
+    public static final String FILE_XZ_ARTIFACTS = "artifacts.xml.xz";
+
+    public static final String FILE_XZ_CONTENT = "content.xml.xz";
+
     public static final String FILE_CONFIG_INI = "config.ini";
 
     public static final String FILE_ECLIPSE_PRODUCT = ".eclipseproduct";
+
+    static boolean existArtifacts(File base) {
+        return new File(base, FILE_ARTIFACTS).exists() || new File(base, FILE_JAR_ARTIFACTS).exists()
+                || new File(base, FILE_XZ_ARTIFACTS).exists();
+    }
+
+    static boolean existContent(File base) {
+        return new File(base, FILE_CONTENT).exists() || new File(base, FILE_JAR_CONTENT).exists()
+                || new File(base, FILE_XZ_CONTENT).exists();
+    }
 
     /**
      * 
@@ -47,7 +65,7 @@ public class UpdatesHelper {
                 }
             } else if (file.isDirectory()) {// folder
                 // not update site
-                if (!new File(file, FILE_ARTIFACTS).exists() && !new File(file, FILE_CONTENT).exists()) {
+                if (!existArtifacts(file) && !existContent(file)) {
                     File pluginsFolder = new File(file, FOLDER_PLUGINS);
                     if (pluginsFolder.exists() && pluginsFolder.isDirectory()) { // contained plugins folder
                         final String[] list = pluginsFolder.list();
@@ -75,7 +93,7 @@ public class UpdatesHelper {
 
             } else if (file.isDirectory()) { // folder
                 // contained "artifacts.xml" and "content.xml"
-                if (new File(file, FILE_ARTIFACTS).exists() && new File(file, FILE_CONTENT).exists()) {
+                if (existArtifacts(file) && existContent(file)) {
                     File pluginsFolder = new File(file, FOLDER_PLUGINS);
                     if (pluginsFolder.exists() && pluginsFolder.isDirectory()) { // contained plugins folder
                         String[] jarFiles = pluginsFolder.list(new FilenameFilter() {

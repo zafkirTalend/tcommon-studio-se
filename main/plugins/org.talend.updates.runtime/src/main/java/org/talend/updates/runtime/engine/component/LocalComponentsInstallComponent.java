@@ -87,9 +87,14 @@ public class LocalComponentsInstallComponent implements ComponentsInstallCompone
                 P2Installer installer = new P2Installer();
                 for (File f : updateFiles) {
                     if (UpdatesHelper.isUpdateSite(f)) {
-                        String version = installer.installPatchesByP2(f, false);
-                        if (version != null) {
-                            success = true;
+                        try {
+                            String version = installer.installPatchesByP2(f, false);
+                            if (version != null) {
+                                success = true;
+                            }
+                        } catch (Exception e) {
+                            // if have error, just ignore current one.
+                            ExceptionHandler.process(e);
                         }
                     }
                 }
