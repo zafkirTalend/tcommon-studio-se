@@ -145,6 +145,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean showDefaultColumn = true;
 
+    protected boolean isNewFramework;
+
     // By default, we don't filter on anything.
     private MetadataTalendTypeFilter metadataTalendTypeFilter = new DummyMetadataTalendTypeFilter();
 
@@ -757,7 +759,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setId(ID_COLUMN_DBCOLUMNNAME);
-        column.setTitle("Db Column"); //$NON-NLS-1$
+        if (isNewFramework) {
+            column.setTitle("Real Name");
+        } else {
+            column.setTitle("Db Column");
+        }
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.ColumnTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getDbColumnNameAccessor());
         column.setWeight(25);
@@ -1171,5 +1177,14 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      */
     public void setMetadataTalendTypeFilter(MetadataTalendTypeFilter metadataTalendTypeFilter) {
         this.metadataTalendTypeFilter = metadataTalendTypeFilter;
+    }
+
+    /**
+     * Sets the isNewFramework.
+     * 
+     * @param isNewFramework the isNewFramework to set
+     */
+    public void setNewFramework(boolean isNewFramework) {
+        this.isNewFramework = isNewFramework;
     }
 }

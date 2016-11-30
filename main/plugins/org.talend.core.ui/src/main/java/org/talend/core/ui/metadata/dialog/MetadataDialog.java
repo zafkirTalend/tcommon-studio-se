@@ -48,6 +48,7 @@ import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.core.database.EDatabaseTypeName;
+import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -194,8 +195,10 @@ public class MetadataDialog extends Dialog {
         boolean eltComponent = false;
         boolean hasRepositoryDbSchema = false;
         boolean isEBCDIC = false;
+        boolean isNewComponent = false;
         if (node != null && node.getComponent() != null) {
             eltComponent = node.isELTComponent();
+            isNewComponent = node.getComponent().getComponentType() == EComponentType.GENERIC;
             isEBCDIC = node.getComponent().getName().contains("EBCDIC");
             if (node.getComponent().isSupportDbType() || node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL)
                     || eltComponent || isEBCDIC) {
@@ -274,7 +277,9 @@ public class MetadataDialog extends Dialog {
 
         metaView.setShowDbTypeColumn(hasMappingType || eltComponent, false, hasMappingType
                 || (dbComponent && !hasRepositoryDbSchema));
-        metaView.setShowDbColumnName(dbComponent, hasMappingType || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setShowDbColumnName(dbComponent || isNewComponent,
+                hasMappingType || isNewComponent || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setNewFramework(isNewComponent);
 
         // hide the talend type for ELT components
         metaView.setShowTalendTypeColumn(!eltComponent);

@@ -20,7 +20,6 @@ import java.util.Map;
 import org.apache.avro.LogicalTypes;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
-import org.apache.avro.SchemaBuilder.BaseFieldTypeBuilder;
 import org.apache.avro.SchemaBuilder.FieldAssembler;
 import org.apache.avro.SchemaBuilder.FieldBuilder;
 import org.apache.avro.SchemaBuilder.PropBuilder;
@@ -230,7 +229,7 @@ public final class MetadataToolAvroHelper {
 
         for (TaggedValue tv : in.getTaggedValue()) {
             if (DiSchemaConstants.TALEND6_IS_READ_ONLY.equals(tv.getTag())) {
-                schema = AvroUtils.setProperty(schema, DiSchemaConstants.TALEND6_DYNAMIC_IS_READ_ONLY, tv.getValue()); //$NON-NLS-1$
+                schema = AvroUtils.setProperty(schema, DiSchemaConstants.TALEND6_DYNAMIC_IS_READ_ONLY, tv.getValue()); 
             } else {
                 String additionalTag = tv.getTag();
                 if (tv.getValue() != null) {
@@ -418,6 +417,14 @@ public final class MetadataToolAvroHelper {
             // get dynamic position
             int dynPosition = Integer.valueOf(in.getProp(DiSchemaConstants.TALEND6_DYNAMIC_COLUMN_POSITION));
             columns.add(dynPosition, col);
+        }
+        List<String> columnLabels = new ArrayList<>();
+        int index = 0;
+        for (org.talend.core.model.metadata.builder.connection.MetadataColumn column : columns) {
+            String label = column.getLabel();
+            label = MetadataToolHelper.validateColumnName(label, index, columnLabels);
+            column.setLabel(label);
+            index++;
         }
         table.getColumns().addAll(columns);
         return table;
