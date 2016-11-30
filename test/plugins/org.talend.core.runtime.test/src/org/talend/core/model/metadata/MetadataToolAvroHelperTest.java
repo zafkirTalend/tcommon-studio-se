@@ -154,7 +154,7 @@ public class MetadataToolAvroHelperTest {
         assertEquals(map.size(), table.getColumns().size());
         int i = 0;
         for (String talendType : map.keySet()) {
-            assertThat(table.getColumns().get(i).getLabel(), is(talendType));
+            assertThat(table.getColumns().get(i).getLabel(), is(MetadataToolHelper.validateColumnName(talendType, i)));
             assertThat(table.getColumns().get(i).getTalendType(), is(talendType));
             assertThat(table.getColumns().get(i).getPattern(), is("")); //$NON-NLS-1$
             assertThat(table.getColumns().get(i).getLength(), is(-1L));
@@ -163,5 +163,19 @@ public class MetadataToolAvroHelperTest {
             assertThat(table.getColumns().get(i).getScale(), is(-1L));
             i++;
         }
+
+        // Test Illegal characters
+        builder = SchemaBuilder.builder().record("TestTable"); //$NON-NLS-1$
+        fa = builder.fields();
+        FieldBuilder<Schema> fb = fa.name("long"); //$NON-NLS-1$
+        fb.prop(DiSchemaConstants.TALEND6_LABEL, "long"); //$NON-NLS-1$
+        fa = fb.type(AvroUtils._long()).noDefault();
+        fb = fa.name("illStr"); //$NON-NLS-1$
+        fb.prop(DiSchemaConstants.TALEND6_LABEL, "$illStr*"); //$NON-NLS-1$
+        fa = fb.type(AvroUtils._string()).noDefault();
+        schema = fa.endRecord();
+        table = MetadataToolAvroHelper.convertFromAvro(schema);
+        assertThat(table.getColumns().get(0).getLabel(), is("Column0")); //$NON-NLS-1$
+        assertThat(table.getColumns().get(1).getLabel(), is("_illStr_")); //$NON-NLS-1$
     }
 }
