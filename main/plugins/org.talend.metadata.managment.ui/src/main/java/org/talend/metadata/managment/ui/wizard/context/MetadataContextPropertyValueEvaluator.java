@@ -41,8 +41,9 @@ public class MetadataContextPropertyValueEvaluator implements PropertyValueEvalu
         if (Boolean.valueOf(String.valueOf(property.getTaggedValue(IComponentConstants.SUPPORT_CONTEXT)))) {
             isPropertySupportContext = true;
         }
-        if (connection != null && connection.isContextMode() && isPropertySupportContext && storedValue != null) {
-            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(null, connection, true);
+        if (connection != null && connection.isContextMode() && isPropertySupportContext) {
+            ContextType contextType = ConnectionContextHelper.getContextTypeForContextMode(connection,
+                    connection.getContextName(), false);
             String valueFromContext = ContextParameterUtils.getOriginalValue(contextType, String.valueOf(storedValue));
             if (GenericTypeUtils.isBooleanType(property)) {
                 return new Boolean(valueFromContext);
@@ -60,7 +61,7 @@ public class MetadataContextPropertyValueEvaluator implements PropertyValueEvalu
                     }
                 }
             }
-            if (contextType != null) {                
+            if (contextType != null) {
                 return valueFromContext;
             }
         }
