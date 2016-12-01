@@ -58,8 +58,8 @@ public class ImpalaConnectionManager extends DataBaseConnectionManager {
         createConnection(metadataConn);
     }
 
-    public Connection createConnection(IMetadataConnection metadataConn) throws ClassNotFoundException, InstantiationException,
-            IllegalAccessException, SQLException {
+    public Connection createConnection(final IMetadataConnection metadataConn) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, SQLException {
         FutureTask<Connection> futureTask = new FutureTask<Connection>(new Callable<Connection>() {
 
             @Override
