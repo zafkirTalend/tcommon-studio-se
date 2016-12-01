@@ -40,9 +40,6 @@
             
             <dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
             <dbType type="TIMESTAMP WITHOUT TIME ZONE" ignoreLen="true" ignorePre="true" />
-            
-            <dbType type="TIMESTAMPTZ" ignoreLen="true" ignorePre="true" />
-            <dbType type="TIMESTAMP WITH TIME ZONE" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 		<language name="java">
             <talendToDbTypes>
@@ -67,8 +64,6 @@
                     <dbType type="DATE" default="true" />
                     <dbType type="TIMESTAMP" />
                     <dbType type="TIMESTAMP WITHOUT TIME ZONE" />
-                    <dbType type="TIMESTAMPTZ" />
-                    <dbType type="TIMESTAMP WITH TIME ZONE" />
                 </talendType>
                 <talendType type="id_BigDecimal">
                     <dbType type="DECIMAL" default="true" />
@@ -210,13 +205,6 @@
                     <talendType type="id_Date" default="true" />
                 </dbType>
                 <dbType type="TIMESTAMP WITHOUT TIME ZONE">
-                    <talendType type="id_Date" default="true" />
-                </dbType>
-                
-                <dbType type="TIMESTAMPTZ">
-                    <talendType type="id_Date" default="true" />
-                </dbType>
-                <dbType type="TIMESTAMP WITH TIME ZONE">
                     <talendType type="id_Date" default="true" />
                 </dbType>
             </dbToTalendTypes>		  
