@@ -80,4 +80,36 @@ public class TokeninforUtilTest {
         assertEquals("a",target.getJSONArray("key3").get(0));
         assertEquals("b",target.getJSONArray("key3").get(1));
     }
+
+    @Test
+    public void testComponentInfoJSON() throws Exception {
+        JSONObject source = new JSONObject();
+        source.put("key1", "test");
+        JSONArray array = new JSONArray();
+        JSONObject comp = new JSONObject();
+        comp.put("component_name","myComponent");
+        comp.put("count", 5);
+        array.put(comp);
+        source.put("components",array);
+        
+        
+        JSONObject target = new JSONObject();
+        target.put("key1", "test");
+        array = new JSONArray();
+        comp = new JSONObject();
+        comp.put("component_name","myComponent");
+        comp.put("count", 2);
+        array.put(comp);
+        target.put("components",array);
+        
+        
+        TokenInforUtil.mergeJSON(source, target);
+        assertEquals("test",target.get("key1"));
+        array = target.getJSONArray("components");
+        assertEquals(1,array.length());
+        comp = array.getJSONObject(0);
+        assertEquals("myComponent",comp.get("component_name"));
+        assertEquals(7,comp.get("count"));        
+    }
+
 }
