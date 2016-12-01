@@ -99,10 +99,6 @@ public class FileResourcesUnityManager extends FilesManager {
         return doUnify(false);
     }
 
-    public ResourcesManager doCommandlineUnify() throws Exception {
-        return doUnify(true);
-    }
-
     @SuppressWarnings("restriction")
     public ResourcesManager doUnify(boolean interruptable) throws TarException, ZipException, FileNotFoundException, IOException {
         final File originalFile = getOriginalFileResouce();
