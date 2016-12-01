@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -103,7 +104,7 @@ public final class TokenInforUtil {
         return topComponentsArray;
     }
 
-    public static void mergeJSON(JSONObject source, JSONObject target) throws JSONException {
+    public static JSONObject mergeJSON(JSONObject source, JSONObject target) throws JSONException {
         Iterator<String> keys = source.keys();
         while (keys.hasNext()) {
             String key = keys.next();
@@ -131,10 +132,40 @@ public final class TokenInforUtil {
                         data.add(targetArray.get(i));
                     }
                     targetArray = new JSONArray();
+                    Map<String,List<JSONObject>> objectMap = new HashMap<String,List<JSONObject>>();
                     for (Object obj : data) {
-                        targetArray.put(obj);
+                        if((obj instanceof JSONObject) && ((JSONObject)obj).get("component_name")!=null){//$NON-NLS-1$
+                            List<JSONObject> dataList = new ArrayList<JSONObject>();
+                            String componentName = (String) ((JSONObject)obj).get("component_name");//$NON-NLS-1$
+                            if(objectMap.containsKey(componentName)){
+                                dataList =  objectMap.get(componentName);
+                                dataList.add((JSONObject)obj);
+                            }else{
+                                dataList.add((JSONObject)obj);
+                                objectMap.put(componentName, dataList);
+                            }
+                        }else{
+                            targetArray.put(obj);
+                        }
                     }
                     target.put(key, targetArray);
+                   for(String objKey : objectMap.keySet()){
+                       List<JSONObject> dataList = objectMap.get(objKey);
+                       if(dataList.size()>1){
+                           JSONObject targetObj = dataList.get(0);
+                           for(int i=1;i<dataList.size();i++){
+                               JSONObject obj = dataList.get(i);
+                               targetObj = mergeJSON((JSONObject)obj, targetObj);
+                           }
+                           targetArray.put(targetObj);
+                           target.put(key, targetArray);
+                       }else{
+                           for (Object obj : dataList) {
+                               targetArray.put(obj);
+                           }
+                           target.put(key, targetArray);
+                       }
+                   }
                 } else {
                     // for simple string / other data
                     target.put(key, o);
@@ -143,5 +174,6 @@ public final class TokenInforUtil {
                 target.put(key, o);
             }
         }
+        return target;
     }
 }
