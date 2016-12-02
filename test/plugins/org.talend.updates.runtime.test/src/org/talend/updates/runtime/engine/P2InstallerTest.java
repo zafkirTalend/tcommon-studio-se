@@ -17,14 +17,19 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.equinox.p2.core.ProvisionException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.utils.resource.UpdatesHelper;
 
 /**
@@ -32,16 +37,27 @@ import org.talend.commons.utils.resource.UpdatesHelper;
  */
 public class P2InstallerTest {
 
-    class P2InstallerTestClass extends P2Installer {
+    private static final String TEST_COMP_MYJIRA = "resources/components/components-myjira-0.16.0-SNAPSHOT-updatesite.zip";
 
-        protected void copyConfigFile(boolean restore) throws IOException {
-            super.copyConfigFile(restore);
-        }
+    class P2InstallerTestClass extends P2Installer {
 
         protected Set<InstalledUnit> installPatchRepository(File metadataRepository, File artifactRepository)
                 throws ProvisionException {
             return Collections.emptySet();
         }
+    }
+
+    private File getTestDataFile(String bundlePath) throws IOException {
+        URL dataUrl = FileLocator.find(FrameworkUtil.getBundle(this.getClass()), new Path(bundlePath), null);
+        if (dataUrl != null) {
+            dataUrl = FileLocator.toFileURL(dataUrl);
+        }
+
+        File zipFile = new File(dataUrl.getFile());
+        if (zipFile.exists()) {
+            return zipFile;
+        }
+        return null;
     }
 
     @Test
@@ -85,4 +101,109 @@ public class P2InstallerTest {
         }
     }
 
+    @Test
+    public void test_installPatchFile_empty() throws Exception {
+        P2InstallerTestClass installer = new P2InstallerTestClass();
+
+        // null
+        Set<InstalledUnit> installedUnits = installer.installPatchFile(null, true);
+        Assert.assertTrue(installedUnits.isEmpty());
+
+        // not existed
+        installedUnits = installer.installPatchFile(new File("abc"), true);
+        Assert.assertTrue(installedUnits.isEmpty());
+
+        // folder
+        installedUnits = installer.installPatchFile(installer.getTmpInstallFolder(), true);
+        Assert.assertTrue(installedUnits.isEmpty());
+        installer.clean();
+
+        // not zip file
+        File file = new File(installer.getTmpInstallFolder(), "abc.test");
+        file.createNewFile();
+        installedUnits = installer.installPatchFile(file, true);
+        Assert.assertTrue(installedUnits.isEmpty());
+        installer.clean();
+    }
+
+    @Test(expected = IOException.class)
+    public void test_installPatchFile_validZip() throws Exception {
+        P2InstallerTestClass installer = new P2InstallerTestClass();
+
+        try {
+            // not valid zip
+            File file = new File(installer.getTmpInstallFolder(), "abc.zip");
+            file.createNewFile();
+            installer.installPatchFile(file, true);
+        } finally {
+            installer.clean();
+        }
+    }
+
+    @Test
+    public void test_installPatchFile() throws Exception {
+        final File testDataFile = getTestDataFile(TEST_COMP_MYJIRA);
+        Assert.assertNotNull(testDataFile);
+        Assert.assertTrue(testDataFile.exists());
+        P2InstallerTestClass installer = new P2InstallerTestClass() {
+
+            @Override
+            public Set<InstalledUnit> installPatchFolder(File updatesiteFolder, boolean keepChangeConfigIni) throws IOException,
+                    ProvisionException {
+                Set<InstalledUnit> unit = new HashSet<InstalledUnit>();
+                unit.add(new InstalledUnit("myJira", "0.16.0"));
+                return unit;
+            }
+
+        };
+
+        Set<InstalledUnit> installedUnits = installer.installPatchFile(testDataFile, true);
+        Assert.assertFalse(installedUnits.isEmpty());
+        Assert.assertEquals(1, installedUnits.size());
+        final InstalledUnit one = installedUnits.iterator().next();
+        Assert.assertEquals("myJira", one.getBundle());
+        Assert.assertEquals("0.16.0", one.getVersion());
+        installer.clean();
+    }
+
+    @Test
+    public void test_installPatchFolder_empty() throws Exception {
+        P2InstallerTestClass installer = new P2InstallerTestClass();
+
+        // null
+        Set<InstalledUnit> installedUnits = installer.installPatchFolder(null, true);
+        Assert.assertTrue(installedUnits.isEmpty());
+
+        // not existed
+        installedUnits = installer.installPatchFolder(new File("abc"), true);
+        Assert.assertTrue(installedUnits.isEmpty());
+
+        // zip file
+        File file = new File(installer.getTmpInstallFolder(), "abc.test");
+        file.createNewFile();
+        installedUnits = installer.installPatchFolder(file, true);
+        Assert.assertTrue(installedUnits.isEmpty());
+        installer.clean();
+
+    }
+
+    @Test
+    public void test_installPatchFolder() throws Exception {
+        P2InstallerTestClass installer = new P2InstallerTestClass() {
+
+            protected Set<InstalledUnit> installPatchRepository(File metadataRepository, File artifactRepository)
+                    throws ProvisionException {
+                Set<InstalledUnit> unit = new HashSet<InstalledUnit>();
+                unit.add(new InstalledUnit("test", "0.1.0"));
+                return unit;
+            }
+        };
+        Set<InstalledUnit> installedUnits = installer.installPatchFolder(installer.getTmpInstallFolder(), true);
+        Assert.assertFalse(installedUnits.isEmpty());
+        Assert.assertEquals(1, installedUnits.size());
+        final InstalledUnit one = installedUnits.iterator().next();
+        Assert.assertEquals("test", one.getBundle());
+        Assert.assertEquals("0.1.0", one.getVersion());
+        installer.clean();
+    }
 }

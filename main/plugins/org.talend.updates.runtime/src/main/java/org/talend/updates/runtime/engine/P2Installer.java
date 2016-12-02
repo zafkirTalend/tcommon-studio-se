@@ -45,6 +45,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.ServiceReference;
+import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.commons.utils.resource.UpdatesHelper;
 import org.talend.utils.io.FilesUtils;
 
@@ -81,17 +82,19 @@ public class P2Installer {
     }
 
     public Set<InstalledUnit> installPatchFile(File updatesiteZip, boolean keepChangeConfigIni) throws Exception {
-        if (updatesiteZip != null && updatesiteZip.exists() && updatesiteZip.isFile()) {
+        if (updatesiteZip != null && updatesiteZip.exists() && updatesiteZip.isFile()
+                && updatesiteZip.getName().endsWith(FileExtensions.ZIP_FILE_SUFFIX)) {
 
-            final File tmpFolder = org.talend.utils.files.FileUtils.createTmpFolder("p2", "update"); //$NON-NLS-1$  //$NON-NLS-2$
+            final File tmpFolder = org.talend.utils.files.FileUtils.createTmpFolder("p2Installer", "update"); //$NON-NLS-1$  //$NON-NLS-2$
             try {
                 FilesUtils.unzip(updatesiteZip.getAbsolutePath(), tmpFolder.getAbsolutePath());
-
                 final File[] updateFiles = UpdatesHelper.findUpdateFiles(tmpFolder);
                 Set<InstalledUnit> installed = new HashSet<InstalledUnit>();
-                if (updateFiles != null && updateFiles.length > 1) {
+                if (updateFiles != null && updateFiles.length > 0) {
                     for (File f : updateFiles) {
-                        installed.addAll(installPatchFolder(f, keepChangeConfigIni));
+                        if (f.isDirectory()) { // only deal with dir, because have been de-compress before.
+                            installed.addAll(installPatchFolder(f, keepChangeConfigIni));
+                        }
                     }
                 }
                 return installed;
@@ -119,6 +122,15 @@ public class P2Installer {
             }
         }
         return Collections.emptySet();
+    }
+
+    public void clean() {
+        try {
+            FilesUtils.deleteFolder(getTmpInstallFolder(), true);
+            tmpInstallFolder = null;
+        } catch (IOException e) {
+            //
+        }
     }
 
     /**
