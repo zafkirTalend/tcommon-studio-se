@@ -57,8 +57,6 @@ public class ImportItem {
 
     private IRepositoryViewObject existingItemWithSameId;
 
-    private IRepositoryViewObject existingItemWithSameName;
-
     protected ERepositoryObjectType repositoryType;
 
     private String itemId;
@@ -190,27 +188,10 @@ public class ImportItem {
      * DOC hcw ImportItem class global comment. Detailled comment
      */
     public enum State {
-                       /**
-                        * only name existed
-                        */
-                       NAME_EXISTED,
-
-                       /**
-                        * only id existed
-                        */
-                       ID_EXISTED,
-
-                       NON_EXISTED,
-
-                       /**
-                        * only one existed item with same name and same id
-                        */
-                       NAME_AND_ID_EXISTED,
-
-                       /**
-                        * one existed item with same name, while another existed item with same id
-                        */
-                       NAME_AND_ID_EXISTED_BOTH
+        NAME_EXISTED,
+        ID_EXISTED,
+        NON_EXISTED,
+        NAME_AND_ID_EXISTED
     }
 
     public State getState() {
@@ -281,14 +262,6 @@ public class ImportItem {
 
     public void setExistingItemWithSameId(IRepositoryViewObject existingItemWithSameId) {
         this.existingItemWithSameId = existingItemWithSameId;
-    }
-
-    public IRepositoryViewObject getExistingItemWithSameName() {
-        return this.existingItemWithSameName;
-    }
-
-    public void setExistingItemWithSameName(IRepositoryViewObject existingItemWithSameName) {
-        this.existingItemWithSameName = existingItemWithSameName;
     }
 
     public ERepositoryObjectType getRepositoryType() {
