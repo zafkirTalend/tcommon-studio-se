@@ -173,8 +173,8 @@ public class ChangeIdManager {
             throw new Exception("Can't get the relationshipItemBuilder of project: " + project.getLabel()); //$NON-NLS-1$
         }
         Collection<Relation> relationSet = new HashSet<Relation>();
-        List<Relation> tmpRelationSet = relationshipBuilder.getItemsHaveRelationWith(oldId,
-                importItem.getProperty().getVersion());
+        List<Relation> tmpRelationSet = relationshipBuilder
+                .getItemsHaveRelationWith(oldId, importItem.getProperty().getVersion());
         if (tmpRelationSet != null) {
             relationSet.addAll(tmpRelationSet);
         }
@@ -251,8 +251,8 @@ public class ChangeIdManager {
         /**
          * designerCoreService must not be null
          */
-        IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault()
-                .getService(IDesignerCoreService.class);
+        IDesignerCoreService designerCoreService = (IDesignerCoreService) GlobalServiceRegister.getDefault().getService(
+                IDesignerCoreService.class);
 
         IProcess process = designerCoreService.getProcessFromItem(item);
         if (process == null) {
@@ -385,7 +385,11 @@ public class ChangeIdManager {
             Object elementParamValue = elemParameter.getValue();
             if (elementParamValue != null) {
                 if (elementParamValue instanceof String) {
-                    elemParameter.setValue(doReplace(elementParamValue.toString(), fromValue, toValue));
+                    String origialString = elementParamValue.toString();
+                    String doReplace = doReplace(elementParamValue.toString(), fromValue, toValue);
+                    if (!StringUtils.equals(origialString, doReplace)) {
+                        elemParameter.setValue(doReplace);
+                    }
                 } else {
                     changeValue(elementParamValue, fromValue, toValue);
                 }
