@@ -352,7 +352,7 @@ public final class ConnectionContextHelper {
         if(GlobalServiceRegister.getDefault().isServiceRegistered(INOSQLService.class)) {
             service = (INOSQLService) GlobalServiceRegister.getDefault().getService(INOSQLService.class);
         }
-        if (service.isUseReplicaSet(currentConnection)) {
+        if (service != null && service.isUseReplicaSet(currentConnection)) {
             String replicaSets = service.getMongoDBReplicaSets(currentConnection);
             try {
                 JSONArray jsa = new JSONArray(replicaSets);
