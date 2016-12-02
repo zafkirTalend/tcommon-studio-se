@@ -19,12 +19,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Priority;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -37,8 +35,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.framework.FrameworkUtil;
 import org.talend.commons.CommonsPlugin;
@@ -48,16 +44,13 @@ import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.FolderItem;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.DynaEnum;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.ui.IJobletProviderService;
@@ -72,7 +65,6 @@ import org.talend.repository.items.importexport.handlers.model.EmptyFolderImport
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
-import org.talend.repository.items.importexport.manager.ChangeIdManager;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
@@ -87,8 +79,6 @@ public class ImportExportHandlersManager {
     private IImportItemsHandler[] importHandlers;
 
     private IImportResourcesHandler[] resImportHandlers;
-
-    private ChangeIdManager changeIdManager = new ChangeIdManager();
 
     public ImportExportHandlersManager() {
         registryReader = ImportExportHandlersRegistryReader.getInstance();
@@ -233,7 +223,6 @@ public class ImportExportHandlersManager {
                             if (needCheck) {
                                 if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
                                     importBasicHandler.checkAndSetProject(resManager, importItem);
-                                    changeIdManager.add(importItem);
                                 }
                             } else {
                                 importBasicHandler.resolveItem(resManager, importItem);
@@ -465,50 +454,26 @@ public class ImportExportHandlersManager {
                                     return;
                                 }
                                 if (itemRecord.isValid()) {
-                                    if (itemRecord.getState() == State.ID_EXISTED
-                                            || itemRecord.getState() == State.NAME_AND_ID_EXISTED_BOTH) {
+                                    if (itemRecord.getState() == State.ID_EXISTED) {
                                         String id = nameToIdMap.get(itemRecord.getProperty().getLabel()
                                                 + ERepositoryObjectType.getItemType(itemRecord.getProperty().getItem())
                                                         .toString());
                                         if (id == null) {
-                                            try {
-                                                if (overwrite && itemRecord.getState() == State.NAME_AND_ID_EXISTED_BOTH) {
-                                                    // just try to reuse the id of the item which will be overwrited
-                                                    IRepositoryViewObject object = itemRecord.getExistingItemWithSameName();
-                                                    if (object != null) {
-                                                        if (ProjectManager.getInstance()
-                                                                .isInCurrentMainProject(object.getProperty())) {
-                                                            // in case it is in reference project
-                                                            id = object.getId();
-                                                        }
-                                                    }
-                                                }
-                                            } catch (Exception e) {
-                                                ExceptionHandler.process(e, Priority.WARN);
-                                            }
-                                            if (id == null) {
-                                                /*
-                                                 * if id exsist then need to genrate new id for this job,in this case
-                                                 * the job won't override the old one
-                                                 */
-                                                id = EcoreUtil.generateUUID();
-                                            }
-                                            nameToIdMap.put(itemRecord.getProperty().getLabel() + ERepositoryObjectType
-                                                    .getItemType(itemRecord.getProperty().getItem()).toString(), id);
+                                            /*
+                                             * if id exsist then need to genrate new id for this job,in this case the
+                                             * job won't override the old one
+                                             */
+                                            id = EcoreUtil.generateUUID();
+                                            nameToIdMap.put(itemRecord.getProperty().getLabel()
+                                                    + ERepositoryObjectType.getItemType(itemRecord.getProperty().getItem())
+                                                            .toString(), id);
                                         }
-                                        String oldId = itemRecord.getProperty().getId();
                                         itemRecord.getProperty().setId(id);
-                                        try {
-                                            changeIdManager.mapNewId2OldId(id, oldId);
-                                        } catch (Exception e) {
-                                            ExceptionHandler.process(e);
-                                        }
                                     }
                                 }
                             }
 
                             try {
-                                changeIdManager.prepare(resManager);
                                 importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite,
                                         allImportItemRecords, destinationPath, overwriteDeletedItems, idDeletedBeforeImport);
                             } catch (Exception e) {
@@ -593,7 +558,6 @@ public class ImportExportHandlersManager {
                             // post import
                             List<ImportItem> importedItemRecords = ImportCacheHelper.getInstance().getImportedItemRecords();
                             postImport(monitor, resManager, importedItemRecords.toArray(new ImportItem[0]));
-                            unloadReources(allImportItemRecords);
                         }
 
                         private void importItemRecordsWithRelations(final IProgressMonitor monitor,
@@ -644,12 +608,6 @@ public class ImportExportHandlersManager {
                                             return;
                                         }
 
-                                        try {
-                                            changeIdManager.changeId(itemRecord.getProperty().getId());
-                                        } catch (Exception e) {
-                                            ExceptionHandler.process(e);
-                                        }
-                                        
                                         // will import
                                         importHandler.doImport(monitor, manager, itemRecord, overwriting, destinationPath,
                                                 overwriteDeletedItems, idDeletedBeforeImport);
@@ -744,7 +702,7 @@ public class ImportExportHandlersManager {
         for (IImportResourcesHandler resHandler : importResourcesHandlers) {
             resHandler.prePopulate(monitor, resManager);
         }
-        changeIdManager.clear();
+
     }
 
     /**
@@ -789,51 +747,4 @@ public class ImportExportHandlersManager {
         }
     }
 
-    private void unloadReources(ImportItem[] importItems) {
-        for (ImportItem importItem : importItems) {
-            try {
-                unloadImportItem(importItem);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
-        changeIdManager.clear();
-    }
-
-    private void unloadImportItem(ImportItem importItem) throws Exception {
-        ProxyRepositoryFactory proxyFactory = ProxyRepositoryFactory.getInstance();
-        // unload the imported resources
-        EList<Resource> resources = importItem.getResourceSet().getResources();
-        Iterator<Resource> iterator = resources.iterator();
-        while (iterator.hasNext()) {
-            Resource res = iterator.next();
-            // Due to the system of lazy loading for db repository of ByteArray,
-            // it can't be unloaded just after create the item.
-            if (res != null && !(res instanceof ByteArrayResource)) {
-                res.unload();
-                iterator.remove();
-            }
-        }
-
-        Item item = importItem.getItem();
-        if (item != null) {
-            if (item.getProperty().eResource() != null) {
-                proxyFactory.unloadResources(item.getProperty());
-                if (item.getParent() != null && item.getParent() instanceof FolderItem) {
-                    ((FolderItem) item.getParent()).getChildren().remove(item);
-                    item.setParent(null);
-                }
-            }
-        }
-        Property property = importItem.getProperty();
-        if (property == null) {
-            IRepositoryViewObject object = proxyFactory.getSpecificVersion(importItem.getItemId(), importItem.getItemVersion(),
-                    true);
-            property = object.getProperty();
-        }
-        importItem.setProperty(null);
-        proxyFactory.unloadResources(property);
-        importItem.clear();
-    }
 }
