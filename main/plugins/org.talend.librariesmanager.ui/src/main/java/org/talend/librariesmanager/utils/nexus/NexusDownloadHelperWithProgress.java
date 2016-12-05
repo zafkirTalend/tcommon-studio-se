@@ -16,14 +16,13 @@ import java.io.File;
 import java.net.URL;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.ops4j.pax.url.mvn.MavenResolver;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.download.DownloadHelperWithProgress;
 import org.talend.core.download.IDownloadHelper;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.core.nexus.NexusServerBean;
 import org.talend.core.nexus.TalendLibsServerManager;
-import org.talend.core.runtime.maven.MavenArtifact;
-import org.talend.core.runtime.maven.MavenUrlHelper;
 
 /**
  * created by wchen on Apr 24, 2015 Detailled comment
@@ -47,16 +46,15 @@ public class NexusDownloadHelperWithProgress extends DownloadHelperWithProgress 
     public void download(URL componentUrl, File destination, IProgressMonitor progressMonitor) throws Exception {
         File resolved = null;
         if (toInstall.isFromCustomNexus()) {
-            final NexusServerBean customNexusServer = TalendLibsServerManager.getInstance().getCustomNexusServer();
+            TalendLibsServerManager manager = TalendLibsServerManager.getInstance();
+            final NexusServerBean customNexusServer = manager.getCustomNexusServer();
             if (customNexusServer != null) {
                 String mvnUri = componentUrl.toExternalForm();
-                MavenArtifact parseMvnUrl = MavenUrlHelper.parseMvnUrl(mvnUri);
-                if (parseMvnUrl != null) {
-                    progressMonitor.subTask("Downloading " + toInstall.getName() + ": " + mvnUri + " from "
-                            + customNexusServer.getServer());
-                    final MavenResolver mavenResolver = TalendLibsServerManager.getInstance().getMavenResolver();
-                    resolved = mavenResolver.resolve(componentUrl.toExternalForm());
-                }
+                progressMonitor.subTask("Downloading " + toInstall.getName() + ": " + mvnUri + " from "
+                        + customNexusServer.getServer());
+                ILibraryManagerService libManager = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
+                        ILibraryManagerService.class);
+                resolved = libManager.resolveJar(manager, customNexusServer, mvnUri);
             }
         }
         if (resolved != null && resolved.exists()) {
