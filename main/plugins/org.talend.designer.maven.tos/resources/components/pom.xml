@@ -111,9 +111,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<addParentPoms>true</addParentPoms>
 							<includeScope>runtime</includeScope>
-							<copyPom>true</copyPom>
 							<outputDirectory>${basedir}/../tmp/repository</outputDirectory>
 							<useRepositoryLayout>true</useRepositoryLayout>
 						</configuration>
