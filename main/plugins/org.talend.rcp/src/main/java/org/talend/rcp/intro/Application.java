@@ -153,17 +153,17 @@ public class Application implements IApplication {
                 }
             }
 
-            final ComponentsInstallComponent component = LocalComponentInstallHelper.getComponent();
-            if (component != null) {
+            final ComponentsInstallComponent installComponent = LocalComponentInstallHelper.getComponent();
+            if (installComponent != null) {
                 // install component silently
-                final boolean installed = component.install();
+                final boolean installed = installComponent.install();
                 if (installed) {
-                    final String installedMessages = component.getInstalledMessages();
+                    final String installedMessages = installComponent.getInstalledMessages();
                     if (installedMessages != null) {
                         log.log(Level.INFO, installedMessages);
                         MessageDialog.openInformation(new Shell(), "Installing Components", installedMessages);
                     }
-                    if (patchComponent.needRelaunch()) {
+                    if (installComponent.needRelaunch()) {
                         needRelaunch = true;
                     }
                 }
