@@ -22,6 +22,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.IService;
+import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
@@ -140,5 +141,10 @@ public interface IJobletProviderService extends IService {
             Boolean readOnly, Boolean openedInJob) throws PersistenceException;
     
     public boolean isJobletEditor(IEditorPart activeEditor);
+    
+    
+    public boolean isInInfiniteLoop(IComponent component, String parentId,String componentsType);
+    
+    public void cleanParentList(String paletteType, EComponentType comType);
 
 }

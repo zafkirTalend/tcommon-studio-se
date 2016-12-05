@@ -24,6 +24,9 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.PluginChecker;
+import org.talend.core.model.components.EComponentType;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Item;
@@ -36,6 +39,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.ResourceModelHelper;
 import org.talend.core.repository.ui.editor.RepositoryEditorInput;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.IJobletProviderService;
 import org.talend.core.ui.ILastVersionChecker;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.joblet.model.JobletProcess;
@@ -115,6 +119,13 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
     }
 
     protected void loadProcess() throws PersistenceException {
+        if (PluginChecker.isJobLetPluginLoaded()) {
+            IJobletProviderService service = (IJobletProviderService) GlobalServiceRegister.getDefault().getService(
+                    IJobletProviderService.class);
+            if (service != null ) {
+                service.cleanParentList(loadedProcess.getComponentsType(), EComponentType.JOBLET);
+            }
+        }
         loadedProcess.loadXmlFile(true);
         // loadedProcess.checkLoadNodes();
     }
