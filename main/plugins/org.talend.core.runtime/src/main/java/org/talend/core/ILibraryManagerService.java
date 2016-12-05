@@ -13,6 +13,7 @@
 package org.talend.core;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
@@ -96,6 +97,20 @@ public interface ILibraryManagerService extends IService {
             IProgressMonitor... monitorWrap);
 
     public boolean retrieve(ModuleNeeded module, String pathToStore, boolean showDialog, IProgressMonitor... monitorWrap);
+
+    /**
+     * 
+     * Resolve the jar from custom nexus
+     * 
+     * @param manager
+     * @param customNexusServer
+     * @param uri
+     * @return
+     * @throws Exception
+     * @throws IOException
+     */
+    public File resolveJar(TalendLibsServerManager manager, final NexusServerBean customNexusServer, String uri)
+            throws Exception, IOException;
 
     /**
      * List all the jars (or other files) available.
