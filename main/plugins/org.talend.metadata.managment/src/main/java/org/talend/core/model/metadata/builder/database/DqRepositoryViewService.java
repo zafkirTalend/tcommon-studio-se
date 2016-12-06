@@ -206,7 +206,7 @@ public final class DqRepositoryViewService {
 
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
             String tablePattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
-        if (loadFromDB && !isComeFromRefrenceProject(dataProvider)) {
+        if (loadFromDB && !(isComeFromRefrenceProject(dataProvider) && isPersist2Con)) {
             return loadTables(sqlConnection, dataProvider, catalog, tablePattern, isPersist2Con);
         } else {
             return CatalogHelper.getTables(catalog);
@@ -239,7 +239,7 @@ public final class DqRepositoryViewService {
      */
     public static List<TdTable> getTables(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
             String tablePattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
-        if (loadFromDB && !isComeFromRefrenceProject(dataProvider)) {
+        if (loadFromDB && !(isComeFromRefrenceProject(dataProvider) && isPersist2Con)) {
             final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
             return loadTables(sqlConnection, dataProvider, parentCatalog, schema, tablePattern, isPersist2Con);
         } else {
@@ -285,7 +285,7 @@ public final class DqRepositoryViewService {
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Catalog catalog,
             String viewPattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
-        if (loadFromDB && !isComeFromRefrenceProject(dataProvider)) {
+        if (loadFromDB && !(isComeFromRefrenceProject(dataProvider) && isPersist2Con)) {
             return loadViews(sqlConnection, dataProvider, catalog, null, viewPattern, isPersist2Con);
         } else {
             return CatalogHelper.getViews(catalog);
@@ -307,7 +307,7 @@ public final class DqRepositoryViewService {
 
     public static List<TdView> getViews(java.sql.Connection sqlConnection, Connection dataProvider, Schema schema,
             String viewPattern, boolean loadFromDB, boolean isPersist2Con) throws Exception {
-        if (loadFromDB && !isComeFromRefrenceProject(dataProvider)) {
+        if (loadFromDB && !(isComeFromRefrenceProject(dataProvider) && isPersist2Con)) {
             // get catalog is exists
             final Catalog parentCatalog = CatalogHelper.getParentCatalog(schema);
             return loadViews(sqlConnection, dataProvider, parentCatalog, schema, viewPattern, isPersist2Con);
@@ -348,6 +348,20 @@ public final class DqRepositoryViewService {
      * @throws Exception the exception the connection checking is not ok.
      */
     public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, boolean loadFromDB) throws Exception {
+        return getColumns(dataProvider, columnSet, loadFromDB, true);
+    }
+
+    /**
+     * @param dataProvider the data provider for connecting to database (can be null when the columns are not loaded
+     * from the database)
+     * @param columnSet a column set (Table or View)
+     * @param loadFromDB true if columns must be loaded from the database
+     * @param link2Conn true if need to link columns on the columnSet
+     * @return
+     * @throws Exception the exception the connection checking is not ok.
+     */
+    public static List<TdColumn> getColumns(Connection dataProvider, ColumnSet columnSet, boolean loadFromDB, boolean link2Conn)
+            throws Exception {
         if (loadFromDB && !isComeFromRefrenceProject(dataProvider)) {
             // MOD by zshen use new API to fill Columns
             TypedReturnCode<java.sql.Connection> rcConn = MetadataConnectionUtils
@@ -356,8 +370,14 @@ public final class DqRepositoryViewService {
             try {
                 DatabaseMetaData dm = ExtractMetaDataUtils.getInstance().getDatabaseMetaData(connection,
                         (DatabaseConnection) dataProvider);
-
-                return MetadataFillFactory.getDBInstance(dataProvider).fillColumns(columnSet, dm, null, null);
+                // never change old connection model
+                if (!link2Conn) {
+                    MetadataFillFactory.getDBInstance(dataProvider).setLinked(false);
+                }
+                List<TdColumn> fillColumns = MetadataFillFactory.getDBInstance(dataProvider).fillColumns(columnSet, dm, null,
+                        null);
+                MetadataFillFactory.getDBInstance(dataProvider).setLinked(true);
+                return fillColumns;
             } finally {
                 if (connection != null) {
                     ConnectionUtils.closeConnection(connection);
@@ -393,11 +413,31 @@ public final class DqRepositoryViewService {
         EList<ProjectReferenceImpl> referencedProjects = project.getEmfProject().getReferencedProjects();
         if (referencedProjects.size() > 0) {
             String currentResourceProjectName = dataProvider.eResource().getURI().segment(1);
-            for (ProjectReferenceImpl projectRef : referencedProjects) {
-                String label = projectRef.getReferencedProject().getLabel();
-                if (StringUtils.equalsIgnoreCase(currentResourceProjectName, label)) {
-                    return true;
-                }
+            boolean isFromReferenceProject = iteration2FindReferenceProject(referencedProjects, currentResourceProjectName);
+            if (isFromReferenceProject) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * DOC zshen Comment method "iteration2FindReferenceProject".
+     * 
+     * @param projectRef
+     * @param currentResourceProjectName
+     */
+    private static boolean iteration2FindReferenceProject(EList<ProjectReferenceImpl> referencedProjects,
+            String currentResourceProjectName) {
+        for (ProjectReferenceImpl currprojectRef : referencedProjects) {
+            String label = currprojectRef.getReferencedProject().getLabel();
+            if (StringUtils.equalsIgnoreCase(currentResourceProjectName, label)) {
+                return true;
+            }
+            boolean isFromReferenceProject = iteration2FindReferenceProject(currprojectRef.getReferencedProject()
+                    .getReferencedProjects(), currentResourceProjectName);
+            if (isFromReferenceProject) {
+                return true;
             }
         }
         return false;
