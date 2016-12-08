@@ -274,6 +274,11 @@ public class JobContextManager implements IContextManager {
                         Item item = ContextUtils.getRepositoryContextItemById(contextParam.getSource());
                         if (item != null) {
                             contextParamType.setRepositoryContextId(item.getProperty().getId());
+                        } else {
+                            String contextId = contextParam.getSource();
+                            if (!IContextParameter.BUILT_IN.equals(contextId)) {
+                                contextParamType.setRepositoryContextId(contextId);
+                            }
                         }
                     }
                     contextTypeParamList.add(contextParamType);
