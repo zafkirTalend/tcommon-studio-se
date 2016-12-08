@@ -12,8 +12,7 @@
 // ============================================================================
 package org.talend.repository.items.importexport.handlers.imports;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -547,7 +546,7 @@ public class ImportBasicHandlerTest {
         ProcessItem processItem = createTempProcessItem();
         when(property.getItem()).thenReturn(processItem);
         // Resources
-        ResourcesManager resManager = mock(ResourcesManager.class);
+        ResourcesManager resManager = spy(ResourcesManager.class);
         Set<IPath> pathes = new HashSet<IPath>();
         IPath projPath = new Path("TEST/" + FileConstants.LOCAL_PROJECT_FILENAME);
         pathes.add(projPath);
