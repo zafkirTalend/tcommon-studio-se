@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemRelation;
@@ -45,7 +44,6 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.IRepositoryService;
 
 /**
  * This class store all relationships between jobs/joblets and other items from the repository. Be sure to update the
@@ -126,6 +124,10 @@ public class RelationshipItemBuilder {
 
     private boolean modified = false;
 
+    private Project aimProject;
+
+    private IProxyRepositoryFactory proxyRepositoryFactory;
+
     public static final String COMMA = ";"; //$NON-NLS-1$
 
     private static Map<String, RelationshipItemBuilder> projectToInstanceMap = new HashMap<String, RelationshipItemBuilder>();
@@ -135,14 +137,76 @@ public class RelationshipItemBuilder {
     }
 
     public static RelationshipItemBuilder getInstance() {
-        String currentProject = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        RelationshipItemBuilder relationshipBuilder = getInstance(currentProject, true);
+        return relationshipBuilder;
+    }
 
-        if (projectToInstanceMap.containsKey(currentProject)) {
-            return projectToInstanceMap.get(currentProject);
+    public static RelationshipItemBuilder getInstance(String projectTechnicalName) {
+        synchronized (projectToInstanceMap) {
+            return projectToInstanceMap.get(projectTechnicalName);
         }
-        RelationshipItemBuilder instance = new RelationshipItemBuilder();
-        projectToInstanceMap.put(currentProject, instance);
+    }
+
+    public static RelationshipItemBuilder getInstance(Project project, boolean createIfNotExist) {
+        String projectName = project.getTechnicalLabel();
+
+        synchronized (projectToInstanceMap) {
+            if (projectToInstanceMap.containsKey(projectName)) {
+                RelationshipItemBuilder relationshipBuilder = projectToInstanceMap.get(projectName);
+                // refresh current project realtime, in case studio switched project
+                relationshipBuilder.setAimProject(project);
+                return relationshipBuilder;
+            }
+        }
+
+        if (!createIfNotExist) {
+            return null;
+        }
+
+        IProxyRepositoryFactory proxyRepositoryFactory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        RelationshipItemBuilder instance = createInstance(proxyRepositoryFactory, project);
+        synchronized (projectToInstanceMap) {
+            projectToInstanceMap.put(projectName, instance);
+        }
         return instance;
+    }
+
+    public static RelationshipItemBuilder createInstance(IProxyRepositoryFactory repositoryFactory, Project project) {
+        RelationshipItemBuilder instance = new RelationshipItemBuilder();
+        instance.setAimProject(project);
+        instance.setProxyRepositoryFactory(repositoryFactory);
+        return instance;
+    }
+
+    public static boolean isExist(Project project) {
+        String projectName = project.getTechnicalLabel();
+
+        if (projectToInstanceMap.containsKey(projectName)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public Project getAimProject() {
+        return this.aimProject;
+    }
+
+    private void setAimProject(Project aimProject) {
+        this.aimProject = aimProject;
+    }
+
+    private IProxyRepositoryFactory getProxyRepositoryFactory() {
+        return this.proxyRepositoryFactory;
+    }
+
+    public void setProxyRepositoryFactory(IProxyRepositoryFactory proxyRepositoryFactory) {
+        this.proxyRepositoryFactory = proxyRepositoryFactory;
+    }
+
+    public List<Relation> getItemsHaveRelationWith(String itemId) {
+        return getItemsHaveRelationWith(itemId, null);
     }
 
     /**
@@ -154,16 +218,16 @@ public class RelationshipItemBuilder {
      * @param relationType
      * @return
      */
-    public List<Relation> getItemsHaveRelationWith(String itemId) {
+    public List<Relation> getItemsHaveRelationWith(String itemId, String version) {
         if (!loaded) {
             loadRelations();
         }
         Set<Relation> relations = new HashSet<Relation>();
-        Set<Relation> itemsRelations = getItemsHaveRelationWith(currentProjectItemsRelations, itemId);
+        Set<Relation> itemsRelations = getItemsHaveRelationWith(currentProjectItemsRelations, itemId, version);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
-        itemsRelations = getItemsHaveRelationWith(referencesItemsRelations, itemId);
+        itemsRelations = getItemsHaveRelationWith(referencesItemsRelations, itemId, version);
         if (itemsRelations != null) {
             relations.addAll(itemsRelations);
         }
@@ -186,7 +250,20 @@ public class RelationshipItemBuilder {
         return new ArrayList<Relation>(relations);
     }
     
-    private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId) {
+    /**
+     * 
+     * DOC cmeng Comment method "getItemsHaveRelationWith".
+     * 
+     * @param itemsRelations
+     * @param itemId
+     * @param version if null, then won't check
+     * @return
+     */
+    private Set<Relation> getItemsHaveRelationWith(Map<Relation, Set<Relation>> itemsRelations, String itemId, String version) {
+
+        /**
+         * if verison is null, then won't check
+         */
 
         Set<Relation> relations = new HashSet<Relation>();
 
@@ -206,8 +283,36 @@ public class RelationshipItemBuilder {
                         tmpRelatedItem = relatedItem;
                     }
                     if (tmpRelatedItem != null && itemId.equals(id)) {
-                        relations.add(baseItem);
-                        break;
+                        boolean isEqual = true;
+
+                        if (version != null) {
+                            /**
+                             * if verison is null, then won't check
+                             */
+                            String curVersion = tmpRelatedItem.getVersion();
+
+                            if (!LATEST_VERSION.equals(version) && LATEST_VERSION.equals(curVersion)) {
+                                try {
+                                    IRepositoryViewObject latest = getProxyRepositoryFactory().getLastVersion(getAimProject(),
+                                            id);
+                                    if (latest != null) {
+                                        curVersion = latest.getVersion();
+                                    }
+                                } catch (PersistenceException e) {
+                                    ExceptionHandler.process(e);
+                                }
+                            }
+                            if (version.equals(curVersion)) {
+                                isEqual = true;
+                            } else {
+                                isEqual = false;
+                            }
+                        }
+
+                        if (isEqual) {
+                            relations.add(baseItem);
+                            break;
+                        }
                     }
                 }
             }
@@ -297,8 +402,16 @@ public class RelationshipItemBuilder {
 
     public void unloadRelations() {
         loaded = false;
-        currentProjectItemsRelations = new HashMap<Relation, Set<Relation>>();
-        referencesItemsRelations = new HashMap<Relation, Set<Relation>>();
+        clearAllItemsRelations();
+    }
+
+    public void clearAllItemsRelations() {
+        if (currentProjectItemsRelations != null) {
+            currentProjectItemsRelations.clear();
+        }
+        if (referencesItemsRelations != null) {
+            referencesItemsRelations.clear();
+        }
     }
 
     private void loadRelations() {
@@ -309,10 +422,10 @@ public class RelationshipItemBuilder {
         currentProjectItemsRelations = new HashMap<Relation, Set<Relation>>();
         referencesItemsRelations = new HashMap<Relation, Set<Relation>>();
 
-        Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        loadRelations(currentProjectItemsRelations, currentProject);
+        loadRelations(currentProjectItemsRelations, getAimProject());
 
-        List<Project> referencedProjects = ProjectManager.getInstance().getReferencedProjects();
+        List<Project> referencedProjects = ProjectManager.getInstance().getReferencedProjects(getProxyRepositoryFactory(),
+                getAimProject());
         for (Project p : referencedProjects) {
             loadRelations(referencesItemsRelations, p);
         }
@@ -366,7 +479,7 @@ public class RelationshipItemBuilder {
         if (!loaded && !modified) {
             return;
         }
-        Project currentProject = ProjectManager.getInstance().getCurrentProject();
+        Project currentProject = getAimProject();
         currentProject.getEmfProject().getItemsRelations().clear();
 
         for (Relation relation : currentProjectItemsRelations.keySet()) {
@@ -397,10 +510,7 @@ public class RelationshipItemBuilder {
             currentProject.getEmfProject().getItemsRelations().add(itemRelations);
         }
         try {
-            IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IRepositoryService.class);
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            factory.saveProject(currentProject);
+            getProxyRepositoryFactory().saveProject(currentProject);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
@@ -465,7 +575,7 @@ public class RelationshipItemBuilder {
 
     private Map<Relation, Set<Relation>> getRelatedRelations(Item baseItem) {
         Map<Relation, Set<Relation>> itemRelations = currentProjectItemsRelations;
-        if (!ProjectManager.getInstance().isInCurrentMainProject(baseItem)) {
+        if (!ProjectManager.getInstance().isInMainProject(getAimProject(), baseItem)) {
             itemRelations = referencesItemsRelations;
         }
         return itemRelations;
@@ -486,13 +596,12 @@ public class RelationshipItemBuilder {
             }
         }
 
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = getProxyRepositoryFactory();
         List<IRepositoryViewObject> list = new ArrayList<IRepositoryViewObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
                 if (curTyp != null) {
-                    list.addAll(factory.getAll(curTyp, true, true));
+                    list.addAll(factory.getAll(project, curTyp, true, true));
                 }
             }
             monitor.beginTask(Messages.getString("RelationshipItemBuilder.buildingIndex"), list.size()); //$NON-NLS-1$
@@ -533,12 +642,12 @@ public class RelationshipItemBuilder {
 
     public void updateItemVersion(Item baseItem, String oldVersion, String id, Map<String, String> versions,
             boolean avoidSaveProject) throws PersistenceException {
-        IProxyRepositoryFactory factory = CoreRuntimePlugin.getInstance().getProxyRepositoryFactory();
+        IProxyRepositoryFactory factory = getProxyRepositoryFactory();
         IRepositoryViewObject obj = factory.getSpecificVersion(id, oldVersion, avoidSaveProject);
         Item item = obj.getProperty().getItem();
         // String itemVersion = item.getProperty().getVersion();
-        Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        Project project = new Project(ProjectManager.getInstance().getProject(item));
+        Project currentProject = getAimProject();
+        Project project = new Project(ProjectManager.getInstance().getProject(currentProject, item));
         if (!loaded) {
             loadRelations();
         }

@@ -78,7 +78,6 @@ import org.talend.core.model.properties.ReferenceFileItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
-import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -335,10 +334,13 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
             IRepositoryViewObject itemWithSameIdObj = null;
             IRepositoryViewObject itemWithSameNameObj = null;
 
+            org.talend.core.model.general.Project currentProject = ProjectManager.getInstance().getCurrentProject();
             for (IRepositoryViewObject current : repObjectcache.getItemsFromRepository().get(itemType)) {
                 final Property property = importItem.getProperty();
                 if (property != null) {
-                    if (isSameName(importItem, current)) {
+                    boolean isInCurrentProject = ProjectManager.getInstance().isInMainProject(currentProject,
+                            current.getProperty());
+                    if (isInCurrentProject && isSameName(importItem, current)) {
                         itemWithSameNameObj = current;
                     }
                     if (property.getId() != null && property.getId().equals(current.getId())) {
@@ -370,6 +372,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                         // if anything system, don't replace the source item if same name.
                         // if not from system, can overwrite.
                         importItem.setExistingItemWithSameId(itemWithSameNameObj);
+                        importItem.setExistingItemWithSameName(itemWithSameNameObj);
                         // TDI-21399,TDI-21401
                         // if item is locked, cannot overwrite
                         if (itemWithSameNameObj != null) {
@@ -380,18 +383,22 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                         }
                     }
                 } else {
-                    // same name and same id
-                    importItem.setState(State.NAME_AND_ID_EXISTED);
-                    if (overwrite) {
-                        importItem.setExistingItemWithSameId(itemWithSameNameObj);
+                    boolean isSameItem = StringUtils.equals(itemWithSameNameObj.getId(), itemWithSameIdObj.getId());
+                    if (isSameItem) {
+                        importItem.setState(State.NAME_AND_ID_EXISTED);
+                    } else {
+                        importItem.setState(State.NAME_AND_ID_EXISTED_BOTH);
                     }
+                    importItem.setExistingItemWithSameId(itemWithSameIdObj);
+                    importItem.setExistingItemWithSameName(itemWithSameNameObj);
                 }
                 if (!overwrite) {
                     importItem.addError(Messages.getString("AbstractImportHandler_nameUsed")); //$NON-NLS-1$
                 }
             }
 
-            if (overwrite && importItem.getState() == State.NAME_AND_ID_EXISTED) {
+            if (overwrite && (importItem.getState() == State.NAME_AND_ID_EXISTED
+                    || importItem.getState() == State.NAME_AND_ID_EXISTED_BOTH)) {
                 // if item is locked, cannot overwrite
                 if (checkIfLocked(importItem)) {
                     importItem.addError(Messages.getString("AbstractImportHandler_itemLocked")); //$NON-NLS-1$
@@ -641,18 +648,6 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         doImportItem(monitor, resManager, selectedImportItem, overwrite, destinationPath, overwriteDeletedItems,
                 idDeletedBeforeImport);
 
-        // unload the imported resources
-        EList<Resource> resources = selectedImportItem.getResourceSet().getResources();
-        Iterator<Resource> iterator = resources.iterator();
-        while (iterator.hasNext()) {
-            Resource res = iterator.next();
-            // Due to the system of lazy loading for db repository of ByteArray,
-            // it can't be unloaded just after create the item.
-            if (res != null && !(res instanceof ByteArrayResource)) {
-                res.unload();
-                iterator.remove();
-            }
-        }
         String label = selectedImportItem.getLabel();
         TimeMeasure.step("importItemRecords", "Import item: " + label); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -678,11 +673,15 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 String id = selectedImportItem.getProperty().getId();
 
                 IRepositoryViewObject lastVersion = selectedImportItem.getExistingItemWithSameId();
-                if (lastVersion != null
-                        && overwrite
-                        && !selectedImportItem.isLocked()
+                if (selectedImportItem.getState() == State.NAME_EXISTED
+                        || selectedImportItem.getState() == State.NAME_AND_ID_EXISTED_BOTH) {
+                    lastVersion = selectedImportItem.getExistingItemWithSameName();
+                }
+                if (lastVersion != null && overwrite && !selectedImportItem.isLocked()
                         && (selectedImportItem.getState() == State.ID_EXISTED
-                                || selectedImportItem.getState() == State.NAME_EXISTED || selectedImportItem.getState() == State.NAME_AND_ID_EXISTED)
+                                || selectedImportItem.getState() == State.NAME_EXISTED
+                                || selectedImportItem.getState() == State.NAME_AND_ID_EXISTED
+                                || selectedImportItem.getState() == State.NAME_AND_ID_EXISTED_BOTH)
                         && !ImportCacheHelper.getInstance().getDeletedItems().contains(id)) {
 
                     if (overwriteDeletedItems != null && !overwriteDeletedItems.contains(id)) { // bug 10520.
@@ -695,7 +694,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
 
                     /* only delete when name exsit rather than id exist */
                     if (selectedImportItem.getState().equals(ImportItem.State.NAME_EXISTED)
-                            || selectedImportItem.getState().equals(ImportItem.State.NAME_AND_ID_EXISTED)) {
+                            || selectedImportItem.getState().equals(ImportItem.State.NAME_AND_ID_EXISTED)
+                            || selectedImportItem.getState().equals(ImportItem.State.NAME_AND_ID_EXISTED_BOTH)) {
                         final IRepositoryViewObject lastVersionBackup = lastVersion;
                         if (idDeletedBeforeImport != null && !idDeletedBeforeImport.contains(id)) {
                             // TDI-19535 (check if exists, delete all items with same id)
@@ -731,7 +731,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 beforeCreatingItem(selectedImportItem);
 
                 final RepositoryObjectCache repObjectcache = ImportCacheHelper.getInstance().getRepObjectcache();
-                if (lastVersion == null || selectedImportItem.getState().equals(ImportItem.State.ID_EXISTED)) {
+                if (lastVersion == null || selectedImportItem.getState().equals(ImportItem.State.ID_EXISTED)
+                        || selectedImportItem.getState().equals(ImportItem.State.NAME_AND_ID_EXISTED_BOTH)) {
                     repFactory.create(tmpItem, path, true);
 
                     afterCreatedItem(resManager, selectedImportItem);
@@ -1146,7 +1147,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 }
                 migrationService.executeMigrationTasksForImport(project, item, importItem.getMigrationTasksToApply(), monitor);
                 importItem.setExistingItemWithSameId(null);
-                importItem.clear();
+                // importItem.clear();
                 importItem.setProperty(item.getProperty());
             } catch (Exception e) {
                 logError(e);
@@ -1175,8 +1176,8 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                 property = object.getProperty();
             }
             RelationshipItemBuilder.getInstance().addOrUpdateItem(property.getItem(), true);
-            importItem.setProperty(null);
-            factory.unloadResources(property);
+            // importItem.setProperty(null);
+            // factory.unloadResources(property);
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
