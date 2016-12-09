@@ -267,6 +267,10 @@ public class MavenPomSynchronizer {
     private void updateCodesPomWithProject(IProgressMonitor monitor, IProcessor processor) throws Exception {
         syncCodesPoms(monitor, processor != null ? processor.getProcess() : null, true);
         // finally, update project
+        regenerateMainProjectPom(monitor, processor);
+    }
+
+    public void regenerateMainProjectPom(IProgressMonitor monitor, IProcessor processor) throws Exception {
         ProjectPomManager projectManager = new ProjectPomManager(codeProject.getProject());
         projectManager.update(monitor, processor);
     }
