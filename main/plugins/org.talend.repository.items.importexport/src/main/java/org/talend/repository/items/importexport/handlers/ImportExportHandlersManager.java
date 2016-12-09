@@ -449,7 +449,7 @@ public final class ImportExportHandlersManager {
                                         String oldId = itemRecord.getProperty().getId();
                                         itemRecord.getProperty().setId(id);
                                         try {
-                                            changeIdManager.mapNewId2OldId(id, oldId);
+                                            changeIdManager.mapOldId2NewId(oldId, id);
                                         } catch (Exception e) {
                                             ExceptionHandler.process(e);
                                         }
@@ -458,7 +458,6 @@ public final class ImportExportHandlersManager {
                             }
 
                             try {
-                                changeIdManager.prepare(resManager);
                                 importItemRecordsWithRelations(monitor, resManager, checkedItemRecords, overwrite,
                                         allImportItemRecords, destinationPath, overwriteDeletedItems, idDeletedBeforeImport);
                             } catch (Exception e) {
@@ -542,6 +541,11 @@ public final class ImportExportHandlersManager {
                             // post import
                             List<ImportItem> importedItemRecords = ImportCacheHelper.getInstance().getImportedItemRecords();
                             postImport(monitor, resManager, importedItemRecords.toArray(new ImportItem[0]));
+                            try {
+                                changeIdManager.changeIds();
+                            } catch (Exception e) {
+                                ExceptionHandler.process(e);
+                            }
                             unloadImportItems(allImportItemRecords);
                         }
 
@@ -572,12 +576,6 @@ public final class ImportExportHandlersManager {
                                         }
                                         if (monitor.isCanceled()) {
                                             return;
-                                        }
-
-                                        try {
-                                            changeIdManager.changeId(itemRecord.getProperty().getId());
-                                        } catch (Exception e) {
-                                            ExceptionHandler.process(e);
                                         }
 
                                         // will import

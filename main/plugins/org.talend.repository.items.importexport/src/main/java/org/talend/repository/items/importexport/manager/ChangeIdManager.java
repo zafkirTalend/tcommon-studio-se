@@ -14,7 +14,6 @@ package org.talend.repository.items.importexport.manager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,22 +24,9 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Priority;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.model.general.TalendNature;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -48,13 +34,14 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
+import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
-import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.core.IDesignerCoreService;
@@ -62,15 +49,12 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.repository.ProjectManager;
-import org.talend.repository.items.importexport.handlers.HandlerUtil;
-import org.talend.repository.items.importexport.handlers.imports.IImportItemsHandler;
-import org.talend.repository.items.importexport.handlers.imports.ImportBasicHandler;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.model.IProxyRepositoryFactory;
-import org.talend.repository.model.RepositoryConstants;
 
 /**
- * created by cmeng on Nov 4, 2016 Detailled comment
+ * created by cmeng on Dec 8, 2016
+ * Detailled comment
  *
  */
 public class ChangeIdManager {
@@ -79,16 +63,13 @@ public class ChangeIdManager {
 
     private Map<String, List<ImportItem>> id2ImportItemsMap = new HashMap<String, List<ImportItem>>();
 
-    private Map<String, String> newId2OldIdMap = new HashMap<String, String>();
+    private Map<String, Collection<String>> refIds2ItemIdsMap = new HashMap<String, Collection<String>>();
 
-    private Map<Project, IProject> project2EmfProject = new HashMap<Project, IProject>();
+    private Map<String, String> oldId2NewIdMap = new HashMap<String, String>();
 
-    /**
-     * just use one importItem to get the project path
-     */
-    private Map<Project, ImportItem> project2OneImportItemMap = new HashMap<Project, ImportItem>();
+    private Set<String> idsNeed2CheckRefs = new HashSet<String>();
 
-    private ResourcesManager resManager;
+    private org.talend.core.model.general.Project currentProject;
 
     public void clear() {
         if (!project2RelationshipMap.isEmpty()) {
@@ -98,151 +79,199 @@ public class ChangeIdManager {
             project2RelationshipMap.clear();
         }
         id2ImportItemsMap.clear();
-        newId2OldIdMap.clear();
-        if (!project2EmfProject.isEmpty()) {
-            for (IProject project : project2EmfProject.values()) {
-                try {
-                    project.delete(false, false, new NullProgressMonitor());
-                } catch (CoreException e) {
-                    ExceptionHandler.process(e);
-                }
-            }
-        }
-        project2OneImportItemMap.clear();
-        resManager = null;
+        refIds2ItemIdsMap.clear();
+        oldId2NewIdMap.clear();
+        idsNeed2CheckRefs.clear();
+        currentProject = null;
     }
 
     public void add(ImportItem importItem) {
-        // update project-relationshipBuilder map
-        Project project = importItem.getItemProject();
-        if (!project2OneImportItemMap.containsKey(project)) {
-            project2OneImportItemMap.put(project, importItem);
-        }
+
+        prepareRelationshipItemBuilder(importItem.getItemProject());
 
         // update id-importItem map
         Property property = importItem.getProperty();
         if (property != null) {
             String id = property.getId();
+            // record all importing id
+            oldId2NewIdMap.put(id, null);
             List<ImportItem> itemRecords = id2ImportItemsMap.get(id);
             if (itemRecords == null) {
                 itemRecords = new ArrayList<ImportItem>();
                 id2ImportItemsMap.put(id, itemRecords);
             }
             itemRecords.add(importItem);
+
+            Item item = property.getItem();
+            if (item instanceof ConnectionItem) {
+                idsNeed2CheckRefs.add(id);
+            }
         }
     }
 
-    public void mapNewId2OldId(String newId, String oldId) throws Exception {
-        String existOldId = newId2OldIdMap.get(newId);
-        if (existOldId != null && !existOldId.equals(oldId)) {
-            throw new Exception(
-                    "bad new Id: " + newId + ", it is already linked to " + existOldId + ", but still try to link " + oldId); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        }
-        newId2OldIdMap.put(newId, oldId);
+    public void mapOldId2NewId(String oldId, String newId) throws Exception {
+        oldId2NewIdMap.put(oldId, newId);
         List<ImportItem> importItems = id2ImportItemsMap.get(oldId);
         if (importItems != null) {
             id2ImportItemsMap.put(newId, importItems);
         }
     }
 
-    public void changeId(String newId) throws Exception {
-        String oldId = newId2OldIdMap.get(newId);
-        if (StringUtils.isEmpty(oldId)) {
+    public void changeIds() throws Exception {
+        buildRefIds2ItemIdsMap();
+        for (Map.Entry<String, String> entry : oldId2NewIdMap.entrySet()) {
+            changeId(entry.getValue(), entry.getKey());
+        }
+    }
+
+    private void changeId(String newId, String oldId) throws Exception {
+
+        if (newId == null || StringUtils.equals(newId, oldId)) {
             return;
-            // throw new Exception("Can't find the original id for new id: " + newId); //$NON-NLS-1$
         }
 
-        List<ImportItem> importItems = id2ImportItemsMap.get(newId);
-        for (ImportItem importItem : importItems) {
-            try {
-                changeId(newId, oldId, importItem);
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
+        Set<String> relationIds = new HashSet<String>();
+        Collection<String> itemIds = refIds2ItemIdsMap.get(oldId);
+        if (itemIds != null && !itemIds.isEmpty()) {
+            relationIds.addAll(itemIds);
+        }
+
+        List<Relation> relations = getRelations(oldId);
+        for (Relation relation : relations) {
+            relationIds.add(relation.getId());
+        }
+
+        if (relationIds.isEmpty()) {
+            return;
+        }
+
+        Set<String> changedIds = new HashSet<String>();
+        for (String relationId : relationIds) {
+            String id = relationId;
+            if (!oldId2NewIdMap.containsKey(id)) {
+                // means didn't import this item
+                continue;
+            }
+
+            if (changedIds.contains(id)) {
+                continue;
+            } else {
+                changedIds.add(id);
+            }
+
+            List<ImportItem> importItems = id2ImportItemsMap.get(id);
+            ERepositoryObjectType repType = importItems.get(0).getRepositoryType();
+            String newRelatedId = oldId2NewIdMap.get(id);
+            if (newRelatedId == null) {
+                // means the id didn't be changed
+                newRelatedId = id;
+            }
+            List<IRepositoryViewObject> repViewObjs = getAllVersion(newRelatedId, repType);
+            if (repViewObjs != null && !repViewObjs.isEmpty()) {
+                for (IRepositoryViewObject repViewObj : repViewObjs) {
+                    Property property = repViewObj.getProperty();
+                    changeRelated(newId, oldId, property, getCurrentProject());
+                }
             }
         }
     }
 
-    private void changeId(String newId, String oldId, ImportItem importItem) throws Exception {
-        resolveItem(importItem);
-        Project project = importItem.getItemProject();
-        if (project == null) {
-            throw new Exception("Can't get the project of importItem: " + importItem.toString()); //$NON-NLS-1$
+    private List<IRepositoryViewObject> getAllVersion(String id, ERepositoryObjectType repType) throws Exception {
+        List<IRepositoryViewObject> repViewObjs = null;
+        if (repType != null) {
+            repViewObjs = ProxyRepositoryFactory.getInstance().getAllVersion(getCurrentProject(), id, null, repType);
+        } else {
+            repViewObjs = ProxyRepositoryFactory.getInstance().getAllVersion(getCurrentProject(), id, true);
         }
-        RelationshipItemBuilder relationshipBuilder = project2RelationshipMap.get(project);
-        if (relationshipBuilder == null) {
-            throw new Exception("Can't get the relationshipItemBuilder of project: " + project.getLabel()); //$NON-NLS-1$
+        return repViewObjs;
+    }
+
+    private void buildRefIds2ItemIdsMap() throws Exception {
+        for (String id : idsNeed2CheckRefs) {
+            Collection<String> refIds = getRelatedIdsIfNeeded(id);
+            if (refIds != null && !refIds.isEmpty()) {
+                for (String refId : refIds) {
+                    Collection<String> ids = refIds2ItemIdsMap.get(refId);
+                    if (ids == null) {
+                        ids = new HashSet<String>();
+                        refIds2ItemIdsMap.put(refId, ids);
+                    }
+                    ids.add(id);
+                }
+            }
         }
-        Collection<Relation> relationSet = new HashSet<Relation>();
-        List<Relation> tmpRelationSet = relationshipBuilder.getItemsHaveRelationWith(oldId,
-                importItem.getProperty().getVersion());
-        if (tmpRelationSet != null) {
-            relationSet.addAll(tmpRelationSet);
+    }
+
+    private Collection<String> getRelatedIdsIfNeeded(String oldId) throws Exception {
+        Collection<String> relatedIds = new HashSet<String>();
+        if (!idsNeed2CheckRefs.contains(oldId)) {
+            return relatedIds;
         }
 
-        IProxyRepositoryFactory proxyRepFactory = ProxyRepositoryFactory.getInstance();
-        org.talend.core.model.general.Project currentProject = ProjectManager.getInstance().getCurrentProject();
-        for (Relation relation : relationSet) {
-            String relatedId = relation.getId();
-            List<ImportItem> relatedImportItems = id2ImportItemsMap.get(relatedId);
-            if (relatedImportItems == null || relatedImportItems.isEmpty()) {
-                // means not in the import list
-                continue;
-            }
-            // baseItem only record specified version, means no version string like 'Latest'
-            String relatedVersion = relation.getVersion();
-            boolean changeAllRelated = false;
-            if (StringUtils.isEmpty(relatedVersion)) {
-                changeAllRelated = true;
-            }
-            for (ImportItem relatedImportItem : relatedImportItems) {
-                boolean changeThisItem = false;
-                if (changeAllRelated) {
-                    changeThisItem = true;
-                } else {
-                    changeThisItem = StringUtils.equals(relatedVersion, relatedImportItem.getProperty().getVersion());
-                }
-                if (changeThisItem) {
-                    try {
-                        resolveItem(relatedImportItem);
-                        Property property = relatedImportItem.getProperty();
-                        org.talend.core.model.general.Project propertyProject = null;
-                        boolean isImported = relatedImportItem.isImported();
-                        if (isImported) {
-                            // just use the id of property, since it has been changed to the new id during import
-                            IRepositoryViewObject repViewObject = proxyRepFactory.getSpecificVersion(currentProject,
-                                    property.getId(), property.getVersion(), true);
-                            if (repViewObject == null) {
-                                throw new Exception("Can't get the imported item: id[" + property.getId() + "], name[" //$NON-NLS-1$ //$NON-NLS-2$
-                                        + property.getLabel() + "]"); //$NON-NLS-1$
-                            }
-                            property = repViewObject.getProperty();
-                            propertyProject = currentProject;
-                        } else {
-                            propertyProject = relationshipBuilder.getAimProject();
-                        }
-                        changeRelated(newId, oldId, property, propertyProject);
-                        if (isImported) {
-                            RelationshipItemBuilder.getInstance().addOrUpdateItem(property.getItem());
-                        }
-                    } catch (Exception e) {
-                        ExceptionHandler.process(e);
+        String givenId = oldId2NewIdMap.get(oldId);
+        if (givenId == null) {
+            givenId = oldId;
+        }
+        
+        List<IRepositoryViewObject> givenObjs = getAllVersion(givenId, id2ImportItemsMap.get(givenId).get(0).getRepositoryType());
+        
+        if (givenObjs != null && !givenObjs.isEmpty()) {
+            for (IRepositoryViewObject givenObj : givenObjs) {
+                Item item = givenObj.getProperty().getItem();
+                if (item instanceof ConnectionItem) {
+                    String ctxId = ((ConnectionItem) item).getConnection().getContextId();
+                    if (ctxId != null && !ctxId.isEmpty()) {
+                        relatedIds.add(ctxId);
                     }
+                } else {
+                    throw new Exception("Unsupportted type when importing: " + item.toString());
                 }
             }
         }
+
+        return relatedIds;
+    }
+
+    private List<Relation> getRelations(String id) {
+        List<Relation> relations = new ArrayList<Relation>();
+        Collection<RelationshipItemBuilder> relationshipBuilders = project2RelationshipMap.values();
+        for (RelationshipItemBuilder relationshipBuilder : relationshipBuilders) {
+            List<Relation> list = relationshipBuilder.getItemsHaveRelationWith(id, null);
+            if (list != null && !list.isEmpty()) {
+                relations.addAll(list);
+            }
+        }
+        return relations;
     }
 
     private void changeRelated(String newId, String oldId, Property property, org.talend.core.model.general.Project project)
             throws Exception {
         Item item = property.getItem();
+        boolean modified = false;
         if (item instanceof ProcessItem) {
-            boolean modified = changeRelatedProcess(newId, oldId, (ProcessItem) item);
-            if (modified) {
-                ProxyRepositoryFactory.getInstance().save(project, item);
-            }
+            modified = changeRelatedProcess(newId, oldId, (ProcessItem) item);
+        } else if (item instanceof ConnectionItem) {
+            modified = changeRelatedConnection(newId, oldId, (ConnectionItem) item);
         } else {
             throw new Exception("Unsupported id change: id[" + property.getId() + "], name[" + property.getLabel() + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
+        if (modified) {
+            ProxyRepositoryFactory.getInstance().save(project, item);
+            RelationshipItemBuilder.getInstance().addOrUpdateItem(property.getItem());
+        }
+    }
+
+    private boolean changeRelatedConnection(String newId, String oldId, ConnectionItem item) throws Exception {
+        boolean modified = false;
+        Connection conn = item.getConnection();
+        String ctxId = conn.getContextId();
+        if (StringUtils.equals(oldId, ctxId)) {
+            conn.setContextId(newId);
+            modified = true;
+        } else {
+            throw new Exception("Unhandled case for import: " + item.toString()); //$NON-NLS-1$
+        }
+        return modified;
     }
 
     private boolean changeRelatedProcess(String newId, String oldId, ProcessItem item) throws Exception {
@@ -306,64 +335,6 @@ public class ChangeIdManager {
         }
         return modified;
 
-    }
-
-    private void prepareEmfProject(Project project, IPath projectFilePath) {
-        IProject emfProject = project2EmfProject.get(project);
-        if (emfProject == null) {
-            String uniqueName = "IMPORT_" + String.valueOf(Calendar.getInstance().getTime().getTime()); //$NON-NLS-1$
-            project.setLabel(uniqueName);
-            project.setTechnicalLabel(uniqueName);
-            try {
-                emfProject = ResourcesPlugin.getWorkspace().getRoot().getProject(uniqueName);
-                // IPath projectFilePath = HandlerUtil.getValidProjectFilePath(resManager, importItem.getPath());
-                // projectFilePath = projectFilePath.removeLastSegments(1);
-                createNewEmptyProject(project, emfProject, projectFilePath.toPortableString());
-                project2EmfProject.put(project, emfProject);
-            } catch (PersistenceException e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
-    }
-
-    private static void createNewEmptyProject(Project project, IProject eclipseProject, String projectPath)
-            throws PersistenceException {
-        createNewEmptyProject(new NullProgressMonitor(), eclipseProject, projectPath, project.getTechnicalLabel(),
-                new String[] { TalendNature.ID });
-    }
-
-    private static void createNewEmptyProject(IProgressMonitor progressMonitor, IProject eclipseProject, String projectPath,
-            String description, String[] natureIds) throws PersistenceException {
-        IProgressMonitor monitor = progressMonitor;
-        if (monitor == null) {
-            monitor = new NullProgressMonitor();
-        }
-        try {
-            if (eclipseProject.exists()) {
-                eclipseProject.delete(false, true, monitor);
-            }
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            IProjectDescription desc = workspace.newProjectDescription(description);
-            desc.setLocation(new Path(projectPath));
-            if (natureIds != null && natureIds.length != 0) {
-                desc.setNatureIds(natureIds);
-            }
-            eclipseProject.create(desc, monitor);
-        } catch (CoreException e) {
-            throw new PersistenceException(e);
-        }
-
-        try {
-            eclipseProject.open(monitor);
-            eclipseProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-            IFolder tempFolder = eclipseProject.getFolder(RepositoryConstants.TEMP_DIRECTORY);
-            if (!tempFolder.exists()) {
-                tempFolder.create(true, true, monitor);
-            }
-        } catch (CoreException e) {
-            throw new PersistenceException(e);
-        }
     }
 
     private boolean changeParamValueOfNode(INode node, String fromValue, String toValue) throws Exception {
@@ -526,79 +497,8 @@ public class ChangeIdManager {
         }
     }
 
-    private void resolveItem(ImportItem importItem) throws Exception {
-        if (!importItem.isResolved()) {
-            IImportItemsHandler importHandler = importItem.getImportHandler();
-            if (importHandler != null) {
-                if (importHandler instanceof ImportBasicHandler) {
-                    ((ImportBasicHandler) importHandler).resolveItem(resManager, importItem);
-                } else {
-                    // must throw exception to interrupt the execution for current item, otherwise we'll import an empty
-                    // item
-                    throw new Exception("Unhandled importItemHandler type: " + importHandler.getClass().getName()); //$NON-NLS-1$
-                }
-            }
-        }
-    }
-
     private String doReplace(String aimString, String from, String to) {
         return aimString.replaceAll("\\b" + from + "\\b", to); //$NON-NLS-1$//$NON-NLS-2$
-    }
-
-    public void setResourceManager(ResourcesManager resManager) {
-        this.resManager = resManager;
-    }
-
-    public ResourcesManager getResourceManager() {
-        return this.resManager;
-    }
-
-    public void prepare(ResourcesManager resManager) {
-        setResourceManager(resManager);
-        prepareEmfProjects();
-        prepareRelationshipItemBuilders();
-    }
-
-    private void prepareEmfProjects() {
-        if (project2EmfProject.isEmpty()) {
-            for (Map.Entry<Project, ImportItem> entry : project2OneImportItemMap.entrySet()) {
-                Project project = entry.getKey();
-                ImportItem importItem = entry.getValue();
-                project.setReference(true);
-                IPath projectFilePath = HandlerUtil.getValidProjectFilePath(resManager, importItem.getPath());
-                projectFilePath = projectFilePath.removeLastSegments(1);
-                prepareEmfProject(project, projectFilePath);
-            }
-
-            // make all as reference projects since we don't know the relationship between the projects
-            Set<Project> projects = project2OneImportItemMap.keySet();
-            if (1 < projects.size()) {
-                for (Project project : projects) {
-                    EList refProjects = project.getReferencedProjects();
-                    refProjects.clear();
-                    for (Project refProject : projects) {
-                        if (project == refProject) {
-                            continue;
-                        }
-                        ProjectReference projectReference = org.talend.core.model.properties.PropertiesFactory.eINSTANCE
-                                .createProjectReference();
-                        projectReference.setBranch(null);
-                        projectReference.setProject(project);
-                        projectReference.setReferencedBranch(null);
-                        projectReference.setReferencedProject(refProject);
-                        refProjects.add(projectReference);
-                    }
-                }
-            }
-        }
-    }
-
-    private void prepareRelationshipItemBuilders() {
-        if (project2RelationshipMap.isEmpty()) {
-            for (Project project : project2OneImportItemMap.keySet()) {
-                prepareRelationshipItemBuilder(project);
-            }
-        }
     }
 
     private void prepareRelationshipItemBuilder(Project project) {
@@ -608,5 +508,12 @@ public class ChangeIdManager {
             itemBuilder = RelationshipItemBuilder.createInstance(repFactory, new org.talend.core.model.general.Project(project));
             project2RelationshipMap.put(project, itemBuilder);
         }
+    }
+
+    private org.talend.core.model.general.Project getCurrentProject() {
+        if (currentProject == null) {
+            currentProject = ProjectManager.getInstance().getCurrentProject();
+        }
+        return currentProject;
     }
 }
