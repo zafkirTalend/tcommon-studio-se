@@ -28,8 +28,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import metadata.managment.i18n.Messages;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -85,6 +83,8 @@ import org.talend.utils.sql.metadata.constants.GetPrimaryKey;
 import org.talend.utils.sql.metadata.constants.GetTable;
 import org.talend.utils.sql.metadata.constants.MetaDataConstants;
 import org.talend.utils.sql.metadata.constants.TableType;
+
+import metadata.managment.i18n.Messages;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.ColumnSet;
@@ -157,10 +157,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
 
             if (dbMetadata != null) {
                 // MOD sizhaoliu TDQ-6316 The 2 tagged values should be added for all database including Hive
-                String productName = dbMetadata.getDatabaseProductName() == null ? PluginConstant.EMPTY_STRING : dbMetadata
-                        .getDatabaseProductName();
-                String productVersion = dbMetadata.getDatabaseProductVersion() == null ? PluginConstant.EMPTY_STRING : dbMetadata
-                        .getDatabaseProductVersion();
+                String productName = dbMetadata.getDatabaseProductName() == null ? PluginConstant.EMPTY_STRING
+                        : dbMetadata.getDatabaseProductName();
+                String productVersion = dbMetadata.getDatabaseProductVersion() == null ? PluginConstant.EMPTY_STRING
+                        : dbMetadata.getDatabaseProductVersion();
                 TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_NAME, productName);
                 TaggedValueHelper.setTaggedValue(dbconn, TaggedValueHelper.DB_PRODUCT_VERSION, productVersion);
 
@@ -223,9 +223,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         }
         ResultSet schemas = null;
         // teradata use db name to filter schema
-        if (dbConn != null
-                && (EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId()) || EDatabaseTypeName.EXASOL
-                        .getProduct().equals(dbConn.getProductId()))) {
+        if (dbConn != null && (EDatabaseTypeName.TERADATA.getProduct().equals(dbConn.getProductId())
+                || EDatabaseTypeName.EXASOL.getProduct().equals(dbConn.getProductId()))) {
             if (!dbConn.isContextMode()) {
                 String sid = getDatabaseName(dbConn);
                 if (sid != null && sid.length() > 0) {
@@ -425,8 +424,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         if (isHive) {
                             temp = MetaDataConstants.TABLE_CAT.name();
                         } else {
-                            temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata) ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME
-                                    : MetaDataConstants.TABLE_CAT.name();
+                            temp = MetadataConnectionUtils.isOdbcPostgresql(dbJDBCMetadata)
+                                    ? DatabaseConstant.ODBC_POSTGRESQL_CATALOG_NAME : MetaDataConstants.TABLE_CAT.name();
                         }
                         catalogName = catalogNames.getString(temp);
                         // MOD zshen filter ODBC catalog
@@ -436,9 +435,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         }
                     } catch (Exception e) {
                         log.warn(e, e);
-                        if (dbJDBCMetadata.getDatabaseProductName() != null
-                                && dbJDBCMetadata.getDatabaseProductName().toLowerCase()
-                                        .indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1) {
+                        if (dbJDBCMetadata.getDatabaseProductName() != null && dbJDBCMetadata.getDatabaseProductName()
+                                .toLowerCase().indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1) {
                             catalogName = ""; //$NON-NLS-1$
                         }
                     }
@@ -684,8 +682,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
         return false;
     }
 
-    private List<String> postFillCatalog(List<Catalog> catalogList, List<String> catalogFilterList,
-            List<String> scheamFilterList, String catalogName, Connection dbConn) {
+    private List<String> postFillCatalog(List<Catalog> catalogList, List<String> catalogFilterList, List<String> scheamFilterList,
+            String catalogName, Connection dbConn) {
         Catalog catalog = CatalogHelper.createCatalog(catalogName);
         catalogList.add(catalog);
         DatabaseConnection dbConnection = (DatabaseConnection) dbConn;
@@ -699,8 +697,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     // TDI-23485:filter database for AS400,should not use schema filter
                     catalogFilterList.add(iMetadataCon.getDatabase());
                 }
-                String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
-                        iMetadataCon.getAdditionalParams());
+                String pattern = ExtractMetaDataUtils.getInstance()
+                        .retrieveSchemaPatternForAS400(iMetadataCon.getAdditionalParams());
                 String sid = getDatabaseName(dbConnection);
                 if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
@@ -742,8 +740,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 if (!StringUtils.isEmpty(iMetadataCon.getDatabase()) && !filterList.contains(iMetadataCon.getDatabase())) {
                     filterList.add(iMetadataCon.getDatabase());
                 }
-                String pattern = ExtractMetaDataUtils.getInstance().retrieveSchemaPatternForAS400(
-                        iMetadataCon.getAdditionalParams());
+                String pattern = ExtractMetaDataUtils.getInstance()
+                        .retrieveSchemaPatternForAS400(iMetadataCon.getAdditionalParams());
                 if (pattern != null && !"".equals(pattern)) { //$NON-NLS-1$
                     String[] multiSchems = ExtractMetaDataUtils.getInstance().getMultiSchems(pattern);
                     if (multiSchems != null) {
@@ -966,7 +964,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 if (tableName == null || tablesToFilter.contains(tableName)) {
                     continue;
                 }
-                //                if (!isOracle && !isOracle8i && !isOracleJdbc && tableName.startsWith("/")) { //$NON-NLS-1$
+                // if (!isOracle && !isOracle8i && !isOracleJdbc && tableName.startsWith("/")) { //$NON-NLS-1$
                 // continue;
                 // }
                 if (!isOracle8i) {
@@ -1362,6 +1360,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
             while (columns.next()) {
                 int decimalDigits = 0;
                 int numPrecRadix = 0;
+                String fetchTableName = extractMeta.getStringMetaDataInfo(columns, GetTable.TABLE_NAME.name(), null);
+                fetchTableName = ManagementTextUtils.filterSpecialChar(fetchTableName);
                 String columnName = getStringFromResultSet(columns, GetColumn.COLUMN_NAME.name());
                 TdColumn column = ColumnHelper.createTdColumn(columnName);
 
@@ -1385,9 +1385,16 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 // MOD scorreia 2010-07-24 removed the call to column.getSQLDataType() here because obviously the sql
                 // data type it is null and results in a NPE
                 typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
+                if (EDatabaseTypeName.INFORMIX.getDisplayName().equals(iMetadataConnection.getDbType())) {
+                    String tn = MetadataConnectionUtils.getColumnTypeName(dbJDBCMetadata.getConnection(), fetchTableName,
+                            index + 1);
+                    if (tn != null) {
+                        typeName = tn;
+                    }
+                }
                 typeName = typeName.toUpperCase().trim();
                 typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
+                if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$
                     typeName = "TIMESTAMP"; //$NON-NLS-1$
                 }
                 typeName = MetadataToolHelper.validateValueForDBType(typeName);
@@ -1454,14 +1461,11 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         }
                     }
                     if (mappingTypeRetriever != null) {
-                        String talendType = mappingTypeRetriever
-                                .getDefaultSelectedTalendType(
-                                        typeName,
-                                        extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                                        "DECIMAL_DIGITS")); //$NON-NLS-1$
+                        String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
+                                extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), //$NON-NLS-1$
+                                ExtractMetaDataUtils.getInstance().getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
                         column.setTalendType(talendType);
-                        String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
-                        column.setSourceType(defaultSelectedDbType);
+                        column.setSourceType(typeName);
                     }
                 }
                 try {
@@ -1554,7 +1558,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     typeName = getStringFromResultSet(columns, GetColumn.TYPE_NAME.name());
                     typeName = typeName.toUpperCase().trim();
                     typeName = ManagementTextUtils.filterSpecialChar(typeName);
-                    if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$ 
+                    if (typeName.startsWith("TIMESTAMP(")) { //$NON-NLS-1$
                         typeName = "TIMESTAMP"; //$NON-NLS-1$
                     }
                     typeName = MetadataToolHelper.validateValueForDBType(typeName);
@@ -1609,7 +1613,7 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 if (dbJDBCMetadata instanceof DB2ForZosDataBaseMetadata || dbJDBCMetadata instanceof TeradataDataBaseMetadata
                         || dbJDBCMetadata instanceof EmbeddedHiveDataBaseMetadata) {
                     String isNullable = getStringFromResultSet(columns, "IS_NULLABLE");//$NON-NLS-1$
-                    if (!isNullable.equals("Y")) { //$NON-NLS-1$ 
+                    if (!isNullable.equals("Y")) { //$NON-NLS-1$
                         nullable = 1;
                     }
                 } else {
@@ -1632,11 +1636,10 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 extractMeta.handleDefaultValue(column, dbJDBCMetadata);
 
                 if (mappingTypeRetriever != null) {
-                    String talendType = mappingTypeRetriever
-                            .getDefaultSelectedTalendType(
-                                    typeName,
-                                    extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0 : extractMeta.getIntMetaDataInfo(columns, //$NON-NLS-1$
-                                                            "DECIMAL_DIGITS")); //$NON-NLS-1$
+                    String talendType = mappingTypeRetriever.getDefaultSelectedTalendType(typeName,
+                            extractMeta.getIntMetaDataInfo(columns, "COLUMN_SIZE"), //$NON-NLS-1$
+                            (dbJDBCMetadata instanceof TeradataDataBaseMetadata) ? 0
+                                    : extractMeta.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
                     column.setTalendType(talendType);
                     String defaultSelectedDbType = mappingTypeRetriever.getDefaultSelectedDbType(talendType);
                     column.setSourceType(defaultSelectedDbType);

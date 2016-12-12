@@ -27,8 +27,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import metadata.managment.i18n.Messages;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -72,6 +70,8 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
+
+import metadata.managment.i18n.Messages;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.NamedColumnSet;
@@ -702,9 +702,18 @@ public class ExtractManager {
                         typeName = "DATA_TYPE"; //$NON-NLS-1$
                     }
                     String dbType = extractMeta.getStringMetaDataInfo(columns, typeName, null).toUpperCase();
+
+                    if (EDatabaseTypeName.INFORMIX.getDisplayName().equals(metadataConnection.getDbType())) {
+                        String tn = MetadataConnectionUtils.getColumnTypeName(dbMetaData.getConnection(), fetchTableName,
+                                columnIndex);
+                        if (tn != null) {
+                            dbType = tn;
+                        }
+                    }
+
                     // For sometime the dbType will return one more space character at the end.So need to trim,comment
                     // for bug 17509
-                    dbType = dbType.trim();
+                    dbType = dbType.toUpperCase().trim();
                     dbType = ManagementTextUtils.filterSpecialChar(dbType);
                     dbType = handleDBtype(dbType);
                     metadataColumn.setSourceType(dbType);
@@ -827,7 +836,7 @@ public class ExtractManager {
         int column_size = 0;
         long numPrecRadix = 0;
         try {
-            if ("NUMBER".equalsIgnoreCase(typeName)) { //$NON-NLS-1$                            
+            if ("NUMBER".equalsIgnoreCase(typeName)) { //$NON-NLS-1$
                 boolean isGetFailed = false;
                 Object precision = columns.getObject("DATA_PRECISION");
                 Object scale = columns.getObject("DATA_SCALE");
@@ -939,7 +948,8 @@ public class ExtractManager {
      * @param tableInfoParameters
      * @return
      */
-    public List<String> returnTablesFormConnection(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters) {
+    public List<String> returnTablesFormConnection(IMetadataConnection metadataConnection,
+            TableInfoParameters tableInfoParameters) {
         getTableTypeMap().clear();
         List<String> itemTablesName = new ArrayList<String>();
         // add by wzhang
@@ -991,8 +1001,8 @@ public class ExtractManager {
     }
 
     protected List<String> retrieveItemTables(IMetadataConnection metadataConnection, TableInfoParameters tableInfoParameters,
-            List<String> itemTablesName) throws SQLException, ClassNotFoundException, InstantiationException,
-            IllegalAccessException {
+            List<String> itemTablesName)
+            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Set<String> nameFiters = tableInfoParameters.getNameFilters();
 
         if (nameFiters.isEmpty()) {
@@ -1026,8 +1036,8 @@ public class ExtractManager {
      * @throws ClassNotFoundException
      */
     protected List<String> getTableNamesFromTablesForMultiSchema(TableInfoParameters tableInfo, String namePattern,
-            IMetadataConnection iMetadataConnection) throws SQLException, ClassNotFoundException, InstantiationException,
-            IllegalAccessException {
+            IMetadataConnection iMetadataConnection)
+            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         String[] multiSchemas = extractMeta.getMultiSchems(extractMeta.getSchema());
         List<String> tableNames = new ArrayList<String>();
@@ -1056,8 +1066,8 @@ public class ExtractManager {
      * @throws ClassNotFoundException
      */
     protected ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern,
-            IMetadataConnection iMetadataConnection, String schema) throws SQLException, ClassNotFoundException,
-            InstantiationException, IllegalAccessException {
+            IMetadataConnection iMetadataConnection, String schema)
+            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         ResultSet rsTables = null;
         ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
         String tableNamePattern = "".equals(namePattern) ? null : namePattern; //$NON-NLS-1$
@@ -1140,8 +1150,8 @@ public class ExtractManager {
 
     public String getTableComment(IMetadataConnection metadataConnection, ResultSet resultSet, String nameKey)
             throws SQLException {
-        return ExtractMetaDataFromDataBase
-                .getTableComment(nameKey, resultSet, true, ExtractMetaDataUtils.getInstance().getConn());
+        return ExtractMetaDataFromDataBase.getTableComment(nameKey, resultSet, true,
+                ExtractMetaDataUtils.getInstance().getConn());
     }
 
 }

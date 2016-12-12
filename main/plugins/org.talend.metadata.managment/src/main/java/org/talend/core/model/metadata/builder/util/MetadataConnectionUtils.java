@@ -15,7 +15,10 @@ package org.talend.core.model.metadata.builder.util;
 import java.io.UnsupportedEncodingException;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +70,7 @@ import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.string.AsciiUtils;
 import org.talend.utils.sugars.ReturnCode;
 import org.talend.utils.sugars.TypedReturnCode;
+
 import orgomg.cwm.foundation.softwaredeployment.DataProvider;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
@@ -129,7 +133,8 @@ public class MetadataConnectionUtils {
      * @param boolean close Connection or not
      * @return
      */
-    public static TypedReturnCode<java.sql.Connection> createConnection(IMetadataConnection metadataBean, boolean closeConnection) {
+    public static TypedReturnCode<java.sql.Connection> createConnection(IMetadataConnection metadataBean,
+            boolean closeConnection) {
         TypedReturnCode<java.sql.Connection> rc = new TypedReturnCode<java.sql.Connection>();
         rc.setOk(false);
         if (metadataBean == null) {
@@ -253,8 +258,8 @@ public class MetadataConnectionUtils {
             String password = databaseConnection.getRawPassword();
             String userName = databaseConnection.getUsername();
             String dbType = databaseConnection.getDatabaseType();
-            String driverClass = databaseConnection.getDriverClass() == null ? EDatabase4DriverClassName
-                    .getDriverClassByDbType(dbType) : databaseConnection.getDriverClass();
+            String driverClass = databaseConnection.getDriverClass() == null
+                    ? EDatabase4DriverClassName.getDriverClassByDbType(dbType) : databaseConnection.getDriverClass();
             String driverJarPath = databaseConnection.getDriverJarPath();
             String dataBase = databaseConnection.getSID();
             String dbVersionString = databaseConnection.getDbVersionString();
@@ -287,7 +292,7 @@ public class MetadataConnectionUtils {
                     }
 
                 }
-            }// ~
+            } // ~
 
             metadataConnection.setAdditionalParams(additionalParams);
             metadataConnection.setDbVersionString(dbVersionString);
@@ -316,8 +321,8 @@ public class MetadataConnectionUtils {
     public static boolean isOdbcPostgresql(DatabaseMetaData connectionMetadata) throws SQLException {
         if (connectionMetadata.getDriverName() != null
                 && connectionMetadata.getDriverName().toLowerCase().startsWith(DatabaseConstant.ODBC_DRIVER_NAME)
-                && connectionMetadata.getDatabaseProductName() != null
-                && connectionMetadata.getDatabaseProductName().toLowerCase().indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1) {
+                && connectionMetadata.getDatabaseProductName() != null && connectionMetadata.getDatabaseProductName()
+                        .toLowerCase().indexOf(DatabaseConstant.POSTGRESQL_PRODUCT_NAME) > -1) {
             return true;
         }
         return false;
@@ -528,8 +533,8 @@ public class MetadataConnectionUtils {
      * Sybase IQ with version 12.6 is called 'Sybase' getting by JDBC but the version 15+ it is changed to 'Sybase IQ'.
      * it is user by org.talend.cwm.db.connection.ConnectionUtils.isSybase
      * 
-     * @return All Sybase DB products name
-     * ,"Adaptive Server Enterprise","Sybase Adaptive Server IQ","Sybase IQ","Sybase"
+     * @return All Sybase DB products name ,"Adaptive Server Enterprise","Sybase Adaptive Server IQ","Sybase IQ"
+     * ,"Sybase"
      */
     public static String[] getSybaseDBProductsName() {
         if (null == sybaseDBProductsNames) {
@@ -552,8 +557,8 @@ public class MetadataConnectionUtils {
      * @throws InstantiationException
      * @throws ClassNotFoundException
      */
-    public static Driver getClassDriver(IMetadataConnection metadataBean) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException, RuntimeException {
+    public static Driver getClassDriver(IMetadataConnection metadataBean)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, RuntimeException {
         String driverClassName = metadataBean.getDriverClass();
         // MOD mzhao 2009-06-05,Bug 7571 Get driver from catch first, if not
         // exist then get a new instance.
@@ -647,8 +652,8 @@ public class MetadataConnectionUtils {
 
         try {
             if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
-                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
-                        IDriverService.class);
+                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault()
+                        .getDQDriverService(IDriverService.class);
 
                 return driverService.getTDQSupportDBTemplate();
             }
@@ -669,8 +674,8 @@ public class MetadataConnectionUtils {
         }
         try {
             if (GlobalServiceRegister.getDefault().isDQDriverServiceRegistered(IDriverService.class)) {
-                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault().getDQDriverService(
-                        IDriverService.class);
+                IDriverService driverService = (IDriverService) GlobalServiceRegister.getDefault()
+                        .getDQDriverService(IDriverService.class);
                 if (conn instanceof DatabaseConnection) {
                     String databaseType = ((DatabaseConnection) conn).getDatabaseType();
                     return driverService.getTDQSupportDBTemplate().contains(databaseType);
@@ -742,10 +747,12 @@ public class MetadataConnectionUtils {
         String sqlStr = ""; //$NON-NLS-1$
         switch (eDataBaseType) {
         case Oracle:
-            sqlStr = "SELECT COMMENTS FROM ALL_TAB_COMMENTS WHERE TABLE_NAME='" + tableName + "' AND OWNER='" + schemaPattern.toUpperCase() + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            sqlStr = "SELECT COMMENTS FROM ALL_TAB_COMMENTS WHERE TABLE_NAME='" + tableName + "' AND OWNER='" //$NON-NLS-1$ //$NON-NLS-2$
+                    + schemaPattern.toUpperCase() + "'"; //$NON-NLS-1$
             break;
         case MySQL:
-            sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_NAME='" + tableName + "' AND TABLE_SCHEMA='" + catalogName + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            sqlStr = "SELECT TABLE_COMMENT FROM information_schema.TABLES WHERE TABLE_NAME='" + tableName + "' AND TABLE_SCHEMA='" //$NON-NLS-1$ //$NON-NLS-2$
+                    + catalogName + "'"; //$NON-NLS-1$
             break;
         default:
             sqlStr = null;
@@ -943,9 +950,8 @@ public class MetadataConnectionUtils {
         boolean isNeedToFill = false;
         if (conn instanceof DatabaseConnection) {
             String dbProductID = ((DatabaseConnection) conn).getProductId();
-            if (ConnectionHelper.getAllSchemas(conn).isEmpty()
-                    && (EDatabaseTypeName.MSSQL05_08.getProduct().equals(dbProductID) || EDatabaseTypeName.MSSQL.getProduct()
-                            .equals(dbProductID))) {
+            if (ConnectionHelper.getAllSchemas(conn).isEmpty() && (EDatabaseTypeName.MSSQL05_08.getProduct().equals(dbProductID)
+                    || EDatabaseTypeName.MSSQL.getProduct().equals(dbProductID))) {
                 isNeedToFill = true;
             } else if (EDatabaseTypeName.AS400.getProduct().equals(dbProductID)) {
                 isNeedToFill = true;
@@ -1020,7 +1026,8 @@ public class MetadataConnectionUtils {
      * @param dbConn
      * @return
      */
-    public static DatabaseConnection fillDbConnectionInformation(DatabaseConnection dbConn, IMetadataConnection metadataConnection) {
+    public static DatabaseConnection fillDbConnectionInformation(DatabaseConnection dbConn,
+            IMetadataConnection metadataConnection) {
 
         boolean noStructureExists = ConnectionHelper.getAllCatalogs(dbConn).isEmpty()
                 && ConnectionHelper.getAllSchemas(dbConn).isEmpty();
@@ -1102,8 +1109,8 @@ public class MetadataConnectionUtils {
                 || (dbType != null && dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
                         || dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())
-                        || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName()) || dbType
-                            .equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
+                        || dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())
+                        || dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName()));
     }
 
     public static boolean isHsqlInprocess(IMetadataConnection metadataConnection) {
@@ -1214,6 +1221,36 @@ public class MetadataConnectionUtils {
         }
 
         return name;
+    }
+
+    /**
+     * Get column type name by {@link ResultSetMetaData}.
+     * 
+     * @param connection is a jdbc connection.
+     * @param tableName is the name of table which the column belongs to.
+     * @param colIndex is the column index in the table (start with 1).
+     * @return the column type name.
+     */
+    public static String getColumnTypeName(java.sql.Connection connection, String tableName, int colIndex) {
+        String columnTypeName = null;
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT FIRST 1 * FROM " + tableName + ";"); //$NON-NLS-1$ //$NON-NLS-2$
+            ResultSetMetaData rsMetaData = resultSet.getMetaData();
+            columnTypeName = rsMetaData.getColumnTypeName(colIndex);
+        } catch (Exception e) {
+            // Do nothing.
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(); // only for debug
+                }
+            }
+        }
+        return columnTypeName;
     }
 
 }
