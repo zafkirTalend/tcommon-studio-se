@@ -36,6 +36,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
@@ -48,6 +49,7 @@ import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.joblet.model.JobletProcess;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -249,7 +251,9 @@ public class ChangeIdManager {
         Item item = property.getItem();
         boolean modified = false;
         if (item instanceof ProcessItem) {
-            modified = changeRelatedProcess(newId, oldId, (ProcessItem) item);
+            modified = changeRelatedProcess(newId, oldId, item);
+        } else if (item instanceof JobletProcessItem) {
+            modified = changeRelatedProcess(newId, oldId, item);
         } else if (item instanceof ConnectionItem) {
             modified = changeRelatedConnection(newId, oldId, (ConnectionItem) item);
         } else {
@@ -274,7 +278,7 @@ public class ChangeIdManager {
         return modified;
     }
 
-    private boolean changeRelatedProcess(String newId, String oldId, ProcessItem item) throws Exception {
+    private boolean changeRelatedProcess(String newId, String oldId, Item item) throws Exception {
         boolean modified = false;
 
         /**
@@ -327,7 +331,14 @@ public class ChangeIdManager {
         if (modified) {
             if (process instanceof IProcess2) {
                 ProcessType processType = ((IProcess2) process).saveXmlFile();
-                item.setProcess(processType);
+                if (item instanceof ProcessItem) {
+                    ((ProcessItem) item).setProcess(processType);
+                } else if (item instanceof JobletProcessItem) {
+                    ((JobletProcessItem) item).setJobletProcess((JobletProcess) processType);
+                } else {
+                    throw new Exception("Unhandled process type: id[" + item.getProperty().getId() + "], name[" //$NON-NLS-1$ //$NON-NLS-2$
+                            + item.getProperty().getLabel() + "]"); //$NON-NLS-1$
+                }
             } else {
                 throw new Exception("Unhandled process type: id[" + item.getProperty().getId() + "], name[" //$NON-NLS-1$ //$NON-NLS-2$
                         + item.getProperty().getLabel() + "]"); //$NON-NLS-1$
