@@ -180,7 +180,6 @@ public final class ImportExportHandlersManager {
                             ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
                             if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
                                 importBasicHandler.checkAndSetProject(resManager, importItem);
-                                changeIdManager.add(importItem);
                             }
                         }
                     } else {
@@ -330,6 +329,11 @@ public final class ImportExportHandlersManager {
             }
         }
         checkedItemRecords.removeAll(checkedFolders);
+
+        changeIdManager.clear();
+        for (ImportItem importItem : checkedItemRecords) {
+            changeIdManager.add(importItem);
+        }
 
         /*
          * Re-order the import items according to the priority of extension point.
