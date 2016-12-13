@@ -380,8 +380,9 @@ public class ImportExportHandlersManager {
         for (ImportItem importItem : checkedItemRecords) {
             if (importItem instanceof EmptyFolderImportItem) {
                 checkedFolders.add((EmptyFolderImportItem) importItem);
+            } else {
+                changeIdManager.add(importItem);
             }
-            changeIdManager.add(importItem);
         }
         checkedItemRecords.removeAll(checkedFolders);
 
