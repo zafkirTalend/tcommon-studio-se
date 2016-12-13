@@ -209,7 +209,6 @@ public final class ImportExportHandlersManager {
                             ImportBasicHandler importBasicHandler = (ImportBasicHandler) importHandler;
                             if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
                                 importBasicHandler.checkAndSetProject(resManager, importItem);
-                                changeIdManager.add(importItem);
                             }
                         }
                     } else {
@@ -249,6 +248,11 @@ public final class ImportExportHandlersManager {
         TimeMeasure.displaySteps = CommonsPlugin.isDebugMode();
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
         TimeMeasure.begin("importItemRecords"); //$NON-NLS-1$
+
+        changeIdManager.clear();
+        for (ImportItem importItem : checkedItemRecords) {
+            changeIdManager.add(importItem);
+        }
 
         /*
          * Re-order the import items according to the priority of extension point.
