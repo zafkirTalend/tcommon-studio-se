@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.designer.maven.tools.creator;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -495,11 +496,12 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                         IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
                                 + IProjectSettingTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
                 if (content != null) {
-                    FileWriter writer = new FileWriter(assemblyFile.getLocation().toFile());
-                    writer.write(content);
-                    writer.close();
-
-                    assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
+                    ByteArrayInputStream source = new ByteArrayInputStream(content.getBytes());
+                    if (assemblyFile.exists()) {
+                        assemblyFile.setContents(source, true, false, monitor);
+                    } else {
+                        assemblyFile.create(source, true, monitor);
+                    }
                     set = true;
                 }
             } catch (Exception e) {
@@ -509,8 +511,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
             if (set) {
                 // add children resources in assembly.
                 addChildrenJobsInAssembly(monitor, assemblyFile);
-
-                assemblyFile.getParent().refreshLocal(IResource.DEPTH_ONE, monitor);
             }
         }
     }
@@ -607,9 +607,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
             // clean for children poms
             cleanChildrenPomSettings(monitor, childrenPomsIncludes);
-
-            // refresh the project level for children poms
-            assemblyFile.getProject().refreshLocal(IResource.DEPTH_ONE, monitor);
         }
 
     }

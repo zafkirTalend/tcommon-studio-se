@@ -572,8 +572,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 currentFolderItem = (FolderItem) folder;
                 physicalFolder = getPhysicalProject(project).getFolder(folderHelper.getFullFolderPath(currentFolderItem));
             }
-            List<String> propertyFounds = new ArrayList<String>();
-            List<String> folderNamesFounds = new ArrayList<String>();
+            Set<String> propertyFounds = new HashSet<String>();
+            Set<String> folderNamesFounds = new HashSet<String>();
             List<Item> toRemoveFromFolder = new ArrayList<Item>();
             if (currentFolderItem != null) {
                 for (Item curItem : new ArrayList<Item>(currentFolderItem.getChildren())) {
@@ -608,8 +608,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // check the items from physical folder, in case any item has been added (or deleted) manually (or from copy
             // to branch)
             if (physicalFolder.exists()) {
-                List<String> physicalPropertyFounds = new ArrayList<String>();
-                List<String> physicalDirectoryFounds = new ArrayList<String>();
+                Set<String> physicalPropertyFounds = new HashSet<String>();
+                Set<String> physicalDirectoryFounds = new HashSet<String>();
                 for (IResource current : ResourceUtils.getMembers(physicalFolder)) {
                     if (current instanceof IFile) {
                         if (xmiResourceManager.isPropertyFile((IFile) current)) {
