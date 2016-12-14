@@ -68,8 +68,8 @@ import org.talend.commons.ui.runtime.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.runtime.swt.tableviewer.sort.TableViewerCreatorSorter;
 import org.talend.commons.ui.runtime.swt.tableviewer.tableeditor.ITableEditorManagerListener;
 import org.talend.commons.ui.runtime.swt.tableviewer.tableeditor.TableEditorManager;
-import org.talend.commons.ui.runtime.swt.tableviewer.tableeditor.TableEditorManagerEvent;
 import org.talend.commons.ui.runtime.swt.tableviewer.tableeditor.TableEditorManager.EVENT_TYPE;
+import org.talend.commons.ui.runtime.swt.tableviewer.tableeditor.TableEditorManagerEvent;
 import org.talend.commons.ui.runtime.thread.AsynchronousThreading;
 import org.talend.commons.ui.runtime.utils.TableUtils;
 import org.talend.commons.ui.runtime.ws.WindowSystem;
@@ -2164,7 +2164,11 @@ public class TableViewerCreatorNotModifiable<B> {
     }
 
     public void setLazyLoad(boolean lazyLoad) {
-        this.lazyLoad = lazyLoad;
+        if (!Boolean.getBoolean("talend.table.disableLazyLoading")) {
+            this.lazyLoad = lazyLoad;
+        }
+        // for bug TUP-15924, lazyload always be false by default,we have a system property like
+        // "disableLazyLoading" and if set to true we won't set virtual here. (user would set it manually).
     }
 
 }
