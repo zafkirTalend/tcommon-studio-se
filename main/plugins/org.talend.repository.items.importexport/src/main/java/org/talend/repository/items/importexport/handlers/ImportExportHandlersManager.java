@@ -235,7 +235,6 @@ public class ImportExportHandlersManager {
                             if (needCheck) {
                                 if (importBasicHandler.checkItem(resManager, importItem, overwrite)) {
                                     importBasicHandler.checkAndSetProject(resManager, importItem);
-                                    changeIdManager.add(importItem);
                                 }
                             } else {
                                 importBasicHandler.resolveItem(resManager, importItem);
@@ -376,10 +375,13 @@ public class ImportExportHandlersManager {
         TimeMeasure.measureActive = CommonsPlugin.isDebugMode();
         TimeMeasure.begin("importItemRecords"); //$NON-NLS-1$
 
+        changeIdManager.clear();
         final List<EmptyFolderImportItem> checkedFolders = new ArrayList<EmptyFolderImportItem>();
         for (ImportItem importItem : checkedItemRecords) {
             if (importItem instanceof EmptyFolderImportItem) {
                 checkedFolders.add((EmptyFolderImportItem) importItem);
+            } else {
+                changeIdManager.add(importItem);
             }
         }
         checkedItemRecords.removeAll(checkedFolders);
