@@ -114,4 +114,6 @@ public interface IGenericWizardService extends IService {
      */
     public List<ComponentProperties> getAllComponentProperties(Connection connection, String tableLabel);
 
+    public String getConnectionProperties(Connection connection);
+
 }
