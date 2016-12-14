@@ -97,6 +97,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
         for (Object current : copiedObjectsList) {
             if (current instanceof IMetadataColumn) {
                 IMetadataColumn copy = ((IMetadataColumn) current).clone();
+                copy.setUsefulColumn(true);
                 String nextGeneratedColumnName = ((MetadataTableEditor) extendedTable)
                         .getNextGeneratedColumnName(copy.getLabel());
                 if (labelsExisted.contains(nextGeneratedColumnName)) {
