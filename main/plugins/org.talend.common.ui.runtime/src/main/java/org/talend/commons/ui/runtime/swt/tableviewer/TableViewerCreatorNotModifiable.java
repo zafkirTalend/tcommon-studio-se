@@ -836,7 +836,7 @@ public class TableViewerCreatorNotModifiable<B> {
                 addTraverseListenerRecursivly(cellEditor.getControl(), traverseListenerForControls);
             }
         }
-        if ((this.getTable().getStyle() & SWT.VIRTUAL) != 0) {
+        if (isLazyLoad()) {
             getTable().addPaintListener(new PaintListener() {
 
                 @Override
@@ -2191,7 +2191,11 @@ public class TableViewerCreatorNotModifiable<B> {
     }
 
     public void setLazyLoad(boolean lazyLoad) {
-        this.lazyLoad = lazyLoad;
+        if (!Boolean.getBoolean("talend.table.disableLazyLoading")) {
+            this.lazyLoad = lazyLoad;
+        }
+        // for bug TUP-15924, lazyload always be false by default,we have a system property like
+        // "disableLazyLoading" and if set to true we won't set virtual here. (user would set it manually).
     }
-
+ 
 }
