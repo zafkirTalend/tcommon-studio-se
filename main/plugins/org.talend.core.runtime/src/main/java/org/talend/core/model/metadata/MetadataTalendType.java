@@ -40,7 +40,6 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
-import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ICoreService;
@@ -476,9 +475,7 @@ public final class MetadataTalendType {
                 ICoreService service = null;
                 if (GlobalServiceRegister.getDefault().isServiceRegistered(ICoreService.class)) {
                     service = (ICoreService) GlobalServiceRegister.getDefault().getService(ICoreService.class);
-                    if (!PluginChecker.isOnlyTopLoaded()) {
-                        service.syncMappingsFileFromSystemToProject();
-                    }
+                    service.syncMappingsFileFromSystemToProject();
                 }
             }
             return mappingFolder.toURL();
