@@ -118,8 +118,6 @@ public class XmlFileWizard extends CheckLastVersionRepositoryWizard implements I
 
     private Property connectionProperty;
 
-    private XmlFileConnectionItem connectionItem;
-
     private List<IWizardPage> dynamicWizardPages;
 
     private ATreeNode treeRootNode;
