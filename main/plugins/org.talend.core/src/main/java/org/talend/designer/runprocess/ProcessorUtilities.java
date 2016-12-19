@@ -617,6 +617,8 @@ public class ProcessorUtilities {
 
     private static void generateBuildInfo(JobInfo jobInfo, IProgressMonitor progressMonitor, boolean isMainJob,
             IProcess currentProcess, String currentJobName, IProcessor processor, int option) throws ProcessorException {
+        jobInfo.setProcess(null);
+        jobInfo.setProcessor(null);
         if (isMainJob) {
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.finalizeBuild") + currentJobName); //$NON-NLS-1$
 
