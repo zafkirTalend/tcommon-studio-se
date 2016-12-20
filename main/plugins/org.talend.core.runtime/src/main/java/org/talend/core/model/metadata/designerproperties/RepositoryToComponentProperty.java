@@ -94,9 +94,9 @@ import org.talend.cwm.helper.ConnectionHelper;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
- * 
+ *
  * $Id: RepositoryToComponentProperty.java 51621 2010-11-23 09:18:34Z hwang $
- * 
+ *
  */
 public class RepositoryToComponentProperty {
 
@@ -168,7 +168,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC guanglong.du Comment method "getEDIFACTSchemaValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -196,9 +196,9 @@ public class RepositoryToComponentProperty {
     }
 
     /**
-     * 
+     *
      * DOC YeXiaowei Comment method "getSAPInputAndOutputValue".
-     * 
+     *
      * @param conn
      * @param value2
      * @param functionLabel
@@ -283,9 +283,9 @@ public class RepositoryToComponentProperty {
     }
 
     /**
-     * 
+     *
      * DOC xye Comment method "getSAPValuesForFunction".
-     * 
+     *
      * @param conn
      * @param functionLabel
      * @param paramterName
@@ -316,9 +316,9 @@ public class RepositoryToComponentProperty {
     }
 
     /**
-     * 
+     *
      * DOC YeXiaowei Comment method "getTalendTypeFromJCOType".
-     * 
+     *
      * @param jcoType
      * @return
      */
@@ -335,9 +335,9 @@ public class RepositoryToComponentProperty {
     }
 
     /**
-     * 
+     *
      * DOC YeXiaowei Comment method "getSAPValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -399,9 +399,9 @@ public class RepositoryToComponentProperty {
                 if (property.getPropertyName() != null && !"".equals(property.getPropertyName())) {
                     map.put("PROPERTY", TalendQuoteUtils.addQuotes(property.getPropertyName()));//$NON-NLS-1$
                     if (isContextMode(connection, property.getValue())) {
-                        map.put("VALUE", property.getValue());//$NON-NLS-1$  
+                        map.put("VALUE", property.getValue());//$NON-NLS-1$
                     } else {
-                        map.put("VALUE", TalendQuoteUtils.addQuotes(property.getValue()));//$NON-NLS-1$   
+                        map.put("VALUE", TalendQuoteUtils.addQuotes(property.getValue()));//$NON-NLS-1$
                     }
                     values.add(map);
                 }
@@ -414,7 +414,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC gcui Comment method "getHL7Value".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -444,7 +444,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC YeXiaowei Comment method "getSalesforceSchemaValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -601,7 +601,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC qzhang Comment method "getWSDLValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -726,7 +726,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC hwang Comment method "getMDMValue".
-     * 
+     *
      * @param connection
      * @param value
      * @param node
@@ -1131,14 +1131,14 @@ public class RepositoryToComponentProperty {
             return getAppropriateValue(connection, connection.getDBRootPath());
         }
         // add for feature 11674
-        if (value.equals("RUNNING_MODE")) {//$NON-NLS-1$       
-            String runningMode = "HSQLDB_IN_MEMORY";//$NON-NLS-1$   
+        if (value.equals("RUNNING_MODE")) {//$NON-NLS-1$
+            String runningMode = "HSQLDB_IN_MEMORY";//$NON-NLS-1$
             if (EDatabaseTypeName.HSQLDB_IN_PROGRESS.getXmlName().equals(databaseType)) {
-                runningMode = "HSQLDB_INPROGRESS_PERSISTENT";//$NON-NLS-1$   
+                runningMode = "HSQLDB_INPROGRESS_PERSISTENT";//$NON-NLS-1$
             } else if (EDatabaseTypeName.HSQLDB_SERVER.getXmlName().equals(databaseType)) {
-                runningMode = "HSQLDB_SERVER";//$NON-NLS-1$   
+                runningMode = "HSQLDB_SERVER";//$NON-NLS-1$
             } else if (EDatabaseTypeName.HSQLDB_WEBSERVER.getXmlName().equals(databaseType)) {
-                runningMode = "HSQLDB_WEBSERVER";//$NON-NLS-1$   
+                runningMode = "HSQLDB_WEBSERVER";//$NON-NLS-1$
             }
             return runningMode;
         }
@@ -1410,7 +1410,7 @@ public class RepositoryToComponentProperty {
 
         /**
          * JOBTRACKER_PRINCIPAL and RESOURCEMANAGER_PRINCIPAL use the same field
-         * 
+         *
          * @see org.talend.repository.model.hadoopcluster.HadoopClusterConnection#getJtOrRmPrincipal()
          */
         if (value.equals("JOBTRACKER_PRINCIPAL") || value.equals("RESOURCEMANAGER_PRINCIPAL")) {
@@ -1542,7 +1542,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC nrousseau Comment method "getDatabaseValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -1564,7 +1564,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC nrousseau Comment method "getFileValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -1649,9 +1649,9 @@ public class RepositoryToComponentProperty {
     }
 
     /**
-     * 
+     *
      * ggu Comment method "getEBCDICFieldValue".
-     * 
+     *
      */
     private static Object getEBCDICFieldValue(EbcdicConnection connection, String value) {
         //        if ("XC2J_FILE".equals(value)) { //$NON-NLS-1$
@@ -1692,7 +1692,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC yexiaowei Comment method "getExcelFileValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -1767,7 +1767,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC YeXiaowei Comment method "getExcelSheetTableValue".
-     * 
+     *
      * @param connection
      */
     private static List<Map<String, Object>> getExcelSheetTableValue(FileExcelConnection connection) {
@@ -1787,7 +1787,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC nrousseau Comment method "getPositionalFileValue".
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -1810,7 +1810,7 @@ public class RepositoryToComponentProperty {
             return connection.getTextEnclosure();
         }
 
-        if (value.equals("SPLITRECORD")) { //$NON-NLS-1$           
+        if (value.equals("SPLITRECORD")) { //$NON-NLS-1$
             return connection.isSplitRecord();
         }
         return null;
@@ -1980,7 +1980,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * qiang.zhang Comment method "getTableXMLMappingValue".
-     * 
+     *
      * @param connection
      * @param tableInfo
      * @param metaTable
@@ -2073,7 +2073,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * qiang.zhang Comment method "getTableXMLMappingValue".
-     * 
+     *
      * @param connection
      * @param tableInfo
      * @param metaTable
@@ -2348,7 +2348,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * Gets repository value for LDAP schema.
-     * 
+     *
      * @param connection
      * @param value
      * @return
@@ -2435,7 +2435,7 @@ public class RepositoryToComponentProperty {
 
     /**
      * DOC qiang.zhang Comment method "getXMLMappingValue".
-     * 
+     *
      * @param repositoryConnection
      * @param metadataTable
      * @return
@@ -2665,7 +2665,7 @@ public class RepositoryToComponentProperty {
         }
 
         if (value.equals("USE_ENCODING")) {
-            return connection.isSFTP();
+            return connection.isUseFileNameEncoding();
         }
 
         if (value.equals("ENCODING")) {
