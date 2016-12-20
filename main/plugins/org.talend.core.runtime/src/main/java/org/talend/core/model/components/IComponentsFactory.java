@@ -13,6 +13,7 @@
 package org.talend.core.model.components;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +47,26 @@ public interface IComponentsFactory {
     public int size();
 
     public Set<IComponent> getComponents();
+
+    public void addStdComponent(IComponent component);
+
+    public void addStdComponents(Collection<IComponent> components);
+
+    public void removeStdComponent(IComponent component);
+
+    public void removeStdComponents(Collection<IComponent> components);
+
+    public Set<IComponent> getComponentLets();
+
+    public boolean containsComponentlet(IComponent component);
+
+    public void addComponentlet(IComponent component);
+
+    public void addComponentlets(Collection<IComponent> components);
+
+    public void removeComponentlet(IComponent component);
+
+    public void removeComponentlets(Collection<IComponent> components);
 
     public Map<String, Map<String, Set<IComponent>>> getComponentNameMap();
 
