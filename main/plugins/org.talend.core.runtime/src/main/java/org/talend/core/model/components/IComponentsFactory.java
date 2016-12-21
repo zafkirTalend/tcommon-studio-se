@@ -48,6 +48,8 @@ public interface IComponentsFactory {
 
     public Set<IComponent> getComponents();
 
+    public Set<IComponent> getStdComponents();
+
     public void addStdComponents(Collection<IComponent> components);
 
     public void removeStdComponents(Collection<IComponent> components);
