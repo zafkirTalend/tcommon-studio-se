@@ -692,6 +692,17 @@ public final class ProcessUtils {
         }
         return null;
     }
+    
+    public static String getTestDataParamemter(IProcess process, String instance, String testData) {
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService testContainerService = (ITestContainerProviderService) GlobalServiceRegister
+                    .getDefault().getService(ITestContainerProviderService.class);
+            if (testContainerService != null) {
+                return testContainerService.getTestDataParamemter(process, instance, testData);
+            }
+        }
+        return null;
+    }
 
     public static List<String> getTestInstances(IProcess process) {
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
