@@ -76,6 +76,8 @@ public interface ITestContainerProviderService extends IService {
     public void copyDataSetFiles(IProcess process, IPath srcPath);
 
     public String getTestDataValue(IProcess process, String instance, String testData);
+    
+    public String getTestDataParamemter(IProcess process, String instance, String testData);
 
     public List<Information> getTestContainerInformations(Item item);
 
