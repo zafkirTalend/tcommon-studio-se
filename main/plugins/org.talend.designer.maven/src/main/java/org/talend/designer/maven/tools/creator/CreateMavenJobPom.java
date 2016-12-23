@@ -61,6 +61,7 @@ import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.process.JobInfoProperties;
+import org.talend.core.runtime.process.LastGenerationInfo;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingPreferenceConstants;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
@@ -377,6 +378,19 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
     @Override
     protected boolean validChildrenJob(JobInfo jobInfo) {
+        JobInfo fatherJobInfo = null;
+        for (JobInfo lastGeneratedJobInfo : LastGenerationInfo.getInstance().getLastGeneratedjobs()) {
+            if (lastGeneratedJobInfo.getJobId().equals(getJobProcessor().getProperty().getId()) && lastGeneratedJobInfo.getJobVersion().equals(getJobProcessor().getProperty().getVersion())) {
+                fatherJobInfo = lastGeneratedJobInfo;
+                break;
+            }
+        }    
+        while (fatherJobInfo != null) {
+            if (fatherJobInfo.getJobId().equals(jobInfo.getJobId()) && fatherJobInfo.getJobVersion().equals(jobInfo.getJobVersion())) {
+                return false;
+            }
+            fatherJobInfo = fatherJobInfo.getFatherJobInfo();
+        }
         // for job, ignore test container for children.
         return jobInfo != null && !jobInfo.isTestContainer();
     }
@@ -543,6 +557,9 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         List<String> childrenFolderResourcesIncludes = new ArrayList<String>();
 
         final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();
+        // main job built, should never be in the children list, even if recursive
+        clonedChildrenJobInfors.remove(LastGenerationInfo.getInstance().getLastMainJob());
+        
         for (JobInfo child : clonedChildrenJobInfors) {
             if (child.getFatherJobInfo() != null) {
 
