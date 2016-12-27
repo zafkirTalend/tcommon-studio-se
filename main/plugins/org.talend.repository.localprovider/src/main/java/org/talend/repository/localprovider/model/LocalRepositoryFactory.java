@@ -1640,19 +1640,19 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     @Override
-    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete) throws PersistenceException {
-        deleteObjectPhysical(project, objToDelete, null);
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, boolean isDeleteOnRemote) throws PersistenceException {
+        deleteObjectPhysical(project, objToDelete, null, isDeleteOnRemote);
     }
 
     @Override
-    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version)
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version, boolean isDeleteOnRemote)
             throws PersistenceException {
-        deleteObjectPhysical(project, objToDelete, version, false);
+        deleteObjectPhysical(project, objToDelete, version, false, isDeleteOnRemote);
     }
 
     @Override
     public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, String version,
-            boolean fromEmptyRecycleBin) throws PersistenceException {
+            boolean fromEmptyRecycleBin, boolean isDeleteOnRemote) throws PersistenceException {
         if ("".equals(version)) { //$NON-NLS-1$
             version = null; // for all version
         }
@@ -1685,7 +1685,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 currentItem.setParent(null);
                 List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentProperty);
                 for (Resource resource : affectedResources) {
-                    deleteResource(resource);
+                    deleteResource(resource, isDeleteOnRemote);
                 }
 
                 // ADD msjian TDQ-6791 2013-2-20:when the resource is invalid(null), delete its file
@@ -1955,7 +1955,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @param resource
      * @throws PersistenceException
      */
-    protected void deleteResource(Resource resource) throws PersistenceException {
+    protected void deleteResource(Resource resource, boolean isDeleteOnRemote) throws PersistenceException {
         xmiResourceManager.deleteResource(resource);
     }
 
