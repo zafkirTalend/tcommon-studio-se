@@ -996,10 +996,8 @@ public class ImportItemsWizardPage extends WizardPage {
                             }
                         }
                     }
-
                     importManager.importItemRecords(monitor, resManager, checkedItemRecords, overwrite,
                             nodesBuilder.getAllImportItemRecords(), destinationPath);
-
                 }
             };
 
