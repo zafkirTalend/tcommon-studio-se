@@ -197,11 +197,6 @@ public class MavenCommandLauncher {
             }
             IPath generatedLog = basedir.getProject().getLocation().append("lastGenerated.log"); //$NON-NLS-1$
             workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS,
-                    "-l " + generatedLog.toPortableString() + " " //$NON-NLS-1$ //$NON-NLS-2$
-                            + workingCopy.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, "")); //$NON-NLS-1$
-
-            IPath generatedLog = basedir.getProject().getLocation().append("lastGenerated.log"); //$NON-NLS-1$
-            workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS,
                     "-l " + MavenLaunchUtils.quote(generatedLog.toPortableString()) + " " //$NON-NLS-1$ //$NON-NLS-2$
                             + workingCopy.getAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, "")); //$NON-NLS-1$
 
