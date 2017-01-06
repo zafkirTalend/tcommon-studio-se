@@ -20,7 +20,7 @@
 			<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
 			
 			<dbType type="NUMERIC" defaultLength="18" defaultPrecision="0" ignoreLen="false" ignorePre="false"/>
-			<dbType type="DECIMAL" ignoreLen="true" ignorePre="true"/>
+			<dbType type="DECIMAL" defaultLength="18" defaultPrecision="0" ignoreLen="false" ignorePre="false"/>
 			<dbType type="FLOAT" defaultLength="6" defaultPrecision="6" ignoreLen="true" ignorePre="false"/>
 			<dbType type="REAL" ignoreLen="true" ignorePre="true"/>
 			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
