@@ -30,6 +30,8 @@ public class TalendDataSource {
         Connection conn = ds.getConnection();
         if (conn != null) {
             conns.add(conn);
+        } else {
+            throw new RuntimeException("Unable to get a pooled database connection from pool");
         }
         return conn;
     }
