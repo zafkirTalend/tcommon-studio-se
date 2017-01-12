@@ -80,7 +80,8 @@ public abstract class JobEditorInput extends RepositoryEditorInput {
             saveProcess(null, null, true);
         }
         if (readonly == null) {
-            checkReadOnly();
+            readonly = checkReadOnly();
+            setReadOnly(readonly);
         } else {
             setReadOnly(readonly);
         }
