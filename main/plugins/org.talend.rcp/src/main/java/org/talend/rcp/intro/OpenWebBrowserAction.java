@@ -25,25 +25,25 @@ import org.talend.core.ui.branding.IBrandingService;
  */
 public class OpenWebBrowserAction implements IIntroAction {
 
-    private static final String USERGUIDE_URL = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String USERGUIDE_URL = "https://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String REFERENCEGUIDE_URL = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String REFERENCEGUIDE_URL = "https://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String TUTORIALS_URL = "http://www.talendforge.org/tutorials"; //$NON-NLS-1$
+    private static final String TUTORIALS_URL = "https://www.talendforge.org/tutorials"; //$NON-NLS-1$
 
-    private static final String FORUMS_URL = "http://www.talendforge.org/forum"; //$NON-NLS-1$
+    private static final String FORUMS_URL = "https://www.talendforge.org/forum"; //$NON-NLS-1$
 
-    private static final String TRAINNING_URL = " http://www.talend.com/training/talend-on-demand-training"; //$NON-NLS-1$
+    private static final String TRAINNING_URL = "https://www.talend.com/training/talend-on-demand-training"; //$NON-NLS-1$
 
-    private static final String TOS_DI = "http://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String TOS_DI = "https://www.talend.com/download/data-integration?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String TOS_DQ = "http://www.talend.com/download/data-quality?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String TOS_DQ = "https://www.talend.com/download/data-quality?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String TOS_ESB = "http://www.talend.com/download/esb?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String TOS_ESB = "https://www.talend.com/download/esb?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String TOS_MDM = "http://www.talend.com/download/mdm?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String TOS_MDM = "https://www.talend.com/download/mdm?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
-    private static final String TOS_BD = "http://www.talend.com/download/big-data?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
+    private static final String TOS_BD = "https://www.talend.com/download/big-data?qt-product_download_tabs=2#qt-product_download_tabs"; //$NON-NLS-1$
 
     private static final String TALEND_HELP_CENTER = "https://help.talend.com/display/HOME/Current+Documentation";
 
