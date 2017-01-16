@@ -775,7 +775,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
                                     .getInstance().getCurrentProject(), lastVersionBackup.getId(), false);
                             String importingLabel = selectedImportItem.getProperty().getLabel();
                             String existLabel = lastVersionBackup.getProperty().getLabel();
-                            boolean isDeleteOnRemote = isNeedDeleteOnRemote(importingLabel, existLabel);
+                            final boolean isDeleteOnRemote = isNeedDeleteOnRemote(importingLabel, existLabel);
                             RepositoryWorkUnit repositoryWorkUnit = new RepositoryWorkUnit(
                                     Messages.getString("ImportExportHandlersManager_deletingItemsMessage")) {
 
