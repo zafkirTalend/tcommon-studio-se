@@ -82,6 +82,7 @@ import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.FakePropertyImpl;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryViewObject;
 import org.talend.core.model.utils.MigrationUtil;
@@ -1026,7 +1027,7 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
     }
 
     public void resolveItem(ResourcesManager manager, ImportItem importItem) {
-        if (importItem.isResolved()) {
+        if (importItem.isResolved() || importItem.getProperty() instanceof FakePropertyImpl) {
             return;
         }
 
