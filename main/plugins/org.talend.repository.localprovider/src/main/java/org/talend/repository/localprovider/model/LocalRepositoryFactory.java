@@ -83,6 +83,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.commons.utils.platform.PluginChecker;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
@@ -165,7 +166,6 @@ import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.utils.json.JSONArray;
-
 import orgomg.cwm.foundation.businessinformation.BusinessinformationPackage;
 
 /**
@@ -1097,8 +1097,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     /**
-     * @see org.talend.core.model.repository.factories.IRepositoryFactory#readProject(java.lang.String,
-     * java.lang.String, java.lang.String)
+     * @see org.talend.core.model.repository.factories.IRepositoryFactory#readProject(java.lang.String, java.lang.String,
+     * java.lang.String)
      */
     @Override
     public Project[] readProject() throws PersistenceException {
@@ -1640,7 +1640,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     @Override
-    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, boolean isDeleteOnRemote) throws PersistenceException {
+    public void deleteObjectPhysical(Project project, IRepositoryViewObject objToDelete, boolean isDeleteOnRemote)
+            throws PersistenceException {
         deleteObjectPhysical(project, objToDelete, null, isDeleteOnRemote);
     }
 
@@ -2303,24 +2304,26 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public void save(Project project, Item item) throws PersistenceException {
-
-        boolean isSameResourceSet = true;
         ResourceSet resourceSet = xmiResourceManager.getResourceSet();
-        try {
-            ResourceSet projectResourceSet = project.getEmfProject().eResource().getResourceSet();
-            ResourceSet defaultResourceSet = xmiResourceManager.getResourceSet();
-            if (projectResourceSet != null) {
-                resourceSet = projectResourceSet;
+        if (PluginChecker.isOnlyTopLoaded()) {
+            xmiResourceManager.getAffectedResources(item.getProperty());
+        } else {
+            boolean isSameResourceSet = true;
+            try {
+                ResourceSet projectResourceSet = project.getEmfProject().eResource().getResourceSet();
+                ResourceSet defaultResourceSet = xmiResourceManager.getResourceSet();
+                if (projectResourceSet != null) {
+                    resourceSet = projectResourceSet;
+                }
+                isSameResourceSet = (projectResourceSet == defaultResourceSet);
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
             }
-            isSameResourceSet = (projectResourceSet == defaultResourceSet);
-        } catch (Exception e) {
-            ExceptionHandler.process(e);
+            if (isSameResourceSet) {
+                xmiResourceManager.getAffectedResources(item.getProperty()); // only call this will force to load all sub
+                                                                             // items in case some are not loaded
+            }
         }
-        if (isSameResourceSet) {
-            xmiResourceManager.getAffectedResources(item.getProperty()); // only call this will force to load all sub
-                                                                         // items in case some are not loaded
-        }
-
         computePropertyMaxInformationLevel(item.getProperty());
         item.getProperty().setModificationDate(new Date());
         Resource itemResource = null;
