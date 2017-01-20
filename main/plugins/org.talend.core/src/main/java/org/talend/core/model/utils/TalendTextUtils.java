@@ -484,6 +484,10 @@ public class TalendTextUtils {
         if (ContextParameterUtils.containContextVariables(password)) {
             return password;
         }
+        
+        if(!TalendQuoteUtils.isCommonString(password)){
+            return password;
+        }
 
         int length = password.length() + 2;
 
