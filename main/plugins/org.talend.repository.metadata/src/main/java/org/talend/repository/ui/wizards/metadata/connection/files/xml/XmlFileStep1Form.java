@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -334,6 +335,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
         GridData gd = new GridData(18, 12);
         commonNodesLimitation.setLayoutData(gd);
         commonNodesLimitation.setText(String.valueOf(TreePopulator.getLimit()));
+        labelLimitation.setToolTipText(MessageFormat.format(Messages.getString("XmlFileStep1Form.limitToolTip"), commonNodesLimitation.getText()));//$NON-NLS-1$
 
         commonNodesLimitation.addModifyListener(new ModifyListener() {
 
@@ -344,8 +346,10 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
 
                 if ((!str.matches("\\d+")) || (Integer.valueOf(str) < 0)) { //$NON-NLS-1$
                     commonNodesLimitation.setText(String.valueOf(treePopulator.getLimit()));
+                    labelLimitation.setToolTipText(MessageFormat.format(Messages.getString("XmlFileStep1Form.limitToolTip"), commonNodesLimitation.getText()));//$NON-NLS-1$
                 } else {
                     treePopulator.setLimit(Integer.valueOf(str));
+                    labelLimitation.setToolTipText(MessageFormat.format(Messages.getString("XmlFileStep1Form.limitToolTip"), str));//$NON-NLS-1$
                 }
                 if (tempXmlXsdPath != null && getConnection().getFileContent() != null
                         && getConnection().getFileContent().length > 0) {
@@ -369,6 +373,7 @@ public class XmlFileStep1Form extends AbstractXmlFileStepForm {
             @Override
             public void focusLost(FocusEvent e) {
                 commonNodesLimitation.setText(String.valueOf(TreePopulator.getLimit()));
+                labelLimitation.setToolTipText(MessageFormat.format(Messages.getString("XmlFileStep1Form.limitToolTip"), commonNodesLimitation.getText()));//$NON-NLS-1$
             }
 
         });
