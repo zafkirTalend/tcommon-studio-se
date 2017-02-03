@@ -108,12 +108,23 @@ public final class ProjectManager {
             if (repositoryContext != null) {
                 currentProject = repositoryContext.getProject();
                 if (currentProject != null) {
+                    String branchName = getMainProjectBranch(currentProject);
+                    if (isLocalBranch(branchName)) {
+                        currentProject.setRefBranch4Local("master");
+                    }
                     resolveRefProject(currentProject.getEmfProject());
                 }
                 return;
             }
         }
         currentProject = null;
+    }
+    
+    public String getRefBranch4LocalProject() {
+        if (currentProject != null) {
+            return currentProject.getRefBranch4Local();
+        }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -123,7 +134,7 @@ public final class ProjectManager {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch)) {
+                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || pr.getBranch().equals(getRefBranch4LocalProject())) {
                         resolveRefProject(pr.getReferencedProject()); // only to resolve all
                     }
                 }
@@ -137,7 +148,7 @@ public final class ProjectManager {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch)) {
+                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || (this.currentProject != null && pr.getBranch().equals(getRefBranch4LocalProject()))) {
                         Project project = new Project(pr.getReferencedProject(), false);
                         allReferencedprojects.add(project);
                         resolveSubRefProject(pr.getReferencedProject(), allReferencedprojects); // only to resolve all
@@ -253,7 +264,7 @@ public final class ProjectManager {
 
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch)) {
+                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) || refProject.getBranch().equals(project.getRefBranch4Local())) {
                     refProjects.add(new Project(refProject.getReferencedProject(), false));
                 }
             }
@@ -700,5 +711,9 @@ public final class ProjectManager {
             }
         }
         return projectType;
+    }
+    
+    public boolean isLocalBranch(String branchName) {
+        return true;
     }
 }
