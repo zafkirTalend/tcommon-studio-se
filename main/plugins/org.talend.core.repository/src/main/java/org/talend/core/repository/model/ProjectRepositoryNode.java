@@ -487,7 +487,8 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
         }
         for (ProjectReference refProject : (List<ProjectReference>) project.getReferencedProjects()) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
-            if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch())) {
+            String refBranch4Local = ProjectManager.getInstance().getRefBranch4LocalProject();
+            if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch()) || (refBranch4Local != null && refBranch4Local.equals(refProject.getBranch()))) {
                 Project p = refProject.getReferencedProject();
                 // no need caching
                 /*
