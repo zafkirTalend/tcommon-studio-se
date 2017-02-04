@@ -2905,11 +2905,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project emfProject = getRepositoryContext().getProject().getEmfProject();
         Resource projectResource = emfProject.eResource();
 
-        Collection<User> users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
-        for (User emfUser : users) {
-            if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
-                getRepositoryContext().setUser(emfUser);
-                exist = true;
+        if (projectResource != null) {
+            Collection<User> users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
+            for (User emfUser : users) {
+                if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
+                    getRepositoryContext().setUser(emfUser);
+                    exist = true;
+                }
             }
         }
 

@@ -108,10 +108,7 @@ public final class ProjectManager {
             if (repositoryContext != null) {
                 currentProject = repositoryContext.getProject();
                 if (currentProject != null) {
-                    String branchName = getMainProjectBranch(currentProject);
-                    if (isLocalBranch(branchName)) {
-                        currentProject.setRefBranch4Local("master");
-                    }
+                    initRefProjectBranch(currentProject);
                     resolveRefProject(currentProject.getEmfProject());
                 }
                 return;
@@ -120,11 +117,18 @@ public final class ProjectManager {
         currentProject = null;
     }
     
+    public void initRefProjectBranch(Project project) {
+        String branchName = getMainProjectBranch(project);
+        if (isLocalBranch(branchName)) {
+            project.setRefBranch4Local("master");
+        }
+    }
+    
     public String getRefBranch4LocalProject() {
         if (currentProject != null) {
             return currentProject.getRefBranch4Local();
         }
-        return null;
+        return "master";
     }
 
     @SuppressWarnings("unchecked")
