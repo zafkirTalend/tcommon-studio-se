@@ -19,9 +19,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.GlobalServiceRegister;
@@ -34,6 +36,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.SVNConstant;
@@ -118,13 +121,12 @@ public final class ProjectManager {
     }
     
     public void initRefProjectBranch(Project project) {
-        String branchName = getMainProjectBranch(project);
-        if (isLocalBranch(branchName)) {
-            project.setRefBranch4Local("master");
-        }
+        String mainBranch = getMainProjectBranch(project);
+        String refBranch = getTempRefBranch(project.getEmfProject(), mainBranch);
+        project.setRefBranch4Local(refBranch);
     }
     
-    public String getRefBranch4LocalProject() {
+    public String getRefBranch4LocalProject() {// TODO --KK
         if (currentProject != null) {
             return currentProject.getRefBranch4Local();
         }
@@ -717,7 +719,67 @@ public final class ProjectManager {
         return projectType;
     }
     
-    public boolean isLocalBranch(String branchName) {
-        return true;
+    public void setTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch, String refBranch) {
+        if (mainProject == null || mainBranch == null) {
+            return;
+        }
+        String strValue = RepositoryManager.getRepositoryPreferenceStore()
+                .getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
+        JSONObject allBranchSetting = null;
+        try {
+            allBranchSetting = new JSONObject(strValue);
+        } catch (Exception e) {
+            // the value is not set, or is empty
+            allBranchSetting = new JSONObject();
+        }
+        try {
+            String branchId = getBranchId(mainProject, mainBranch);
+            if (StringUtils.isEmpty(refBranch) && !allBranchSetting.isNull(branchId)) {
+                allBranchSetting.remove(branchId);
+            } else if (StringUtils.isNotEmpty(refBranch)) {
+                allBranchSetting.put(branchId, refBranch);
+            }
+            RepositoryManager.getRepositoryPreferenceStore().setValue(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING,
+                    allBranchSetting.toString());
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
     }
+
+    private String getBranchId(org.talend.core.model.properties.Project mainProject, String mainBranch) {
+        StringBuffer sb = new StringBuffer();
+        String branchName = getFormatedBranchName(mainBranch);
+        sb.append(mainProject.getTechnicalLabel()).append("@").append(branchName);
+        return sb.toString();
+    }
+
+    public String getTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch) {
+        if (mainProject == null || mainBranch == null) {
+            return null;
+        }
+
+        String strValue = RepositoryManager.getRepositoryPreferenceStore()
+                .getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
+        JSONObject allBranchSetting = null;
+        try {
+            allBranchSetting = new JSONObject(strValue);
+        } catch (Exception e) {
+            // the value is not set, or is empty
+            allBranchSetting = new JSONObject();
+        }
+        String branchId = getBranchId(mainProject, mainBranch);
+        String refBranch = null;
+
+        try {
+            if (!allBranchSetting.isNull(branchId)) {
+                refBranch = allBranchSetting.getString(branchId);
+            }
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
+
+        return refBranch;
+    }
+    
+    
 }
