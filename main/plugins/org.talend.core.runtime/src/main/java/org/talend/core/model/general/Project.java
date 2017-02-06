@@ -332,15 +332,4 @@ public class Project {
     public void setExchangeUser(ExchangeUser exchangeUser) {
         // project.setExchangeUser(exchangeUser);
     }
-
-    
-    public String getRefBranch4Local() {
-        return refBranch4Local;
-    }
-
-    
-    public void setRefBranch4Local(String refBranch4Local) {
-        this.refBranch4Local = refBranch4Local;
-    }
-
 }

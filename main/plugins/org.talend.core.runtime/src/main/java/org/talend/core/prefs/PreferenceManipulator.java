@@ -18,12 +18,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.Hex;
 import org.talend.core.model.general.ConnectionBean;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
+import org.talend.core.model.repository.RepositoryManager;
+import org.talend.repository.ProjectManager;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
@@ -334,6 +338,67 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         String hexKey = Hex.encodeHexString((projectUrl + projectName + PROJECT_BRANCH_MANAGEMENT).getBytes());
         store.setValue(hexKey, json.toString());
         save();
+    }
+    
+    public void setTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch, String refBranch) {
+        if (mainProject == null || mainBranch == null) {
+            return;
+        }
+        String strValue = RepositoryManager.getRepositoryPreferenceStore()
+                .getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
+        JSONObject allBranchSetting = null;
+        try {
+            allBranchSetting = new JSONObject(strValue);
+        } catch (Exception e) {
+            // the value is not set, or is empty
+            allBranchSetting = new JSONObject();
+        }
+        try {
+            String branchId = getBranchId(mainProject, mainBranch);
+            if (StringUtils.isEmpty(refBranch) && !allBranchSetting.isNull(branchId)) {
+                allBranchSetting.remove(branchId);
+            } else if (StringUtils.isNotEmpty(refBranch)) {
+                allBranchSetting.put(branchId, refBranch);
+            }
+            this.store.setValue(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING, allBranchSetting.toString());
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    private String getBranchId(org.talend.core.model.properties.Project mainProject, String mainBranch) {
+        StringBuffer sb = new StringBuffer();
+        String branchName = ProjectManager.getInstance().getFormatedBranchName(mainBranch);
+        sb.append(mainProject.getTechnicalLabel()).append("@").append(branchName);
+        return sb.toString();
+    }
+
+    public String getTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch) {
+        if (mainProject == null || mainBranch == null) {
+            return null;
+        }
+
+        String strValue = this.store.getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
+        JSONObject allBranchSetting = null;
+        try {
+            allBranchSetting = new JSONObject(strValue);
+        } catch (Exception e) {
+            // the value is not set, or is empty
+            allBranchSetting = new JSONObject();
+        }
+        String branchId = getBranchId(mainProject, mainBranch);
+        String refBranch = null;
+
+        try {
+            if (!allBranchSetting.isNull(branchId)) {
+                refBranch = allBranchSetting.getString(branchId);
+            }
+        } catch (JSONException e) {
+            ExceptionHandler.process(e);
+        }
+
+        System.out.println("=======================The branchId:" + branchId + "\t the refBranch:" + refBranch);
+        return refBranch;
     }
 
 }

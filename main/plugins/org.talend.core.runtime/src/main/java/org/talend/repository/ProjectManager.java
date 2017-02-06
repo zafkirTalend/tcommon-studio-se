@@ -111,7 +111,6 @@ public final class ProjectManager {
             if (repositoryContext != null) {
                 currentProject = repositoryContext.getProject();
                 if (currentProject != null) {
-                    initRefProjectBranch(currentProject);
                     resolveRefProject(currentProject.getEmfProject());
                 }
                 return;
@@ -119,28 +118,16 @@ public final class ProjectManager {
         }
         currentProject = null;
     }
-    
-    public void initRefProjectBranch(Project project) {
-        String mainBranch = getMainProjectBranch(project);
-        String refBranch = getTempRefBranch(project.getEmfProject(), mainBranch);
-        project.setRefBranch4Local(refBranch);
-    }
-    
-    public String getRefBranch4LocalProject() {// TODO --KK
-        if (currentProject != null) {
-            return currentProject.getRefBranch4Local();
-        }
-        return "master";
-    }
 
     @SuppressWarnings("unchecked")
     private void resolveRefProject(org.talend.core.model.properties.Project p) {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (p != null && ctx != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
+            String refBranch4Local = ProjectManager.getInstance().getTempRefBranch(p, parentBranch);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || pr.getBranch().equals(getRefBranch4LocalProject())) {
+                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || pr.getBranch().equals(refBranch4Local)) {
                         resolveRefProject(pr.getReferencedProject()); // only to resolve all
                     }
                 }
@@ -152,9 +139,10 @@ public final class ProjectManager {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (ctx != null && p != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
+            String refBranch4Local = ProjectManager.getInstance().getTempRefBranch(p, parentBranch);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || (this.currentProject != null && pr.getBranch().equals(getRefBranch4LocalProject()))) {
+                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || (this.currentProject != null && pr.getBranch().equals(refBranch4Local))) {
                         Project project = new Project(pr.getReferencedProject(), false);
                         allReferencedprojects.add(project);
                         resolveSubRefProject(pr.getReferencedProject(), allReferencedprojects); // only to resolve all
@@ -267,10 +255,10 @@ public final class ProjectManager {
                 return getReferencedProjects();
             }
             String parentBranch = getMainProjectBranch(project);
-
+            String refBranch4Local = ProjectManager.getInstance().getTempRefBranch(project.getEmfProject(), parentBranch);
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) || refProject.getBranch().equals(project.getRefBranch4Local())) {
+                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) || refProject.getBranch().equals(refBranch4Local)) {
                     refProjects.add(new Project(refProject.getReferencedProject(), false));
                 }
             }
@@ -741,6 +729,7 @@ public final class ProjectManager {
             }
             RepositoryManager.getRepositoryPreferenceStore().setValue(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING,
                     allBranchSetting.toString());
+            
         } catch (JSONException e) {
             ExceptionHandler.process(e);
         }
@@ -758,8 +747,7 @@ public final class ProjectManager {
             return null;
         }
 
-        String strValue = RepositoryManager.getRepositoryPreferenceStore()
-                .getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
+        String strValue = RepositoryManager.getRepositoryPreferenceStore().getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
         JSONObject allBranchSetting = null;
         try {
             allBranchSetting = new JSONObject(strValue);
@@ -777,7 +765,6 @@ public final class ProjectManager {
         } catch (JSONException e) {
             ExceptionHandler.process(e);
         }
-
         return refBranch;
     }
     
