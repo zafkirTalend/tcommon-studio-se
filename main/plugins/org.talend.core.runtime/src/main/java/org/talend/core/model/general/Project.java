@@ -43,8 +43,6 @@ public class Project {
     private boolean isSandboxProject;
 
     private boolean mainProject = true;
-    
-    private String refBranch4Local;
 
     /**
      * Getter for mainProject.

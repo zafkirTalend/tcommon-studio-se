@@ -340,65 +340,24 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
     
-    public void setTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch, String refBranch) {
-        if (mainProject == null || mainBranch == null) {
-            return;
-        }
-        String strValue = RepositoryManager.getRepositoryPreferenceStore()
-                .getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
-        JSONObject allBranchSetting = null;
-        try {
-            allBranchSetting = new JSONObject(strValue);
-        } catch (Exception e) {
-            // the value is not set, or is empty
+    public void setTempRefBranchSetting(JSONObject allBranchSetting) {
+        if (allBranchSetting == null) {
             allBranchSetting = new JSONObject();
         }
-        try {
-            String branchId = getBranchId(mainProject, mainBranch);
-            if (StringUtils.isEmpty(refBranch) && !allBranchSetting.isNull(branchId)) {
-                allBranchSetting.remove(branchId);
-            } else if (StringUtils.isNotEmpty(refBranch)) {
-                allBranchSetting.put(branchId, refBranch);
-            }
-            this.store.setValue(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING, allBranchSetting.toString());
-        } catch (JSONException e) {
-            ExceptionHandler.process(e);
-        }
+        this.store.setValue(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING, allBranchSetting.toString());
+
+        save();
     }
 
-    private String getBranchId(org.talend.core.model.properties.Project mainProject, String mainBranch) {
-        StringBuffer sb = new StringBuffer();
-        String branchName = ProjectManager.getInstance().getFormatedBranchName(mainBranch);
-        sb.append(mainProject.getTechnicalLabel()).append("@").append(branchName);
-        return sb.toString();
-    }
-
-    public String getTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch) {
-        if (mainProject == null || mainBranch == null) {
-            return null;
-        }
+    public JSONObject getTempRefBranchSetting() {
 
         String strValue = this.store.getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
         JSONObject allBranchSetting = null;
         try {
             allBranchSetting = new JSONObject(strValue);
         } catch (Exception e) {
-            // the value is not set, or is empty
             allBranchSetting = new JSONObject();
         }
-        String branchId = getBranchId(mainProject, mainBranch);
-        String refBranch = null;
-
-        try {
-            if (!allBranchSetting.isNull(branchId)) {
-                refBranch = allBranchSetting.getString(branchId);
-            }
-        } catch (JSONException e) {
-            ExceptionHandler.process(e);
-        }
-
-        System.out.println("=======================The branchId:" + branchId + "\t the refBranch:" + refBranch);
-        return refBranch;
+        return allBranchSetting;
     }
-
 }
