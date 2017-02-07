@@ -8,10 +8,5 @@
             serviceId="IMetadataManagmentUiService">
       </Service>
    </extension>
-   <extension
-         point="org.talend.core.runtime.hadoopConnectionCreator">
-      <creator
-            class="org.talend.metadata.managment.ui.wizard.metadata.hive.creator.HiveConnectionCreator">
-      </creator>
-   </extension>
+
 </plugin>

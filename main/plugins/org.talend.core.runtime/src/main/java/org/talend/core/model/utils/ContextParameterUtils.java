@@ -399,16 +399,6 @@ public final class ContextParameterUtils {
         return value;
     }
 
-    /**
-     * DOC ycbai Comment method "isContextParamOfContextType".
-     * 
-     * <p>
-     * Estimate if the context parameter exists in the context type.
-     * 
-     * @param contextType
-     * @param value
-     * @return
-     */
     public static boolean isContextParamOfContextType(ContextType contextType, String value) {
         if (contextType == null || value == null) {
             return false;
