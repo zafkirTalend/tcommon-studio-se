@@ -638,6 +638,9 @@ public class ExtractManager {
             } else {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
+            // Synchro view structure after alter commands.
+            synchroViewStructure(catalogName, schemaName, tableName);
+
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
             if (MetadataConnectionUtils.isMysql(dbMetaData)) {
                 boolean check = !Pattern.matches("^\\w+$", tableName);//$NON-NLS-1$
@@ -818,6 +821,10 @@ public class ExtractManager {
         }
 
         return metadataColumns;
+    }
+
+    public void synchroViewStructure(String catalogName, String schemaName, String tableName) throws SQLException {
+        // nothing to do by default
     }
 
     protected void setLengthAndPrecision(TdColumn column, ResultSet columns, String typeName) {
