@@ -2905,16 +2905,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project emfProject = getRepositoryContext().getProject().getEmfProject();
         Resource projectResource = emfProject.eResource();
 
-        if (projectResource != null) {
-            Collection<User> users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
-            for (User emfUser : users) {
-                if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
-                    getRepositoryContext().setUser(emfUser);
-                    exist = true;
-                }
+        Collection<User> users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
+        for (User emfUser : users) {
+            if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
+                getRepositoryContext().setUser(emfUser);
+                exist = true;
             }
         }
-
         return exist;
     }
 
@@ -3187,7 +3184,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
         String parentBranch = getRepositoryContext().getFields().get(
                 IProxyRepositoryFactory.BRANCH_SELECTION + "_" + getRepositoryContext().getProject().getTechnicalLabel());
-        String refBranch4Local = ProjectManager.getInstance().getTempRefBranch(project.getEmfProject(), parentBranch);
+        String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(project.getEmfProject(), parentBranch);
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
             if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) || refProject.getBranch().equals(refBranch4Local)) {

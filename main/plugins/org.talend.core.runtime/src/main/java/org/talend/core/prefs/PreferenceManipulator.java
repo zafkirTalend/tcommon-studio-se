@@ -340,7 +340,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
     
-    public void setTempRefBranchSetting(JSONObject allBranchSetting) {
+    public void setAllLocalRefBranchSetting(JSONObject allBranchSetting) {
         if (allBranchSetting == null) {
             allBranchSetting = new JSONObject();
         }
@@ -349,7 +349,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         save();
     }
 
-    public JSONObject getTempRefBranchSetting() {
+    public JSONObject getAllLocalRefBranchSetting() {
 
         String strValue = this.store.getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
         JSONObject allBranchSetting = null;

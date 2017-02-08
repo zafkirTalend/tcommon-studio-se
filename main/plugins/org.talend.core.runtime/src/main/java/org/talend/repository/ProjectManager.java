@@ -81,7 +81,7 @@ public final class ProjectManager {
 
     private ProjectManager() {
         PreferenceManipulator prefManipulator = new PreferenceManipulator();
-        localRefBranchSetting = prefManipulator.getTempRefBranchSetting();
+        localRefBranchSetting = prefManipulator.getAllLocalRefBranchSetting();
         initCurrentProject();
     }
 
@@ -129,10 +129,9 @@ public final class ProjectManager {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (p != null && ctx != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
-            String refBranch4Local = getTempRefBranch(p, parentBranch);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || pr.getBranch().equals(refBranch4Local)) {
+                    if (ProjectManager.validReferenceProject(p, pr)) {
                         resolveRefProject(pr.getReferencedProject()); // only to resolve all
                     }
                 }
@@ -144,10 +143,9 @@ public final class ProjectManager {
         Context ctx = CoreRuntimePlugin.getInstance().getContext();
         if (ctx != null && p != null) {
             String parentBranch = ProjectManager.getInstance().getMainProjectBranch(p);
-            String refBranch4Local = getTempRefBranch(p, parentBranch);
             if (parentBranch != null) {
                 for (ProjectReference pr : (List<ProjectReference>) p.getReferencedProjects()) {
-                    if (pr.getBranch() == null || pr.getBranch().equals(parentBranch) || (this.currentProject != null && pr.getBranch().equals(refBranch4Local))) {
+                    if (ProjectManager.validReferenceProject(p, pr)) {
                         Project project = new Project(pr.getReferencedProject(), false);
                         allReferencedprojects.add(project);
                         resolveSubRefProject(pr.getReferencedProject(), allReferencedprojects); // only to resolve all
@@ -259,11 +257,9 @@ public final class ProjectManager {
             if (project.equals(this.currentProject)) {
                 return getReferencedProjects();
             }
-            String parentBranch = getMainProjectBranch(project);
-            String refBranch4Local = getTempRefBranch(project.getEmfProject(), parentBranch);
             List<Project> refProjects = new ArrayList<Project>();
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) || refProject.getBranch().equals(refBranch4Local)) {
+                if (ProjectManager.validReferenceProject(project.getEmfProject(), refProject)) {
                     refProjects.add(new Project(refProject.getReferencedProject(), false));
                 }
             }
@@ -712,7 +708,7 @@ public final class ProjectManager {
         return projectType;
     }
     
-    public void setTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch, String refBranch) {
+    public void setLocalRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch, String refBranch) {
         if (mainProject == null || mainBranch == null) {
             return;
         }
@@ -725,8 +721,8 @@ public final class ProjectManager {
                 localRefBranchSetting.put(branchId, refBranch);
             }
             PreferenceManipulator prefManipulator = new PreferenceManipulator();
-            prefManipulator.setTempRefBranchSetting(localRefBranchSetting);
-            localRefBranchSetting = prefManipulator.getTempRefBranchSetting();          
+            prefManipulator.setAllLocalRefBranchSetting(localRefBranchSetting);
+            localRefBranchSetting = prefManipulator.getAllLocalRefBranchSetting();
         } catch (JSONException e) {
             ExceptionHandler.process(e);
         }
@@ -739,7 +735,7 @@ public final class ProjectManager {
         return sb.toString();
     }
 
-    public String getTempRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch) {
+    public String getLocalRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch) {
         if (mainProject == null || mainBranch == null) {
             return null;
         }
@@ -757,5 +753,21 @@ public final class ProjectManager {
         return refBranch;
     }
     
-    
+    public static boolean validReferenceProject(org.talend.core.model.properties.Project mainProject, ProjectReference projectReference) {
+        if (mainProject == null || projectReference == null) {
+            return false;
+        }
+        
+        String branchForMainProject = ProjectManager.getInstance().getMainProjectBranch(mainProject);
+        String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(mainProject, branchForMainProject);
+        
+        if (projectReference.getBranch() == null
+                || (branchForMainProject != null && branchForMainProject.equals(projectReference.getBranch()) || branchForMainProject.equals("origin/" + projectReference.getBranch()))
+                || (refBranch4Local != null && (refBranch4Local.equals(projectReference.getBranch())
+                        || refBranch4Local.equals("origin/" + projectReference.getBranch())))) {
+            return true;
+        }
+       
+        return false;    
+    }
 }

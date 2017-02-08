@@ -486,9 +486,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
             return; // don't check the deleted item for ref-projects
         }
         for (ProjectReference refProject : (List<ProjectReference>) project.getReferencedProjects()) {
-            String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
-            String refBranch4Local = ProjectManager.getInstance().getTempRefBranch(project, parentBranch);
-            if (refProject.getBranch() == null || parentBranch.equals(refProject.getBranch()) || (refBranch4Local != null && refBranch4Local.equals(refProject.getBranch()))) {
+            if (ProjectManager.validReferenceProject(project, refProject)) {
                 Project p = refProject.getReferencedProject();
                 // no need caching
                 /*
@@ -1214,9 +1212,7 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
     private void handleReferenced(RepositoryNode parent) {
         if (parent.getType().equals(ENodeType.SYSTEM_FOLDER)) {
             for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-                String parentBranch = ProjectManager.getInstance().getMainProjectBranch(project);
-                String refBranch4Local = ProjectManager.getInstance().getTempRefBranch(project.getEmfProject(), parentBranch);
-                if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) ||refProject.getBranch().equals(refBranch4Local) ) {
+                if (ProjectManager.validReferenceProject(project.getEmfProject(), refProject)) {
                     Project emfProject = refProject.getReferencedProject();
                     ProjectRepositoryNode referencedProjectNode = new ProjectRepositoryNode(
                             new org.talend.core.model.general.Project(emfProject), null, parent, this,
