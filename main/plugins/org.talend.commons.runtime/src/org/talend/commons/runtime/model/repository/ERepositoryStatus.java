@@ -59,4 +59,18 @@ public enum ERepositoryStatus {
         return this.potentiallyEditable;
     }
 
+    /**
+     * 
+     * Judge current status is lock status
+     * 
+     * @param es The status of current
+     * @return true if current is lock status else false
+     */
+    public static boolean isLock(ERepositoryStatus es) {
+        if (LOCK_BY_USER == es || LOCK_BY_OTHER == es) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -57,6 +57,7 @@ import org.talend.metadata.managment.model.MetadataFillFactory;
 import org.talend.metadata.managment.utils.MetadataConnectionUtils;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sugars.TypedReturnCode;
+import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.objectmodel.core.Package;
 import orgomg.cwm.objectmodel.core.TaggedValue;
 import orgomg.cwm.resource.relational.Catalog;
@@ -395,7 +396,37 @@ public final class DqRepositoryViewService {
      * 
      * @return
      */
-    public static boolean isComeFromRefrenceProject(Connection dataProvider) {
+    public static boolean isComeFromRefrenceProject(ModelElement modelElement) {
+        String currentResourceProjectName = null;
+        try {
+            currentResourceProjectName = modelElement.eResource().getURI().segment(1);
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return isComeFromRefrenceProject(currentResourceProjectName);
+    }
+
+    /**
+     * DOC zshen Comment method "isComeFromRefrenceProject".
+     * 
+     * @return
+     */
+    public static boolean isComeFromRefrenceProject(Property property) {
+        String currentResourceProjectName = null;
+        try {
+            currentResourceProjectName = property.getItem().eResource().getURI().segment(1);
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return isComeFromRefrenceProject(currentResourceProjectName);
+    }
+
+    /**
+     * DOC zshen Comment method "isComeFromRefrenceProject".
+     * 
+     * @return
+     */
+    public static boolean isComeFromRefrenceProject(String currentResourceProjectName) {
         RepositoryContext repositoryContext = (RepositoryContext) org.talend.core.runtime.CoreRuntimePlugin.getInstance()
                 .getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
         if (repositoryContext == null) {
@@ -412,7 +443,6 @@ public final class DqRepositoryViewService {
         }
         EList<ProjectReferenceImpl> referencedProjects = project.getEmfProject().getReferencedProjects();
         if (referencedProjects.size() > 0) {
-            String currentResourceProjectName = dataProvider.eResource().getURI().segment(1);
             boolean isFromReferenceProject = iteration2FindReferenceProject(referencedProjects, currentResourceProjectName);
             if (isFromReferenceProject) {
                 return true;
