@@ -13,6 +13,8 @@
 package org.talend.designer.codegen;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -29,7 +31,9 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.utils.VersionUtils;
+import org.talend.commons.utils.encoding.CharsetToolkit;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.resource.FileExtensions;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
@@ -197,6 +201,9 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
             if (file == null) {
                 return;
             }
+            if(routineItem.eResource() == null){
+                return;
+            }
             if (routineItem.getProperty().getModificationDate() != null) {
                 long modificationItemDate = routineItem.getProperty().getModificationDate().getTime();
                 long modificationFileDate = file.getModificationStamp();
@@ -208,7 +215,16 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
             }
 
             if (copyToTemp) {
-                String routineContent = new String(routineItem.getContent().getInnerContent());
+                String uri = routineItem.eResource().getURI().trimFileExtension().appendFileExtension(FileExtensions.ITEM_EXTENSION).toPlatformString(false);
+                File itemFile = ResourcesPlugin.getWorkspace().getRoot().getLocation().append(uri).toFile();
+                byte[] buf = routineItem.getContent().getInnerContent();
+                String charset = null;
+                if(itemFile.exists()){
+                    charset = CharsetToolkit.getCharset(itemFile);
+                }else{
+                    charset = System.getProperty("file.encoding");
+                }
+                String routineContent = new String(buf, charset);
                 // see 14713
                 if (routineContent.contains("%GENERATED_LICENSE%")) { //$NON-NLS-1$
                     IBrandingService service = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
@@ -221,13 +237,13 @@ public abstract class AbstractRoutineSynchronizer implements ITalendSynchronizer
                     // routineContent = renameRoutinePackage(routineItem,
                     // routineContent);
                     if (!file.exists()) {
-                        file.create(new ByteArrayInputStream(routineContent.getBytes()), true, null);
+                        file.create(new ByteArrayInputStream(routineContent.getBytes(System.getProperty("file.encoding"))), true, null);
                     } else {
-                        file.setContents(new ByteArrayInputStream(routineContent.getBytes()), true, false, null);
+                        file.setContents(new ByteArrayInputStream(routineContent.getBytes(System.getProperty("file.encoding"))), true, false, null);
                     }
                 }
             }
-        } catch (CoreException e) {
+        } catch (CoreException | IOException e) {
             throw new SystemException(e);
         }
     }
