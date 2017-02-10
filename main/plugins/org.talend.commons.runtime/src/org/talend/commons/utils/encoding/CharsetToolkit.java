@@ -352,18 +352,22 @@ public class CharsetToolkit {
             fin.read(fileContent);
 
             byte[] data =  fileContent;
-
-            com.ibm.icu.text.CharsetDetector detector = new com.ibm.icu.text.CharsetDetector();
-            detector.setText(data);
-
-            CharsetMatch cm = detector.detect();
-
-            if (cm != null) {
-//                int confidence = cm.getConfidence();
-                charset = cm.getName();
-            }
+            charset = getCharset(data);
         } catch (IOException e) {
             charset = "UTF-8";
+        }
+        return charset;
+    }
+    
+    public static String getCharset(byte[] data){
+        String charset = "UTF-8";
+        com.ibm.icu.text.CharsetDetector detector = new com.ibm.icu.text.CharsetDetector();
+        detector.setText(data);
+        CharsetMatch cm = detector.detect();
+
+        if (cm != null) {
+//              int confidence = cm.getConfidence();
+           charset = cm.getName();
         }
         return charset;
     }
