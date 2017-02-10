@@ -56,6 +56,11 @@
 			<artifactId>components-snowflake</artifactId>
 			<version>${components.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.talend.components</groupId>
+			<artifactId>components-azurestorage</artifactId>
+			<version>${components.version}</version>
+		</dependency>
         <dependency>
             <groupId>org.talend.components</groupId>
             <artifactId>components-common</artifactId>
