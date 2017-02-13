@@ -3187,7 +3187,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
             String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(project.getEmfProject(), parentBranch, refProject);
-            if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch) || refProject.getBranch().equals(refBranch4Local)) {
+            if (ProjectManager.validReferenceProject(parentBranch, refBranch4Local, refProject)) {
                 refProjectList.add(refProject.getReferencedProject());
             }
         }

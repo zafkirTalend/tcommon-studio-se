@@ -2010,6 +2010,9 @@ public class ProjectRepositoryNode extends RepositoryNode implements IProjectRep
                     if (object == defaultProjRepoNode) {
                         continue;
                     }
+                    if (object == dummyProjRepoNode) {
+                        continue;
+                    }
                     if (object instanceof RepositoryNode) {
                         f.set(this, null);
                     }
