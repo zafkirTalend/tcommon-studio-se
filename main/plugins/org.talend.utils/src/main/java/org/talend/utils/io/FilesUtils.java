@@ -116,20 +116,25 @@ public final class FilesUtils {
             }
 
         };
-
-        for (File current : source.listFiles(folderFilter)) {
-            if (copyFolder) {
-                File newFolder = new File(target, current.getName());
-                newFolder.mkdir();
-                copyFolder(current, newFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
-            } else {
-                copyFolder(current, target, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+        File[] folders = source.listFiles(folderFilter);
+        if (folders != null) {
+            for (File current : folders) {
+                if (copyFolder) {
+                    File newFolder = new File(target, current.getName());
+                    newFolder.mkdir();
+                    copyFolder(current, newFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+                } else {
+                    copyFolder(current, target, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+                }
             }
         }
-
-        for (File current : source.listFiles(fileFilter)) {
-            File out = new File(target, current.getName());
-            copyFile(current, out);
+        
+        File[] files = source.listFiles(fileFilter);
+        if (files != null) {
+            for (File current : files) {
+                File out = new File(target, current.getName());
+                copyFile(current, out);
+            }
         }
     }
 
