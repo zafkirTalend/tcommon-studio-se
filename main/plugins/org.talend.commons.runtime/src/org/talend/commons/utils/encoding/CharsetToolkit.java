@@ -17,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import com.ibm.icu.text.CharsetMatch;
+
 /**
  * Utility class to guess the encoding of a given byte array. The guess is unfortunately not 100% sure. Especially for
  * 8-bit charsets. It's not possible to know which 8-bit charset is used. Except through statistical analysis. We will
@@ -338,5 +340,35 @@ public class CharsetToolkit {
      */
     private static boolean hasUTF16BEBuffer(byte[] buffer) {
         return (buffer[0] == -2 && buffer[1] == -1);
+    }
+    
+    public static String getCharset(File file){
+        String charset = "UTF-8";
+        byte[] fileContent = null;
+        FileInputStream fin = null;
+        try {
+            fin = new FileInputStream(file.getPath());
+            fileContent = new byte[(int) file.length()];
+            fin.read(fileContent);
+
+            byte[] data =  fileContent;
+            charset = getCharset(data);
+        } catch (IOException e) {
+            charset = "UTF-8";
+        }
+        return charset;
+    }
+    
+    public static String getCharset(byte[] data){
+        String charset = "UTF-8";
+        com.ibm.icu.text.CharsetDetector detector = new com.ibm.icu.text.CharsetDetector();
+        detector.setText(data);
+        CharsetMatch cm = detector.detect();
+
+        if (cm != null) {
+//              int confidence = cm.getConfidence();
+           charset = cm.getName();
+        }
+        return charset;
     }
 }
