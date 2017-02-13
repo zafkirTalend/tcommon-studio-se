@@ -19,10 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -37,7 +35,6 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryManager;
 import org.talend.core.model.repository.SVNConstant;
@@ -731,7 +728,7 @@ public final class ProjectManager {
             ExceptionHandler.process(e);
         }
     }
-    
+
     public void deleteLocalRefBranchSetting(org.talend.core.model.properties.Project mainProject, String mainBranch) {
         if (mainProject == null || mainBranch == null) {
             return;
@@ -761,12 +758,10 @@ public final class ProjectManager {
 
         String projectBranchId = getProjectBranchId(mainProject, mainBranch);
         JSONObject refSettingObject = null;
-
         try {
             if (!allLocalRefBranchSetting.isNull(projectBranchId)) {
                 refSettingObject = allLocalRefBranchSetting.getJSONObject(projectBranchId);
-                if (refSettingObject != null
-                        && !refSettingObject.isNull(mainProject.getTechnicalLabel())) {
+                if (refSettingObject != null && !refSettingObject.isNull(mainProject.getTechnicalLabel())) {
                     return refSettingObject.getString(mainProject.getTechnicalLabel());
                 }
             }
@@ -775,20 +770,7 @@ public final class ProjectManager {
         }
         return null;
     }
-    
-    public boolean hasLocalRefBranchSetting(org.talend.core.model.properties.Project mainProject, String mainBranch) {
-        if (mainProject == null || mainBranch == null) {
-            return false;
-        }
 
-        String projectBranchId = getProjectBranchId(mainProject, mainBranch);
-        if (!allLocalRefBranchSetting.isNull(projectBranchId)) {
-            return true;
-        }
-
-        return false;
-    }
-    
     public static boolean validReferenceProject(org.talend.core.model.properties.Project mainProject,
             ProjectReference projectReference) {
         if (mainProject == null || projectReference == null) {
@@ -807,7 +789,7 @@ public final class ProjectManager {
         if (projectReference == null) {
             return false;
         }
-        
+
         if (projectReference.getBranch() == null
                 || (branchForMainProject != null && branchForMainProject.equals(projectReference.getBranch())
                         || branchForMainProject.equals("origin/" + projectReference.getBranch()))

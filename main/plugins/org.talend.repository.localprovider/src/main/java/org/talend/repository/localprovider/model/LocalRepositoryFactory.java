@@ -3182,11 +3182,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
-        String parentBranch = getRepositoryContext().getFields().get(
-                IProxyRepositoryFactory.BRANCH_SELECTION + "_" + getRepositoryContext().getProject().getTechnicalLabel());
+        String parentBranch = getRepositoryContext().getFields()
+                .get(IProxyRepositoryFactory.BRANCH_SELECTION + "_" + getRepositoryContext().getProject().getTechnicalLabel());
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-            String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(project.getEmfProject(), parentBranch, refProject);
+            String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(project.getEmfProject(), parentBranch,
+                    refProject);
             if (ProjectManager.validReferenceProject(parentBranch, refBranch4Local, refProject)) {
                 refProjectList.add(refProject.getReferencedProject());
             }
