@@ -750,8 +750,7 @@ public final class ProjectManager {
         return sb.toString();
     }
 
-    public String getLocalRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch,
-            ProjectReference projectReference) {
+    public String getLocalRefBranch(org.talend.core.model.properties.Project mainProject, String mainBranch) {
         if (mainProject == null || mainBranch == null) {
             return null;
         }
@@ -778,8 +777,7 @@ public final class ProjectManager {
         }
 
         String branchForMainProject = ProjectManager.getInstance().getMainProjectBranch(mainProject);
-        String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(mainProject, branchForMainProject,
-                projectReference);
+        String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(mainProject, branchForMainProject);
 
         return validReferenceProject(branchForMainProject, refBranch4Local, projectReference);
     }
