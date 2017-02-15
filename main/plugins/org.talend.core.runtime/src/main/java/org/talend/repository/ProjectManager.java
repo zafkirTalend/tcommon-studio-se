@@ -85,9 +85,7 @@ public final class ProjectManager {
     }
 
     public Project getProjectFromProjectLabel(String label) {
-        if (currentProject == null) {
-            initCurrentProject();
-        }
+        initCurrentProject();
 
         if (currentProject.getLabel().equals(label)) {
             return currentProject;
@@ -106,8 +104,8 @@ public final class ProjectManager {
         if (ctx != null) {
             RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
             if (repositoryContext != null) {
-                currentProject = repositoryContext.getProject();
-                if (currentProject != null) {
+                if (repositoryContext.getProject() != null && repositoryContext.getProject() != currentProject) {
+                    currentProject = repositoryContext.getProject();
                     resolveRefProject(currentProject.getEmfProject());
                 }
                 return;
