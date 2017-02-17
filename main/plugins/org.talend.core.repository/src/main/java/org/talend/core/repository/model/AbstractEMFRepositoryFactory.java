@@ -1034,7 +1034,6 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
             IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault()
                     .getService(IRunProcessService.class);
             try {
-                runProcessService.deleteAllJobs(false);
                 runProcessService.getTalendProcessJavaProject().cleanMavenFiles(monitor);
                 TimeMeasure.step("logOnProject", "clean Maven files"); //$NON-NLS-1$ //$NON-NLS-2$
             } catch (Exception e) {

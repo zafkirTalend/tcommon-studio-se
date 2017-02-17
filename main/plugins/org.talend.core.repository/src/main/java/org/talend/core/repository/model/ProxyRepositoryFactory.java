@@ -1897,7 +1897,9 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 ICoreService coreService = getCoreService();
                 if (coreService != null) {
                     // clean workspace
-                    TimeMeasure.step("logOnProject", "clean Java project"); //$NON-NLS-1$ //$NON-NLS-2$
+                    currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.cleanWorkspace"), 1); //$NON-NLS-1$
+                    coreService.deleteAllJobs(false);
+                    TimeMeasure.step("logOnProject", "clean Java project"); //$NON-NLS-1$ //$NON-NLS-2$     
                     if (workspace instanceof Workspace) {
                         ((Workspace) workspace).getFileSystemManager().getHistoryStore().clean(currentMonitor);
                     }
