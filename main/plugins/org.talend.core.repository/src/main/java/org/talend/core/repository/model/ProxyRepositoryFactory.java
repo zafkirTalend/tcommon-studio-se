@@ -1898,18 +1898,8 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 if (coreService != null) {
                     // clean workspace
                     currentMonitor.beginTask(Messages.getString("ProxyRepositoryFactory.cleanWorkspace"), 1); //$NON-NLS-1$
-                    if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
-                        IRunProcessService runProcessService = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
-                                IRunProcessService.class);
-                        try {
-                            runProcessService.deleteAllJobs(false);
-                            runProcessService.getTalendProcessJavaProject().cleanMavenFiles(monitor);
-                            TimeMeasure.step("logOnProject", "clean Maven files"); //$NON-NLS-1$ //$NON-NLS-2$
-                        } catch (Exception e) {
-                            ExceptionHandler.process(e);
-                        }
-                    }
-
+                    coreService.deleteAllJobs(false);
+ 
                     TimeMeasure.step("logOnProject", "clean Java project"); //$NON-NLS-1$ //$NON-NLS-2$
                     if (workspace instanceof Workspace) {
                         ((Workspace) workspace).getFileSystemManager().getHistoryStore().clean(currentMonitor);
@@ -1976,7 +1966,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
                 }
 
                 fullLogonFinished = true;
-                this.repositoryFactoryFromProvider.afterLogon();
+                this.repositoryFactoryFromProvider.afterLogon(monitor);
             } finally {
                 TimeMeasure.end("logOnProject"); //$NON-NLS-1$
                 TimeMeasure.display = false;
