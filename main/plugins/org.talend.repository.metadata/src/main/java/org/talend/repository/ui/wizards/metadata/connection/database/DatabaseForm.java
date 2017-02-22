@@ -7746,6 +7746,7 @@ public class DatabaseForm extends AbstractForm {
 
         IHDistribution hiveDistribution = getCurrentHiveDistribution(true);
         IHDistributionVersion hiveVersion = hiveDistribution.getHDVersion(hiveVersionCombo.getText(), true);
+        updateHiveModeAndMakeSelection(null);
         updateHiveServerAndMakeSelection(hiveDistribution, hiveVersion);
     }
 

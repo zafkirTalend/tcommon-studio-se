@@ -25,7 +25,12 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -40,6 +45,7 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
@@ -57,6 +63,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.Saveable;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.internal.progress.ProgressManager;
 import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.navigator.CommonViewerSorter;
@@ -68,7 +75,6 @@ import org.talend.commons.runtime.model.repository.ERepositoryStatus;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ECoreImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
-import org.talend.commons.ui.swt.dialogs.EventLoopProgressMonitor;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.tooltip.AbstractTreeTooltip;
 import org.talend.commons.utils.Timer;
@@ -327,8 +333,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
     @Override
     public void createPartControl(Composite parent) {
         service = GitContentServiceProviderManager.getGitContentService();
-        if (service != null && service.isGIT())
+        if (service != null && service.isGIT()) {
             service.createDropdownCombo(parent);
+        }
 
         super.createPartControl(parent);
 
@@ -341,8 +348,9 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
                 public void paintControl(PaintEvent e) {
                     Point viewerPoint = viewer.getTree().getSize();
                     Point point = parent.getSize();
-                    if (viewerPoint.x == point.x - 7 && viewerPoint.y == point.y - 40)
+                    if (viewerPoint.x == point.x - 7 && viewerPoint.y == point.y - 40) {
                         return;
+                    }
                     viewer.getTree().setSize(point.x - 7, point.y - 40);
                     viewer.getTree().showSelection();
                 }
@@ -731,57 +739,95 @@ public class RepoViewCommonNavigator extends CommonNavigator implements IReposit
             return;
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(shell, 1000) {
+        final Job job = new Job(Messages.getString("RepoViewCommonNavigator.refresh")) { //$NON-NLS-1$
 
-            private IProgressMonitor monitorWrap;
+            @Override
+            public IStatus run(IProgressMonitor monitor) {
+                try {
+                    Timer timer = Timer.getTimer("repositoryView"); //$NON-NLS-1$
+                    timer.start();
+                    if (needInitialize) {
+                        try {
+                            final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+                            factory.initialize();
+                        } catch (Exception e) {
+                            throw new InvocationTargetException(e);
+                        }
+                    }
+                    try {
+                        ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
+                    } catch (CoreException e) {
+                        throw new InvocationTargetException(e);
+                    }
+                    // TODO Why do we need to recreate a root here ????
+                    // root = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
+
+                    Display.getDefault().asyncExec(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // unsetting the selection will prevent the propertyView from displaying dirty data
+                            viewer.setSelection(new TreeSelection());
+                            viewer.refresh();
+                            expandTreeRootIfOnlyOneRoot();
+                        }
+                    });
+
+                    if (PluginChecker.isJobLetPluginLoaded()) {
+                        IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister.getDefault()
+                                .getService(IJobletProviderService.class);
+                        if (jobletService != null) {
+                            jobletService.loadComponentsFromProviders();
+                        }
+                    }
+
+                    timer.stop();
+                    // timer.print();
+                } catch (InvocationTargetException e) {
+                    ExceptionHandler.process(e);
+                } catch (Exception e) {
+                    MessageBoxExceptionHandler.process(e);
+                }
+                return Status.OK_STATUS;
+            }
+        };
+        job.setUser(false);
+        job.setRule(null);
+        job.setPriority(Job.INTERACTIVE);
+        job.schedule();
+
+        ProgressDialog dialog = new ProgressDialog(shell, 3000) {
 
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                Timer timer = Timer.getTimer("repositoryView"); //$NON-NLS-1$
-                timer.start();
-                if (needInitialize) {
-                    monitorWrap = new EventLoopProgressMonitor(monitor);
-                    try {
-                        final ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
-                        factory.initialize();
-                    } catch (Exception e) {
-                        throw new InvocationTargetException(e);
+                while (true) {
+                    if (job.getResult() != null) {
+                        return;
                     }
+                    Thread.sleep(200);
                 }
-                try {
-                    ResourcesPlugin.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-                } catch (CoreException e) {
-                    throw new InvocationTargetException(e);
-                }
-                // TODO Why do we need to recreate a root here ????
-                // root = new ProjectRepositoryNode(null, null, ENodeType.STABLE_SYSTEM_FOLDER);
-                
-                // unsetting the selection will prevent the propertyView from displaying dirty data
-                viewer.setSelection(new TreeSelection());
-                viewer.refresh();
-                expandTreeRootIfOnlyOneRoot();
+            }
 
-                if (PluginChecker.isJobLetPluginLoaded()) {
-                    IJobletProviderService jobletService = (IJobletProviderService) GlobalServiceRegister.getDefault()
-                            .getService(IJobletProviderService.class);
-                    if (jobletService != null) {
-                        jobletService.loadComponentsFromProviders();
-                    }
-                }
+            @Override
+            protected ProgressMonitorDialog newProgressMonitorDialog(Shell shell) {
+                return null;
+            }
 
-                timer.stop();
-                // timer.print();
+            @Override
+            protected void openDialog(ProgressMonitorDialog dialog) {
+                ProgressManager.getInstance().showInDialog(shell, job);
+            }
+
+            @Override
+            protected void dialogRun(ProgressMonitorDialog dialog, IRunnableWithProgress op)
+                    throws InvocationTargetException, InterruptedException {
+                // nothing to do
             }
         };
-
         try {
-            progressDialog.executeProcess();
-        } catch (InvocationTargetException e) {
-            ExceptionHandler.process(e);
-            return;
+            dialog.executeProcess();
         } catch (Exception e) {
-            MessageBoxExceptionHandler.process(e);
-            return;
+            ExceptionHandler.process(e);
         }
     }
 
