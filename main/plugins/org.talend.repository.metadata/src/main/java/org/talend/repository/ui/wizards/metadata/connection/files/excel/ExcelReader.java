@@ -50,7 +50,7 @@ public class ExcelReader {
     private String[] sheetNamesForXlsx = null;
 
     private boolean isXlsx = false;
-    
+
     private int maximumRowsToPreview = RepositoryManagerHelper.getMaximumRowsToPreview();
 
     private String generationMode = null;
@@ -92,8 +92,14 @@ public class ExcelReader {
         this.generationMode = generationMode;
         init();
     }
-    
+
     private void init() throws BiffException, IOException {
+        // hywang modified for excel 2007
+        //        if (excelPath.endsWith(".xls")) { //$NON-NLS-1$
+        // isXlsx = false;
+        //        } else if (excelPath.endsWith(".xlsx")) { //$NON-NLS-1$
+        // isXlsx = true;
+        // }
 
         if (!isXlsx) {
             WorkbookSettings worksetting = new WorkbookSettings();
@@ -136,13 +142,8 @@ public class ExcelReader {
                     }
                 } else {
                     xwb = new XSSFWorkbook(clone);
-                    for(int i=0;i<xwb.getNumberOfSheets();i++) {
-                        XSSFSheet sheet = xwb.getSheetAt(i);
-                        if(sheet == null) {
-                            continue; 
-                        }
-                        String name = xwb.getSheetName(i);
-                        sheetlist.add(name);
+                    for (XSSFSheet sheet : xwb) {
+                        sheetlist.add(sheet.getSheetName());
                     }
                 }
                 sheetNamesForXlsx = new String[sheetlist.size()];
