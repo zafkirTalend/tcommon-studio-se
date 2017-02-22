@@ -273,7 +273,11 @@ public class ATreeNode {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj){
+        return equals(obj, 0);
+    }
+    
+    public boolean equals(Object obj, int depth) {
         if (this == obj) {
             return true;
         }
@@ -312,8 +316,13 @@ public class ATreeNode {
             if (other.parent != null) {
                 return false;
             }
-        } else if (!this.parent.equals(other.parent)) {
-            return false;
+        } else {
+            if (depth > 50) {
+                return true;
+            }
+            if (!this.parent.equals(other.parent, depth + 1)) {
+                return false;
+            }
         }
         return true;
     }
