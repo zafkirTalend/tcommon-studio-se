@@ -271,7 +271,7 @@ public abstract class AbstractEMFRepositoryFactory extends AbstractRepositoryFac
         }
 
         for (IRepositoryViewObject current : list) {
-            if (name.equalsIgnoreCase(current.getProperty().getLabel())
+            if ((name.equalsIgnoreCase(current.getProperty().getLabel()) || name.equalsIgnoreCase(current.getProperty().getDisplayName()))
                     && item.getProperty().getId() != current.getProperty().getId()) {
                 // To check SQLPattern in same path. see bug 0005038: unable to add a SQLPattern into repository.
                 if (!isAllowMultipleName || current.getProperty().getItem().getState().getPath().equals(path)) {
