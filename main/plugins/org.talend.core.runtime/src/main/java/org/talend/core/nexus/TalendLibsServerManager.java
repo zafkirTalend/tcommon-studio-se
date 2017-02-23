@@ -58,33 +58,33 @@ public class TalendLibsServerManager {
 
     private static String DEFAULT_LIB_SNAPSHOT_REPO = "talend-custom-libs-snapshot";
 
-    public static final String KEY_NEXUS_RUL = "nexusUrl";//$NON-NLS-1$ 
+    public static final String KEY_NEXUS_RUL = "nexusUrl";//$NON-NLS-1$
 
-    public static final String KEY_NEXUS_USER = "username";//$NON-NLS-1$ 
+    public static final String KEY_NEXUS_USER = "username";//$NON-NLS-1$
 
-    public static final String KEY_NEXUS_PASS = "password";//$NON-NLS-1$ 
+    public static final String KEY_NEXUS_PASS = "password";//$NON-NLS-1$
 
-    public static final String KEY_CUSTOM_LIB_REPOSITORY = "repositoryReleases";//$NON-NLS-1$ 
+    public static final String KEY_CUSTOM_LIB_REPOSITORY = "repositoryReleases";//$NON-NLS-1$
 
-    public static final String KEY_CUSTOM_LIB_SNAPSHOT_REPOSITORY = "repositorySnapshots";//$NON-NLS-1$ 
+    public static final String KEY_CUSTOM_LIB_SNAPSHOT_REPOSITORY = "repositorySnapshots";//$NON-NLS-1$
 
-    public static final String KEY_SOFTWARE_UPDATE_REPOSITORY = "repositoryID";//$NON-NLS-1$ 
+    public static final String KEY_SOFTWARE_UPDATE_REPOSITORY = "repositoryID";//$NON-NLS-1$
 
-    public static final String TALEND_LIB_SERVER = "https://talend-update.talend.com/nexus/";//$NON-NLS-1$ 
+    public static final String TALEND_LIB_SERVER = "https://talend-update.talend.com/nexus/";//$NON-NLS-1$
 
-    public static final String TALEND_LIB_USER = "";//$NON-NLS-1$ 
+    public static final String TALEND_LIB_USER = "";//$NON-NLS-1$
 
-    public static final String TALEND_LIB_PASSWORD = "";//$NON-NLS-1$ 
+    public static final String TALEND_LIB_PASSWORD = "";//$NON-NLS-1$
 
-    public static final String TALEND_LIB_REPOSITORY = "libraries";//$NON-NLS-1$ 
+    public static final String TALEND_LIB_REPOSITORY = "libraries";//$NON-NLS-1$
 
-    //    public static final String TALEND_LIB_SERVER = "http://localhost:8081/nexus/";//$NON-NLS-1$ 
+    // public static final String TALEND_LIB_SERVER = "http://localhost:8081/nexus/";//$NON-NLS-1$
     //
-    //    public static final String TALEND_LIB_USER = "";//$NON-NLS-1$ 
+    // public static final String TALEND_LIB_USER = "";//$NON-NLS-1$
     //
-    //    public static final String TALEND_LIB_PASSWORD = "";//$NON-NLS-1$ 
+    // public static final String TALEND_LIB_PASSWORD = "";//$NON-NLS-1$
     //
-    //    public static final String TALEND_LIB_REPOSITORY = "org.talend.libraries";//$NON-NLS-1$ 
+    // public static final String TALEND_LIB_REPOSITORY = "org.talend.libraries";//$NON-NLS-1$
 
     private static TalendLibsServerManager manager = null;
 
@@ -160,8 +160,8 @@ public class TalendLibsServerManager {
                         custom_server = split[0] + "://" + custom_user + ":" + custom_pass + "@"//$NON-NLS-1$
                                 + split[1] + NexusConstants.CONTENT_REPOSITORIES;
                     }
-                    String releaseUrl = custom_server + release_rep + "@id=" + release_rep;//$NON-NLS-1$ 
-                    String snapshotUrl = custom_server + snapshot_rep + "@id=" + snapshot_rep + NexusConstants.SNAPSHOTS;//$NON-NLS-1$ 
+                    String releaseUrl = custom_server + release_rep + "@id=" + release_rep;//$NON-NLS-1$
+                    String snapshotUrl = custom_server + snapshot_rep + "@id=" + snapshot_rep + NexusConstants.SNAPSHOTS;//$NON-NLS-1$
                     // custom nexus server should use snapshot repository
                     repositories = releaseUrl + "," + snapshotUrl;
                 }
@@ -173,7 +173,11 @@ public class TalendLibsServerManager {
                 }
                 String officalUrl = official_server + NexusConstants.CONTENT_REPOSITORIES + officailServer.getRepositoryId()
                         + "@id=" + officailServer.getRepositoryId();//$NON-NLS-1$
-                repositories = repositories + "," + officalUrl;
+                if (repositories.isEmpty()) {
+                    repositories = officalUrl;
+                } else {
+                    repositories = repositories + "," + officalUrl;
+                }
                 props.put(ServiceConstants.PID + '.' + ServiceConstants.PROPERTY_REPOSITORIES, repositories);
             }
             ManagedService managedService = context.getService(managedServiceRef);
@@ -236,8 +240,8 @@ public class TalendLibsServerManager {
 
                 if (adminUrl != null && !"".equals(adminUrl)
                         && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
-                    IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
-                            IRemoteService.class);
+                    IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault()
+                            .getService(IRemoteService.class);
                     JSONObject libServerObject;
                     libServerObject = remoteService.getLibNexusServer(userName, password, adminUrl);
                     if (libServerObject != null) {
@@ -268,8 +272,8 @@ public class TalendLibsServerManager {
             serverBean = null;
             ExceptionHandler.process(e);
         }
-        if (previousCustomBean == null && serverBean != null || previousCustomBean != null
-                && !previousCustomBean.equals(serverBean)) {
+        if (previousCustomBean == null && serverBean != null
+                || previousCustomBean != null && !previousCustomBean.equals(serverBean)) {
             mavenResolver = null;
         }
         previousCustomBean = serverBean;
@@ -311,16 +315,16 @@ public class TalendLibsServerManager {
         try {
             if (adminUrl != null && !"".equals(adminUrl)
                     && GlobalServiceRegister.getDefault().isServiceRegistered(IRemoteService.class)) {
-                IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault().getService(
-                        IRemoteService.class);
+                IRemoteService remoteService = (IRemoteService) GlobalServiceRegister.getDefault()
+                        .getService(IRemoteService.class);
                 JSONObject updateRepositoryUrl;
                 updateRepositoryUrl = remoteService.getUpdateRepositoryUrl(userName, password, adminUrl);
                 String nexus_url = updateRepositoryUrl.getString(KEY_NEXUS_RUL);
                 String nexus_user = updateRepositoryUrl.getString(KEY_NEXUS_USER);
                 String nexus_pass = updateRepositoryUrl.getString(KEY_NEXUS_PASS);
                 String nexus_repository = updateRepositoryUrl.getString(KEY_SOFTWARE_UPDATE_REPOSITORY);
-                boolean connectionOK = NexusServerUtils
-                        .checkConnectionStatus(nexus_url, nexus_repository, nexus_user, nexus_pass);
+                boolean connectionOK = NexusServerUtils.checkConnectionStatus(nexus_url, nexus_repository, nexus_user,
+                        nexus_pass);
                 if (!connectionOK) {
                     return null;
                 }
