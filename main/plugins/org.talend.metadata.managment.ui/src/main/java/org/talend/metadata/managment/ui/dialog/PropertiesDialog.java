@@ -54,17 +54,19 @@ public class PropertiesDialog extends TitleAreaDialog {
 
     private List<Map<String, Object>> initPropertiesOfParent;
 
-    private List<Map<String, Object>> initProperties;
+    protected List<Map<String, Object>> initProperties;
 
     private List<Map<String, Object>> properties;
 
-    private PropertiesTableView propertiesTableView;
+    protected PropertiesTableView propertiesTableView;
 
     private ExpandBar propertiesBar;
 
     private Label statusLabel;
 
     private Font italicFont;
+
+    public Button propertyButton;
 
     public PropertiesDialog(Shell parentShell, List<Map<String, Object>> initProperties) {
         this(parentShell, null, initProperties);
@@ -88,8 +90,8 @@ public class PropertiesDialog extends TitleAreaDialog {
         propComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label propLabel = new Label(propComposite, SWT.NONE);
-        propLabel.setText(getTitle());
-        Button propertyButton = new Button(propComposite, SWT.NONE);
+        propLabel.setText(getLabelTitle());
+        propertyButton = new Button(propComposite, SWT.NONE);
         final PropertiesDialog propertiesDialog = this;
         propertyButton.setImage(ImageProvider.getImage(EImage.THREE_DOTS_ICON));
         propertyButton.setLayoutData(new GridData(30, 25));
@@ -117,6 +119,10 @@ public class PropertiesDialog extends TitleAreaDialog {
         List<Map<String, Object>> currentProperties = getCurrentProperties();
         updateProperties(properties, currentProperties);
         super.okPressed();
+    }
+
+    protected String getLabelTitle() {
+        return getTitle();
     }
 
     protected String getTitle() {

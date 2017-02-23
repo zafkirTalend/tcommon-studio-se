@@ -138,7 +138,7 @@ public class HadoopRepositoryUtil {
             boolean includeQuotes) {
         return getHadoopPropertiesFullList(connection, propertiesJsonStr, includeQuotes, false);
     }
-    
+
     public static List<Map<String, Object>> getHadoopPropertiesFullList(Connection connection, String propertiesJsonStr,
             boolean includeQuotes, boolean useOriginalValue) {
         IHadoopClusterService hadoopClusterService = null;
@@ -200,8 +200,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.useClouderaNavi(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.useClouderaNavi(hadoopSubConnection);
         }
         return false;
     }
@@ -212,8 +212,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.getClouderaNaviUserName(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.getClouderaNaviUserName(hadoopSubConnection);
         }
         return null;
     }
@@ -224,8 +224,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.getClouderaNaviPassword(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.getClouderaNaviPassword(hadoopSubConnection);
         }
         return null;
     }
@@ -236,8 +236,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.getClouderaNaviUrl(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.getClouderaNaviUrl(hadoopSubConnection);
         }
         return null;
     }
@@ -248,8 +248,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.getClouderaNaviMetadataUrl(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.getClouderaNaviMetadataUrl(hadoopSubConnection);
         }
         return null;
     }
@@ -260,8 +260,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.getClouderaNaviClientUrl(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.getClouderaNaviClientUrl(hadoopSubConnection);
         }
         return null;
     }
@@ -272,8 +272,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.clouderaNaviAutoCommit(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.clouderaNaviAutoCommit(hadoopSubConnection);
         }
         return false;
     }
@@ -284,8 +284,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.clouderaNaviDisableSSL(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.clouderaNaviDisableSSL(hadoopSubConnection);
         }
         return false;
     }
@@ -296,8 +296,8 @@ public class HadoopRepositoryUtil {
             hadoopClusterService = (IHadoopClusterService) GlobalServiceRegister.getDefault().getService(
                     IHadoopClusterService.class);
         }
-        if(hadoopClusterService!=null){
-           return hadoopClusterService.clouderaNaviDieOnError(hadoopSubConnection);
+        if (hadoopClusterService != null) {
+            return hadoopClusterService.clouderaNaviDieOnError(hadoopSubConnection);
         }
         return false;
     }
@@ -333,8 +333,7 @@ public class HadoopRepositoryUtil {
     public static List<Map<String, Object>> getHadoopPropertiesWithOriginalValue(String propertiesStrings,
             ContextType contextType, boolean includeQuotes) {
         boolean isContextMode = contextType == null ? false : true;
-        List<Map<String, Object>> propertiesList = getHadoopPropertiesList(propertiesStrings, isContextMode,
-                includeQuotes);
+        List<Map<String, Object>> propertiesList = getHadoopPropertiesList(propertiesStrings, isContextMode, includeQuotes);
         if (!isContextMode) {
             return propertiesList;
         }
