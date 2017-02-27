@@ -100,7 +100,8 @@ public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplat
         // no need check property is null or not, because if null, will get default ids.
         variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(property));
         variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(property));
-        variablesValuesMap.put(ETalendMavenVariables.JobVersion, PomIdsHelper.getJobVersion(property));
+        variablesValuesMap.put(ETalendMavenVariables.JobVersion,
+                getDeployVersion() != null ? getDeployVersion() : PomIdsHelper.getJobVersion(property));
         final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
         variablesValuesMap.put(ETalendMavenVariables.JobName, jobName);
 

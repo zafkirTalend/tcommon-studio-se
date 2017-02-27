@@ -57,14 +57,6 @@ public class CreateMavenTestPom extends AbstractMavenProcessorPom {
         return super.getTemplateStream();
     }
 
-    @Override
-    protected void configModel(Model model) {
-        if (getDeployVersion() != null) {
-            model.setVersion(getDeployVersion());
-        }
-        super.configModel(model);
-    }
-
     /**
      * 
      * Add the properties for job.
