@@ -60,6 +60,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.core.runtime.process.LastGenerationInfo;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
@@ -221,9 +222,12 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
         checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName,
                 jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
-        String jobVersion = property.getVersion();
-        if (getArgumentsMap().get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION) == null) {
-            // if deploy version does not set
+        String jobVersion;
+        if (getArgumentsMap().get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION) != null || (property.getAdditionalProperties() != null
+                && property.getAdditionalProperties().get(MavenConstants.NAME_USER_VERSION) != null)) {
+            jobVersion = property.getVersion();
+        } else {
+            // if deploy version and user version not set
             jobVersion = "${project.version}";
         }
         checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, jobVersion);
