@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.ICoreService;
@@ -251,6 +252,31 @@ public class OracleExtractManager extends ExtractManager {
             return stmt.executeQuery(sql);
         } else {
             return super.getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
+        }
+    }
+
+    @Override
+    public void synchroViewStructure(String catalogName, String schemaName, String tableName) throws SQLException {
+        ExtractMetaDataUtils extractMeta = ExtractMetaDataUtils.getInstance();
+        ResultSet results = null;
+        Statement stmt = null;
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT * FROM ");
+        if (!StringUtils.isEmpty(schemaName)) {
+            sql.append(schemaName).append(".");
+        }
+        sql.append(tableName);
+        try {
+            stmt = extractMeta.getConn().createStatement();
+            extractMeta.setQueryStatementTimeout(stmt);
+            results = stmt.executeQuery(sql.toString());
+        } finally {
+            if (results != null) {
+                results.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 

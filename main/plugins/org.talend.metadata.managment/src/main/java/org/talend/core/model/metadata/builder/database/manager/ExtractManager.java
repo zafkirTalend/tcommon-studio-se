@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import metadata.managment.i18n.Messages;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -70,8 +72,6 @@ import org.talend.repository.model.IRepositoryService;
 import org.talend.utils.sql.ConnectionUtils;
 import org.talend.utils.sql.metadata.constants.GetColumn;
 import org.talend.utils.sql.metadata.constants.GetTable;
-
-import metadata.managment.i18n.Messages;
 import orgomg.cwm.objectmodel.core.ModelElement;
 import orgomg.cwm.resource.relational.Catalog;
 import orgomg.cwm.resource.relational.NamedColumnSet;
@@ -638,6 +638,9 @@ public class ExtractManager {
             } else {
                 primaryKeys = retrievePrimaryKeys(dbMetaData, catalogName, schemaName, tableName);
             }
+            // Synchro view structure after alter commands.
+            synchroViewStructure(catalogName, schemaName, tableName);
+
             columns = getColumnsResultSet(dbMetaData, catalogName, schemaName, tableName);
             if (MetadataConnectionUtils.isMysql(dbMetaData)) {
                 boolean check = !Pattern.matches("^\\w+$", tableName);//$NON-NLS-1$
@@ -827,6 +830,10 @@ public class ExtractManager {
         }
 
         return metadataColumns;
+    }
+
+    public void synchroViewStructure(String catalogName, String schemaName, String tableName) throws SQLException {
+        // nothing to do by default
     }
 
     protected void setLengthAndPrecision(TdColumn column, ResultSet columns, String typeName) {
