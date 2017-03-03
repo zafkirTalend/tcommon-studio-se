@@ -2932,7 +2932,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 exist = true;
             }
         }
-
         return exist;
     }
 
@@ -3203,12 +3202,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     @Override
     public List<org.talend.core.model.properties.Project> getReferencedProjects(Project project) {
-        String parentBranch = getRepositoryContext().getFields().get(
-                IProxyRepositoryFactory.BRANCH_SELECTION + "_" + getRepositoryContext().getProject().getTechnicalLabel());
-
+        String parentBranch = getRepositoryContext().getFields()
+                .get(IProxyRepositoryFactory.BRANCH_SELECTION + "_" + getRepositoryContext().getProject().getTechnicalLabel());
         List<org.talend.core.model.properties.Project> refProjectList = new ArrayList<org.talend.core.model.properties.Project>();
         for (ProjectReference refProject : (List<ProjectReference>) project.getEmfProject().getReferencedProjects()) {
-            if (refProject.getBranch() == null || refProject.getBranch().equals(parentBranch)) {
+            String refBranch4Local = ProjectManager.getInstance().getLocalRefBranch(project.getEmfProject(), parentBranch);
+            if (ProjectManager.validReferenceProject(parentBranch, refBranch4Local, refProject)) {
                 refProjectList.add(refProject.getReferencedProject());
             }
         }
