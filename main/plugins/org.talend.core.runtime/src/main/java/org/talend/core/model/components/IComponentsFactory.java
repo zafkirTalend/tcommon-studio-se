@@ -78,6 +78,8 @@ public interface IComponentsFactory {
     public IComponent get(String name);
 
     public IComponent get(String name, String paletteType);
+    
+    public IComponent getJobletComponent(String name, String paletteType);
 
     public List<String> getSkeletons();
 
