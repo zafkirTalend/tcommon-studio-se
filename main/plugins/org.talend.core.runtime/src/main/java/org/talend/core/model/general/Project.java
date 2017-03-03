@@ -330,5 +330,4 @@ public class Project {
     public void setExchangeUser(ExchangeUser exchangeUser) {
         // project.setExchangeUser(exchangeUser);
     }
-
 }

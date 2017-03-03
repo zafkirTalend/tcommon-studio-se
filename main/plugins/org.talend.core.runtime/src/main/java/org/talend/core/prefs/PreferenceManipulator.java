@@ -24,6 +24,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.Hex;
 import org.talend.core.model.general.ConnectionBean;
+import org.talend.core.model.repository.IRepositoryPrefConstants;
 import org.talend.utils.json.JSONArray;
 import org.talend.utils.json.JSONException;
 import org.talend.utils.json.JSONObject;
@@ -335,5 +336,25 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         store.setValue(hexKey, json.toString());
         save();
     }
+    
+    public void setAllLocalRefBranchSetting(JSONObject allBranchSetting) {
+        if (allBranchSetting == null) {
+            allBranchSetting = new JSONObject();
+        }
+        this.store.setValue(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING, allBranchSetting.toString());
 
+        save();
+    }
+
+    public JSONObject getAllLocalRefBranchSetting() {
+
+        String strValue = this.store.getString(IRepositoryPrefConstants.REF_PROJECT_BRANCH_SETTING);
+        JSONObject allBranchSetting = null;
+        try {
+            allBranchSetting = new JSONObject(strValue);
+        } catch (Exception e) {
+            allBranchSetting = new JSONObject();
+        }
+        return allBranchSetting;
+    }
 }
