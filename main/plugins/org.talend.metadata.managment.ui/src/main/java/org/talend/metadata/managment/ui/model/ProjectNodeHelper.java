@@ -528,12 +528,9 @@ public class ProjectNodeHelper {
             sqlConn = MetadataConnectionUtils.createConnection(iMetadataConnection).getObject();
             // because there is no any structure after import into 423 from 402,just sychronized the two connection's
             // UISchema for fill catalogs and scheams
-            if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
+            if (!temConnection.isContextMode()
+                    && ((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema() != null) {
                 temConnection.setUiSchema(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getUiSchema());
-            }
-
-            if (((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID() != null) {
-                temConnection.setSID(((DatabaseConnection) iMetadataConnection.getCurrentConnection()).getSID());
             }
 
             String dbType = iMetadataConnection.getDbType();
