@@ -14,11 +14,11 @@ package org.talend.core.runtime.repository.build;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.SafeRunner;
@@ -65,19 +65,46 @@ public class BuildExportRegistryReader extends RegistryReader {
         final Collection<BuildProviderRegistry> registries = buildProvidersMap.values();
 
         // collect override
-        List<String> overrideIds = registries.stream().filter(r -> r.overrideId != null).map(r -> r.overrideId)
-                .collect(Collectors.toList());
+        // List<String> overrideIds=registries.stream().filter(r -> r.overrideId != null).map(r ->
+        // r.overrideId).collect(Collectors.toList());
+        List<String> overrideIds = new ArrayList<String>();
+        for (BuildProviderRegistry r : registries) {
+            if (r.overrideId != null) {
+                overrideIds.add(r.overrideId);
+            }
+        }
 
         // filter override and sort via order.
-        buildProviders = registries.stream().filter(r -> !overrideIds.contains(r.id)) // filter override
-                .sorted(new Comparator<BuildProviderRegistry>() { // sort
+        // buildProviders = registries.stream().filter(r -> !overrideIds.contains(r.id)) // filter override
+        // .sorted(new Comparator<BuildProviderRegistry>() { // sort
+        //
+        // @Override
+        // public int compare(BuildProviderRegistry r1, BuildProviderRegistry r2) {
+        // return r1.getOrder() - r2.getOrder();
+        // }
+        //
+        // }).map(r -> r.provider).collect(Collectors.toList()).toArray(new AbstractBuildProvider[0]);
+
+        List<BuildProviderRegistry> validRegistries = new ArrayList<BuildProviderRegistry>();
+        for (BuildProviderRegistry r : registries) {
+            if (!overrideIds.contains(r.id)) { // filter override
+                validRegistries.add(r);
+            }
+        }
+        Collections.sort(validRegistries, new Comparator<BuildProviderRegistry>() { // sort
 
                     @Override
                     public int compare(BuildProviderRegistry r1, BuildProviderRegistry r2) {
                         return r1.getOrder() - r2.getOrder();
                     }
 
-                }).map(r -> r.provider).collect(Collectors.toList()).toArray(new AbstractBuildProvider[0]);
+                });
+
+        List<AbstractBuildProvider> providers = new ArrayList<AbstractBuildProvider>();
+        for (BuildProviderRegistry r : validRegistries) {
+            providers.add(r.provider);
+        }
+        buildProviders = providers.toArray(new AbstractBuildProvider[0]);
     }
 
     IBuildExportDependenciesProvider[] getDependenciesProviders() {
