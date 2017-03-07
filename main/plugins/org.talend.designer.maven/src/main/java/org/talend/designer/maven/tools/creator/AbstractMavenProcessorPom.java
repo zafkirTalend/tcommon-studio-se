@@ -20,8 +20,12 @@ import java.util.Set;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Item;
@@ -29,8 +33,9 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.utils.JavaResourcesHelper;
-import org.talend.core.runtime.process.LastGenerationInfo;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.core.runtime.repository.build.IMavenPomCreator;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.tools.ProcessorDependenciesManager;
 import org.talend.designer.maven.utils.PomIdsHelper;
@@ -42,11 +47,15 @@ import org.talend.repository.ProjectManager;
 /**
  * DOC ggu class global comment. Detailled comment
  */
-public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplatePom {
+public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplatePom implements IMavenPomCreator {
 
     private final IProcessor jobProcessor;
 
     private final ProcessorDependenciesManager processorDependenciesManager;
+
+    private IFolder objectTypeFolder;
+
+    private IPath itemRelativePath;
 
     public AbstractMavenProcessorPom(IProcessor jobProcessor, IFile pomFile, String bundleTemplateName) {
         super(pomFile, IProjectSettingTemplateConstants.PATH_STANDALONE + '/' + bundleTemplateName);
@@ -68,6 +77,22 @@ public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplat
         return processorDependenciesManager;
     }
 
+    public IFolder getObjectTypeFolder() {
+        return objectTypeFolder;
+    }
+
+    public void setObjectTypeFolder(IFolder objectTypeFolder) {
+        this.objectTypeFolder = objectTypeFolder;
+    }
+
+    public IPath getItemRelativePath() {
+        return itemRelativePath;
+    }
+
+    public void setItemRelativePath(IPath itemRelativePath) {
+        this.itemRelativePath = itemRelativePath;
+    }
+
     protected void setAttributes(Model model) {
         //
         final IProcessor jProcessor = getJobProcessor();
@@ -78,7 +103,20 @@ public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplat
         // no need check property is null or not, because if null, will get default ids.
         variablesValuesMap.put(ETalendMavenVariables.JobGroupId, PomIdsHelper.getJobGroupId(property));
         variablesValuesMap.put(ETalendMavenVariables.JobArtifactId, PomIdsHelper.getJobArtifactId(property));
-        variablesValuesMap.put(ETalendMavenVariables.JobVersion, PomIdsHelper.getJobVersion(property));
+        Property jobProperty = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService service = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(ITestContainerProviderService.class);
+            if (service.isTestContainerProcess(process)) {
+                try {
+                    // for test container need to inherit version from job.
+                    jobProperty = service.getParentJobItem(property.getItem()).getProperty();
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        variablesValuesMap.put(ETalendMavenVariables.JobVersion,
+                getDeployVersion() != null ? getDeployVersion() : PomIdsHelper.getJobVersion(jobProperty == null ? property : jobProperty));
         final String jobName = JavaResourcesHelper.escapeFileName(process.getName());
         variablesValuesMap.put(ETalendMavenVariables.JobName, jobName);
 
@@ -118,11 +156,11 @@ public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplat
     protected void addDependencies(Model model) {
         try {
             getProcessorDependenciesManager().updateDependencies(null, model);
-            
+
             // add children jobs in dependencies
             final List<Dependency> dependencies = model.getDependencies();
             String parentId = getJobProcessor().getProperty().getId();
-            final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();            
+            final Set<JobInfo> clonedChildrenJobInfors = getJobProcessor().getBuildChildrenJobs();
             for (JobInfo jobInfo : clonedChildrenJobInfors) {
                 if (jobInfo.getFatherJobInfo() != null && jobInfo.getFatherJobInfo().getJobId().equals(parentId)) {
                     if (!validChildrenJob(jobInfo)) {
@@ -133,8 +171,8 @@ public abstract class AbstractMavenProcessorPom extends CreateMavenBundleTemplat
                         version = getDeployVersion();
                     }
                     // same group as main job.
-                    Dependency d = PomUtil.createDependency(model.getGroupId(), PomIdsHelper.getJobArtifactId(jobInfo),
-                            version, null);
+                    Dependency d = PomUtil.createDependency(model.getGroupId(), PomIdsHelper.getJobArtifactId(jobInfo), version,
+                            null);
                     dependencies.add(d);
                 }
             }

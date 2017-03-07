@@ -19,12 +19,17 @@ import java.util.Properties;
 import org.apache.maven.model.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.utils.JavaResourcesHelper;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
+import org.talend.core.ui.ITestContainerProviderService;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.tools.MavenPomSynchronizer;
 import org.talend.designer.runprocess.IProcessor;
@@ -36,9 +41,16 @@ import org.talend.repository.ProjectManager;
  */
 public class CreateMavenTestPom extends AbstractMavenProcessorPom {
 
-    public CreateMavenTestPom(IProcessor jobProcessor, IFile pomFile) {
+    public CreateMavenTestPom(IProcessor jobProcessor, IFile pomFile, String bundleTemplateName) {
+        super(jobProcessor, pomFile, bundleTemplateName);
+    }
+
+    /**
+     * @deprecated will use the child class instead.
+     */
+    CreateMavenTestPom(IProcessor jobProcessor, IFile pomFile) {
         // TBD-3480: Use a separate POM for camel route test case
-        super(
+        this(
                 jobProcessor,
                 pomFile,
                 ComponentCategory.CATEGORY_4_CAMEL.getName().equals(jobProcessor.getProcess().getComponentsType()) ? IProjectSettingTemplateConstants.POM_TEST_ROUTE_TEMPLATE_FILE_NAME
@@ -48,14 +60,6 @@ public class CreateMavenTestPom extends AbstractMavenProcessorPom {
     @Override
     protected InputStream getTemplateStream() throws IOException {
         return super.getTemplateStream();
-    }
-
-    @Override
-    protected void configModel(Model model) {
-        if (getDeployVersion() != null) {
-            model.setVersion(getDeployVersion());
-        }
-        super.configModel(model);
     }
 
     /**
@@ -82,9 +86,22 @@ public class CreateMavenTestPom extends AbstractMavenProcessorPom {
         checkPomProperty(properties, "talend.project.name", ETalendMavenVariables.ProjectName, project.getTechnicalLabel());
         checkPomProperty(properties, "talend.job.path", ETalendMavenVariables.JobPath, jobClassPackageFolder);
         checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName, "${project.artifactId}");
-        String jobVersion = property.getVersion();
-        if (getArgumentsMap().get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION) == null) {
-            // if deploy version does not set
+        String jobVersion;
+        Property jobProperty = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITestContainerProviderService.class)) {
+            ITestContainerProviderService service = (ITestContainerProviderService) GlobalServiceRegister.getDefault().getService(ITestContainerProviderService.class);
+            try {
+                jobProperty = service.getParentJobItem(property.getItem()).getProperty();
+                
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        if (getArgumentsMap().get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION) != null || (jobProperty.getAdditionalProperties() != null
+                && jobProperty.getAdditionalProperties().get(MavenConstants.NAME_USER_VERSION) != null)) {
+            jobVersion = property.getVersion();
+        } else {
+            // if deploy version and user version not set
             jobVersion = "${project.version}";
         }
         checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, jobVersion);

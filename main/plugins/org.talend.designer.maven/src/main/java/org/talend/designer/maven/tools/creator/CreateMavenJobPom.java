@@ -15,7 +15,6 @@ package org.talend.designer.maven.tools.creator;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -43,10 +42,7 @@ import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
@@ -64,6 +60,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.SVNConstant;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.process.JobInfoProperties;
 import org.talend.core.runtime.process.LastGenerationInfo;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
@@ -96,10 +93,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     private String windowsScriptAddition, unixScriptAddition;
 
     private IFile assemblyFile;
-
-    private IFolder objectTypeFolder;
-
-    private IPath itemRelativePath;
 
     public CreateMavenJobPom(IProcessor jobProcessor, IFile pomFile) {
         super(jobProcessor, pomFile, IProjectSettingTemplateConstants.POM_JOB_TEMPLATE_FILE_NAME);
@@ -145,22 +138,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         this.assemblyFile = assemblyFile;
     }
 
-    public IFolder getObjectTypeFolder() {
-        return objectTypeFolder;
-    }
-
-    public void setObjectTypeFolder(IFolder objectTypeFolder) {
-        this.objectTypeFolder = objectTypeFolder;
-    }
-
-    public IPath getItemRelativePath() {
-        return itemRelativePath;
-    }
-
-    public void setItemRelativePath(IPath itemRelativePath) {
-        this.itemRelativePath = itemRelativePath;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -183,9 +160,6 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
     @Override
     protected void configModel(Model model) {
-        if (getDeployVersion() != null) {
-            model.setVersion(getDeployVersion());
-        }
         super.configModel(model);
         setProfiles(model);
     }
@@ -248,9 +222,12 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
 
         checkPomProperty(properties, "talend.job.name", ETalendMavenVariables.JobName,
                 jobInfoProp.getProperty(JobInfoProperties.JOB_NAME, property.getLabel()));
-        String jobVersion = property.getVersion();
-        if (getArgumentsMap().get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION) == null) {
-            // if deploy version does not set
+        String jobVersion;
+        if (getArgumentsMap().get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION) != null || (property.getAdditionalProperties() != null
+                && property.getAdditionalProperties().get(MavenConstants.NAME_USER_VERSION) != null)) {
+            jobVersion = property.getVersion();
+        } else {
+            // if deploy version and user version not set
             jobVersion = "${project.version}";
         }
         checkPomProperty(properties, "talend.job.version", ETalendMavenVariables.JobVersion, jobVersion);
