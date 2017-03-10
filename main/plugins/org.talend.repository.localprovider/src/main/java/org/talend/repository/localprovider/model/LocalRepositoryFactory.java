@@ -2515,7 +2515,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
-            resource.save(out, null);
+            HashMap<String, Object> options = new HashMap<String, Object>(2);
+            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+            options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+            resource.save(out, options);
             Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
