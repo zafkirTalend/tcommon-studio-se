@@ -26,7 +26,7 @@ import org.talend.core.classloader.DynamicClassLoader;
  */
 public class HadoopClassLoaderUtil {
 
-    private final static String[] webhdfsExtraJars = { "jersey-core-1.9.jar", "jersey-client-1.9.jar", "jetty-util-6.1.26.jar" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
+    public final static String[] webhdfsExtraJars = { "jersey-core-1.9.jar", "jersey-client-1.9.jar", "jetty-util-6.1.26.jar" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 
     private final static String[] webhdfsExtraJarNames = { "jersey-core", "jersey-client", "jetty-util" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
 
