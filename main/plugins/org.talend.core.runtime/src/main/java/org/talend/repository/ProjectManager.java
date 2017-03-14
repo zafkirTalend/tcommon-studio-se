@@ -902,7 +902,7 @@ public final class ProjectManager {
         return false;
     }
     
-    private static String getCleanBranchName(String branchName) {
+    public static String getCleanBranchName(String branchName) {
         if (branchName == null) {
             return null;
         }
