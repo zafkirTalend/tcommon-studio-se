@@ -871,8 +871,9 @@ public final class ProjectManager {
             return false;
         }
 
-        if (projectReference.getBranch() == null || (branchForMainProject != null
-                && getCleanBranchName(branchForMainProject).equals(getCleanBranchName(projectReference.getBranch())))) {
+        if (projectReference.getBranch() == null
+                || (branchForMainProject != null && branchForMainProject.equals(projectReference.getBranch())
+                        || branchForMainProject.equals(ORIGIN_PREFIX + projectReference.getBranch()))) {
             return true;
         }
         if (projectReference.getBranch() != null && projectReference.getReferencedBranch() != null) {
