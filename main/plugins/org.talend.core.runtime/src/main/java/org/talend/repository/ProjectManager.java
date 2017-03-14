@@ -871,9 +871,8 @@ public final class ProjectManager {
             return false;
         }
 
-        if (projectReference.getBranch() == null
-                || (branchForMainProject != null && branchForMainProject.equals(projectReference.getBranch())
-                        || branchForMainProject.equals(ORIGIN_PREFIX + projectReference.getBranch()))) {
+        if (projectReference.getBranch() == null || (branchForMainProject != null
+                && getCleanBranchName(branchForMainProject).equals(getCleanBranchName(projectReference.getBranch())))) {
             return true;
         }
         if (projectReference.getBranch() != null && projectReference.getReferencedBranch() != null) {
@@ -886,7 +885,7 @@ public final class ProjectManager {
         return false;
     }
     
-    private static String getCleanBranchName(String branchName) {
+    public static String getCleanBranchName(String branchName) {
         if (branchName == null) {
             return null;
         }
