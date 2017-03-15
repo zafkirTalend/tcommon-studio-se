@@ -90,6 +90,7 @@ import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.services.IGenericWizardService;
+import org.talend.core.utils.WorkspaceUtils;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -105,6 +106,7 @@ import org.talend.repository.items.importexport.handlers.model.ImportItem;
 import org.talend.repository.items.importexport.handlers.model.ImportItem.State;
 import org.talend.repository.items.importexport.i18n.Messages;
 import org.talend.repository.items.importexport.manager.ResourcesManager;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -329,6 +331,14 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         return StringUtils.equals(importItem1.getProperty().getId(), importItem2.getProperty().getId())
                 && StringUtils.equals(importItem1.getProperty().getVersion(), importItem2.getProperty().getVersion());
     }
+    
+    public String getPropertyLabel(String name) {
+        String label = name;
+        for (String toReplace : RepositoryConstants.ITEM_FORBIDDEN_IN_LABEL) {
+            label = label.replace(toReplace, "_"); //$NON-NLS-1$
+        }
+        return label;
+    }
 
     /**
      * 
@@ -472,7 +482,12 @@ public class ImportBasicHandler extends AbstractImportExecutableHandler {
         } else {
             currentLabel = repObject.getLabel();
         }
-        if ((property.getLabel() != null && property.getLabel().equalsIgnoreCase(currentLabel)) // same label
+        boolean isSameLabel = property.getLabel().equalsIgnoreCase(currentLabel);
+        boolean nameIsOK = WorkspaceUtils.checkNameIsOK(property.getLabel());
+        if(!nameIsOK && !isSameLabel){
+            isSameLabel = getPropertyLabel(property.getLabel()).equalsIgnoreCase(currentLabel);
+        }
+        if ((property.getLabel() != null && isSameLabel) // same label
         ) {
             ERepositoryObjectType importType = importItem.getRepositoryType();
             ERepositoryObjectType repType = repObject.getRepositoryObjectType();
