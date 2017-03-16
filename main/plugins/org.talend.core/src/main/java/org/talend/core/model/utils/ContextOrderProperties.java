@@ -32,7 +32,6 @@ import org.apache.commons.lang.StringUtils;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.context.ContextUtils;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.Item;
@@ -211,6 +210,13 @@ public class ContextOrderProperties extends Properties {
         this.commentMap.put(key, comment);
         keys.add(key);
         this.setProperty(key, value);
+    }
+
+    @Override
+    public synchronized Object setProperty(String key, String value) {
+        this.commentMap.put(key, "");
+        keys.add(key);
+        return super.setProperty(key, value);
     }
 
     @Override
