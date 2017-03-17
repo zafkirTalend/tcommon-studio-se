@@ -37,6 +37,10 @@ public class Constants {
 
     public static final String JDBC_POSTGRESQL_DRIVER = "org.postgresql.Driver";
 
+    public static final String JDBC_MARIADB_URL = "jdbc:mariadb://";
+
+    public static final String JDBC_MARIADB_DRIVER = "org.mariadb.jdbc.Driver";
+
     public static String getDriverFromUrl(String url) {
         if (url.startsWith(JDBC_MYSQL_URL)) {
             return JDBC_MYSQL_DRIVER;
@@ -53,7 +57,9 @@ public class Constants {
         if (url.startsWith(JDBC_POSTGRESQL_URL)) {
             return JDBC_POSTGRESQL_DRIVER;
         }
-
+        if (url.startsWith(JDBC_MARIADB_URL)) {
+            return JDBC_MARIADB_DRIVER;
+        }
         throw new IllegalStateException("unknown url type");
     }
 
