@@ -13,26 +13,29 @@
 package org.talend.designer.maven.tools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.embedder.MavenModelManager;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
+import org.talend.repository.ProjectManager;
 
 /**
  * DOC ggu class global comment. Detailled comment
@@ -49,6 +52,8 @@ public class ProjectPomManager {
     private boolean updateModules = true;
 
     private boolean updateDependencies = true;
+
+    private Map<String, Object> argumentsMap = new HashMap<String, Object>();
 
     public ProjectPomManager(IProject project) {
         super();
@@ -116,7 +121,13 @@ public class ProjectPomManager {
      * 
      */
     protected void updateAttributes(IProgressMonitor monitor, IProcessor processor, Model projectModel) throws Exception {
-        Model templateModel = MavenTemplateManager.getCodeProjectTemplateModel();
+        final Map<String, Object> templateParameters = PomUtil.getTemplateParameters(processor);
+        Model templateModel = MavenTemplateManager.getCodeProjectTemplateModel(templateParameters);
+
+        String deployVersion = (String) argumentsMap.get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION);
+        if (deployVersion != null) {
+            templateModel.setVersion(deployVersion);
+        }
 
         projectModel.setGroupId(templateModel.getGroupId());
         projectModel.setArtifactId(templateModel.getArtifactId());
@@ -179,7 +190,8 @@ public class ProjectPomManager {
                         continue; // not same
                     }
 
-                    PomUtil.checkParent(model, file);
+                    PomUtil.checkParent(model, file, processor,
+                            (String) argumentsMap.get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION));
                     PomUtil.savePom(monitor, model, file);
                 }
             }
@@ -214,12 +226,16 @@ public class ProjectPomManager {
             // fresh is false, make sure all jobs can be compile ok
             ProcessorDependenciesManager.updateDependencies(monitor, projectModel, withoutChildrenJobDependencies, false);
 
-        } else if (processor != null) {// try get the dependencies from processor directly.
+        } else if (processor != null) {// try get the dependencies from
+                                       // processor directly.
             ProcessorDependenciesManager processorDependenciesManager = new ProcessorDependenciesManager(processor);
             processorDependenciesManager.updateDependencies(monitor, projectModel);
         } else {
-            // if no processor and without base pom, just read codes dependencies.
-            List<Dependency> routinesDependencies = new ArrayList<Dependency>(PomUtil.getCodesDependencies(projectPomFile));
+            // if no processor and without base pom, just read codes
+            // dependencies.
+            final String technicalLabel = ProjectManager.getInstance().getCurrentProject().getTechnicalLabel();
+            List<Dependency> routinesDependencies = new ArrayList<Dependency>(PomUtil.getCodesDependencies(projectPomFile,
+                    technicalLabel));
             ProcessorDependenciesManager.updateDependencies(monitor, projectModel, routinesDependencies, true);
         }
     }
@@ -230,6 +246,10 @@ public class ProjectPomManager {
 
     protected IFile getBasePomFile() {
         return null;
+    }
+
+    public void setArgumentsMap(Map<String, Object> argumentsMap) {
+        this.argumentsMap = argumentsMap;
     }
 
 }

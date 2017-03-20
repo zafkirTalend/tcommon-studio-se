@@ -34,7 +34,8 @@ public class CreateMavenRoutinePom extends AbstractMavenCodesTemplatePom {
 
     @Override
     protected Model getTemplateModel() {
-        return MavenTemplateManager.getRoutinesTempalteModel();
+        Model model = MavenTemplateManager.getRoutinesTempalteModel(getProjectName());
+        return model;
     }
 
     @Override

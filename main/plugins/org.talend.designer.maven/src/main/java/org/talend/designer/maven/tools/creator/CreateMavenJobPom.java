@@ -15,13 +15,13 @@ package org.talend.designer.maven.tools.creator;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -42,7 +42,6 @@ import org.apache.maven.model.Profile;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -170,8 +169,10 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
             templateFile = null; // force to set null, in order to use the template from other places.
         }
         try {
+            final Map<String, Object> templateParameters = PomUtil.getTemplateParameters(getJobProcessor());
             return MavenTemplateManager.getTemplateStream(templateFile,
-                    IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, JOB_TEMPLATE_BUNDLE, getBundleTemplatePath());
+                    IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_POM, JOB_TEMPLATE_BUNDLE, getBundleTemplatePath(),
+                    templateParameters);
         } catch (Exception e) {
             throw new IOException(e);
         }
@@ -458,8 +459,9 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         generateAssemblyFile(monitor);
 
         // generate routines
-        MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor().getTalendJavaProject());
-        pomSync.syncCodesPoms(monitor, getJobProcessor().getProcess(), true);
+        MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor());
+        pomSync.setArgumentsMap(getArgumentsMap());
+        pomSync.syncCodesPoms(monitor, getJobProcessor(), true);
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 
@@ -517,10 +519,11 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
                     templateFile = null; // force to set null, in order to use the template from other places.
                 }
 
+                final Map<String, Object> templateParameters = PomUtil.getTemplateParameters(getJobProcessor());
                 String content = MavenTemplateManager.getTemplateContent(templateFile,
                         IProjectSettingPreferenceConstants.TEMPLATE_STANDALONE_JOB_ASSEMBLY, JOB_TEMPLATE_BUNDLE,
                         IProjectSettingTemplateConstants.PATH_STANDALONE + '/'
-                                + IProjectSettingTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME);
+                                + IProjectSettingTemplateConstants.ASSEMBLY_JOB_TEMPLATE_FILE_NAME, templateParameters);
                 if (content != null) {
                     ByteArrayInputStream source = new ByteArrayInputStream(content.getBytes());
                     if (assemblyFile.exists()) {

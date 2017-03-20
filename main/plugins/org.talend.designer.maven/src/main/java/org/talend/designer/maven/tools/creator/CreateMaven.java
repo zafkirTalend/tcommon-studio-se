@@ -18,6 +18,7 @@ import java.util.Properties;
 import org.apache.maven.model.Model;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.model.process.ProcessUtils;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.ETalendMavenVariables;
 import org.talend.designer.maven.utils.PomUtil;
@@ -94,6 +95,16 @@ public abstract class CreateMaven {
 
     public void setArgumentsMap(Map<String, Object> argumentsMap) {
         this.argumentsMap = argumentsMap;
+    }
+
+    protected String getDeployVersion() {
+        if (argumentsMap != null) {
+            String deployVersion = (String) argumentsMap.get(TalendProcessArgumentConstant.ARG_DEPLOY_VERSION);
+            if (deployVersion != null) {
+                return deployVersion;
+            }
+        }
+        return null;
     }
 
     protected boolean isOptionChecked(String key, Object... args) {
