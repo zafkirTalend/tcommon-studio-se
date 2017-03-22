@@ -464,7 +464,7 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
     }
 
     private void setPomForHDLight(IProgressMonitor monitor) {
-        if (ProcessUtils.jarNeedToContainsContext()) {
+        if (ProcessUtils.jarNeedsToContainContext()) {
             try {
                 Model model = MODEL_MANAGER.readMavenModel(getPomFile());
                 List<Plugin> plugins = new ArrayList<Plugin>(model.getBuild().getPlugins());

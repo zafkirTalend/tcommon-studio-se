@@ -962,7 +962,7 @@ public final class ProcessUtils {
         return false;
     }
 
-    public static boolean jarNeedsToContainsContext() {
+    public static boolean jarNeedsToContainContext() {
         return jarWithContext;
     }
 
