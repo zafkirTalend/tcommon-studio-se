@@ -888,8 +888,8 @@ public final class ProjectManager {
         }
 
         if (projectReference.getBranch() == null
-                || (branchForMainProject != null && branchForMainProject.equals(projectReference.getBranch())
-                        || branchForMainProject.equals(ORIGIN_PREFIX + projectReference.getBranch()))) {
+                || (branchForMainProject != null && (branchForMainProject.equals(projectReference.getBranch())
+                        || branchForMainProject.equals(ORIGIN_PREFIX + projectReference.getBranch())))) {
             return true;
         }
         if (projectReference.getBranch() != null && projectReference.getReferencedBranch() != null) {
