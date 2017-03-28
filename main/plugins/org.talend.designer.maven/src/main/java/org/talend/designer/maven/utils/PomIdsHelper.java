@@ -110,7 +110,14 @@ public class PomIdsHelper {
         if (property != null) {
             final org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
             if (project != null) {
-                return getTestGroupId(project.getTechnicalLabel());
+                if (project != null) {
+                    final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+                    if (currentProject.getTechnicalLabel().equals(project.getTechnicalLabel())) {
+                        return getTestGroupId(project.getTechnicalLabel());
+                    } else { // reference project
+                        return getTestGroupId(currentProject.getTechnicalLabel() + '.' + project.getTechnicalLabel());
+                    }
+                }
             }
         }
         return getTestGroupId((String) null);
@@ -129,7 +136,12 @@ public class PomIdsHelper {
             }
             final org.talend.core.model.properties.Project project = ProjectManager.getInstance().getProject(property);
             if (project != null) {
-                return getJobGroupId(project.getTechnicalLabel());
+                final Project currentProject = ProjectManager.getInstance().getCurrentProject();
+                if (currentProject.getTechnicalLabel().equals(project.getTechnicalLabel())) {
+                    return getJobGroupId(project.getTechnicalLabel());
+                } else { // reference project
+                    return getJobGroupId(currentProject.getTechnicalLabel() + '.' + project.getTechnicalLabel());
+                }
             }
         }
         return getJobGroupId((String) null);
