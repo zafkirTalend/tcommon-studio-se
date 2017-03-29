@@ -154,19 +154,20 @@ public class PomUtilTest {
         Assert.assertNotNull(currentProject);
         IProject project = ResourceUtils.getProject(currentProject.getTechnicalLabel());
         IFolder tempFolder = project.getFolder("temp");
-        if (!tempFolder.exists()) {
+        final File tempFile = tempFolder.getLocation().toFile();
+        if (tempFolder.exists()) {
+            FilesUtils.deleteFolder(tempFile, false);
+        } else {
             tempFolder.create(true, true, null);
         }
+        tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+
         IFolder baseFolder = tempFolder.getFolder("TemplateBaseFolder");
         if (!baseFolder.exists()) {
             baseFolder.create(true, true, null);
         }
-        File baseFile = baseFolder.getLocation().toFile();
-        if (baseFile.exists()) { // clean folder
-            FilesUtils.deleteFolder(baseFile, false);
-        }
-        tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 
+        File baseFile = baseFolder.getLocation().toFile();
         File template1File = new File(baseFile, "template1.txt");
         File folder1 = new File(baseFile, "folder1");
         File subfolder1 = new File(baseFile, "folder1/subfolder1");
@@ -221,6 +222,7 @@ public class PomUtilTest {
         File template3File = new File(baseFile.getParentFile(), "template3.txt");
         template3File.createNewFile();
         Assert.assertTrue(template3File.exists());
+        tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 
         foundFile = PomUtil.getTemplateFile(baseFolder, new Path("folder1/subfolder1"), "template3.txt");
         Assert.assertNull(foundFile); // base folder don't contain template3
@@ -233,8 +235,7 @@ public class PomUtilTest {
         Assert.assertEquals(template3File, foundFile);
 
         // clean test files
-        template3File.delete();
-        FilesUtils.deleteFolder(baseFile, true);
+        FilesUtils.deleteFolder(tempFile, false);
         tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 
     }
