@@ -20,6 +20,7 @@ import java.util.Map;
 import org.apache.maven.model.Dependency;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Path;
 import org.junit.Assert;
 import org.junit.Test;
@@ -148,7 +149,7 @@ public class PomUtilTest {
     }
 
     @Test
-    public void testGetTemplateFileNonExisted() throws Exception {
+    public void test_getTemplateFile_NonExisted() throws Exception {
         Project currentProject = ProjectManager.getInstance().getCurrentProject();
         Assert.assertNotNull(currentProject);
         IProject project = ResourceUtils.getProject(currentProject.getTechnicalLabel());
@@ -164,6 +165,8 @@ public class PomUtilTest {
         if (baseFile.exists()) { // clean folder
             FilesUtils.deleteFolder(baseFile, false);
         }
+        tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+
         File template1File = new File(baseFile, "template1.txt");
         File folder1 = new File(baseFile, "folder1");
         File subfolder1 = new File(baseFile, "folder1/subfolder1");
@@ -190,6 +193,8 @@ public class PomUtilTest {
         Assert.assertTrue(template1File.exists());
         Assert.assertTrue(template2File.exists());
         Assert.assertTrue(subfolder1.exists());
+
+        tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 
         foundFile = PomUtil.getTemplateFile(baseFolder, null, "template1.txt"); // from current base folder directly
         Assert.assertNotNull(foundFile);
@@ -230,6 +235,7 @@ public class PomUtilTest {
         // clean test files
         template3File.delete();
         FilesUtils.deleteFolder(baseFile, true);
+        tempFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 
     }
 
