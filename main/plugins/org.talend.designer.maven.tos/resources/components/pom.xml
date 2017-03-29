@@ -38,7 +38,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.talend.components</groupId>
-			<artifactId>components-salesforce</artifactId>
+			<artifactId>components-salesforce-runtime</artifactId>
 			<version>${components.version}</version>
 		</dependency>
 		<dependency>
@@ -59,6 +59,21 @@
 		<dependency>
 			<groupId>org.talend.components</groupId>
 			<artifactId>components-azurestorage</artifactId>
+			<version>${components.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.talend.components</groupId>
+			<artifactId>netsuite-runtime_2014_2</artifactId>
+			<version>${components.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.talend.components</groupId>
+			<artifactId>netsuite-runtime_2016_2</artifactId>
+			<version>${components.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.talend.components</groupId>
+			<artifactId>components-marketo</artifactId>
 			<version>${components.version}</version>
 		</dependency>
         <dependency>

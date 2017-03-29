@@ -105,6 +105,8 @@ public enum EParameterFieldType {
     JSON_TABLE, // ycbai added for generic wizard
 
     CAMPAIGN_CHOOSER, // pwlin added for TDS components
+
+    GROUPING_CAMPAIGN_CHOOSER,// htyin added for DQ Matching components
     ;
 
     public String getName() {
