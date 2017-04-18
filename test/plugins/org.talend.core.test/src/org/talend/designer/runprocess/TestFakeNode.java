@@ -901,4 +901,10 @@ public class TestFakeNode extends Element implements INode {
         return null;
     }
 
+    @Override
+    public INodeConnector getConnectorFromName(final String connector) {
+
+        return null;
+    }
+
 }
