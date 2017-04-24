@@ -1384,6 +1384,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 tablePattern = tablePattern.replaceAll("/", "//");//$NON-NLS-1$ //$NON-NLS-2$
             }
 
+            boolean isHive = MetadataConnectionUtils.isHive(dbJDBCMetadata);
+            
             ResultSet columns = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnPattern);
             if (MetadataConnectionUtils.isMysql(dbJDBCMetadata)) {
                 boolean check = !Pattern.matches("^\\w+$", tablePattern);//$NON-NLS-1$
@@ -1451,6 +1453,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                         int column_size = getIntFromResultSet(columns, GetColumn.COLUMN_SIZE.name());
                         column.setLength(column_size);
                         decimalDigits = getIntFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name());
+                        
+                        if(isHive && typeName.equalsIgnoreCase("DECIMAL") && columnPattern==null && getStringFromResultSet(columns, GetColumn.DECIMAL_DIGITS.name()) == null){
+                            ResultSet result = dbJDBCMetadata.getColumns(catalogName, schemaPattern, tablePattern, columnName);
+                            while (result.next()) {
+                                decimalDigits = getIntFromResultSet(result, GetColumn.DECIMAL_DIGITS.name());
+                            }
+                        }
                         column.setPrecision(decimalDigits);
                         // Teradata SQL Mode no need this column
                         if (!MetadataConnectionUtils.isTeradataSQLMode(iMetadataConnection)) {

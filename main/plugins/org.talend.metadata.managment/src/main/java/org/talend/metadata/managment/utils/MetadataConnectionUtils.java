@@ -1169,6 +1169,9 @@ public class MetadataConnectionUtils {
 
     public static boolean isHive(DatabaseMetaData metadata) {
         if (metadata != null) {
+            if (metadata.getClass().getSimpleName().equals("HiveDatabaseMetaData")) {
+                return true;
+            }
             try {
                 String name = metadata.getDatabaseProductName();
                 if (name != null && name.equals(EDatabaseTypeName.HIVE.getDisplayName())) {
