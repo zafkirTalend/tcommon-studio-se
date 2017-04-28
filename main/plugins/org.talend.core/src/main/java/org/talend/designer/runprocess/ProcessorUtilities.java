@@ -466,7 +466,11 @@ public class ProcessorUtilities {
                     neededRoutines);
         }
 
+        boolean codeGenerationNeeded = isCodeGenerationNeeded(jobInfo, statistics, trace);
         if (currentProcess != null) {
+            if (codeGenerationNeeded && (currentProcess instanceof IProcess2) && exportConfig) {
+                ((IProcess2) currentProcess).setProcessModified(true);
+            }
             // TDI-26513:For the Dynamic schema,need to check the currentProcess(job or joblet)
             checkMetadataDynamic(currentProcess, jobInfo);
             checkUsePigUDFs(currentProcess, jobInfo);
@@ -499,7 +503,7 @@ public class ProcessorUtilities {
         // so the code won't have any error during the check, and it will help to check
         // if the generation is really needed.
         generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                currentJobName, processor, isMainJob);
+                currentJobName, processor, isMainJob, codeGenerationNeeded);
 
         // for testContainer dataSet
         generateDataSet(currentProcess, processor);
@@ -631,12 +635,10 @@ public class ProcessorUtilities {
 
     private static void generateContextInfo(JobInfo jobInfo, String selectedContextName, boolean statistics, boolean trace,
             boolean needContext, IProgressMonitor progressMonitor, IProcess currentProcess, String currentJobName,
-            IProcessor processor, boolean isMain) throws ProcessorException {
-        if (isCodeGenerationNeeded(jobInfo, statistics, trace)) {
+            IProcessor processor, boolean isMain, boolean codeGenerationNeeded) throws ProcessorException {
+        if (codeGenerationNeeded) {
             codeModified = true;
             if ((currentProcess instanceof IProcess2) && exportConfig) {
-                // to force to regenerate the data nodes
-                ((IProcess2) currentProcess).setProcessModified(true);
                 resetRunJobComponentParameterForContextApply(jobInfo, currentProcess, selectedContextName);
             }
             progressMonitor.subTask(Messages.getString("ProcessorUtilities.generatingJob") + currentJobName); //$NON-NLS-1$
@@ -828,7 +830,11 @@ public class ProcessorUtilities {
                 LastGenerationInfo.getInstance().setRoutinesNeededWithSubjobPerJob(jobInfo.getJobId(), jobInfo.getJobVersion(),
                         neededRoutines);
             }
+            boolean codeGenerationNeeded = isCodeGenerationNeeded(jobInfo, statistics, trace);
             if (currentProcess != null) {
+                if (codeGenerationNeeded && (currentProcess instanceof IProcess2) && exportConfig) {
+                    ((IProcess2) currentProcess).setProcessModified(true);
+                }
                 checkMetadataDynamic(currentProcess, jobInfo);
                 checkUsePigUDFs(currentProcess, jobInfo);
             }
@@ -876,7 +882,7 @@ public class ProcessorUtilities {
             processor.setArguments(argumentsMap);
 
             generateContextInfo(jobInfo, selectedContextName, statistics, trace, needContext, progressMonitor, currentProcess,
-                    currentJobName, processor, isMainJob);
+                    currentJobName, processor, isMainJob, codeGenerationNeeded);
 
             // for testContainer dataSet
             generateDataSet(currentProcess, processor);

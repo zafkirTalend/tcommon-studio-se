@@ -488,7 +488,10 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
         // generate routines
         MavenPomSynchronizer pomSync = new MavenPomSynchronizer(this.getJobProcessor());
         pomSync.setArgumentsMap(getArgumentsMap());
-        pomSync.syncCodesPoms(monitor, getJobProcessor(), true);
+        if (needSyncCodesPoms()) {
+            // only sync pom for main job
+            pomSync.syncCodesPoms(monitor, getJobProcessor(), true);
+        }
         // because need update the latest content for templates.
         pomSync.syncTemplates(true);
 
@@ -848,4 +851,5 @@ public class CreateMavenJobPom extends AbstractMavenProcessorPom {
             fileSetEle.appendChild(filteredElement);
         }
     }
+
 }
