@@ -53,6 +53,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -1814,6 +1815,37 @@ public class ProcessorUtilities {
 
     public static void setExportAsOSGI(boolean toOSGI) {
         exportAsOSGI = toOSGI;
+    }
+
+    /**
+     * The dynamic loading of the hadoop configuration library is supported in DI, MapReduce and Spark (batch and
+     * streaming).
+     *
+     * @param property the {@link Property} used to retrieve the {@link ComponentCategory}
+     * @return true if the hadoop configuration can be loaded dynamically
+     */
+    private static boolean doSupportDynamicHadoopConfLoading(Property property) {
+        if (property != null) {
+            ComponentCategory itemCategory = ComponentCategory.getComponentCategoryFromItem(property.getItem());
+            return ComponentCategory.CATEGORY_4_DI.equals(itemCategory)
+                    || ComponentCategory.CATEGORY_4_MAPREDUCE.equals(itemCategory)
+                    || ComponentCategory.CATEGORY_4_SPARK.equals(itemCategory)
+                    || ComponentCategory.CATEGORY_4_SPARKSTREAMING.equals(itemCategory);
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * The dynamic loading of the hadoop configuration library is only supported if the job is not experted as OSGI and
+     * in a restricted list of palettes.
+     *
+     * @param property the {@link Property} used to identify the palette
+     * @return true if the hadoop configuration can be loaded dynamically
+     */
+    public static boolean hadoopConfJarCanBeLoadedDynamically(Property property) {
+        return doSupportDynamicHadoopConfLoading(property) && !isExportAsOSGI();
     }
 
 }
