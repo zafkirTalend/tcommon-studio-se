@@ -319,9 +319,12 @@ public class LocalComponentsInstallComponent implements ComponentsInstallCompone
             for (File pomFile : pomFiles) {
                 try {
                     Model model = MavenPlugin.getMaven().readModel(pomFile);
-                    final String packaging = model.getPackaging();
-                    final String mvnUrl = MavenUrlHelper.generateMvnUrl(model.getGroupId(), model.getArtifactId(),
-                            model.getVersion(), packaging, null);
+                    String packaging = model.getPackaging();
+                    if (packaging.equals("bundle")) { //$NON-NLS-1$
+                        packaging = "jar"; //$NON-NLS-1$
+                    }
+                    final String mvnUrl = MavenUrlHelper.generateMvnUrl(model.getGroupId() != null ? model.getGroupId() : model.getParent().getGroupId(), model.getArtifactId(),
+                            model.getVersion() != null ? model.getVersion() : model.getParent().getVersion(), packaging, null);
 
                     IPath libPath = new Path(pomFile.getAbsolutePath()).removeFileExtension().addFileExtension(
                             packaging == null ? "jar" : packaging); //$NON-NLS-1$
