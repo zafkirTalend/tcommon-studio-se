@@ -63,4 +63,15 @@ public abstract class AbstractDragAndDropServiceHandler implements IDragAndDropS
     public boolean isGenericRepositoryValue(List<ComponentProperties> componentProperties, String paramName) {
         return false;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.utils.IDragAndDropServiceHandler#getGenericRepositoryValue(java.util.List,
+     * java.lang.String)
+     */
+    @Override
+    public Object getGenericRepositoryValue(List<ComponentProperties> componentProperties, String paramName) {
+        return null;
+    }
 }
