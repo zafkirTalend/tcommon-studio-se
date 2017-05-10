@@ -3122,7 +3122,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         super.logOnProject(project);
 
-        if (!doesLoggedUserExist()) {
+        if (!doesLoggedUserExist() && project.isMainProject()) {
             createUser(project);
         }
 
