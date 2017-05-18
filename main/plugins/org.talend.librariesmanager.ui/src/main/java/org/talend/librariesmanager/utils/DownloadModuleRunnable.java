@@ -65,7 +65,7 @@ abstract public class DownloadModuleRunnable implements IRunnableWithProgress {
         if (checkAndAcceptLicenses(subMonitor)) {
             downLoad(subMonitor);
         }
-        System.out.println("**Downlaod finished");
+        System.out.println("**Download finished");
         if (monitor != null) {
             monitor.setCanceled(subMonitor.isCanceled());
             monitor.done();
