@@ -52,6 +52,8 @@ public class ComponentsNexusInstallFactory extends AbstractExtraUpdatesFactory {
 
     public static final String ATTR_INDEX_VERSION = "version"; //$NON-NLS-1$
 
+    public static final String ATTR_INDEX_BUNDLE_ID = "bundle_id"; //$NON-NLS-1$
+
     public static final String ATTR_INDEX_MVNURI = "mvn_uri"; //$NON-NLS-1$
 
     public static final String ATTR_INDEX_PRODUCT = "product"; //$NON-NLS-1$
@@ -133,6 +135,7 @@ public class ComponentsNexusInstallFactory extends AbstractExtraUpdatesFactory {
                 Element element = (Element) iter.next();
                 final String name = element.attributeValue(ATTR_INDEX_NAME);
                 final String version = element.attributeValue(ATTR_INDEX_VERSION);
+                final String bundleId = element.attributeValue(ATTR_INDEX_BUNDLE_ID);
                 final String mvn_uri = element.attributeValue(ATTR_INDEX_MVNURI);
 
                 // filter product
@@ -151,7 +154,7 @@ public class ComponentsNexusInstallFactory extends AbstractExtraUpdatesFactory {
                 final String description = descriptionNode != null ? descriptionNode.getText() : null;
 
                 final ComponentNexusP2ExtraFeature cnFeature = new ComponentNexusP2ExtraFeature(name, version, description,
-                        product, mvn_uri);
+                        product, mvn_uri, bundleId);
 
                 // use same url and user with index
                 cnFeature.setNexusURL(defaultFeature.getNexusURL());
@@ -166,40 +169,31 @@ public class ComponentsNexusInstallFactory extends AbstractExtraUpdatesFactory {
     }
 
     @Override
-    public void retrieveUninstalledExtraFeatures(IProgressMonitor monitor, Set<ExtraFeature> uninstalledExtraFeatures)
+    public void retrieveUninstalledExtraFeatures(IProgressMonitor progress, Set<ExtraFeature> uninstalledExtraFeatures)
             throws Exception {
-        Set<P2ExtraFeature> allExtraFeatures = getAllExtraFeatures(monitor);
-        SubMonitor subMonitor = SubMonitor.convert(monitor, allExtraFeatures.size() * 2);
-
+        SubMonitor mainSubMonitor = SubMonitor.convert(progress, 5);
+        mainSubMonitor.worked(1);
+        Set<P2ExtraFeature> allExtraFeatures = getAllExtraFeatures(mainSubMonitor);
+        mainSubMonitor.worked(1);
+        if (mainSubMonitor.isCanceled()) {
+            return;
+        }
         FeatureCategory category = new FeatureCategory();
-
+        SubMonitor checkSubMonitor = SubMonitor.convert(mainSubMonitor.newChild(1), allExtraFeatures.size() * 2);
         for (P2ExtraFeature extraF : allExtraFeatures) {
             try {
-                if (!extraF.isInstalled(subMonitor.newChild(1))) {
-                    if (subMonitor.isCanceled()) {
-                        return;
-                    }
-                    category.getChildren().add(extraF);
-                    extraF.setParentCategory(category);
-                    subMonitor.worked(1);
-                } else if (extraF instanceof ComponentNexusP2ExtraFeature
-                        && ((ComponentNexusP2ExtraFeature) extraF).needUpgrade(subMonitor)) {
-                    // else already installed so try to find updates
-                    ExtraFeature updateFeature = extraF.createFeatureIfUpdates(subMonitor.newChild(1));
-                    if (updateFeature != null && updateFeature instanceof P2ExtraFeature) {
-                        category.getChildren().add(updateFeature);
-                        ((P2ExtraFeature) updateFeature).setParentCategory(category);
-                    }
+                P2ExtraFeature extraFeature = extraF.getInstalledFeature(checkSubMonitor.newChild(1));
+                if (extraFeature != null) {
+                    addToCategory(category, extraFeature);
                 }
+                checkSubMonitor.worked(1);
             } catch (P2ExtraFeatureException e) {
-                // could not determine if feature is already installed so do not consider it all
                 ExceptionHandler.process(e);
             }
         }
-
-        final int size = category.getChildren().size();
-        if (size > 0) {
-            category.setName(Messages.getString("ComponentsNexusInstallFactory.categorytitile", size));
+        int componentsSize = category.getChildren().size();
+        if (componentsSize > 0) {
+            category.setName(Messages.getString("ComponentsNexusInstallFactory.categorytitile", componentsSize)); //$NON-NLS-1$
             addToSet(uninstalledExtraFeatures, category);
         }
     }
