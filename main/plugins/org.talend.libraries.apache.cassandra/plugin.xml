@@ -50,8 +50,8 @@
       <libraryNeeded
             context="plugin:org.talend.libraries.apache.cassandra"
             id="spark-cassandra-connector-21"
-            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-assembly-2.0.2-patched-20170519/6.3.0"
-            name="spark-cassandra-connector-assembly-2.0.2-patched-20170519.jar">
+            mvn_uri="mvn:org.talend.libraries/spark-cassandra-connector-assembly-2.0.2/6.0.0"
+            name="spark-cassandra-connector-assembly-2.0.2.jar">
       </libraryNeeded>
    </extension>
 
