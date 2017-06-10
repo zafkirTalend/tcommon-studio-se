@@ -187,7 +187,7 @@ public final class FileUtils {
      * @param folder the folder in which to delete the files
      * @param func a {@link Function} that will be used to filter on the files to delete, according to their name
      */
-    public static void deleteFiles(File folder, Function<String, Boolean> func) {
+    public static void deleteFiles(final File folder, final Function<String, Boolean> func) {
         if (folder != null && func != null) {
             if (folder.exists()) {
                 FilenameFilter filter = new FilenameFilter() {
