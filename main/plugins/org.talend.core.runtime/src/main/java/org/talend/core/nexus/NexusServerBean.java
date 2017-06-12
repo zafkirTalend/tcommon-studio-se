@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.nexus;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * created by wchen on 2015-5-12 Detailled comment
  *
@@ -39,7 +41,7 @@ public class NexusServerBean {
 
     /**
      * Getter for server.
-     * 
+     *
      * @return the server
      */
     public String getServer() {
@@ -48,7 +50,7 @@ public class NexusServerBean {
 
     /**
      * Sets the server.
-     * 
+     *
      * @param server the server to set
      */
     public void setServer(String server) {
@@ -57,7 +59,7 @@ public class NexusServerBean {
 
     /**
      * Getter for userName.
-     * 
+     *
      * @return the userName
      */
     public String getUserName() {
@@ -66,7 +68,7 @@ public class NexusServerBean {
 
     /**
      * Sets the userName.
-     * 
+     *
      * @param userName the userName to set
      */
     public void setUserName(String userName) {
@@ -75,7 +77,7 @@ public class NexusServerBean {
 
     /**
      * Getter for password.
-     * 
+     *
      * @return the password
      */
     public String getPassword() {
@@ -84,7 +86,7 @@ public class NexusServerBean {
 
     /**
      * Sets the password.
-     * 
+     *
      * @param password the password to set
      */
     public void setPassword(String password) {
@@ -93,7 +95,7 @@ public class NexusServerBean {
 
     /**
      * Getter for repositoryId.
-     * 
+     *
      * @return the repositoryId
      */
     public String getRepositoryId() {
@@ -102,7 +104,7 @@ public class NexusServerBean {
 
     /**
      * Sets the repositoryId.
-     * 
+     *
      * @param repositoryId the repositoryId to set
      */
     public void setRepositoryId(String repositoryId) {
@@ -111,7 +113,7 @@ public class NexusServerBean {
 
     /**
      * Getter for snapshotRepId.
-     * 
+     *
      * @return the snapshotRepId
      */
     public String getSnapshotRepId() {
@@ -120,7 +122,7 @@ public class NexusServerBean {
 
     /**
      * Sets the snapshotRepId.
-     * 
+     *
      * @param snapshotRepId the snapshotRepId to set
      */
     public void setSnapshotRepId(String snapshotRepId) {
@@ -129,7 +131,7 @@ public class NexusServerBean {
 
     /**
      * Getter for official.
-     * 
+     *
      * @return the official
      */
     public boolean isOfficial() {
@@ -138,11 +140,24 @@ public class NexusServerBean {
 
     /**
      * Sets the official.
-     * 
+     *
      * @param official the official to set
      */
     public void setOfficial(boolean official) {
         this.official = official;
+    }
+
+    public String getRepositoryURI() {
+        if (StringUtils.isEmpty(this.server)) {
+            return null; // no server, no uri
+        }
+        String repositoryBaseURI = this.server;
+        if (repositoryBaseURI.endsWith(NexusConstants.SLASH)) {
+            repositoryBaseURI = repositoryBaseURI.substring(0, repositoryBaseURI.length() - 1);
+        }
+        repositoryBaseURI += NexusConstants.CONTENT_REPOSITORIES;
+        repositoryBaseURI += repositoryId + NexusConstants.SLASH;
+        return repositoryBaseURI;
     }
 
     @Override

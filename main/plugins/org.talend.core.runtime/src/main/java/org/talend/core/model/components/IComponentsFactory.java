@@ -42,7 +42,10 @@ public interface IComponentsFactory {
 
     public void resetCache();
 
-    public void resetSpecificComponents(); // mainly to reload only joblets
+    /**
+     * mainly reload joblets or generic component
+     */
+    public void resetSpecificComponents();
 
     public int size();
 
@@ -90,7 +93,7 @@ public interface IComponentsFactory {
     public IComponent get(String name);
 
     public IComponent get(String name, String paletteType);
-    
+
     public IComponent getJobletComponent(String name, String paletteType);
 
     public List<String> getSkeletons();

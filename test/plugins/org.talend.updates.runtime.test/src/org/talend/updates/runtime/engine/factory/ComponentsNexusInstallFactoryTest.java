@@ -22,6 +22,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
+import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.junit.Assert;
@@ -29,13 +30,14 @@ import org.junit.Test;
 import org.talend.commons.utils.resource.BundleFileUtil;
 import org.talend.updates.runtime.engine.component.ComponentNexusP2ExtraFeature;
 import org.talend.updates.runtime.model.P2ExtraFeature;
+import org.talend.updates.runtime.nexus.component.ComponentIndexManager;
+import org.talend.updates.runtime.nexus.component.ComponentIndexManagerTest;
+import org.talend.updates.runtime.nexus.component.ComponentIndexNames;
 
 /**
  * DOC ggu class global comment. Detailled comment
  */
 public class ComponentsNexusInstallFactoryTest {
-
-    public static final String PATH_640_INDEX_FILE = "resources/components/index-6.4.0.xml"; //$NON-NLS-1$
 
     class ComponentsNexusInstallFactoryTestClass extends ComponentsNexusInstallFactory {
 
@@ -56,7 +58,7 @@ public class ComponentsNexusInstallFactoryTest {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void doTestForProduct(String acronym, String product) throws Exception {
-        final File indexFile = BundleFileUtil.getBundleFile(this.getClass(), PATH_640_INDEX_FILE);
+        final File indexFile = BundleFileUtil.getBundleFile(this.getClass(), ComponentIndexManagerTest.PATH_641JIRA_INDEX_FILE);
         Assert.assertNotNull(indexFile);
         Assert.assertTrue(indexFile.exists());
 
@@ -65,21 +67,28 @@ public class ComponentsNexusInstallFactoryTest {
 
         // change the doc for special product set
         final Element rootElement = document.getRootElement();
-        final List selectNodes = rootElement.selectNodes(ComponentsNexusInstallFactory.XPATH_INDEX_COMPONENT);
+        final List selectNodes = rootElement.selectNodes(ComponentIndexManager.XPATH_INDEX_COMPONENT);
         Assert.assertNotNull(selectNodes);
         for (Iterator iter = selectNodes.iterator(); iter.hasNext();) {
             Element element = (Element) iter.next();
             if (product == null) { // no attribute, remove it
                 final List attributes = element.attributes();
                 for (Attribute attr : (List<Attribute>) attributes) {
-                    if (attr.getName().equals(ComponentsNexusInstallFactory.ATTR_INDEX_PRODUCT)) {
+                    if (attr.getName().equals(ComponentIndexNames.product.getName())) {
                         element.remove(attr);
                         break;
                     }
                 }
             } else {
                 // set the product
-                element.attribute(ComponentsNexusInstallFactory.ATTR_INDEX_PRODUCT).setValue(product);
+                Attribute attribute = element.attribute(ComponentIndexNames.product.getName());
+                if (attribute == null) {
+                    final DocumentFactory docFactory = DocumentFactory.getInstance();
+                    attribute = docFactory.createAttribute(element, ComponentIndexNames.product.getName(), product);
+                    element.add(attribute);
+                } else {
+                    attribute.setValue(product);
+                }
             }
         }
         ComponentsNexusInstallFactoryTestClass factory = new ComponentsNexusInstallFactoryTestClass() {
@@ -99,7 +108,7 @@ public class ComponentsNexusInstallFactoryTest {
         final Set<P2ExtraFeature> set = factory.createFeatures(defaultFeature, document);
         Assert.assertNotNull(set);
         // same as createFeatures to check
-        if (StringUtils.isNotEmpty(product) && !Arrays.asList(product.split(",")).contains(factory.getAcronym())) {
+        if (StringUtils.isNotBlank(product) && !Arrays.asList(product.split(",")).contains(factory.getAcronym())) {
             Assert.assertEquals(0, set.size()); // no valid
             return;
         }
@@ -123,7 +132,7 @@ public class ComponentsNexusInstallFactoryTest {
 
             Assert.assertEquals("JIRA", compFeature.getName());
             Assert.assertEquals(ver, compFeature.getVersion());
-            if (StringUtils.isEmpty(product)) {
+            if (StringUtils.isBlank(product)) {
                 Assert.assertNull(compFeature.getProduct());
             } else {
                 Assert.assertEquals(product, compFeature.getProduct());

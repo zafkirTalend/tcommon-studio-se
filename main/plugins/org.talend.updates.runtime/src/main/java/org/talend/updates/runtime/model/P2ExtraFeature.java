@@ -66,11 +66,11 @@ import org.talend.utils.json.JSONObject;
 /**
  * created by sgandon on 19 févr. 2013 This class represent an extra feature defined in the License in the document :
  * https://wiki.talend.com/x/YoVL
- * 
+ *
  */
 public class P2ExtraFeature implements ExtraFeature {
 
-    private static Logger log = Logger.getLogger(P2ExtraFeature.class);
+    protected static Logger log = Logger.getLogger(P2ExtraFeature.class);
 
     protected String p2IuId;// p2 installable unit id
 
@@ -82,7 +82,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     protected String version;// version of the p2 IU
 
-    Boolean isInstalled;// true is already installed in the current Studio
+    protected Boolean isInstalled;// true is already installed in the current Studio
 
     protected boolean mustBeInstalled;
 
@@ -110,7 +110,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * check if the current p2 profile contains the P2 Installable Unit or not
-     * 
+     *
      * @param p2IuId2, never null
      * @return true if unit is installed or false in any other cases (even errors or canceled)
      * @throws ProvisionException
@@ -177,7 +177,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * created for JUnit test so that profile Id can be changed by overriding
-     * 
+     *
      * @return
      */
     public String getP2ProfileId() {
@@ -186,7 +186,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * create for JUnit test so that URI can be change to some other P2 repo
-     * 
+     *
      * @return null for using the current defined area, but may be overriden ot point to another area for JUnitTests
      */
     public URI getP2AgentUri() {
@@ -195,7 +195,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * Getter for p2 installable unit id.
-     * 
+     *
      * @return the p2 installable unit id.
      */
     public String getP2IuId() {
@@ -204,7 +204,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * Sets the p2 installable unit id.
-     * 
+     *
      * @param p2IuId the p2 installable unit id to set
      */
     public void setP2IuId(String p2IuId) {
@@ -281,7 +281,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     }
 
-    private void storeInstalledFeatureMessage() {
+    protected void storeInstalledFeatureMessage() {
         IPreferenceStore preferenceStore = PlatformUI.getPreferenceStore();
         String addons = preferenceStore.getString("ADDONS"); //$NON-NLS-1$
         JSONObject allAddons = null;
@@ -299,7 +299,7 @@ public class P2ExtraFeature implements ExtraFeature {
         }
     }
 
-    IStatus doInstall(IProgressMonitor progress, List<URI> allRepoUris) throws P2ExtraFeatureException {
+    protected IStatus doInstall(IProgressMonitor progress, List<URI> allRepoUris) throws P2ExtraFeatureException {
         SubMonitor subMonitor = SubMonitor.convert(progress, 5);
         subMonitor.setTaskName(Messages.getString("ExtraFeature.installing.feature", getName())); //$NON-NLS-1$
         // reset isInstalled to make is compute the next time is it used
@@ -384,11 +384,11 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * DOC sgandon Comment method "removeAllRepositories".
-     * 
+     *
      * @param agent
      * @param allRepoUris
      */
-    private void removeAllRepositories(IProvisioningAgent agent, List<URI> allRepoUris) {
+    protected void removeAllRepositories(IProvisioningAgent agent, List<URI> allRepoUris) {
         // get the repository managers and remove all repositories
         IMetadataRepositoryManager metadataManager = (IMetadataRepositoryManager) agent
                 .getService(IMetadataRepositoryManager.SERVICE_NAME);
@@ -404,14 +404,14 @@ public class P2ExtraFeature implements ExtraFeature {
     /**
      * add the feauture repo URI to the p2 engine and return the P2 installable units by looking at each repo
      * sequentially.
-     * 
+     *
      * @param agent
      * @return the metadata repo to install anything in it.
      * @throws URISyntaxException if the feature remote p2 site uri is bad
      * @throws OperationCanceledException if installation was canceled
      * @throws ProvisionException if p2 repository could not be loaded
      */
-    private Set<IInstallableUnit> getInstallableIU(IProvisioningAgent agent, List<URI> allRepoUris, IProgressMonitor progress)
+    protected Set<IInstallableUnit> getInstallableIU(IProvisioningAgent agent, List<URI> allRepoUris, IProgressMonitor progress)
             throws URISyntaxException, ProvisionException, OperationCanceledException {
 
         if (allRepoUris.isEmpty()) {// if repo list is empty use the default URI
@@ -496,7 +496,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * this is the base URI set in the license.
-     * 
+     *
      * @return the defaultRepoUriStr
      */
     public String getBaseRepoUriString() {
@@ -528,7 +528,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * Created for JUnit test so that external P2 data area does not depend on absolute location
-     * 
+     *
      * @param agent
      * @param agentProvider
      * @throws ProvisionException
@@ -562,7 +562,7 @@ public class P2ExtraFeature implements ExtraFeature {
     /**
      * Check that the remote update site has a different version from the one already installed. If that is the case
      * then a new instance of P2ExtraFeature is create, it returns null otherwhise.
-     * 
+     *
      * @param progress
      * @return a new P2ExtraFeature if the update site contains a new version of the feature or null.
      */
@@ -574,7 +574,7 @@ public class P2ExtraFeature implements ExtraFeature {
     /**
      * Check that the remote update site has a different version from the one already installed. If that is the case
      * then a new instance of P2ExtraFeature is create, it returns null otherwhise.
-     * 
+     *
      * @param allRepoUrisn list of the repos to look for an update
      * @param progress
      * @return a new P2ExtraFeature if the update site contains a new version of the feature or null.
@@ -663,7 +663,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * DOC sgandon Comment method "copy".
-     * 
+     *
      * @param p2ExtraFeature
      * @param p2ExtraFeatureUpdate
      */
@@ -679,7 +679,7 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * Getter for useLegacyP2Install.
-     * 
+     *
      * @return the useLegacyP2Install
      */
     public boolean isUseLegacyP2Install() {
@@ -688,12 +688,12 @@ public class P2ExtraFeature implements ExtraFeature {
 
     /**
      * copy the config.ini to a temporary file or vise versa is toRestore is not null
-     * 
+     *
      * @param toResore file to be copied to config.ini
      * @return the temporary file to restore or null if toRestore is not null
      * @throws IOException
      */
-    private File copyConfigFile(File toResore) throws IOException {
+    protected File copyConfigFile(File toResore) throws IOException {
         File tempFile = null;
         try {
             URL configLocation = new URL("platform:/config/config.ini"); //$NON-NLS-1$
@@ -741,6 +741,27 @@ public class P2ExtraFeature implements ExtraFeature {
      */
     public void setParentCategory(FeatureCategory parentCategory) {
         this.parentCategory = parentCategory;
+    }
+
+    public P2ExtraFeature getInstalledFeature(IProgressMonitor progress) throws P2ExtraFeatureException {
+        P2ExtraFeature extraFeature = null;
+        try {
+            if (!this.isInstalled(progress)) { // new
+                extraFeature = this;
+            } else {// else already installed so try to find updates
+                ExtraFeature updateFeature = this.createFeatureIfUpdates(progress);
+                if (updateFeature != null && updateFeature instanceof P2ExtraFeature) {
+                    extraFeature = (P2ExtraFeature) updateFeature;
+                }
+            }
+        } catch (Exception e) {
+            throw new P2ExtraFeatureException(e);
+        }
+        return extraFeature;
+    }
+
+    public boolean canBeInstalled(IProgressMonitor progress) throws P2ExtraFeatureException {
+        return getInstalledFeature(progress) != null;
     }
 
 }
