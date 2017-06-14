@@ -51,7 +51,7 @@ import org.w3c.dom.NodeList;
  */
 public class DynamicContentProvider extends IntroProvider {
 
-    public static final String ONLINE_PAGE_URL = "http://www.talend.com/builtin_news/index.php"; //$NON-NLS-1$
+    public static final String ONLINE_PAGE_URL = "https://www.talend.com/builtin_news/index.php"; //$NON-NLS-1$
 
     private static final String LEVEL_SEPARATOR = "."; //$NON-NLS-1$
 
