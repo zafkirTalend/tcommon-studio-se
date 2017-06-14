@@ -299,13 +299,10 @@ public class ComponentP2ExtraFeature extends P2ExtraFeature {
                     File tempUpdateSiteFolder = getTempUpdateSiteFolder();
                     FilesUtils.unzip(compFile.getAbsolutePath(), tempUpdateSiteFolder.getAbsolutePath());
 
-                    syncComponentsToLocalNexus(progress, compFile);
                     syncLibraries(tempUpdateSiteFolder);
                     syncM2Repository(tempUpdateSiteFolder);
+                    syncComponentsToLocalNexus(progress, compFile);
                     installAndStartComponent(tempUpdateSiteFolder);
-
-                    moveToSharedFolder(installedComponentFolder, compFile);
-
                 }
             }
         } catch (Exception e) {
@@ -358,14 +355,6 @@ public class ComponentP2ExtraFeature extends P2ExtraFeature {
         }
     }
 
-    protected void moveToSharedFolder(File installedComponentFolder, File compFile) throws IOException {
-        File installedCompFile = new File(installedComponentFolder, compFile.getName());
-        if (compFile.exists()) {
-            FilesUtils.copyFile(compFile, installedCompFile);
-            compFile.delete(); // delete original file.
-        }
-    }
-
     protected void installAndStartComponent(File tempUpdateSiteFolder) {
         File tmpPluginsFolder = new File(tempUpdateSiteFolder, UpdatesHelper.FOLDER_PLUGINS);
         if (!tmpPluginsFolder.exists()) {
@@ -399,8 +388,13 @@ public class ComponentP2ExtraFeature extends P2ExtraFeature {
         }
     }
 
-    protected void syncComponentsToLocalNexus(IProgressMonitor progress, File installedCompFile) throws IOException {
-        ComponentsDeploymentManager.getInstance().deployComponentsToLocalNexus(progress, installedCompFile);
+    protected void syncComponentsToLocalNexus(IProgressMonitor progress, File installedCompFile) {
+        try {
+            new ComponentsDeploymentManager().deployComponentsToLocalNexus(progress, installedCompFile);
+        } catch (IOException e) {
+            // don't block other, so catch the exception
+            ExceptionHandler.process(e);
+        }
     }
 
     protected File getTempUpdateSiteFolder() {
