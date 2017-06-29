@@ -175,7 +175,7 @@ public final class ProxyRepositoryFactory implements IProxyRepositoryFactory {
         }
     }
 
-    protected void fireRepositoryPropertyChange(String property, Object oldValue, Object newValue) {
+    public void fireRepositoryPropertyChange(String property, Object oldValue, Object newValue) {
         if (support.hasListeners(property)) {
             support.firePropertyChange(property, oldValue, newValue);
         }
